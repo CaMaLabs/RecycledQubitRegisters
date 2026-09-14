@@ -22,6 +22,7 @@ Matched same-job run, 512 shots per architecture:
 | Metric | Wide | Recycled |
 |---|---:|---:|
 | Factor-recovery metric | 43.75% | **44.34%** |
+| Strict direct-order recovery | **3.125%** | 2.148% |
 | Wilson 95% interval | 39.52%-48.08% | **40.09%-48.67%** |
 | Hellinger fidelity to ideal | 0.4695 | **0.5309** |
 | Total-variation distance to ideal | 0.6771 | **0.6124** |
@@ -29,23 +30,33 @@ Matched same-job run, 512 shots per architecture:
 
 The recycled-minus-wide factor-recovery difference was only **+0.5859375 percentage points**, about **0.19 standard errors**, so there is no meaningful direct accuracy separation between the two architectures in this run.
 
-## Uniform-noise context
+## Uniform-noise audit
 
-For a uniform random six-bit distribution under the current `N=35` verified-multiple post-processor:
+For a uniform random six-bit distribution under the current `N=35` post-processing rules:
 
-- factor-recovery baseline = **42.1875%**;
+- permissive verified-multiple factor-recovery baseline = **42.1875%**;
+- strict direct-order recovery baseline = **3.125%**;
 - Hellinger fidelity to the exact order-12 reference = **0.5472**;
 - total-variation distance to the exact order-12 reference = **0.6075**.
 
-The affine recycled result is only slightly above the uniform factor-recovery baseline (**44.34% vs 42.19%**) and is slightly *worse* than uniform on both Hellinger fidelity (**0.5309 vs 0.5472**) and TV distance (**0.6124 vs 0.6075**). The wide result is farther from ideal still.
+Observed values were:
 
-Therefore this run should **not** yet be described as successful preserved order finding for `N=35`. The affine encoding is a major resource improvement, but the measured phase distribution is still near the random-output floor by distribution-level metrics.
+- recycled permissive factor recovery = **44.3359%** (`+2.1484 pp` above uniform);
+- wide permissive factor recovery = **43.75%** (`+1.5625 pp` above uniform);
+- recycled strict direct-order recovery = **2.1484%**, below the **3.125%** uniform baseline;
+- wide strict direct-order recovery = **3.125%**, exactly equal to the uniform baseline;
+- recycled Hellinger/TV = **0.5309 / 0.6124**;
+- wide Hellinger/TV = **0.4695 / 0.6771**.
 
-The strict direct continued-fraction/order metric stored in the result JSON should be audited before making any stronger claim:
+Therefore this run does **not** demonstrate preserved order-12 information strongly enough to claim successful quantum factorization of `35`. The affine encoding is a major synthesis/resource improvement, but the measured phase distribution remains at or near the random-output floor under the strict metric.
 
-```bash
-python hardware/analyze_shor_noise_floor.py \
-  results/ibm_shor35_affine/ibm_shor35_affine_6b_20260913_200052.json
-```
+## Interpretation
 
-If the direct-order metric remains near the uniform baseline, the affine rewrite has solved the synthesis bottleneck but not yet recovered an identifiable order-12 signal on hardware.
+The important positive result is architectural: the exact same order-12 orbit problem was recoded into an affine basis that cut the recycled circuit from 388 to 137 CZ gates and from depth 1209 to 466 while retaining five simultaneous logical qubits. The negative result is equally important: that resource reduction alone did not recover a statistically identifiable order-12 signal on this Fez run.
+
+This separates two bottlenecks that were previously confounded:
+
+1. the original natural-label synthesis was unnecessarily expensive;
+2. after fixing that synthesis cost, hardware noise/routing/dynamic-circuit effects still dominate enough to erase the strict order signal.
+
+Do not move to a larger modulus from this result. The next experiments should improve phase-estimation discriminability and/or physical mapping while preserving the affine modular-work encoding.
