@@ -30,7 +30,7 @@ The repo now includes two self-generated toy-RSA benchmarks:
 
 Sanity check: with one coprime base and one QPE shot, the compact simulator succeeded on **26.0% of 200 fresh 16-bit keys** and **27.5% of 200 fresh 20-bit keys**. With four shots per base and up to four bases, success rose to **97% at 16 bits** and **100% at 20 bits**, with no lucky `gcd(a,N)` shortcuts counted.
 
-In the explicit 8-bit statevector validation, wide and recycled implementations both factored and decrypted **30/30** trials. Modeled logical width was **24 qubits wide vs 9 recycled**; a literal dense 24-qubit complex128 statevector would occupy 256 MiB.
+In the explicit statevector validation, the balanced 8-bit case `N=143=11x13` passed **30/30** wide and recycled trajectories at **24 vs 9 logical qubits**. A separate 9-bit varied-modulus run (`299`, `319`, `341`, `377`, `403`) passed **10/10** for both architectures at **27 vs 10 logical qubits**; a literal dense 27-qubit complex128 statevector would occupy 2 GiB.
 
 See [`results/rsa_shor/RESULTS.md`](results/rsa_shor/RESULTS.md).
 
@@ -112,7 +112,7 @@ python -m pip install -r requirements.txt
 python simulation/hybrid_6c2q_experiment.py
 python simulation/hybrid_register_isa_experiment.py
 python simulation/rsa_shor_end_to_end.py
-python simulation/rsa_shor_statevector.py --bits 8 --trials 30 --shots-per-base 8 --max-bases 8
+python simulation/rsa_shor_statevector.py --bits 8 9 --trials 10 --shots-per-base 8 --max-bases 8
 ```
 
 The ISA experiment tests exact iterative-QPE semantics, normalized feedback-latency tradeoffs, batch throughput, random entanglement stress, and a learned resource router.
