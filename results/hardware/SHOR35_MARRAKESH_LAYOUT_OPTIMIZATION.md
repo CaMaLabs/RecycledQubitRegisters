@@ -92,7 +92,7 @@ For the recycled pooled strict count, the fixed-baseline binomial tail is approx
 
 For comparison, the two unoptimized Marrakesh runs produced recycled strict counts of only `6/512` and `8/512`, while the optimized runs produced `16/512` and `22/512`. Wide also improved from unoptimized `13/512` and `7/512` to optimized `11/512` and `22/512`.
 
-## Same-job legacy-vs-optimized layout A/B
+## Same-job legacy-vs-optimized layout A/B run 1
 
 To remove calibration-window drift as the primary explanation, the project then submitted four circuits in one Marrakesh job: legacy recycled, legacy wide, optimized recycled, and optimized wide.
 
@@ -103,23 +103,57 @@ To remove calibration-window drift as the primary explanation, the project then 
 | Optimized recycled | 33.9844% (174/512) | 3.7109% (19/512) | 0.3908 | 0.6281 |
 | Optimized wide | 32.0313% (164/512) | 6.2500% (32/512) | 0.4688 | 0.6438 |
 
-This same-job control establishes that the optimized physical region materially improved both architectures under the same backend state. The effect is therefore not explainable solely by temporal calibration drift between separate jobs.
+This same-job control established that the optimized physical region materially improved both architectures under that backend state. The effect therefore was not explainable solely by temporal calibration drift between separate jobs.
 
 For recycled, optimized placement increased permissive recovery by `+11.72` percentage points and strict direct-order recovery by `+2.34` points. For wide, the corresponding improvements were `+18.55` and `+4.88` points. Under a simple independent-binomial difference approximation, these changes are about `4.21` and `2.39` standard errors for recycled permissive/strict, and `7.26` and `4.12` standard errors for wide permissive/strict. These are shot-noise-only descriptive comparisons.
 
-Against the analytic uniform strict baseline, optimized recycled observed `19/512` (`p ≈ 0.0356`, one-sided fixed-binomial tail), while optimized wide observed `32/512` (`p ≈ 8.4e-7`). These p-values do not model calibration correlations, optimizer selection, or other hardware systematics.
+Against the analytic uniform strict baseline, optimized recycled observed `19/512` (`p ≈ 0.0356`, one-sided fixed-binomial tail), while optimized wide observed `32/512` (`p ≈ 8.4e-7`).
+
+## Same-job layout A/B run 2: replication
+
+The exact same frozen four-circuit design was repeated in a later Marrakesh calibration window. Raw result:
+
+`results/ibm_shor35_layout_ab/ibm_shor35_layout_ab_8b_20260914_082550.json`
+
+| Circuit | Permissive | Strict direct-order | Hellinger | TV distance |
+|---|---:|---:|---:|---:|
+| Legacy recycled | 20.1172% (103/512) | 2.5391% (13/512) | 0.3093 | 0.7679 |
+| Legacy wide | 14.2578% (73/512) | 3.3203% (17/512) | 0.2271 | 0.8132 |
+| Optimized recycled | **41.9922% (215/512)** | **6.2500% (32/512)** | **0.5480** | **0.5224** |
+| Optimized wide | 16.0156% (82/512) | 2.9297% (15/512) | 0.2487 | 0.8153 |
+
+The replicated A/B control again produced a large same-window placement benefit for recycled: permissive recovery increased by `+21.875` points and strict recovery by `+3.7109` points relative to legacy recycled. These correspond to about `7.78` and `2.91` simple difference standard errors.
+
+The wide placement benefit did **not** replicate in this second calibration window: permissive recovery changed by only `+1.76` points and strict recovery by `-0.39` points. Within the optimized pair, recycled exceeded wide by `+25.98` permissive points (`9.56` simple difference standard errors) and `+3.32` strict points (`2.55` simple difference standard errors).
+
+Optimized recycled observed `32/512` strict successes against a uniform expectation of `12/512`, giving one-sided fixed-binomial `p ≈ 8.37e-7` under the shot-noise-only model. Optimized wide observed `15/512`, which is not persuasive against the same strict floor (`p ≈ 0.226`).
+
+## Two-job A/B descriptive summary
+
+Pooling only as a descriptive cross-job summary:
+
+| Circuit | Permissive | Strict |
+|---|---:|---:|
+| Legacy recycled | 217/1024 = 21.1914% | 20/1024 = 1.9531% |
+| Legacy wide | 142/1024 = 13.8672% | 24/1024 = 2.3438% |
+| Optimized recycled | **389/1024 = 37.9883%** | **51/1024 = 4.9805%** |
+| Optimized wide | 246/1024 = 24.0234% | 47/1024 = 4.5898% |
+
+Relative to the analytic uniform strict expectation of `24/1024`, both optimized architectures are above the floor descriptively. Fixed-binomial shot-noise tails are approximately `7.6e-7` for optimized recycled and `1.6e-5` for optimized wide. These are not full significance estimates because the two QPU jobs can share calibration and temporal systematics.
 
 ## Interpretation
 
-The same-job A/B changes the conclusion from “optimized placement may help” to **“optimized placement materially affects observed order recovery on Marrakesh.”** It also shows that the effect is not uniquely tied to recycling.
+The replicated same-job controls now support a more specific conclusion than the earlier separate-job runs.
 
-Under the legacy Marrakesh placement, recycled is markedly more robust than wide on the broad factor-recovery metric. Under the optimized placement, both architectures recover clear order-related structure, and the wide circuit is stronger on strict direct-order recovery and Hellinger fidelity while recycled is slightly better on permissive recovery and TV distance.
+The placement effect for **recycled** is reproducible: optimized recycled beats legacy recycled on permissive recovery in both A/B jobs and clears the strict uniform-output floor in both. The legacy recycled circuit also preserves a repeatable broad advantage over legacy wide.
 
-This demonstrates an interaction among **architecture, physical placement, and backend calibration/topology**. Lower logical width and fewer CZ gates are valuable resources, but they do not by themselves determine which circuit gives the strongest strict order signal on a particular device region.
+The optimized **wide** circuit is substantially more variable. It was the strongest strict circuit in A/B run 1, but in A/B run 2 it fell back near its legacy comparator while optimized recycled improved further. This means the first A/B result should not be interpreted as evidence that optimized wide is intrinsically superior; nor should the second be interpreted as proving recycled is universally superior.
+
+The combined evidence instead supports an **architecture × placement × backend/calibration** interaction. Lower logical width and fewer CZ gates are valuable, but hardware region quality and temporal calibration can outweigh nominal resource counts. The two A/B jobs additionally suggest that the recycled implementation may be more robust to Marrakesh calibration variation than the wide comparator. That robustness claim remains provisional until more repeated or randomized/interleaved jobs are available.
 
 The most defensible cross-backend conclusion is therefore:
 
-> The compiled `N=35`, `a=2`, `r=12` order-finding signal is reproducible on a second superconducting backend when hardware-aware placement is used, but the recycled-versus-wide advantage is backend- and placement-dependent. On Marrakesh, recycling is more robust than wide under the legacy placement; optimized placement improves both architectures and can make wide competitive or superior on strict direct-order recovery.
+> The compiled `N=35`, `a=2`, `r=12` order-finding signal reproduces on a second superconducting backend when hardware-aware placement is used. On Marrakesh, optimized recycled clears the strict uniform-output floor in repeated same-job A/B controls and shows a reproducible placement benefit, while optimized wide is substantially more calibration-sensitive. The recycled-versus-wide ranking is backend- and calibration-dependent rather than universal.
 
 A dedicated same-job summary is preserved in `results/hardware/SHOR35_MARRAKESH_LAYOUT_AB.md`.
 
