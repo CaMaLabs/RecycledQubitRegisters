@@ -104,24 +104,52 @@ At 8 phase bits, recycling removes 7 simultaneous logical qubits (`18 -> 11`, a 
 
 These are **compiler/resource results only**, not a matched physical-layout hardware comparison. Auto routing can choose different physical placements, and no claim about hardware success probability follows from these numbers alone.
 
-The absolute 8-bit cost remains very large for current noisy hardware. Therefore this result is not yet a justification to spend QPU time; the next gate is exact ideal validation of the full-register wide and recycled phase-estimation semantics.
+The absolute 8-bit cost remains very large for current noisy hardware.
 
-## Next experiment: exact ideal validation
+## Exact ideal validation: PASS
 
-`hardware/validate_shor35_generic_full_permutation_ideal.py` performs a pure local, zero-QPU validation with two independent calculations:
+`hardware/validate_shor35_generic_full_permutation_ideal.py` independently validates the full-register path without using the known order to construct either simulation:
 
-1. wide QPE is evaluated directly from `N`, `a`, and modular exponentiation followed by an exact inverse-QFT transform;
-2. recycled QPE is simulated branch-by-branch with mid-circuit measurement and classical feed-forward, using the generated full-residue permutations.
+1. wide QPE is computed directly from `N`, `a`, modular exponentiation, and an exact inverse-QFT transform;
+2. recycled QPE is simulated branch-by-branch with mid-circuit measurement and classical feed-forward using the generated full-residue modular permutations;
+3. every generated six-bit modular permutation and its swap network is checked exactly;
+4. the resulting wide and recycled distributions are compared to each other and to the existing finite-precision order reference only after construction.
 
-The generated distributions are then compared against the existing finite-precision `r=12` reference **only as a validation oracle**. The order is not supplied to either construction path.
+The local validation run at phase widths `2, 4, 6, 8` completed with:
 
-Run:
-
-```bash
-python hardware/validate_shor35_generic_full_permutation_ideal.py \
-  --phase-bits 2 4 6 8
+```text
+===== OVERALL =====
+{
+  "pass": true
+}
 ```
 
-The pass condition requires every generated six-bit modular permutation and swap network to be exact, and wide/recycled distributions to agree with each other and with the finite-precision reference to numerical precision.
+The validator uses a default maximum-probability tolerance of `1e-10`. No QPU job is submitted by this validation path.
 
-Do **not** submit the generic-permutation circuit to a QPU until this ideal-validation gate passes. Even after it passes, the ~59k-CZ 8-bit receipt means a hardware run should be treated as an exploratory stress test unless a further synthesis or placement optimization materially lowers the native cost.
+This closes the semantic gate for the full-register small-N permutation implementation: the correct finite-precision Shor distribution is reproduced without supplying `r=12` or a hand-encoded 12-state orbit to the constructor.
+
+It does **not** make the implementation scalable modular arithmetic. The current truth-table/permutation synthesis still grows exponentially with work-register width.
+
+## Next experiment: reduce the full-register synthesis cost
+
+The next compiler-only pass is `hardware/ibm_shor35_generic_permutation_optimizer.py`.
+
+It retains the exact full 64-state modular permutation but improves its decomposition before routing. For each nontrivial permutation cycle it tries every cyclic choice of star-transposition pivot and selects the one requiring the fewest Gray-path adjacent basis swaps. Every candidate cycle factorization is checked exactly, and the final complete swap network is revalidated against the generated modular permutation.
+
+The optimizer then sweeps MCX HLS profile, Qiskit optimization level, and transpiler seed. The first target is the recycled circuit at 6 and 8 phase bits, because 6 bits is materially cheaper while still providing a strict direct-order signal in the existing postprocessor.
+
+Zero-QPU command:
+
+```bash
+python hardware/ibm_shor35_generic_permutation_optimizer.py \
+  --backend ibm_fez \
+  --phase-bits 6 8 \
+  --kind recycled \
+  --profiles 1_clean_kg24 n_clean_m15 auto \
+  --optimization-levels 1 2 3 \
+  --seeds 8776 9401 2026
+```
+
+This command submits **no QPU jobs**. It records the exact baseline-vs-optimized adjacent-swap counts and reports the lowest native CZ/depth result across the compiler sweep.
+
+Do not promote the generic-permutation path to hardware yet. The semantic gate is now passed; the remaining gating problem is absolute native cost and, after that, matched physical placement.
