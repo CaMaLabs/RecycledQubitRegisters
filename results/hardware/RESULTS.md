@@ -56,6 +56,26 @@ For `phi = 0.3359375 = 43/128 = 0.0101011`, all seven target bits carry informat
 
 The recycled implementation improved target success by **44.14 percentage points** while using 75% fewer simultaneous logical qubits, about 64% less compiled depth, and about 91% fewer CZ operations.
 
+## First end-to-end real-QPU Shor factoring run
+
+A recycled phase-register implementation of Shor order finding for `N=15`, `a=2` was executed on `ibm_fez` using a real 4-qubit modular work register plus one recycled phase ancilla. The phase was not injected: controlled multiplication-by-2 / multiplication-by-4 modulo 15 was implemented with controlled-SWAP networks, and the phase ancilla was measured/reset/reused through the four QPE rounds.
+
+The transpiled circuit used **5 logical qubits**, depth **181**, and **55 CZ gates**, plus 4 resets and 4 mid-circuit `measure_2` operations.
+
+Observed 256-shot phase-register counts:
+
+| Bitstring | Count | Probability | Interpretation |
+|---|---:|---:|---|
+| `0000` | 92 | 35.94% | uninformative `s=0` branch |
+| `0100` | 53 | 20.70% | phase `1/4`, recovers `r=4` |
+| `1000` | 57 | 22.27% | phase `1/2`; denominator divides `r`, verified multiple recovers `r=4` |
+| `1100` | 49 | 19.14% | phase `3/4`, recovers `r=4` |
+| other | 5 | 1.95% | non-recoverable in this analysis |
+
+The three informative ideal order-4 peaks produced **159/256 = 62.109375%** factor-recovering shots. Classical post-processing recovered order `r=4` and then factors `(3,5)` via `gcd(2^(r/2) +/- 1, 15)`. The aggregate factorization succeeded. A Wilson 95% interval for the observed per-shot factor-recovery probability is approximately **56.0%-67.8%**.
+
+The `true_order_for_validation_only` field is not used by the factor-recovery routine. Post-processing receives the measured phase integer together with public `N` and `a`, checks candidate orders by modular exponentiation, and then applies the Shor gcd step. The current post-processor permits a small search over multiples of the continued-fraction denominator; this handles cases where the sampled numerator and true order are not coprime, but should be reported explicitly when comparing per-shot success with stricter single-convergent analyses.
+
 ## Calibration for the full-information run
 
 The selected iterative pair on `ibm_fez` was physical qubits 22 and 23. At run time:
@@ -66,5 +86,7 @@ The selected iterative pair on `ibm_fez` was physical qubits 22 and 23. At run t
 ## Important limitations
 
 This repository does **not** claim that two physical qubits replace a full Shor implementation or an arbitrary wide coherent quantum register. The demonstrated savings apply to the phase/control register in workloads that permit iterative measurement, reset, classical feed-forward, and qubit reuse. A modular-arithmetic work register is still required for Shor-style factoring. Arbitrary high-entanglement circuits are also outside the regime where this architecture can substitute a narrow recycled quantum register.
+
+The real-QPU `N=15` demonstration is a canonical compiled toy Shor instance, not evidence that cryptographic RSA sizes are currently tractable. Its modular multiplication network is specialized for `N=15`, `a=2`; larger general semiprimes require scalable reversible modular arithmetic and far greater fault-tolerant resources.
 
 The large difference observed between `ibm_fez` and `ibm_kingston` in the early diagnostic runs also shows that backend and physical-qubit selection are part of the architecture problem, not merely deployment details.
