@@ -104,8 +104,6 @@ At 8 phase bits, recycling removes 7 simultaneous logical qubits (`18 -> 11`, a 
 
 These are **compiler/resource results only**, not a matched physical-layout hardware comparison. Auto routing can choose different physical placements, and no claim about hardware success probability follows from these numbers alone.
 
-The absolute 8-bit cost remains very large for current noisy hardware.
-
 ## Exact ideal validation: PASS
 
 `hardware/validate_shor35_generic_full_permutation_ideal.py` independently validates the full-register path without using the known order to construct either simulation:
@@ -124,32 +122,64 @@ The local validation run at phase widths `2, 4, 6, 8` completed with:
 }
 ```
 
-The validator uses a default maximum-probability tolerance of `1e-10`. No QPU job is submitted by this validation path.
-
 This closes the semantic gate for the full-register small-N permutation implementation: the correct finite-precision Shor distribution is reproduced without supplying `r=12` or a hand-encoded 12-state orbit to the constructor.
 
 It does **not** make the implementation scalable modular arithmetic. The current truth-table/permutation synthesis still grows exponentially with work-register width.
 
-## Next experiment: reduce the full-register synthesis cost
+## Cycle-pivot and compiler optimizer result
 
-The next compiler-only pass is `hardware/ibm_shor35_generic_permutation_optimizer.py`.
+`hardware/ibm_shor35_generic_permutation_optimizer.py` keeps the same exact 64-state modular permutation but chooses a lower-cost star-transposition pivot for every nontrivial cycle, then sweeps MCX HLS method, optimization level, and transpiler seed.
 
-It retains the exact full 64-state modular permutation but improves its decomposition before routing. For each nontrivial permutation cycle it tries every cyclic choice of star-transposition pivot and selects the one requiring the fewest Gray-path adjacent basis swaps. Every candidate cycle factorization is checked exactly, and the final complete swap network is revalidated against the generated modular permutation.
+The decomposition reduced Gray-path adjacent basis swaps from:
 
-The optimizer then sweeps MCX HLS profile, Qiskit optimization level, and transpiler seed. The first target is the recycled circuit at 6 and 8 phase bits, because 6 bits is materially cheaper while still providing a strict direct-order signal in the existing postprocessor.
+- 6-bit: `609 -> 545` (`10.5%` fewer);
+- 8-bit: `801 -> 709` (`11.5%` fewer).
+
+The best Fez-target recycled receipts were both obtained with `n_clean_m15`, optimization level 3, seed `2026`:
+
+| Phase bits | Logical qubits | Native CZ | Compiled depth | Compiled size |
+|---:|---:|---:|---:|---:|
+| 6 | 11 | **30,823** | **64,812** | 116,301 |
+| 8 | 11 | **40,194** | **84,480** | 151,664 |
+
+Relative to the earlier frozen scaling receipt, the combined decomposition/compiler search reduced:
+
+- 6-bit CZ from `43,557 -> 30,823` (`29.2%`) and depth from `116,068 -> 64,812` (`44.2%`);
+- 8-bit CZ from `59,061 -> 40,194` (`31.9%`) and depth from `153,418 -> 84,480` (`44.9%`).
+
+This is a substantial improvement, but `30k-40k` native CZ remains too large to treat as a credible present-day N=35 hardware execution target. No QPU job was submitted.
+
+## Next experiment: direct arbitrary-basis transpositions
+
+The Gray-path representation is still wasting expensive six-control MCXs. A transposition between arbitrary six-bit basis states `|u>` and `|v>` at Hamming distance `d` was previously implemented as `2d-1` adjacent swaps, each requiring a phase-controlled six-control MCX.
+
+A cheaper exact identity is now implemented in `hardware/ibm_shor35_generic_permutation_direct_transposition.py`:
+
+1. choose one differing target bit `t`;
+2. apply an invertible CNOT basis fold `CNOT(t -> j)` for every other differing bit;
+3. after the fold, `u` and `v` differ in only bit `t`;
+4. apply one phase-controlled pattern MCX;
+5. undo the fold.
+
+Therefore each arbitrary basis-state transposition costs exactly one six-control MCX plus `2(d-1)` ordinary CNOTs, instead of `2d-1` six-control MCXs. The primitive is exhaustively checked on all 64 work-register basis states, and the complete modular permutation is revalidated before compilation.
+
+For the current optimal cycle factorizations this changes the high-level entangling structure dramatically:
+
+- 6-bit QPE: `545` six-control MCXs -> **135** six-control MCXs + `410` basis-change CNOTs;
+- 8-bit QPE: `709` six-control MCXs -> **175** six-control MCXs + `534` basis-change CNOTs.
+
+That is roughly a **75% reduction in the expensive high-control operations** while preserving the exact full-register modular map and continuing to use neither the multiplicative order nor the known orbit in construction.
 
 Zero-QPU command:
 
 ```bash
-python hardware/ibm_shor35_generic_permutation_optimizer.py \
+python hardware/ibm_shor35_generic_permutation_direct_transposition.py \
   --backend ibm_fez \
   --phase-bits 6 8 \
   --kind recycled \
-  --profiles 1_clean_kg24 n_clean_m15 auto \
-  --optimization-levels 1 2 3 \
-  --seeds 8776 9401 2026
+  --profiles n_clean_m15 1_clean_kg24 2_clean_kg24 default \
+  --optimization-levels 2 3 \
+  --seeds 2026 8776 9401
 ```
 
-This command submits **no QPU jobs**. It records the exact baseline-vs-optimized adjacent-swap counts and reports the lowest native CZ/depth result across the compiler sweep.
-
-Do not promote the generic-permutation path to hardware yet. The semantic gate is now passed; the remaining gating problem is absolute native cost and, after that, matched physical placement.
+Do not submit the generic-permutation path to hardware yet. If the direct-transposition identity converts the expected high-level reduction into a large native-CZ reduction, then the next step is matched physical-placement optimization and a fresh hardware go/no-go decision.
