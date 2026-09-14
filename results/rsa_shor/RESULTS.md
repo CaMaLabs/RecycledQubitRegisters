@@ -50,16 +50,14 @@ Eight QPE shots per base, up to 16 coprime bases, 20 trials per size:
 
 ## Explicit work-register statevector validation
 
-For 30 independent 8-bit toy-RSA trials, using up to 8 coprime bases and 8 shots/base:
+The explicit simulator uses the actual reversible modular-multiplication permutation on the work register and simulates the recycled phase ancilla through measurement, reset, and feed-forward.
 
-| Metric | Wide | Recycled |
-|---|---:|---:|
-| Factor success | 30/30 | 30/30 |
-| Decrypt success | 30/30 | 30/30 |
-| Logical width* | 24 qubits | 9 qubits |
-| Median QPE shots | 3.5 | 2.0 |
+| N bits | Trials | Distinct-modulus note | Wide factor/decrypt | Recycled factor/decrypt | Wide width* | Recycled width* | Dense-wide statevector equivalent |
+|---:|---:|---|---:|---:|---:|---:|---:|
+| 8 | 30 | balanced 4+4-bit primes force `N=143=11x13`; trials vary bases/samples, not modulus | 30/30 | 30/30 | 24 | 9 | 256 MiB |
+| 9 | 10 | multiple generated moduli (`299`, `319`, `341`, `377`, `403`) | 10/10 | 10/10 | 27 | 10 | 2048 MiB |
 
-A literal dense 24-qubit complex128 statevector would require 256 MiB. The recycled trajectory evolves the 8-qubit modular work register plus one phase ancilla.
+For the 9-bit run, the median QPE-shot counts were 2.5 wide and 3.0 recycled. The dense 27-qubit complex128 statevector equivalent is 2 GiB; the block-sparse wide implementation avoids materializing all of it simultaneously, while the recycled trajectory evolves only the modular work register plus one phase ancilla.
 
 `U_a` is represented explicitly as a reversible permutation on the work register:
 
