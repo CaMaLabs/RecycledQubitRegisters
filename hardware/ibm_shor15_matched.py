@@ -4,7 +4,7 @@
 Wide and recycled circuits:
   * run in the same SamplerV2 job,
   * start with the exact same four physical work qubits,
-  * use one shared 8-qubit physical neighborhood,
+  * use one shared physical neighborhood sized for the wide circuit,
   * record calibration/layout/resource metadata.
 
 The transpiler may still route logical states within/around the selected region;
@@ -25,7 +25,7 @@ import ibm_shor15_hardware as base
 from qiskit.transpiler import generate_preset_pass_manager
 from qiskit_ibm_runtime import SamplerV2
 
-SCRIPT_REVISION = "2026-09-13-shor15-matched-v1"
+SCRIPT_REVISION = "2026-09-13-shor15-matched-v2-phase-scale"
 
 
 def inst_props(backend, name, qubits):
@@ -52,7 +52,14 @@ def cz_graph(backend):
     return edges, und
 
 
-def choose_shared_plan(backend):
+def choose_shared_plan(backend, phase_bits: int):
+    """Choose a connected region for shared initial work placement.
+
+    The region contains ``phase_bits + 4`` sites so the wide circuit fits.
+    One phase site is also used as the recycled MCM ancilla. The same four
+    physical work sites are requested for both architectures.
+    """
+    region_size = phase_bits + base.WORK_BITS
     _, und = cz_graph(backend)
     if not und:
         raise RuntimeError("No CZ graph exposed by backend.")
@@ -98,21 +105,29 @@ def choose_shared_plan(backend):
         return p["duration_s"] if p["duration_s"] is not None else 1.0
 
     candidates = []
-    work_pairs = ((0, 1), (1, 2), (2, 3), (0, 2), (1, 3))
+    # Work-register pairs touched by the compiled M2/M4 SWAP networks.
+    work_pairs = ((2, 3), (1, 2), (0, 1), (1, 3), (0, 2))
 
-    for anc in sorted(und):
+    # Restrict detailed layout search to the best MCM candidates. This keeps
+    # the 12-site (8 phase-bit) search quick while remaining calibration aware.
+    ancillas = sorted(und, key=lambda q: (mcm_error(q), mcm_duration(q)))[:32]
+
+    for anc in ancillas:
         region = [anc]
-        while len(region) < 8:
+        while len(region) < region_size:
             frontier = []
+            seen_v = set()
             for u in region:
                 for v in und.get(u, ()):
-                    if v not in region:
-                        frontier.append((edge_error(u, v), v))
+                    if v in region or v in seen_v:
+                        continue
+                    seen_v.add(v)
+                    frontier.append((edge_error(u, v), v))
             if not frontier:
                 break
             frontier.sort()
-            region.append(next(v for _, v in frontier if v not in region))
-        if len(region) != 8:
+            region.append(frontier[0][1])
+        if len(region) != region_size:
             continue
 
         others = [q for q in region if q != anc]
@@ -123,17 +138,23 @@ def choose_shared_plan(backend):
             leftover = [q for q in others if q not in work]
             leftover.sort(key=lambda q: sum(dist(q, w) for w in work))
             phases = [anc] + leftover
-            control_cost = (
-                sum(dist(phases[0], w) for w in work)
-                + sum(dist(phases[1], w) for w in work)
-            )
+            if len(phases) != phase_bits:
+                continue
+
+            # Only k=0 and k=1 perform nonidentity modular multiplication for
+            # a=2 mod 15 (order 4). Higher phase qubits still matter to the QFT.
+            control_cost = sum(dist(phases[i], w) for i in range(min(2, phase_bits)) for w in work)
             qft_cost = sum(
                 dist(phases[i], phases[j])
-                for i in range(4) for j in range(i + 1, 4)
+                for i in range(phase_bits)
+                for j in range(i + 1, phase_bits)
             )
-            local = work_cost + 0.35 * control_cost + 0.15 * qft_cost
+            local = work_cost + 0.35 * control_cost + 0.08 * qft_cost
             if best is None or local < best[0]:
                 best = (local, work, phases)
+
+        if best is None:
+            continue
 
         local_errors = []
         for u in region:
@@ -151,13 +172,14 @@ def choose_shared_plan(backend):
         candidates.append((score, anc, region, best[1], best[2], local_mean))
 
     if not candidates:
-        raise RuntimeError("Could not find shared 8-qubit region.")
+        raise RuntimeError(f"Could not find shared {region_size}-qubit region.")
     candidates.sort(key=lambda x: x[0])
     score, anc, region, work, phases, local_mean = candidates[0]
 
     return {
         "score": score,
         "region": region,
+        "phase_bits": phase_bits,
         "shared_initial_work_physical": work,
         "recycled_ancilla_physical": anc,
         "wide_phase_physical": phases,
@@ -222,7 +244,7 @@ def peak_metrics(counts, phase_bits):
     }
 
 
-def comparison(results):
+def comparison(results, phase_bits):
     by = {r["kind"]: r for r in results}
     w, r = by["wide"], by["recycled"]
     wa, ra = w["analysis"], r["analysis"]
@@ -238,14 +260,15 @@ def comparison(results):
         "difference_standard_errors": (pr - pw) / se if se else None,
         "wide_wilson95": wilson(kw, nw),
         "recycled_wilson95": wilson(kr, nr),
-        "wide_spectrum": peak_metrics(w["counts"], 4),
-        "recycled_spectrum": peak_metrics(r["counts"], 4),
+        "wide_spectrum": peak_metrics(w["counts"], phase_bits),
+        "recycled_spectrum": peak_metrics(r["counts"], phase_bits),
     }
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--backend", default="ibm_fez")
+    ap.add_argument("--phase-bits", type=int, default=4)
     ap.add_argument("--shots", type=int, default=512)
     ap.add_argument("--optimization-level", type=int, choices=[0, 1, 2, 3], default=2)
     ap.add_argument("--max-execution-time", type=int, default=60)
@@ -253,23 +276,27 @@ def main():
     ap.add_argument("--outdir", type=Path, default=Path("results/ibm_shor15"))
     args = ap.parse_args()
 
+    if args.phase_bits < 2:
+        raise SystemExit("Use at least 2 phase bits.")
+
+    wide_qubits = base.WORK_BITS + args.phase_bits
     service = base.make_service()
     before = base.safe_usage(service)
-    backend = base.select_backend(service, 8, args.backend)
+    backend = base.select_backend(service, wide_qubits, args.backend)
     use_measure2 = base.backend_has_measure2(backend)
 
     print("Script revision:", SCRIPT_REVISION)
-    print("Problem: N=15, a=2, phase_bits=4")
+    print(f"Problem: N=15, a=2, phase_bits={args.phase_bits}")
     print(f"Backend: {backend.name} | measure_2={use_measure2}")
     print("Account usage:")
     print(json.dumps(before, indent=2, default=str))
 
-    plan = choose_shared_plan(backend)
+    plan = choose_shared_plan(backend, args.phase_bits)
     print("Shared-work plan:")
     print(json.dumps(plan, indent=2, default=str))
 
-    recycled = base.build_recycled_shor15(4, use_measure2)
-    wide = base.build_wide_shor15(4)
+    recycled = base.build_recycled_shor15(args.phase_bits, use_measure2)
+    wide = base.build_wide_shor15(args.phase_bits)
     compiled_recycled = compile_with_layout(
         recycled, backend, args.optimization_level, plan["recycled_initial_layout"]
     )
@@ -292,7 +319,7 @@ def main():
         "backend": backend.name,
         "N": 15,
         "a": 2,
-        "phase_bits": 4,
+        "phase_bits": args.phase_bits,
         "shots": args.shots,
         "same_job": True,
         "same_initial_work_quartet": True,
@@ -308,7 +335,7 @@ def main():
 
     args.outdir.mkdir(parents=True, exist_ok=True)
     if args.transpile_only:
-        path = args.outdir / "ibm_shor15_matched_transpile.json"
+        path = args.outdir / f"ibm_shor15_matched_transpile_{args.phase_bits}b.json"
         path.write_text(json.dumps(out_base, indent=2, default=str) + "\n")
         print("Transpile-only; no QPU job submitted.")
         print("Saved:", path.resolve())
@@ -326,7 +353,7 @@ def main():
         results.append({
             "kind": kind,
             "counts": counts,
-            "analysis": base.analyze_counts(counts, 4),
+            "analysis": base.analyze_counts(counts, args.phase_bits),
         })
 
     out = {
@@ -334,12 +361,12 @@ def main():
         "job_id": job.job_id(),
         "metrics": base.safe_metrics(job),
         "results": results,
-        "paired_comparison": comparison(results),
+        "paired_comparison": comparison(results, args.phase_bits),
         "account_usage_after": base.safe_usage(service),
     }
 
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    path = args.outdir / f"ibm_shor15_matched_{stamp}.json"
+    path = args.outdir / f"ibm_shor15_matched_{args.phase_bits}b_{stamp}.json"
     path.write_text(json.dumps(out, indent=2, default=str) + "\n")
 
     print("\nRESULT")
