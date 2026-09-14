@@ -1,0 +1,9 @@
+run,architecture,backend,shots,phase_bits,placement,logical_qubits,depth,cz,permissive_factor_success,direct_order_factor_success,hellinger_fidelity_to_ideal,total_variation_distance_to_ideal,zero_phase_probability
+initial,recycled,ibm_fez,512,8,baseline,5,607,175,0.40234375,0.05859375,0.5235543484675421,0.5723076493447086,0.03515625
+initial,wide,ibm_fez,512,8,baseline,12,788,331,0.125,0.0234375,0.19511347070549567,0.8447609364059805,0.005859375
+replication,recycled,ibm_fez,512,8,baseline,,,,0.455078125,0.0703125,0.5393853148951636,0.5489381019009028,0.037109375
+replication,wide,ibm_fez,512,8,baseline,,,,0.13671875,0.029296875,0.1932241102258255,0.8399209812412574,0.005859375
+optimized,recycled,ibm_fez,512,8,calibration_aware_matched,5,572,160,0.537109375,0.0703125,0.6440605475817165,0.39469933333119983,0.0703125
+optimized,wide,ibm_fez,512,8,calibration_aware_matched,12,746,362,0.201171875,0.037109375,0.2472809308465692,0.7957120994818431,0.001953125
+uniform_baseline,uniform,analytic,256,8,analytic,0,0,0,0.12890625,0.0234375,0.2348667307115844,0.825713186706833,
+ideal_reference,ideal,analytic,0,8,analytic,0,0,0,0.8493985493244365,0.1497577894327392,1.0,0.0,0.0833740234375
