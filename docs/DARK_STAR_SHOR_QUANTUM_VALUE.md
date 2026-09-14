@@ -64,22 +64,49 @@ gcd(8-1, 35) = 7
 
 immediately factors the instance. Therefore a base-8 N=35 QPU run would be a compiler/hardware exercise, not evidence that quantum order finding was required.
 
-## Next gate: adaptive precision
+## Adaptive precision bound result
 
 A smaller actual order does **not** automatically reduce the fixed textbook Shor phase register, because a conventional circuit is still sized from `N` rather than the unknown `r`.
 
-The next zero-QPU audit is:
-
-```bash
-python hardware/dark_star_shor_adaptive_precision_bound_audit.py
-```
-
-It measures the conservative continued-fraction precision proxy
+The zero-QPU adaptive-bound audit used the conservative sufficient-precision proxy
 
 ```text
 m_cf(r) = ceil(log2(2*r^2))
 ```
 
-before and after public preconditioning, after excluding classical-shortcut cases. The true order is used only as a validation label. The public stopping rule is to increase phase precision only when continued-fraction candidates fail direct modular verification.
+with the true order used only as a validation label. After the same classical-shortcut guardrail, the mean available precision reductions were:
 
-The audit also includes an `N=209`, `a=3` example. The public `N mod 3 = 2` rule transforms the base to 27, reduces the validation order from 90 to 30, preserves the Shor factor witness, and survives the same public repeated-squaring/GCD shortcut guardrail. This makes it a better small candidate than N=35 for a future preconditioning-aware quantum demonstration, although its larger work register makes the current truth-table/permutation synthesis more expensive.
+| Policy | Mean proxy bits saved over quantum-remaining rows | Mean saved on reduced-order subset | Mean fractional saving on reduced-order subset |
+|---|---:|---:|---:|
+| `L=3` all N | 1.94 | 3.17 | 9.39% |
+| PTP conditional `L=3` | 1.26 | 3.17 | 9.02% |
+| `L=105` | 4.94 | 6.05 | 17.48% |
+| `L=1155` | 5.55 | 6.66 | 19.03% |
+| `L=15015` | 6.09 | 7.23 | 20.48% |
+
+The transformed orders also increased the conservative full-order single-shot lower bound by roughly 13-29% depending on policy. These are available precision-bound reductions, not measured runtime speedups. `fixed_textbook_qpe_width_changed_by_policy` remains false for every policy.
+
+The `N=209, a=3` example survives the public classical shortcut guardrail. The PTP rule `L=3 when N mod 3 = 2` transforms the base to `27`, reduces the validation order `90 -> 30`, preserves the Shor factor witness, and lowers the sufficient-precision proxy `14 -> 11` bits.
+
+## Next gate: staged public stopping time
+
+The next experiment replaces the validation-only precision bound with an explicit public stop rule. It runs idealized staged QPE at increasing phase precision, continued-fraction postprocesses each outcome, accepts only a denominator that itself verifies under modular arithmetic, and stops at the first verified factor. The hidden order is used only to generate ideal QPE samples and score the result.
+
+To keep the simulation conservative, only the exact nearest QPE bin is credited; all non-nearest outcomes are discarded even though some could also recover the order. Each stage is treated as an independent rerun, and cumulative phase-round executions count all attempted precision rounds.
+
+Run:
+
+```bash
+python hardware/dark_star_shor_staged_stopping_time_audit.py
+```
+
+Useful ending blocks:
+
+```text
+===== N209 STAGED STOPPING PROBE =====
+===== STAGED STOPPING SUMMARY =====
+===== PAIRED VS BASELINE =====
+===== OVERALL =====
+```
+
+This is still zero-QPU. A positive result would demonstrate that public preconditioning moves the actual verified stopping point earlier in a conservative adaptive workflow, rather than merely lowering a validation-only order bound.
