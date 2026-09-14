@@ -21,6 +21,19 @@ Across a separate 4-bit three-phase sweep, the recycled implementation reached 8
 
 See [`results/hardware/RESULTS.md`](results/hardware/RESULTS.md) and [`results/hardware/hardware_summary.csv`](results/hardware/hardware_summary.csv).
 
+## End-to-end simulated RSA/Shor result
+
+The repo now includes two self-generated toy-RSA benchmarks:
+
+- `simulation/rsa_shor_end_to_end.py`: strict end-to-end functional Shor simulation from `N` only through QPE samples, continued fractions, factor recovery, private-key reconstruction, and ciphertext decryption.
+- `simulation/rsa_shor_statevector.py`: explicit toy-size modular-work-register statevector validation using the reversible permutation `|y> -> |a*y mod N>` and a real measure/reset/feed-forward recycled phase ancilla.
+
+Sanity check: with one coprime base and one QPE shot, the compact simulator succeeded on **26.0% of 200 fresh 16-bit keys** and **27.5% of 200 fresh 20-bit keys**. With four shots per base and up to four bases, success rose to **97% at 16 bits** and **100% at 20 bits**, with no lucky `gcd(a,N)` shortcuts counted.
+
+In the explicit 8-bit statevector validation, wide and recycled implementations both factored and decrypted **30/30** trials. Modeled logical width was **24 qubits wide vs 9 recycled**; a literal dense 24-qubit complex128 statevector would occupy 256 MiB.
+
+See [`results/rsa_shor/RESULTS.md`](results/rsa_shor/RESULTS.md).
+
 ## What this does *not* claim
 
 This is not a claim that two physical qubits emulate an arbitrary large coherent register. It also is not a claim that Shor factorization requires only two total qubits. In a Shor-style decomposition, iterative QPE can recycle the **phase/control register**, while the modular-arithmetic work register and ancillas are still required.
@@ -39,9 +52,12 @@ hardware/
 simulation/
   hybrid_6c2q_experiment.py
   hybrid_register_isa_experiment.py
+  rsa_shor_end_to_end.py      compact end-to-end toy RSA/Shor benchmark
+  rsa_shor_statevector.py     explicit modular-work-register validation
 
 results/
   hardware/                   summarized real-QPU results
+  rsa_shor/                   simulated RSA/Shor results
   simulation/                 simulation/ISA CSV outputs
 
 docs/
@@ -95,6 +111,8 @@ The hardware runner records the selected physical region, `measure_2` calibratio
 python -m pip install -r requirements.txt
 python simulation/hybrid_6c2q_experiment.py
 python simulation/hybrid_register_isa_experiment.py
+python simulation/rsa_shor_end_to_end.py
+python simulation/rsa_shor_statevector.py --bits 8 --trials 30 --shots-per-base 8 --max-bases 8
 ```
 
 The ISA experiment tests exact iterative-QPE semantics, normalized feedback-latency tradeoffs, batch throughput, random entanglement stress, and a learned resource router.
@@ -105,6 +123,7 @@ The ISA experiment tests exact iterative-QPE semantics, normalized feedback-late
 - Under the normalized latency model, local feedback becomes competitive with wide QPE as phase precision grows; host round-trip feedback is much more expensive.
 - Random-circuit entanglement stress shows the key limit: narrow recycled quantum working sets do **not** substitute for arbitrary wide entanglement.
 - A learned resource router reached about 89% exact resource-class accuracy on a held-out synthetic circuit set in the initial experiment.
+- End-to-end self-generated RSA/Shor simulation now reaches factor recovery and ciphertext decryption without supplying hidden factors to the factoring routine.
 
 ## Dark Star integration
 
@@ -113,5 +132,7 @@ The ISA experiment tests exact iterative-QPE semantics, normalized feedback-late
 ## Reproducibility notes
 
 Hardware results depend on backend calibration, routing, queue state, Qiskit version, and physical-qubit selection. An early run on `ibm_kingston` performed poorly while the same iterative circuit on `ibm_fez` performed well, motivating the shared-layout and calibration-aware comparison now used by the runner.
+
+The compact RSA/Shor simulator classically computes the modular-multiplication order internally only to sample exact ideal QPE statistics efficiently; the factoring/post-processing path receives only `N` and measurement samples. The explicit statevector benchmark is the stronger toy-size check that evolves the modular work register directly. Neither benchmark models a full fault-tolerant reversible modular multiplier at realistic RSA sizes.
 
 Raw account identifiers and credentials are intentionally not committed. Public result files contain only non-secret benchmark measurements.
