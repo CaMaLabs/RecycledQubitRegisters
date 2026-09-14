@@ -48,15 +48,22 @@ The script exhaustively verifies the compiled `+1`, `+2`, `+4`, and `+8 mod 12` 
 
 ## Transpile-only preflight
 
+The September 13/14, 2026 Fez preflight passed the exact orbit self-test. At optimization level 2, the recycled circuit compiled to depth 1217 with 394 CZ gates, while wide compiled to depth 1347 with 457 CZ gates. Optimization level 3 reduced recycled slightly to depth 1209 and 388 CZ gates; the wide circuit remained at depth 1347 and 457 CZ gates.
+
+At six phase bits this is a 10-qubit wide circuit versus a 5-qubit recycled circuit. The level-3 preflight therefore gives a 50% simultaneous logical-width reduction, about a 10.2% depth reduction, and about a 15.1% CZ reduction. The selected Fez region reported a local mean CZ error of about 0.2558% and a recycled-ancilla `measure_2` error of about 0.2686% at preflight time.
+
+Use optimization level 3 for the hardware run:
+
 ```bash
 python hardware/ibm_shor35_matched.py \
   --backend ibm_fez \
   --phase-bits 6 \
   --shots 512 \
+  --optimization-level 3 \
   --transpile-only
 ```
 
-No QPU job is submitted. Inspect width, depth, CZ count, selected region, and MCM calibration before running hardware.
+No QPU job is submitted in preflight mode.
 
 ## Matched hardware run
 
@@ -65,21 +72,14 @@ python hardware/ibm_shor35_matched.py \
   --backend ibm_fez \
   --phase-bits 6 \
   --shots 512 \
+  --optimization-level 3 \
   --max-execution-time 120
 ```
 
 The output reports factor recovery, Wilson intervals, Hellinger fidelity and total-variation distance to the exact finite-precision order-12 QPE distribution, plus matched wide/recycled resource counts.
 
-## Replicate N=21 first
+## Replicated N=21 control
 
-Before spending QPU time on `N=35`, repeat the successful `N=21` matched benchmark once more:
+The successful `N=21`, `a=2`, `r=6` matched benchmark was repeated before the `N=35` attempt. The replication again favored recycled: 41.99% factor recovery versus 26.95% wide, a +15.04 percentage-point difference at about 5.13 standard errors. The recycled distribution also remained closer to the ideal order-6 QPE reference (Hellinger fidelity 0.6566 vs 0.5382; TV distance 0.4753 vs 0.6051).
 
-```bash
-python hardware/ibm_shor21_matched.py \
-  --backend ibm_fez \
-  --phase-bits 6 \
-  --shots 512 \
-  --max-execution-time 90
-```
-
-That replication checks whether the previously observed `41.80%` recycled vs `25.59%` wide result persists under a new calibration snapshot.
+That replication supports treating the earlier `N=21` advantage as reproducible rather than a single favorable calibration snapshot.
