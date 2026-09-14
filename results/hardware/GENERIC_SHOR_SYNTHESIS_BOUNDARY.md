@@ -85,28 +85,43 @@ Relative to the explicit clean-MCX full-permutation result, `9,083` CZ is about 
 
 This is the first order/orbit-independent synthesis path in the project to reach the sub-10k-CZ range for one modular power.
 
-At eight phase bits the nominal simultaneous width remains:
-
-- recycled: 11 logical qubits;
-- wide: 18 logical qubits.
-
 This construction is **generic full-register reversible synthesis for small N, not scalable modular arithmetic**. It removes dependence on the known order/orbit from circuit construction but uses truth-table/permutation synthesis whose cost grows exponentially with work-register width.
 
-## Next experiment: zero-QPU phase-width scaling
+## Phase-width scaling on Fez target
 
-The best one-power profile is now frozen as `1_clean_kg24` for the next sizing pass. The new zero-QPU scaling harness is:
+The `1_clean_kg24` profile was frozen and compiler-only scaling was run at 2, 4, 6, and 8 phase bits against the same `ibm_fez` target, optimization level 1. No QPU jobs were submitted.
+
+| Phase bits | Recycled qubits | Wide qubits | Recycled CZ | Wide CZ | Recycled depth | Wide depth |
+|---:|---:|---:|---:|---:|---:|---:|
+| 2 | 11 | 12 | 17,396 | 16,789 | 43,266 | 43,693 |
+| 4 | 11 | 14 | 30,373 | 32,577 | 80,155 | 81,014 |
+| 6 | 11 | 16 | 43,557 | 50,226 | 116,068 | 122,010 |
+| 8 | 11 | 18 | **59,061** | **63,727** | **153,418** | **157,017** |
+
+The round multipliers are `2, 4, 16, 11, 16, 11, 16, 11`; their generated full-register swap counts are `117, 108, 96, 96, 96, 96, 96, 96`.
+
+At 8 phase bits, recycling removes 7 simultaneous logical qubits (`18 -> 11`, a 38.9% width reduction), while the auto-routed compiler receipt is also modestly smaller in native cost: `59,061` versus `63,727` CZ (7.3% lower) and depth `153,418` versus `157,017` (2.3% lower). At 6 phase bits the recycled CZ advantage is larger (`43,557` versus `50,226`, 13.3% lower). At 2 phase bits recycled uses slightly more CZ, so the compiler-only gate-count advantage is not universal.
+
+These are **compiler/resource results only**, not a matched physical-layout hardware comparison. Auto routing can choose different physical placements, and no claim about hardware success probability follows from these numbers alone.
+
+The absolute 8-bit cost remains very large for current noisy hardware. Therefore this result is not yet a justification to spend QPU time; the next gate is exact ideal validation of the full-register wide and recycled phase-estimation semantics.
+
+## Next experiment: exact ideal validation
+
+`hardware/validate_shor35_generic_full_permutation_ideal.py` performs a pure local, zero-QPU validation with two independent calculations:
+
+1. wide QPE is evaluated directly from `N`, `a`, and modular exponentiation followed by an exact inverse-QFT transform;
+2. recycled QPE is simulated branch-by-branch with mid-circuit measurement and classical feed-forward, using the generated full-residue permutations.
+
+The generated distributions are then compared against the existing finite-precision `r=12` reference **only as a validation oracle**. The order is not supplied to either construction path.
+
+Run:
 
 ```bash
-python hardware/ibm_shor35_generic_full_permutation_scale.py \
-  --backend ibm_fez \
-  --phase-bits 2 4 6 8 \
-  --kind both \
-  --profile 1_clean_kg24 \
-  --optimization-level 1
+python hardware/validate_shor35_generic_full_permutation_ideal.py \
+  --phase-bits 2 4 6 8
 ```
 
-It compiles recycled and wide circuits at 2, 4, 6, and 8 phase bits, preserving the same order/orbit-independent full-register modular semantics and reporting native CZ, depth, size, width, and compile time. It never submits a QPU job.
+The pass condition requires every generated six-bit modular permutation and swap network to be exact, and wide/recycled distributions to agree with each other and with the finite-precision reference to numerical precision.
 
-The scaling result decides whether a hardware experiment is even worth designing. The important question is not simple linear multiplication of the one-power `m=2` cost, because the QPE round multipliers are `2, 4, 16, 11, 16, 11, 16, 11` and their full-register permutation costs differ.
-
-Do **not** submit the generic-permutation circuit to a QPU until the 2/4/6/8 compiler scaling receipt is known and an ideal-circuit validation has been completed.
+Do **not** submit the generic-permutation circuit to a QPU until this ideal-validation gate passes. Even after it passes, the ~59k-CZ 8-bit receipt means a hardware run should be treated as an exploratory stress test unless a further synthesis or placement optimization materially lowers the native cost.
