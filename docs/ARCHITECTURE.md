@@ -21,11 +21,33 @@ Quantum phase estimation is a natural benchmark because its phase register can b
 
 The benchmark does not assert novelty for iterative or semiclassical QPE itself. The research question is broader: when should a heterogeneous architecture dynamically trade quantum width for measurement/reset/feed-forward cycles, and can a scheduler make that trade profitably on current hardware?
 
+## Shor decomposition and width accounting
+
+For Shor-like order finding, only the phase/control register is recycled. The modular-arithmetic work register and its reversible-arithmetic ancillas remain quantum.
+
+The early width model intentionally excluded arithmetic ancillas equally from both architectures:
+
+- wide: `n` work + `m` phase qubits,
+- recycled: `n` work + 1 recycled phase qubit,
+- with `m = 2n`, this is `3n` versus `n+1`.
+
+The gate-level benchmark in `simulation/rsa_gate_level_modmul.py` adds a concrete clean-ancilla MCX construction. In that deliberately generic synthesis, a controlled adjacent basis-state swap uses `n-2` reusable clean ancillas. The corresponding simultaneous width is therefore:
+
+- wide: `n + 2n + (n-2) = 4n-2`,
+- recycled: `n + 1 + (n-2) = 2n-1`.
+
+That model gives an exact **2x total-width reduction** for the tested 6-9-bit toy-RSA cases. This is the more conservative architecture-level comparison when those arithmetic ancillas are included.
+
+The modular arithmetic itself is not made cheaper merely by recycling the phase register; its Toffoli burden is shared. The principal saving is that the full `2n`-qubit phase register does not have to remain live at once, and the inverse-QFT quantum-quantum interaction network is replaced by measurement/reset plus classical feed-forward.
+
+The current gate synthesis is an exact but generic basis-permutation decomposition, not a state-of-the-art optimized modular multiplier. Different reversible arithmetic constructions can change both ancilla requirements and gate counts, so the scheduler should treat arithmetic implementation as another resource-model choice rather than assuming `n-2` ancillas universally.
+
 ## Scheduler objective
 
 A future scheduler can optimize over:
 
 - simultaneous quantum width,
+- arithmetic-ancilla demand,
 - expected two-qubit gate error,
 - mid-circuit measurement error and duration,
 - reset latency,
