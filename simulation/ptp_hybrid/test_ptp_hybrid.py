@@ -8,7 +8,6 @@ try:
     from .core import (
         MODULUS,
         ROOTS,
-        candidate_factor_pairs,
         exhaustive_core_report,
         factor_pair_table,
         is_ptp_candidate,
@@ -18,12 +17,12 @@ try:
         root_index,
     )
     from .kernel import lfk_factor, verify_actual_pair_present, wheel210_factor
+    from .postprocess import compare_order_candidate
     from .symmetry import audit_diagonal_canonicalization, table_symmetry_report
 except ImportError:
     from core import (  # type: ignore
         MODULUS,
         ROOTS,
-        candidate_factor_pairs,
         exhaustive_core_report,
         factor_pair_table,
         is_ptp_candidate,
@@ -33,6 +32,7 @@ except ImportError:
         root_index,
     )
     from kernel import lfk_factor, verify_actual_pair_present, wheel210_factor  # type: ignore
+    from postprocess import compare_order_candidate  # type: ignore
     from symmetry import audit_diagonal_canonicalization, table_symmetry_report  # type: ignore
 
 
@@ -106,6 +106,28 @@ class TestSymmetryFalsification(unittest.TestCase):
         self.assertFalse(audit.safe_for_fixed_n_factor_search)
         self.assertIsNotNone(audit.first_counterexample)
         self.assertTrue(audit.first_counterexample["actual_pair_would_be_dropped"])
+
+
+class TestPTPShorPostprocess(unittest.TestCase):
+    def test_n35_true_order_is_never_rejected(self):
+        row = compare_order_candidate(35, 2, 12)
+        self.assertFalse(row["false_rejection"])
+        self.assertTrue(row["same_factors"])
+        self.assertEqual(row["standard"]["factors"], [5, 7])
+        self.assertEqual(row["ptp_aware"]["factors"], [5, 7])
+        self.assertTrue(row["ptp_aware"]["ptp_validated"])
+
+    def test_n21_true_order_is_never_rejected(self):
+        row = compare_order_candidate(21, 2, 6)
+        self.assertFalse(row["false_rejection"])
+        self.assertTrue(row["same_factors"])
+        self.assertEqual(row["standard"]["factors"], [3, 7])
+
+    def test_invalid_order_does_not_gain_magic_recovery(self):
+        row = compare_order_candidate(35, 2, 5)
+        self.assertIsNone(row["standard"]["factors"])
+        self.assertIsNone(row["ptp_aware"]["factors"])
+        self.assertFalse(row["false_rejection"])
 
 
 if __name__ == "__main__":
