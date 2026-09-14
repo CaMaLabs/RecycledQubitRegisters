@@ -42,6 +42,27 @@ The mean requested wide phase-site readout-error proxy improves from about **2.8
 - combined CZ count: `504 -> 478` (**5.16% lower**)
 - combined depth: `1427 -> 1349` (**5.47% lower**)
 
-The optimizer therefore found a materially cleaner Marrakesh matched region, especially for the recycled MCM ancilla, while also modestly improving the wide comparator. This is sufficient to justify a follow-up optimized Marrakesh hardware run.
+The optimizer therefore found a materially cleaner Marrakesh matched region, especially for the recycled MCM ancilla, while also modestly improving the wide comparator.
 
-The optimizer ranking is a placement-selection proxy only and is not a predicted fidelity. The two prior unoptimized Marrakesh runs remain preserved as negative/mixed cross-backend controls and must not be replaced by the optimized result.
+## Optimized Marrakesh hardware run
+
+The optimized plan was recompiled independently before execution and reproduced the expected resource counts exactly: recycled `160 CZ / depth 572 / size 728`, wide `318 CZ / depth 777 / size 1355`.
+
+With 512 shots per architecture, the optimized matched hardware run produced:
+
+| Metric | Wide | Recycled |
+|---|---:|---:|
+| Permissive factor recovery | 14.4531% | **23.2422%** |
+| Strict direct-order recovery | 2.1484% (11/512) | **3.1250% (16/512)** |
+| Hellinger fidelity to ideal | 0.1790 | **0.2954** |
+| TV distance to ideal | 0.8443 | **0.7555** |
+
+The uniform eight-bit references are 12.890625% permissive recovery, 2.34375% strict direct-order recovery, Hellinger 0.23487, and TV distance 0.82571.
+
+The optimized recycled run therefore remained clearly above uniform on the broad/distribution metrics and, unlike the two prior unoptimized Marrakesh runs, moved the strict direct-order rate slightly above the uniform floor: `16/512 = 3.125%` versus `12/512 = 2.34375%` expected from uniform output.
+
+However, this strict excess is small. Under the same fixed-baseline binomial model used elsewhere in the project, `16` or more strict successes out of 512 at the uniform probability has one-sided `p ≈ 0.153` (about `1.17 sigma`). This is not sufficient to claim a strict cross-backend replication.
+
+The two unoptimized Marrakesh recycled strict results were `6/512` and `8/512`; the optimized run produced `16/512`. This is suggestive that physical placement may improve the narrow strict-order metric on Marrakesh, but it requires an independent repeat of the same frozen optimized plan before drawing that conclusion.
+
+The optimizer ranking is a placement-selection proxy only and is not a predicted fidelity. The two prior unoptimized Marrakesh runs remain preserved as negative/mixed cross-backend controls and are not replaced by the optimized result.
