@@ -17,7 +17,7 @@ On IBM `ibm_fez`, using a shared physical-qubit neighborhood and an exact six-bi
 | Compiled depth | 276 | **103** |
 | CZ gates | 105 | **12** |
 
-Across a separate 4-bit three-phase sweep, the recycled implementation reached 88.28-91.80% target success versus 69.53-74.22% for the conventional wide implementation.
+Across a separate 4-bit three-phase sweep, the recycled implementation reached 88.28-91.80% target success versus 69.53-74.22% for the conventional wide implementation. At 7 phase bits on target `0101011`, recycled QPE reached **83.20%** versus **39.06%** wide, using 2 versus 8 logical qubits.
 
 See [`results/hardware/RESULTS.md`](results/hardware/RESULTS.md) and [`results/hardware/hardware_summary.csv`](results/hardware/hardware_summary.csv).
 
