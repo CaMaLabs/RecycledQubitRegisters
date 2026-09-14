@@ -30,50 +30,112 @@ The midpoint result is stronger than ordinary wheel filtering as a necessary-con
 
 These are reductions in candidate residues / expensive exact-square tests, not asymptotic factoring breakthroughs. The modular rejection test itself still has a cost.
 
+## First completed run
+
+The default deterministic run completed with:
+
+- `600` balanced Fermat semiprimes;
+- `2000` semiprimes in the Shor-order audit;
+- `16000` valid `(N,a)` order rows;
+- zero QPU use.
+
+Observed reduction in **expensive exact-square tests**:
+
+| M | Mean reduction | Median reduction | Asymptotic midpoint-residue reduction |
+|---:|---:|---:|---:|
+| 210 | 4.417x | 3.708x | 8x |
+| 2310 | 5.829x | 4.000x | 16x |
+| 30030 | 6.684x | 5.000x | 32x |
+
+The finite-search reductions are lower than the residue-level asymptotic values because many sampled Fermat searches terminate after only a small number of candidate `x` values. The result is nevertheless positive: the midpoint predicate removes real exact-square work rather than merely relabeling candidates.
+
+## Shor result from the first audit
+
+The raw public feature `N mod M` was evaluated with train/test splitting by whole semiprime so bases from the same `N` could not leak across folds.
+
+At `M=210`, the strongest held-out order result was `3 | r`:
+
+```text
+mutual information: 0.0787 bits
+baseline accuracy:  0.6366
+feature accuracy:   0.6793
+accuracy gain:      +0.0427
+```
+
+Most other order-divisibility targets gave negligible or negative held-out accuracy gain. Increasing the modulus to `2310` or `30030` substantially increased *in-sample* mutual information, but held-out majority prediction generally worsened. This is consistent with sparse high-cardinality residue categories rather than a robust large Shor shortcut.
+
+A particularly important caution is that majority accuracy is a coarse metric. Public residue information can change conditional probabilities without flipping the most common class. Therefore the first audit does **not** prove that all Shor-relevant information is absent; it shows that raw `N mod M` lookup is not a convincing route to QPE-width reduction.
+
 ## Shor boundary
 
 Shor does not search candidate factors directly. It estimates the multiplicative order `r` of a chosen base `a mod N`. Therefore a factor-residue sieve is not automatically a QPE reduction.
 
-The audit measures mutual information and a held-out majority predictor for targets such as `3 | r`, `5 | r`, `7 | r`, `12 | r`, and analogous divisibility of `lambda(N)`. Train/test splitting is performed by semiprime `N`, so all bases for one number stay in the same fold and cannot leak into the held-out set.
+A large in-sample mutual-information number is not accepted as evidence by itself. A positive Shor result requires an explicit, public-information constraint that generalizes and can be connected to reduced order ambiguity, post-processing work, or circuit/QPE resources.
 
-A large in-sample mutual-information number is not accepted as evidence by itself. The useful quantity is whether a predictor based only on public `N mod M` improves held-out accuracy. This is intentionally conservative because large moduli create many sparse residue categories.
+## Exact kernel-constraint follow-up
 
-## Run
+The next audit is implemented in:
+
+```text
+hardware/dark_star_shor_constraint_audit.py
+```
+
+It does not use raw residue classes as a giant categorical predictor. Instead, for every kernel factor-residue pair consistent with public `N mod M`, it records which odd wheel primes must divide at least one of `p-1` or `q-1`, and therefore divide `lambda(N)`.
+
+For each `N mod M`, it computes:
+
+- **guaranteed lambda primes**: forced by every kernel pair;
+- **possible lambda primes**: allowed by at least one kernel pair;
+- the number of distinct small-prime support signatures of `lambda(N)` still consistent with the public residue;
+- the empirical rate at which a guaranteed divisor of `lambda(N)` also divides the actual Shor order `r` for the tested bases.
+
+This distinction matters because `r | lambda(N)`: a guaranteed factor of `lambda(N)` is **not** automatically a guaranteed factor of `r`.
+
+There is also an exact limitation worth testing explicitly. For unit `N`, the residue pair `(1, N mod M)` is always kernel-consistent, so the lambda-support signature containing **all** wheel primes is always possible. Public `N mod M` can therefore force some small-prime divisors of `lambda(N)`, but it cannot simply rule every candidate divisor out by residue logic alone.
+
+Run:
+
+```bash
+cd ~/Downloads/RecycledQubitRegisters
+git pull --rebase
+python hardware/dark_star_shor_constraint_audit.py
+```
+
+This is also completely classical and submits no QPU jobs.
+
+The useful ending blocks are:
+
+```text
+===== EXACT KERNEL-CONSTRAINT THEORY =====
+===== EMPIRICAL CONSTRAINT SUMMARY =====
+===== OVERALL =====
+```
+
+## Original audit run
 
 ```bash
 cd ~/Downloads/RecycledQubitRegisters
 git pull --rebase
 source ~/ibm-6c2q-venv/bin/activate
-
 python hardware/dark_star_ptp_shor_audit.py
 ```
 
-The default run uses:
-
-- moduli `210 2310 30030`;
-- 600 balanced semiprimes for the Fermat test;
-- 2000 semiprimes for the order-information test;
-- bases `2 3 5 7 11 13 17 19`;
-- deterministic seed `8776`.
-
-The receipt is written to:
+The first receipt is written to:
 
 ```text
 results/dark_star_ptp/dark_star_ptp_shor_audit.json
 ```
 
-The final console blocks are:
+The exact-constraint follow-up writes:
 
 ```text
-===== FERMAT MIDPOINT SUMMARY =====
-===== SHOR ORDER INFORMATION SUMMARY =====
-===== OVERALL =====
+results/dark_star_ptp/dark_star_shor_constraint_audit.json
 ```
 
 ## Interpretation rules
 
 A positive Dark Star result requires a reproducible reduction in expensive Fermat square tests or another concrete search cost, not merely a re-labelling of the same candidates.
 
-A positive Shor result requires public residue information to improve held-out prediction of order structure enough to support an actual circuit/QPE reduction. Knowing factor residues after factorization, or using `lambda(N)`/`r` as a feature, does not count.
+A positive Shor result requires public residue information to reduce genuine order ambiguity enough to support an actual post-processing or QPE/circuit reduction. Knowing factor residues after factorization, or using `lambda(N)`/`r` as an input feature, does not count.
 
-Any quoted Grover improvement in the JSON is only the ideal square root of the classical domain reduction and explicitly ignores the cost of implementing the modular predicate as a reversible oracle.
+Any quoted Grover improvement in the first audit is only the ideal square root of the classical domain reduction and explicitly ignores the cost of implementing the modular predicate as a reversible oracle.
