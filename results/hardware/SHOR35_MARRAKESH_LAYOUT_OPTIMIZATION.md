@@ -92,15 +92,35 @@ For the recycled pooled strict count, the fixed-baseline binomial tail is approx
 
 For comparison, the two unoptimized Marrakesh runs produced recycled strict counts of only `6/512` and `8/512`, while the optimized runs produced `16/512` and `22/512`. Wide also improved from unoptimized `13/512` and `7/512` to optimized `11/512` and `22/512`.
 
-## Interpretation and next control
+## Same-job legacy-vs-optimized layout A/B
 
-The optimized placement is associated with stronger strict-order recovery on Marrakesh, but the second repeat shows that the improvement is not uniquely recycled: the wide comparator improved substantially as well. The clean next experiment is therefore a **same-job layout A/B** containing all four circuits in one hardware submission:
+To remove calibration-window drift as the primary explanation, the project then submitted four circuits in one Marrakesh job: legacy recycled, legacy wide, optimized recycled, and optimized wide.
 
-1. legacy recycled,
-2. legacy wide,
-3. optimized recycled,
-4. optimized wide.
+| Circuit | Permissive | Strict direct-order | Hellinger | TV distance |
+|---|---:|---:|---:|---:|
+| Legacy recycled | 22.2656% (114/512) | 1.3672% (7/512) | 0.2606 | 0.7755 |
+| Legacy wide | 13.4766% (69/512) | 1.3672% (7/512) | 0.1897 | 0.8441 |
+| Optimized recycled | 33.9844% (174/512) | 3.7109% (19/512) | 0.3908 | 0.6281 |
+| Optimized wide | 32.0313% (164/512) | 6.2500% (32/512) | 0.4688 | 0.6438 |
 
-Running all four in one job minimizes calibration-window drift and directly tests whether the optimized physical region improves either architecture relative to its legacy placement under the same backend state.
+This same-job control establishes that the optimized physical region materially improved both architectures under the same backend state. The effect is therefore not explainable solely by temporal calibration drift between separate jobs.
+
+For recycled, optimized placement increased permissive recovery by `+11.72` percentage points and strict direct-order recovery by `+2.34` points. For wide, the corresponding improvements were `+18.55` and `+4.88` points. Under a simple independent-binomial difference approximation, these changes are about `4.21` and `2.39` standard errors for recycled permissive/strict, and `7.26` and `4.12` standard errors for wide permissive/strict. These are shot-noise-only descriptive comparisons.
+
+Against the analytic uniform strict baseline, optimized recycled observed `19/512` (`p ≈ 0.0356`, one-sided fixed-binomial tail), while optimized wide observed `32/512` (`p ≈ 8.4e-7`). These p-values do not model calibration correlations, optimizer selection, or other hardware systematics.
+
+## Interpretation
+
+The same-job A/B changes the conclusion from “optimized placement may help” to **“optimized placement materially affects observed order recovery on Marrakesh.”** It also shows that the effect is not uniquely tied to recycling.
+
+Under the legacy Marrakesh placement, recycled is markedly more robust than wide on the broad factor-recovery metric. Under the optimized placement, both architectures recover clear order-related structure, and the wide circuit is stronger on strict direct-order recovery and Hellinger fidelity while recycled is slightly better on permissive recovery and TV distance.
+
+This demonstrates an interaction among **architecture, physical placement, and backend calibration/topology**. Lower logical width and fewer CZ gates are valuable resources, but they do not by themselves determine which circuit gives the strongest strict order signal on a particular device region.
+
+The most defensible cross-backend conclusion is therefore:
+
+> The compiled `N=35`, `a=2`, `r=12` order-finding signal is reproducible on a second superconducting backend when hardware-aware placement is used, but the recycled-versus-wide advantage is backend- and placement-dependent. On Marrakesh, recycling is more robust than wide under the legacy placement; optimized placement improves both architectures and can make wide competitive or superior on strict direct-order recovery.
+
+A dedicated same-job summary is preserved in `results/hardware/SHOR35_MARRAKESH_LAYOUT_AB.md`.
 
 The optimizer ranking is a placement-selection proxy only and is not a predicted fidelity. The two prior unoptimized Marrakesh runs remain preserved as negative/mixed cross-backend controls and are not replaced by the optimized results.
