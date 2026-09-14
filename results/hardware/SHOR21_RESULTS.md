@@ -30,18 +30,35 @@ Both architectures were submitted in the same IBM `SamplerV2` job on `ibm_fez`, 
 
 The recycled-minus-wide factor-recovery difference was **+16.2109375 percentage points**. Under a simple independent-binomial approximation this is about **5.57 standard errors**, and the Wilson intervals are separated.
 
-The exact finite-precision reference, evaluated through the same post-processor, has an ideal factor-recovery probability of **75.3915%** and a zero-phase probability of about **16.70%**. Both hardware circuits therefore remain far from the ideal distribution, but the recycled circuit is materially closer by both Hellinger fidelity and total-variation distance.
+## Independent replication
+
+The matched experiment was repeated in a second IBM job with the same benchmark settings and 512 shots per architecture.
+
+| Metric | Wide | Recycled |
+|---|---:|---:|
+| Per-shot factor recovery | 26.95% | **41.99%** |
+| Recycled minus wide |  | **+15.04 pp** |
+| Difference |  | **5.13 standard errors** |
+| Hellinger fidelity to ideal | 0.5382 | **0.6566** |
+| Total-variation distance to ideal | 0.6051 | **0.4753** |
+| Zero-phase probability | 6.45% | 8.59% |
+
+The replication closely reproduced the first run: recycled factor recovery remained near 42%, wide remained near 26-27%, and the measured recycled distribution again stayed closer to the exact finite-precision order-6 reference by both Hellinger fidelity and total-variation distance. This makes the N=21 result substantially less likely to be a one-off calibration or shot-noise artifact.
+
+Across the two 512-shot runs, the simple pooled factor-recovery totals are **269/1024 = 26.27% wide** and **429/1024 = 41.89% recycled**. These pooled numbers are descriptive only because the two jobs were separate calibration snapshots.
+
+The exact finite-precision reference, evaluated through the same post-processor, has an ideal factor-recovery probability of **75.3915%** and a zero-phase probability of about **16.70%**. Both hardware circuits therefore remain far from the ideal distribution, but the recycled circuit is materially closer in both runs.
 
 ## Resource interpretation
 
-Relative to the wide circuit, recycled used:
+Relative to the wide circuit in the first matched run, recycled used:
 
 - **55.6% fewer simultaneous logical qubits** (`9 -> 4`),
 - about **8.5% less compiled depth** (`773 -> 707`),
 - about **24.5% smaller compiled circuit size** (`1235 -> 932`),
 - about **32.0% fewer CZ gates** (`284 -> 193`).
 
-The observed factor-recovery probability improved at the same time, from 25.59% wide to 41.80% recycled.
+The observed factor-recovery probability improved at the same time, from 25.59% wide to 41.80% recycled, and the replication produced nearly the same separation.
 
 ## Why this matters more than N=15
 
