@@ -9,6 +9,9 @@ This control submits four circuits in one SamplerV2 job:
 
 The goal is to distinguish placement effects from backend/calibration drift after
 separate Marrakesh runs showed substantial temporal variation.
+
+If a QPU job completed but local post-processing failed, pass --job-id to recover
+that already-completed job without submitting another QPU run.
 """
 from __future__ import annotations
 
@@ -23,7 +26,7 @@ from qiskit_ibm_runtime import SamplerV2
 import ibm_shor35_affine_matched as aff
 import ibm_shor35_matched as ref
 
-SCRIPT_REVISION = "2026-09-14-shor35-layout-ab-v1"
+SCRIPT_REVISION = "2026-09-14-shor35-layout-ab-v2"
 
 
 def compile_with_seed(circuit, backend, level, layout, seed):
@@ -55,6 +58,21 @@ def result_row(pub, kind, phase_bits):
     }
 
 
+def paired_comparison(rows, phase_bits):
+    """Call the existing comparator with normalized recycled/wide kind labels."""
+    normalized = []
+    for row in rows:
+        item = dict(row)
+        if row["kind"].endswith("recycled"):
+            item["kind"] = "recycled"
+        elif row["kind"].endswith("wide"):
+            item["kind"] = "wide"
+        else:
+            raise ValueError(f"Cannot normalize A/B result kind {row['kind']!r}")
+        normalized.append(item)
+    return ref.comparison(normalized, phase_bits)
+
+
 def main():
     ap = argparse.ArgumentParser(
         description="Same-job legacy-vs-optimized placement A/B for affine Shor35."
@@ -66,9 +84,16 @@ def main():
     ap.add_argument("--transpile-only", action="store_true")
     ap.add_argument("--run", action="store_true", help="Actually submit the 4-circuit QPU job")
     ap.add_argument(
+        "--job-id",
+        help="Recover and post-process an existing completed Runtime job instead of submitting a new one",
+    )
+    ap.add_argument(
         "--outdir", type=Path, default=Path("results/ibm_shor35_layout_ab")
     )
     args = ap.parse_args()
+
+    if args.run and args.job_id:
+        raise SystemExit("Use either --run or --job-id, not both")
 
     search = json.loads(args.plan_file.read_text())
     legacy = require_selection(search, "baseline_legacy_plan_seed8776")
@@ -146,19 +171,24 @@ def main():
     }
 
     args.outdir.mkdir(parents=True, exist_ok=True)
-    if args.transpile_only or not args.run:
+    if args.transpile_only or (not args.run and not args.job_id):
         path = args.outdir / f"ibm_shor35_layout_ab_transpile_{phase_bits}b.json"
         path.write_text(json.dumps(out_base, indent=2, default=str) + "\n")
         print("No QPU job submitted. Add --run after reviewing this preflight.")
         print("Saved:", path.resolve())
         return
 
-    print(f"Submitting same-job layout A/B: 4 circuits x {args.shots} shots...")
-    sampler = SamplerV2(
-        mode=backend, options={"max_execution_time": args.max_execution_time}
-    )
-    job = sampler.run(compiled, shots=args.shots)
-    print("Job ID:", job.job_id())
+    if args.job_id:
+        print(f"Recovering existing Runtime job: {args.job_id}")
+        job = service.job(args.job_id)
+    else:
+        print(f"Submitting same-job layout A/B: 4 circuits x {args.shots} shots...")
+        sampler = SamplerV2(
+            mode=backend, options={"max_execution_time": args.max_execution_time}
+        )
+        job = sampler.run(compiled, shots=args.shots)
+        print("Job ID:", job.job_id())
+
     pubs = job.result()
 
     results = [
@@ -171,10 +201,11 @@ def main():
     out = {
         **out_base,
         "job_id": job.job_id(),
+        "recovered_existing_job": bool(args.job_id),
         "metrics": ref.ibm_base.safe_metrics(job),
         "results": results,
-        "legacy_paired_comparison": ref.comparison(legacy_pair, phase_bits),
-        "optimized_paired_comparison": ref.comparison(optimized_pair, phase_bits),
+        "legacy_paired_comparison": paired_comparison(legacy_pair, phase_bits),
+        "optimized_paired_comparison": paired_comparison(optimized_pair, phase_bits),
         "account_usage_after": ref.ibm_base.safe_usage(service),
     }
 
