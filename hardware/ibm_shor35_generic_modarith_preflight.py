@@ -12,6 +12,22 @@ spending QPU time:
 
 Start with one phase bit to measure one controlled modular multiplier, then
 scale to 4/6/8 phase bits only if compilation remains tractable.
+
+Qiskit HLS note
+---------------
+The arithmetic builder intentionally represents controlled high-level arithmetic
+as AnnotatedOperations.  Some ancilla-using HLS plugins synthesize the inner
+operation onto more qubits than are explicitly carried by the annotated control
+wrapper.  In Qiskit 2.5.x this can fail during recursive annotated synthesis with
+errors such as::
+
+    CircuitError: Cannot compose onto a circuit with fewer qubits (... > ...)
+
+For the first backend preflight we therefore default to *ancilla-free* inner HLS
+methods (`IntComp.noaux` and `ModularAdder.qft_d00`).  This is a conservative
+compiler bridge, not the final arithmetic optimization.  Once the full generic
+circuit lowers successfully, explicit clean-ancilla arithmetic can be introduced
+in the circuit itself and benchmarked separately.
 """
 from __future__ import annotations
 
@@ -22,13 +38,14 @@ from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 
+from qiskit.circuit.exceptions import CircuitError
 from qiskit.transpiler.passes.synthesis import HLSConfig
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 
 import generic_modarith_shor as gm
 import ibm_shor35_matched as ref
 
-SCRIPT_REVISION = "2026-09-14-generic-modarith-preflight-v1"
+SCRIPT_REVISION = "2026-09-14-generic-modarith-preflight-v2"
 N = 35
 A = 2
 
@@ -85,14 +102,20 @@ def main() -> int:
     ap.add_argument(
         "--comparator-hls",
         choices=["default", "twos", "noaux"],
-        default="default",
-        help="Qiskit IntComp high-level synthesis plugin.",
+        default="noaux",
+        help=(
+            "Qiskit IntComp HLS plugin. 'noaux' is the safe default for annotated "
+            "controlled arithmetic on Qiskit 2.5.x."
+        ),
     )
     ap.add_argument(
         "--adder-hls",
         choices=["default", "modular_v17", "ripple_c04", "ripple_v95", "qft_d00"],
-        default="modular_v17",
-        help="Qiskit ModularAdder high-level synthesis plugin.",
+        default="qft_d00",
+        help=(
+            "Qiskit ModularAdder HLS plugin. 'qft_d00' is the safe ancilla-free "
+            "default for the first controlled-arithmetic backend preflight."
+        ),
     )
     ap.add_argument(
         "--outdir",
@@ -119,6 +142,10 @@ def main() -> int:
     print(f"backend={backend.name} measure_2={use_measure2}")
     print("logical resource model:")
     print(json.dumps(asdict(resources), indent=2))
+    print(
+        "HLS profile: "
+        f"IntComp={args.comparator_hls} ModularAdder={args.adder_hls}"
+    )
 
     def ibm_mid_measure(qc, qubit, clbit):
         ref.ibm_base.mid_measure(qc, qubit, clbit, use_measure2)
@@ -154,13 +181,25 @@ def main() -> int:
                 indent=2,
             )
         )
-        compiled, elapsed = compile_circuit(
-            circuit,
-            backend,
-            level=args.optimization_level,
-            seed=args.seed_transpiler,
-            hls_config=hls_config,
-        )
+        try:
+            compiled, elapsed = compile_circuit(
+                circuit,
+                backend,
+                level=args.optimization_level,
+                seed=args.seed_transpiler,
+                hls_config=hls_config,
+            )
+        except CircuitError as exc:
+            message = str(exc)
+            if "fewer qubits" in message:
+                raise SystemExit(
+                    "Qiskit HLS failed while recursively synthesizing a controlled "
+                    "arithmetic operation because the selected inner HLS method used "
+                    "implicit ancillas. Re-run with --comparator-hls noaux "
+                    "--adder-hls qft_d00. No QPU job was submitted.\n"
+                    f"Original error: {message}"
+                ) from exc
+            raise
         row = circuit_stats(circuit, compiled, kind, elapsed)
         stats.append(row)
         print(json.dumps(row, indent=2, default=str))
@@ -196,6 +235,11 @@ def main() -> int:
         "hls": {
             "IntComp": args.comparator_hls,
             "ModularAdder": args.adder_hls,
+            "profile_note": (
+                "Ancilla-free HLS defaults are used to avoid Qiskit 2.5.x recursive "
+                "AnnotatedOperation ancilla-width mismatch. This is a conservative "
+                "compiler bridge, not the final arithmetic implementation."
+            ),
         },
         "qpu_submitted": False,
         "order_used_in_circuit_construction": False,
