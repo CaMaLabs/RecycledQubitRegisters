@@ -78,6 +78,18 @@ python hardware/ibm_shor35_matched.py \
 
 The output reports factor recovery, Wilson intervals, Hellinger fidelity and total-variation distance to the exact finite-precision order-12 QPE distribution, plus matched wide/recycled resource counts.
 
+### Observed result
+
+At 512 shots each, recycled measured **41.99%** factor recovery and wide measured **41.60%**. The difference was only **+0.39 percentage points**, about **0.13 standard errors**. Distribution quality was also nearly identical: Hellinger fidelity was 0.5562 recycled vs 0.5609 wide, and TV distance was 0.6001 recycled vs 0.6049 wide.
+
+However, this run sits at the post-processor's random-noise floor. Under a uniform 6-bit distribution, the verified-multiple recovery rule accepts **27 of 64 possible bitstrings = 42.1875%**. A uniform distribution also has Hellinger fidelity **0.5472** and TV distance **0.6075** to the exact finite-precision order-12 reference.
+
+Therefore the ~42% hardware factor-recovery metric is **not evidence of preserved quantum order information** in this run. Both wide and recycled outputs are only marginally distinguishable from uniform noise under these metrics. The meaningful result is the surviving resource reduction—5 vs 10 logical qubits and 388 vs 457 CZ gates—not a factoring-performance advantage.
+
+Treat `N=35` as the current **hardware/synthesis boundary** for this compiled-orbit implementation. Do not increase `N` again without reducing the entangling-gate burden and tightening the post-processing metric.
+
+See `results/hardware/SHOR35_RESULTS.md` and `results/hardware/shor35_matched_compare.csv`.
+
 ## Replicated N=21 control
 
 The successful `N=21`, `a=2`, `r=6` matched benchmark was repeated before the `N=35` attempt. The replication again favored recycled: 41.99% factor recovery versus 26.95% wide, a +15.04 percentage-point difference at about 5.13 standard errors. The recycled distribution also remained closer to the ideal order-6 QPE reference (Hellinger fidelity 0.6566 vs 0.5382; TV distance 0.4753 vs 0.6051).
