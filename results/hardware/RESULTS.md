@@ -43,6 +43,19 @@ For `phi = 0.328125 = 21/64 = 0.010101`, all six target bits carry information.
 
 The recycled implementation therefore used about 71% less simultaneous logical width, 63% less compiled depth, and 89% fewer CZ operations on this workload.
 
+## Full-information 7-bit phase
+
+For `phi = 0.3359375 = 43/128 = 0.0101011`, all seven target bits carry information.
+
+| Metric | Wide QPE | Recycled 2Q |
+|---|---:|---:|
+| Target success | 39.06% | **83.20%** |
+| Logical qubits | 8 | **2** |
+| Compiled depth | 333 | **121** |
+| CZ gates | 158 | **14** |
+
+The recycled implementation improved target success by **44.14 percentage points** while using 75% fewer simultaneous logical qubits, about 64% less compiled depth, and about 91% fewer CZ operations.
+
 ## Calibration for the full-information run
 
 The selected iterative pair on `ibm_fez` was physical qubits 22 and 23. At run time:
