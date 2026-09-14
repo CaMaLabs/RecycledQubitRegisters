@@ -40,7 +40,9 @@ The same affine `N=35`, `a=2`, `r=12` problem was then run at eight phase bits, 
 | Metric | Wide | Recycled |
 |---|---:|---:|
 | Factor-recovery metric | 12.50% | **40.23%** |
-| Wilson 95% interval | 9.91%-15.65% | **36.07%-44.54%** |
+| Strict direct-order recovery | 2.34375% | **5.859375%** |
+| Strict direct-order shots | 12/512 | **30/512** |
+| Wilson 95% interval (permissive metric) | 9.91%-15.65% | **36.07%-44.54%** |
 | Hellinger fidelity to ideal | 0.1951 | **0.5236** |
 | Total-variation distance to ideal | 0.8448 | **0.5723** |
 | Zero-phase probability | 0.586% | **3.516%** |
@@ -56,32 +58,37 @@ For a uniform random eight-bit distribution under the same order-12 reference an
 - Hellinger fidelity to ideal = **0.23487**;
 - total-variation distance to ideal = **0.82571**.
 
-The recycled eight-bit distribution is therefore materially separated from uniform noise by the distribution-level metrics:
+The recycled eight-bit result is materially separated from uniform noise on every primary signal metric:
 
+- permissive factor recovery: **40.2344% recycled vs 12.8906% uniform** (`+27.3438 pp`);
+- strict direct-order recovery: **5.8594% recycled vs 2.34375% uniform** (`+3.5156 pp`);
 - Hellinger fidelity: **0.5236 recycled vs 0.2349 uniform**;
-- TV distance: **0.5723 recycled vs 0.8257 uniform**;
-- permissive factor recovery: **40.23% recycled vs 12.89% uniform**.
+- TV distance: **0.5723 recycled vs 0.8257 uniform**.
 
-The wide result, by contrast, is close to the random permissive baseline and is worse than uniform on the Hellinger/TV comparison.
+The wide result, by contrast, is at the strict direct-order noise floor (`12/512 = 2.34375%`) and close to the random permissive baseline (`12.50%` vs `12.8906%`). Its Hellinger/TV values are also no better than the uniform reference.
 
-This is the first `N=35` affine hardware run in this series to show clear distribution-level order-12 structure above the random-output floor. The strict direct continued-fraction/order-recovery metric stored in the raw result JSON should still be audited before making the strongest possible factorization claim.
+For the recycled strict metric, 30 direct-order successes were observed where the uniform baseline predicts 12 on average. Under a simple fixed-baseline binomial model, the excess corresponds to about **5.26 standard deviations** with a one-sided tail probability of approximately **6.4e-6**. This statistic does not include calibration drift, routing systematics, or other hardware correlations, so it should be treated as a shot-noise significance estimate rather than a full experimental uncertainty model.
 
-Run:
+The exact ideal eight-bit reference has:
 
-```bash
-python hardware/analyze_shor_noise_floor.py \
-  results/ibm_shor35_affine/ibm_shor35_affine_8b_20260913_200845.json
-```
+- permissive factor-recovery probability = **84.9399%**;
+- strict direct-order factor-recovery probability = **14.9758%**.
 
-If the strict direct-order rate is also materially above its **2.34375%** uniform baseline, then the eight-bit affine run supports a conservative statement that the recycled hardware implementation recovered identifiable order-12 signal sufficient for nontrivial factor recovery on the compiled `N=35` instance.
+The recycled run recovered about **37.95% of the ideal-minus-uniform permissive signal margin** and about **27.83% of the ideal-minus-uniform strict direct-order margin**.
 
 ## Interpretation
+
+This is the first `N=35` run in this series that clears both the distribution-level and strict direct-order random-output baselines.
+
+A conservative summary is:
+
+> In a matched same-job IBM Fez experiment on a compiled `N=35`, `a=2`, order-12 Shor instance, an affine-encoded recycled phase-register implementation used 5 versus 12 simultaneous logical qubits and 175 versus 331 CZ gates. At eight phase bits it produced 40.23% permissive factor-recovering outcomes and 5.86% strict direct-order outcomes, compared with uniform-noise baselines of 12.89% and 2.34%, respectively. The matched wide circuit remained at the strict noise floor. The recycled measurement distribution was also substantially closer to the exact order-12 reference than uniform output by Hellinger fidelity and total-variation distance.
 
 The progression is important:
 
 1. natural-label `N=35` exposed a synthesis-depth wall;
 2. affine recoding reduced the modular-work cost dramatically;
 3. six-bit affine execution remained near the random-output floor because phase precision gave weak discrimination;
-4. eight-bit affine execution retained manageable hardware cost while producing a recycled distribution clearly separated from uniform noise and from the matched wide circuit.
+4. eight-bit affine execution retained manageable hardware cost and recovered identifiable order-12 signal above the random-output floor under both permissive and strict post-processing.
 
-Do not interpret this as scalability to cryptographic RSA. The modular work register is an exact compiled orbit representation specific to `N=35`, `a=2`. A general large-semiprime Shor implementation still requires scalable reversible modular arithmetic and fault-tolerant hardware.
+This result should **not** be interpreted as scalability to cryptographic RSA. The modular work register is an exact compiled orbit representation specific to `N=35`, `a=2`. A general large-semiprime Shor implementation still requires scalable reversible modular arithmetic and fault-tolerant hardware.
