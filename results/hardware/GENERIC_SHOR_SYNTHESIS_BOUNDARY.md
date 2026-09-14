@@ -29,16 +29,13 @@ All rows below are zero-QPU, one-phase-bit compiler preflights against `ibm_fez`
 | HLS/QFT fallback | 26 | 428,681 | 1,183,808 | 1,866,556 recycled |
 | Explicit constant-add / default MCX | 15 | 72,229 | 180,783 | 290,759 recycled |
 | Explicit constant-add / clean linear MCX | 22 | 84,339 | 203,857 | 338,326 recycled |
+| Full-residue permutation / explicit clean MCX | 11 | **15,642** | **39,097** | **65,035** recycled |
 
 The explicit constant-add path improved substantially over the HLS fallback, reducing one-power CZ cost by about `5.94x`. However, `72,229` CZ gates remains far outside a credible present-hardware execution regime.
 
-The clean-ancilla linear-MCX experiment did **not** improve this boundary. It increased native cost from `72,229` to `84,339` CZ (`+16.8%`) and depth from `180,783` to `203,857` (`+12.8%`) while increasing width from 15 to 22 logical qubits. The compiler evidently handles the original MCX representation better than the manually expanded exact-Toffoli chain for this topology/target.
+The clean-ancilla linear-MCX arithmetic experiment did **not** improve that boundary. It increased native cost from `72,229` to `84,339` CZ (`+16.8%`) and depth from `180,783` to `203,857` (`+12.8%`) while increasing width from 15 to 22 logical qubits. The compiler evidently handles the original MCX representation better than the manually expanded exact-Toffoli chain for that arithmetic circuit.
 
-This is retained as a negative result. Do not scale either arithmetic path directly to 8 phase bits or submit it to a QPU.
-
-## Next experiment: full-residue generic permutation synthesis
-
-The next zero-QPU experiment separates **order/orbit independence** from **scalable arithmetic**.
+## Full-residue generic permutation result
 
 `hardware/ibm_shor35_generic_full_permutation_preflight.py` generates the complete modular multiplication permutation directly from `N`, `a`, and the QPE power:
 
@@ -47,7 +44,7 @@ y < N  -> m*y mod N
 y >= N -> y
 ```
 
-It does not use `r=12` and does not encode only the 12-state orbit. Instead, it synthesizes the entire 64-state six-qubit permutation through cycle decomposition, Gray-path basis transpositions, and phase-controlled adjacent basis-state swaps.
+It does not use `r=12` and does not encode only the known 12-state orbit. It synthesizes the entire 64-state six-qubit permutation through cycle decomposition, Gray-path basis transpositions, and phase-controlled adjacent basis-state swaps.
 
 For the first multiplier `m=2`, the generated full-register permutation has:
 
@@ -56,23 +53,52 @@ For the first multiplier `m=2`, the generated full-register permutation has:
 - 117 adjacent basis-state swaps;
 - 6 controls per adjacent swap (phase + five work-pattern controls);
 - 4 reusable clean scratch qubits;
-- 1,053 abstract CCX gates from the clean-MCX chains before backend routing/decomposition.
+- 1,053 abstract CCX gates in the explicit clean-MCX realization.
 
-At eight phase bits the nominal simultaneous width is only:
+The one-power Fez preflight compiled successfully at only 11 logical qubits and produced:
+
+- `15,642` CZ gates;
+- compiled depth `39,097`;
+- compiled size `65,035`;
+- compile time about `0.15 s`;
+- identical recycled/wide arithmetic cost at one phase bit, as expected.
+
+Relative to the best arithmetic path so far (`72,229` CZ), this is about a **4.62x native-CZ reduction**. Relative to the original HLS fallback (`428,681` CZ), it is about a **27.4x reduction**.
+
+This is the first order/orbit-independent synthesis path in the project that reaches the low-tens-of-thousands-CZ range for one modular power. It is still not ready for QPU execution or eight-bit scaling without another synthesis pass.
+
+At eight phase bits the nominal simultaneous width remains:
 
 - recycled: 11 logical qubits;
 - wide: 18 logical qubits.
 
-This construction is **generic full-register reversible synthesis for small N, not scalable modular arithmetic**. A successful hardware result from it would remove dependence on the known order/orbit, but would not by itself establish a scalable arithmetic Shor implementation.
+This construction is **generic full-register reversible synthesis for small N, not scalable modular arithmetic**. A successful hardware result from it would remove dependence on the known order/orbit, but would not by itself establish scalable arithmetic Shor.
 
-Run the one-power zero-QPU preflight first:
+## Next experiment: let Qiskit optimize the MCX itself
+
+The `15,642`-CZ result explicitly expands each six-control MCX into a clean-ancilla Toffoli chain. That may still be leaving substantial native-gate savings on the table.
+
+Current Qiskit exposes several dedicated MCX high-level synthesis methods, including ancilla-assisted methods. The project now preserves the permutation as high-level `MCXGate` objects and sweeps multiple MCX HLS strategies against the same Fez target while keeping four idle clean ancillas available.
+
+Zero-QPU command:
 
 ```bash
-python hardware/ibm_shor35_generic_full_permutation_preflight.py \
+python hardware/ibm_shor35_generic_full_permutation_mcx_sweep.py \
   --backend ibm_fez \
   --phase-bits 1 \
   --kind both \
   --optimization-level 1
 ```
 
-The absolute native CZ/depth result determines whether this path deserves 2/4/6/8-bit compiler scaling. No QPU execution should occur before that boundary is known.
+Default profiles are:
+
+```text
+auto
+n_clean_m15
+1_clean_kg24
+noaux_v24
+```
+
+The sweep catches unsupported-plugin failures independently and reports the best successful native result by CZ count, then depth.
+
+Do not submit any generic-permutation circuit to hardware until this MCX synthesis sweep is complete. If the one-power cost drops substantially below `15,642` CZ, freeze the best synthesis and only then test 2/4/6/8-bit compiler scaling.
