@@ -58,7 +58,9 @@ The recycled implementation improved target success by **44.14 percentage points
 
 ## End-to-end real-QPU Shor factoring: matched same-job comparison
 
-Both architectures were executed in the **same IBM job** on `ibm_fez` for the canonical compiled toy problem `N=15`, `a=2`, using four phase bits and a real 4-qubit modular work register. The two circuits were given the same initial physical work-qubit quartet; the transpiler could still route logical states during execution, so this is a shared-initial-placement comparison rather than a claim that work states remained pinned throughout the circuit.
+Both architectures were executed in the **same IBM job** on `ibm_fez` for the canonical compiled toy problem `N=15`, `a=2`, with a real 4-qubit modular work register. The two circuits were given the same initial physical work-qubit quartet; the transpiler could still route logical states during execution, so this is a shared-initial-placement comparison rather than a claim that work states remained pinned throughout the circuit.
+
+### Four phase bits
 
 | Metric | Wide | Recycled |
 |---|---:|---:|
@@ -75,9 +77,30 @@ Both architectures were executed in the **same IBM job** on `ibm_fez` for the ca
 
 The recycled circuit was numerically ahead in factor recovery by **2.734375 percentage points**, but the difference is only about **0.93 standard errors**. Approximate Wilson 95% intervals are **61.81%-69.99%** for wide and **64.61%-72.61%** for recycled, so this run does not establish a statistically significant accuracy advantage.
 
-The resource result is clearer: recycled used **37.5% fewer simultaneous logical qubits**, about **19.2% less compiled depth**, about **26.2% smaller compiled circuit size**, and **33.3% fewer CZ gates**. It also again produced a much cleaner order spectrum, with only 1.56% off-peak outcomes versus 12.11% for wide. Its remaining weakness is a larger probability on the valid but uninformative zero-order branch.
+### Eight phase bits: phase-width scaling
 
-This matched run supersedes the earlier separate-job comparison as the preferred hardware baseline. See `shor15_matched_compare.csv` for the machine-readable result.
+The same factoring problem was then repeated with eight phase bits. The recycled circuit still used one phase ancilla plus the same four-qubit work register, while the conventional circuit widened to eight phase qubits plus four work qubits.
+
+| Metric | Wide | Recycled |
+|---|---:|---:|
+| Shots | 512 | 512 |
+| Logical qubits | 12 | **5** |
+| Compiled depth | 281 | **243** |
+| Circuit size | 817 | **377** |
+| CZ gates | 190 | **68** |
+| Factor-recovering shots | 164/512 | **349/512** |
+| Per-shot factor recovery | 32.03% | **68.16%** |
+| Ideal order-4 peak probability | 32.03% | **92.58%** |
+| Uninformative zero peak | **7.23%** | 24.80% |
+| Off-peak outcomes | 67.97% | **7.42%** |
+
+The recycled-minus-wide factor-recovery difference was **+36.1328125 percentage points**. Under a simple independent-binomial approximation this is about **12.4 standard errors**. Approximate Wilson 95% intervals are **28.14%-36.19%** for wide and **64.01%-72.05%** for recycled, which are clearly separated.
+
+This result is best interpreted as a **phase-register scaling result on a fixed toy factoring problem**, not as evidence for large-RSA tractability. The modular work register and factor target remained `N=15`; only phase-estimation width changed. The wide circuit's CZ count increased from 102 at four phase bits to 190 at eight bits, while the recycled circuit remained at 68 CZ gates and five simultaneous logical qubits. Its factor-recovery rate also remained nearly unchanged (68.75% -> 68.16%), whereas the wide result dropped from 66.02% to 32.03%.
+
+The resource scaling is therefore substantial: at eight phase bits recycled used **58.3% fewer simultaneous logical qubits**, about **13.5% less compiled depth**, about **53.9% smaller compiled circuit size**, and about **64.2% fewer CZ gates**. The recycled order spectrum also remained much cleaner.
+
+The four-bit and eight-bit matched results are stored in `shor15_matched_compare.csv`.
 
 ## Preliminary separate-job Shor comparison
 
