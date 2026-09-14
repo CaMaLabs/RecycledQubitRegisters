@@ -9,14 +9,16 @@ instance-compiled encoding of the known 12-state modular orbit.
 The next implementation must construct the modular unitary from only `N` and
 `a`, not from the order `r` or a precomputed orbit labeling.
 
-The new core is:
+The current generic-arithmetic work has two deliberately different synthesis
+paths:
 
-- `hardware/generic_modarith_shor.py`
-- `hardware/ibm_shor35_generic_modarith_preflight.py`
+- `hardware/generic_modarith_shor.py` and the IBM HLS preflights;
+- `hardware/ibm_shor_generic_arithmetic.py` and
+  `hardware/ibm_shor_generic_arithmetic_one_power.py`, which use explicit
+  reversible constant-addition / MCX networks.
 
-The first file implements reversible modular arithmetic over the complete
-six-qubit residue register for `N=35`.  The second lowers those circuits to a
-real IBM backend target but **never submits a QPU job**.
+All of these are zero-QPU until a circuit is explicitly promoted to a hardware
+runner.
 
 ## What is different from the affine experiment
 
@@ -31,67 +33,89 @@ For every QPE power it computes the standard Shor constant
 m_k = a^(2^k) mod N
 ```
 
-from `N` and `a`, then applies reversible multiplication by `m_k` to the full
-binary residue register.  For all six-bit basis states:
-
-```text
-y < N   -> m_k * y mod N
-y >= N  -> y
-```
-
-A validity flag explicitly protects the unused computational states.  The
-accumulator, constant register, modular wrap flag, validity flag, and HLS
-scratch qubits are returned clean.
+from `N` and `a`, then applies reversible multiplication by `m_k` to a binary
+residue register.  The intended Shor subspace is the ordinary residue basis,
+not a hand-labeled twelve-state orbit.
 
 This removes dependence on the known order from circuit construction.
 
-## Arithmetic construction
+## HLS arithmetic path
 
-The modular constant adder uses the reversible identity
-
-```text
-wrap = [x >= N-k]
-x    = x + k mod 2^n
-if wrap: x = x - N mod 2^n
-wrap ^= [x < k]
-```
-
-For valid residues the final predicate exactly equals the original wrap bit,
-so the flag is uncomputed.
-
-Controlled multiplication uses compute/swap/uncompute:
-
-```text
-acc <- m*y mod N
-swap(work, acc)
-acc <- acc - m^-1*work mod N
-```
-
-Qiskit `ModularAdderGate` and `IntegerComparatorGate` are left as high-level
-arithmetic objects until transpilation.  Dedicated clean scratch is included so
-the HLS stage can choose polynomial comparator synthesis where practical.
-
-## Width for N=35
-
-`N=35` needs a six-qubit residue register.  The first clean implementation uses:
-
-- 6 work qubits;
-- 6 accumulator qubits;
-- 6 reusable constant qubits;
-- 1 modular-wrap flag;
-- 1 valid-residue flag;
-- 5 clean HLS scratch qubits.
-
-That is 25 arithmetic qubits before the phase register.
-
-Therefore at eight phase bits:
+The first clean implementation uses a six-qubit work register, six-qubit
+accumulator, six-qubit constant register, modular-wrap flag, valid-residue flag,
+and five HLS scratch qubits.  At eight phase bits its nominal width is:
 
 - recycled: **26 simultaneous logical qubits**;
 - wide: **33 simultaneous logical qubits**.
 
-The phase-recycling saving remains seven qubits, but it is now being measured
-against a much more realistic arithmetic footprint instead of the four-qubit
-compiled orbit.
+Its semantic self-test passed exhaustively for `N=35, a=2, phase_bits=8`:
+
+- `1190` modular-add cases;
+- `1024` controlled modular-multiply cases;
+- every six-bit basis state tested for every QPE multiplier;
+- `order_used_in_circuit_construction: false`;
+- valid residues multiply modulo 35, invalid six-bit states are identity, and
+  arithmetic ancillas return clean.
+
+### IBM compiler boundary observed 14 September 2026
+
+The initial annotated-HLS route first exposed Qiskit synthesis compatibility
+problems for controlled `IntegerComparatorGate`.  An explicit compatibility
+fallback then successfully lowered one full controlled modular multiply to the
+`ibm_fez` target.
+
+That successful compiler receipt was nevertheless a decisive negative result:
+
+| Metric | Recycled | Wide |
+|---|---:|---:|
+| phase bits | 1 | 1 |
+| logical qubits | 26 | 26 |
+| compiled depth | 1,183,808 | 1,183,808 |
+| compiled size | 1,866,556 | 1,866,554 |
+| CZ gates | 428,681 | 428,681 |
+| compile time | 10.41 s | 10.04 s |
+
+The recycled/wide equality is expected at one phase bit.  The important result
+is the absolute arithmetic cost: **428,681 CZ gates for one controlled modular
+multiplication is far beyond a sensible QPU experiment.**  No QPU job was
+submitted.
+
+Therefore the HLS/QFT fallback is preserved as an auditable upper-bound / failed
+synthesis path, not as the candidate for hardware execution.
+
+## Direct reversible arithmetic pivot
+
+The next candidate is `hardware/ibm_shor_generic_arithmetic.py`.  It constructs
+the same class of Shor modular powers from `N` and `a` without using the order,
+but replaces the problematic high-level controlled arithmetic with explicit
+reversible constant-addition networks built from X/CX/CCX/MCX and a clean
+modular-reduction flag.
+
+For `N=35` it uses:
+
+- 6 work qubits;
+- 7 accumulator/sign qubits;
+- 1 modular-reduction flag;
+- plus the phase register.
+
+That gives a much smaller nominal width:
+
+- one-power recycled/wide sanity check: **15 logical qubits** each;
+- eight-bit recycled: **15 logical qubits**;
+- eight-bit wide: **22 logical qubits**.
+
+The one-power zero-QPU backend preflight is:
+
+```bash
+python hardware/ibm_shor_generic_arithmetic_one_power.py \
+  --backend ibm_fez \
+  --optimization-level 1 \
+  --kind both
+```
+
+This run is the next go/no-go test.  If native CZ/depth are still extreme, the
+next optimization should target the controlled constant adder / MCX synthesis
+itself rather than scaling to more phase bits.
 
 ## Validation ladder
 
@@ -110,64 +134,59 @@ python hardware/generic_modarith_shor.py \
   --phase-bits 8
 ```
 
-The test exhaustively checks every valid modular-add input and every full
-six-bit work-register basis state for every controlled QPE multiplier.  The
-expected report says:
+The passed report establishes that the order is not supplied to circuit
+construction and that the full six-bit HLS arithmetic semantics are correct.
 
-```text
-order_used_in_circuit_construction: false
-full_register_semantics: multiply modulo N for y<N; identity for y>=N; arithmetic ancillas clean
-```
+### 2. Direct one-power IBM compiler preflight
 
-### 2. One-power IBM compiler preflight
-
-This is still zero-QPU.  It measures the cost of one real controlled modular
-multiplier after lowering to the backend ISA:
+This is also zero-QPU:
 
 ```bash
-python hardware/ibm_shor35_generic_modarith_preflight.py \
+python hardware/ibm_shor_generic_arithmetic_one_power.py \
   --backend ibm_fez \
-  --phase-bits 1 \
-  --architecture both \
-  --optimization-level 1
+  --optimization-level 1 \
+  --kind both
 ```
 
-Start here.  Do not jump directly to an eight-bit QPU experiment.  The result
-will tell us whether the present structured arithmetic is remotely tractable or
-needs another synthesis pass first.
+Do not jump directly to an eight-bit QPU experiment.  The native resource
+receipt from this run determines whether the direct arithmetic is remotely
+tractable.
 
-### 3. Scale the compiler-only circuit
+### 3. Scale compiler-only circuits only if justified
 
-If one power is tractable, repeat with `--phase-bits 4`, then `6`, then `8`.
-Optimization level 1 is the first sizing pass; level 3 is only worth trying
-after the circuit size is known.
+If one direct arithmetic power is tractable, scale to 2/4/6/8 phase bits.
+Optimization level 1 is the first sizing pass.  Higher optimization levels are
+worth trying only after the raw synthesis boundary is known.
 
-### 4. Arithmetic optimization
+### 4. Arithmetic optimization targets
 
-Likely optimization targets are:
+Likely targets are:
 
-- eliminate the explicit six-qubit constant register with a constant-specific
-  adder;
-- compare Qiskit `ModularAdder` HLS choices;
-- reduce comparator scratch/controls;
-- exploit repeated powers for `N=35, a=2` without using the order in circuit
-  semantics;
+- controlled constant-addition synthesis;
+- MCX decomposition strategy and available clean/dirty ancillas;
+- in-place constant multiplication rather than compute/swap/uncompute;
+- eliminating dedicated constant registers;
+- modular doubling / constant-multiply specializations that are generated from
+  the supplied multiplier rather than from a known order;
 - topology-aware synthesis before physical placement;
-- compare ripple-carry and Fourier arithmetic by *native IBM CZ/depth cost*, not
-  by abstract gate count.
+- comparing ripple-carry and Fourier arithmetic by **native IBM CZ/depth cost**,
+  not abstract gate count.
+
+Any optimization may depend on `N`, `a`, and the classically precomputed Shor
+constants `a^(2^k) mod N`; it must not use the unknown multiplicative order to
+construct a reduced orbit circuit.
 
 ### 5. Circuit-level ideal verification
 
-Before hardware execution, verify the selected modular multiplier and the
-complete phase-estimation circuit in simulation.  The critical criterion is
-that the implementation recovers the same ideal finite-precision `r=12`
-distribution as the existing reference while the circuit builder itself never
-receives `r`.
+Before hardware execution, verify the selected modular multiplier and complete
+phase-estimation circuit in simulation.  The critical criterion is that it
+recovers the same ideal finite-precision `r=12` distribution as the existing
+reference while the circuit builder itself never receives `r`.
 
 ### 6. Matched physical-layout experiment
 
-Only after the arithmetic circuit is frozen should we build a calibration-aware
-placement search and submit recycled/wide in a same-job matched control, using
+Only after the arithmetic circuit is frozen should a calibration-aware placement
+search be built and recycled/wide submitted in a same-job matched control, using
 the existing strict direct-order, permissive, Hellinger, TV, and uniform-output
 analysis.
 
