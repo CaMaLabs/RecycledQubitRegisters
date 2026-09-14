@@ -81,6 +81,23 @@ python hardware/ibm_shor21_matched.py \
 
 The output reports factor recovery, Wilson intervals, total-variation distance and Hellinger fidelity to the exact finite-precision order-6 QPE distribution, plus matched wide/recycled resource counts.
 
+## Observed IBM Fez result
+
+The six-phase-bit matched run used 512 shots per architecture in one IBM job.
+
+| Metric | Wide | Recycled |
+|---|---:|---:|
+| Logical qubits | 9 | **4** |
+| Depth | 773 | **707** |
+| CZ gates | 284 | **193** |
+| Factor recovery | 25.59% | **41.80%** |
+| Hellinger fidelity to ideal | 0.5194 | **0.6611** |
+| Total-variation distance to ideal | 0.6238 | **0.4708** |
+
+The factor-recovery advantage was **+16.21 percentage points**, about **5.57 standard errors** under a simple independent-binomial approximation. Recycled also used 55.6% fewer simultaneous logical qubits and about 32% fewer CZ gates.
+
+See [`../results/hardware/SHOR21_RESULTS.md`](../results/hardware/SHOR21_RESULTS.md) and [`../results/hardware/shor21_matched_compare.csv`](../results/hardware/shor21_matched_compare.csv).
+
 ## Prior N=21 hardware work
 
 `N=21` has been factored on IBM hardware before with compiled circuits. In particular, Skosana and Tame, *Scientific Reports* 11, 16599 (2021), used `a=4`, a compressed 2-qubit work register, and three control qubits. Their paper noted that a single recycled control qubit could further reduce resources once mid-circuit measurement and real-time conditional operations were available.
