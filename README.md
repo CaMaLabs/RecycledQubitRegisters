@@ -1,6 +1,10 @@
 # RecycledQubitRegisters
 
+[![Qiskit Ecosystem](https://qisk.it/e-68e87191)](https://qisk.it/e)
+
 **Experimental Qiskit research toolkit for dynamic phase-register recycling, matched QPE/Shor hardware benchmarks, and calibration-aware qubit placement.**
+
+> **Qiskit Ecosystem member:** RecycledQubitRegisters was accepted into the [Qiskit Ecosystem](https://qisk.it/e) through [Qiskit/ecosystem#1375](https://github.com/Qiskit/ecosystem/pull/1375). Ecosystem membership recognizes project/community criteria; it is not independent validation of the research claims in this repository.
 
 RecycledQubitRegisters (QRR) asks a narrow systems question: when an algorithm allows measurement and classical feed-forward, can a quantum program reduce **simultaneous coherent width** by measuring temporary quantum state, storing the result classically, resetting the physical qubit, and reusing it later?
 
@@ -221,7 +225,7 @@ docs/
   architecture notes
   preprint draft
   novelty audit
-  Qiskit Ecosystem submission draft
+  Qiskit Ecosystem membership/submission record
 ```
 
 ## Reproducibility
@@ -242,7 +246,7 @@ Useful starting points:
 - [`results/hardware/SHOR35_MARRAKESH_CROSS_BACKEND.md`](results/hardware/SHOR35_MARRAKESH_CROSS_BACKEND.md) — unoptimized cross-backend controls
 - [`results/hardware/SHOR35_MARRAKESH_LAYOUT_OPTIMIZATION.md`](results/hardware/SHOR35_MARRAKESH_LAYOUT_OPTIMIZATION.md) — optimized Marrakesh runs
 - [`results/hardware/SHOR35_MARRAKESH_LAYOUT_AB.md`](results/hardware/SHOR35_MARRAKESH_LAYOUT_AB.md) — same-job layout control
-- [`docs/QISKIT_ECOSYSTEM_SUBMISSION.md`](docs/QISKIT_ECOSYSTEM_SUBMISSION.md) — prepared Ecosystem form text
+- [`docs/QISKIT_ECOSYSTEM_SUBMISSION.md`](docs/QISKIT_ECOSYSTEM_SUBMISSION.md) — Ecosystem membership/submission record
 
 ## Citation and license
 
