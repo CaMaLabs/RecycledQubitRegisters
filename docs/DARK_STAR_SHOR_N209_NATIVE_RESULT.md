@@ -23,7 +23,7 @@ Validation labels give order `90 -> 30`, with the Shor half-order factor witness
 
 The staged workflow begins at low phase precision, continued-fraction postprocesses each ideal QPE sample, accepts only a denominator that itself verifies by public modular exponentiation, and increases precision only if nothing verifies. The hidden order is not supplied to the stopping rule.
 
-In the 2,000-session N=209 probe:
+In the 2,000-session N=209 Monte Carlo probe:
 
 | Metric | baseline | PTP-conditioned cube |
 |---|---:|---:|
@@ -77,6 +77,33 @@ Therefore the dominant effect is **earlier order-blind adaptive stopping**, not 
 
 The per-stage transformed/base CZ ratio is near unity (`~0.95-1.00`) across 4-16 phase bits, which is consistent with the same conclusion.
 
+## Exact expected-cost result: Monte Carlo removed
+
+The follow-up exact audit analytically summed the conservative nearest-bin success probability over every order eigenphase numerator at every stage and used the exact truncated-geometric stopping distribution. It reused the existing Fez compiler receipt and used no Monte Carlo sampling.
+
+### Conditional on success by the textbook cap
+
+| Metric | baseline | PTP-conditioned cube | reduction |
+|---|---:|---:|---:|
+| mean stop precision | 12.704 bits | 9.757 bits | 23.20% |
+| mean cumulative phase-round executions | 160.286 | 93.453 | 41.70% |
+| mean native CZ executions | 4,323,714 | 2,449,131 | 43.36% |
+| mean compiled-depth executions | 8,167,194 | 4,558,139 | 44.19% |
+| mean circuit shots | 19.704 | 13.774 | 30.09% |
+
+Success probability by the 16-bit cap rises from `0.92854` to `0.98717`; equivalently, cap-failure probability drops from `0.07146` to `0.01283`, an `82.05%` reduction in this conservative ideal model.
+
+### Unconditional per attempted session
+
+| Metric | baseline | PTP-conditioned cube | reduction |
+|---|---:|---:|---:|
+| mean phase-round executions | 168.841 | 95.845 | 43.23% |
+| mean native CZ executions | 4,556,983 | 2,511,963 | 44.88% |
+| mean compiled-depth executions | 8,606,190 | 4,675,046 | 45.68% |
+| mean circuit shots | 20.296 | 13.956 | 31.24% |
+
+This removes the main sampling-noise objection to the single-instance result. The exact expectation is somewhat stronger than the earlier finite Monte Carlo estimate but agrees in direction and scale.
+
 ## Interpretation boundary
 
 This is evidence for a public classical preprocessing rule producing lower adaptive-QPE resource use on a concrete semiprime without knowing the order in advance.
@@ -90,24 +117,35 @@ It is **not**:
 
 The current modular-unitary synthesis is exact full-register reversible truth-table/permutation synthesis for small `N`.
 
-## Next gate: exact expectation, no Monte Carlo
+## Next gate: predeclared cross-semiprime replication
 
-The paired simulation uses deterministic Monte Carlo streams. Before treating the N=209 effect as a write-up-quality result, remove sampling noise entirely.
+The main remaining objection is single-instance specificity. The next audit therefore removes N=209 tuning and applies the same public rule to a fixed panel of small semiprimes.
 
 Run:
 
 ```bash
-python hardware/dark_star_shor_n209_exact_expected_cost.py
+python hardware/dark_star_shor_ptp3_exact_panel_audit.py
 ```
 
-This analytically sums the conservative nearest-bin success probability over every eigenphase numerator at each staged precision, computes the exact truncated-geometric stopping distribution, and weights it by the existing compiled CZ/depth receipt. It contacts no IBM service and submits no QPU job.
+Default panel rules are fixed before the hidden orders are evaluated:
+
+- prime factors at least 11;
+- `143 <= N <= 511`;
+- public trigger `N mod 3 == 2`;
+- fixed seed bases `2,3,5,7` when coprime to `N`;
+- same public classical-shortcut guardrail on baseline and transformed bases;
+- same staged schedule starting at 4 bits in 2-bit increments up to `2*bit_length(N)`;
+- four shots per stage;
+- exact nearest-bin-only expectation; no Monte Carlo and no IBM service.
+
+The factor labels are used to construct the synthetic semiprime panel and validate the resulting orders, but never to choose the public transform or the stopping rule. The main paired quantum statistic includes only rows where ordinary Shor factor extraction is validation-successful and neither side is already solved by the classical guardrail.
 
 Useful ending blocks:
 
 ```text
-===== EXACT N209 EXPECTED-COST SUMMARY =====
-===== EXACT N209 COST RATIO =====
+===== PTP3 EXACT PANEL SUMMARY =====
+===== PTP3 EXACT PANEL PER-N =====
 ===== OVERALL =====
 ```
 
-If the exact expectation reproduces the approximate 35-40% native-cost reduction, the next requirement is replication across a panel of distinct semiprimes rather than further tuning the N=209 instance.
+If the panel shows a consistent aggregate phase-round reduction across many distinct `N`, the next step is a predeclared representative subset for native IBM-target compilation rather than further tuning N=209.
