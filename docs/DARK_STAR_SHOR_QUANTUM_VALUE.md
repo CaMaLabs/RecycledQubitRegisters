@@ -88,25 +88,61 @@ The transformed orders also increased the conservative full-order single-shot lo
 
 The `N=209, a=3` example survives the public classical shortcut guardrail. The PTP rule `L=3 when N mod 3 = 2` transforms the base to `27`, reduces the validation order `90 -> 30`, preserves the Shor factor witness, and lowers the sufficient-precision proxy `14 -> 11` bits.
 
-## Next gate: staged public stopping time
+## Staged public stopping-time result
 
-The next experiment replaces the validation-only precision bound with an explicit public stop rule. It runs idealized staged QPE at increasing phase precision, continued-fraction postprocesses each outcome, accepts only a denominator that itself verifies under modular arithmetic, and stops at the first verified factor. The hidden order is used only to generate ideal QPE samples and score the result.
+The explicit staged-QPE audit used a public stop rule: increase phase precision only when strict continued-fraction candidates fail direct modular verification. The hidden order was used only to generate ideal QPE samples and score the result.
 
-To keep the simulation conservative, only the exact nearest QPE bin is credited; all non-nearest outcomes are discarded even though some could also recover the order. Each stage is treated as an independent rerun, and cumulative phase-round executions count all attempted precision rounds.
+For `N=209, a=3 -> 27`, the baseline stopped at `12.64` mean phase bits and the PTP-transformed run stopped at `9.73`, while mean cumulative phase-round executions fell from `157.58` to `92.83`. Across the broader paired audit, the PTP conditional policy saved `1.29` phase bits on average and reduced cumulative phase-round work by about `5.1%`.
+
+The simulation deliberately credits only the nearest QPE bin and treats every precision stage as an independent rerun, so this is conservative in several respects. It remains an ideal simulation, not a hardware timing result.
+
+## N=209 compiled native-cost result
+
+The next zero-QPU preflight compiled complete 8-bit full-residue modular-permutation circuits for both the baseline base `3` and the public transformed base `27` on the `ibm_fez` target. The construction uses only public `N`, base, and powers `a^(2^k) mod N`; factors and order are validation labels only. This remains truth-table/full-register reversible synthesis for small `N`, not scalable modular arithmetic.
+
+Over 2,000 deterministic staged sessions:
+
+| Metric | Baseline | PTP conditional |
+|---|---:|---:|
+| Success rate | 92.60% | 98.65% |
+| Mean stop precision | 12.64 bits | 9.73 bits |
+| Mean cumulative phase-round executions | 157.58 | 92.83 |
+| Mean compiled native CZ executions | 4,250,225 | 2,432,939 |
+| Mean compiled-depth executions | 8,029,348 | 4,527,823 |
+
+On the `1,827` paired sessions where both workflows succeeded, the transformed policy:
+
+- saved `2.90` phase bits on average;
+- stopped at lower precision in `78.43%` of pairs;
+- reduced cumulative phase-round execution to `0.6471x` baseline;
+- reduced compiled CZ execution to `0.6292x` baseline, a `37.08%` reduction;
+- reduced compiled-depth execution to `0.6194x` baseline, a `38.06%` reduction.
+
+This is the strongest result in the Dark-Star/PTP Shor thread so far: a public, order-independent preprocessing rule leads to earlier adaptive stopping and lower compiled native execution cost in this small-instance, idealized workflow.
+
+It is still **not** a hardware speedup measurement, a fidelity prediction, or an asymptotic factoring improvement. The QPE outcomes are idealized and the modular unitary is synthesized by a small-`N` full-register truth-table method.
+
+## Next gate: counterfactual cost ablation
+
+The current `37.08%` CZ reduction mixes two mechanisms: earlier stopping and different per-stage compiled circuit costs for base `27` versus base `3`. The next zero-QPU audit replays the same deterministic sessions in four counterfactual worlds:
+
+```text
+BB = baseline stopping + baseline circuit costs
+BT = baseline stopping + transformed circuit costs
+TB = transformed stopping + baseline circuit costs
+TT = transformed stopping + transformed circuit costs
+```
 
 Run:
 
 ```bash
-python hardware/dark_star_shor_staged_stopping_time_audit.py
+python hardware/dark_star_shor_n209_native_cost_ablation.py
 ```
 
-Useful ending blocks:
+The key block is:
 
 ```text
-===== N209 STAGED STOPPING PROBE =====
-===== STAGED STOPPING SUMMARY =====
-===== PAIRED VS BASELINE =====
-===== OVERALL =====
+===== N209 COUNTERFACTUAL NATIVE-COST ABLATION =====
 ```
 
-This is still zero-QPU. A positive result would demonstrate that public preconditioning moves the actual verified stopping point earlier in a conservative adaptive workflow, rather than merely lowering a validation-only order bound.
+`TB/BB` isolates the stopping-pattern contribution, `BT/BB` isolates the per-stage compiler-cost contribution on the baseline schedule, and `TT/BB` reproduces the combined result. This decomposition should be completed before treating the N=209 result as a separate publication claim.
