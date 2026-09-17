@@ -3,7 +3,7 @@
 
 v1 showed that post-HLS weighted interaction distance is strongly predictive of
 compiled CZ/depth, but it also produced many tied patch scores and did not beat
-Qiskit's best automatic layout.  This v2 keeps the same zero-QPU validation
+Qiskit's best automatic layout. This v2 keeps the same zero-QPU validation
 harness while replacing the mapping objective with a richer topology score:
 
   * weighted logical-pair shortest-path distance;
@@ -13,14 +13,14 @@ harness while replacing the mapping objective with a richer topology score:
 
 For the current 8-qubit recycled circuit, the exact mapper first enumerates all
 8! logical-to-physical permutations using the cheap distance objective, retains
-a broad shortlist, and only then evaluates the richer congestion score.  This
+a broad shortlist, and only then evaluates the richer congestion score. This
 keeps the predictor inexpensive compared with compiling every candidate patch.
 
 No Sampler is instantiated and no QPU job is submitted.
 """
 from __future__ import annotations
 
-import heapq
+import itertools
 import math
 from collections import defaultdict
 from pathlib import Path
@@ -30,14 +30,12 @@ import ibm_recycled_interaction_graph_mapper as base
 REV = "2026-09-17-interaction-graph-placement-v2-congestion-aware"
 OUT = Path("results/qubit_recycling/ibm_recycled_interaction_graph_mapper_v2.json")
 
-# Keep enough near-optimal distance mappings that the richer routing score can
-# choose among tied and almost-tied embeddings without enumerating congestion
-# features for every permutation.
+# Broad enough to include many tied/almost-tied distance mappings while keeping
+# the richer all-shortest-path congestion calculation cheap.
 EXACT_SHORTLIST = 512
 
-# The terms below are intentionally modest corrections to weighted distance.
-# They are fixed before the validation compile; compiled CZ/depth are not used
-# to tune a patch after the fact.
+# Fixed a priori. These are deliberately corrections to weighted distance, not
+# fitted coefficients from the validation CZ/depth outputs.
 DEGREE_WEIGHT = 0.15
 CONGESTION_WEIGHT = 0.25
 PEAK_WEIGHT = 0.10
@@ -45,7 +43,7 @@ FLEXIBILITY_WEIGHT = 0.05
 
 
 def shortest_path_catalog(cm):
-    """Return (distance matrix, all shortest paths for every physical pair)."""
+    """Return distance matrix and every shortest path for each physical pair."""
     dist = base.all_pairs_shortest(cm)
     adj = base.adjacency(cm)
     n = cm.size()
@@ -59,8 +57,6 @@ def shortest_path_catalog(cm):
                 if u == t:
                     paths.append(tuple(path))
                     return
-                # Any shortest s->t path must reduce remaining distance by one
-                # at every step.  Sorted neighbors keep the result deterministic.
                 for v in sorted(adj[u]):
                     if v in path:
                         continue
@@ -71,6 +67,7 @@ def shortest_path_catalog(cm):
             if not paths:
                 raise RuntimeError(f"no shortest path catalogued for {s}->{t}")
             catalog[(s, t)] = paths
+
     return dist, catalog
 
 
@@ -101,10 +98,10 @@ def rich_mapping_score(mapping, pair_items, dist, path_catalog, physical_degree,
         p, q = int(mapping[a]), int(mapping[b])
         key = (p, q) if p < q else (q, p)
         paths = path_catalog[key]
+
+        # More equal-length route choices reduce static routing pressure.
         share = float(w) / len(paths)
         flexibility_penalty += float(w) / len(paths)
-        # Spread demand over all equally short routing alternatives.  This is
-        # not a router simulation; it is a static pressure estimate.
         for path in paths:
             for u, v in zip(path, path[1:]):
                 edge = (u, v) if u < v else (v, u)
@@ -113,39 +110,27 @@ def rich_mapping_score(mapping, pair_items, dist, path_catalog, physical_degree,
     congestion_penalty = sum(load * load for load in edge_load.values()) / total_weight
     peak_pressure = max(edge_load.values()) if edge_load else 0.0
 
-    score = (
+    return float(
         distance_cost
         + DEGREE_WEIGHT * degree_penalty
         + CONGESTION_WEIGHT * congestion_penalty
         + PEAK_WEIGHT * peak_pressure
         + FLEXIBILITY_WEIGHT * flexibility_penalty
     )
-    return float(score)
 
 
 def exact_mapping_v2(n, pair_items, dist, path_catalog, physical_degree):
     """Exact distance enumeration followed by congestion-aware reranking."""
     logical_degree = logical_weighted_degree(n, pair_items)
 
-    # Max-heap represented with negative scores.  The tuple mapping gives a
-    # deterministic tie-breaker.  We intentionally retain many tied candidates.
-    heap = []
-    for perm in __import__("itertools").permutations(range(n)):
+    # 8! is only 40,320. Keep a deterministic broad shortlist by the cheap
+    # distance metric, then spend the richer scoring only on that shortlist.
+    distance_rows = []
+    for perm in itertools.permutations(range(n)):
         dscore = base.mapping_score(perm, pair_items, dist)
-        entry = (-float(dscore), tuple(perm))
-        if len(heap) < EXACT_SHORTLIST:
-            heapq.heappush(heap, entry)
-        else:
-            worst = -heap[0][0]
-            if dscore < worst - 1e-12:
-                heapq.heapreplace(heap, entry)
-            elif abs(dscore - worst) <= 1e-12:
-                # Prefer a deterministic lexicographically smaller mapping at
-                # the shortlist boundary.
-                if tuple(perm) < heap[0][1]:
-                    heapq.heapreplace(heap, entry)
-
-    candidates = [list(mapping) for _, mapping in heap]
+        distance_rows.append((float(dscore), tuple(perm)))
+    distance_rows.sort(key=lambda row: (row[0], row[1]))
+    candidates = [list(mapping) for _, mapping in distance_rows[:EXACT_SHORTLIST]]
     if not candidates:
         raise RuntimeError("distance shortlist is empty")
 
@@ -166,14 +151,14 @@ def exact_mapping_v2(n, pair_items, dist, path_catalog, physical_degree):
 
 
 def local_mapping_v2(n, pair_items, dist, path_catalog, physical_degree, restarts, seed):
-    """Fallback for widths above exact_limit: v1 seed + rich-score swap search."""
-    seed_map, _, _ = base.local_mapping(n, pair_items, dist, restarts, seed) + (None,) if False else (None, None, None)
-    # Call the actual v1 helper without the tuple trick above; kept explicit for
-    # readability and compatibility.
+    """Fallback above exact_limit: v1 seed followed by rich-score swap search."""
     initial, _ = base.local_mapping(n, pair_items, dist, restarts, seed)
     logical_degree = logical_weighted_degree(n, pair_items)
     cur = list(initial)
-    cur_score = rich_mapping_score(cur, pair_items, dist, path_catalog, physical_degree, logical_degree)
+    cur_score = rich_mapping_score(
+        cur, pair_items, dist, path_catalog, physical_degree, logical_degree
+    )
+
     improved = True
     while improved:
         improved = False
@@ -194,6 +179,7 @@ def local_mapping_v2(n, pair_items, dist, path_catalog, physical_degree, restart
             cur[i], cur[j] = cur[j], cur[i]
             cur_score = best_score
             improved = True
+
     return cur, float(cur_score)
 
 
@@ -215,8 +201,8 @@ def optimize_mapping_v2(cm, pair_weights, exact_limit: int, restarts: int, seed:
     return mapping, score, "swap_hill_climb_congestion_v2"
 
 
-# Patch only the predictor; retain v1's circuit construction, semantic checks,
-# patch ensemble, fixed-vs-auto validation, statistics, and zero-QPU boundary.
+# Reuse v1's validated circuit construction, HLS probe, patch ensemble,
+# fixed-vs-auto compilation controls, statistics, and zero-QPU boundary.
 base.optimize_mapping = optimize_mapping_v2
 base.REV = REV
 base.OUT = OUT
