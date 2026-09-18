@@ -37,6 +37,36 @@ The one-round probe had 2,268 CZ and depth 9,310. Thus:
 
 This indicates that repeating the Grover round does not create a new compiler blow-up in the probe construction.
 
+## Preregistered physical-patch screen
+
+The fusion workload was screened with the already-frozen rule:
+
+`minimum interaction-distance bucket ∪ minimum physical-diameter bucket`
+
+plus four deliberately sampled control patches.
+
+### Fez heavy-hex
+
+- candidate patches: 24
+- compiled patches including controls: 10
+- compile-count reduction: **58.33%**
+- minimum predictor score: 24,516
+- minimum physical diameter: 5
+- best patch: 22
+- best patch screen source: `minimum_physical_diameter`
+
+### 10x12 square-lattice topology proxy
+
+- candidate patches: 24
+- compiled patches including controls: 15
+- compile-count reduction: **37.50%**
+- minimum predictor score: 19,764
+- minimum physical diameter: 4
+- best patch: 12
+- best patch screen source: `minimum_physical_diameter`
+
+This is useful cross-workload evidence that the topology-only screen can reduce compilation effort on the 9-qubit fusion-search circuit. It is not an exhaustive-recall result for this workload because the unscreened patches were not all compiled.
+
 ## Fez heavy-hex topology
 
 Best fixed interaction layout:
@@ -91,17 +121,28 @@ The two mappings are effectively tied in CZ (fixed is only 13 CZ, ~0.054%, highe
 
 ## Comparison with one round
 
-The repeated workload remains close to linear in compiled resources. On Fez auto, six rounds use 26,391 CZ versus 6 x 4,304 = 25,824 from the one-round result, and depth 72,300 versus 6 x 12,069 = 72,414. On the square-lattice proxy auto, six rounds use 24,213 CZ versus 23,070 from 6x one-round scaling and depth 66,734 versus 64,752.
+The logical probe scales essentially linearly, but routed hardware cost has topology-dependent overhead.
 
-The square-lattice result also shows that the custom fixed mapper closes most of its one-round gap after repetition, but that observation needs independent replication before interpretation.
+Fez auto:
+
+- one-round CZ: 4,304; naive 6x = 25,824; measured = 26,391 (**+2.20%** over naive linear scaling)
+- one-round depth: 12,069; naive 6x = 72,414; measured = 72,300 (**-0.16%** versus naive linear scaling)
+
+Square-lattice proxy auto:
+
+- one-round CZ: 3,845; naive 6x = 23,070; measured = 24,213 (**+4.95%**)
+- one-round depth: 10,792; naive 6x = 64,752; measured = 66,734 (**+3.06%**)
+
+For the fixed square-lattice mapping, scaling is closer to linear: 24,226 CZ versus 23,862 from naive 6x (**+1.53%**) and 66,458 depth versus 66,546 (**-0.13%**). This suggests the repeated oracle structure may narrow the fixed-vs-auto routing gap on this proxy, but that observation needs independent replication.
 
 ## What this supports
 
 1. The idealized oracle-query opportunity for this 320-state/8-marked search is about 5.94x relative to random-without-replacement search on the valid domain.
-2. Six Grover rounds compile with roughly linear resource growth in this table-oracle construction.
-3. The current custom logical mapper does not beat Qiskit auto on Fez for this workload.
-4. On the square-lattice proxy, fixed and auto are essentially tied in CZ with a small depth advantage for fixed.
-5. The present table oracle is the main remaining methodological limitation for any end-to-end quantum-search claim.
+2. Six Grover rounds compile without a qualitative resource explosion in this table-oracle construction.
+3. The preregistered topology-only screen substantially reduces patch compilation work on this new 9-qubit workload, although exhaustive recall was not tested here.
+4. The current custom logical mapper does not beat Qiskit auto on Fez for this workload.
+5. On the square-lattice proxy, fixed and auto are essentially tied in CZ with a small depth advantage for fixed.
+6. The present table oracle is the main remaining methodological limitation for any end-to-end quantum-search claim.
 
 ## Next experiment
 
