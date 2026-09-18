@@ -2,7 +2,7 @@
 """Build and compile a reversible arithmetic oracle for the TCT reduced-order search.
 
 Unlike benchmark_tct_surrogate_search.py, this script does not phase-mark a
-precomputed list of basis states.  It coherently computes a factorized fixed-
+precomputed list of basis states. It coherently computes a factorized fixed-
 point form of the FAIR-MAST-seeded Mirnov/toroidal loss into an accumulator,
 compares the result with the frozen low-loss threshold, phase-marks valid
 parameter codes, and uncomputes the accumulator.
@@ -16,11 +16,11 @@ The factorized loss is
         + B*bias + C*false_mult
 
 The implementation uses code-controlled modular constant additions in the QFT
-basis.  It is therefore a coherent arithmetic/function oracle, not a table of
-320 full-state marks.  The three-factor event term is represented by its 64
+basis. It is therefore a coherent arithmetic/function oracle, not a table of
+320 full-state marks. The three-factor event term is represented by its 64
 small code-conditioned constants; bias and false-trigger terms add 4 and 5
-constants respectively.  The script searches for the smallest decimal scale
-whose *factorized integer arithmetic* reproduces the frozen 8-state marked set
+constants respectively. The script searches for the smallest decimal scale
+whose factorized integer arithmetic reproduces the frozen 8-state marked set
 exactly before it constructs any quantum circuit.
 
 No Sampler is instantiated and no QPU job is submitted.
@@ -35,6 +35,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from qiskit import QuantumCircuit
+from qiskit.quantum_info import Statevector
 
 ROOT = Path(__file__).resolve().parents[2]
 HARDWARE = ROOT / "hardware"
@@ -44,7 +45,7 @@ if str(HARDWARE) not in sys.path:
 import ibm_nighthawk_topology_recycling_benchmark as topo
 import ibm_recycled_interaction_graph_mapper as mapper
 
-REV = "2026-09-18-tct-reversible-arithmetic-oracle-v1"
+REV = "2026-09-18-tct-reversible-arithmetic-oracle-v1b"
 DEFAULT_OUT = ROOT / "results" / "tct_surrogate_search" / "tct_reversible_arithmetic_oracle_probe.json"
 
 
@@ -125,9 +126,9 @@ def factorized_encoding(spec: dict) -> dict:
 
 
 def choose_comparison_bits(max_score: int, threshold: int) -> int:
-    # We compare score <= threshold without a comparator ancilla by adding
+    # Compare score <= threshold without comparator ancillas by adding
     # 2^n-(threshold+1) modulo 2^n and reading the accumulator MSB.
-    # Pick n so low scores occupy the upper half and every high score wraps
+    # Pick n so all low scores occupy the upper half and all high scores wrap
     # into the lower half.
     n = ceil_log2(max_score + 1)
     while True:
@@ -138,22 +139,24 @@ def choose_comparison_bits(max_score: int, threshold: int) -> int:
 
 
 def qft_inplace(qc: QuantumCircuit, qs: list[int]) -> None:
+    """Full QFT with final swaps; qs[0] is the integer LSB."""
     n = len(qs)
-    for j in range(n):
+    for j in reversed(range(n)):
         qc.h(qs[j])
-        for k in range(j + 1, n):
-            qc.cp(math.pi / (2 ** (k - j)), qs[k], qs[j])
+        for k in reversed(range(j)):
+            qc.cp(math.pi / (2 ** (j - k)), qs[k], qs[j])
     for j in range(n // 2):
         qc.swap(qs[j], qs[n - j - 1])
 
 
 def iqft_inplace(qc: QuantumCircuit, qs: list[int]) -> None:
+    """Exact inverse of qft_inplace."""
     n = len(qs)
     for j in range(n // 2):
         qc.swap(qs[j], qs[n - j - 1])
-    for j in reversed(range(n)):
-        for k in reversed(range(j + 1, n)):
-            qc.cp(-math.pi / (2 ** (k - j)), qs[k], qs[j])
+    for j in range(n):
+        for k in range(j):
+            qc.cp(-math.pi / (2 ** (j - k)), qs[k], qs[j])
         qc.h(qs[j])
 
 
@@ -169,7 +172,6 @@ def phase_add_constant(
     value %= modulus
     for j, q in enumerate(acc):
         angle = 2.0 * math.pi * value * (1 << j) / modulus
-        # Drop exact/full-turn phases to keep the circuit smaller.
         angle = math.fmod(angle, 2.0 * math.pi)
         if abs(angle) < 1e-14:
             continue
@@ -179,12 +181,32 @@ def phase_add_constant(
             qc.p(angle, q)
 
 
-def with_pattern(
-    qc: QuantumCircuit,
-    qubits: list[int],
-    code: int,
-    fn,
-) -> None:
+def self_test_qft_constant_adder() -> None:
+    """Tiny exact statevector test of the arithmetic primitive before synthesis."""
+    for n in (1, 2, 3, 4):
+        modulus = 1 << n
+        constants = sorted({0, 1, min(3, modulus - 1), modulus - 1})
+        for x in range(modulus):
+            for c in constants:
+                qc = QuantumCircuit(n)
+                for bit in range(n):
+                    if (x >> bit) & 1:
+                        qc.x(bit)
+                qs = list(range(n))
+                qft_inplace(qc, qs)
+                phase_add_constant(qc, qs, c)
+                iqft_inplace(qc, qs)
+                sv = Statevector.from_instruction(qc)
+                expected = (x + c) % modulus
+                p = abs(complex(sv.data[expected])) ** 2
+                if p < 1.0 - 1e-9:
+                    raise AssertionError(
+                        f"QFT constant-adder self-test failed n={n} x={x} c={c} "
+                        f"expected={expected} probability={p}"
+                    )
+
+
+def with_pattern(qc: QuantumCircuit, qubits: list[int], code: int, fn) -> None:
     bits = bits_of(code, len(qubits))
     zeros = [q for q, bit in zip(qubits, bits) if bit == 0]
     for q in zeros:
@@ -287,9 +309,8 @@ def apply_score_and_offset_phases(
 
 
 def phase_mark_valid_low_score(qc: QuantumCircuit, false_reg: list[int], score_msb: int) -> None:
-    # false-trigger multiplier has five valid codes: 0..4.  Codes 5..7 are
-    # padding states and must never be marked, even if their arithmetic happens
-    # to fall below threshold.
+    # false-trigger multiplier has five valid codes: 0..4. Codes 5..7 are
+    # padding states and must never be marked.
     for code in range(5):
         with_pattern(
             qc,
@@ -310,7 +331,6 @@ def diffuser(qc: QuantumCircuit, params: list[int]) -> None:
 
 
 def build_circuit(spec: dict, enc: dict, rounds: int) -> tuple[QuantumCircuit, dict]:
-    # Source register widths are fixed by the fusion specification.
     bias_bits = int(spec["parameter_register_bits"]["standing_bias"])
     boost_bits = int(spec["parameter_register_bits"]["boost_reduction"])
     false_bits = int(spec["parameter_register_bits"]["false_trigger_cost_multiplier"])
@@ -333,6 +353,17 @@ def build_circuit(spec: dict, enc: dict, rounds: int) -> tuple[QuantumCircuit, d
     event_table, bias_table, false_table = contribution_tables(spec, enc)
     modulus = 1 << nacc
     offset = modulus - (int(enc["threshold_int"]) + 1)
+
+    # Verify the comparator-by-modular-offset identity for every valid score.
+    for row in enc["rows"]:
+        score = int(row["score"])
+        shifted = (score + offset) % modulus
+        observed = bool((shifted >> (nacc - 1)) & 1)
+        expected = score <= int(enc["threshold_int"])
+        if observed != expected:
+            raise AssertionError(
+                f"comparison-offset verification failed score={score} shifted={shifted}"
+            )
 
     qc.h(params)
     for _ in range(rounds):
@@ -382,6 +413,7 @@ def main() -> int:
         raise RuntimeError("source fusion arithmetic specification is not classification-exact")
 
     enc = factorized_encoding(spec)
+    self_test_qft_constant_adder()
     qc, circuit_meta = build_circuit(spec, enc, args.grover_rounds)
     logical = qc.num_qubits
 
@@ -389,7 +421,7 @@ def main() -> int:
     print(
         f"valid={spec['valid_candidate_count']} marked={spec['marked_count']} "
         f"factorized_scale={enc['scale']} threshold={enc['threshold_int']} "
-        f"classification_exact={enc['classification_exact']}"
+        f"classification_exact={enc['classification_exact']} qft_adder_self_test=True"
     )
     print(
         f"parameter_bits={circuit_meta['parameter_bits']} "
@@ -404,7 +436,7 @@ def main() -> int:
     )
 
     # First benchmark only the logical/HLS burden on an exact-width fully
-    # connected synthetic backend.  This deliberately avoids IBM service access
+    # connected synthetic backend. This deliberately avoids IBM service access
     # and routing so we can measure reversible-oracle overhead before spending
     # time on physical-patch searches.
     backend = topo.generic(logical, mapper.full_coupling(logical))
@@ -438,6 +470,8 @@ def main() -> int:
         "factorized_encoding": {k: v for k, v in enc.items() if k != "rows"},
         "circuit": circuit_meta,
         "grover_rounds": args.grover_rounds,
+        "qft_constant_adder_self_test": True,
+        "comparison_offset_verified": True,
         "interaction_probe": {**interaction_meta, **stats},
         "pair_weights": [
             {"i": int(i), "j": int(j), "weight": int(w)}
