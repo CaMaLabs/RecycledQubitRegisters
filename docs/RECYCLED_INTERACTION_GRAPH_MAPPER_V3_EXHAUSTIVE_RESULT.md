@@ -4,7 +4,7 @@ Date: 2026-09-17
 
 ## Result
 
-The exhaustive holdout compiled all 48 candidate patches on both topology models and confirmed that the v3 post-HLS interaction-distance predictor places the true global-best patch inside the top five predictions for both topologies.
+The exhaustive holdout compiled all 48 candidate patches on both topology models and confirmed that the v3 post-HLS interaction-distance predictor places the true global-best patch inside the minimum predictor-score bucket for both topologies.
 
 The circuit is the exact small-N N=35 recycled-QPE path at 32 phase bits with 8 source logical qubits. No QPU job was submitted.
 
@@ -22,14 +22,42 @@ Largest interaction pressures included:
 
 ## Exhaustive predictor validation
 
-| topology | compiled patches | Spearman score vs CZ | Spearman score vs depth | global-best fixed predictor rank | global-best auto predictor rank |
+| topology | compiled patches | Spearman score vs CZ | Spearman score vs depth | global-best fixed ordinal rank | global-best auto ordinal rank |
 |---|---:|---:|---:|---:|---:|
 | Fez heavy-hex | 48 / 48 | 0.9833 | 0.9496 | 4 | 4 |
 | Nighthawk square-lattice proxy | 48 / 48 | 0.9656 | 0.9096 | 5 | 5 |
 
-Thus a top-5 patch screen included the true global-best physical patch for both the custom fixed mapper and Qiskit's automatic layout in this holdout.
+Ordinal top-5 screening recovered the global-best physical patch in both cases, with zero measured CZ regret at k=5.
 
-Top-5 screening requires compiling 5 rather than 48 patches, a 43/48 = 89.58% reduction in patch-search compilation count.
+## Minimum-score bucket result
+
+The score-aware analysis resolves the ordinal tie caveat.
+
+### Fez heavy-hex
+
+- global-best fixed score: 36,340
+- global-best auto score: 36,340
+- dense score rank: 1
+- minimum-score bucket size: 6 patches
+- true global-best fixed patch in minimum bucket: yes
+- true global-best auto patch in minimum bucket: yes
+- exhaustive search: 48 patches
+- score-bucket screen: 6 patches
+- patch-search compilation reduction: 42/48 = **87.50%**
+
+### Nighthawk square-lattice proxy
+
+- global-best fixed score: 30,118
+- global-best auto score: 30,118
+- dense score rank: 1
+- minimum-score bucket size: 8 patches
+- true global-best fixed patch in minimum bucket: yes
+- true global-best auto patch in minimum bucket: yes
+- exhaustive search: 48 patches
+- score-bucket screen: 8 patches
+- patch-search compilation reduction: 40/48 = **83.33%**
+
+This gives a cleaner deterministic screening rule than ordinal top-k: compile all patches tied for the minimum weighted-distance score.
 
 ## Exact top-k recall and regret
 
@@ -53,18 +81,6 @@ Top-5 screening requires compiling 5 rather than 48 patches, a 43/48 = 89.58% re
 | 6 | yes | yes | 0.000% | 87.50% |
 | 10 | yes | yes | 0.000% | 79.17% |
 
-This establishes zero measured CZ regret at k=5 in this exhaustive holdout.
-
-## Score-tie caveat
-
-Several leading patches share the same weighted-distance predictor score. Therefore ordinal predictor rank contains an arbitrary tie-breaking component. The next analysis also reports score-bucket metrics:
-
-- dense rank by unique predictor score;
-- size of the equal-score bucket containing the global optimum;
-- number of patches whose score is no worse than the global optimum's score.
-
-This is a cleaner description of how aggressively the predictor can screen patches when several physical subgraphs are equivalent under the current distance objective.
-
 ## Fixed mapping versus Qiskit auto
 
 The in-patch custom mapping still does not uniformly dominate Qiskit auto.
@@ -81,20 +97,20 @@ Therefore the supported compiler claim is the patch predictor, not a generally s
 
 ## Supported conclusion
 
-For this N=35, 32-phase-bit, exact-width recycled-QPE holdout, minimum post-HLS weighted logical-interaction distance is a strong predictor of compiled patch quality. Exhaustive validation showed that the true global-best patch occurred within the top five ordinal predictions on both tested topology models, with zero measured CZ regret at k=5, while rank correlation between predictor score and compiled CZ remained above 0.96.
+For this N=35, 32-phase-bit, exact-width recycled-QPE holdout, minimum post-HLS weighted logical-interaction distance is a strong predictor of compiled patch quality. Exhaustive validation showed that the true global-best patch belongs to the **minimum predictor-score bucket** on both tested topology models, while Spearman correlation between predictor score and compiled CZ remained above 0.96.
 
-This supports using the predictor as a patch-screening heuristic that can substantially reduce placement-search compilation work in the tested model.
+A deterministic minimum-score-bucket screen would have reduced the patch-search compilation count by 87.5% on Fez and 83.3% on the square-lattice proxy while retaining the global-best patch in this holdout.
 
 ## Next falsification
 
-Replicate exhaustive top-k and score-bucket recall on independent patch seeds, then across the fixed-width cross-N/base matrix. Report:
+Replicate exhaustive minimum-score-bucket recall on independent patch seeds and then across the fixed-width cross-N/base matrix. Report:
 
-- global-best predictor rank;
-- dense score rank and equal-score bucket size;
-- recall@1, @3, @5, @6, @10;
-- top-k CZ/depth regret;
-- screening compile-count reduction;
-- whether the same k or score threshold remains sufficient across N/base/work-register width.
+- whether the global-best fixed patch lies in the minimum-score bucket;
+- whether the global-best auto patch lies in the minimum-score bucket;
+- minimum-score bucket size;
+- score-bucket compile reduction;
+- ordinal recall@1, @3, @5, @6, @10 and regret;
+- whether the same score rule survives changes in N/base/work-register width.
 
 Do not tune predictor weights on replication seeds.
 
