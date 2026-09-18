@@ -27,29 +27,43 @@ Largest interaction pressures included:
 | Fez heavy-hex | 48 / 48 | 0.9833 | 0.9496 | 4 | 4 |
 | Nighthawk square-lattice proxy | 48 / 48 | 0.9656 | 0.9096 | 5 | 5 |
 
-Thus a top-5 patch screen would have included the true global-best physical patch for both the custom fixed mapper and Qiskit's automatic layout in this holdout.
+Thus a top-5 patch screen included the true global-best physical patch for both the custom fixed mapper and Qiskit's automatic layout in this holdout.
 
 Top-5 screening requires compiling 5 rather than 48 patches, a 43/48 = 89.58% reduction in patch-search compilation count.
 
-## Top-1 regret
+## Exact top-k recall and regret
 
-The predictor's top-ranked patch was good but not globally optimal.
+### Fez heavy-hex
 
-### Fez
-
-- predictor top-1 fixed: 55,198 CZ, depth 118,230
-- global-best fixed: 54,495 CZ, depth 117,728
-- top-1 CZ regret: about 1.29%
-- top-1 depth regret: about 0.43%
+| k | fixed recall | auto recall | fixed CZ regret | compile reduction |
+|---:|:---:|:---:|---:|---:|
+| 1 | no | no | 1.290% | 97.92% |
+| 3 | no | no | 0.773% | 93.75% |
+| 5 | yes | yes | 0.000% | 89.58% |
+| 6 | yes | yes | 0.000% | 87.50% |
+| 10 | yes | yes | 0.000% | 79.17% |
 
 ### Nighthawk square-lattice proxy
 
-- predictor top-1 fixed: 43,066 CZ, depth 102,649
-- global-best fixed: 42,896 CZ, depth 102,022
-- top-1 CZ regret: about 0.40%
-- top-1 depth regret: about 0.61%
+| k | fixed recall | auto recall | fixed CZ regret | compile reduction |
+|---:|:---:|:---:|---:|---:|
+| 1 | no | no | 0.396% | 97.92% |
+| 3 | no | no | 0.396% | 93.75% |
+| 5 | yes | yes | 0.000% | 89.58% |
+| 6 | yes | yes | 0.000% | 87.50% |
+| 10 | yes | yes | 0.000% | 79.17% |
 
-Top-5 regret was zero for the measured primary CZ optimum on both topology models because the global-best fixed patch appeared at ranks 4 and 5.
+This establishes zero measured CZ regret at k=5 in this exhaustive holdout.
+
+## Score-tie caveat
+
+Several leading patches share the same weighted-distance predictor score. Therefore ordinal predictor rank contains an arbitrary tie-breaking component. The next analysis also reports score-bucket metrics:
+
+- dense rank by unique predictor score;
+- size of the equal-score bucket containing the global optimum;
+- number of patches whose score is no worse than the global optimum's score.
+
+This is a cleaner description of how aggressively the predictor can screen patches when several physical subgraphs are equivalent under the current distance objective.
 
 ## Fixed mapping versus Qiskit auto
 
@@ -67,21 +81,22 @@ Therefore the supported compiler claim is the patch predictor, not a generally s
 
 ## Supported conclusion
 
-For this N=35, 32-phase-bit, exact-width recycled-QPE holdout, minimum post-HLS weighted logical-interaction distance is a strong predictor of compiled patch quality. Exhaustive validation showed that the true global-best patch occurred within the top five predicted patches on both tested topology models, while the rank correlation between predictor score and compiled CZ remained above 0.96.
+For this N=35, 32-phase-bit, exact-width recycled-QPE holdout, minimum post-HLS weighted logical-interaction distance is a strong predictor of compiled patch quality. Exhaustive validation showed that the true global-best patch occurred within the top five ordinal predictions on both tested topology models, with zero measured CZ regret at k=5, while rank correlation between predictor score and compiled CZ remained above 0.96.
 
 This supports using the predictor as a patch-screening heuristic that can substantially reduce placement-search compilation work in the tested model.
 
 ## Next falsification
 
-Replicate exhaustive top-k recall on independent patch seeds and then across the fixed-width cross-N/base matrix. Report:
+Replicate exhaustive top-k and score-bucket recall on independent patch seeds, then across the fixed-width cross-N/base matrix. Report:
 
 - global-best predictor rank;
+- dense score rank and equal-score bucket size;
 - recall@1, @3, @5, @6, @10;
 - top-k CZ/depth regret;
 - screening compile-count reduction;
-- whether the same k remains sufficient across N/base/work-register width.
+- whether the same k or score threshold remains sufficient across N/base/work-register width.
 
-Do not tune predictor weights on the replication seeds.
+Do not tune predictor weights on replication seeds.
 
 ## Boundaries
 
