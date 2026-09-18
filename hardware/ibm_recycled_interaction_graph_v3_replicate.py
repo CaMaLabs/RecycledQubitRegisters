@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Run independent exhaustive v3 patch-predictor replications and aggregate recall.
 
-This runner does not modify the predictor.  It launches the already-frozen
-v3 exhaustive harness on independent patch seeds, then summarizes global-best
-predictor rank and recall@k across replications.
+This runner does not modify the predictor. It launches the already-frozen v3
+exhaustive harness on independent patch seeds, then summarizes both ordinal
+recall@k and score-bucket recall. The score-bucket metric is important because
+multiple physical patches can share the same minimum weighted-distance score.
 
 No Sampler is instantiated and no QPU job is submitted by the child harness.
 """
@@ -27,6 +28,12 @@ def analyze_one(path: Path, ks):
         score_by_patch = {
             int(r["patch_index"]): float(r["predictor_score"]) for r in ranked
         }
+        minimum_score = min(score_by_patch.values())
+        minimum_bucket = {
+            p for p, s in score_by_patch.items()
+            if abs(s - minimum_score) <= 1e-12
+        }
+
         rows = [
             r for r in data["compile_rows"]
             if r.get("success") and r.get("topology") == topology
@@ -51,18 +58,23 @@ def analyze_one(path: Path, ks):
 
         entry = {
             "candidate_patch_count": len(ranked),
+            "minimum_predictor_score": minimum_score,
+            "minimum_score_bucket_size": len(minimum_bucket),
+            "minimum_score_compile_reduction_fraction": 1.0 - len(minimum_bucket) / len(ranked),
             "best_fixed_patch": bfp,
             "best_fixed_predictor_rank": rank_by_patch[bfp],
             "best_fixed_predictor_score": bfs,
             "best_fixed_score_threshold_count": sum(
-                float(r["predictor_score"]) <= bfs for r in ranked
+                float(r["predictor_score"]) <= bfs + 1e-12 for r in ranked
             ),
+            "best_fixed_in_minimum_score_bucket": bfp in minimum_bucket,
             "best_auto_patch": bap,
             "best_auto_predictor_rank": rank_by_patch[bap],
             "best_auto_predictor_score": bas,
             "best_auto_score_threshold_count": sum(
-                float(r["predictor_score"]) <= bas for r in ranked
+                float(r["predictor_score"]) <= bas + 1e-12 for r in ranked
             ),
+            "best_auto_in_minimum_score_bucket": bap in minimum_bucket,
             "k": {},
         }
 
@@ -158,7 +170,6 @@ def main():
         args.aggregate_out.parent.mkdir(parents=True, exist_ok=True)
         args.aggregate_out.write_text(json.dumps(aggregate, indent=2) + "\n")
 
-    # Aggregate recall frequencies across independent patch seeds.
     topologies = sorted({
         topology
         for run in aggregate["runs"]
@@ -178,6 +189,18 @@ def main():
             ],
             "best_auto_predictor_ranks": [
                 r["best_auto_predictor_rank"] for r in rows
+            ],
+            "minimum_score_bucket_sizes": [
+                r["minimum_score_bucket_size"] for r in rows
+            ],
+            "minimum_score_bucket_fixed_recall_fraction": sum(
+                r["best_fixed_in_minimum_score_bucket"] for r in rows
+            ) / len(rows),
+            "minimum_score_bucket_auto_recall_fraction": sum(
+                r["best_auto_in_minimum_score_bucket"] for r in rows
+            ) / len(rows),
+            "minimum_score_bucket_compile_reduction_fractions": [
+                r["minimum_score_compile_reduction_fraction"] for r in rows
             ],
             "k": {},
         }
@@ -208,6 +231,15 @@ def main():
         print(topology)
         print("  fixed global-best ranks=" + str(obj["best_fixed_predictor_ranks"]))
         print("  auto  global-best ranks=" + str(obj["best_auto_predictor_ranks"]))
+        print(
+            "  minimum-score bucket sizes="
+            + str(obj["minimum_score_bucket_sizes"])
+        )
+        print(
+            f"  minimum-score bucket recall fixed="
+            f"{obj['minimum_score_bucket_fixed_recall_fraction']:.3f} "
+            f"auto={obj['minimum_score_bucket_auto_recall_fraction']:.3f}"
+        )
         for k, row in obj["k"].items():
             print(
                 f"  k={k}: fixed_recall={row['fixed_recall_fraction']:.3f} "
