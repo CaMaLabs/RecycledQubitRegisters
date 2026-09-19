@@ -15,6 +15,8 @@ The screen rule was frozen before observing this seed:
 
 Patch seed: `271828`.
 
+The authoritative screen-recall/regret values below are taken from `analyze_tct_routing_screen_recall.py` applied to the exhaustive JSON artifact.
+
 ## Fully connected baseline
 
 - CZ: 1,194
@@ -22,62 +24,73 @@ Patch seed: `271828`.
 - size: 8,055
 - weighted interaction edges: 21
 
-## Exhaustive global minima
+## Exhaustive global minima and frozen-screen recall
 
 ### Fez heavy-hex
+
+Deterministic screen set:
+
+`[3, 4, 6, 7, 12, 15, 22, 23]`
+
+Full screen+controls set:
+
+`[3, 4, 6, 7, 8, 11, 12, 15, 19, 21, 22, 23]`
+
+This compiles 12/24 patches, a **50.00% patch-compilation reduction**.
 
 Interaction-fixed:
 - global best patch: 6
 - predictor rank: 1
-- diameter: 6
 - CZ: 3,177
 - depth: 7,283
-- CZ / fully connected: 2.661
-- depth / fully connected: 1.219
+- deterministic result: patch 6, 3,177 / 7,283
+- deterministic regret: **0 CZ (0.000%)**, **0 depth (0.000%)**
+- full-screen regret: **0**
 
 Qiskit auto:
 - global best patch: 6
 - predictor rank: 1
-- diameter: 6
 - CZ: 3,177
 - depth: 7,229
-- CZ / fully connected: 2.661
-- depth / fully connected: 1.210
+- deterministic result: patch 6, 3,177 / 7,229
+- deterministic regret: **0 CZ (0.000%)**, **0 depth (0.000%)**
+- full-screen regret: **0**
 
-The deterministic core contains all diameter-6 patches plus the minimum-score patch, so it includes patch 6. Therefore deterministic screening has exact optimum recall and zero CZ regret for both Fez layout modes on this fresh seed.
-
-The deterministic Fez core contains patches `6, 3, 4, 7, 15, 12, 22, 23`. The frozen random-control draw for this topology/seed is `19, 11, 8, 21`, so the full screened policy would compile 12/24 patches, a 50% patch-compilation reduction, while retaining the exact global optimum in both layout modes.
+Thus the frozen deterministic screen itself has exact optimum recall for both Fez layout modes on this fresh seed.
 
 ### 10x12 square-lattice proxy
+
+Deterministic screen set:
+
+`[1, 9, 12]`
+
+Full screen+controls set:
+
+`[0, 1, 8, 9, 12, 16, 17]`
+
+This compiles 7/24 patches, a **70.83% patch-compilation reduction**.
 
 Interaction-fixed:
 - global best patch: 1
 - predictor rank: 1
-- diameter: 4
 - CZ: 2,389
 - depth: 6,133
-- CZ / fully connected: 2.001
-- depth / fully connected: 1.027
+- deterministic result: patch 1, 2,389 / 6,133
+- deterministic regret: **0 CZ (0.000%)**, **0 depth (0.000%)**
+- full-screen regret: **0**
 
 Qiskit auto:
 - global best patch: 16
 - predictor rank: 12
-- diameter: 5
 - CZ: 2,342
 - depth: 6,030
-- CZ / fully connected: 1.961
-- depth / fully connected: 1.010
+- deterministic best: patch 12, predictor rank 3, 2,351 / 6,154
+- deterministic CZ regret: `2351 - 2342 = 9`, or **0.384%**
+- deterministic depth regret: `6154 - 6030 = 124`, or **2.056%**
+- full-screen best: patch 16, 2,342 / 6,030
+- full-screen regret: **0**
 
-The deterministic core is patch 1 only, because it is both the minimum predictor-score patch and the only diameter-4 patch.
-
-For interaction-fixed placement, patch 1 is the global optimum, so deterministic screening has exact optimum recall and zero regret.
-
-For Qiskit auto, deterministic screening would use patch 1 at 2,363 CZ / 6,047 depth versus the global patch-16 optimum at 2,342 / 6,030. Deterministic-core regret is therefore:
-
-- CZ: `2363 - 2342 = 21`, or **0.897%**;
-- depth: `6047 - 6030 = 17`, or **0.282%**.
-
-The frozen random-control draw for this topology/seed is `20, 16, 4, 21`, which includes global-optimum patch 16. Therefore the full screen+controls policy would select 5/24 patches, a 79.17% patch-compilation reduction, and recover exact optimum recall and zero CZ regret for both proxy layout modes.
+The frozen random-control augmentation therefore recovers the exact proxy/Qiskit-auto optimum on this fresh seed while retaining a 70.83% patch-compilation reduction.
 
 ## Cross-seed interpretation
 
@@ -85,24 +98,24 @@ Across exhaustive seeds 118021 and 271828, the frozen deterministic screen is ex
 
 - seed 118021:
   - Fez fixed: exact;
-  - Fez auto: 0.409% CZ regret;
+  - Fez auto: 0.409% CZ regret and 0.028% depth regret;
   - proxy fixed: exact;
   - proxy auto: exact.
 - seed 271828:
   - Fez fixed: exact;
   - Fez auto: exact;
   - proxy fixed: exact;
-  - proxy auto: 0.897% CZ regret.
+  - proxy auto: 0.384% CZ regret and 2.056% depth regret.
 
-Thus the two deterministic misses are both below 1% CZ regret, but exact recall is not universal.
+Thus both deterministic misses remain below **0.5% CZ regret**, although depth regret is not uniformly tiny.
 
-With the preregistered four-random-control augmentation, the full screen+controls policy attains exact optimum recall and zero CZ regret in all 8 topology/layout cases across these two seeds. This is encouraging but remains a small sample and should not be promoted as a universal guarantee.
+With the preregistered four-random-control augmentation, the full screen+controls policy attains exact optimum recall and zero CZ regret in all **8/8** topology/layout cases across these two seeds. This is encouraging but remains a small sample and should not be promoted as a universal guarantee.
 
 ## Interpretation
 
-This fresh holdout replicates the core result without changing the screening rule: the interaction-distance/diameter screen usually identifies the globally best sampled patch and, when it misses, the observed CZ regret remains below 1% on the tested seeds.
+This fresh holdout replicates the core result without changing the screening rule: the interaction-distance/diameter screen usually identifies the globally best sampled patch and, when it misses, observed CZ regret remains small on the tested seeds.
 
-The random-control augmentation again recovers the exact optimum, but that fact should be interpreted as evidence for maintaining controls rather than as proof that four controls will always guarantee recall.
+The random-control augmentation again recovers the exact optimum, but that fact should be interpreted as evidence for retaining controls rather than as proof that four controls always guarantee recall.
 
 Do not tune the screen on seed 271828. A stronger next step is additional preregistered fresh seeds or a larger cross-seed batch using the same frozen rule.
 
