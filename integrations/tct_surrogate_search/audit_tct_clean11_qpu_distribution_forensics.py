@@ -65,11 +65,10 @@ def common_constraints(marked: set[int], nbits: int) -> dict[int, int]:
 
 
 def constraint_fraction(dist: list[float], common: dict[int, int]) -> float:
-    total = 0.0
-    for s, p in enumerate(dist):
-        if all(((s >> b) & 1) == v for b, v in common.items()):
-            total += p
-    return total
+    return sum(
+        p for s, p in enumerate(dist)
+        if all(((s >> b) & 1) == v for b, v in common.items())
+    )
 
 
 def tv(a: list[float], b: list[float]) -> float:
@@ -80,11 +79,11 @@ def js_divergence_bits(a: list[float], b: list[float]) -> float:
     # Jensen-Shannon divergence in bits. Empirical descriptor only.
     m = [(x + y) * 0.5 for x, y in zip(a, b)]
     def kl(x, y):
-        v = 0.0
+        value = 0.0
         for p, q in zip(x, y):
             if p > 0.0 and q > 0.0:
-                v += p * math.log2(p / q)
-        return v
+                value += p * math.log2(p / q)
+        return value
     return 0.5 * kl(a, m) + 0.5 * kl(b, m)
 
 
@@ -112,8 +111,8 @@ def main() -> int:
 
     path = args.result or latest_result(DEFAULT_DIR)
     hw = json.loads(path.read_text(encoding="utf-8"))
-    if hw.get("experiment") != "tct_model_derived_clean11_qpu_pilot_v2":
-        raise RuntimeError("unexpected result artifact")
+    if hw.get("experiment") != "tct_model_derived_clean11_qpu_pilot_v2_route_replay":
+        raise RuntimeError(f"unexpected result artifact experiment={hw.get('experiment')!r}")
     if not hw.get("qpu_job_submitted"):
         raise RuntimeError("artifact is not a submitted QPU result")
 
@@ -121,8 +120,8 @@ def main() -> int:
     nstates = 1 << nbits
     marked = {int(x) for x in hw["derived_marked_states"]}
     hwr = hw["hardware_results"]
-    b = hwr["uniform_baseline"]
-    c = hwr["one_round_clean11"]
+    b = hwr["uniform_matched_output_baseline"]
+    c = hwr["one_round_clean11_route_replay"]
     bd = norm_counts(b, nstates)
     cd = norm_counts(c, nstates)
     ud = [1.0 / nstates] * nstates
