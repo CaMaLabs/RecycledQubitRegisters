@@ -97,17 +97,30 @@ recycled-over-wide depth advantage. At 8 bits the depth ratio is essentially
 equal (1.0003), and at 64 bits the recycled depth advantage is smaller on the
 square proxy than on Fez.
 
-## Methodological caveat and next validation
+## Mapping strategy and interpretation
 
-Each width uses a deterministic compact connected subgraph chosen by a greedy
-best-of-all-starts search that favors high induced edge count. This is a
-reasonable best-placement proxy, but one selected subgraph can hide placement
-sensitivity.
+The deterministic compact connected subgraph is not an accidental source of
+bias: optimized physical-qubit placement is an intentional part of the
+architecture/compiler strategy. If a deployment is allowed to search the
+backend coupling graph and deliberately choose a favorable connected patch,
+then the optimized-placement numbers above are the relevant engineering result.
 
-The next topology validation should therefore repeat the strict-width
-comparison across multiple connected subgraphs / placements per width and
-report the distribution (median, interquartile range, best, worst) rather than
-only the densest selected patch. That will distinguish a robust topology effect
-from a favorable-placement effect.
+A separate placement-sensitivity experiment is still useful, but it answers a
+different question: how much performance degrades when the circuit is placed on
+other connected subgraphs instead of the deliberately optimized one. Poorer
+median performance over arbitrary or randomized placements does not invalidate
+the optimized-placement result; it measures the value of doing placement
+optimization well.
+
+Accordingly, results should be reported in two regimes:
+
+1. **Optimized mapping:** best/selected connected placement under the stated
+   mapping search, representing the intended compiler strategy.
+2. **Placement sensitivity:** distributions across multiple unique connected
+   placements, representing robustness when placement quality varies.
+
+The next validation should compare these two regimes explicitly and quantify
+the optimization gain (optimized versus median/random placement) for Fez and
+the square-lattice proxy.
 
 No QPU job was submitted.
