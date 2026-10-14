@@ -26,13 +26,13 @@ from pathlib import Path
 
 from qiskit.providers.fake_provider import GenericBackendV2
 from qiskit.transpiler import CouplingMap
-from qiskit_ibm_runtime import QiskitRuntimeService
+from qiskit_ibm_runtime.fake_provider import FakeFez
 
 import ibm_nighthawk_topology_recycling_benchmark as topo
 import ibm_qubit_recycling_width_sweep as width
 import ibm_shor35_generic_permutation_direct_transposition as direct
 
-REV = "2026-10-14-unique-placement-v3-instance-fallback-fixed"
+REV = "2026-10-14-unique-placement-v4-local-fez-fallback"
 OUT = Path(
     "results/qubit_recycling/ibm_fez_vs_nighthawk_unique_placement_robustness.json"
 )
@@ -217,28 +217,46 @@ def main() -> int:
     ):
         raise SystemExit("invalid arguments")
 
+    service = None
+    fez_source_mode = "authenticated_ibm_fez_coupling_metadata"
     try:
         service = width.ref.ibm_base.make_service()
-    except Exception as exc:
-        # The shared helper currently constrains discovery to open-plan/us-east.
-        # IBM account metadata can stop matching those filters while the explicit
-        # free instance remains usable. This benchmark is metadata/transpile-only,
-        # so retry the explicit free instance without broadening to a paid plan.
-        instance = os.getenv("IBM_QUANTUM_INSTANCE", "open-instance")
-        print(
-            f"Open-plan region filter failed ({type(exc).__name__}: {exc}). "
-            f"Retrying metadata access with explicit instance={instance!r}."
+        fez = width.ref.ibm_base.select_backend(
+            service,
+            direct.WORK_BITS + max(bits) + a.scratch_bits,
+            a.fez_backend,
         )
-        token = os.getenv("IBM_QUANTUM_API_KEY")
-        if token:
-            service = QiskitRuntimeService(token=token, instance=instance)
-        else:
-            service = QiskitRuntimeService(instance=instance)
+        fcm = topo.symmetric(topo.backend_coupling(fez), int(fez.num_qubits))
+        fez_name = str(fez.name)
+        ncm, nsrc = topo.nighthawk_map(service)
+    except Exception as exc:
+        # This experiment is topology/compiler-only. If IBM account discovery
+        # cannot resolve an instance, fall back to the locally packaged Fez
+        # snapshot rather than requiring cloud credentials or risking a paid
+        # instance. FakeFez carries a 156-qubit Fez coupling map.
+        print(
+            f"IBM metadata lookup unavailable ({type(exc).__name__}: {exc}). "
+            "Using local FakeFez topology and public Nighthawk square-lattice proxy."
+        )
+        fez = FakeFez()
+        fcm = topo.symmetric(topo.backend_coupling(fez), int(fez.num_qubits))
+        fez_name = str(fez.name)
+        fez_source_mode = "local_qiskit_runtime_fake_fez_topology_snapshot"
+        ncm = CouplingMap.from_grid(10, 12, bidirectional=True)
+        nsrc = {
+            "mode": "public_nighthawk_square_lattice_proxy_10x12",
+            "backend_name": None,
+            "proxy": True,
+            "metadata_lookup_error_type": type(exc).__name__,
+            "metadata_lookup_error": str(exc),
+            "note": (
+                "Proxy only. IBM documents 120 programmable qubits and a square "
+                "lattice with most qubits degree four; 10x12 is not asserted to be "
+                "Phoenix's exact edge map."
+            ),
+        }
 
     max_wide = direct.WORK_BITS + max(bits) + a.scratch_bits
-    fez = width.ref.ibm_base.select_backend(service, max_wide, a.fez_backend)
-    fcm = topo.symmetric(topo.backend_coupling(fez), int(fez.num_qubits))
-    ncm, nsrc = topo.nighthawk_map(service)
     if max_wide > ncm.size():
         raise SystemExit(
             f"requested wide precision needs {max_wide} qubits, "
@@ -252,7 +270,8 @@ def main() -> int:
 
     print("ZERO-QPU UNIQUE-PLACEMENT BENCHMARK: no Sampler or QPU job is used.")
     print(
-        f"Fez={fez.name} Nighthawk_source={nsrc['mode']} normalized_basis={BASIS}"
+        f"Fez={fez_name} Fez_source={fez_source_mode} "
+        f"Nighthawk_source={nsrc['mode']} normalized_basis={BASIS}"
     )
     print(
         f"phase_bits={bits} target_unique_placements={a.placements} "
@@ -284,8 +303,8 @@ def main() -> int:
         "common_basis": BASIS,
         "full_topologies": {
             "fez_heavy_hex_topology": {
-                "source": "authenticated_ibm_fez_coupling_metadata",
-                "backend_name": str(fez.name),
+                "source": fez_source_mode,
+                "backend_name": fez_name,
                 **topo.topo_stats(fcm),
             },
             "nighthawk_square_lattice_topology": {
