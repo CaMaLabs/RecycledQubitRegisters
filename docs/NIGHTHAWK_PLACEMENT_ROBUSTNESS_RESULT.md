@@ -80,6 +80,20 @@ The topology study does not change the width conclusion:
 
 At 64 bits, recycling still removes 63 of 71 qubits, an 88.73% width reduction.
 
+## Relationship to optimized mapping
+
+This placement-distribution study is complementary to, not a replacement for,
+the optimized strict-subgraph benchmark. The project intentionally searches for
+good physical-qubit placements. Therefore a favorable result obtained under an
+explicit optimized-mapping strategy is not a placement artifact; it is the
+performance of the intended mapper/compiler policy.
+
+The purpose of this distribution is to quantify sensitivity to placement
+quality. If randomized or otherwise non-optimized placements perform worse, the
+correct interpretation is that mapping quality matters and should be treated as
+part of the algorithm/compiler stack. The optimized-placement result and the
+placement-sensitivity distribution should both be retained.
+
 ## Important methodological caveat
 
 The placement generator can map multiple different placement seeds to the same
