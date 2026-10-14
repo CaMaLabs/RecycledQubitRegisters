@@ -30,7 +30,7 @@ import ibm_nighthawk_topology_recycling_benchmark as topo
 import ibm_qubit_recycling_width_sweep as width
 import ibm_shor35_generic_permutation_direct_transposition as direct
 
-REV = "2026-10-07-unique-placement-v1"
+REV = "2026-10-14-unique-placement-v2-instance-fallback"
 OUT = Path(
     "results/qubit_recycling/ibm_fez_vs_nighthawk_unique_placement_robustness.json"
 )
