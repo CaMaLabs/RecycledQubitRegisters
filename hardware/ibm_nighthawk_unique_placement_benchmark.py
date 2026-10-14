@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import random
 import statistics
 from datetime import datetime, timezone
@@ -25,12 +26,13 @@ from pathlib import Path
 
 from qiskit.providers.fake_provider import GenericBackendV2
 from qiskit.transpiler import CouplingMap
+from qiskit_ibm_runtime import QiskitRuntimeService
 
 import ibm_nighthawk_topology_recycling_benchmark as topo
 import ibm_qubit_recycling_width_sweep as width
 import ibm_shor35_generic_permutation_direct_transposition as direct
 
-REV = "2026-10-14-unique-placement-v2-instance-fallback"
+REV = "2026-10-14-unique-placement-v3-instance-fallback-fixed"
 OUT = Path(
     "results/qubit_recycling/ibm_fez_vs_nighthawk_unique_placement_robustness.json"
 )
@@ -215,7 +217,24 @@ def main() -> int:
     ):
         raise SystemExit("invalid arguments")
 
-    service = width.ref.ibm_base.make_service()
+    try:
+        service = width.ref.ibm_base.make_service()
+    except Exception as exc:
+        # The shared helper currently constrains discovery to open-plan/us-east.
+        # IBM account metadata can stop matching those filters while the explicit
+        # free instance remains usable. This benchmark is metadata/transpile-only,
+        # so retry the explicit free instance without broadening to a paid plan.
+        instance = os.getenv("IBM_QUANTUM_INSTANCE", "open-instance")
+        print(
+            f"Open-plan region filter failed ({type(exc).__name__}: {exc}). "
+            f"Retrying metadata access with explicit instance={instance!r}."
+        )
+        token = os.getenv("IBM_QUANTUM_API_KEY")
+        if token:
+            service = QiskitRuntimeService(token=token, instance=instance)
+        else:
+            service = QiskitRuntimeService(instance=instance)
+
     max_wide = direct.WORK_BITS + max(bits) + a.scratch_bits
     fez = width.ref.ibm_base.select_backend(service, max_wide, a.fez_backend)
     fcm = topo.symmetric(topo.backend_coupling(fez), int(fez.num_qubits))
