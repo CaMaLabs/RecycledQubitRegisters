@@ -1,0 +1,112 @@
+name: Preserve all-bin ideal-QPE preregistered outcome receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-full-qpe-outcome-receipts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-preserve-full-qpe-outcome-locked-v1
+  cancel-in-progress: false
+
+jobs:
+  verify-original-and-preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch original completed successful all-bin outcome artifacts
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38669467890
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-full-qpe-*
+          merge-multiple: true
+          path: _receipts
+      - name: Validate complete untouched selected 12 public Ns and exact model metadata
+        run: |
+          set -eu
+          mkdir -p results/dark_star_ptp
+          find _receipts -type f -name 'dark_star_full_qpe_*.json' -exec cp -t results/dark_star_ptp/ '{}' +
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          files=sorted(Path('results/dark_star_ptp').glob('dark_star_full_qpe_*.json'))
+          expected={('replication','trigger'),('replication','control'),
+                    ('locked_holdout','trigger'),('locked_holdout','control')}
+          assert len(files)==4,[str(f) for f in files]
+          seen={}
+          Ns=set()
+          classical=0
+          unresolved=0
+          comparable=0
+          for f in files:
+              d=json.loads(f.read_text())
+              pair=(d['cohort'],d['group'])
+              assert pair in expected and pair not in seen,pair
+              seen[pair]=d
+              assert d['zero_QPU'] and d['qpu_jobs_submitted']==0
+              assert d['selftests']['passed'] and d['all_selected_included']
+              assert len(d['rows'])==3
+              assert d['summary']['selected']==3
+              assert d['summary']['classically_B7_factored']+d['summary']['classically_unresolved']==3
+              assert len(d['selected_public_N'])==3
+              classical+=d['summary']['classically_B7_factored']
+              unresolved+=d['summary']['classically_unresolved']
+              comparable+=d['summary']['full']['both_factor_success_positive']
+              assert d['logical_width']['wide_peak']==53
+              assert d['logical_width']['recycled_peak']==34
+              for r in d['rows']:
+                  n,a=r['N'],r['base']
+                  assert 512<=n<=1023 and math.gcd(n,a)==1
+                  assert n not in Ns,('duplicate',n)
+                  Ns.add(n)
+                  assert (n%3!=1 if pair[1]=='trigger' else n%3==1)
+                  assert r['transformed_base']==pow(a,3,n)
+                  assert r['odd_power_order_identity_verified']
+                  assert r['validation_cube_order']==r['validation_plain_order']//math.gcd(r['validation_plain_order'],3)
+                  if r['public_classical']['found']:
+                      assert not r['modeled_ideal_quantum'] and r['bases']=={}
+                  else:
+                      assert r['modeled_ideal_quantum'] and set(r['bases'])=={'plain','cube'}
+                      for base in r['bases'].values():
+                          assert len(base['stages'])==9
+                          for stage in base['stages']:
+                              assert stage['all_outcomes_evaluated']
+                              assert stage['outcome_count']==(1<<stage['phase_bits'])
+                              assert abs(stage['probability_sum_before_clip']-1)<1e-9
+                              assert stage['factor_producing_probability']+2e-8>=stage['nearest_bin_only_factor_probability']
+                              assert stage['minimum_probability_before_clip']>=-1e-11
+                          assert base['modes']['full']['success_probability_by_cap']+2e-8>=base['modes']['nearest']['success_probability_by_cap']
+              for mode in ('full','nearest'):
+                  comp=d['summary'][mode]
+                  assert comp['eligible_unresolved']==d['summary']['classically_unresolved']
+                  assert comp['improved']+comp['tied']+comp['worsened']==comp['both_factor_success_positive']
+              print('VERIFIED',pair,
+                    'classical',d['summary']['classically_B7_factored'],
+                    'unresolved',d['summary']['classically_unresolved'],
+                    'both_full',d['summary']['full']['both_factor_success_positive'])
+          assert set(seen)==expected
+          assert len(Ns)==12
+          assert classical+unresolved==12
+          print('VERIFIED exact all-Q-bin distribution receipts, selected=',len(Ns),
+                'classically_factored=',classical,'remaining=',unresolved,
+                'comparable=',comparable,'zero QPU')
+          PY
+      - name: Commit original identical verified JSON receipts
+        run: |
+          set -eu
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/dark_star_ptp/dark_star_full_qpe_*.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve exact 12-case exhaustive QPE bin holdout including classical negatives"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
