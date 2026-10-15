@@ -342,6 +342,7 @@ def main():
         return
 
     print(f"Submitting recycled + wide together: 2 circuits x {args.shots} shots...")
+    base.assert_open_plan_submission(service, backend)
     sampler = SamplerV2(mode=backend, options={"max_execution_time": args.max_execution_time})
     job = sampler.run(compiled, shots=args.shots)
     print("Job ID:", job.job_id())
