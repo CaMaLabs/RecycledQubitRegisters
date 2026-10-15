@@ -1,0 +1,80 @@
+name: QRR n22 independent full-tail implementation audit receipts (zero QPU)
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n22-full-tail-independent-audit-preserve.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n22-full-tail-independent-audit-receipts
+  cancel-in-progress: false
+
+jobs:
+  preserve-independent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 38697019918
+          github-token: ${{ github.token }}
+          pattern: n22-tail-*
+          path: independent-artifacts
+      - name: Compare original and independent implementations on same SHA-frozen N
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,math,hashlib
+          root=pathlib.Path('results/dark_star_ptp')
+          manifest=json.loads((root/'dark_star_n22_full_tail_public_manifest.json').read_text())
+          sha=manifest['selected_sha256']
+          assert sha==hashlib.sha256(json.dumps(manifest['selected_public_rows'],sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          both=[]
+          for group in ('trigger','control'):
+            original=json.loads((root/f'dark_star_n22_full_tail_{group}.json').read_text())
+            path=pathlib.Path(f'independent-artifacts/n22-tail-{group}/n22_tail_{group}.json')
+            independent=json.loads(path.read_text())
+            assert original['public_manifest_sha256']==independent['public_manifest_sha256']==sha
+            assert independent['complete'] and independent['zero_qpu'] and independent['qpu_jobs_submitted']==0
+            assert [r['N'] for r in original['rows']]==[r['N'] for r in independent['rows']]
+            for r,s in zip(original['rows'],independent['rows']):
+              assert r['base']==s['base'] and r['validation_only']['plain_order']==s['validation_only']['baseline_order']
+              assert r['validation_only']['cube_order']==s['validation_only']['cube_order']
+              assert s['classical_after_B31']['factored']
+              for left,right in [('plain','plain'),('cube','cube')]:
+                assert r[left]['public_factor_producing_denominator_count']==s['public_CF_denominator_certificates'][right]['valid_denominators']
+                aa=r[left]['factor_probability_by_cap_interval']
+                bb=s[right]['success_probability_interval']
+                assert abs(aa[0]-bb[0])<0.05 and abs(aa[1]-bb[1])<0.05,(group,r['N'],left,aa,bb)
+              print(group,r['N'],'original classification',r['comparison']['classification'] if 'comparison' in r else r.get('cube_vs_plain'),'independent',s['cube_vs_plain'],flush=True)
+              both.append(s)
+            dst=root/f'dark_star_n22_full_tail_independent_{group}.json'
+            dst.write_bytes(path.read_bytes())
+          assert len(both)==4
+          print('Two independent full-tail implementations and all four fixed Ns cross-checked; no QPU.')
+          PY
+      - name: Non-conflicting original artifacts, safe fast-forward only
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n22_full_tail_independent_*.json
+          git commit -m "audit: retain independent n22 full-outcome-tail implementation receipts"
+          for attempt in 1 2 3 4 5 6; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 2
+          done
+          exit 1
