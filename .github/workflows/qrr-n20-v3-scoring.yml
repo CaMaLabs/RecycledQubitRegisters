@@ -1,0 +1,98 @@
+name: QRR n20 v3 frozen public-policy holdout (zero QPU)
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n20-v3-scoring.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n20-public-policy-v3-scoring
+  cancel-in-progress: false
+
+jobs:
+  score:
+    name: v3 ell=${{ matrix.ell }} group=${{ matrix.group }} sampled nearest-bin
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        ell: [3,5,7]
+        group: [trigger,control]
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      IBM_QUANTUM_API_KEY: ""
+      QISKIT_IBM_TOKEN: ""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fail closed if runtime/QPU dependencies appear
+        run: |
+          if grep -nE '^[[:space:]]*(from|import)[[:space:]].*(qiskit_ibm_runtime|ibm_runtime_guard)|SamplerV2|EstimatorV2|QiskitRuntimeService' hardware/dark_star_n20_public_survivor_v3.py hardware/analyze_dark_star_n20_public_survivor_v3.py; then
+            echo 'QPU client reference: forbidden by zero-QPU policy'
+            exit 1
+          fi
+      - name: Score precommitted public manifest shard; no rescoring selection
+        run: |
+          python3 hardware/dark_star_n20_public_survivor_v3.py --self-test
+          python3 -u hardware/dark_star_n20_public_survivor_v3.py \
+            --ell ${{ matrix.ell }} --group ${{ matrix.group }} \
+            --out ell${{ matrix.ell }}_${{ matrix.group }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ell${{ matrix.ell }}_${{ matrix.group }}
+          path: ell${{ matrix.ell }}_${{ matrix.group }}.json
+          retention-days: 45
+          if-no-files-found: error
+
+  verify-and-preserve:
+    name: Verify all 72 survivors, preserve frozen six-panel receipts
+    needs: [score]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ell*
+          path: n20-v3-shards
+      - name: Validate six-panel manifest fidelity and preregistered gates
+        run: |
+          python3 hardware/analyze_dark_star_n20_public_survivor_v3.py --input-dir n20-v3-shards
+          mkdir -p results/dark_star_ptp
+          for ell in 3 5 7; do
+            for group in trigger control; do
+              cp "n20-v3-shards/ell${ell}_${group}/ell${ell}_${group}.json" "results/dark_star_ptp/dark_star_n20_v3_ell${ell}_${group}.json"
+            done
+          done
+      - name: Safely retain results despite concurrent main mutations
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n20_v3_*.json
+          git commit -m "results: preserve frozen six-panel n20 sampled ideal-QPE public selector holdout"
+          for attempt in 1 2 3 4 5 6; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Result receipts preserved without force'
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
