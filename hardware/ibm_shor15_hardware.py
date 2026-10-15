@@ -28,6 +28,8 @@ from datetime import datetime, timezone
 from fractions import Fraction
 from pathlib import Path
 
+from ibm_runtime_guard import assert_open_plan_submission
+
 try:
     from qiskit import ClassicalRegister, QuantumCircuit, QuantumRegister
     from qiskit.circuit.library import QFTGate
@@ -354,6 +356,7 @@ def main():
         print("Saved:", path.resolve())
         return 0
 
+    assert_open_plan_submission(service, backend)
     sampler = SamplerV2(mode=backend, options={"max_execution_time": args.max_execution_time})
     print(f"Submitting {len(compiled)} circuit(s) x {args.shots} shots...")
     job = sampler.run(compiled, shots=args.shots)
