@@ -315,16 +315,18 @@ def summarize(rows):
 
 def selftests():
     # Public CF verifier recovers a nontrivial factor of 15 from a true order-4
-    # denominator 4 but not from denominator 8 (x == 1).
+    # denominator 4 (y/2^m=1/4) but not denominator 8 (x == 1).
     n,base=15,2
-    assert explicit_cf_proper_factor(n,base,1,2,{}) is False
-    assert explicit_cf_proper_factor(n,base,1,4,{}) is True
+    assert explicit_cf_proper_factor(n,base,1,2,{}) is True
+    assert explicit_cf_proper_factor(n,base,2,4,{}) is False
     assert math.gcd(2,n)==1
     assert pollard_p1(15)["pow_count"]==len(dsbase.sieve_primes(31))
-    assert public_selector(22,3,3)==pow(3,3,22) or True
+    assert public_selector(22,3,3)==pow(3,3,22)
     for ell in ELLS:
         for n0 in (137*1009,107*1901):
-            if n0%ell: assert (public_selector(n0,2,ell)==2 if n0%ell==1 else True)
+            if n0%ell:
+                expected=2 if n0%ell==1 else pow(2,ell,n0)
+                assert public_selector(n0,2,ell)==expected
     return dict(selftest=True,public_CF_GCD_checks=True,public_selector_no_order_oracle=True,
                 classical_B31_fixed=True)
 
