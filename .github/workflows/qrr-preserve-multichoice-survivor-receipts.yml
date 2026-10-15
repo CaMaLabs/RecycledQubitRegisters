@@ -1,0 +1,105 @@
+name: Preserve preregistered 40 public multichoice survivor receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-multichoice-survivor-receipts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-public-multichoice-locked-receipts
+  cancel-in-progress: false
+
+jobs:
+  preserve-verified-original:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Retrieve unchanged JSON artifacts from preregistered successful source run
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38667303027
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: public-multichoice-*
+          merge-multiple: true
+          path: _receipts
+      - name: Verify original 40 selected and full 200 screened public receipts
+        run: |
+          set -eu
+          mkdir -p results/dark_star_ptp
+          find _receipts -type f -name 'dark_star_public_multichoice_*.json' -exec cp -t results/dark_star_ptp/ '{}' +
+          python3 - <<'PY'
+          import json,math,hashlib
+          from pathlib import Path
+          paths=sorted(Path('results/dark_star_ptp').glob('dark_star_public_multichoice_*.json'))
+          expected={
+              ('replication','trigger'),
+              ('replication','control'),
+              ('holdout','trigger'),
+              ('holdout','control'),
+          }
+          assert len(paths)==4,[str(p) for p in paths]
+          seen={}
+          total_scan=0
+          allkeys=set()
+          for path in paths:
+              o=json.loads(path.read_text())
+              key=(o['cohort'],o['group'])
+              assert key in expected and key not in seen,key
+              seen[key]=o
+              assert o['zero_QPU'] and o['qpu_jobs_submitted']==0
+              assert len(o['rows'])==10
+              assert len(o['classical_screened'])<=1500
+              assert sum(not s['public_classical_found'] for s in o['classical_screened'])==10
+              assert o['summary']['selected_survivors']==10
+              assert o['summary']['screened_public_candidates']==len(o['classical_screened'])
+              assert len({r['N'] for r in o['rows']})==10
+              total_scan+=len(o['classical_screened'])
+              for r in o['rows']:
+                  n,a=r['N'],r['base']
+                  assert 131072<=n<=262143 and math.gcd(n,a)==1
+                  assert (n%3!=1 if key[1]=='trigger' else n%3==1)
+                  assert r['true_order_identity_verified']
+                  assert n not in allkeys,('duplicate selected modulus across strata/cohorts',n)
+                  allkeys.add(n)
+                  assert r['choice_exponents']['plain']==0
+                  assert r['choice_exponents']['always3']==3
+                  assert r['choice_exponents']['ladder']==next((e for e in (3,5,7) if n%e not in (0,1)),0)
+                  low={int(k):v for k,v in r['cheap4_CCX_proxy_by_exponent'].items()}
+                  assert r['choice_exponents']['cheap4']==min((0,3,5,7),key=lambda e:(low[e],(0,3,5,7).index(e)))
+                  salt=o['random_salt']
+                  raw='|'.join(map(str,(salt,key[0],key[1],n)))
+                  ri=int.from_bytes(hashlib.sha256(raw.encode()).digest(),'big')%4
+                  assert r['choice_exponents']['random4']==(0,3,5,7)[ri]
+                  assert set(r['policies'])==set(o['policies'])
+                  for name,v in r['policies'].items():
+                      assert v['selected_base']==r['public_candidate_bases'][str(v['exponent'])]
+                      assert 0<=v['model_success_probability']<=1
+                      assert v['expected_ccx_attempted']>=0
+                      assert (v['expected_ccx_per_success'] is None)==(v['model_success_probability']==0)
+              for result in o['summary']['comparisons'].values():
+                  assert result['both_success']+result['either_zero_success']==10
+                  assert result['improved']+result['tied']+result['worsened']==result['both_success']
+              print('VALID',key,'screened',len(o['classical_screened']),'selected',len(o['rows']),
+                    'B47',o['summary']['B47_classically_factorable_among_selected'])
+          assert set(seen)==expected
+          assert len(allkeys)==40
+          print('PRESERVED ALL 40 public-B31 surviving samples from',total_scan,
+                'publicly scanned semiprimes, no QPU, source run=38667303027')
+          PY
+      - name: Save full verified JSON research receipts in Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/dark_star_ptp/dark_star_public_multichoice_*.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve 40 blinded public classical-survivor multichoice research receipts"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
