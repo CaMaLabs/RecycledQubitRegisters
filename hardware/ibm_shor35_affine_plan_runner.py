@@ -140,6 +140,7 @@ def main():
         return
 
     print(f"Submitting optimized recycled + wide together: 2 circuits x {args.shots} shots...")
+    ref.ibm_base.assert_open_plan_submission(service, backend)
     sampler = SamplerV2(mode=backend, options={"max_execution_time": args.max_execution_time})
     job = sampler.run([cr, cw], shots=args.shots)
     print("Job ID:", job.job_id())
