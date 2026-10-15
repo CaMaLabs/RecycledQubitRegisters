@@ -1,0 +1,59 @@
+name: QRR v2 result receipts recovery (zero QPU)
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-public-policy-v2-receipts.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-v2-receipts-recovery
+  cancel-in-progress: false
+
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 38669629155
+          github-token: ${{ github.token }}
+          pattern: ell*
+          path: v2-shards
+      - name: Validate independent complete 144-row result and manifest
+        run: python3 hardware/analyze_dark_star_public_policy_classical_v2.py --shard-dir v2-shards
+      - name: Non-destructive commit with pull/rebase retries on moving main
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_public_policy_classical_v2.json
+          if git diff --cached --quiet; then
+            echo 'Identical result already present; nothing to do.'
+            exit 0
+          fi
+          git commit -m "results: preserve independent 144-row public-policy classical v2 receipts"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin "HEAD:main"; then
+              echo "Pushed reproducible holdout results without force."
+              exit 0
+            fi
+            echo "Concurrent main update; retry $attempt"
+            sleep 2
+          done
+          echo "Unable to fast-forward main safely."
+          exit 1
