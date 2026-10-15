@@ -33,7 +33,7 @@ For unresolved cases, nearest-bin-only ideal eigenphase probabilities are genera
 | 7 | 19 | 14 | **7** |
 | **All** | **43/60** | **42/60** | **35/120** |
 
-**85/120 = 70.83% were already factored classically**, before any quantum arithmetic. Among classical wins, the bounded stage-one Pollard p−1 B31 dominates; across all six groups, power-of-two/GCD found 9 and Pollard B31 found 76 as the first reported proper factor (GCD coprime-base selection produced 0 first-factor finds). The residual comparison cohort is *small* and highly selected by this public preprocessing; no practical cost advantage follows from a simulator ratio.
+**85/120 = 70.83% were already factored classically**, before any quantum arithmetic. Among classical wins, the bounded stage-one Pollard p−1 B31 dominates; across all six groups, power-of-two/GCD found 10 and Pollard B31 found 75 as the first reported proper factor (GCD coprime-base selection produced 0 first-factor finds). The residual comparison cohort is *small* and highly selected by this public preprocessing; no practical cost advantage follows from a simulator ratio.
 
 ## PRIMARY TRIGGER comparisons — strict factor-producing expected cost per successful session
 
