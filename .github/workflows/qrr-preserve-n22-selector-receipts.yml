@@ -1,0 +1,121 @@
+name: Preserve verified N22 public selector vs cube original receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n22-selector-receipts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-preserve-n22-original-receipts
+  cancel-in-progress: false
+
+jobs:
+  independent-audit-and-preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download results from original verified frozen-manifest-scoring run only
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38694538017
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n22-*-*
+          merge-multiple: true
+          path: _receipts
+      - name: Independently validate all four original N22 receipts, both seeds and classical success
+        run: |
+          set -eu
+          mkdir -p results/dark_star_ptp
+          find _receipts -type f -name 'dark_star_n22_*.json' -exec cp -t results/dark_star_ptp/ '{}' +
+          python3 - <<'PY'
+          from pathlib import Path
+          from collections import Counter
+          import json,math,hashlib
+          base=Path('results/dark_star_ptp')
+          files=sorted(base.glob('dark_star_n22_*_seed_*.json'))
+          assert len(files)==4,[str(f) for f in files]
+          manifest=json.loads((base/'dark_star_n22_public_manifest.json').read_text())
+          canonical=json.dumps(manifest['selected_public_rows'],sort_keys=True,separators=(',',':'))
+          sha=hashlib.sha256(canonical.encode()).hexdigest()
+          assert sha==manifest['selected_manifest_sha256']
+          assert manifest['zero_qpu'] and manifest['qpu_jobs_submitted']==0
+          all_data={}
+          for path in files:
+              d=json.loads(path.read_text())
+              key=d['group'],d['seed']
+              assert key in {('trigger','A'),('trigger','B'),('control','A'),('control','B')}
+              assert key not in all_data
+              all_data[key]=d
+              assert d['complete'] and d['zero_qpu'] and d['qpu_jobs_submitted']==0
+              assert d['manifest_sha256']==sha and d['samples_per_stage']==8192
+              assert len(d['rows'])==6 and len({r['N'] for r in d['rows']})==6
+              assert d['selftests']['passes']
+              assert d['summary']['selected']==6
+              assert d['summary']['classical_additional_factored']==6
+              assert d['logical_width']=={'arithmetic_workspace':69,'wide_peak':113,'recycled_peak':70}
+              expected=[r['N'] for r in manifest['selected_public_rows'] if r['group']==key[0]]
+              assert [r['N'] for r in d['rows']]==expected
+              for r in d['rows']:
+                  n,a=r['N'],r['base']
+                  assert 1<<21<=n<1<<22
+                  assert math.gcd(n,a)==1
+                  assert n%3==(2 if key[0]=='trigger' else 1)
+                  assert r['public_policy_exponents']['ladder']==next(
+                      (e for e in (3,5,7) if n%e not in (0,1)),0)
+                  assert r['additional_classical']['classically_factored']
+                  assert n%r['additional_classical']['factor']==0
+                  assert r['validation_only']['known_order_identity_ok']
+                  assert r['validation_only']['half_order_witness_preservation_ok']
+                  for pol in ('plain','always3','ladder'):
+                      x=r['policies'][pol]
+                      assert 0<=x['success_probability_by_cap']<=1
+                      assert x['expected_ccx_per_attempt']>=0
+                      assert len(x['stages'])==21
+                      assert x['stages'][-1]['m']==44
+                  if key[0]=='trigger':
+                      assert r['policies']['ladder']==r['policies']['always3']
+              for c in d['summary']['comparisons'].values():
+                  assert c['both_success']+c['either_zero_success']==6
+                  assert c['improved']+c['tied']+c['worsened']==c['both_success']
+              print('VERIFIED',key,'selected 6, classical 6, cost ratio',
+                    d['summary']['comparisons']['ladder_vs_always3']['ratio_sum_ccx_per_success'])
+          assert set(all_data)=={('trigger','A'),('trigger','B'),('control','A'),('control','B')}
+          for group in ('trigger','control'):
+              a,b=(all_data[(group,s)] for s in ('A','B'))
+              assert [(r['N'],r['base'],r['public_policy_exponents']) for r in a['rows']]==[
+                   (r['N'],r['base'],r['public_policy_exponents']) for r in b['rows']]
+              # Numerical seed change cannot silently alter the public case list or classical procedure.
+              assert [r['additional_classical']['factor'] for r in a['rows']]==[
+                   r['additional_classical']['factor'] for r in b['rows']]
+              cmpa=a['summary']['comparisons']['ladder_vs_always3']
+              cmpb=b['summary']['comparisons']['ladder_vs_always3']
+              assert cmpa['coverage_method']==cmpb['coverage_method']==6
+              assert cmpa['coverage_reference']==cmpb['coverage_reference']==6
+              print('INDEPENDENT SEED CHECK',group,
+                   'seedA',cmpa['ratio_sum_ccx_per_success'],
+                   'seedB',cmpb['ratio_sum_ccx_per_success'],
+                   'wins/ties/worsen A',cmpa['improved'],cmpa['tied'],cmpa['worsened'],
+                   'B',cmpb['improved'],cmpb['tied'],cmpb['worsened'])
+          print('Verified 12 distinct N22 original selected semiprimes and 4 full receipts. NO QPU.')
+          PY
+      - name: Commit four complete immutable original research JSON receipts
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n22_control_seed_A.json
+          git add results/dark_star_ptp/dark_star_n22_control_seed_B.json
+          git add results/dark_star_ptp/dark_star_n22_trigger_seed_A.json
+          git add results/dark_star_ptp/dark_star_n22_trigger_seed_B.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve original frozen 22bit ladder-vs-cube receipts, two independent seeds"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
