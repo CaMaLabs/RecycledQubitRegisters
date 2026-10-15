@@ -74,9 +74,9 @@ jobs:
                           assert stage['factor_producing_probability']+2e-8>=stage['nearest_bin_only_factor_probability']
                           assert stage['outcome_count']==(1<<stage['phase_bits'])
                       for mode in ('full','nearest'):
-                          x=base['modes'][mode]
-                          assert 0<=x['success_probability_by_cap']<=1
-                          assert (x['expected_CCX_per_factor_success_with_restarts'] is None)==(x['success_probability_by_cap']==0)
+                          metrics=base['modes'][mode]
+                          assert 0<=metrics['success_probability_by_cap']<=1
+                          assert (metrics['expected_CCX_per_factor_success_with_restarts'] is None)==(metrics['success_probability_by_cap']==0)
                       assert base['modes']['full']['success_probability_by_cap']+2e-8>=base['modes']['nearest']['success_probability_by_cap']
               else:
                   assert not r['modeled_ideal_quantum'] and r['bases']=={}
