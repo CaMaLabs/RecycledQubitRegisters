@@ -1,0 +1,82 @@
+name: QRR public selector n18 versus common classical and exact CF controls
+
+on:
+  push:
+    paths:
+      - hardware/dark_star_public_selector_larger_holdout.py
+      - .github/workflows/qrr-dark-star-public-selector-n18.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  selector-n18:
+    name: Public selector ell=${{ matrix.ell }} (zero QPU)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        ell: [3, 5, 7]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax-check independent frozen public trial
+        run: python3 -m py_compile hardware/dark_star_public_selector_larger_holdout.py
+      - name: Compute held-out public selector, bounded Pollard and explicit CF results
+        env:
+          ELL: ${{ matrix.ell }}
+        run: |
+          set -o pipefail
+          python3 -u hardware/dark_star_public_selector_larger_holdout.py --ell "$ELL" | tee "public_selector_ell${ELL}.log"
+      - name: Validate strict public decisions and complete row preservation
+        shell: bash
+        env:
+          ELL: ${{ matrix.ell }}
+        run: |
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          ell=int(os.environ['ELL'])
+          f=Path(f'results/dark_star_ptp/dark_star_public_selector_n18_ell{ell}.json')
+          obj=json.loads(f.read_text())
+          assert obj['zero_QPU'] and obj['qpu_jobs_submitted']==0
+          assert len(obj['rows'])==40
+          assert obj['selftests']['selftest']
+          assert not obj['violations']
+          for g in ('trigger','control'):
+              rows=[r for r in obj['rows'] if r['group']==g]
+              assert len(rows)==20
+              summ=obj['summaries'][g]
+              assert summ['selected']==20
+              assert summ['common_classical_unresolved']+summ['common_classical_factored']==20
+              for r in rows:
+                  assert r['N']>=131072 and r['N']<=262143 and r['ell']==ell
+                  assert r['order_identity_ok']
+                  a,b,n=r['base'],r['transformed_base'],r['N']
+                  expected=(b if n%ell!=1 and b!=a else a)
+                  assert expected==r['public_selector_base']
+                  if not r['common_classical']['found']:
+                      assert len(r['policies'])==3
+                      for k in ('plain','unconditional','public_selector'):
+                          v=r['policies'][k]
+                          assert 0<=v['success_probability_by_cap']<=1
+                          assert v['expected_arithmetic_ccx_per_attempt']>=0
+                          assert v['stages'][-1]['phase_bits']==36
+              c=summ['comparison_selector_vs_plain']
+              assert c['both_positive_success_count']+c['either_zero_success_count']==summ['common_classical_unresolved']
+              print(ell,g,summ['common_classical_factored'],summ['common_classical_unresolved'],
+                    c['aggregate_CCX_per_success_T_over_B'],c['primary_criterion_pass'])
+          print('Verified 40 prespecified rows with real CF/gcd factor checks; zero QPU access')
+          PY
+      - name: Upload research receipts for final provenance audit
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-selector-n18-ell-${{ matrix.ell }}
+          path: |
+            public_selector_ell*.log
+            results/dark_star_ptp/dark_star_public_selector_n18_ell*.json
