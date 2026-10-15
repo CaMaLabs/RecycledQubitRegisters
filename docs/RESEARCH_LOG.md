@@ -732,3 +732,31 @@ Five strictly PUBLIC policies compared on identical instances: plain a; uncondit
 **Independent width calculation** for 18-bit generic clean-ancilla reversible modular arithmetic retains 57 logical coherent workspace qubits, full-wide peak 93, recycled peak 58 (**37.63%** fewer); entirely attributable to iterative phase-register reuse, not the odd-power transform. ZERO QPU jobs submitted.
 
 **Next gate:** stop claiming novelty from the failed multi-exponent ladder. Retain cube in known N-residue trigger as a baseline and test truly full phase-distribution factor-producing classical/quantum model on a fresh smaller benchmark, with stronger public classical baselines and no posthoc selector tuning. Continue to distinguish model resource reduction from actual device runtime/fidelity or practical factoring capability.
+
+
+## 2026-10-14 — Complete ideal-QPE phase-outcome audit: cube survives tiny cases, no practical quantum value
+
+**Research lead and original direction: Chase Lunsford / CaMaLabs.** Frozen protocol before selected instances: `docs/DARK_STAR_FULL_QPE_OUTCOME_HOLDOUT_PREREG.md` at `27a6097a5336205254c1c3d32afbda2a8d528a65`. Implemented complete ideal-QPE phase outcome distribution in `hardware/dark_star_full_qpe_outcome_holdout.py` with *analytically exact* FFT autocorrelation, small-Q direct geometric-sum and public CF/GCD cross-checks. All Q=2^m possible outputs explicitly included through m=20, phase bits 4,6,…,20, no truncation or Monte Carlo. Parent-only true factors/orders generate ideal phase eigenvalue distributions; no private factors/orders allowed to select public N,a or factor-producing y success. ZERO QPU jobs.
+
+Provenance:
+- Initial CI [38669418119](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38669418119) had a **validator-only variable shadowing bug** (`x['summary']` after `x` had been rebound to a policy), NOT a failure in the scientific model. Fixed only CI validator naming at `78b3a49adc8b4e392b04461663f1eb39f916fc52` with no model/seed/policy changes.
+- [Corrected original CI 38669467890](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38669467890): **4/4 independent jobs SUCCESS**, all twelve preregistered 10bit Ns, no violations, full measured probability mass and original strict public CF/GCD test passed.
+- [Separate JSON receipt preservation CI 38669565271](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38669565271): **SUCCESS**, verified and committed original four full JSON outputs at `results/dark_star_ptp/dark_star_full_qpe_{replication,locked_holdout}_{trigger,control}.json`.
+- Complete signed-off interpretation: `docs/DARK_STAR_FULL_QPE_OUTCOME_HOLDOUT_RESULT.md`.
+
+The 12 new independently frozen public SHA-selected **10bit** semiprimes were NOT conditioned on hidden order, true factors or quantum success; no resampling. Public GCD / power-two / Pollard p−1 B7 factored **8/12** before modeling, leaving **4**. Stronger standalone B31 and B47 diagnostics found **no additional** factor on those four (different p−1 bounds are not monotone because oversmoothing can make gcd=N); elementary trial division to sqrt(N)≤32 trivially factors **all twelve**. Of 4 classically unresolved under artificial B7, **N=533** is modeled factor-*incapable* under both bases and both distribution modes even though order shrinks 30→10. Thus **only THREE** paired factor-producing cases were available.
+
+| Cohort/group | Full all-bin cube/plain modeled CCX per factor-producing success | Previous nearest-bin-only ratio | Classically unresolved /3 | Joint positive factor-producing /3 |
+|---|---:|---:|---:|---:|
+| Replication trigger | **0.527462** (47.25% fewer) | 0.509030 | 1 | 1 |
+| Replication control | not evaluable | not evaluable | 0 | 0 |
+| **Locked trigger** | **0.535706** (46.43% fewer) | 0.516915 | 2 | 1 |
+| **Locked control** | **0.539765** (46.02% fewer) | 0.548352 | 1 | 1 |
+
+**Positive mechanism milestone preserved:** replacing nearest-bin-only outcome approximation with an exact **all-bin** distribution does **not** reverse the cube cost-saving direction in the three factor-capable tiny instances; it changes the effect size slightly. Every per-stage full distribution was normalized to 1 before any numeric clamping, and its exact proper factor-production chance was >= nearest estimator as expected. Order identities passed.
+
+**Negative critical boundary:** there is **no useful population or practical quantum factoring advantage** here: 8/12 removed by B7, one of the four remaining unable to produce a factor, only one comparable case each in locked trigger and locked control. The preregistered narrow directional criterion of >half improved among comparable rows technically passes 1/1, but this is not a significance or population result. Every N is trivially factored by trial division and no QPU used. The generic 10bit clean-ancilla logical workspace 33, wide peak 53 vs recycled peak **34** (35.85% less) is independent of cube and not a physical-qubit claim.
+
+Prior results and failed controls remain explicitly preserved: 17bit ell5 trigger-enrichment FAILED; 18bit ell7 FAILED; n18 public multiexponent ladder offered **no advantage** over unconditional cube on triggers and FAILED the locked-control majority-improvement criterion. No new theorem, practical RSA break, IBM hardware speedup or fault-tolerant cost evidence.
+
+**Next defensible step**: quantify a mathematically **rigorous outcome-tail error** approximation that can be independently checked against these exact full-QPE results, then test it on fresh larger (17–18bit) public-classically-unresolved N with cumulative B7/B31/B47/trial/Pollard-rho baseline. Do not cite nearest-bin estimates as a complete QPE distribution or spend QPU time yet.
