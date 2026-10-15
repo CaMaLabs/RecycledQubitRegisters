@@ -1,0 +1,1465 @@
+{
+  "experiment": "dark_star_n22_fresh_fulloutcome_tail_with_phase_sampling_v1",
+  "preregistration": "docs/DARK_STAR_N22_FULL_OUTCOME_BOUNDED_PREREG.md",
+  "public_manifest_sha256": "d0cfd98eab0b92bc07c39a896e2e0039c3e065f6c6521c525dbefd676c2e49ff",
+  "group": "trigger",
+  "bits": 22,
+  "alpha": 0.01,
+  "simultaneous_union_tests": 168,
+  "samples": 16384,
+  "eigenphase_hoeffding_epsilon": 0.01783431482327815,
+  "outcome_half_window": 32,
+  "analytic_omitted_tail_universal_bound": 0.015873015873015872,
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "screening": [
+    {
+      "N": 3623549,
+      "base": 3,
+      "rank": 1,
+      "public_B31_factored": false,
+      "classical_first_source": null,
+      "public_factor": null,
+      "primitive_operation_counts": {
+        "gcd_calls": 97,
+        "modular_square_calls": 47,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 3351017,
+      "base": 19,
+      "rank": 2,
+      "public_B31_factored": false,
+      "classical_first_source": null,
+      "public_factor": null,
+      "primitive_operation_counts": {
+        "gcd_calls": 97,
+        "modular_square_calls": 47,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    }
+  ],
+  "selftests": {
+    "passed": true,
+    "public_certificates_match_slow_factor_verifier": true,
+    "direct_test_cases": [
+      [
+        15,
+        2,
+        2
+      ],
+      [
+        21,
+        2,
+        2
+      ],
+      [
+        35,
+        1,
+        2
+      ],
+      [
+        77,
+        1,
+        2
+      ],
+      [
+        143,
+        1,
+        2
+      ],
+      [
+        899,
+        3,
+        2
+      ]
+    ],
+    "full_FFT_mass_pass": true,
+    "large_Q_bigint_guard_pass": true
+  },
+  "rows": [
+    {
+      "N": 3623549,
+      "base": 3,
+      "group": "trigger",
+      "rank": 1,
+      "public_policies": {
+        "plain": 3,
+        "cube": 27
+      },
+      "additional_public_classical": {
+        "B47": {
+          "found": true,
+          "factor": 1979,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": null,
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_p_minus_1_B47",
+        "factor": 1979,
+        "total_public_classical_CPU_ms": 0.032,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "p": 1831,
+        "q": 1979,
+        "plain_order": 1809870,
+        "cube_order": 603290,
+        "known_odd_power_identity": true
+      },
+      "plain": {
+        "base": 3,
+        "validation_only_order": 1809870,
+        "public_CF_precomputation": {
+          "public_modular_multiplications": 3623549,
+          "public_gcd_calls": 4,
+          "candidate_denominators_checked": 1811774,
+          "factor_producing_denominators": 1,
+          "public_factors_found_by_precomputation": [
+            1831,
+            1979
+          ],
+          "public_CPU_seconds": 0.21931,
+          "explicitly_classical_factor_recovery": true
+        },
+        "public_factor_producing_denominator_count": 1,
+        "exact_factor_incapable": false,
+        "factor_probability_by_cap_interval": [
+          0.9025326885648967,
+          0.9932888587485357
+        ],
+        "modeled_CCX_attempt_interval": [
+          366719633.47455144,
+          881683455.1341057
+        ],
+        "modeled_phase_round_interval": [
+          738.5694079462211,
+          1757.5421406867094
+        ],
+        "modeled_CCX_per_factor_success_interval": [
+          369197369.16871166,
+          976899193.020983
+        ],
+        "all_stages": [
+          {
+            "m": 4,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "outcome_bins_per_eigenphase": 16,
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 1.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "fft_normalization": 1.0,
+            "phase_denominator_Q": 16
+          },
+          {
+            "m": 6,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "outcome_bins_per_eigenphase": 64,
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 1.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "fft_normalization": 1.0,
+            "phase_denominator_Q": 64
+          },
+          {
+            "m": 8,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "outcome_bins_per_eigenphase": 256,
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 1.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "fft_normalization": 1.0,
+            "phase_denominator_Q": 256
+          },
+          {
+            "m": 10,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "outcome_bins_per_eigenphase": 1024,
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 1.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "fft_normalization": 1.0,
+            "phase_denominator_Q": 1024
+          },
+          {
+            "m": 12,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "outcome_bins_per_eigenphase": 4096,
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 1.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "fft_normalization": 1.0,
+            "phase_denominator_Q": 4096
+          },
+          {
+            "m": 14,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9968792437293782,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 16384
+          },
+          {
+            "m": 16,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9969058383259676,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 65536
+          },
+          {
+            "m": 18,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9968887033759949,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 262144
+          },
+          {
+            "m": 20,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9968857777991248,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 1048576
+          },
+          {
+            "m": 22,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9968785245942978,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 4194304
+          },
+          {
+            "m": 24,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.0337073509469389,
+            "head_success_mean": 2.0250644879058217e-08,
+            "head_total_mass_mean": 0.9968816342564987,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 16777216
+          },
+          {
+            "m": 26,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9968830209490751,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 67108864
+          },
+          {
+            "m": 28,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9968902885850618,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 268435456
+          },
+          {
+            "m": 30,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03376836584468751,
+            "head_success_mean": 6.1035148393487244e-05,
+            "head_total_mass_mean": 0.9968768763344712,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 1073741824
+          },
+          {
+            "m": 32,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03419561146994375,
+            "head_success_mean": 0.0004882807736497333,
+            "head_total_mass_mean": 0.996896953493612,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 4294967296
+          },
+          {
+            "m": 34,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.035538362083580695,
+            "head_success_mean": 0.0018310313872866731,
+            "head_total_mass_mean": 0.9968828523789074,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 17179869184
+          },
+          {
+            "m": 36,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.0412737259018502,
+            "head_success_mean": 0.007566395205556181,
+            "head_total_mass_mean": 0.9968876171233769,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 68719476736
+          },
+          {
+            "m": 38,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.011584875698383082,
+            "upper": 0.06312652121795526,
+            "head_success_mean": 0.029419190521661233,
+            "head_total_mass_mean": 0.9968827330934131,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 274877906944
+          },
+          {
+            "m": 40,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.08851495513259344,
+            "upper": 0.1400566006521656,
+            "head_success_mean": 0.10634926995587159,
+            "head_total_mass_mean": 0.9968721388347879,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 1099511627776
+          },
+          {
+            "m": 42,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.2035867854593461,
+            "upper": 0.2551284309789183,
+            "head_success_mean": 0.22142110028262427,
+            "head_total_mass_mean": 0.996873304477742,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 4398046511104
+          },
+          {
+            "m": 44,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.22126918646409435,
+            "upper": 0.2728108319836665,
+            "head_success_mean": 0.2391035012873725,
+            "head_total_mass_mean": 0.9969103278013393,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 17592186044416
+          }
+        ]
+      },
+      "cube": {
+        "base": 27,
+        "validation_only_order": 603290,
+        "public_CF_precomputation": {
+          "public_modular_multiplications": 3623549,
+          "public_gcd_calls": 12,
+          "candidate_denominators_checked": 1811774,
+          "factor_producing_denominators": 3,
+          "public_factors_found_by_precomputation": [
+            1831,
+            1979
+          ],
+          "public_CPU_seconds": 0.19496,
+          "explicitly_classical_factor_recovery": true
+        },
+        "public_factor_producing_denominator_count": 3,
+        "exact_factor_incapable": false,
+        "factor_probability_by_cap_interval": [
+          0.9986727975854053,
+          0.9999415288903493
+        ],
+        "modeled_CCX_attempt_interval": [
+          349179961.8646051,
+          733497123.2807304
+        ],
+        "modeled_phase_round_interval": [
+          686.1220133326328,
+          1436.2981586856813
+        ],
+        "modeled_CCX_per_factor_success_interval": [
+          349200379.9983141,
+          734471916.1813382
+        ],
+        "all_stages": [
+          {
+            "m": 4,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "outcome_bins_per_eigenphase": 16,
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 1.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "fft_normalization": 1.0,
+            "phase_denominator_Q": 16
+          },
+          {
+            "m": 6,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "outcome_bins_per_eigenphase": 64,
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 1.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "fft_normalization": 1.0,
+            "phase_denominator_Q": 64
+          },
+          {
+            "m": 8,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "outcome_bins_per_eigenphase": 256,
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 1.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "fft_normalization": 1.0,
+            "phase_denominator_Q": 256
+          },
+          {
+            "m": 10,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "outcome_bins_per_eigenphase": 1024,
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 1.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "fft_normalization": 1.0,
+            "phase_denominator_Q": 1024
+          },
+          {
+            "m": 12,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "outcome_bins_per_eigenphase": 4096,
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 1.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "fft_normalization": 1.0,
+            "phase_denominator_Q": 4096
+          },
+          {
+            "m": 14,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9968795958137737,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 16384
+          },
+          {
+            "m": 16,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9969042917625142,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 65536
+          },
+          {
+            "m": 18,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9968805211558458,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 262144
+          },
+          {
+            "m": 20,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370733069629402,
+            "head_success_mean": 0.0,
+            "head_total_mass_mean": 0.9968397900765027,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 1048576
+          },
+          {
+            "m": 22,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.033707333475196236,
+            "head_success_mean": 2.778902214181015e-09,
+            "head_total_mass_mean": 0.9968703740879492,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 4194304
+          },
+          {
+            "m": 24,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03370736865992997,
+            "head_success_mean": 3.7963635945386517e-08,
+            "head_total_mass_mean": 0.9968678118073276,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 16777216
+          },
+          {
+            "m": 26,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03382940100781861,
+            "head_success_mean": 0.00012207031152458697,
+            "head_total_mass_mean": 0.9968859782938032,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 67108864
+          },
+          {
+            "m": 28,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.03401250634675927,
+            "head_success_mean": 0.0003051756504652466,
+            "head_total_mass_mean": 0.9968770333876912,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 268435456
+          },
+          {
+            "m": 30,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.035294236089718475,
+            "head_success_mean": 0.0015869053934244566,
+            "head_total_mass_mean": 0.9968789059905121,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 1073741824
+          },
+          {
+            "m": 32,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.04035952773888099,
+            "head_success_mean": 0.006652197042586963,
+            "head_total_mass_mean": 0.9968834857580189,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 4294967296
+          },
+          {
+            "m": 34,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.007279805707891492,
+            "upper": 0.05882145122746367,
+            "head_success_mean": 0.025114120531169643,
+            "head_total_mass_mean": 0.9968955942249013,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 17179869184
+          },
+          {
+            "m": 36,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.07394781443734522,
+            "upper": 0.1254894599569174,
+            "head_success_mean": 0.09178212926062337,
+            "head_total_mass_mean": 0.9968638104834501,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 68719476736
+          },
+          {
+            "m": 38,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.26699418872555425,
+            "upper": 0.3185358342451264,
+            "head_success_mean": 0.2848285035488324,
+            "head_total_mass_mean": 0.9968661188616255,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 274877906944
+          },
+          {
+            "m": 40,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.33847463310567816,
+            "upper": 0.3900162786252503,
+            "head_success_mean": 0.3563089479289563,
+            "head_total_mass_mean": 0.996882866059543,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 1099511627776
+          },
+          {
+            "m": 42,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.3451394299907484,
+            "upper": 0.39668107551032056,
+            "head_success_mean": 0.36297374481402656,
+            "head_total_mass_mean": 0.9968799257073794,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 4398046511104
+          },
+          {
+            "m": 44,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 16384,
+            "outcome_bins_per_eigenphase": 65,
+            "lower": 0.34616342443778375,
+            "upper": 0.3977050699573559,
+            "head_success_mean": 0.3639977392610619,
+            "head_total_mass_mean": 0.9969174322358693,
+            "omission_upper_bound": 0.015873015873015872,
+            "eigenphase_Hoeffding_epsilon": 0.01783431482327815,
+            "max_per_eigenphase_mass_oversum": 0.0,
+            "phase_denominator_Q": 17592186044416
+          }
+        ]
+      },
+      "cube_vs_plain": {
+        "status": "inconclusive",
+        "ratio": [
+          0.3574579470359062,
+          1.9893747288478307
+        ]
+      },
+      "no_qpu": true
+    },
+    {
+      "N": 3351017,
+      "base": 19,
+      "group": "trigger",
+      "rank": 2,
+      "public_policies": {
+        "plain": 19,
+        "cube": 6859
+      },
+      "additional_public_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 128,
+          "gcd_calls": 128,
+          "modular_square_calls": 384,
+          "attempts": 2,
+          "found": false,
+          "factor": null
+        },
+        "prime_trial_97": {
+          "found": false,
+          "checks": 25,
+          "factor": null
+        },
+        "full_trial": {
+          "found": true,
+          "checks": 126,
+          "factor": 877
+        },
+        "first_factor_source": "complete_prime_trial",
+        "factor": 877,
+        "total_public_classical_CPU_ms": 0.2347,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "p": 877,
+        "q": 3821,
+        "plain_order": 836580,
+        "cube_order": 278860,
+        "known_odd_power_identity": true
+      },
+      "plain": {
+        "base": 19,
+        "validation_only_order": 836580,
+        "public_CF_precomputation": {
+          "public_modular_multiplications": 3351017,
+          "public_gcd_calls": 8,
+          "candidate_denominators_checked": 1675508,
+          "factor_producing_denominators": 0,
+          "public_factors_found_by_precomputation": [],
+          "public_CPU_seconds": 0.2021,
+          "explicitly_classical_factor_recovery": true
+        },
+        "public_factor_producing_denominator_count": 0,
+        "exact_factor_incapable": true,
+        "factor_probability_by_cap_interval": [
+          0.0,
+          0.0
+        ],
+        "modeled_CCX_attempt_interval": [
+          1017712104.0,
+          1017712104.0
+        ],
+        "modeled_phase_round_interval": [
+          2016.0,
+          2016.0
+        ],
+        "modeled_CCX_per_factor_success_interval": [
+          null,
+          null
+        ],
+        "all_stages": [
+          {
+            "m": 4,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 16
+          },
+          {
+            "m": 6,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 64
+          },
+          {
+            "m": 8,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 256
+          },
+          {
+            "m": 10,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 1024
+          },
+          {
+            "m": 12,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 4096
+          },
+          {
+            "m": 14,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 16384
+          },
+          {
+            "m": 16,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 65536
+          },
+          {
+            "m": 18,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 262144
+          },
+          {
+            "m": 20,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 1048576
+          },
+          {
+            "m": 22,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 4194304
+          },
+          {
+            "m": 24,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 16777216
+          },
+          {
+            "m": 26,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 67108864
+          },
+          {
+            "m": 28,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 268435456
+          },
+          {
+            "m": 30,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 1073741824
+          },
+          {
+            "m": 32,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 4294967296
+          },
+          {
+            "m": 34,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 17179869184
+          },
+          {
+            "m": 36,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 68719476736
+          },
+          {
+            "m": 38,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 274877906944
+          },
+          {
+            "m": 40,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 1099511627776
+          },
+          {
+            "m": 42,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 4398046511104
+          },
+          {
+            "m": 44,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 17592186044416
+          }
+        ]
+      },
+      "cube": {
+        "base": 6859,
+        "validation_only_order": 278860,
+        "public_CF_precomputation": {
+          "public_modular_multiplications": 3351017,
+          "public_gcd_calls": 24,
+          "candidate_denominators_checked": 1675508,
+          "factor_producing_denominators": 0,
+          "public_factors_found_by_precomputation": [],
+          "public_CPU_seconds": 0.20869,
+          "explicitly_classical_factor_recovery": true
+        },
+        "public_factor_producing_denominator_count": 0,
+        "exact_factor_incapable": true,
+        "factor_probability_by_cap_interval": [
+          0.0,
+          0.0
+        ],
+        "modeled_CCX_attempt_interval": [
+          1031058024.0,
+          1031058024.0
+        ],
+        "modeled_phase_round_interval": [
+          2016.0,
+          2016.0
+        ],
+        "modeled_CCX_per_factor_success_interval": [
+          null,
+          null
+        ],
+        "all_stages": [
+          {
+            "m": 4,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 16
+          },
+          {
+            "m": 6,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 64
+          },
+          {
+            "m": 8,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 256
+          },
+          {
+            "m": 10,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 1024
+          },
+          {
+            "m": 12,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 4096
+          },
+          {
+            "m": 14,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 16384
+          },
+          {
+            "m": 16,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 65536
+          },
+          {
+            "m": 18,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 262144
+          },
+          {
+            "m": 20,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 1048576
+          },
+          {
+            "m": 22,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 4194304
+          },
+          {
+            "m": 24,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 16777216
+          },
+          {
+            "m": 26,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 67108864
+          },
+          {
+            "m": 28,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 268435456
+          },
+          {
+            "m": 30,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 1073741824
+          },
+          {
+            "m": 32,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 4294967296
+          },
+          {
+            "m": 34,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 17179869184
+          },
+          {
+            "m": 36,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 68719476736
+          },
+          {
+            "m": 38,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 274877906944
+          },
+          {
+            "m": 40,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 1099511627776
+          },
+          {
+            "m": 42,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 4398046511104
+          },
+          {
+            "m": 44,
+            "mode": "public_certificate_set_empty_exact_zero",
+            "lower": 0.0,
+            "upper": 0.0,
+            "head_success_mean": 0.0,
+            "omission_upper_bound": 0.0,
+            "eigenphase_Hoeffding_epsilon": 0.0,
+            "n_eigenphase_values": 0,
+            "outcome_bins_per_eigenphase": 0,
+            "phase_denominator_Q": 17592186044416
+          }
+        ]
+      },
+      "cube_vs_plain": {
+        "status": "factor_incapable_or_uncertified",
+        "ratio": [
+          null,
+          null
+        ]
+      },
+      "no_qpu": true
+    }
+  ],
+  "summary": {
+    "selected": 2,
+    "screened": 2,
+    "earlier_B31_factored": 0,
+    "additional_classically_factored": 2,
+    "cases_by_status": {
+      "inconclusive": 1,
+      "factor_incapable_or_uncertified": 1
+    },
+    "public_CF_precompute_disclosed": true,
+    "factor_capable_plain": 1,
+    "factor_capable_cube": 1
+  },
+  "claim_boundary": "Ideal QPE complete-outcome tail + 99%-simultaneous statistical eigenphase-sampling bound, not deterministic all-order certification, QPU, hardware speed or practical factoring.",
+  "logical_width": {
+    "arithmetic_workspace": 69,
+    "wide_peak": 113,
+    "recycled_peak": 70
+  }
+}
