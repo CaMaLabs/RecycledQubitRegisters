@@ -1,0 +1,112 @@
+name: QRR n20 v3 independent 8192-phase numerical convergence (zero QPU)
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n20-phase-convergence.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n20-phase-convergence
+  cancel-in-progress: false
+
+jobs:
+  independent:
+    name: ell=${{ matrix.ell }} group=${{ matrix.group }} / independent 8192 samples
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        ell: [3,5,7]
+        group: [trigger,control]
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      QISKIT_IBM_TOKEN: ""
+      IBM_QUANTUM_API_KEY: ""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Zero QPU compliance
+        run: |
+          if grep -nE '^[[:space:]]*(from|import)[[:space:]].*(qiskit_ibm_runtime|ibm_runtime_guard)|SamplerV2|EstimatorV2|QiskitRuntimeService' hardware/dark_star_n20_public_survivor_v3.py hardware/dark_star_n20_phase_convergence.py; then
+            exit 1
+          fi
+      - name: Execute locked-N independent phase sampler
+        run: |
+          python3 -u hardware/dark_star_n20_phase_convergence.py \
+            --ell ${{ matrix.ell }} --group ${{ matrix.group }} \
+            --out ell${{ matrix.ell }}_${{ matrix.group }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ell${{ matrix.ell }}_${{ matrix.group }}
+          path: ell${{ matrix.ell }}_${{ matrix.group }}.json
+          retention-days: 45
+          if-no-files-found: error
+
+  verify-preserve:
+    needs: [independent]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ell*
+          path: independent-v3-shards
+      - name: Verify all six frozen numerical reruns and print drift
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          import hashlib
+          p=Path('results/dark_star_ptp/dark_star_n20_public_survivors_v3_manifest.json')
+          manifest=json.loads(p.read_text())
+          sha=manifest['manifest_sha256']
+          rows=[]
+          for ell in (3,5,7):
+            for group in ('trigger','control'):
+              f=Path(f'independent-v3-shards/ell{ell}_{group}/ell{ell}_{group}.json')
+              a=json.loads(f.read_text())
+              assert a['complete'] and a['zero_qpu'] and a['qpu_jobs_submitted']==0
+              assert a['manifest_sha256']==sha and len(a['rows'])==12
+              old=json.loads(Path(f'results/dark_star_ptp/dark_star_n20_v3_ell{ell}_{group}.json').read_text())
+              assert [r['N'] for r in a['rows']]==[r['N'] for r in old['rows']]
+              assert all(r['validation_only']['order_identity_ok'] for r in a['rows'])
+              for name,d in a['comparison_to_frozen_4096_run'].items():
+                print(ell,group,name,'4096=',d['original_ratio'],'8192=',d['independent_8192_ratio'],'drift=',d['delta_new_minus_original'])
+              rows.extend(a['rows'])
+              dst=Path(f'results/dark_star_ptp/dark_star_n20_phase_validation_ell{ell}_{group}.json')
+              dst.write_bytes(f.read_bytes())
+          assert len(rows)==72
+          print('72/72 fixed public survivors; independent 8192-phase resampling verified; zero QPU.')
+          PY
+      - name: Commit original independent receipts with non-forced retry
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n20_phase_validation_*.json
+          git commit -m "results: preserve six independent 8192-phase n20 numerical-convergence checks"
+          for attempt in 1 2 3 4 5 6; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
