@@ -760,3 +760,62 @@ The 12 new independently frozen public SHA-selected **10bit** semiprimes were NO
 Prior results and failed controls remain explicitly preserved: 17bit ell5 trigger-enrichment FAILED; 18bit ell7 FAILED; n18 public multiexponent ladder offered **no advantage** over unconditional cube on triggers and FAILED the locked-control majority-improvement criterion. No new theorem, practical RSA break, IBM hardware speedup or fault-tolerant cost evidence.
 
 **Next defensible step**: quantify a mathematically **rigorous outcome-tail error** approximation that can be independently checked against these exact full-QPE results, then test it on fresh larger (17–18bit) public-classically-unresolved N with cumulative B7/B31/B47/trial/Pollard-rho baseline. Do not cite nearest-bin estimates as a complete QPE distribution or spend QPU time yet.
+
+
+## 2026-10-14 — Public-policy/classical-first v2 holdout completed (mixed/negative result)
+
+A stronger **pre-registered before scoring** and independent held-out population
+experiment has now completed. It compared conservative/no-transform,
+always-transform, and public-residue trigger-only policies on **144 18-bit
+semiprime rows** across ell={3,5,7}, 24 trigger + 24 control per ell.
+
+The new result is preserved in:
+- `docs/DARK_STAR_PUBLIC_POLICY_CLASSICAL_V2_PREREG.md`
+- `hardware/dark_star_public_policy_classical_v2.py`
+- `hardware/analyze_dark_star_public_policy_classical_v2.py`
+- `docs/DARK_STAR_PUBLIC_POLICY_CLASSICAL_V2_RESULT.md`
+- `results/dark_star_ptp/dark_star_public_policy_classical_v2.json`
+- shard run 38669629155, receipt recovery 38669941950 (successful)
+
+**New classical-first milestone:** bounded public trial/power2/Pollard-p-1 checks
+already factor **114/144 = 79.17%** of the small 18-bit cases; only 30 require
+further quantum modeling and only 23 meet paired eligibility. This is an
+important negative boundary for practical quantum value at the tested size,
+not a generalization to RSA-size moduli.
+
+Among paired quantum-eligible rows, modeled aggregate CCX transformed/baseline:
+
+| ell | trigger eligible | trigger CCX T/B | improved/tied/worsened trigger | control eligible | control T/B |
+|---:|---:|---:|---|---:|---:|
+| 3 | 5 | **0.900389** | **2/0/3** | 5 | 0.939784 |
+| 5 | 2 | 0.881745 | 1/0/1 | 5 | **0.819095** |
+| 7 | 3 | **1.013418** | **0/0/3** | 3 | 1.008471 |
+
+**Interpretation matters:** ell=3 retains a favorable aggregate direction but
+its 2000-bootstrap 95% interval spans 1 (0.7806–1.0124), and 3/5 trigger
+cases actually worsen. ell=5 fails trigger-vs-control enrichment once again;
+ell=7 worsens all eligible trigger rows. These are too-small conditional samples
+to claim a robust deployed performance advantage.
+
+The model now credits early stopping **only after a genuine PUBLIC
+factor-producing continued-fraction/GCD witness**. Changed modular constants
+are again slightly MORE expensive per executed phase round for every subgroup.
+The original scout wins remain valid but must not be treated as a population
+resource estimate.
+
+Among all 30 common-classical-unsolved rows, policies relative to
+never-transform have modeled CCX ratios: always=0.954642,
+trigger-only=0.985584, conservative ell3=0.990161. The JSON records extra
+public preprocessing costs and factor success; CCX and classical operations
+are not commensurate. Reduced quantum work on a classically solved transformed
+row is not itself a quantum speedup.
+
+Independent width receipt: 18-bit clean-ancilla arithmetic retains 57 coherent
+qubits; at 36 phase bits wide peak **93** vs recycled **58** (37.63% lower).
+The width saving is QPE recycling, **not** the Dark Star transform.
+
+**No QPU jobs were submitted.** Authenticated Phoenix topology, quantum
+fidelity/runtime improvement, RSA-2048 performance and altered Shor asymptotics
+remain unestablished. Next experiment should move to a larger fresh 20–24-bit
+population to avoid the bounded classical-preprocessing saturation seen here,
+with a pre-committed public selector and matched success-adjusted costs.
