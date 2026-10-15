@@ -531,3 +531,54 @@ That combined study should answer:
 This is the next place where the project can move from a collection of strong
 small-instance compiler/hardware observations toward a more general resource
 argument without overstating current hardware capability.
+
+
+## 2026-10-14 — Combined Dark Star + recycled scalable-arithmetic milestone
+
+The first combined resource audit now removes the largest remaining modeling
+objection from the Dark Star scout results: their earlier IBM-target circuits
+used exact small-N full-register truth-table permutation synthesis.
+
+New audit:
+- `hardware/dark_star_recycled_scalable_arithmetic_audit.py`
+- `docs/DARK_STAR_RECYCLED_SCALABLE_ARITHMETIC_AUDIT.md`
+- `docs/DARK_STAR_RECYCLED_SCALABLE_ARITHMETIC_RESULT.md`
+
+The new model analytically mirrors the repository's generic reusable-clean-
+ancilla modular arithmetic. Its gate count grows polynomially with modulus bit
+width and does not use the hidden order or a reachable-orbit encoding.
+
+For the three classical-shortcut-clean scout cases, expected staged arithmetic
+CCX work changed as follows:
+
+- N=209, ell=3, order 90->30: **43.15% fewer expected CCX**
+- N=713, ell=5, order 330->66: **48.76% fewer expected CCX**
+- N=781, ell=7, order 70->10: **69.33% fewer expected CCX**
+
+The corresponding ideal staged phase-work reductions were 43.23%, 49.39%, and
+69.48%. Dividing the CCX ratio by the phase-round ratio gives 1.0015, 1.0124,
+and 1.0050 respectively.
+
+That isolates the robust mechanism: **the general resource saving is earlier
+adaptive stopping, not intrinsically cheaper transformed modular constants.**
+The same-precision transformed-circuit savings seen in earlier full-register
+IBM-target compilations should be treated as implementation-specific secondary
+effects.
+
+Under this scalable clean-ancilla arithmetic family, the arithmetic workspace is
+27 qubits for N=209 and 33 qubits for N=713/781. At the textbook phase cap,
+recycling changes peak logical width:
+
+- N=209: 43 -> 28 (**34.88% reduction**)
+- N=713: 53 -> 34 (**35.85% reduction**)
+- N=781: 53 -> 34 (**35.85% reduction**)
+
+This is the intended orthogonality result:
+- Dark Star reduces expected sequential modular-arithmetic work;
+- recycled QPE reduces simultaneous phase-register width;
+- the coherent arithmetic workspace remains explicitly present.
+
+This is a successful milestone and should be preserved before broadening the
+population. The next falsification should move from the three selected scout
+cases to a preregistered held-out semiprime population, reporting the full
+distribution of resource ratios rather than only selected positive examples.
