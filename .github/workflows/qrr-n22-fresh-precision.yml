@@ -1,0 +1,166 @@
+name: QRR fresh independent N22 precision holdout frozen before scoring
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n22-fresh-precision.yml
+  workflow_dispatch:
+
+concurrency:
+  group: qrr-n22-fresh-precision-frozen
+  cancel-in-progress: false
+
+jobs:
+  freeze-public-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    permissions:
+      contents: write
+    outputs:
+      frozen_sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generate only PUBLIC N/base/CF-independent B31 manifest
+        shell: bash
+        run: |
+          set -o pipefail
+          test -s docs/DARK_STAR_N22_FRESH_PRECISION_HOLDOUT_PREREG.md
+          python3 -m py_compile hardware/dark_star_n22_precision_fresh_public_manifest.py
+          python3 -u hardware/dark_star_n22_precision_fresh_public_manifest.py | tee fresh_public_freeze.log
+      - name: Verify strict independent selected 8 N without validation factors/orders
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,math
+          from pathlib import Path
+          root=Path('results/dark_star_ptp')
+          obj=json.loads((root/'dark_star_n22_precision_fresh_public_manifest.json').read_text())
+          prior=set()
+          for p in ('dark_star_n22_public_manifest.json','dark_star_n22_full_tail_public_manifest.json'):
+              prior.update(r['N'] for r in json.loads((root/p).read_text())['selected_public_rows'])
+          assert len(prior)==16
+          chosen=obj['selected_public_rows']
+          assert len(chosen)==8 and len({r['N'] for r in chosen})==8
+          assert not set(r['N'] for r in chosen)&prior
+          assert obj['zero_QPU'] and obj['qpu_jobs_submitted']==0
+          for group in ('trigger','control'):
+              panel=[r for r in chosen if r['group']==group]
+              screens=obj['public_screenings'][group]
+              assert len(panel)==4 and len(screens)<=500
+              assert sum(not row['public_B31_factored'] for row in screens)==4
+              for r in panel:
+                  n,a=r['N'],r['base']
+                  assert set(r)=={'N','base','group','rank','public_policies'}
+                  assert 1<<21<=n<1<<22 and n%3==(2 if group=='trigger' else 1)
+                  assert math.gcd(n,a)==1
+                  assert r['public_policies']=={'plain':a,'cube':pow(a,3,n)}
+          b=json.dumps(chosen,sort_keys=True,separators=(',',':'))
+          assert obj['selected_sha256']==hashlib.sha256(b.encode()).hexdigest()
+          print('FROZEN PUBLIC ONLY SHA',obj['selected_sha256'])
+          PY
+      - name: Commit the public-only manifest, BEFORE any ideal QPE validation or factor-order generation
+        id: commit
+        run: |
+          set -eu
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/dark_star_ptp/dark_star_n22_precision_fresh_public_manifest.json
+          git commit -m "research(freeze): eight entirely new n22 public B31 survivors before precision-order simulation"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n22-fresh-precision-public-freeze
+          path: |
+            fresh_public_freeze.log
+            results/dark_star_ptp/dark_star_n22_precision_fresh_public_manifest.json
+
+  score-new-frozen-sample:
+    needs: freeze-public-only
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [trigger, control]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.freeze-public-only.outputs.frozen_sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned CPU FFT and public-factor acceptance accelerator
+        run: python3 -m pip install numpy==2.1.3 numba==0.61.2
+      - name: Run independent frozen eight-case full-outcome precision experiment
+        shell: bash
+        env:
+          GROUP: ${{ matrix.group }}
+        run: |
+          set -o pipefail
+          test -s results/dark_star_ptp/dark_star_n22_precision_fresh_public_manifest.json
+          python3 -m py_compile hardware/dark_star_n22_precision_fresh_holdout.py
+          python3 -u hardware/dark_star_n22_precision_fresh_holdout.py --group "$GROUP" | tee "fresh_precision_${GROUP}.log"
+      - name: Strict independent public manifest, classical factor and QPE interval assertions
+        shell: bash
+        env:
+          GROUP: ${{ matrix.group }}
+        run: |
+          python3 - <<'PY'
+          import os,json,math
+          from pathlib import Path
+          g=os.environ['GROUP'];root=Path('results/dark_star_ptp')
+          obj=json.loads((root/f'dark_star_n22_fresh_precision_{g}.json').read_text())
+          public=json.loads((root/'dark_star_n22_precision_fresh_public_manifest.json').read_text())
+          assert obj['public_manifest_sha256']==public['selected_sha256']
+          assert obj['complete'] and obj['zero_QPU'] and obj['qpu_jobs_submitted']==0
+          assert obj['is_fresh_disjoint_public_N_population']
+          assert obj['selftests']['passed']
+          assert obj['phase_samples']==131072 and obj['exact_all_bin_FFT_max_m']==18
+          assert obj['union_budget_tests']==1344 and obj['simultaneous_alpha']==0.01
+          assert len(obj['rows'])==4 and obj['summary']['selected']==4
+          assert obj['logical_width']=={'arithmetic_workspace':69,'wide_peak':113,'recycled_peak':70}
+          assert [r['N'] for r in obj['rows']]==[r['N'] for r in public['selected_public_rows'] if r['group']==g]
+          assert obj['summary']['classically_factored_after_B31']==4
+          for r in obj['rows']:
+              n,a=r['N'],r['base']
+              assert 1<<21<=n<1<<22 and n%3==(2 if g=='trigger' else 1)
+              assert math.gcd(n,a)==1
+              assert r['additional_public_classical']['classically_factored']
+              assert n%r['additional_public_classical']['factor']==0
+              assert r['validation_only']['odd_power_order_identity_verified']
+              assert r['validation_only']['order_cube']==r['validation_only']['order_plain']//math.gcd(r['validation_only']['order_plain'],3)
+              for which in ('plain','cube'):
+                  v=r[which]
+                  assert len(v['all_stages'])==21
+                  s_lo,s_hi=v['factor_probability_by_cap_interval']
+                  assert 0<=s_lo<=s_hi<=1
+                  assert 0<=v['modeled_CCX_attempt_interval'][0]<=v['modeled_CCX_attempt_interval'][1]+1e-5
+                  if v['exact_factor_incapable']:assert s_lo==s_hi==0
+                  for z in v['all_stages']:
+                      assert 0<=z['lower']<=z['upper']<=1+1e-9
+                      if z['mode']=='exact_all_bin_FFT':
+                          assert z['m']<=18 and abs(z['full_probability_sum']-1)<1e-9
+                      if z['mode']=='seeded_iid_uniform_eigenphase_estimate':
+                          assert z['m']>18 and z['n_eigenphase_values']==131072
+                          assert z['omitted_tail_upper_bound']<=1/63+1e-10
+              x=r['cube_vs_plain']
+              if x['status']=='cube_model_win':assert x['ratio'][1]<1
+              if x['status']=='cube_model_loss':assert x['ratio'][0]>1
+          assert obj['summary']['strict_predeclared_trigger_gate_passed'] is None if g=='control' else isinstance(obj['summary']['strict_predeclared_trigger_gate_passed'],bool)
+          print('VALIDATED completely new public N22 precision-only unchanged math',g)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n22-fresh-precision-${{ matrix.group }}
+          path: |
+            fresh_precision_*.log
+            results/dark_star_ptp/dark_star_n22_fresh_precision_*.json
