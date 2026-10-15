@@ -1,0 +1,464 @@
+{
+  "experiment": "dark_star_full_qpe_outcome_holdout_v1",
+  "revision": "2026-10-14-full-qpe-eigenphase-fft-v1",
+  "cohort": "replication",
+  "group": "trigger",
+  "preregistration": "docs/DARK_STAR_FULL_QPE_OUTCOME_HOLDOUT_PREREG.md",
+  "selection_salt": "QRR-full-QPE-outcome-holdout-v1-20261014",
+  "base_salt": "QRR-full-QPE-bases-v1-20261014",
+  "timestamp_utc": "2026-10-15T02:09:16.502847+00:00",
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "all_selected_included": true,
+  "ideal_model_only": true,
+  "no_privates_in_public_selector": true,
+  "selftests": {
+    "passed": true,
+    "exact_FFT_matches_all_order_r_geometric_sums": true,
+    "complete_probability_mass": true,
+    "public_CF_fast_matches_original_oracle_free_factor_verifier": true
+  },
+  "selected_public_N": [
+    899,
+    767,
+    989
+  ],
+  "rows": [
+    {
+      "N": 899,
+      "cohort": "replication",
+      "group": "trigger",
+      "base": 19,
+      "transformed_base": 566,
+      "p_validation_only": 29,
+      "q_validation_only": 31,
+      "public_classical": {
+        "found": false,
+        "public_factor": null,
+        "first_source": null,
+        "gcd_calls": 49,
+        "modular_square_calls": 23,
+        "B7_pollard_modular_pow_calls": 4,
+        "independent_B31_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 11,
+          "proper_factor": null
+        },
+        "independent_B47_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 15,
+          "proper_factor": null
+        }
+      },
+      "modeled_ideal_quantum": true,
+      "odd_power_order_identity_verified": true,
+      "bases": {
+        "plain": {
+          "valid_public_CF_denominators": 1,
+          "stages": [
+            {
+              "outcome_count": 16,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0625,
+              "max_probability": 0.0625,
+              "public_CF_accepting_outcome_bins": 0,
+              "factor_producing_probability": 0.0,
+              "FFT_CPU_seconds": 6.24e-05,
+              "public_CF_mask_CPU_seconds": 2.42e-05,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 4,
+              "nearest_bin_only_factor_probability": 0.0,
+              "exact_minus_nearest": 0.0
+            },
+            {
+              "outcome_count": 64,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.015625,
+              "max_probability": 0.015625,
+              "public_CF_accepting_outcome_bins": 0,
+              "factor_producing_probability": 0.0,
+              "FFT_CPU_seconds": 3.76e-05,
+              "public_CF_mask_CPU_seconds": 5.38e-05,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 6,
+              "nearest_bin_only_factor_probability": 0.0,
+              "exact_minus_nearest": 0.0
+            },
+            {
+              "outcome_count": 256,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.00390625,
+              "max_probability": 0.00390625,
+              "public_CF_accepting_outcome_bins": 0,
+              "factor_producing_probability": 0.0,
+              "FFT_CPU_seconds": 4.13e-05,
+              "public_CF_mask_CPU_seconds": 0.0002223,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 8,
+              "nearest_bin_only_factor_probability": 0.0,
+              "exact_minus_nearest": 0.0
+            },
+            {
+              "outcome_count": 1024,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.00015290547538874036,
+              "max_probability": 0.00247955322265625,
+              "public_CF_accepting_outcome_bins": 0,
+              "factor_producing_probability": 0.0,
+              "FFT_CPU_seconds": 5.53e-05,
+              "public_CF_mask_CPU_seconds": 0.001079,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 10,
+              "nearest_bin_only_factor_probability": 0.0,
+              "exact_minus_nearest": 0.0
+            },
+            {
+              "outcome_count": 4096,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 4.755537149888888e-06,
+              "max_probability": 0.0023856163024902344,
+              "public_CF_accepting_outcome_bins": 4,
+              "factor_producing_probability": 0.009539621302329888,
+              "FFT_CPU_seconds": 0.0001588,
+              "public_CF_mask_CPU_seconds": 0.0046796,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 12,
+              "nearest_bin_only_factor_probability": 0.00952096795138054,
+              "exact_minus_nearest": 1.8653350949348127e-05
+            },
+            {
+              "outcome_count": 16384,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 1.4760149014807425e-08,
+              "max_probability": 0.002380967140197754,
+              "public_CF_accepting_outcome_bins": 12,
+              "factor_producing_probability": 0.028512054867807998,
+              "FFT_CPU_seconds": 0.0010511,
+              "public_CF_mask_CPU_seconds": 0.0190176,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 14,
+              "nearest_bin_only_factor_probability": 0.028511840938624872,
+              "exact_minus_nearest": 2.1392918312518328e-07
+            },
+            {
+              "outcome_count": 65536,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 3.5834277072991662e-09,
+              "max_probability": 0.0023809559643268585,
+              "public_CF_accepting_outcome_bins": 50,
+              "factor_producing_probability": 0.10940682630181613,
+              "FFT_CPU_seconds": 0.0057293,
+              "public_CF_mask_CPU_seconds": 0.0753161,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 16,
+              "nearest_bin_only_factor_probability": 0.10940636878461905,
+              "exact_minus_nearest": 4.575171970722103e-07
+            },
+            {
+              "outcome_count": 262144,
+              "probability_sum_before_clip": 0.9999999999999996,
+              "minimum_probability_before_clip": 7.894093368766605e-10,
+              "max_probability": 0.0023809531703591347,
+              "public_CF_accepting_outcome_bins": 202,
+              "factor_producing_probability": 0.20674822810048965,
+              "FFT_CPU_seconds": 0.0162396,
+              "public_CF_mask_CPU_seconds": 0.2978802,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 18,
+              "nearest_bin_only_factor_probability": 0.1761265852581739,
+              "exact_minus_nearest": 0.03062164284231575
+            },
+            {
+              "outcome_count": 1048576,
+              "probability_sum_before_clip": 1.0000000000000004,
+              "minimum_probability_before_clip": 9.091485701604417e-11,
+              "max_probability": 0.0023809524718672037,
+              "public_CF_accepting_outcome_bins": 796,
+              "factor_producing_probability": 0.22264096946509346,
+              "FFT_CPU_seconds": 0.0554058,
+              "public_CF_mask_CPU_seconds": 1.1921456,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 20,
+              "nearest_bin_only_factor_probability": 0.17612658525757197,
+              "exact_minus_nearest": 0.04651438420752149
+            }
+          ],
+          "modes": {
+            "full": {
+              "success_probability_by_cap": 0.9220266243344634,
+              "expected_CCX_per_attempt": 8656338.195399297,
+              "expected_phase_rounds": 297.9854575479412,
+              "expected_shots": 28.72170922583957,
+              "expected_CCX_per_factor_success_with_restarts": 9388382.03468106,
+              "success_possible": true
+            },
+            "nearest": {
+              "success_probability_by_cap": 0.8855189923389251,
+              "expected_CCX_per_attempt": 8783979.976438377,
+              "expected_phase_rounds": 302.39661845558777,
+              "expected_shots": 28.950013894379786,
+              "expected_CCX_per_factor_success_with_restarts": 9919583.941658003,
+              "success_possible": true
+            }
+          }
+        },
+        "cube": {
+          "valid_public_CF_denominators": 3,
+          "stages": [
+            {
+              "outcome_count": 16,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0625,
+              "max_probability": 0.0625,
+              "public_CF_accepting_outcome_bins": 0,
+              "factor_producing_probability": 0.0,
+              "FFT_CPU_seconds": 0.000165,
+              "public_CF_mask_CPU_seconds": 2.87e-05,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 4,
+              "nearest_bin_only_factor_probability": 0.0,
+              "exact_minus_nearest": 0.0
+            },
+            {
+              "outcome_count": 64,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.015625,
+              "max_probability": 0.015625,
+              "public_CF_accepting_outcome_bins": 0,
+              "factor_producing_probability": 0.0,
+              "FFT_CPU_seconds": 4.62e-05,
+              "public_CF_mask_CPU_seconds": 5.44e-05,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 6,
+              "nearest_bin_only_factor_probability": 0.0,
+              "exact_minus_nearest": 0.0
+            },
+            {
+              "outcome_count": 256,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0003662109375,
+              "max_probability": 0.0074462890625,
+              "public_CF_accepting_outcome_bins": 0,
+              "factor_producing_probability": 0.0,
+              "FFT_CPU_seconds": 4.47e-05,
+              "public_CF_mask_CPU_seconds": 0.0002464,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 8,
+              "nearest_bin_only_factor_probability": 0.0,
+              "exact_minus_nearest": 0.0
+            },
+            {
+              "outcome_count": 1024,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 2.995214335314938e-05,
+              "max_probability": 0.007171630859375,
+              "public_CF_accepting_outcome_bins": 4,
+              "factor_producing_probability": 0.028609396266651432,
+              "FFT_CPU_seconds": 6.47e-05,
+              "public_CF_mask_CPU_seconds": 0.0010979,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 10,
+              "nearest_bin_only_factor_probability": 0.028494779407088427,
+              "exact_minus_nearest": 0.00011461685956300552
+            },
+            {
+              "outcome_count": 4096,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 1.5975155061842196e-06,
+              "max_probability": 0.007144451141357422,
+              "public_CF_accepting_outcome_bins": 24,
+              "factor_producing_probability": 0.1250350793233953,
+              "FFT_CPU_seconds": 0.0001453,
+              "public_CF_mask_CPU_seconds": 0.0047873,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 12,
+              "nearest_bin_only_factor_probability": 0.12496958113837152,
+              "exact_minus_nearest": 6.549818502378513e-05
+            },
+            {
+              "outcome_count": 16384,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 1.447570328305055e-08,
+              "max_probability": 0.007142871618270874,
+              "public_CF_accepting_outcome_bins": 80,
+              "factor_producing_probability": 0.2773045534683409,
+              "FFT_CPU_seconds": 0.0005072,
+              "public_CF_mask_CPU_seconds": 0.0193467,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 14,
+              "nearest_bin_only_factor_probability": 0.261763242521152,
+              "exact_minus_nearest": 0.015541310947188858
+            },
+            {
+              "outcome_count": 65536,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 3.299557878877274e-09,
+              "max_probability": 0.007142860442399979,
+              "public_CF_accepting_outcome_bins": 322,
+              "factor_producing_probability": 0.3285297704293849,
+              "FFT_CPU_seconds": 0.0020113,
+              "public_CF_mask_CPU_seconds": 0.0763777,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 16,
+              "nearest_bin_only_factor_probability": 0.26788625854958176,
+              "exact_minus_nearest": 0.06064351187980316
+            },
+            {
+              "outcome_count": 262144,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 5.055754651168487e-10,
+              "max_probability": 0.007142857648432255,
+              "public_CF_accepting_outcome_bins": 1280,
+              "factor_producing_probability": 0.3391382215364678,
+              "FFT_CPU_seconds": 0.0095452,
+              "public_CF_mask_CPU_seconds": 0.3016745,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 18,
+              "nearest_bin_only_factor_probability": 0.26788625853751596,
+              "exact_minus_nearest": 0.07125196299895181
+            },
+            {
+              "outcome_count": 1048576,
+              "probability_sum_before_clip": 1.0000000000000007,
+              "minimum_probability_before_clip": 1.8085952229470987e-11,
+              "max_probability": 0.007142857160943095,
+              "public_CF_accepting_outcome_bins": 5062,
+              "factor_producing_probability": 0.3419224838638257,
+              "FFT_CPU_seconds": 0.0462544,
+              "public_CF_mask_CPU_seconds": 1.2108165,
+              "all_outcomes_evaluated": true,
+              "phase_bits": 20,
+              "nearest_bin_only_factor_probability": 0.2678862585337581,
+              "exact_minus_nearest": 0.0740362253300676
+            }
+          ],
+          "modes": {
+            "full": {
+              "success_probability_by_cap": 0.9989648167567704,
+              "expected_CCX_per_attempt": 4946884.275342424,
+              "expected_phase_rounds": 171.87341065374036,
+              "expected_shots": 20.574959793592974,
+              "expected_CCX_per_factor_success_with_restarts": 4952010.513646448,
+              "success_possible": true
+            },
+            "nearest": {
+              "success_probability_by_cap": 0.9963221118247989,
+              "expected_CCX_per_attempt": 5030795.299803397,
+              "expected_phase_rounds": 174.76618003485166,
+              "expected_shots": 20.74925570937216,
+              "expected_CCX_per_factor_success_with_restarts": 5049366.304426706,
+              "success_possible": true
+            }
+          }
+        }
+      },
+      "validation_plain_order": 420,
+      "validation_cube_order": 140
+    },
+    {
+      "N": 767,
+      "cohort": "replication",
+      "group": "trigger",
+      "base": 19,
+      "transformed_base": 723,
+      "p_validation_only": 13,
+      "q_validation_only": 59,
+      "public_classical": {
+        "found": true,
+        "public_factor": 13,
+        "first_source": "Pollard_p_minus_1_B7",
+        "gcd_calls": 49,
+        "modular_square_calls": 23,
+        "B7_pollard_modular_pow_calls": 4,
+        "independent_B31_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 11,
+          "proper_factor": null
+        },
+        "independent_B47_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 15,
+          "proper_factor": null
+        }
+      },
+      "modeled_ideal_quantum": false,
+      "odd_power_order_identity_verified": true,
+      "bases": {},
+      "validation_plain_order": 348,
+      "validation_cube_order": 116
+    },
+    {
+      "N": 989,
+      "cohort": "replication",
+      "group": "trigger",
+      "base": 31,
+      "transformed_base": 121,
+      "p_validation_only": 23,
+      "q_validation_only": 43,
+      "public_classical": {
+        "found": true,
+        "public_factor": 43,
+        "first_source": "Pollard_p_minus_1_B7",
+        "gcd_calls": 49,
+        "modular_square_calls": 23,
+        "B7_pollard_modular_pow_calls": 4,
+        "independent_B31_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 11,
+          "proper_factor": null
+        },
+        "independent_B47_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 15,
+          "proper_factor": null
+        }
+      },
+      "modeled_ideal_quantum": false,
+      "odd_power_order_identity_verified": true,
+      "bases": {},
+      "validation_plain_order": 231,
+      "validation_cube_order": 77
+    }
+  ],
+  "summary": {
+    "selected": 3,
+    "classically_B7_factored": 2,
+    "classically_unresolved": 1,
+    "B31_public_factor_found": 0,
+    "B47_public_factor_found": 0,
+    "B31_additional_from_B7_survivors": 0,
+    "B47_additional_from_B7_survivors": 0,
+    "full": {
+      "eligible_unresolved": 1,
+      "both_factor_success_positive": 1,
+      "either_success_zero": 0,
+      "plain_success_positive": 1,
+      "cube_success_positive": 1,
+      "improved": 1,
+      "tied": 0,
+      "worsened": 0,
+      "ratio_sum_model_CCX_per_success_cube_over_plain": 0.527461547192426,
+      "median_row_cost_ratio": 0.527461547192426,
+      "success_coverage_preserved": true
+    },
+    "nearest": {
+      "eligible_unresolved": 1,
+      "both_factor_success_positive": 1,
+      "either_success_zero": 0,
+      "plain_success_positive": 1,
+      "cube_success_positive": 1,
+      "improved": 1,
+      "tied": 0,
+      "worsened": 0,
+      "ratio_sum_model_CCX_per_success_cube_over_plain": 0.5090300494581764,
+      "median_row_cost_ratio": 0.5090300494581764,
+      "success_coverage_preserved": true
+    }
+  },
+  "logical_width": {
+    "arithmetic_workspace": 33,
+    "wide_peak": 53,
+    "recycled_peak": 34
+  },
+  "claim_boundary": "Exact all-bin IDEAL eigenphase mixture and strict public CF factoring on 10bit semiprimes; zero QPU; no hardware/physical/realtime or practical cryptanalytic advantage."
+}

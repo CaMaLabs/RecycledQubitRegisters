@@ -1,0 +1,165 @@
+{
+  "experiment": "dark_star_full_qpe_outcome_holdout_v1",
+  "revision": "2026-10-14-full-qpe-eigenphase-fft-v1",
+  "cohort": "replication",
+  "group": "control",
+  "preregistration": "docs/DARK_STAR_FULL_QPE_OUTCOME_HOLDOUT_PREREG.md",
+  "selection_salt": "QRR-full-QPE-outcome-holdout-v1-20261014",
+  "base_salt": "QRR-full-QPE-bases-v1-20261014",
+  "timestamp_utc": "2026-10-15T02:09:15.019060+00:00",
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "all_selected_included": true,
+  "ideal_model_only": true,
+  "no_privates_in_public_selector": true,
+  "selftests": {
+    "passed": true,
+    "exact_FFT_matches_all_order_r_geometric_sums": true,
+    "complete_probability_mass": true,
+    "public_CF_fast_matches_original_oracle_free_factor_verifier": true
+  },
+  "selected_public_N": [
+    589,
+    901,
+    913
+  ],
+  "rows": [
+    {
+      "N": 589,
+      "cohort": "replication",
+      "group": "control",
+      "base": 23,
+      "transformed_base": 387,
+      "p_validation_only": 19,
+      "q_validation_only": 31,
+      "public_classical": {
+        "found": true,
+        "public_factor": 31,
+        "first_source": "Pollard_p_minus_1_B7",
+        "gcd_calls": 49,
+        "modular_square_calls": 23,
+        "B7_pollard_modular_pow_calls": 4,
+        "independent_B31_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 11,
+          "proper_factor": null
+        },
+        "independent_B47_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 15,
+          "proper_factor": null
+        }
+      },
+      "modeled_ideal_quantum": false,
+      "odd_power_order_identity_verified": true,
+      "bases": {},
+      "validation_plain_order": 90,
+      "validation_cube_order": 30
+    },
+    {
+      "N": 901,
+      "cohort": "replication",
+      "group": "control",
+      "base": 19,
+      "transformed_base": 552,
+      "p_validation_only": 17,
+      "q_validation_only": 53,
+      "public_classical": {
+        "found": true,
+        "public_factor": 17,
+        "first_source": "power2_chain",
+        "gcd_calls": 7,
+        "modular_square_calls": 2,
+        "B7_pollard_modular_pow_calls": 0,
+        "independent_B31_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 11,
+          "proper_factor": null
+        },
+        "independent_B47_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 15,
+          "proper_factor": null
+        }
+      },
+      "modeled_ideal_quantum": false,
+      "odd_power_order_identity_verified": true,
+      "bases": {},
+      "validation_plain_order": 104,
+      "validation_cube_order": 104
+    },
+    {
+      "N": 913,
+      "cohort": "replication",
+      "group": "control",
+      "base": 7,
+      "transformed_base": 343,
+      "p_validation_only": 11,
+      "q_validation_only": 83,
+      "public_classical": {
+        "found": true,
+        "public_factor": 11,
+        "first_source": "Pollard_p_minus_1_B7",
+        "gcd_calls": 49,
+        "modular_square_calls": 23,
+        "B7_pollard_modular_pow_calls": 4,
+        "independent_B31_public_diagnostic": {
+          "found": true,
+          "modular_pow_calls": 11,
+          "proper_factor": 11
+        },
+        "independent_B47_public_diagnostic": {
+          "found": false,
+          "modular_pow_calls": 15,
+          "proper_factor": null
+        }
+      },
+      "modeled_ideal_quantum": false,
+      "odd_power_order_identity_verified": true,
+      "bases": {},
+      "validation_plain_order": 410,
+      "validation_cube_order": 410
+    }
+  ],
+  "summary": {
+    "selected": 3,
+    "classically_B7_factored": 3,
+    "classically_unresolved": 0,
+    "B31_public_factor_found": 1,
+    "B47_public_factor_found": 0,
+    "B31_additional_from_B7_survivors": 0,
+    "B47_additional_from_B7_survivors": 0,
+    "full": {
+      "eligible_unresolved": 0,
+      "both_factor_success_positive": 0,
+      "either_success_zero": 0,
+      "plain_success_positive": 0,
+      "cube_success_positive": 0,
+      "improved": 0,
+      "tied": 0,
+      "worsened": 0,
+      "ratio_sum_model_CCX_per_success_cube_over_plain": null,
+      "median_row_cost_ratio": null,
+      "success_coverage_preserved": true
+    },
+    "nearest": {
+      "eligible_unresolved": 0,
+      "both_factor_success_positive": 0,
+      "either_success_zero": 0,
+      "plain_success_positive": 0,
+      "cube_success_positive": 0,
+      "improved": 0,
+      "tied": 0,
+      "worsened": 0,
+      "ratio_sum_model_CCX_per_success_cube_over_plain": null,
+      "median_row_cost_ratio": null,
+      "success_coverage_preserved": true
+    }
+  },
+  "logical_width": {
+    "arithmetic_workspace": 33,
+    "wide_peak": 53,
+    "recycled_peak": 34
+  },
+  "claim_boundary": "Exact all-bin IDEAL eigenphase mixture and strict public CF factoring on 10bit semiprimes; zero QPU; no hardware/physical/realtime or practical cryptanalytic advantage."
+}
