@@ -1,0 +1,128 @@
+name: QRR n22 FROZEN sample variance-adaptive precision audit zero QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n22-precision-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  precision-audit-frozen:
+    name: n22 numerical precision only group ${{ matrix.group }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [trigger, control]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Require original 4-row public freeze manifest and immutable original result receipts
+        run: |
+          test -s docs/DARK_STAR_N22_NUMERICAL_PRECISION_AUDIT_PREREG.md
+          test -s results/dark_star_ptp/dark_star_n22_full_tail_public_manifest.json
+          test -s results/dark_star_ptp/dark_star_n22_full_tail_trigger.json
+          test -s results/dark_star_ptp/dark_star_n22_full_tail_control.json
+          python3 - <<'PY'
+          import json,hashlib,subprocess
+          from pathlib import Path
+          p='results/dark_star_ptp/dark_star_n22_full_tail_public_manifest.json'
+          m=json.loads(Path(p).read_text())
+          b=json.dumps(m['selected_public_rows'],sort_keys=True,separators=(',',':'))
+          assert hashlib.sha256(b.encode()).hexdigest()==m['selected_sha256']
+          assert m['selected_sha256']=='d0cfd98eab0b92bc07c39a896e2e0039c3e065f6c6521c525dbefd676c2e49ff'
+          sha='2788bbe9760b815513a5d4f3f1bafe3686a70e92'
+          assert subprocess.run(['git','merge-base','--is-ancestor',sha,'HEAD']).returncode==0
+          assert subprocess.check_output(['git','show',sha+':'+p])==Path(p).read_bytes()
+          assert len(m['selected_public_rows'])==4
+          for group in ('trigger','control'):
+              old=json.loads(Path(f'results/dark_star_ptp/dark_star_n22_full_tail_{group}.json').read_text())
+              assert old['public_manifest_sha256']==m['selected_sha256']
+              assert [x['N'] for x in old['rows']]==[x['N'] for x in m['selected_public_rows'] if x['group']==group]
+          print('Locked same N22 4-row public sample and original unmodified result receipts')
+          PY
+      - name: Pin CPU FFT and accelerated strict public CF verifier
+        run: python3 -m pip install numpy==2.1.3 numba==0.61.2
+      - name: Execute 131072 phase/sampled-stage numerical audit
+        shell: bash
+        env:
+          GROUP: ${{ matrix.group }}
+        run: |
+          set -o pipefail
+          python3 -m py_compile hardware/dark_star_n22_numerical_precision_audit.py
+          python3 -u hardware/dark_star_n22_numerical_precision_audit.py --group "$GROUP" | tee "precision_audit_${GROUP}.log"
+      - name: Independently validate same sample, all stages, confidence budget, no QPU, and cost interval arithmetic
+        shell: bash
+        env:
+          GROUP: ${{ matrix.group }}
+        run: |
+          python3 - <<'PY'
+          import json,math,os
+          from pathlib import Path
+          group=os.environ['GROUP']
+          p=Path(f'results/dark_star_ptp/dark_star_n22_precision_audit_{group}.json')
+          obj=json.loads(p.read_text())
+          old=json.loads(Path(f'results/dark_star_ptp/dark_star_n22_full_tail_{group}.json').read_text())
+          assert obj['group']==group and obj['zero_QPU'] and obj['qpu_jobs_submitted']==0
+          assert obj['not_independent_holdout'] and obj['reuses_identical_frozen_n_and_bases']
+          assert obj['selftests']['passed'] and obj['selftests']['exact_full_FFT_m18_probability_normalized']
+          assert obj['n_phase_samples']==131072 and obj['exact_full_outcome_FFT_phase_cap']==18
+          assert obj['union_budget_test_count']==672 and obj['simultaneous_alpha']==0.01
+          assert obj['logical_width']=={'arithmetic_workspace':69,'wide_peak':113,'recycled_peak':70}
+          assert len(obj['rows'])==2 and obj['summary']['all_classically_factored']==2
+          assert [r['N'] for r in obj['rows']]==[r['N'] for r in old['rows']]
+          for row,prior in zip(obj['rows'],old['rows']):
+              n,a=row['N'],row['base']
+              assert a==prior['base'] and n==prior['N']
+              assert row['exact_same_frozen_base_policy']==prior['public_policies']
+              assert row['additional_public_classical']['classically_factored']
+              assert n%row['additional_public_classical']['factor']==0
+              assert row['validation_only']['odd_power_identity_passed']
+              assert row['validation_only']['plain_order']==prior['validation_only']['plain_order']
+              assert row['validation_only']['cube_order']==prior['validation_only']['cube_order']
+              for name in ('plain','cube'):
+                  vals=row[name]
+                  earlier=prior[name]
+                  assert vals['public_CF_precomputation']['explicitly_classical_factor_recovery']
+                  assert vals['strict_public_CF_certificate_count']==earlier['public_factor_producing_denominator_count']
+                  assert len(vals['all_stages'])==21
+                  s_low,s_high=vals['factor_probability_by_cap_interval']
+                  assert 0<=s_low<=s_high<=1
+                  a,b=vals['modeled_CCX_attempt_interval']
+                  assert 0<=a<=b+1e-6
+                  if vals['exact_factor_incapable']:assert s_low==s_high==0
+                  for stage in vals['all_stages']:
+                      assert 0<=stage['lower']<=stage['upper']<=1+1e-10
+                      if stage['m']<=18:
+                          if not vals['exact_factor_incapable']:
+                              assert stage['mode']=='exact_all_bin_FFT'
+                              assert abs(stage['full_probability_sum']-1)<1e-9
+                      elif stage['mode']=='seeded_iid_uniform_eigenphase_estimate':
+                          assert stage['n_eigenphase_values']==131072
+                          assert stage['omitted_tail_upper_bound']<=1/63+1e-10
+                          assert stage['head_eb_epsilon']>=0 and stage['omitted_eb_epsilon']>=0
+              cp=row['cube_vs_plain']
+              assert cp['status']==('cube_model_win' if cp['ratio'][1] is not None and cp['ratio'][1]<1 else
+                  'cube_model_loss' if cp['ratio'][0] is not None and cp['ratio'][0]>1 else
+                  'factor_incapable_or_uncertified' if None in cp['ratio'] else 'inconclusive')
+              info=row['numerical_accuracy']
+              if info['old_interval_width'] is not None:
+                  assert abs(info['old_interval_width']-(prior['cube_vs_plain']['ratio'][1]-prior['cube_vs_plain']['ratio'][0]))<1e-10
+          assert obj['summary']['n_comparable_to_old']==sum(x['numerical_accuracy']['old_interval_width'] is not None for x in obj['rows'])
+          print('Validated',group,'same frozen sample, 131072 variance-adaptive QPE phase draws, zero QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n22-precision-${{ matrix.group }}
+          path: |
+            precision_audit_*.log
+            results/dark_star_ptp/dark_star_n22_precision_audit_*.json
