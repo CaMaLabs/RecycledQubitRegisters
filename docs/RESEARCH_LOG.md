@@ -582,3 +582,45 @@ This is a successful milestone and should be preserved before broadening the
 population. The next falsification should move from the three selected scout
 cases to a preregistered held-out semiprime population, reporting the full
 distribution of resource ratios rather than only selected positive examples.
+
+
+## 2026-10-14 — Mapping optimization quantified against unique placements
+
+The unique-placement sensitivity run and the fresh optimized-placement
+replication can now be compared directly.
+
+New result:
+- `docs/NIGHTHAWK_MAPPING_OPTIMIZATION_GAIN_RESULT.md`
+- analyzer: `hardware/analyze_nighthawk_mapping_optimization_gain.py`
+
+The key result is that mapping optimization helps the recycled architecture much
+more than the wide architecture.
+
+At 32 phase bits:
+- Fez recycled CZ improves 9.88% from unique median to optimized best, versus
+  only 1.47% for wide.
+- Square-proxy recycled improves 15.13%, versus only 0.88% for wide.
+
+At 64 phase bits:
+- Fez recycled improves 7.83%, versus 0.84% for wide.
+- Square-proxy recycled improves 18.25%, versus 0.45% for wide.
+
+Using the independently replicated optimized placements, recycled beats wide in
+all four overlapping 32/64-bit topology cells:
+
+- 32 Fez: R/W CZ 0.9173, depth 0.9784;
+- 32 square proxy: R/W CZ 0.9330, depth 0.9840;
+- 64 Fez: R/W CZ 0.8940, depth 0.9765;
+- 64 square proxy: R/W CZ 0.9171, depth 0.9845.
+
+The unique-placement medians are intentionally weaker and sometimes reverse the
+gate/depth sign. That does not invalidate the optimized result. It quantifies
+how much value the intended topology-aware mapper is adding.
+
+This closes the immediate topology-interpretation question. Future reporting
+must show both optimized performance and placement sensitivity, but should not
+treat arbitrary placement as the deployment policy.
+
+The 48-bit row is intentionally absent from the optimization-gain comparison
+because the fresh optimized replication and unique-placement datasets overlap at
+32 and 64 bits only. No discovery result was substituted just to fill the table.
