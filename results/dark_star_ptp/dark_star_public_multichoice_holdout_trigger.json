@@ -1,0 +1,1793 @@
+{
+  "experiment": "dark_star_public_multichoice_survivor_holdout_v1",
+  "revision": "2026-10-14-multichoice-classical-survivor-v1",
+  "timestamp_utc": "2026-10-15T01:44:55.476741+00:00",
+  "preregistration": "docs/DARK_STAR_PUBLIC_MULTICHOICE_SURVIVOR_PREREG.md",
+  "selection_salt": "QRR-public-multichoice-survivors-v1-20261014",
+  "base_salt": "QRR-public-multichoice-base-v1-20261014",
+  "random_salt": "QRR-public-multichoice-random-v1-20261014",
+  "cohort": "holdout",
+  "group": "trigger",
+  "policies": [
+    "plain",
+    "always3",
+    "ladder",
+    "cheap4",
+    "random4"
+  ],
+  "exponents": [
+    0,
+    3,
+    5,
+    7
+  ],
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "classical_screened": [
+    {
+      "N": 186503,
+      "base": 13,
+      "rank_index": 1,
+      "public_classical_found": false,
+      "classical_factor_source": null,
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 258347,
+      "base": 7,
+      "rank_index": 2,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 251039,
+      "base": 7,
+      "rank_index": 3,
+      "public_classical_found": true,
+      "classical_factor_source": "power2_chain",
+      "public_operation_counts": {
+        "gcd_calls": 9,
+        "modular_square_calls": 3,
+        "pminusone_modular_pow_calls": 0,
+        "executed_pminusone": false
+      }
+    },
+    {
+      "N": 155843,
+      "base": 2,
+      "rank_index": 4,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 183233,
+      "base": 29,
+      "rank_index": 5,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 193517,
+      "base": 11,
+      "rank_index": 6,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 156647,
+      "base": 17,
+      "rank_index": 7,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 189827,
+      "base": 2,
+      "rank_index": 8,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 131951,
+      "base": 7,
+      "rank_index": 9,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 206327,
+      "base": 31,
+      "rank_index": 10,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 242213,
+      "base": 3,
+      "rank_index": 11,
+      "public_classical_found": false,
+      "classical_factor_source": null,
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 198167,
+      "base": 17,
+      "rank_index": 12,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 211919,
+      "base": 5,
+      "rank_index": 13,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 223553,
+      "base": 23,
+      "rank_index": 14,
+      "public_classical_found": true,
+      "classical_factor_source": "power2_chain",
+      "public_operation_counts": {
+        "gcd_calls": 3,
+        "modular_square_calls": 0,
+        "pminusone_modular_pow_calls": 0,
+        "executed_pminusone": false
+      }
+    },
+    {
+      "N": 163451,
+      "base": 7,
+      "rank_index": 15,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 190949,
+      "base": 7,
+      "rank_index": 16,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 240809,
+      "base": 5,
+      "rank_index": 17,
+      "public_classical_found": true,
+      "classical_factor_source": "power2_chain",
+      "public_operation_counts": {
+        "gcd_calls": 17,
+        "modular_square_calls": 7,
+        "pminusone_modular_pow_calls": 0,
+        "executed_pminusone": false
+      }
+    },
+    {
+      "N": 195749,
+      "base": 17,
+      "rank_index": 18,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 227921,
+      "base": 17,
+      "rank_index": 19,
+      "public_classical_found": false,
+      "classical_factor_source": null,
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 152987,
+      "base": 13,
+      "rank_index": 20,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 261461,
+      "base": 29,
+      "rank_index": 21,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 142001,
+      "base": 19,
+      "rank_index": 22,
+      "public_classical_found": true,
+      "classical_factor_source": "power2_chain",
+      "public_operation_counts": {
+        "gcd_calls": 7,
+        "modular_square_calls": 2,
+        "pminusone_modular_pow_calls": 0,
+        "executed_pminusone": false
+      }
+    },
+    {
+      "N": 159149,
+      "base": 3,
+      "rank_index": 23,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 146201,
+      "base": 3,
+      "rank_index": 24,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 169163,
+      "base": 29,
+      "rank_index": 25,
+      "public_classical_found": false,
+      "classical_factor_source": null,
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 222743,
+      "base": 17,
+      "rank_index": 26,
+      "public_classical_found": false,
+      "classical_factor_source": null,
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 175121,
+      "base": 3,
+      "rank_index": 27,
+      "public_classical_found": false,
+      "classical_factor_source": null,
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 139847,
+      "base": 29,
+      "rank_index": 28,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 133577,
+      "base": 29,
+      "rank_index": 29,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 231767,
+      "base": 19,
+      "rank_index": 30,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 238613,
+      "base": 3,
+      "rank_index": 31,
+      "public_classical_found": false,
+      "classical_factor_source": null,
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 214079,
+      "base": 13,
+      "rank_index": 32,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 256937,
+      "base": 7,
+      "rank_index": 33,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 228089,
+      "base": 2,
+      "rank_index": 34,
+      "public_classical_found": true,
+      "classical_factor_source": "power2_chain",
+      "public_operation_counts": {
+        "gcd_calls": 7,
+        "modular_square_calls": 2,
+        "pminusone_modular_pow_calls": 0,
+        "executed_pminusone": false
+      }
+    },
+    {
+      "N": 183851,
+      "base": 11,
+      "rank_index": 35,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 160733,
+      "base": 17,
+      "rank_index": 36,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 213197,
+      "base": 7,
+      "rank_index": 37,
+      "public_classical_found": true,
+      "classical_factor_source": "power2_chain",
+      "public_operation_counts": {
+        "gcd_calls": 9,
+        "modular_square_calls": 3,
+        "pminusone_modular_pow_calls": 0,
+        "executed_pminusone": false
+      }
+    },
+    {
+      "N": 217139,
+      "base": 3,
+      "rank_index": 38,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 225923,
+      "base": 13,
+      "rank_index": 39,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 186353,
+      "base": 19,
+      "rank_index": 40,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 151079,
+      "base": 2,
+      "rank_index": 41,
+      "public_classical_found": true,
+      "classical_factor_source": "power2_chain",
+      "public_operation_counts": {
+        "gcd_calls": 7,
+        "modular_square_calls": 2,
+        "pminusone_modular_pow_calls": 0,
+        "executed_pminusone": false
+      }
+    },
+    {
+      "N": 230057,
+      "base": 2,
+      "rank_index": 42,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 199229,
+      "base": 29,
+      "rank_index": 43,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 253277,
+      "base": 2,
+      "rank_index": 44,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 247733,
+      "base": 3,
+      "rank_index": 45,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 233351,
+      "base": 17,
+      "rank_index": 46,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 195563,
+      "base": 23,
+      "rank_index": 47,
+      "public_classical_found": false,
+      "classical_factor_source": null,
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 144197,
+      "base": 29,
+      "rank_index": 48,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 208979,
+      "base": 29,
+      "rank_index": 49,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 147929,
+      "base": 3,
+      "rank_index": 50,
+      "public_classical_found": false,
+      "classical_factor_source": null,
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 212309,
+      "base": 31,
+      "rank_index": 51,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 185933,
+      "base": 13,
+      "rank_index": 52,
+      "public_classical_found": true,
+      "classical_factor_source": "Pollard_p1_B31",
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 223949,
+      "base": 19,
+      "rank_index": 53,
+      "public_classical_found": false,
+      "classical_factor_source": null,
+      "public_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    }
+  ],
+  "selftests": {
+    "public_and_CF_selftest": true,
+    "frozen_policy_decision_public_only": true
+  },
+  "rows": [
+    {
+      "N": 186503,
+      "cohort": "holdout",
+      "group": "trigger",
+      "rank_index": 1,
+      "base": 13,
+      "p_validation_only": 421,
+      "q_validation_only": 443,
+      "valid_semiprime": true,
+      "public_candidate_bases": {
+        "0": 13,
+        "3": 2197,
+        "5": 184790,
+        "7": 83509
+      },
+      "cheap4_CCX_proxy_by_exponent": {
+        "0": 928179,
+        "3": 972876,
+        "5": 980006,
+        "7": 953007
+      },
+      "choice_exponents": {
+        "plain": 0,
+        "always3": 3,
+        "ladder": 3,
+        "cheap4": 0,
+        "random4": 0
+      },
+      "transformed_order_validation_only": {
+        "0": 340,
+        "3": 340,
+        "5": 68,
+        "7": 340
+      },
+      "true_order_identity_verified": true,
+      "policies": {
+        "plain": {
+          "exponent": 0,
+          "selected_base": 13,
+          "model_success_probability": 0.9999998018345152,
+          "expected_ccx_attempted": 58342090.74985725,
+          "expected_ccx_per_success": 58342102.311248235,
+          "expected_phase_rounds": 246.48787557290157,
+          "zero_success": false
+        },
+        "always3": {
+          "exponent": 3,
+          "selected_base": 2197,
+          "model_success_probability": 0.9999998018345152,
+          "expected_ccx_attempted": 59769978.33930617,
+          "expected_ccx_per_success": 59769990.18365525,
+          "expected_phase_rounds": 246.48787557290157,
+          "zero_success": false
+        },
+        "ladder": {
+          "exponent": 3,
+          "selected_base": 2197,
+          "model_success_probability": 0.9999998018345152,
+          "expected_ccx_attempted": 59769978.33930617,
+          "expected_ccx_per_success": 59769990.18365525,
+          "expected_phase_rounds": 246.48787557290157,
+          "zero_success": false
+        },
+        "cheap4": {
+          "exponent": 0,
+          "selected_base": 13,
+          "model_success_probability": 0.9999998018345152,
+          "expected_ccx_attempted": 58342090.74985725,
+          "expected_ccx_per_success": 58342102.311248235,
+          "expected_phase_rounds": 246.48787557290157,
+          "zero_success": false
+        },
+        "random4": {
+          "exponent": 0,
+          "selected_base": 13,
+          "model_success_probability": 0.9999998018345152,
+          "expected_ccx_attempted": 58342090.74985725,
+          "expected_ccx_per_success": 58342102.311248235,
+          "expected_phase_rounds": 246.48787557290157,
+          "zero_success": false
+        }
+      },
+      "B47_public_classical_diagnostic": {
+        "found": false,
+        "source": "Pollard_p1_B47",
+        "modular_pow_calls": 15
+      },
+      "oracle_best_exponent_validation_only": 5,
+      "oracle_best_CCX_per_success_validation_only": 31174206.04068551
+    },
+    {
+      "N": 242213,
+      "cohort": "holdout",
+      "group": "trigger",
+      "rank_index": 11,
+      "base": 3,
+      "p_validation_only": 23,
+      "q_validation_only": 10531,
+      "valid_semiprime": true,
+      "public_candidate_bases": {
+        "0": 3,
+        "3": 27,
+        "5": 243,
+        "7": 2187
+      },
+      "cheap4_CCX_proxy_by_exponent": {
+        "0": 866028,
+        "3": 932546,
+        "5": 935036,
+        "7": 967671
+      },
+      "choice_exponents": {
+        "plain": 0,
+        "always3": 3,
+        "ladder": 3,
+        "cheap4": 0,
+        "random4": 7
+      },
+      "transformed_order_validation_only": {
+        "0": 115830,
+        "3": 38610,
+        "5": 23166,
+        "7": 115830
+      },
+      "true_order_identity_verified": true,
+      "policies": {
+        "plain": {
+          "exponent": 0,
+          "selected_base": 3,
+          "model_success_probability": 0.8709551787302083,
+          "expected_ccx_attempted": 267629913.00245044,
+          "expected_ccx_per_success": 307283221.3853256,
+          "expected_phase_rounds": 1130.8008837925654,
+          "zero_success": false
+        },
+        "always3": {
+          "exponent": 3,
+          "selected_base": 27,
+          "model_success_probability": 0.9629370140088404,
+          "expected_ccx_attempted": 227227301.74734983,
+          "expected_ccx_per_success": 235973172.11991993,
+          "expected_phase_rounds": 942.2791535725771,
+          "zero_success": false
+        },
+        "ladder": {
+          "exponent": 3,
+          "selected_base": 27,
+          "model_success_probability": 0.9629370140088404,
+          "expected_ccx_attempted": 227227301.74734983,
+          "expected_ccx_per_success": 235973172.11991993,
+          "expected_phase_rounds": 942.2791535725771,
+          "zero_success": false
+        },
+        "cheap4": {
+          "exponent": 0,
+          "selected_base": 3,
+          "model_success_probability": 0.8709551787302083,
+          "expected_ccx_attempted": 267629913.00245044,
+          "expected_ccx_per_success": 307283221.3853256,
+          "expected_phase_rounds": 1130.8008837925654,
+          "zero_success": false
+        },
+        "random4": {
+          "exponent": 7,
+          "selected_base": 2187,
+          "model_success_probability": 0.8709551787302083,
+          "expected_ccx_attempted": 273503096.5187269,
+          "expected_ccx_per_success": 314026603.43265337,
+          "expected_phase_rounds": 1130.8008837925654,
+          "zero_success": false
+        }
+      },
+      "B47_public_classical_diagnostic": {
+        "found": false,
+        "source": "Pollard_p1_B47",
+        "modular_pow_calls": 15
+      },
+      "oracle_best_exponent_validation_only": 5,
+      "oracle_best_CCX_per_success_validation_only": 197303186.5141333
+    },
+    {
+      "N": 227921,
+      "cohort": "holdout",
+      "group": "trigger",
+      "rank_index": 19,
+      "base": 17,
+      "p_validation_only": 113,
+      "q_validation_only": 2017,
+      "valid_semiprime": true,
+      "public_candidate_bases": {
+        "0": 17,
+        "3": 4913,
+        "5": 52331,
+        "7": 80873
+      },
+      "cheap4_CCX_proxy_by_exponent": {
+        "0": 906594,
+        "3": 945492,
+        "5": 958476,
+        "7": 982895
+      },
+      "choice_exponents": {
+        "plain": 0,
+        "always3": 3,
+        "ladder": 3,
+        "cheap4": 0,
+        "random4": 3
+      },
+      "transformed_order_validation_only": {
+        "0": 672,
+        "3": 224,
+        "5": 672,
+        "7": 96
+      },
+      "true_order_identity_verified": true,
+      "policies": {
+        "plain": {
+          "exponent": 0,
+          "selected_base": 17,
+          "model_success_probability": 0.9999675368851406,
+          "expected_ccx_attempted": 81115930.10126458,
+          "expected_ccx_per_success": 81118563.46250749,
+          "expected_phase_rounds": 343.04062734919745,
+          "zero_success": false
+        },
+        "always3": {
+          "exponent": 3,
+          "selected_base": 4913,
+          "model_success_probability": 0.9999999722299656,
+          "expected_ccx_attempted": 55793393.60326377,
+          "expected_ccx_per_success": 55793395.15264828,
+          "expected_phase_rounds": 232.4727281843252,
+          "zero_success": false
+        },
+        "ladder": {
+          "exponent": 3,
+          "selected_base": 4913,
+          "model_success_probability": 0.9999999722299656,
+          "expected_ccx_attempted": 55793393.60326377,
+          "expected_ccx_per_success": 55793395.15264828,
+          "expected_phase_rounds": 232.4727281843252,
+          "zero_success": false
+        },
+        "cheap4": {
+          "exponent": 0,
+          "selected_base": 17,
+          "model_success_probability": 0.9999675368851406,
+          "expected_ccx_attempted": 81115930.10126458,
+          "expected_ccx_per_success": 81118563.46250749,
+          "expected_phase_rounds": 343.04062734919745,
+          "zero_success": false
+        },
+        "random4": {
+          "exponent": 3,
+          "selected_base": 4913,
+          "model_success_probability": 0.9999999722299656,
+          "expected_ccx_attempted": 55793393.60326377,
+          "expected_ccx_per_success": 55793395.15264828,
+          "expected_phase_rounds": 232.4727281843252,
+          "zero_success": false
+        }
+      },
+      "B47_public_classical_diagnostic": {
+        "found": false,
+        "source": "Pollard_p1_B47",
+        "modular_pow_calls": 15
+      },
+      "oracle_best_exponent_validation_only": 7,
+      "oracle_best_CCX_per_success_validation_only": 50092186.8317879
+    },
+    {
+      "N": 169163,
+      "cohort": "holdout",
+      "group": "trigger",
+      "rank_index": 25,
+      "base": 29,
+      "p_validation_only": 139,
+      "q_validation_only": 1217,
+      "valid_semiprime": true,
+      "public_candidate_bases": {
+        "0": 29,
+        "3": 24389,
+        "5": 42426,
+        "7": 156036
+      },
+      "cheap4_CCX_proxy_by_exponent": {
+        "0": 921593,
+        "3": 974281,
+        "5": 954101,
+        "7": 983915
+      },
+      "choice_exponents": {
+        "plain": 0,
+        "always3": 3,
+        "ladder": 3,
+        "cheap4": 0,
+        "random4": 5
+      },
+      "transformed_order_validation_only": {
+        "0": 41952,
+        "3": 13984,
+        "5": 41952,
+        "7": 41952
+      },
+      "true_order_identity_verified": true,
+      "policies": {
+        "plain": {
+          "exponent": 0,
+          "selected_base": 29,
+          "model_success_probability": 0.9884448726991439,
+          "expected_ccx_attempted": 217219328.6215301,
+          "expected_ccx_per_success": 219758668.0058037,
+          "expected_phase_rounds": 907.5045471931852,
+          "zero_success": false
+        },
+        "always3": {
+          "exponent": 3,
+          "selected_base": 24389,
+          "model_success_probability": 0.9999463104165675,
+          "expected_ccx_attempted": 165908800.98349065,
+          "expected_ccx_per_success": 165917709.03617287,
+          "expected_phase_rounds": 681.679177105989,
+          "zero_success": false
+        },
+        "ladder": {
+          "exponent": 3,
+          "selected_base": 24389,
+          "model_success_probability": 0.9999463104165675,
+          "expected_ccx_attempted": 165908800.98349065,
+          "expected_ccx_per_success": 165917709.03617287,
+          "expected_phase_rounds": 681.679177105989,
+          "zero_success": false
+        },
+        "cheap4": {
+          "exponent": 0,
+          "selected_base": 29,
+          "model_success_probability": 0.9884448726991439,
+          "expected_ccx_attempted": 217219328.6215301,
+          "expected_ccx_per_success": 219758668.0058037,
+          "expected_phase_rounds": 907.5045471931852,
+          "zero_success": false
+        },
+        "random4": {
+          "exponent": 5,
+          "selected_base": 42426,
+          "model_success_probability": 0.9884448726991439,
+          "expected_ccx_attempted": 217001763.05561152,
+          "expected_ccx_per_success": 219538559.05291444,
+          "expected_phase_rounds": 907.5045471931852,
+          "zero_success": false
+        }
+      },
+      "B47_public_classical_diagnostic": {
+        "found": false,
+        "source": "Pollard_p1_B47",
+        "modular_pow_calls": 15
+      },
+      "oracle_best_exponent_validation_only": 3,
+      "oracle_best_CCX_per_success_validation_only": 165917709.03617287
+    },
+    {
+      "N": 222743,
+      "cohort": "holdout",
+      "group": "trigger",
+      "rank_index": 26,
+      "base": 17,
+      "p_validation_only": 353,
+      "q_validation_only": 631,
+      "valid_semiprime": true,
+      "public_candidate_bases": {
+        "0": 17,
+        "3": 4913,
+        "5": 83399,
+        "7": 46067
+      },
+      "cheap4_CCX_proxy_by_exponent": {
+        "0": 926579,
+        "3": 981181,
+        "5": 987908,
+        "7": 980842
+      },
+      "choice_exponents": {
+        "plain": 0,
+        "always3": 3,
+        "ladder": 3,
+        "cheap4": 0,
+        "random4": 0
+      },
+      "transformed_order_validation_only": {
+        "0": 27720,
+        "3": 9240,
+        "5": 5544,
+        "7": 3960
+      },
+      "true_order_identity_verified": true,
+      "policies": {
+        "plain": {
+          "exponent": 0,
+          "selected_base": 17,
+          "model_success_probability": 0.9642629500231439,
+          "expected_ccx_attempted": 217707760.58515963,
+          "expected_ccx_per_success": 225776340.96584785,
+          "expected_phase_rounds": 904.0179159427371,
+          "zero_success": false
+        },
+        "always3": {
+          "exponent": 3,
+          "selected_base": 4913,
+          "model_success_probability": 0.9887386953413154,
+          "expected_ccx_attempted": 178050384.29712412,
+          "expected_ccx_per_success": 180078300.90604538,
+          "expected_phase_rounds": 725.1823544174891,
+          "zero_success": false
+        },
+        "ladder": {
+          "exponent": 3,
+          "selected_base": 4913,
+          "model_success_probability": 0.9887386953413154,
+          "expected_ccx_attempted": 178050384.29712412,
+          "expected_ccx_per_success": 180078300.90604538,
+          "expected_phase_rounds": 725.1823544174891,
+          "zero_success": false
+        },
+        "cheap4": {
+          "exponent": 0,
+          "selected_base": 17,
+          "model_success_probability": 0.9642629500231439,
+          "expected_ccx_attempted": 217707760.58515963,
+          "expected_ccx_per_success": 225776340.96584785,
+          "expected_phase_rounds": 904.0179159427371,
+          "zero_success": false
+        },
+        "random4": {
+          "exponent": 0,
+          "selected_base": 17,
+          "model_success_probability": 0.9642629500231439,
+          "expected_ccx_attempted": 217707760.58515963,
+          "expected_ccx_per_success": 225776340.96584785,
+          "expected_phase_rounds": 904.0179159427371,
+          "zero_success": false
+        }
+      },
+      "B47_public_classical_diagnostic": {
+        "found": false,
+        "source": "Pollard_p1_B47",
+        "modular_pow_calls": 15
+      },
+      "oracle_best_exponent_validation_only": 7,
+      "oracle_best_CCX_per_success_validation_only": 142167131.13863137
+    },
+    {
+      "N": 175121,
+      "cohort": "holdout",
+      "group": "trigger",
+      "rank_index": 27,
+      "base": 3,
+      "p_validation_only": 37,
+      "q_validation_only": 4733,
+      "valid_semiprime": true,
+      "public_candidate_bases": {
+        "0": 3,
+        "3": 27,
+        "5": 243,
+        "7": 2187
+      },
+      "cheap4_CCX_proxy_by_exponent": {
+        "0": 874001,
+        "3": 934582,
+        "5": 955207,
+        "7": 972877
+      },
+      "choice_exponents": {
+        "plain": 0,
+        "always3": 3,
+        "ladder": 3,
+        "cheap4": 0,
+        "random4": 5
+      },
+      "transformed_order_validation_only": {
+        "0": 6084,
+        "3": 2028,
+        "5": 6084,
+        "7": 6084
+      },
+      "true_order_identity_verified": true,
+      "policies": {
+        "plain": {
+          "exponent": 0,
+          "selected_base": 3,
+          "model_success_probability": 0.9994748438139472,
+          "expected_ccx_attempted": 141769360.27573413,
+          "expected_ccx_per_success": 141843850.45125213,
+          "expected_phase_rounds": 601.7612609826934,
+          "zero_success": false
+        },
+        "always3": {
+          "exponent": 3,
+          "selected_base": 27,
+          "model_success_probability": 0.9999068715609416,
+          "expected_ccx_attempted": 109420518.24787566,
+          "expected_ccx_per_success": 109430709.35902332,
+          "expected_phase_rounds": 458.5230418885731,
+          "zero_success": false
+        },
+        "ladder": {
+          "exponent": 3,
+          "selected_base": 27,
+          "model_success_probability": 0.9999068715609416,
+          "expected_ccx_attempted": 109420518.24787566,
+          "expected_ccx_per_success": 109430709.35902332,
+          "expected_phase_rounds": 458.5230418885731,
+          "zero_success": false
+        },
+        "cheap4": {
+          "exponent": 0,
+          "selected_base": 3,
+          "model_success_probability": 0.9994748438139472,
+          "expected_ccx_attempted": 141769360.27573413,
+          "expected_ccx_per_success": 141843850.45125213,
+          "expected_phase_rounds": 601.7612609826934,
+          "zero_success": false
+        },
+        "random4": {
+          "exponent": 5,
+          "selected_base": 243,
+          "model_success_probability": 0.9994748438139472,
+          "expected_ccx_attempted": 143786047.316615,
+          "expected_ccx_per_success": 143861597.12428024,
+          "expected_phase_rounds": 601.7612609826934,
+          "zero_success": false
+        }
+      },
+      "B47_public_classical_diagnostic": {
+        "found": false,
+        "source": "Pollard_p1_B47",
+        "modular_pow_calls": 15
+      },
+      "oracle_best_exponent_validation_only": 3,
+      "oracle_best_CCX_per_success_validation_only": 109430709.35902332
+    },
+    {
+      "N": 238613,
+      "cohort": "holdout",
+      "group": "trigger",
+      "rank_index": 31,
+      "base": 3,
+      "p_validation_only": 37,
+      "q_validation_only": 6449,
+      "valid_semiprime": true,
+      "public_candidate_bases": {
+        "0": 3,
+        "3": 27,
+        "5": 243,
+        "7": 2187
+      },
+      "cheap4_CCX_proxy_by_exponent": {
+        "0": 861384,
+        "3": 932607,
+        "5": 972550,
+        "7": 971162
+      },
+      "choice_exponents": {
+        "plain": 0,
+        "always3": 3,
+        "ladder": 3,
+        "cheap4": 0,
+        "random4": 3
+      },
+      "transformed_order_validation_only": {
+        "0": 58032,
+        "3": 19344,
+        "5": 58032,
+        "7": 58032
+      },
+      "true_order_identity_verified": true,
+      "policies": {
+        "plain": {
+          "exponent": 0,
+          "selected_base": 3,
+          "model_success_probability": 0.978675207613451,
+          "expected_ccx_attempted": 227289196.0513971,
+          "expected_ccx_per_success": 232241702.1328795,
+          "expected_phase_rounds": 969.6672742479037,
+          "zero_success": false
+        },
+        "always3": {
+          "exponent": 3,
+          "selected_base": 27,
+          "model_success_probability": 0.9961952012389499,
+          "expected_ccx_attempted": 187153266.22429392,
+          "expected_ccx_per_success": 187868066.4106139,
+          "expected_phase_rounds": 780.7786080730305,
+          "zero_success": false
+        },
+        "ladder": {
+          "exponent": 3,
+          "selected_base": 27,
+          "model_success_probability": 0.9961952012389499,
+          "expected_ccx_attempted": 187153266.22429392,
+          "expected_ccx_per_success": 187868066.4106139,
+          "expected_phase_rounds": 780.7786080730305,
+          "zero_success": false
+        },
+        "cheap4": {
+          "exponent": 0,
+          "selected_base": 3,
+          "model_success_probability": 0.978675207613451,
+          "expected_ccx_attempted": 227289196.0513971,
+          "expected_ccx_per_success": 232241702.1328795,
+          "expected_phase_rounds": 969.6672742479037,
+          "zero_success": false
+        },
+        "random4": {
+          "exponent": 3,
+          "selected_base": 27,
+          "model_success_probability": 0.9961952012389499,
+          "expected_ccx_attempted": 187153266.22429392,
+          "expected_ccx_per_success": 187868066.4106139,
+          "expected_phase_rounds": 780.7786080730305,
+          "zero_success": false
+        }
+      },
+      "B47_public_classical_diagnostic": {
+        "found": false,
+        "source": "Pollard_p1_B47",
+        "modular_pow_calls": 15
+      },
+      "oracle_best_exponent_validation_only": 3,
+      "oracle_best_CCX_per_success_validation_only": 187868066.4106139
+    },
+    {
+      "N": 195563,
+      "cohort": "holdout",
+      "group": "trigger",
+      "rank_index": 47,
+      "base": 23,
+      "p_validation_only": 269,
+      "q_validation_only": 727,
+      "valid_semiprime": true,
+      "public_candidate_bases": {
+        "0": 23,
+        "3": 12167,
+        "5": 178327,
+        "7": 73617
+      },
+      "cheap4_CCX_proxy_by_exponent": {
+        "0": 932695,
+        "3": 980160,
+        "5": 989654,
+        "7": 965325
+      },
+      "choice_exponents": {
+        "plain": 0,
+        "always3": 3,
+        "ladder": 3,
+        "cheap4": 0,
+        "random4": 5
+      },
+      "transformed_order_validation_only": {
+        "0": 8107,
+        "3": 8107,
+        "5": 8107,
+        "7": 8107
+      },
+      "true_order_identity_verified": true,
+      "policies": {
+        "plain": {
+          "exponent": 0,
+          "selected_base": 23,
+          "model_success_probability": 0.0,
+          "expected_ccx_attempted": 331253556.0,
+          "expected_ccx_per_success": null,
+          "expected_phase_rounds": 1360.0,
+          "zero_success": true
+        },
+        "always3": {
+          "exponent": 3,
+          "selected_base": 12167,
+          "model_success_probability": 0.0,
+          "expected_ccx_attempted": 334861692.0,
+          "expected_ccx_per_success": null,
+          "expected_phase_rounds": 1360.0,
+          "zero_success": true
+        },
+        "ladder": {
+          "exponent": 3,
+          "selected_base": 12167,
+          "model_success_probability": 0.0,
+          "expected_ccx_attempted": 334861692.0,
+          "expected_ccx_per_success": null,
+          "expected_phase_rounds": 1360.0,
+          "zero_success": true
+        },
+        "cheap4": {
+          "exponent": 0,
+          "selected_base": 23,
+          "model_success_probability": 0.0,
+          "expected_ccx_attempted": 331253556.0,
+          "expected_ccx_per_success": null,
+          "expected_phase_rounds": 1360.0,
+          "zero_success": true
+        },
+        "random4": {
+          "exponent": 5,
+          "selected_base": 178327,
+          "model_success_probability": 0.0,
+          "expected_ccx_attempted": 334187772.0,
+          "expected_ccx_per_success": null,
+          "expected_phase_rounds": 1360.0,
+          "zero_success": true
+        }
+      },
+      "B47_public_classical_diagnostic": {
+        "found": false,
+        "source": "Pollard_p1_B47",
+        "modular_pow_calls": 15
+      },
+      "oracle_best_exponent_validation_only": null,
+      "oracle_best_CCX_per_success_validation_only": null
+    },
+    {
+      "N": 147929,
+      "cohort": "holdout",
+      "group": "trigger",
+      "rank_index": 50,
+      "base": 3,
+      "p_validation_only": 29,
+      "q_validation_only": 5101,
+      "valid_semiprime": true,
+      "public_candidate_bases": {
+        "0": 3,
+        "3": 27,
+        "5": 243,
+        "7": 2187
+      },
+      "cheap4_CCX_proxy_by_exponent": {
+        "0": 874435,
+        "3": 928272,
+        "5": 967616,
+        "7": 981563
+      },
+      "choice_exponents": {
+        "plain": 0,
+        "always3": 3,
+        "ladder": 3,
+        "cheap4": 0,
+        "random4": 0
+      },
+      "transformed_order_validation_only": {
+        "0": 35700,
+        "3": 11900,
+        "5": 7140,
+        "7": 5100
+      },
+      "true_order_identity_verified": true,
+      "policies": {
+        "plain": {
+          "exponent": 0,
+          "selected_base": 3,
+          "model_success_probability": 0.9608739446143584,
+          "expected_ccx_attempted": 221250352.2963256,
+          "expected_ccx_per_success": 230259498.1749903,
+          "expected_phase_rounds": 935.4642096785693,
+          "zero_success": false
+        },
+        "always3": {
+          "exponent": 3,
+          "selected_base": 27,
+          "model_success_probability": 0.9989543218186931,
+          "expected_ccx_attempted": 167000447.74076894,
+          "expected_ccx_per_success": 167175259.26183334,
+          "expected_phase_rounds": 694.1848568993412,
+          "zero_success": false
+        },
+        "ladder": {
+          "exponent": 3,
+          "selected_base": 27,
+          "model_success_probability": 0.9989543218186931,
+          "expected_ccx_attempted": 167000447.74076894,
+          "expected_ccx_per_success": 167175259.26183334,
+          "expected_phase_rounds": 694.1848568993412,
+          "zero_success": false
+        },
+        "cheap4": {
+          "exponent": 0,
+          "selected_base": 3,
+          "model_success_probability": 0.9608739446143584,
+          "expected_ccx_attempted": 221250352.2963256,
+          "expected_ccx_per_success": 230259498.1749903,
+          "expected_phase_rounds": 935.4642096785693,
+          "zero_success": false
+        },
+        "random4": {
+          "exponent": 0,
+          "selected_base": 3,
+          "model_success_probability": 0.9608739446143584,
+          "expected_ccx_attempted": 221250352.2963256,
+          "expected_ccx_per_success": 230259498.1749903,
+          "expected_phase_rounds": 935.4642096785693,
+          "zero_success": false
+        }
+      },
+      "B47_public_classical_diagnostic": {
+        "found": false,
+        "source": "Pollard_p1_B47",
+        "modular_pow_calls": 15
+      },
+      "oracle_best_exponent_validation_only": 7,
+      "oracle_best_CCX_per_success_validation_only": 146620003.56033173
+    },
+    {
+      "N": 223949,
+      "cohort": "holdout",
+      "group": "trigger",
+      "rank_index": 53,
+      "base": 19,
+      "p_validation_only": 11,
+      "q_validation_only": 20359,
+      "valid_semiprime": true,
+      "public_candidate_bases": {
+        "0": 19,
+        "3": 6859,
+        "5": 12660,
+        "7": 91280
+      },
+      "cheap4_CCX_proxy_by_exponent": {
+        "0": 941226,
+        "3": 966572,
+        "5": 974178,
+        "7": 957505
+      },
+      "choice_exponents": {
+        "plain": 0,
+        "always3": 3,
+        "ladder": 3,
+        "cheap4": 0,
+        "random4": 5
+      },
+      "transformed_order_validation_only": {
+        "0": 101790,
+        "3": 33930,
+        "5": 20358,
+        "7": 101790
+      },
+      "true_order_identity_verified": true,
+      "policies": {
+        "plain": {
+          "exponent": 0,
+          "selected_base": 19,
+          "model_success_probability": 0.9038846204341034,
+          "expected_ccx_attempted": 265344116.0412907,
+          "expected_ccx_per_success": 293559719.94949466,
+          "expected_phase_rounds": 1099.192074862938,
+          "zero_success": false
+        },
+        "always3": {
+          "exponent": 3,
+          "selected_base": 6859,
+          "model_success_probability": 0.9745267239706569,
+          "expected_ccx_attempted": 222055285.65976188,
+          "expected_ccx_per_success": 227859616.5685529,
+          "expected_phase_rounds": 909.837185414872,
+          "zero_success": false
+        },
+        "ladder": {
+          "exponent": 3,
+          "selected_base": 6859,
+          "model_success_probability": 0.9745267239706569,
+          "expected_ccx_attempted": 222055285.65976188,
+          "expected_ccx_per_success": 227859616.5685529,
+          "expected_phase_rounds": 909.837185414872,
+          "zero_success": false
+        },
+        "cheap4": {
+          "exponent": 0,
+          "selected_base": 19,
+          "model_success_probability": 0.9038846204341034,
+          "expected_ccx_attempted": 265344116.0412907,
+          "expected_ccx_per_success": 293559719.94949466,
+          "expected_phase_rounds": 1099.192074862938,
+          "zero_success": false
+        },
+        "random4": {
+          "exponent": 5,
+          "selected_base": 12660,
+          "model_success_probability": 0.995851562854802,
+          "expected_ccx_attempted": 193098521.931725,
+          "expected_ccx_per_success": 193902915.9909842,
+          "expected_phase_rounds": 788.1441257117788,
+          "zero_success": false
+        }
+      },
+      "B47_public_classical_diagnostic": {
+        "found": false,
+        "source": "Pollard_p1_B47",
+        "modular_pow_calls": 15
+      },
+      "oracle_best_exponent_validation_only": 5,
+      "oracle_best_CCX_per_success_validation_only": 193902915.9909842
+    }
+  ],
+  "summary": {
+    "selected_survivors": 10,
+    "screened_public_candidates": 53,
+    "classical_factored_in_scan": 43,
+    "public_factor_sources": {
+      "Pollard_p1_B31": 36,
+      "power2_chain": 7
+    },
+    "B47_classically_factorable_among_selected": 0,
+    "selected_exponents_by_policy": {
+      "plain": {
+        "0": 10
+      },
+      "always3": {
+        "3": 10
+      },
+      "ladder": {
+        "3": 10
+      },
+      "cheap4": {
+        "0": 10
+      },
+      "random4": {
+        "0": 3,
+        "7": 1,
+        "3": 2,
+        "5": 4
+      }
+    },
+    "true_order_reduction_count_by_policy": {
+      "plain": 0,
+      "always3": 8,
+      "ladder": 8,
+      "cheap4": 0,
+      "random4": 3
+    },
+    "policies": {
+      "plain": {
+        "factor_capable": 9,
+        "mean_factor_success_probability": 0.8666538956648011,
+        "total_expected_CCX_per_attempt": 2028921603.7250097
+      },
+      "always3": {
+        "factor_capable": 9,
+        "mean_factor_success_probability": 0.8921204912420446,
+        "total_expected_CCX_per_attempt": 1707241068.843235
+      },
+      "ladder": {
+        "factor_capable": 9,
+        "mean_factor_success_probability": 0.8921204912420446,
+        "total_expected_CCX_per_attempt": 1707241068.843235
+      },
+      "cheap4": {
+        "factor_capable": 9,
+        "mean_factor_success_probability": 0.8666538956648011,
+        "total_expected_CCX_per_attempt": 2028921603.7250097
+      },
+      "random4": {
+        "factor_capable": 9,
+        "mean_factor_success_probability": 0.8776058328039035,
+        "total_expected_CCX_per_attempt": 1901824064.2815788
+      }
+    },
+    "comparisons": {
+      "ladder_vs_plain": {
+        "complete_rows": 10,
+        "both_success": 9,
+        "either_zero_success": 1,
+        "coverage_method": 9,
+        "coverage_comparator": 9,
+        "coverage_non_decreased": true,
+        "improved": 8,
+        "tied": 0,
+        "worsened": 1,
+        "exact_unadjusted_two_sided_sign_p": 0.0390625,
+        "aggregate_sum_cost_per_success_ratio": 0.7763819125064062,
+        "median_paired_cost_per_success_ratio": 0.7714871600770008
+      },
+      "ladder_vs_always3": {
+        "complete_rows": 10,
+        "both_success": 9,
+        "either_zero_success": 1,
+        "coverage_method": 9,
+        "coverage_comparator": 9,
+        "coverage_non_decreased": true,
+        "improved": 0,
+        "tied": 9,
+        "worsened": 0,
+        "exact_unadjusted_two_sided_sign_p": 1.0,
+        "aggregate_sum_cost_per_success_ratio": 1.0,
+        "median_paired_cost_per_success_ratio": 1.0
+      },
+      "ladder_vs_random4": {
+        "complete_rows": 10,
+        "both_success": 9,
+        "either_zero_success": 1,
+        "coverage_method": 9,
+        "coverage_comparator": 9,
+        "coverage_non_decreased": true,
+        "improved": 5,
+        "tied": 2,
+        "worsened": 2,
+        "exact_unadjusted_two_sided_sign_p": 0.453125,
+        "aggregate_sum_cost_per_success_ratio": 0.8530088346704575,
+        "median_paired_cost_per_success_ratio": 0.7975959754493718
+      },
+      "cheap4_vs_plain": {
+        "complete_rows": 10,
+        "both_success": 9,
+        "either_zero_success": 1,
+        "coverage_method": 9,
+        "coverage_comparator": 9,
+        "coverage_non_decreased": true,
+        "improved": 0,
+        "tied": 9,
+        "worsened": 0,
+        "exact_unadjusted_two_sided_sign_p": 1.0,
+        "aggregate_sum_cost_per_success_ratio": 1.0,
+        "median_paired_cost_per_success_ratio": 1.0
+      },
+      "cheap4_vs_random4": {
+        "complete_rows": 10,
+        "both_success": 9,
+        "either_zero_success": 1,
+        "coverage_method": 9,
+        "coverage_comparator": 9,
+        "coverage_non_decreased": true,
+        "improved": 2,
+        "tied": 3,
+        "worsened": 4,
+        "exact_unadjusted_two_sided_sign_p": 0.6875,
+        "aggregate_sum_cost_per_success_ratio": 1.0986974592397127,
+        "median_paired_cost_per_success_ratio": 1.0
+      },
+      "always3_vs_plain": {
+        "complete_rows": 10,
+        "both_success": 9,
+        "either_zero_success": 1,
+        "coverage_method": 9,
+        "coverage_comparator": 9,
+        "coverage_non_decreased": true,
+        "improved": 8,
+        "tied": 0,
+        "worsened": 1,
+        "exact_unadjusted_two_sided_sign_p": 0.0390625,
+        "aggregate_sum_cost_per_success_ratio": 0.7763819125064062,
+        "median_paired_cost_per_success_ratio": 0.7714871600770008
+      },
+      "random4_vs_plain": {
+        "complete_rows": 10,
+        "both_success": 9,
+        "either_zero_success": 1,
+        "coverage_method": 9,
+        "coverage_comparator": 9,
+        "coverage_non_decreased": true,
+        "improved": 4,
+        "tied": 3,
+        "worsened": 2,
+        "exact_unadjusted_two_sided_sign_p": 0.6875,
+        "aggregate_sum_cost_per_success_ratio": 0.9101686652593058,
+        "median_paired_cost_per_success_ratio": 1.0
+      }
+    }
+  },
+  "claim_boundary": "conditional public B31 survivor sample of toy 18bit N; ideal nearest-bin factor-producing CF and logical CCX; not hardware/runtime/physical resource or RSA-scale factoring",
+  "logical_width": {
+    "arithmetic_workspace": 57,
+    "wide_peak": 93,
+    "recycled_peak": 58
+  }
+}
