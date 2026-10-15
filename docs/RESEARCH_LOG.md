@@ -998,3 +998,27 @@ estimator has worst-case 95% Hoeffding absolute p uncertainty ~0.015;
 this does not bound the final stopped-session CCX ratio. All numbers
 remain logical resource models, not QPU measured runtime/fidelity,
 physical-fault-tolerant resources, or RSA-2048 factoring.
+
+
+## 2026-10-14 — New N22 classical-survivor policy holdout: cube replicates, ladder vs cube fails
+
+**Research lead and original idea: Chase Lunsford / CaMaLabs.** Frozen the public-only N22 sample selection and the ladder-vs-unconditional-cube test before quantum order/model scoring; executed and completed an independent four-job zero-QPU holdout. Preserve all prior milestones and negative evidence: the 96-row n17 and 144-row n18 classical-first negative ell5/ell7 directions, 40 B31-survivor failed broad ladder superiority, 12-case exact full-phase distribution (only three factor-capable toy cases), 8-case rigorous all-bin omitted-tail model (primary n18 trigger factor-ineligible), and n20 72-case numerical-convergence study with near-parity ladder/cube.
+
+**Immutable evidence:**
+- Preregistered protocol `docs/DARK_STAR_N22_SELECTOR_VS_CUBE_PREREG.md` commit **`51b9584865081f6f829a7b5a592b72b7f687acad`**.
+- Public-only freeze `results/dark_star_ptp/dark_star_n22_public_manifest.json`, commit **`b9326ab1a77eb50b24f9d145b5f68807e4752d92`** BEFORE scoring, SHA256 selected rows **`290a964bff4fc9ec4474d9fbd6e29fda111143113f93a1274cfafc94a8f02d98`**.
+- Experimental runner `hardware/dark_star_n22_selector_vs_cube.py`; original manifest freeze plus four scoring jobs [GitHub Actions **38694538017**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38694538017) all **SUCCESS**, exact public frozen case/choice verification, zero QPU, no paid runtime.
+- Independent strict original-artifact verifier [Actions **38694776139**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38694776139) **SUCCESS**. Four full raw JSON saved under `results/dark_star_ptp/dark_star_n22_{trigger,control}_seed_{A,B}.json` in commit `5e0f89d1a0204d340efb4b644380be24cf9936ca`. Interpretive report `docs/DARK_STAR_N22_SELECTOR_VS_CUBE_RESULT.md`.
+
+**Sampling/classical wins:** 22-bit, 2^21≤N<2^22, distinct prime-pair semiprimes. Public N%3 trigger/control, six selected N per group; SHA-ranked, no order/factor-based sample selection. **31 publicly screened**, **19 already factored by frozen public B31 GCD/power2/Pollard p−1**, leaving **12 distinct B31 classical survivors** in frozen new cohort. Then cumulative PUBLIC B47/rho up to 64 iterations/seed completely factored all 12 additional N (**5 B47**, **7 rho**). No practical factoring value remains under this trivial classical budget.
+
+**Frozen PRIMARY ladder vs simple always3, successful-session generic logical CCX:**
+- CONTROL (where ladder chooses ell5 in 3 cases, ell7 in 3): independent 8192-eigenphase seed A ratio **0.965595**, seed B **0.965751**; success coverage always 6/6; **3 improved, 0 tied, 3 worsened** under BOTH seeds; same N win/loss signs. Between-N descriptive bootstrap 95% CI seed A **[0.8368,1.0854]** crosses parity.
+- **PREDECLARED MAJORITY BENEFIT GATE FAILS**, despite ~3.4% lower aggregate weighted model cost. A single N=2750971 worsened ~25%, N=3230443 improved ~27.7%. No general public multi-exponent selector advantage beyond always3 established.
+- TRIGGER: by construction ladder==always3 for all six, both seed ratios **1.000**, **0/6/0** improvement/tie/loss, correct identity and required negative selection control.
+
+**Secondary N22 cube/plain ideal-model checkpoint:** trigger model cost-per-success ratios **0.786726** and **0.784368** under the two seeds, **6/6 paired improvements** with factor-producing model coverage preserved. Control: always3/plain ~0.9493 with **2 improve/4 worsen**; ladder/plain ~0.9167 with **2 improve/4 worsen**. Every N later classically factored by the stricter public cascade, so these effects are hypothetical logical-CCX *ideal nearest-bin QPE model* costs, NOT end-to-end factoring runtime or real hardware speedup. Numerical phase-sampling error for ratios is not formally bounded by the per-stage Hoeffding number; 2 seeds are only numerical replication.
+
+**Independent phase recycling width:** at 22-bit generic clean-ancilla reversible arithmetic workspace 69 coherent logical qubits, wide peak 113 vs phase recycled peak **70** (43 or 38.05% fewer). No exponent-dependent width credit, no surface-code or physical-QPU resource claim.
+
+**Next gate:** deploy mathematical ideal-QPE outcome-tail intervals (separate previously validated algorithm), not merely nearest-bin sampling, on an independently preregistered fresh larger-bit subset, then broaden sample without private-order conditioning. Distinguish theoretical QPE resource trends, classical factoring effort and true device capability. Never spend QPU funds based on current toy factoring evidence.
