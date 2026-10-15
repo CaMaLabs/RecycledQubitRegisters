@@ -3,6 +3,8 @@ import argparse, json, math, os, sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from ibm_runtime_guard import assert_open_plan_submission
+
 try:
     from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
     from qiskit.circuit.library import QFTGate
@@ -255,6 +257,7 @@ def run_probe(service, backend, shots, max_execution_time):
     use_measure2 = backend_has_measure2(backend)
     logical = build_feedback_probe(use_measure2)
     compiled = compile_circuit(logical, backend)
+    assert_open_plan_submission(service, backend)
     sampler = SamplerV2(mode=backend, options={'max_execution_time': max_execution_time})
     job = sampler.run([compiled], shots=shots)
     print('Probe job ID:', job.job_id())
@@ -314,6 +317,7 @@ def run_comparison(service, backend, bits, shots, phases, max_execution_time, pa
         })
 
     print(f'Submitting {len(isa)} circuits x {shots} shots...')
+    assert_open_plan_submission(service, backend)
     sampler = SamplerV2(mode=backend, options={'max_execution_time': max_execution_time})
     job = sampler.run(isa, shots=shots)
     print('Comparison job ID:', job.job_id())
