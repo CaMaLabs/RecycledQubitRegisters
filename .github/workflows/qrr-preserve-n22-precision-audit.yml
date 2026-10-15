@@ -1,0 +1,118 @@
+name: Preserve original n22 numerical precision-only audit receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n22-precision-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-preserve-n22-precision-original-only
+  cancel-in-progress: false
+
+jobs:
+  independently-verify-original-receipts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download EXACT ORIGINAL successful high-precision run data
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38730414791
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n22-precision-*
+          merge-multiple: true
+          path: _original_receipts
+      - name: Validate all four same-frozen-N results including factor-incapable negative and confidence methods
+        run: |
+          set -eu
+          mkdir -p results/dark_star_ptp
+          find _original_receipts -type f -name 'dark_star_n22_precision_audit_*.json' -exec cp -t results/dark_star_ptp/ '{}' +
+          python3 - <<'PY'
+          import hashlib,json,math
+          from pathlib import Path
+          root=Path('results/dark_star_ptp')
+          paths=[root/'dark_star_n22_precision_audit_trigger.json',root/'dark_star_n22_precision_audit_control.json']
+          assert all(p.exists() for p in paths)
+          manifest=json.loads((root/'dark_star_n22_full_tail_public_manifest.json').read_text())
+          body=json.dumps(manifest['selected_public_rows'],sort_keys=True,separators=(',',':'))
+          sha=hashlib.sha256(body.encode()).hexdigest()
+          assert sha==manifest['selected_sha256']=='d0cfd98eab0b92bc07c39a896e2e0039c3e065f6c6521c525dbefd676c2e49ff'
+          Ns=set()
+          improved=0;comparable=0;positives=0;negatives=0
+          for p in paths:
+              x=json.loads(p.read_text())
+              g=x['group']
+              prior=json.loads((root/f'dark_star_n22_full_tail_{g}.json').read_text())
+              assert x['original_manifest_sha256']==sha
+              assert x['zero_QPU'] and x['qpu_jobs_submitted']==0
+              assert x['not_independent_holdout'] and x['reuses_identical_frozen_n_and_bases']
+              assert x['selftests']['passed']
+              assert x['selftests']['exact_full_FFT_m18_probability_normalized']
+              assert x['n_phase_samples']==131072 and x['exact_full_outcome_FFT_phase_cap']==18
+              assert x['sampled_stage_centered_window']==32
+              assert x['simultaneous_alpha']==0.01 and x['union_budget_test_count']==672
+              assert x['logical_width']=={'arithmetic_workspace':69,'wide_peak':113,'recycled_peak':70}
+              assert len(x['rows'])==2 and x['summary']['all_classically_factored']==2
+              assert [r['N'] for r in x['rows']]==[r['N'] for r in prior['rows']]
+              for row,old in zip(x['rows'],prior['rows']):
+                  n=row['N'];a=row['base']
+                  assert n not in Ns;Ns.add(n)
+                  assert a==old['base'] and row['exact_same_frozen_base_policy']==old['public_policies']
+                  assert row['additional_public_classical']['classically_factored']
+                  assert n%row['additional_public_classical']['factor']==0
+                  assert row['validation_only']['odd_power_identity_passed']
+                  assert row['validation_only']['plain_order']==old['validation_only']['plain_order']
+                  assert row['validation_only']['cube_order']==old['validation_only']['cube_order']
+                  for name in ('plain','cube'):
+                      v=row[name]
+                      assert v['strict_public_CF_certificate_count']==old[name]['public_factor_producing_denominator_count']
+                      assert len(v['all_stages'])==21
+                      a0,b0=v['factor_probability_by_cap_interval']
+                      assert 0<=a0<=b0<=1
+                      assert len(v['modeled_CCX_per_factor_success_interval'])==2
+                      if v['exact_factor_incapable']:assert a0==b0==0
+                      for z in v['all_stages']:
+                          assert 0<=z['lower']<=z['upper']<=1+1e-9
+                          if z['mode']=='exact_all_bin_FFT':
+                              assert z['m']<=18 and abs(z['full_probability_sum']-1)<1e-9
+                          if z['mode']=='seeded_iid_uniform_eigenphase_estimate':
+                              assert z['m']>18 and z['n_eigenphase_values']==131072
+                              assert z['omitted_tail_upper_bound']<=1/63+1e-10
+                              assert z['head_eb_epsilon']>=0 and z['omitted_eb_epsilon']>=0
+                  cls=row['cube_vs_plain']
+                  assert cls['status'] in ('cube_model_win','cube_model_loss','inconclusive','factor_incapable_or_uncertified')
+                  if cls['status']=='cube_model_win':
+                      assert cls['ratio'][1]<1;positives+=1
+                  elif cls['status']=='cube_model_loss':
+                      assert cls['ratio'][0]>1;negatives+=1
+                  q=row['numerical_accuracy']
+                  if q['narrowed'] is not None:
+                      comparable+=1
+                      improved+=bool(q['narrowed'])
+                      assert q['old_interval_width']==old['cube_vs_plain']['ratio'][1]-old['cube_vs_plain']['ratio'][0]
+                      assert q['new_interval_width']==cls['ratio'][1]-cls['ratio'][0]
+              print('AUDITED',g,'all 2 frozen rows and exact all outcome probability checks',
+                    'narrower=',x['summary']['n_interval_narrower'])
+          assert len(Ns)==4
+          assert comparable==3 and improved==3
+          assert positives==1 and negatives==0
+          print('VERIFIED old-versus-new same-sample precision gate: 3/3 finite intervals narrowed, 1 exploratory model win, 1 exact factor-incapable, zero QPU')
+          PY
+      - name: Commit only original JSON result receipts without changing prior experimental records
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n22_precision_audit_trigger.json
+          git add results/dark_star_ptp/dark_star_n22_precision_audit_control.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve exact precision-only n22 audit receipts and all previously negative cases"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
