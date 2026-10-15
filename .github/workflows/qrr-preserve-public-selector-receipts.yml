@@ -1,0 +1,80 @@
+name: Preserve validated n18 public-selector holdout receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-public-selector-receipts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-preserve-public-selector-n18
+  cancel-in-progress: false
+
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download ONLY verified original n18 trial receipts
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38664537058
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: public-selector-n18-ell-*
+          merge-multiple: true
+          path: _receipts
+      - name: Verify frozen data from original successful run before preserving
+        run: |
+          set -eu
+          mkdir -p results/dark_star_ptp
+          find _receipts -type f -name 'dark_star_public_selector_n18_ell*.json' -exec cp -t results/dark_star_ptp/ '{}' +
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          folder=Path('results/dark_star_ptp')
+          names=sorted(folder.glob('dark_star_public_selector_n18_ell*.json'))
+          assert len(names)==3, [str(p) for p in names]
+          for filename,ell in zip(names,(3,5,7)):
+              assert filename.name.endswith(f'ell{ell}.json')
+              d=json.loads(filename.read_text())
+              assert d['ell']==ell and d['zero_QPU'] and d['qpu_jobs_submitted']==0
+              assert len(d['rows'])==40 and not d['violations']
+              assert d['selftests']['selftest']
+              for group in ('trigger','control'):
+                  subset=[r for r in d['rows'] if r['group']==group]
+                  assert len(subset)==20
+                  for r in subset:
+                      n,a,b=r['N'],r['base'],r['transformed_base']
+                      assert 131072<=n<=262143
+                      assert r['public_selector_base']==(b if n%ell!=1 and b!=a else a)
+                      assert r['order_identity_ok']
+                      if not r['common_classical']['found']:
+                          assert set(r['policies'])=={'plain','unconditional','public_selector'}
+                  info=d['summaries'][group]
+                  assert info['common_classical_factored']+info['common_classical_unresolved']==20
+                  comp=info['comparison_selector_vs_plain']
+                  assert comp['improved']+comp['tied']+comp['worsened']==comp['both_positive_success_count']
+                  assert comp['both_positive_success_count']+comp['either_zero_success_count']==info['common_classical_unresolved']
+              print(ell, 'verified=',filename,'rows=',len(d['rows']),
+                    'trigger_pass=',d['summaries']['trigger']['comparison_selector_vs_plain']['primary_criterion_pass'])
+          print('All 120 preregistered receipts validated; no QPU job.')
+          PY
+      - name: Commit all three complete results together
+        run: |
+          set -eu
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/dark_star_ptp/dark_star_public_selector_n18_ell3.json
+          git add results/dark_star_ptp/dark_star_public_selector_n18_ell5.json
+          git add results/dark_star_ptp/dark_star_public_selector_n18_ell7.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve all 120 public-selector n18 holdout receipts, including ell7 failure"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
