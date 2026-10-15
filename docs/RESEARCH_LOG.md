@@ -852,3 +852,39 @@ Methodological new win: for exact ideal eigenphase mixture, 4-shot staged-QPE pr
 Independent logical phase recycling peak: **88→55** at n17 and **93→58** at n18 from one phase ancilla reuse with unchanged arithmetic workspace; NOT a physical-qubit saving claim or part of cube benefit. No new number-theory theorem, hardware speed/fidelity, fault-tolerant resource figure, RSA-scale factoring or real classical-plus-quantum speedup shown.
 
 **Next useful step:** carry the frozen analytic-tail bound and public factor-denominator *empty set* zero certificate to a larger 20–24bit public semiprime population, with a frozen stronger classical budget, a proper locked holdout, numeric interval precision diagnostics and explicit classical wall-clock/operations separate from logical CCX; avoid QPU charges until a genuine hardware-relevant advantage is supported.
+
+
+## 2026-10-14 — 20-bit v3 public-survivor manifest frozen before outcome scoring
+
+The next independent Dark Star falsification moved to a **disjoint 20-bit
+semiprime frame** `524288 <= N <= 1048575` and a publicly selected
+classical-survivor design. The protocol was committed before hidden orders,
+ideal-QPE outcomes, or resource comparisons were evaluated:
+
+- `docs/DARK_STAR_N20_PUBLIC_POLICY_SURVIVOR_V3_PREREG.md`
+- `hardware/dark_star_n20_public_survivor_v3.py`
+- `results/dark_star_ptp/dark_star_n20_public_survivors_v3_manifest.json`
+- manifest-freeze GitHub Actions **38677771046: SUCCESS**, zero QPU.
+
+A frozen SHA256 rank and public-base rule, public repeated-squaring/GCD and
+bounded Pollard p−1 stage-one B31, and strict no-resampling condition generated
+**72 distinct surviving N** (12 per ell × trigger/control). The **293 publicly
+screened** semiprimes include **221 already factored classically**; all screen
+receipts were preserved in the committed manifest, not discarded.
+
+Public manifest SHA256:
+`a952fa4b57496136b29df7a3aca54a4361d4ec6ed5e0ee76c796602d5e840782`.
+
+The resource scoring is frozen to a **4096-common-random-eigenphase estimator**
+for r>4096 and exact validation-order enumeration for r<=4096, with a
+public-only factor-producing continued-fraction predicate, not a hidden-order
+shortcut. It is **nearest-bin-only ideal model sampling**, not exact full-QPE
+distribution or QPU measurements; the preregistration explicitly records the
+approximation and uncertainty bound before seeing any result.
+
+The separate coherent-width claim remains **103 wide -> 64 recycled** peak
+logical qubits under generic 20-bit clean-ancilla arithmetic, independent of
+Dark Star. Prior selected-scout gains, n17/n18 mixed/negative population
+evidence and the non-improvement of multi-exponent ladder vs always3 in earlier
+trigger panels remain in force; this new holdout must be allowed to falsify
+further selector claims. **No IBM Runtime paid use is authorized.**
