@@ -1089,3 +1089,23 @@ numbers) **and** the scientific negative: no preregistered n22 trigger
 cube advantage survives these conservative full-outcome probability
 intervals; 113→70 modeled logical-qubit width remains solely phase
 recycling. Zero QPU or paid IBM Runtime.
+
+
+## 2026-10-15 — Frozen same-four n22 precision-only audit: 3/3 narrower, 1 conditional ideal-model cube win
+
+**Research lead: Chase Lunsford / CaMaLabs.** Completed preregistered **PRECISION-ONLY on reused N22 four-case public sample**, not a new independent holdout. Earlier original n22 full-outcome-head trial [38696858911](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38696858911) had 3 inconclusive cube/plain model ratio bands and 1 provably public-CF-factor-incapable trigger. Its original preregistered primary benefit gate FAILED and remains failed as a historical result. All 4 were classically factored by public B47 or complete prime trial; public factor-producing CF certificate generation is also classically factor-recovering work and never free. Earlier positive/negative n17, n18, n20 and n22 findings remain preserved.
+
+- Frozen methodological protocol **before numerical run**: `docs/DARK_STAR_N22_NUMERICAL_PRECISION_AUDIT_PREREG.md` commit `8c77ea5991b9990b7fab57ffda27fdf16e6383ef`, reusing original immutable public N/base SHA `d0cfd98eab0b92bc07c39a896e2e0039c3e065f6c6521c525dbefd676c2e49ff`. Same four Ns/bases and same strict public factor-producing CF denominator rule, 4 staged shots/m=4,6,…,44 and n22 abstract logical CCX costs. No quantum hardware/QPU.
+- New model `hardware/dark_star_n22_numerical_precision_audit.py` commit `890cc65d0c19ec96b0befae1300517e0e1658130`: exact ALL-QPE-bin FFT through m=18 (rather than12); above that 65 geometric-sum centered output probabilities/eigenphase with analytically limited tail ≤1/63; **131072** shared-seed uniformly sampled eigenphases/stage (8× old) or exhaustive eigenphases when r≤131072. Empirically observed omitted mass bounded separately using **Maurer–Pontil variance-sensitive empirical Bernstein** 2-sided stage bound, simultaneously 99% nominal under IID uniform draws, union budget 672 for N×base×stage×head/tail×two-sides. CPython PRNG not a certified random source; floating trig values not directed-rounding proof. These are **confidence intervals conditional on numerical and sampling assumptions**, not rigorous hardware or complete deterministic-QPE bounds.
+- Actual two-group full research run [CI 38730414791](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38730414791) **2/2 success**; original exact raw JSON independently verified and preserved in [CI 38730702345](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38730702345) **SUCCESS**, saved `results/dark_star_ptp/dark_star_n22_precision_audit_{trigger,control}.json` without altering the old receipts. Verified full [result](DARK_STAR_N22_NUMERICAL_PRECISION_AUDIT_RESULT.md).
+
+| Frozen reused 22bit N | Original 99%-head/tail cube/plain cost band | Higher precision band | Finding |
+|---:|---|---|---|
+| **3623549** (trigger) | [0.357458,1.989375] | **[0.718747,0.857407]** | **conditional model cube win**, but NOT independent validation |
+| **3351017** (trigger) | UNDEFINED, public denominator empty | **UNDEFINED** | **factor incapable**; original failed primary not erased |
+| **3910213** (control) | [0.412419,2.489615] | **[0.923670,1.105982]** | inconclusive |
+| **2895517** (control) | [0.475893,2.136414] | **[0.942183,1.078764]** | inconclusive |
+
+**NEW NUMERICAL-PRECISION MILESTONE:** all **3/3 originally factor-capable** comparisons have narrower intervals (ratio widths about **11.77×, 11.39×, 12.16×** smaller), exceeding frozen precision-method ≥2/3 gate. One previously uncertain reused trigger now shows **14.3–28.1% fewer modeled logical CCX per successful ideal-QPE factor**, conditional on the confidence assumptions. There are still **two inconclusive controls**, and **one provably factor-incapable trigger**. The original two-case trigger success claim DOES NOT now pass in retrospect. Sample wasn't expanded or randomly redrawn, so no new population inference. All 4 were classically factored, and classical good-denominator prep has its own public factor recovery.
+
+Independent n22 phase recycling width remains **113→70** abstract simultaneous logical qubits, distinct from transformed modular order; no physical, fault-tolerant, device-fidelity, runtime or RSA cryptanalytic result. The next properly falsifiable experiment would require a **brand-new frozen public sample** run under this unchanged higher-precision protocol, with true classical preprocessing overhead properly separated from gate-model CCX.
