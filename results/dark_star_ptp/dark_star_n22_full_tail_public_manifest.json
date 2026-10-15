@@ -1,0 +1,174 @@
+{
+  "experiment": "qrr_n22_fresh_full_qpe_tail_public_manifest",
+  "preregistration": "docs/DARK_STAR_N22_FULL_OUTCOME_BOUNDED_PREREG.md",
+  "selection_salt": "QRR-n22-full-tail-new-pop-20261014",
+  "base_salt": "QRR-n22-full-tail-base-20261014",
+  "previous_n22_excluded": [
+    2131621,
+    2164181,
+    2176511,
+    2589401,
+    2594903,
+    2647753,
+    2750971,
+    3230443,
+    3622961,
+    3779777,
+    3799363,
+    4089931
+  ],
+  "frame": [
+    2097152,
+    4194303
+  ],
+  "selected_public_rows": [
+    {
+      "N": 3623549,
+      "base": 3,
+      "group": "trigger",
+      "rank": 1,
+      "public_policies": {
+        "plain": 3,
+        "cube": 27
+      }
+    },
+    {
+      "N": 3351017,
+      "base": 19,
+      "group": "trigger",
+      "rank": 2,
+      "public_policies": {
+        "plain": 19,
+        "cube": 6859
+      }
+    },
+    {
+      "N": 3910213,
+      "base": 2,
+      "group": "control",
+      "rank": 2,
+      "public_policies": {
+        "plain": 2,
+        "cube": 8
+      }
+    },
+    {
+      "N": 2895517,
+      "base": 19,
+      "group": "control",
+      "rank": 5,
+      "public_policies": {
+        "plain": 19,
+        "cube": 6859
+      }
+    }
+  ],
+  "public_screenings": {
+    "trigger": [
+      {
+        "N": 3623549,
+        "base": 3,
+        "rank": 1,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3351017,
+        "base": 19,
+        "rank": 2,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      }
+    ],
+    "control": [
+      {
+        "N": 2513743,
+        "base": 17,
+        "rank": 1,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 37,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3910213,
+        "base": 2,
+        "rank": 2,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3843397,
+        "base": 19,
+        "rank": 3,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 577,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 2313301,
+        "base": 17,
+        "rank": 4,
+        "public_B31_factored": true,
+        "classical_first_source": "power2_chain",
+        "public_factor": 29,
+        "primitive_operation_counts": {
+          "gcd_calls": 5,
+          "modular_square_calls": 1,
+          "pminusone_modular_pow_calls": 0,
+          "executed_pminusone": false
+        }
+      },
+      {
+        "N": 2895517,
+        "base": 19,
+        "rank": 5,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      }
+    ]
+  },
+  "selected_sha256": "d0cfd98eab0b92bc07c39a896e2e0039c3e065f6c6521c525dbefd676c2e49ff",
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "note": "This contains ONLY public N, coprime base, public transforms and bounded classical results; private factors/orders intentionally absent."
+}
