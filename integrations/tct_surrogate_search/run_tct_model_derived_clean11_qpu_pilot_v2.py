@@ -61,6 +61,8 @@ import ibm_nighthawk_topology_recycling_benchmark as topo
 import ibm_qubit_recycling_width_sweep as width
 import run_tct_model_derived_one_round_qpu_pilot as pilot
 
+from ibm_runtime_guard import assert_open_plan_submission
+
 REV = "2026-09-22-tct-model-derived-clean11-qpu-pilot-v2-route-replay"
 DEFAULT_HLS = (
     ROOT / "results" / "tct_surrogate_search" /
@@ -452,6 +454,7 @@ def main() -> int:
         raise SystemExit("REFUSING QPU SUBMISSION: one or more preregistered guardrails failed")
 
     print(f"Submitting matched-output baseline + lifted clean11 candidate: 2 circuits x {args.shots} shots")
+    assert_open_plan_submission(service, backend)
     sampler = SamplerV2(mode=backend, options={"max_execution_time": args.max_execution_time})
     job = sampler.run([compiled_baseline, compiled_candidate], shots=args.shots)
     print("Job ID:", job.job_id())
