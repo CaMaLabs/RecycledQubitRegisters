@@ -46,6 +46,8 @@ import benchmark_tct_model_derived_fez_calibration_sweep as sweep
 import ibm_qubit_recycling_width_sweep as width
 import ibm_recycled_interaction_graph_mapper as mapper
 
+from ibm_runtime_guard import assert_open_plan_submission
+
 REV = "2026-09-21-tct-model-derived-one-round-qpu-pilot-v1"
 DEFAULT_FEASIBILITY = (
     ROOT / "results" / "tct_surrogate_search" /
@@ -383,6 +385,7 @@ def main() -> int:
         raise SystemExit("REFUSING QPU SUBMISSION: one or more preregistered guardrails failed")
 
     print(f"Submitting paired baseline + one-round candidate: 2 circuits x {args.shots} shots")
+    assert_open_plan_submission(service, backend)
     sampler = SamplerV2(mode=backend, options={"max_execution_time": args.max_execution_time})
     job = sampler.run([compiled_baseline, compiled_candidate], shots=args.shots)
     print("Job ID:", job.job_id())
