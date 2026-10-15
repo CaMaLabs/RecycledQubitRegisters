@@ -948,3 +948,53 @@ Independent generic 20-bit arithmetic logical width: **103 wide -> 64
 recycled** peak (**37.86% fewer**); 63 coherent arithmetic logical qubits
 remain. Zero IBM QPU jobs and no paid runtime. No QPU speed/fidelity,
 physical fault-tolerance or RSA-scale claim.
+
+
+## 2026-10-14 — Independent 8192-phase numerical convergence confirms conditional v3 direction
+
+After the successful 72-case n20 public-classical-survivor holdout, a
+**separately preregistered independent numerical check** tested whether
+the finite-phase eigenvalue sampling could be creating the apparent
+ladder-versus-baseline resource effect.
+
+- Preregistered BEFORE new outcomes:
+  `docs/DARK_STAR_N20_PHASE_CONVERGENCE_PREREG.md`
+- Six-panel independent 8192-seed sampler:
+  `hardware/dark_star_n20_phase_convergence.py`
+- GitHub Actions [38678433078](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38678433078): six shards + integrity merger **SUCCESS**;
+  all 72 frozen N/base pairs and zero QPU jobs verified.
+- Complete result:
+  `docs/DARK_STAR_N20_PHASE_CONVERGENCE_RESULT.md`.
+- All original per-panel and independent receipts committed separately:
+  `results/dark_star_ptp/dark_star_n20_phase_validation_ell{3,5,7}_{trigger,control}.json`.
+
+The independent **8192-phase** draws used a different frozen SHA salt on
+the SAME N/sample, with exact r-enumeration for r<=8192. Neither public
+selector nor factors/orders used to choose N were altered.
+
+| Public-N trigger group | ladder/plain original 4096 | independent 8192 | ladder/always3 original | independent 8192 |
+|---|---:|---:|---:|---:|
+| ell3 | 0.832899 | **0.837287** | 1.000000 | **1.000000** |
+| ell5 | 0.799052 | **0.799469** | 0.994597 | **0.995238** |
+| ell7 | 0.806628 | **0.806123** | 0.965400 | **0.965520** |
+
+The main **conditional modeled ladder versus plain** directional effect
+is numerically stable at these two seeds/sample caps: all three trigger
+panels preserve comparable case coverage and improving/worsening tallies;
+all changes in aggregate ratio are <0.005 absolute.
+
+**Important negative boundary preserved:** ladder versus simple always3
+is **identical** in the ell3 trigger stratum. In ell5 trigger, the
+near-parity ladder/always3 ratio stays slightly under 1 but one
+individual comparison reverses from 2 improved /7 tied /1 worsened to
+**1 improved /7 tied /2 worsened** under the new phase seed. Therefore
+reliable *additional* value beyond always-cube is **not established**.
+This is a stronger numerical diagnostic, not an independent new N
+population or an all-bin exact QPE distribution. Original row-bootstrap
+uncertainties for ell5 and ell7 ladder/cube comparisons include parity.
+
+An individual 8192-sample per-stage ideal-nearest-bin Bernoulli
+estimator has worst-case 95% Hoeffding absolute p uncertainty ~0.015;
+this does not bound the final stopped-session CCX ratio. All numbers
+remain logical resource models, not QPU measured runtime/fidelity,
+physical-fault-tolerant resources, or RSA-2048 factoring.
