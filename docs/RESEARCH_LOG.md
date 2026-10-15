@@ -678,3 +678,33 @@ population, include a bounded Pollard-p-1-style public classical baseline,
 verify factor-producing denominators explicitly, and evaluate the *full public
 selection policy*, including a no-transform option. Do not try to rescue
 ell=5 by selecting favorable rows post hoc.
+
+
+## 2026-10-14 — Larger public-selector holdout with factor-producing CF and classical baseline
+
+**Research lead and original idea: Chase Lunsford / CaMaLabs.** Verified the next preregistered Dark Star falsification step, now with no-transform option, a fixed public Pollard stage-one p-1 B31 baseline, factor-producing public continued fractions, a fresh n18 semiprime population, and **zero QPU jobs**. Preserve the previous wins and failures explicitly rather than replacing them.
+
+- Precommitted protocol: `docs/DARK_STAR_PUBLIC_SELECTOR_LARGER_HOLDOUT_PREREG.md` (`2264ada02e22488c04a18475ef5512d8fdedfc85`).
+- Implementation: `hardware/dark_star_public_selector_larger_holdout.py`.
+- Verified actual three-way CI: https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38664537058 — **3/3 jobs SUCCESS, all 120 selected samples, no violations**.
+- Verified receipt preservation CI: https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38664867576 — **passed**, all full JSON results committed in `e2381628365606dbf4e90023b9034bb26d6f58c9`.
+- Complete receipts: `results/dark_star_ptp/dark_star_public_selector_n18_ell3.json`, `...ell5.json`, `...ell7.json`.
+- Interpretive report: `docs/DARK_STAR_PUBLIC_SELECTOR_LARGER_HOLDOUT_RESULT.md`.
+
+Frozen sample: p≠q semiprimes 131072..262143, prime factors ≥11, exactly 20 public-N hash-selected trigger and 20 control per ell in {3,5,7}; 120 rows; public base pool and new selection/base salts. Three policies: plain a; unconditional a^ell mod N; public selector applies that transform only when N mod ell !=1 and b != a, otherwise **no transform**. No hidden factors/orders used in choosing candidates, bases, transform decisions or classical preprocessing.
+
+**Major classical checkpoint: 85/120 (70.83%) semiprimes factored WITHOUT any QPU processing** using the frozen classical baseline (10 cases first factored by power-of-two/GCD, 75 by bounded Pollard p-1 B31). The quantum-modeled population is only 35 rows after this common public baseline, and subgroup sizes are small.
+
+Primary trigger-only **model CCX per successful factor-producing staged session with restarts** (selector / plain, on cases with positive success in both policies):
+
+| ell | Classical trigger wins /20 | Remaining | Both success-positive | Ratio | Improve / tie / worsen | Frozen criterion |
+|---:|---:|---:|---:|---:|---|---|
+| 3 | 11 | 9 | 8 | **0.769280** (23.07% less) | **7/0/1** | **pass, small n** |
+| 5 | 13 | 7 | 7 | **0.790726** (20.93% less) | **4/0/3** | **pass, fragile** |
+| 7 | 19 | 1 | 1 | **1.029531** (2.95% MORE) | **0/0/1** | **FAIL** |
+
+These are **not** actual quantum-device speedups or all-in classical+quantum runtime. The old n17 study had different endpoints/selection: its ell5 trigger-vs-control FAIL still stands; the fresh ell5 positive result here is not apples-to-apples replication. Public selector on control group always leaves the base unchanged, so those controls **tie by policy design**; unconditional transformations sometimes still help those control residues, which this selector would miss. Sign-test evidence is limited: for 7/8 improve/worsen, two-sided exact sign p≈0.0703, for 4/7 p=1, and ell7 n=1 cannot support generalization. No preregistered statistical significance threshold is retroactively invented.
+
+All 120 rows preserve the known odd-power order identity. For each unresolved row, the ideal-QPE simulator enumerates nearest-bin eigenphase probabilities using validation-only orders, but **actual CF success verification** uses only candidate denominator d, `pow(a,d,N)==1`, even d, and public nontrivial GCD factors. The 18-bit generic arithmetic model has workspace 57 qubits and wide/recycled peak 93/58 (**37.63% logical width reduction attributable to phase recycling**, not the transform); none of these are fault-tolerant physical cost measurements.
+
+**Next discriminating gate:** more independent *publicly selected and still classically unresolved* instances (without private-order filtering), stronger fixed classical baseline, new public no-transform vs multi-exponent/conditional selector and random-choice controls, with actual factor-producing denominator checks. Evaluate the full phase distribution on limited fresh controls before asserting an end-to-end Shor benefit. The objective is a genuinely useful public decision rule, not posthoc selection of the successful rows.
