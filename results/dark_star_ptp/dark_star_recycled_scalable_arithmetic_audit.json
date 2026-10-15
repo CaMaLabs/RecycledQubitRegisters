@@ -1,0 +1,1670 @@
+{
+  "experiment": "dark_star_recycled_scalable_arithmetic_audit_v1",
+  "script_revision": "2026-10-14-dark-star-recycled-scalable-arithmetic-v1",
+  "timestamp_utc": "2026-10-15T00:59:33.408588+00:00",
+  "zero_qpu": true,
+  "qpu_jobs_submitted": 0,
+  "start_bits": 4,
+  "step_bits": 2,
+  "shots_per_stage": 4,
+  "cases": {
+    "209": {
+      "N": 209,
+      "ell": 3,
+      "seed_base": 3,
+      "transformed_base": 27,
+      "lambda_validation_only": 90,
+      "baseline_order_validation_only": 90,
+      "transformed_order_validation_only": 30,
+      "order_reduction_factor": 3.0,
+      "baseline_factor_witness": {
+        "factor_success": true,
+        "x": 56,
+        "factors": [
+          [
+            11,
+            19
+          ]
+        ]
+      },
+      "transformed_factor_witness": {
+        "factor_success": true,
+        "x": 56,
+        "factors": [
+          [
+            11,
+            19
+          ]
+        ]
+      },
+      "baseline_classical_shortcut": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "transformed_classical_shortcut": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "resource_model": "Analytic exact gate-count mirror of the generic reusable-clean-ancilla constant-add/modular-multiply construction. Gate count grows polynomially with work-register bit width; no truth-table/full-state permutation synthesis.",
+      "rows": {
+        "baseline_wide": {
+          "kind": "wide",
+          "base": 3,
+          "order_validation_only": 90,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 43,
+          "width_model": {
+            "work_bits": 8,
+            "accumulator_bits": 9,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 9,
+            "arithmetic_qubits_excluding_phase": 27,
+            "recycled_logical_qubits": 28
+          },
+          "success_probability_by_cap": 0.9285417907543322,
+          "failure_probability_by_cap": 0.07145820924566777,
+          "expected_circuit_executions_per_attempted_session": 20.29639803161342,
+          "expected_phase_rounds_per_attempted_session": 168.84050054443045,
+          "expected_qubit_execution_volume": 716.8432473979927,
+          "expected_resources_per_attempted_session": {
+            "ccx": 2198155.8518041032,
+            "cswap": 1350.7240043554436,
+            "phase_h": 337.6810010888609,
+            "qft_controlled_phase": 726.685508226988,
+            "qft_swap": 84.42025027221523,
+            "terminal_measure": 168.84050054443045
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 2367320.322780903,
+            "cswap": 1454.6722805638478,
+            "phase_h": 363.66807014096196,
+            "qft_controlled_phase": 782.6093725266156,
+            "qft_swap": 90.91701753524049,
+            "terminal_measure": 181.83403507048098
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 31,
+              "arithmetic_ccx_per_execution": 52528,
+              "arithmetic_cswap_per_execution": 32
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 33,
+              "arithmetic_ccx_per_execution": 78909,
+              "arithmetic_cswap_per_execution": 48
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 35,
+              "arithmetic_ccx_per_execution": 102731,
+              "arithmetic_cswap_per_execution": 64
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.04426432890290008,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 3.7421646213719533,
+              "stage_logical_qubits": 37,
+              "arithmetic_ccx_per_execution": 128994,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.14060066229854387,
+              "reach_probability": 0.8343555943907953,
+              "expected_circuit_executions_unconditional": 2.6972136042465005,
+              "stage_logical_qubits": 39,
+              "arithmetic_ccx_per_execution": 156849,
+              "arithmetic_cswap_per_execution": 96
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.20660380943202136,
+              "reach_probability": 0.4551255752730947,
+              "expected_circuit_executions_unconditional": 1.3300129080832679,
+              "stage_logical_qubits": 41,
+              "arithmetic_ccx_per_execution": 183953,
+              "arithmetic_cswap_per_execution": 112
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.2066038092767175,
+              "reach_probability": 0.1803398418693307,
+              "expected_circuit_executions_unconditional": 0.5270068979116977,
+              "stage_logical_qubits": 43,
+              "arithmetic_ccx_per_execution": 210722,
+              "arithmetic_cswap_per_execution": 128
+            }
+          ]
+        },
+        "baseline_recycled": {
+          "kind": "recycled",
+          "base": 3,
+          "order_validation_only": 90,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 28,
+          "width_model": {
+            "work_bits": 8,
+            "accumulator_bits": 9,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 9,
+            "arithmetic_qubits_excluding_phase": 27,
+            "recycled_logical_qubits": 28
+          },
+          "success_probability_by_cap": 0.9285417907543322,
+          "failure_probability_by_cap": 0.07145820924566777,
+          "expected_circuit_executions_per_attempted_session": 20.29639803161342,
+          "expected_phase_rounds_per_attempted_session": 168.84050054443045,
+          "expected_qubit_execution_volume": 568.2991448851758,
+          "expected_resources_per_attempted_session": {
+            "ccx": 2198155.8518041032,
+            "classically_conditioned_phase": 726.685508226988,
+            "cswap": 1350.7240043554436,
+            "mid_measure": 168.84050054443045,
+            "phase_h": 337.6810010888609,
+            "reset": 168.84050054443045
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 2367320.322780903,
+            "classically_conditioned_phase": 782.6093725266156,
+            "cswap": 1454.6722805638478,
+            "mid_measure": 181.83403507048098,
+            "phase_h": 363.66807014096196,
+            "reset": 181.83403507048098
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 52528,
+              "arithmetic_cswap_per_execution": 32
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 78909,
+              "arithmetic_cswap_per_execution": 48
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 102731,
+              "arithmetic_cswap_per_execution": 64
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.04426432890290008,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 3.7421646213719533,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 128994,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.14060066229854387,
+              "reach_probability": 0.8343555943907953,
+              "expected_circuit_executions_unconditional": 2.6972136042465005,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 156849,
+              "arithmetic_cswap_per_execution": 96
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.20660380943202136,
+              "reach_probability": 0.4551255752730947,
+              "expected_circuit_executions_unconditional": 1.3300129080832679,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 183953,
+              "arithmetic_cswap_per_execution": 112
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.2066038092767175,
+              "reach_probability": 0.1803398418693307,
+              "expected_circuit_executions_unconditional": 0.5270068979116977,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 210722,
+              "arithmetic_cswap_per_execution": 128
+            }
+          ]
+        },
+        "dark_star_wide": {
+          "kind": "wide",
+          "base": 27,
+          "order_validation_only": 30,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 43,
+          "width_model": {
+            "work_bits": 8,
+            "accumulator_bits": 9,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 9,
+            "arithmetic_qubits_excluding_phase": 27,
+            "recycled_logical_qubits": 28
+          },
+          "success_probability_by_cap": 0.9871738674470939,
+          "failure_probability_by_cap": 0.012826132552906051,
+          "expected_circuit_executions_per_attempted_session": 13.95636257050469,
+          "expected_phase_rounds_per_attempted_session": 95.84525354429016,
+          "expected_qubit_execution_volume": 472.66704294791674,
+          "expected_resources_per_attempted_session": {
+            "ccx": 1249683.7411274964,
+            "cswap": 766.7620283543213,
+            "phase_h": 191.69050708858032,
+            "qft_controlled_phase": 328.31720949003886,
+            "qft_swap": 47.92262677214508,
+            "terminal_measure": 95.84525354429016
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 1265920.6066295826,
+            "cswap": 776.7243984458642,
+            "phase_h": 194.18109961146604,
+            "qft_controlled_phase": 332.5829626538757,
+            "qft_swap": 48.54527490286651,
+            "terminal_measure": 97.09054980573302
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 31,
+              "arithmetic_ccx_per_execution": 51848,
+              "arithmetic_cswap_per_execution": 32
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 33,
+              "arithmetic_ccx_per_execution": 78910,
+              "arithmetic_cswap_per_execution": 48
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.12855529234096447,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 3.2926495344030897,
+              "stage_logical_qubits": 35,
+              "arithmetic_ccx_per_execution": 103781,
+              "arithmetic_cswap_per_execution": 64
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.21169186454028854,
+              "reach_probability": 0.5767124765284702,
+              "expected_circuit_executions_unconditional": 1.6722446972196077,
+              "stage_logical_qubits": 37,
+              "arithmetic_ccx_per_execution": 130843,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.2116918297708923,
+              "reach_probability": 0.22271187860644126,
+              "expected_circuit_executions_unconditional": 0.645778950511879,
+              "stage_logical_qubits": 39,
+              "arithmetic_ccx_per_execution": 155714,
+              "arithmetic_cswap_per_execution": 96
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.21169182759782762,
+              "reach_probability": 0.08600575094505512,
+              "expected_circuit_executions_unconditional": 0.2493836615974983,
+              "stage_logical_qubits": 41,
+              "arithmetic_ccx_per_execution": 182776,
+              "arithmetic_cswap_per_execution": 112
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.21169182746185125,
+              "reach_probability": 0.03321326784844252,
+              "expected_circuit_executions_unconditional": 0.09630572677261438,
+              "stage_logical_qubits": 43,
+              "arithmetic_ccx_per_execution": 207647,
+              "arithmetic_cswap_per_execution": 128
+            }
+          ]
+        },
+        "dark_star_recycled": {
+          "kind": "recycled",
+          "base": 27,
+          "order_validation_only": 30,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 28,
+          "width_model": {
+            "work_bits": 8,
+            "accumulator_bits": 9,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 9,
+            "arithmetic_qubits_excluding_phase": 27,
+            "recycled_logical_qubits": 28
+          },
+          "success_probability_by_cap": 0.9871738674470939,
+          "failure_probability_by_cap": 0.012826132552906051,
+          "expected_circuit_executions_per_attempted_session": 13.95636257050469,
+          "expected_phase_rounds_per_attempted_session": 95.84525354429016,
+          "expected_qubit_execution_volume": 390.7781519741312,
+          "expected_resources_per_attempted_session": {
+            "ccx": 1249683.7411274964,
+            "classically_conditioned_phase": 328.31720949003886,
+            "cswap": 766.7620283543213,
+            "mid_measure": 95.84525354429016,
+            "phase_h": 191.69050708858032,
+            "reset": 95.84525354429016
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 1265920.6066295826,
+            "classically_conditioned_phase": 332.5829626538757,
+            "cswap": 776.7243984458642,
+            "mid_measure": 97.09054980573302,
+            "phase_h": 194.18109961146604,
+            "reset": 97.09054980573302
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 51848,
+              "arithmetic_cswap_per_execution": 32
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 78910,
+              "arithmetic_cswap_per_execution": 48
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.12855529234096447,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 3.2926495344030897,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 103781,
+              "arithmetic_cswap_per_execution": 64
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.21169186454028854,
+              "reach_probability": 0.5767124765284702,
+              "expected_circuit_executions_unconditional": 1.6722446972196077,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 130843,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.2116918297708923,
+              "reach_probability": 0.22271187860644126,
+              "expected_circuit_executions_unconditional": 0.645778950511879,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 155714,
+              "arithmetic_cswap_per_execution": 96
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.21169182759782762,
+              "reach_probability": 0.08600575094505512,
+              "expected_circuit_executions_unconditional": 0.2493836615974983,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 182776,
+              "arithmetic_cswap_per_execution": 112
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.21169182746185125,
+              "reach_probability": 0.03321326784844252,
+              "expected_circuit_executions_unconditional": 0.09630572677261438,
+              "stage_logical_qubits": 28,
+              "arithmetic_ccx_per_execution": 207647,
+              "arithmetic_cswap_per_execution": 128
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "baseline_wide_to_recycled_peak_width_ratio": 0.6511627906976745,
+        "baseline_wide_to_recycled_peak_width_reduction": 0.34883720930232553,
+        "dark_star_wide_to_recycled_peak_width_ratio": 0.6511627906976745,
+        "dark_star_wide_to_recycled_peak_width_reduction": 0.34883720930232553,
+        "dark_star_over_baseline_phase_round_ratio": 0.5676674330817234,
+        "dark_star_phase_round_reduction": 0.4323325669182766,
+        "dark_star_over_baseline_expected_ccx_ratio": 0.56851462106376,
+        "dark_star_expected_ccx_reduction": 0.43148537893623995,
+        "per_phase_round_ccx_ratio_dark_star_over_baseline": 1.0014924019463958,
+        "dark_star_success_probability_delta": 0.058632076692761714,
+        "combined_dark_recycled_vs_baseline_wide_peak_width_ratio": 0.6511627906976745,
+        "combined_dark_recycled_vs_baseline_wide_peak_width_reduction": 0.34883720930232553,
+        "combined_dark_recycled_vs_baseline_wide_expected_ccx_ratio": 0.56851462106376,
+        "combined_dark_recycled_vs_baseline_wide_expected_ccx_reduction": 0.43148537893623995
+      }
+    },
+    "713": {
+      "N": 713,
+      "ell": 5,
+      "seed_base": 19,
+      "transformed_base": 563,
+      "lambda_validation_only": 330,
+      "baseline_order_validation_only": 330,
+      "transformed_order_validation_only": 66,
+      "order_reduction_factor": 5.0,
+      "baseline_factor_witness": {
+        "factor_success": true,
+        "x": 528,
+        "factors": [
+          [
+            23,
+            31
+          ]
+        ]
+      },
+      "transformed_factor_witness": {
+        "factor_success": true,
+        "x": 528,
+        "factors": [
+          [
+            23,
+            31
+          ]
+        ]
+      },
+      "baseline_classical_shortcut": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "transformed_classical_shortcut": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "resource_model": "Analytic exact gate-count mirror of the generic reusable-clean-ancilla constant-add/modular-multiply construction. Gate count grows polynomially with work-register bit width; no truth-table/full-state permutation synthesis.",
+      "rows": {
+        "baseline_wide": {
+          "kind": "wide",
+          "base": 19,
+          "order_validation_only": 330,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 53,
+          "width_model": {
+            "work_bits": 10,
+            "accumulator_bits": 11,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 11,
+            "arithmetic_qubits_excluding_phase": 33,
+            "recycled_logical_qubits": 34
+          },
+          "success_probability_by_cap": 0.9352718791765995,
+          "failure_probability_by_cap": 0.06472812082340053,
+          "expected_circuit_executions_per_attempted_session": 26.747324780959374,
+          "expected_phase_rounds_per_attempted_session": 266.1741885676363,
+          "expected_qubit_execution_volume": 1148.8359063392954,
+          "expected_resources_per_attempted_session": {
+            "ccx": 7429533.117038758,
+            "cswap": 2661.7418856763634,
+            "phase_h": 532.3483771352726,
+            "qft_controlled_phase": 1432.029863809162,
+            "qft_swap": 133.08709428381815,
+            "terminal_measure": 266.1741885676363
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 7943714.851749436,
+            "cswap": 2845.955218946307,
+            "phase_h": 569.1910437892614,
+            "qft_controlled_phase": 1531.1375180764564,
+            "qft_swap": 142.29776094731534,
+            "terminal_measure": 284.5955218946307
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 37,
+              "arithmetic_ccx_per_execution": 108734,
+              "arithmetic_cswap_per_execution": 40
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 39,
+              "arithmetic_ccx_per_execution": 163981,
+              "arithmetic_cswap_per_execution": 60
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 41,
+              "arithmetic_ccx_per_execution": 220190,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.0060598737332594925,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 3.9637874233479593,
+              "stage_logical_qubits": 43,
+              "arithmetic_ccx_per_execution": 279005,
+              "arithmetic_cswap_per_execution": 100
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.018166448210672738,
+              "reach_probability": 0.9759799487090294,
+              "expected_circuit_executions_unconditional": 3.7988217793860093,
+              "stage_logical_qubits": 45,
+              "arithmetic_ccx_per_execution": 335350,
+              "arithmetic_cswap_per_execution": 120
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.0594205684489202,
+              "reach_probability": 0.9069688495922378,
+              "expected_circuit_executions_unconditional": 3.3171388033021176,
+              "stage_logical_qubits": 47,
+              "arithmetic_ccx_per_execution": 395036,
+              "arithmetic_cswap_per_execution": 140
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.1684298001425206,
+              "reach_probability": 0.7098625762760551,
+              "expected_circuit_executions_unconditional": 2.1992376504423494,
+              "stage_logical_qubits": 49,
+              "arithmetic_ccx_per_execution": 452276,
+              "arithmetic_cswap_per_execution": 160
+            },
+            {
+              "phase_bits": 18,
+              "per_shot_success_probability": 0.18709390286116273,
+              "reach_probability": 0.3394454183461436,
+              "expected_circuit_executions_unconditional": 1.0220375807006832,
+              "stage_logical_qubits": 51,
+              "arithmetic_ccx_per_execution": 508453,
+              "arithmetic_cswap_per_execution": 180
+            },
+            {
+              "phase_bits": 20,
+              "per_shot_success_probability": 0.18709390286085315,
+              "reach_probability": 0.1482284185020722,
+              "expected_circuit_executions_unconditional": 0.44630154378025416,
+              "stage_logical_qubits": 53,
+              "arithmetic_ccx_per_execution": 567670,
+              "arithmetic_cswap_per_execution": 200
+            }
+          ]
+        },
+        "baseline_recycled": {
+          "kind": "recycled",
+          "base": 19,
+          "order_validation_only": 330,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 34,
+          "width_model": {
+            "work_bits": 10,
+            "accumulator_bits": 11,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 11,
+            "arithmetic_qubits_excluding_phase": 33,
+            "recycled_logical_qubits": 34
+          },
+          "success_probability_by_cap": 0.9352718791765995,
+          "failure_probability_by_cap": 0.06472812082340053,
+          "expected_circuit_executions_per_attempted_session": 26.747324780959374,
+          "expected_phase_rounds_per_attempted_session": 266.1741885676363,
+          "expected_qubit_execution_volume": 909.4090425526186,
+          "expected_resources_per_attempted_session": {
+            "ccx": 7429533.117038758,
+            "classically_conditioned_phase": 1432.029863809162,
+            "cswap": 2661.7418856763634,
+            "mid_measure": 266.1741885676363,
+            "phase_h": 532.3483771352726,
+            "reset": 266.1741885676363
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 7943714.851749436,
+            "classically_conditioned_phase": 1531.1375180764564,
+            "cswap": 2845.955218946307,
+            "mid_measure": 284.5955218946307,
+            "phase_h": 569.1910437892614,
+            "reset": 284.5955218946307
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 108734,
+              "arithmetic_cswap_per_execution": 40
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 163981,
+              "arithmetic_cswap_per_execution": 60
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 220190,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.0060598737332594925,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 3.9637874233479593,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 279005,
+              "arithmetic_cswap_per_execution": 100
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.018166448210672738,
+              "reach_probability": 0.9759799487090294,
+              "expected_circuit_executions_unconditional": 3.7988217793860093,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 335350,
+              "arithmetic_cswap_per_execution": 120
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.0594205684489202,
+              "reach_probability": 0.9069688495922378,
+              "expected_circuit_executions_unconditional": 3.3171388033021176,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 395036,
+              "arithmetic_cswap_per_execution": 140
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.1684298001425206,
+              "reach_probability": 0.7098625762760551,
+              "expected_circuit_executions_unconditional": 2.1992376504423494,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 452276,
+              "arithmetic_cswap_per_execution": 160
+            },
+            {
+              "phase_bits": 18,
+              "per_shot_success_probability": 0.18709390286116273,
+              "reach_probability": 0.3394454183461436,
+              "expected_circuit_executions_unconditional": 1.0220375807006832,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 508453,
+              "arithmetic_cswap_per_execution": 180
+            },
+            {
+              "phase_bits": 20,
+              "per_shot_success_probability": 0.18709390286085315,
+              "reach_probability": 0.1482284185020722,
+              "expected_circuit_executions_unconditional": 0.44630154378025416,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 567670,
+              "arithmetic_cswap_per_execution": 200
+            }
+          ]
+        },
+        "dark_star_wide": {
+          "kind": "wide",
+          "base": 563,
+          "order_validation_only": 66,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 53,
+          "width_model": {
+            "work_bits": 10,
+            "accumulator_bits": 11,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 11,
+            "arithmetic_qubits_excluding_phase": 33,
+            "recycled_logical_qubits": 34
+          },
+          "success_probability_by_cap": 0.9972792869838915,
+          "failure_probability_by_cap": 0.0027207130161085893,
+          "expected_circuit_executions_per_attempted_session": 17.473822193356707,
+          "expected_phase_rounds_per_attempted_session": 134.7177795494826,
+          "expected_qubit_execution_volume": 711.353911930254,
+          "expected_resources_per_attempted_session": {
+            "ccx": 3806858.909256081,
+            "cswap": 1347.1777954948263,
+            "phase_h": 269.4355590989652,
+            "qft_controlled_phase": 532.5226706019529,
+            "qft_swap": 67.3588897747413,
+            "terminal_measure": 134.7177795494826
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 3817244.536151257,
+            "cswap": 1350.8530790498476,
+            "phase_h": 270.17061580996943,
+            "qft_controlled_phase": 533.9754645987693,
+            "qft_swap": 67.54265395249236,
+            "terminal_measure": 135.08530790498472
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 37,
+              "arithmetic_ccx_per_execution": 112771,
+              "arithmetic_cswap_per_execution": 40
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 39,
+              "arithmetic_ccx_per_execution": 169252,
+              "arithmetic_cswap_per_execution": 60
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.030211596817133594,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 3.8223538060756916,
+              "stage_logical_qubits": 41,
+              "arithmetic_ccx_per_execution": 224811,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.08901654274799699,
+              "reach_probability": 0.8845205879184052,
+              "expected_circuit_executions_unconditional": 3.0930722254948497,
+              "stage_logical_qubits": 43,
+              "arithmetic_ccx_per_execution": 283697,
+              "arithmetic_cswap_per_execution": 100
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.23704901153688476,
+              "reach_probability": 0.6091859919350007,
+              "expected_circuit_executions_unconditional": 1.6991138828868213,
+              "stage_logical_qubits": 45,
+              "arithmetic_ccx_per_execution": 341141,
+              "arithmetic_cswap_per_execution": 120
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.23704900885583205,
+              "reach_probability": 0.20641272550808154,
+              "expected_circuit_executions_unconditional": 0.57571699546396,
+              "stage_logical_qubits": 47,
+              "arithmetic_ccx_per_execution": 395767,
+              "arithmetic_cswap_per_execution": 140
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.23704900868828482,
+              "reach_probability": 0.06993958235189225,
+              "expected_circuit_executions_unconditional": 0.19507230538648457,
+              "stage_logical_qubits": 49,
+              "arithmetic_ccx_per_execution": 452248,
+              "arithmetic_cswap_per_execution": 160
+            },
+            {
+              "phase_bits": 18,
+              "per_shot_success_probability": 0.23704900867612,
+              "reach_probability": 0.02369788573748772,
+              "expected_circuit_executions_unconditional": 0.06609706618527278,
+              "stage_logical_qubits": 51,
+              "arithmetic_ccx_per_execution": 507807,
+              "arithmetic_cswap_per_execution": 180
+            },
+            {
+              "phase_bits": 20,
+              "per_shot_success_probability": 0.23704900868008721,
+              "reach_probability": 0.008029641721868912,
+              "expected_circuit_executions_unconditional": 0.022395911863630956,
+              "stage_logical_qubits": 53,
+              "arithmetic_ccx_per_execution": 566693,
+              "arithmetic_cswap_per_execution": 200
+            }
+          ]
+        },
+        "dark_star_recycled": {
+          "kind": "recycled",
+          "base": 563,
+          "order_validation_only": 66,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 34,
+          "width_model": {
+            "work_bits": 10,
+            "accumulator_bits": 11,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 11,
+            "arithmetic_qubits_excluding_phase": 33,
+            "recycled_logical_qubits": 34
+          },
+          "success_probability_by_cap": 0.9972792869838915,
+          "failure_probability_by_cap": 0.0027207130161085893,
+          "expected_circuit_executions_per_attempted_session": 17.473822193356707,
+          "expected_phase_rounds_per_attempted_session": 134.7177795494826,
+          "expected_qubit_execution_volume": 594.1099545741282,
+          "expected_resources_per_attempted_session": {
+            "ccx": 3806858.909256081,
+            "classically_conditioned_phase": 532.5226706019529,
+            "cswap": 1347.1777954948263,
+            "mid_measure": 134.7177795494826,
+            "phase_h": 269.4355590989652,
+            "reset": 134.7177795494826
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 3817244.536151257,
+            "classically_conditioned_phase": 533.9754645987693,
+            "cswap": 1350.8530790498476,
+            "mid_measure": 135.08530790498472,
+            "phase_h": 270.17061580996943,
+            "reset": 135.08530790498472
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 112771,
+              "arithmetic_cswap_per_execution": 40
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 169252,
+              "arithmetic_cswap_per_execution": 60
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.030211596817133594,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 3.8223538060756916,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 224811,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.08901654274799699,
+              "reach_probability": 0.8845205879184052,
+              "expected_circuit_executions_unconditional": 3.0930722254948497,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 283697,
+              "arithmetic_cswap_per_execution": 100
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.23704901153688476,
+              "reach_probability": 0.6091859919350007,
+              "expected_circuit_executions_unconditional": 1.6991138828868213,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 341141,
+              "arithmetic_cswap_per_execution": 120
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.23704900885583205,
+              "reach_probability": 0.20641272550808154,
+              "expected_circuit_executions_unconditional": 0.57571699546396,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 395767,
+              "arithmetic_cswap_per_execution": 140
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.23704900868828482,
+              "reach_probability": 0.06993958235189225,
+              "expected_circuit_executions_unconditional": 0.19507230538648457,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 452248,
+              "arithmetic_cswap_per_execution": 160
+            },
+            {
+              "phase_bits": 18,
+              "per_shot_success_probability": 0.23704900867612,
+              "reach_probability": 0.02369788573748772,
+              "expected_circuit_executions_unconditional": 0.06609706618527278,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 507807,
+              "arithmetic_cswap_per_execution": 180
+            },
+            {
+              "phase_bits": 20,
+              "per_shot_success_probability": 0.23704900868008721,
+              "reach_probability": 0.008029641721868912,
+              "expected_circuit_executions_unconditional": 0.022395911863630956,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 566693,
+              "arithmetic_cswap_per_execution": 200
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "baseline_wide_to_recycled_peak_width_ratio": 0.6415094339622641,
+        "baseline_wide_to_recycled_peak_width_reduction": 0.3584905660377359,
+        "dark_star_wide_to_recycled_peak_width_ratio": 0.6415094339622641,
+        "dark_star_wide_to_recycled_peak_width_reduction": 0.3584905660377359,
+        "dark_star_over_baseline_phase_round_ratio": 0.506126383908371,
+        "dark_star_phase_round_reduction": 0.49387361609162905,
+        "dark_star_over_baseline_expected_ccx_ratio": 0.5123954425245779,
+        "dark_star_expected_ccx_reduction": 0.4876045574754221,
+        "per_phase_round_ccx_ratio_dark_star_over_baseline": 1.012386350159809,
+        "dark_star_success_probability_delta": 0.06200740780729197,
+        "combined_dark_recycled_vs_baseline_wide_peak_width_ratio": 0.6415094339622641,
+        "combined_dark_recycled_vs_baseline_wide_peak_width_reduction": 0.3584905660377359,
+        "combined_dark_recycled_vs_baseline_wide_expected_ccx_ratio": 0.5123954425245779,
+        "combined_dark_recycled_vs_baseline_wide_expected_ccx_reduction": 0.4876045574754221
+      }
+    },
+    "781": {
+      "N": 781,
+      "ell": 7,
+      "seed_base": 29,
+      "transformed_base": 380,
+      "lambda_validation_only": 70,
+      "baseline_order_validation_only": 70,
+      "transformed_order_validation_only": 10,
+      "order_reduction_factor": 7.0,
+      "baseline_factor_witness": {
+        "factor_success": true,
+        "x": 285,
+        "factors": [
+          [
+            11,
+            71
+          ]
+        ]
+      },
+      "transformed_factor_witness": {
+        "factor_success": true,
+        "x": 285,
+        "factors": [
+          [
+            11,
+            71
+          ]
+        ]
+      },
+      "baseline_classical_shortcut": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "transformed_classical_shortcut": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "resource_model": "Analytic exact gate-count mirror of the generic reusable-clean-ancilla constant-add/modular-multiply construction. Gate count grows polynomially with work-register bit width; no truth-table/full-state permutation synthesis.",
+      "rows": {
+        "baseline_wide": {
+          "kind": "wide",
+          "base": 29,
+          "order_validation_only": 70,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 53,
+          "width_model": {
+            "work_bits": 10,
+            "accumulator_bits": 11,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 11,
+            "arithmetic_qubits_excluding_phase": 33,
+            "recycled_logical_qubits": 34
+          },
+          "success_probability_by_cap": 0.9988417666979673,
+          "failure_probability_by_cap": 0.0011582333020327294,
+          "expected_circuit_executions_per_attempted_session": 16.972096531144373,
+          "expected_phase_rounds_per_attempted_session": 128.0546306609381,
+          "expected_qubit_execution_volume": 688.1338161887024,
+          "expected_resources_per_attempted_session": {
+            "ccx": 3665786.069590544,
+            "cswap": 1280.5463066093812,
+            "phase_h": 256.1092613218762,
+            "qft_controlled_phase": 490.2710502686053,
+            "qft_swap": 64.02731533046905,
+            "terminal_measure": 128.0546306609381
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 3670036.8284649584,
+            "cswap": 1282.0311978369607,
+            "phase_h": 256.4062395673921,
+            "qft_controlled_phase": 490.83955698946545,
+            "qft_swap": 64.10155989184803,
+            "terminal_measure": 128.20311978369605
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 37,
+              "arithmetic_ccx_per_execution": 111187,
+              "arithmetic_cswap_per_execution": 40
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 39,
+              "arithmetic_ccx_per_execution": 170347,
+              "arithmetic_cswap_per_execution": 60
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.028494780501798413,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 3.832255990643879,
+              "stage_logical_qubits": 41,
+              "arithmetic_ccx_per_execution": 230732,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.11201271676980551,
+              "reach_probability": 0.8908007067199006,
+              "expected_circuit_executions_unconditional": 3.007971812936564,
+              "stage_logical_qubits": 43,
+              "arithmetic_ccx_per_execution": 290446,
+              "arithmetic_cswap_per_execution": 100
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.25564022883039383,
+              "reach_probability": 0.5538696119858789,
+              "expected_circuit_executions_unconditional": 1.50146283895173,
+              "stage_logical_qubits": 45,
+              "arithmetic_ccx_per_execution": 343953,
+              "arithmetic_cswap_per_execution": 120
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.26788625874089267,
+              "reach_probability": 0.17003530825592592,
+              "expected_circuit_executions_unconditional": 0.4523806896077068,
+              "stage_logical_qubits": 47,
+              "arithmetic_ccx_per_execution": 399693,
+              "arithmetic_cswap_per_execution": 140
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.2678862585496117,
+              "reach_probability": 0.04884873779029231,
+              "expected_circuit_executions_unconditional": 0.12996257025186517,
+              "stage_logical_qubits": 49,
+              "arithmetic_ccx_per_execution": 455191,
+              "arithmetic_cswap_per_execution": 160
+            },
+            {
+              "phase_bits": 18,
+              "per_shot_success_probability": 0.26788625853776205,
+              "reach_probability": 0.014033551094029088,
+              "expected_circuit_executions_unconditional": 0.03733640729477403,
+              "stage_logical_qubits": 51,
+              "arithmetic_ccx_per_execution": 514351,
+              "arithmetic_cswap_per_execution": 180
+            },
+            {
+              "phase_bits": 20,
+              "per_shot_success_probability": 0.267886258534632,
+              "reach_probability": 0.0040316406365900675,
+              "expected_circuit_executions_unconditional": 0.01072622145785006,
+              "stage_logical_qubits": 53,
+              "arithmetic_ccx_per_execution": 574736,
+              "arithmetic_cswap_per_execution": 200
+            }
+          ]
+        },
+        "baseline_recycled": {
+          "kind": "recycled",
+          "base": 29,
+          "order_validation_only": 70,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 34,
+          "width_model": {
+            "work_bits": 10,
+            "accumulator_bits": 11,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 11,
+            "arithmetic_qubits_excluding_phase": 33,
+            "recycled_logical_qubits": 34
+          },
+          "success_probability_by_cap": 0.9988417666979673,
+          "failure_probability_by_cap": 0.0011582333020327294,
+          "expected_circuit_executions_per_attempted_session": 16.972096531144373,
+          "expected_phase_rounds_per_attempted_session": 128.0546306609381,
+          "expected_qubit_execution_volume": 577.0512820589086,
+          "expected_resources_per_attempted_session": {
+            "ccx": 3665786.069590544,
+            "classically_conditioned_phase": 490.2710502686053,
+            "cswap": 1280.5463066093812,
+            "mid_measure": 128.0546306609381,
+            "phase_h": 256.1092613218762,
+            "reset": 128.0546306609381
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 3670036.8284649584,
+            "classically_conditioned_phase": 490.83955698946545,
+            "cswap": 1282.0311978369607,
+            "mid_measure": 128.20311978369605,
+            "phase_h": 256.4062395673921,
+            "reset": 128.20311978369605
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 111187,
+              "arithmetic_cswap_per_execution": 40
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 170347,
+              "arithmetic_cswap_per_execution": 60
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.028494780501798413,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 3.832255990643879,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 230732,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.11201271676980551,
+              "reach_probability": 0.8908007067199006,
+              "expected_circuit_executions_unconditional": 3.007971812936564,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 290446,
+              "arithmetic_cswap_per_execution": 100
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.25564022883039383,
+              "reach_probability": 0.5538696119858789,
+              "expected_circuit_executions_unconditional": 1.50146283895173,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 343953,
+              "arithmetic_cswap_per_execution": 120
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.26788625874089267,
+              "reach_probability": 0.17003530825592592,
+              "expected_circuit_executions_unconditional": 0.4523806896077068,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 399693,
+              "arithmetic_cswap_per_execution": 140
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.2678862585496117,
+              "reach_probability": 0.04884873779029231,
+              "expected_circuit_executions_unconditional": 0.12996257025186517,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 455191,
+              "arithmetic_cswap_per_execution": 160
+            },
+            {
+              "phase_bits": 18,
+              "per_shot_success_probability": 0.26788625853776205,
+              "reach_probability": 0.014033551094029088,
+              "expected_circuit_executions_unconditional": 0.03733640729477403,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 514351,
+              "arithmetic_cswap_per_execution": 180
+            },
+            {
+              "phase_bits": 20,
+              "per_shot_success_probability": 0.267886258534632,
+              "reach_probability": 0.0040316406365900675,
+              "expected_circuit_executions_unconditional": 0.01072622145785006,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 574736,
+              "arithmetic_cswap_per_execution": 200
+            }
+          ]
+        },
+        "dark_star_wide": {
+          "kind": "wide",
+          "base": 380,
+          "order_validation_only": 10,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 53,
+          "width_model": {
+            "work_bits": 10,
+            "accumulator_bits": 11,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 11,
+            "arithmetic_qubits_excluding_phase": 33,
+            "recycled_logical_qubits": 34
+          },
+          "success_probability_by_cap": 0.9999822855597208,
+          "failure_probability_by_cap": 1.7714440279193864e-05,
+          "expected_circuit_executions_per_attempted_session": 7.452968095456581,
+          "expected_phase_rounds_per_attempted_session": 39.076856014464425,
+          "expected_qubit_execution_volume": 285.02480316453165,
+          "expected_resources_per_attempted_session": {
+            "ccx": 1124238.2748962913,
+            "cswap": 390.7685601446442,
+            "phase_h": 78.15371202892885,
+            "qft_controlled_phase": 92.73393550062819,
+            "qft_swap": 19.538428007232213,
+            "terminal_measure": 39.076856014464425
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 1124258.1905008655,
+            "cswap": 390.7754825135918,
+            "phase_h": 78.15509650271837,
+            "qft_controlled_phase": 92.73557825949102,
+            "qft_swap": 19.53877412567959,
+            "terminal_measure": 39.07754825135918
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 37,
+              "arithmetic_ccx_per_execution": 113877,
+              "arithmetic_cswap_per_execution": 40
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.28960572574935567,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 2.5735618912624374,
+              "stage_logical_qubits": 39,
+              "arithmetic_ccx_per_execution": 174652,
+              "arithmetic_cswap_per_execution": 60
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.289586651024273,
+              "reach_probability": 0.25468174072005745,
+              "expected_circuit_executions_unconditional": 0.6554583376514269,
+              "stage_logical_qubits": 41,
+              "arithmetic_ccx_per_execution": 229021,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.2895854589265374,
+              "reach_probability": 0.06486975583364359,
+              "expected_circuit_executions_unconditional": 0.16695150464784367,
+              "stage_logical_qubits": 43,
+              "arithmetic_ccx_per_execution": 289796,
+              "arithmetic_cswap_per_execution": 100
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.2895853844207183,
+              "reach_probability": 0.016523027741721825,
+              "expected_circuit_executions_unconditional": 0.04252435702283629,
+              "stage_logical_qubits": 45,
+              "arithmetic_ccx_per_execution": 344165,
+              "arithmetic_cswap_per_execution": 120
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.28958537976408244,
+              "reach_probability": 0.004208595466019907,
+              "expected_circuit_executions_unconditional": 0.010831417838995612,
+              "stage_logical_qubits": 47,
+              "arithmetic_ccx_per_execution": 404940,
+              "arithmetic_cswap_per_execution": 140
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.2895853794731358,
+              "reach_probability": 0.0010719752177309058,
+              "expected_circuit_executions_unconditional": 0.002758880390192816,
+              "stage_logical_qubits": 49,
+              "arithmetic_ccx_per_execution": 459309,
+              "arithmetic_cswap_per_execution": 160
+            },
+            {
+              "phase_bits": 18,
+              "per_shot_success_probability": 0.28958537945457935,
+              "reach_probability": 0.0002730437930159262,
+              "expected_circuit_executions_unconditional": 0.0007027169600351469,
+              "stage_logical_qubits": 51,
+              "arithmetic_ccx_per_execution": 520084,
+              "arithmetic_cswap_per_execution": 180
+            },
+            {
+              "phase_bits": 20,
+              "per_shot_success_probability": 0.28958537945490864,
+              "reach_probability": 6.95472354949797e-05,
+              "expected_circuit_executions_unconditional": 0.0001789896828125493,
+              "stage_logical_qubits": 53,
+              "arithmetic_ccx_per_execution": 574453,
+              "arithmetic_cswap_per_execution": 200
+            }
+          ]
+        },
+        "dark_star_recycled": {
+          "kind": "recycled",
+          "base": 380,
+          "order_validation_only": 10,
+          "stage_bits": [
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ],
+          "shots_per_stage": 4,
+          "peak_logical_qubits": 34,
+          "width_model": {
+            "work_bits": 10,
+            "accumulator_bits": 11,
+            "flag_bits": 1,
+            "clean_mcx_scratch_bits": 11,
+            "arithmetic_qubits_excluding_phase": 33,
+            "recycled_logical_qubits": 34
+          },
+          "success_probability_by_cap": 0.9999822855597208,
+          "failure_probability_by_cap": 1.7714440279193864e-05,
+          "expected_circuit_executions_per_attempted_session": 7.452968095456581,
+          "expected_phase_rounds_per_attempted_session": 39.076856014464425,
+          "expected_qubit_execution_volume": 253.4009152455237,
+          "expected_resources_per_attempted_session": {
+            "ccx": 1124238.2748962913,
+            "classically_conditioned_phase": 92.73393550062819,
+            "cswap": 390.7685601446442,
+            "mid_measure": 39.076856014464425,
+            "phase_h": 78.15371202892885,
+            "reset": 39.076856014464425
+          },
+          "expected_resources_per_success_with_session_restarts": {
+            "ccx": 1124258.1905008655,
+            "classically_conditioned_phase": 92.73557825949102,
+            "cswap": 390.7754825135918,
+            "mid_measure": 39.07754825135918,
+            "phase_h": 78.15509650271837,
+            "reset": 39.07754825135918
+          },
+          "stages": [
+            {
+              "phase_bits": 4,
+              "per_shot_success_probability": 0.0,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 4.0,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 113877,
+              "arithmetic_cswap_per_execution": 40
+            },
+            {
+              "phase_bits": 6,
+              "per_shot_success_probability": 0.28960572574935567,
+              "reach_probability": 1.0,
+              "expected_circuit_executions_unconditional": 2.5735618912624374,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 174652,
+              "arithmetic_cswap_per_execution": 60
+            },
+            {
+              "phase_bits": 8,
+              "per_shot_success_probability": 0.289586651024273,
+              "reach_probability": 0.25468174072005745,
+              "expected_circuit_executions_unconditional": 0.6554583376514269,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 229021,
+              "arithmetic_cswap_per_execution": 80
+            },
+            {
+              "phase_bits": 10,
+              "per_shot_success_probability": 0.2895854589265374,
+              "reach_probability": 0.06486975583364359,
+              "expected_circuit_executions_unconditional": 0.16695150464784367,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 289796,
+              "arithmetic_cswap_per_execution": 100
+            },
+            {
+              "phase_bits": 12,
+              "per_shot_success_probability": 0.2895853844207183,
+              "reach_probability": 0.016523027741721825,
+              "expected_circuit_executions_unconditional": 0.04252435702283629,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 344165,
+              "arithmetic_cswap_per_execution": 120
+            },
+            {
+              "phase_bits": 14,
+              "per_shot_success_probability": 0.28958537976408244,
+              "reach_probability": 0.004208595466019907,
+              "expected_circuit_executions_unconditional": 0.010831417838995612,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 404940,
+              "arithmetic_cswap_per_execution": 140
+            },
+            {
+              "phase_bits": 16,
+              "per_shot_success_probability": 0.2895853794731358,
+              "reach_probability": 0.0010719752177309058,
+              "expected_circuit_executions_unconditional": 0.002758880390192816,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 459309,
+              "arithmetic_cswap_per_execution": 160
+            },
+            {
+              "phase_bits": 18,
+              "per_shot_success_probability": 0.28958537945457935,
+              "reach_probability": 0.0002730437930159262,
+              "expected_circuit_executions_unconditional": 0.0007027169600351469,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 520084,
+              "arithmetic_cswap_per_execution": 180
+            },
+            {
+              "phase_bits": 20,
+              "per_shot_success_probability": 0.28958537945490864,
+              "reach_probability": 6.95472354949797e-05,
+              "expected_circuit_executions_unconditional": 0.0001789896828125493,
+              "stage_logical_qubits": 34,
+              "arithmetic_ccx_per_execution": 574453,
+              "arithmetic_cswap_per_execution": 200
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "baseline_wide_to_recycled_peak_width_ratio": 0.6415094339622641,
+        "baseline_wide_to_recycled_peak_width_reduction": 0.3584905660377359,
+        "dark_star_wide_to_recycled_peak_width_ratio": 0.6415094339622641,
+        "dark_star_wide_to_recycled_peak_width_reduction": 0.3584905660377359,
+        "dark_star_over_baseline_phase_round_ratio": 0.30515769568639634,
+        "dark_star_phase_round_reduction": 0.6948423043136036,
+        "dark_star_over_baseline_expected_ccx_ratio": 0.3066840927304481,
+        "dark_star_expected_ccx_reduction": 0.6933159072695518,
+        "per_phase_round_ccx_ratio_dark_star_over_baseline": 1.0050019942660087,
+        "dark_star_success_probability_delta": 0.0011405188617534812,
+        "combined_dark_recycled_vs_baseline_wide_peak_width_ratio": 0.6415094339622641,
+        "combined_dark_recycled_vs_baseline_wide_peak_width_reduction": 0.3584905660377359,
+        "combined_dark_recycled_vs_baseline_wide_expected_ccx_ratio": 0.3066840927304481,
+        "combined_dark_recycled_vs_baseline_wide_expected_ccx_reduction": 0.6933159072695518
+      }
+    }
+  },
+  "claim_boundary": "Polynomial generic reversible-arithmetic resource model plus exact ideal staged-QPE stopping probabilities. Not a hardware timing/fidelity result, not an RSA-scale implementation claim, and not an asymptotic Shor speedup."
+}
