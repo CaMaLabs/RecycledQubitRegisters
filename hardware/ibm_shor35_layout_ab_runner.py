@@ -183,6 +183,7 @@ def main():
         job = service.job(args.job_id)
     else:
         print(f"Submitting same-job layout A/B: 4 circuits x {args.shots} shots...")
+        ref.ibm_base.assert_open_plan_submission(service, backend)
         sampler = SamplerV2(
             mode=backend, options={"max_execution_time": args.max_execution_time}
         )
