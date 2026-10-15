@@ -2,6 +2,8 @@
 import json
 from qiskit_ibm_runtime import QiskitRuntimeService
 
+from ibm_runtime_guard import assert_open_plan_submission
+
 service = QiskitRuntimeService(plans_preference=["open"], region="us-east")
 
 print("=== IBM QUANTUM OPEN PLAN PREFLIGHT ===")
@@ -54,4 +56,7 @@ if m2_backends:
 else:
     print("\nNo current backend reports measure_2; ordinary mid-circuit measure can still work.")
 
+receipt = assert_open_plan_submission(service)
+print("\nVerified free-runtime guard:")
+print(json.dumps(receipt, indent=2, default=str))
 print("\nPREFLIGHT PASSED. No QPU job was submitted.")
