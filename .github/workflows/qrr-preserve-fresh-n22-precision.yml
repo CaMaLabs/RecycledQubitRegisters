@@ -1,0 +1,127 @@
+name: Preserve original genuinely independent N22 high-precision holdout receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-fresh-n22-precision.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-preserve-fresh-n22-precision
+  cancel-in-progress: false
+
+jobs:
+  audit-and-preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download exact original complete source-run artifacts without rerunning the model
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38808625980
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n22-fresh-precision-*
+          merge-multiple: true
+          path: _immutable_results
+      - name: Independently verify public manifest, each sample, proper factors and 99 percent confidence interval invariants
+        run: |
+          set -eu
+          mkdir -p results/dark_star_ptp
+          find _immutable_results -type f -name 'dark_star_n22_fresh_precision_*.json' -exec cp -t results/dark_star_ptp/ '{}' +
+          python3 - <<'PY'
+          import json,math,hashlib
+          from pathlib import Path
+          root=Path('results/dark_star_ptp')
+          paths=[root/'dark_star_n22_fresh_precision_trigger.json',
+                 root/'dark_star_n22_fresh_precision_control.json']
+          assert all(p.exists() for p in paths)
+          m=json.loads((root/'dark_star_n22_precision_fresh_public_manifest.json').read_text())
+          b=json.dumps(m['selected_public_rows'],sort_keys=True,separators=(',',':'))
+          sha=hashlib.sha256(b.encode()).hexdigest()
+          assert sha==m['selected_sha256']=='5c18715c4448069e6231645e180e216b7e591e15a149cbc12d486fe9b9664570'
+          prev=set()
+          for file in ('dark_star_n22_public_manifest.json','dark_star_n22_full_tail_public_manifest.json'):
+              prev.update(r['N'] for r in json.loads((root/file).read_text())['selected_public_rows'])
+          assert len(prev)==16
+          allN=set()
+          results={}
+          for path in paths:
+              z=json.loads(path.read_text())
+              g=z['group']
+              assert g in ('trigger','control') and g not in results
+              assert z['complete'] and z['zero_QPU'] and z['qpu_jobs_submitted']==0
+              assert z['public_manifest_sha256']==sha
+              assert z['is_fresh_disjoint_public_N_population']
+              assert z['phase_samples']==131072 and z['exact_all_bin_FFT_max_m']==18
+              assert z['centered_window']==32 and z['union_budget_tests']==1344
+              assert z['simultaneous_alpha']==0.01
+              assert z['selftests']['passed']
+              assert len(z['rows'])==4
+              assert z['summary']['selected']==4
+              assert z['summary']['classically_factored_after_B31']==4
+              assert z['logical_width']=={'arithmetic_workspace':69,'wide_peak':113,'recycled_peak':70}
+              expected=[r['N'] for r in m['selected_public_rows'] if r['group']==g]
+              assert [r['N'] for r in z['rows']]==expected
+              for row in z['rows']:
+                  n=row['N'];a=row['base'];cube=row['public_policies']['cube']
+                  assert 1<<21<=n<1<<22 and n%3==(2 if g=='trigger' else 1)
+                  assert n not in allN and n not in prev;allN.add(n)
+                  assert math.gcd(n,a)==1 and cube==pow(a,3,n)
+                  assert row['additional_public_classical']['classically_factored']
+                  assert n%row['additional_public_classical']['factor']==0
+                  assert row['validation_only']['odd_power_order_identity_verified']
+                  assert row['validation_only']['order_cube']==row['validation_only']['order_plain']//math.gcd(row['validation_only']['order_plain'],3)
+                  for pol in ('plain','cube'):
+                      v=row[pol]
+                      s0,s1=v['factor_probability_by_cap_interval']
+                      assert 0<=s0<=s1<=1
+                      assert 0<=v['modeled_CCX_attempt_interval'][0]<=v['modeled_CCX_attempt_interval'][1]+1e-6
+                      assert len(v['all_stages'])==21
+                      for stage in v['all_stages']:
+                          assert 0<=stage['lower']<=stage['upper']<=1+1e-9
+                          if stage['mode']=='exact_all_bin_FFT':
+                              assert stage['m']<=18
+                              assert abs(stage['full_probability_sum']-1)<1e-9
+                          if stage['mode']=='seeded_iid_uniform_eigenphase_estimate':
+                              assert stage['n_eigenphase_values']==131072
+                              assert stage['omitted_tail_upper_bound']<=1/63+1e-9
+                              assert stage['head_eb_epsilon']>=0 and stage['omitted_eb_epsilon']>=0
+                      if v['exact_factor_incapable']:
+                          assert v['strict_public_CF_certificate_count']==0
+                          assert s0==s1==0
+                  cmp=row['cube_vs_plain']
+                  if cmp['status']=='cube_model_win':assert cmp['ratio'][1]<1
+                  if cmp['status']=='cube_model_loss':assert cmp['ratio'][0]>1
+                  if cmp['status']=='factor_incapable_or_uncertified':
+                      assert cmp['ratio']==[None,None]
+              classes=z['summary']['classifications']
+              assert sum(classes.values())==4
+              if g=='trigger':
+                  assert z['summary']['strict_predeclared_trigger_gate_passed'] is True
+                  assert z['summary']['factor_capable_both']==3
+                  assert classes=={'cube_model_win':3,'factor_incapable_or_uncertified':1}
+              results[g]=z
+              print('INDEPENDENTLY VERIFIED',g,'original N=',expected,'classification=',classes)
+          assert set(results)=={'trigger','control'} and len(allN)==8
+          assert results['control']['summary']['classifications']=={
+              'cube_model_win':1,'factor_incapable_or_uncertified':3}
+          print('SUCCESS: exact eight original new N22 samples, B31 survivors, all classical factors and no QPU, blind preregistered primary gate')
+          PY
+      - name: Preserve original identical raw JSON with no re-scoring or result editing
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n22_fresh_precision_trigger.json
+          git add results/dark_star_ptp/dark_star_n22_fresh_precision_control.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve all 8 independent N22 high-precision model outcomes and classical factors"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
