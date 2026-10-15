@@ -1,0 +1,92 @@
+name: QRR zero-QPU public multichoice B31-survivor replication/holdout
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-dark-star-multichoice-survivor.yml
+      - hardware/dark_star_public_multichoice_survivor_holdout.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-multichoice-survivor:
+    name: frozen multi-exponent cohort=${{ matrix.cohort }} group=${{ matrix.group }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        cohort: [replication, holdout]
+        group: [trigger, control]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile frozen public decision and factor-producing scorer
+        run: python3 -m py_compile hardware/dark_star_public_multichoice_survivor_holdout.py
+      - name: Execute public survival screen and model 10 classically unresolved semiprimes
+        shell: bash
+        env:
+          COHORT: ${{ matrix.cohort }}
+          GROUP: ${{ matrix.group }}
+        run: |
+          set -o pipefail
+          python3 -u hardware/dark_star_public_multichoice_survivor_holdout.py --cohort "$COHORT" --group "$GROUP" | tee "multichoice_${COHORT}_${GROUP}.log"
+      - name: Validate all exact receipts without secret-informed policy selection
+        shell: bash
+        env:
+          COHORT: ${{ matrix.cohort }}
+          GROUP: ${{ matrix.group }}
+        run: |
+          python3 - <<'PY'
+          import json,os,math
+          from pathlib import Path
+          cohort=os.environ['COHORT'];group=os.environ['GROUP']
+          name=f'results/dark_star_ptp/dark_star_public_multichoice_{cohort}_{group}.json'
+          d=json.loads(Path(name).read_text())
+          assert d['zero_QPU'] and d['qpu_jobs_submitted']==0
+          assert d['cohort']==cohort and d['group']==group
+          assert d['selftests']['public_and_CF_selftest']
+          assert len(d['rows'])==10
+          assert len(d['classical_screened'])>=10
+          assert sum(not x['public_classical_found'] for x in d['classical_screened'])==10
+          assert all(r['true_order_identity_verified'] for r in d['rows'])
+          assert d['summary']['selected_survivors']==10
+          assert d['summary']['screened_public_candidates']==len(d['classical_screened'])
+          assert d['summary']['B47_classically_factorable_among_selected']<=10
+          assert d['logical_width']['wide_peak']==93 and d['logical_width']['recycled_peak']==58
+          for r in d['rows']:
+              n=r['N'];a=r['base']
+              assert 131072<=n<=262143
+              assert (n%3!=1 if group=='trigger' else n%3==1)
+              assert math.gcd(a,n)==1
+              assert set(r['policies'])==set(d['policies'])
+              exps=r['choice_exponents']
+              assert exps['plain']==0 and exps['always3']==3
+              first=next((e for e in (3,5,7) if n%e not in (0,1)),0)
+              assert exps['ladder']==first
+              assert r['policies']['ladder']['exponent']==first
+              scores={int(e):v for e,v in r['cheap4_CCX_proxy_by_exponent'].items()}
+              assert exps['cheap4']==min((0,3,5,7),key=lambda e:(scores[e],(0,3,5,7).index(e)))
+              for policy,x in r['policies'].items():
+                  assert x['selected_base']==r['public_candidate_bases'][str(x['exponent'])]
+                  assert 0<=x['model_success_probability']<=1
+                  assert x['expected_ccx_attempted']>=0
+                  assert (x['expected_ccx_per_success'] is None)==(x['model_success_probability']==0)
+          for v in d['summary']['comparisons'].values():
+              assert v['both_success']+v['either_zero_success']==10
+              assert v['improved']+v['tied']+v['worsened']==v['both_success']
+          print('VERIFIED',cohort,group,'screened',len(d['classical_screened']),
+                'selected B31-survivors',len(d['rows']),
+                'B47 factorizable',d['summary']['B47_classically_factorable_among_selected'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-multichoice-${{ matrix.cohort }}-${{ matrix.group }}
+          path: |
+            multichoice_*.log
+            results/dark_star_ptp/dark_star_public_multichoice_*.json
