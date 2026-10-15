@@ -1,0 +1,83 @@
+name: QRR v2 frozen public-policy classical holdout (zero QPU)
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-public-policy-classical-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-public-policy-classical-v2
+  cancel-in-progress: false
+
+jobs:
+  holdout:
+    name: Fixed ell=${{ matrix.ell }} / no IBM Runtime
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        ell: [3, 5, 7]
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      IBM_QUANTUM_API_KEY: ""
+      QISKIT_IBM_TOKEN: ""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Block QPU, IBM or runtime submission dependencies
+        run: |
+          if grep -nE '^[[:space:]]*(from|import)[[:space:]].*(qiskit_ibm_runtime|ibm_runtime_guard)|SamplerV2|EstimatorV2|QiskitRuntimeService' hardware/dark_star_public_policy_classical_v2.py hardware/analyze_dark_star_public_policy_classical_v2.py; then
+            echo 'Potential IBM/QPU interaction detected; fail closed.'
+            exit 1
+          fi
+      - name: Self test frozen manifest and explicit public factor predicate
+        run: python3 hardware/dark_star_public_policy_classical_v2.py --self-test
+      - name: Run frozen population shard and checkpoint locally
+        run: |
+          python3 -u hardware/dark_star_public_policy_classical_v2.py \
+            --ell ${{ matrix.ell }} --out ell${{ matrix.ell }}.json
+      - name: Upload verified complete shard
+        uses: actions/upload-artifact@v4
+        with:
+          name: ell${{ matrix.ell }}
+          path: ell${{ matrix.ell }}.json
+          if-no-files-found: error
+          retention-days: 30
+
+  combine:
+    name: Validate, report and preserve all 144 rows
+    needs: [holdout]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ell*
+          path: v2-shards
+      - name: Merge only if every preregistered shard is successful
+        run: python3 hardware/analyze_dark_star_public_policy_classical_v2.py --shard-dir v2-shards
+      - name: Preserve all audited full-population results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_public_policy_classical_v2.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve 144-row preregistered Dark Star public-policy classical v2 holdout"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
