@@ -321,7 +321,7 @@ def selftests():
     assert explicit_cf_proper_factor(n,base,2,4,{}) is False
     assert math.gcd(2,n)==1
     assert pollard_p1(15)["pow_count"]==len(dsbase.sieve_primes(31))
-    assert public_selector(22,3,3)==pow(3,3,22)
+    assert public_selector(23,3,3)==pow(3,3,23)
     for ell in ELLS:
         for n0 in (137*1009,107*1901):
             if n0%ell:
