@@ -1,0 +1,1379 @@
+{
+  "experiment": "dark_star_n22_on_frozen_four_precision_only_audit_v1",
+  "preregistration": "docs/DARK_STAR_N22_NUMERICAL_PRECISION_AUDIT_PREREG.md",
+  "original_manifest_sha256": "d0cfd98eab0b92bc07c39a896e2e0039c3e065f6c6521c525dbefd676c2e49ff",
+  "reuses_identical_frozen_n_and_bases": true,
+  "not_independent_holdout": true,
+  "group": "trigger",
+  "n_phase_samples": 131072,
+  "exact_full_outcome_FFT_phase_cap": 18,
+  "sampled_stage_centered_window": 32,
+  "phase_salt": "QRR-n22-precision-audit-iid-20261015",
+  "simultaneous_alpha": 0.01,
+  "union_budget_test_count": 672,
+  "EB_log_factor": 11.808575707071187,
+  "phase_sampling_claim": "99 percent simultaneous empirical Bernstein under i.i.d. uniform eigenphases; fixed PRNG is not a certified random source; numba numerical evaluation is not directed rounding",
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "selftests": {
+    "passed": true,
+    "public_CF_crosscheck": [
+      [
+        15,
+        2
+      ],
+      [
+        35,
+        1
+      ],
+      [
+        77,
+        1
+      ],
+      [
+        143,
+        1
+      ],
+      [
+        899,
+        3
+      ]
+    ],
+    "exact_full_FFT_m18_probability_normalized": true,
+    "empirical_Bernstein_positive_bounded": true,
+    "n_cases_in_original_manifest": 4
+  },
+  "rows": [
+    {
+      "N": 3623549,
+      "base": 3,
+      "group": "trigger",
+      "exact_same_frozen_base_policy": {
+        "plain": 3,
+        "cube": 27
+      },
+      "additional_public_classical": {
+        "B47": {
+          "found": true,
+          "factor": 1979,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": null,
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_p_minus_1_B47",
+        "factor": 1979,
+        "total_public_classical_CPU_ms": 0.0544,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "p": 1831,
+        "q": 1979,
+        "plain_order": 1809870,
+        "cube_order": 603290,
+        "odd_power_identity_passed": true
+      },
+      "plain": {
+        "base": 3,
+        "validation_only_order": 1809870,
+        "strict_public_CF_certificate_count": 1,
+        "public_CF_precomputation": {
+          "public_modular_multiplications": 3623549,
+          "public_gcd_calls": 4,
+          "candidate_denominators_checked": 1811774,
+          "factor_producing_denominators": 1,
+          "public_factors_found_by_precomputation": [
+            1831,
+            1979
+          ],
+          "public_CPU_seconds": 0.2424,
+          "explicitly_classical_factor_recovery": true
+        },
+        "exact_factor_incapable": false,
+        "factor_probability_by_cap_interval": [
+          0.9241520842153294,
+          0.9484557270022682
+        ],
+        "modeled_CCX_attempt_interval": [
+          792301799.2250432,
+          860885185.9103528
+        ],
+        "modeled_phase_round_interval": [
+          1581.0446735108671,
+          1716.5142571931096
+        ],
+        "modeled_CCX_per_factor_success_interval": [
+          835359813.5036074,
+          931540598.797984
+        ],
+        "all_stages": [
+          {
+            "m": 4,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "phase_denominator_Q": 16,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 6,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "phase_denominator_Q": 64,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 8,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "phase_denominator_Q": 256,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 10,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "phase_denominator_Q": 1024,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 12,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "phase_denominator_Q": 4096,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 14,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "phase_denominator_Q": 16384,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 16,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "phase_denominator_Q": 65536,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 18,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 1809870,
+            "phase_denominator_Q": 262144,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 20,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 1048576,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.0035759435799044004,
+            "accepted_head_mean": 0.0,
+            "head_variance_unbiased": 0.0,
+            "head_eb_epsilon": 0.00021021693064445556,
+            "omitted_tail_mean": 0.003125868074180437,
+            "omitted_variance_unbiased": 4.876261630426177e-06,
+            "omitted_eb_epsilon": 0.00023985857507950766,
+            "omitted_tail_upper_bound": 0.0033657266492599447,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638666313556,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 22,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 4194304,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.0035672867929782684,
+            "accepted_head_mean": 0.0,
+            "head_variance_unbiased": 0.0,
+            "head_eb_epsilon": 0.00021021693064445556,
+            "omitted_tail_mean": 0.003117261498125075,
+            "omitted_variance_unbiased": 4.859755530634331e-06,
+            "omitted_eb_epsilon": 0.00023980836420873738,
+            "omitted_tail_upper_bound": 0.0033570698623338127,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665984821,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 24,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 16777216,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.003569316441196407,
+            "accepted_head_mean": 9.48569362868149e-09,
+            "head_variance_unbiased": 4.637499771417873e-12,
+            "head_eb_epsilon": 0.00021024583749282942,
+            "omitted_tail_mean": 0.0031192215390683383,
+            "omitted_variance_unbiased": 4.870013633147122e-06,
+            "omitted_eb_epsilon": 0.00023983957894161057,
+            "omitted_tail_upper_bound": 0.003359061118009949,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.993763866576856,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 26,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 67108864,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.0035592095787628656,
+            "accepted_head_mean": 0.0,
+            "head_variance_unbiased": 0.0,
+            "head_eb_epsilon": 0.00021021693064445556,
+            "omitted_tail_mean": 0.0031091705471686048,
+            "omitted_variance_unbiased": 4.864268505514529e-06,
+            "omitted_eb_epsilon": 0.00023982210094980512,
+            "omitted_tail_upper_bound": 0.00334899264811841,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665902813,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 28,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 268435456,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.003629182504023132,
+            "accepted_head_mean": 1.5258788990257398e-05,
+            "head_variance_unbiased": 1.5258672501805886e-05,
+            "head_eb_epsilon": 0.0002626514353152806,
+            "omitted_tail_mean": 0.0031114873180574506,
+            "omitted_variance_unbiased": 4.852071841201011e-06,
+            "omitted_eb_epsilon": 0.0002397849616601436,
+            "omitted_tail_upper_bound": 0.0033512722797175943,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.993763866597251,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 30,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 1073741824,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.003836180018469362,
+            "accepted_head_mean": 0.00012207030807677294,
+            "head_variance_unbiased": 0.00012205633370935728,
+            "head_eb_epsilon": 0.0003585161804664951,
+            "omitted_tail_mean": 0.0031157548956008557,
+            "omitted_variance_unbiased": 4.869703045030999e-06,
+            "omitted_eb_epsilon": 0.00023983863432523804,
+            "omitted_tail_upper_bound": 0.003355593529926094,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665767791,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 32,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 4294967296,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.004251493315050481,
+            "accepted_head_mean": 0.0004119868479126735,
+            "head_variance_unbiased": 0.00041181979991172,
+            "head_eb_epsilon": 0.00048262025634468627,
+            "omitted_tail_mean": 0.003117075026613274,
+            "omitted_variance_unbiased": 4.860681813787163e-06,
+            "omitted_eb_epsilon": 0.00023981118417984728,
+            "omitted_tail_upper_bound": 0.003356886210793121,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665767791,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 34,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 17179869184,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0008741450821917595,
+            "upper": 0.0057245712376409325,
+            "accepted_head_mean": 0.001625035922775512,
+            "head_variance_unbiased": 0.0016223824472521623,
+            "head_eb_epsilon": 0.0007508908405837525,
+            "omitted_tail_mean": 0.0031088529383832466,
+            "omitted_variance_unbiased": 4.85422972737407e-06,
+            "omitted_eb_epsilon": 0.0002397915358984217,
+            "omitted_tail_upper_bound": 0.003348644474281668,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665972507,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 36,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 68719476736,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.005749876485656877,
+            "upper": 0.01178426440115785,
+            "accepted_head_mean": 0.007085882281883767,
+            "head_variance_unbiased": 0.007033901954595763,
+            "head_eb_epsilon": 0.0013360057962268905,
+            "omitted_tail_mean": 0.003122596809551165,
+            "omitted_variance_unbiased": 4.850283933967158e-06,
+            "omitted_eb_epsilon": 0.00023977951349602643,
+            "omitted_tail_upper_bound": 0.0033623763230471912,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665972507,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 38,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 274877906944,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.026067700141085927,
+            "upper": 0.034309875623075504,
+            "accepted_head_mean": 0.02850703683473118,
+            "head_variance_unbiased": 0.02757713955443292,
+            "head_eb_epsilon": 0.002439336693645252,
+            "omitted_tail_mean": 0.003123638112124038,
+            "omitted_variance_unbiased": 4.878040935767262e-06,
+            "omitted_eb_epsilon": 0.00023986398257503443,
+            "omitted_tail_upper_bound": 0.0033635020946990724,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665972507,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 40,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 1099511627776,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.10222521570684716,
+            "upper": 0.1139945276149391,
+            "accepted_head_mean": 0.10643673311244077,
+            "head_variance_unbiased": 0.0888555876911227,
+            "head_eb_epsilon": 0.00421151740559361,
+            "omitted_tail_mean": 0.0031064164676359624,
+            "omitted_variance_unbiased": 4.87693751136614e-06,
+            "omitted_eb_epsilon": 0.00023986062926874643,
+            "omitted_tail_upper_bound": 0.003346277096904709,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665834528,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 42,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 4398046511104,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.2139168762209198,
+            "upper": 0.22808119039671745,
+            "accepted_head_mean": 0.21932236367644722,
+            "head_variance_unbiased": 0.14979549275198012,
+            "head_eb_epsilon": 0.005405487455527447,
+            "omitted_tail_mean": 0.0031135464130710314,
+            "omitted_variance_unbiased": 4.854661666065119e-06,
+            "omitted_eb_epsilon": 0.00023979285167176153,
+            "omitted_tail_upper_bound": 0.003353339264742793,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665972507,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 44,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 17592186044416,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.2313910865793313,
+            "upper": 0.24638659293402237,
+            "accepted_head_mean": 0.23720611530040098,
+            "head_variance_unbiased": 0.17434298581102187,
+            "head_eb_epsilon": 0.005815028721069681,
+            "omitted_tail_mean": 0.003125645832909843,
+            "omitted_variance_unbiased": 4.858019933083066e-06,
+            "omitted_eb_epsilon": 0.00023980307964188425,
+            "omitted_tail_upper_bound": 0.003365448912551727,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665767793,
+            "max_per_eigenphase_head_oversum": 0.0
+          }
+        ]
+      },
+      "cube": {
+        "base": 27,
+        "validation_only_order": 603290,
+        "strict_public_CF_certificate_count": 3,
+        "public_CF_precomputation": {
+          "public_modular_multiplications": 3623549,
+          "public_gcd_calls": 12,
+          "candidate_denominators_checked": 1811774,
+          "factor_producing_denominators": 3,
+          "public_factors_found_by_precomputation": [
+            1831,
+            1979
+          ],
+          "public_CPU_seconds": 0.24664,
+          "explicitly_classical_factor_recovery": true
+        },
+        "exact_factor_incapable": false,
+        "factor_probability_by_cap_interval": [
+          0.9991134145698579,
+          0.9995093182049622
+        ],
+        "modeled_CCX_attempt_interval": [
+          669213654.3254324,
+          715608109.772902
+        ],
+        "modeled_phase_round_interval": [
+          1310.7851052293634,
+          1401.3461488274831
+        ],
+        "modeled_CCX_per_factor_success_interval": [
+          669542186.4873515,
+          716243120.4879662
+        ],
+        "all_stages": [
+          {
+            "m": 4,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "phase_denominator_Q": 16,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 6,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "phase_denominator_Q": 64,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 8,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "phase_denominator_Q": 256,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 10,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "phase_denominator_Q": 1024,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 12,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "phase_denominator_Q": 4096,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 14,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "phase_denominator_Q": 16384,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 16,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "phase_denominator_Q": 65536,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 18,
+            "mode": "exact_all_bin_FFT",
+            "n_eigenphase_values": 603290,
+            "phase_denominator_Q": 262144,
+            "lower": 0.0,
+            "upper": 0.0,
+            "full_probability_sum": 1.0,
+            "omitted_tail_upper_bound": 0.0,
+            "head_eb_epsilon": 0.0,
+            "omitted_eb_epsilon": 0.0
+          },
+          {
+            "m": 20,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 1048576,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.0035811213028683416,
+            "accepted_head_mean": 0.0,
+            "head_variance_unbiased": 0.0,
+            "head_eb_epsilon": 0.00021021693064445556,
+            "omitted_tail_mean": 0.0031311010618738978,
+            "omitted_variance_unbiased": 4.8580956975184994e-06,
+            "omitted_eb_epsilon": 0.00023980331034998824,
+            "omitted_tail_upper_bound": 0.003370904372223886,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.993763866624081,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 22,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 4194304,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.00356342978000914,
+            "accepted_head_mean": 1.7603442371996082e-09,
+            "head_variance_unbiased": 8.12408870406708e-14,
+            "head_eb_epsilon": 0.00021022075665464376,
+            "omitted_tail_mean": 0.0031133828048713224,
+            "omitted_variance_unbiased": 4.865043130838566e-06,
+            "omitted_eb_epsilon": 0.00023982445813893665,
+            "omitted_tail_upper_bound": 0.003353207263010259,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638666278816,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 24,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 16777216,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.0037144069240395076,
+            "accepted_head_mean": 4.578839587572978e-05,
+            "head_variance_unbiased": 4.577462389996272e-05,
+            "head_eb_epsilon": 0.00030103477434287453,
+            "omitted_tail_mean": 0.003127770125851729,
+            "omitted_variance_unbiased": 4.8614846029344304e-06,
+            "omitted_eb_epsilon": 0.0002398136279691742,
+            "omitted_tail_upper_bound": 0.003367583753820903,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638666044519,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 26,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 67108864,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.003840637672765505,
+            "accepted_head_mean": 0.00012970201268235315,
+            "head_variance_unbiased": 0.0001296838697932704,
+            "head_eb_epsilon": 0.00036307971805692423,
+            "omitted_tail_mean": 0.0031080220946050723,
+            "omitted_variance_unbiased": 4.868129272089776e-06,
+            "omitted_eb_epsilon": 0.00023983384742115487,
+            "omitted_tail_upper_bound": 0.0033478559420262273,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638666043801,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 28,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 268435456,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0,
+            "upper": 0.004244683046129467,
+            "accepted_head_mean": 0.0004043577974094515,
+            "head_variance_unbiased": 0.0004041972632147805,
+            "head_eb_epsilon": 0.0004800874706950276,
+            "omitted_tail_mean": 0.0031204117621148903,
+            "omitted_variance_unbiased": 4.865555083297972e-06,
+            "omitted_eb_epsilon": 0.000239826015910098,
+            "omitted_tail_upper_bound": 0.0033602377780249885,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638666266507,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 30,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 1073741824,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0008233558481351247,
+            "upper": 0.005662957615882407,
+            "accepted_head_mean": 0.001564017628787466,
+            "head_variance_unbiased": 0.001561575141488138,
+            "head_eb_epsilon": 0.0007406617806523412,
+            "omitted_tail_mean": 0.003118460341070195,
+            "omitted_variance_unbiased": 4.862876754566175e-06,
+            "omitted_eb_epsilon": 0.00023981786537240565,
+            "omitted_tail_upper_bound": 0.0033582782064426006,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665834526,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 32,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 4294967296,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.004568551172054455,
+            "upper": 0.010388945099859336,
+            "accepted_head_mean": 0.0057978606741568885,
+            "head_variance_unbiased": 0.0057638103704572,
+            "head_eb_epsilon": 0.0012293095021024337,
+            "omitted_tail_mean": 0.003122001496379447,
+            "omitted_variance_unbiased": 4.848287009310096e-06,
+            "omitted_eb_epsilon": 0.00023977342722056617,
+            "omitted_tail_upper_bound": 0.0033617749236000134,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665834526,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 34,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 17179869184,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.021189349731078073,
+            "upper": 0.029023271481570814,
+            "accepted_head_mean": 0.023428576415237795,
+            "head_variance_unbiased": 0.02284813108494932,
+            "head_eb_epsilon": 0.0022392266841597228,
+            "omitted_tail_mean": 0.0031156986337464426,
+            "omitted_variance_unbiased": 4.847080185778838e-06,
+            "omitted_eb_epsilon": 0.0002397697484268534,
+            "omitted_tail_upper_bound": 0.003355468382173296,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.993763866604375,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 36,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 68719476736,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.0889217960496254,
+            "upper": 0.10042177217651177,
+            "accepted_head_mean": 0.09298601183282447,
+            "head_variance_unbiased": 0.08243384823789036,
+            "head_eb_epsilon": 0.004064215783199075,
+            "omitted_tail_mean": 0.003131741024433599,
+            "omitted_variance_unbiased": 4.858169819391675e-06,
+            "omitted_eb_epsilon": 0.0002398035360546322,
+            "omitted_tail_upper_bound": 0.0033715445604882315,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665834526,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 38,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 274877906944,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.27995789906529234,
+            "upper": 0.2942958306931122,
+            "accepted_head_mean": 0.2854493707770968,
+            "head_variance_unbiased": 0.15479490117852604,
+            "head_eb_epsilon": 0.0054914717118044985,
+            "omitted_tail_mean": 0.003115110992519159,
+            "omitted_variance_unbiased": 4.882395268942902e-06,
+            "omitted_eb_epsilon": 0.00023987721169179609,
+            "omitted_tail_upper_bound": 0.0033549882042109547,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.993763866604375,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 40,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 1099511627776,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.3431910580136547,
+            "upper": 0.3592859556187106,
+            "accepted_head_mean": 0.34956324066545896,
+            "head_variance_unbiased": 0.2107273804010688,
+            "head_eb_epsilon": 0.006372182651804298,
+            "omitted_tail_mean": 0.0031107037384239416,
+            "omitted_variance_unbiased": 4.866392235338889e-06,
+            "omitted_eb_epsilon": 0.00023982856302338937,
+            "omitted_tail_upper_bound": 0.003350532301447331,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665834528,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 42,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 4398046511104,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.3569656430399181,
+            "upper": 0.37352907152902665,
+            "accepted_head_mean": 0.3635692120574632,
+            "head_variance_unbiased": 0.22685045589723696,
+            "head_eb_epsilon": 0.006603569017545039,
+            "omitted_tail_mean": 0.0031164975915204934,
+            "omitted_variance_unbiased": 4.854665220127012e-06,
+            "omitted_eb_epsilon": 0.00023979286249791603,
+            "omitted_tail_upper_bound": 0.0033562904540184093,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.9937638665834526,
+            "max_per_eigenphase_head_oversum": 0.0
+          },
+          {
+            "m": 44,
+            "mode": "seeded_iid_uniform_eigenphase_estimate",
+            "n_eigenphase_values": 131072,
+            "phase_denominator_Q": 17592186044416,
+            "centered_outcome_bins_per_eigenphase": 65,
+            "lower": 0.36027835059533075,
+            "upper": 0.37696949328122464,
+            "accepted_head_mean": 0.3669408217404122,
+            "head_variance_unbiased": 0.23104966983714925,
+            "head_eb_epsilon": 0.006662471145081455,
+            "omitted_tail_mean": 0.003126377651943511,
+            "omitted_variance_unbiased": 4.8644797503067955e-06,
+            "omitted_eb_epsilon": 0.0002398227437874843,
+            "omitted_tail_upper_bound": 0.0033662003957309955,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "min_per_eigenphase_head_total_mass": 0.993763866604375,
+            "max_per_eigenphase_head_oversum": 0.0
+          }
+        ]
+      },
+      "cube_vs_plain": {
+        "status": "cube_model_win",
+        "ratio": [
+          0.7187471886370783,
+          0.8574067233183622
+        ]
+      },
+      "previous_original_experiment": {
+        "status": "inconclusive",
+        "ratio": [
+          0.3574579470359062,
+          1.9893747288478307
+        ],
+        "confidence_interval_width": 1.6319167818119245
+      },
+      "numerical_accuracy": {
+        "new_interval_width": 0.1386595346812839,
+        "old_interval_width": 1.6319167818119245,
+        "narrowed": true,
+        "all_frozen_rows_retained": true
+      }
+    },
+    {
+      "N": 3351017,
+      "base": 19,
+      "group": "trigger",
+      "exact_same_frozen_base_policy": {
+        "plain": 19,
+        "cube": 6859
+      },
+      "additional_public_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 128,
+          "gcd_calls": 128,
+          "modular_square_calls": 384,
+          "attempts": 2,
+          "found": false,
+          "factor": null
+        },
+        "prime_trial_97": {
+          "found": false,
+          "checks": 25,
+          "factor": null
+        },
+        "full_trial": {
+          "found": true,
+          "checks": 126,
+          "factor": 877
+        },
+        "first_factor_source": "complete_prime_trial",
+        "factor": 877,
+        "total_public_classical_CPU_ms": 0.2916,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "p": 877,
+        "q": 3821,
+        "plain_order": 836580,
+        "cube_order": 278860,
+        "odd_power_identity_passed": true
+      },
+      "plain": {
+        "base": 19,
+        "validation_only_order": 836580,
+        "strict_public_CF_certificate_count": 0,
+        "public_CF_precomputation": {
+          "public_modular_multiplications": 3351017,
+          "public_gcd_calls": 8,
+          "candidate_denominators_checked": 1675508,
+          "factor_producing_denominators": 0,
+          "public_factors_found_by_precomputation": [],
+          "public_CPU_seconds": 0.24238,
+          "explicitly_classical_factor_recovery": true
+        },
+        "exact_factor_incapable": true,
+        "factor_probability_by_cap_interval": [
+          0.0,
+          0.0
+        ],
+        "modeled_CCX_attempt_interval": [
+          1017712104.0,
+          1017712104.0
+        ],
+        "modeled_phase_round_interval": [
+          2016.0,
+          2016.0
+        ],
+        "modeled_CCX_per_factor_success_interval": [
+          null,
+          null
+        ],
+        "all_stages": [
+          {
+            "m": 4,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 6,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 8,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 10,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 12,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 14,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 16,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 18,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 20,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 22,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 24,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 26,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 28,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 30,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 32,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 34,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 36,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 38,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 40,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 42,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 44,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          }
+        ]
+      },
+      "cube": {
+        "base": 6859,
+        "validation_only_order": 278860,
+        "strict_public_CF_certificate_count": 0,
+        "public_CF_precomputation": {
+          "public_modular_multiplications": 3351017,
+          "public_gcd_calls": 24,
+          "candidate_denominators_checked": 1675508,
+          "factor_producing_denominators": 0,
+          "public_factors_found_by_precomputation": [],
+          "public_CPU_seconds": 0.22959,
+          "explicitly_classical_factor_recovery": true
+        },
+        "exact_factor_incapable": true,
+        "factor_probability_by_cap_interval": [
+          0.0,
+          0.0
+        ],
+        "modeled_CCX_attempt_interval": [
+          1031058024.0,
+          1031058024.0
+        ],
+        "modeled_phase_round_interval": [
+          2016.0,
+          2016.0
+        ],
+        "modeled_CCX_per_factor_success_interval": [
+          null,
+          null
+        ],
+        "all_stages": [
+          {
+            "m": 4,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 6,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 8,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 10,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 12,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 14,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 16,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 18,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 20,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 22,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 24,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 26,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 28,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 30,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 32,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 34,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 36,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 38,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 40,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 42,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          },
+          {
+            "m": 44,
+            "mode": "PUBLIC_CF_EMPTY_EXACT_ZERO",
+            "lower": 0.0,
+            "upper": 0.0,
+            "n_eigenphase_values": 0,
+            "omitted_tail_upper_bound": 0.0
+          }
+        ]
+      },
+      "cube_vs_plain": {
+        "status": "factor_incapable_or_uncertified",
+        "ratio": [
+          null,
+          null
+        ]
+      },
+      "previous_original_experiment": {
+        "status": "factor_incapable_or_uncertified",
+        "ratio": [
+          null,
+          null
+        ],
+        "confidence_interval_width": null
+      },
+      "numerical_accuracy": {
+        "new_interval_width": null,
+        "old_interval_width": null,
+        "narrowed": null,
+        "all_frozen_rows_retained": true
+      }
+    }
+  ],
+  "summary": {
+    "selected": 2,
+    "n_comparable_to_old": 1,
+    "n_interval_narrower": 1,
+    "model_outcome_classes": {
+      "cube_model_win": 1,
+      "factor_incapable_or_uncertified": 1
+    },
+    "all_classically_factored": 2
+  },
+  "claim_boundary": "Same frozen 4 n22 samples, exploratory precision-method audit; not new independent positive discovery or physical quantum advantage",
+  "logical_width": {
+    "arithmetic_workspace": 69,
+    "wide_peak": 113,
+    "recycled_peak": 70
+  }
+}
