@@ -1,0 +1,71 @@
+name: QRR zero-QPU Dark Star population holdout
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-zero-qpu-holdout.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-zero-qpu-dark-star-holdout
+  cancel-in-progress: false
+
+jobs:
+  polynomial-arithmetic-holdout:
+    name: Frozen population + scout-resource receipts (no IBM access)
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reproduce selected scalable-arithmetic scout cases
+        run: python3 hardware/dark_star_recycled_scalable_arithmetic_audit.py
+      - name: Execute preregistered held-out semiprime population
+        run: python3 -u hardware/dark_star_scalable_resource_population_holdout.py
+      - name: Validate zero-QPU complete result and frozen endpoints
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          scout = json.loads(Path('results/dark_star_ptp/dark_star_recycled_scalable_arithmetic_audit.json').read_text())
+          data = json.loads(Path('results/dark_star_ptp/dark_star_scalable_resource_population_holdout.json').read_text())
+          assert scout['zero_qpu'] and scout['qpu_jobs_submitted'] == 0
+          assert data['zero_qpu'] and data['qpu_jobs_submitted'] == 0
+          assert set(scout['cases']) == {'209', '713', '781'}
+          assert len(data['rows']) == 96, 'Preregistered 96 rows must be complete'
+          assert not any(data['violations'].values()), 'Order/witness identity violations'
+          for ell in (3,5,7):
+              for group in ('trigger','control'):
+                  rows = [r for r in data['rows'] if r['ell'] == ell and r['group'] == group]
+                  assert len(rows) == 16, (ell, group, len(rows))
+                  summary = data['summaries'][str(ell)][group]
+                  assert summary['selected_rows'] == 16
+                  assert summary['eligible_rows'] > 0
+                  assert all('resource' in r for r in rows if r['eligible_quantum_row'])
+                  assert summary['eligible_rows_expected_ccx_improved'] + summary['eligible_rows_expected_ccx_tied'] + summary['eligible_rows_expected_ccx_worsened'] == summary['eligible_rows']
+                  print(ell,group,'eligible=',summary['eligible_rows'],
+                        'aggregate_ccx_ratio=',summary['aggregate_expected_ccx_ratio_sum_T_over_sum_B'],
+                        'improved/tied/worsened=',
+                        summary['eligible_rows_expected_ccx_improved'],
+                        summary['eligible_rows_expected_ccx_tied'],
+                        summary['eligible_rows_expected_ccx_worsened'])
+          print('Verified 96 public-selected rows, both groups, zero QPU jobs.')
+          PY
+      - name: Preserve auditable JSON outputs in repository
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_recycled_scalable_arithmetic_audit.json
+          git add results/dark_star_ptp/dark_star_scalable_resource_population_holdout.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve zero-QPU Dark Star scout and preregistered 96-row holdout receipts"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
