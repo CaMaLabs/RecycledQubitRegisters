@@ -1,0 +1,95 @@
+name: QRR zero-QPU FULL ideal-QPE all-bin cube versus nearest holdout
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-dark-star-full-qpe-outcome.yml
+      - hardware/dark_star_full_qpe_outcome_holdout.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  all-bin-fft-public-factor:
+    name: full distribution ${{ matrix.cohort }} ${{ matrix.group }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        cohort: [replication, locked_holdout]
+        group: [trigger, control]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pinned numerical FFT dependency
+        run: python3 -m pip install numpy==2.1.3
+      - name: Compile preregistered exhaustive outcome model
+        run: python3 -m py_compile hardware/dark_star_full_qpe_outcome_holdout.py
+      - name: Execute full all-bin ideal-QPE measurement distribution with zero QPU
+        shell: bash
+        env:
+          COHORT: ${{ matrix.cohort }}
+          GROUP: ${{ matrix.group }}
+        run: |
+          set -o pipefail
+          python3 -u hardware/dark_star_full_qpe_outcome_holdout.py --cohort "$COHORT" --group "$GROUP" | tee "full_qpe_${COHORT}_${GROUP}.log"
+      - name: Independently verify all selected public-base and probability outcomes
+        shell: bash
+        env:
+          COHORT: ${{ matrix.cohort }}
+          GROUP: ${{ matrix.group }}
+        run: |
+          python3 - <<'PY'
+          import os,json,math
+          from pathlib import Path
+          c,g=os.environ['COHORT'],os.environ['GROUP']
+          x=json.loads(Path(f'results/dark_star_ptp/dark_star_full_qpe_{c}_{g}.json').read_text())
+          assert x['zero_QPU'] and x['qpu_jobs_submitted']==0
+          assert x['cohort']==c and x['group']==g
+          assert x['selftests']['passed']
+          assert len(x['rows'])==3 and x['summary']['selected']==3
+          assert len(set(x['selected_public_N']))==3
+          assert x['summary']['classically_B7_factored']+x['summary']['classically_unresolved']==3
+          assert x['logical_width']['arithmetic_workspace']>0
+          for r in x['rows']:
+              n,a=r['N'],r['base']
+              assert 512<=n<=1023 and math.gcd(n,a)==1
+              assert (n%3!=1 if g=='trigger' else n%3==1)
+              assert r['transformed_base']==pow(a,3,n)
+              assert r['odd_power_order_identity_verified']
+              assert r['validation_cube_order']==r['validation_plain_order']//math.gcd(r['validation_plain_order'],3)
+              if not r['public_classical']['found']:
+                  assert r['modeled_ideal_quantum']
+                  assert set(r['bases'])=={'plain','cube'}
+                  for which,base in r['bases'].items():
+                      assert len(base['stages'])==9
+                      for stage in base['stages']:
+                          assert stage['all_outcomes_evaluated']
+                          assert abs(stage['probability_sum_before_clip']-1)<1e-9
+                          assert stage['minimum_probability_before_clip']>=-1e-11
+                          assert stage['factor_producing_probability']+2e-8>=stage['nearest_bin_only_factor_probability']
+                          assert stage['outcome_count']==(1<<stage['phase_bits'])
+                      for mode in ('full','nearest'):
+                          x=base['modes'][mode]
+                          assert 0<=x['success_probability_by_cap']<=1
+                          assert (x['expected_CCX_per_factor_success_with_restarts'] is None)==(x['success_probability_by_cap']==0)
+                      assert base['modes']['full']['success_probability_by_cap']+2e-8>=base['modes']['nearest']['success_probability_by_cap']
+              else:
+                  assert not r['modeled_ideal_quantum'] and r['bases']=={}
+          for mode in ('full','nearest'):
+              summ=x['summary'][mode]
+              assert summ['eligible_unresolved']==x['summary']['classically_unresolved']
+              assert summ['improved']+summ['tied']+summ['worsened']==summ['both_factor_success_positive']
+          print('Validated full all-bin QPE receipt',c,g,'with no QPU job')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-full-qpe-${{ matrix.cohort }}-${{ matrix.group }}
+          path: |
+            full_qpe_*.log
+            results/dark_star_ptp/dark_star_full_qpe_*.json
