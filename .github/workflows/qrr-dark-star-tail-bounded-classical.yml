@@ -1,0 +1,102 @@
+name: QRR public classical survivors and analytically bounded full ideal QPE tails
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-dark-star-tail-bounded-classical.yml
+      - hardware/dark_star_tail_bounded_qpe_classical_survivor.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bounded-qpe-vs-classical:
+    name: tail bound n${{ matrix.bits }} ${{ matrix.group }} no QPU
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        bits: [17, 18]
+        group: [trigger, control]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python3 -m pip install numpy==2.1.3
+      - name: Check immutable preregistration and Python syntax
+        run: |
+          test -s docs/DARK_STAR_TAIL_BOUNDED_QPE_CLASSICAL_SURVIVOR_PREREG.md
+          python3 -m py_compile hardware/dark_star_tail_bounded_qpe_classical_survivor.py
+      - name: Run full analytic omitted-tail bound on frozen public 17-18bit survivors
+        shell: bash
+        env:
+          BITS: ${{ matrix.bits }}
+          GROUP: ${{ matrix.group }}
+        run: |
+          set -o pipefail
+          python3 -u hardware/dark_star_tail_bounded_qpe_classical_survivor.py --bits "$BITS" --group "$GROUP" | tee "qrr_tail_n${BITS}_${GROUP}.log"
+      - name: Validate probabilities, public classical ledger, complete sample and conservative ratio bounds
+        shell: bash
+        env:
+          BITS: ${{ matrix.bits }}
+          GROUP: ${{ matrix.group }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os,json,math
+          bits=int(os.environ['BITS']);group=os.environ['GROUP']
+          filename=Path(f'results/dark_star_ptp/dark_star_tail_bounded_n{bits}_{group}.json')
+          d=json.loads(filename.read_text())
+          assert d['zero_QPU'] and d['qpu_jobs_submitted']==0
+          assert d['bits']==bits and d['group']==group
+          assert d['selftests']['passed']
+          assert d['selftests']['independent_exact_probabilities_bracketed']==9
+          assert len(d['rows'])==2 and len(set(d['selected_public_N']))==2
+          assert d['summary']['selected']==2
+          assert d['summary']['prefilter_B31_factored']==len(d['all_public_candidates_scanned'])-2
+          assert d['summary']['classical_remaining_after_cumulative']==0
+          assert d['logical_width']['wide_peak']==d['logical_width']['arithmetic_workspace']+2*bits
+          assert d['logical_width']['recycled_peak']==d['logical_width']['arithmetic_workspace']+1
+          for item in d['rows']:
+              n=item['N'];a=item['base'];b=item['cube_base']
+              assert (1<<(bits-1))<=n<(1<<bits)
+              assert n%3==(2 if group=='trigger' else 1)
+              assert math.gcd(n,a)==1 and b==pow(a,3,n)
+              assert item['classical_after_B31']['classically_complete']
+              assert item['order_identity_verified']
+              assert item['cube_order_validation_only']==item['baseline_order_validation_only']//math.gcd(item['baseline_order_validation_only'],3)
+              for method in ('plain','cube'):
+                  v=item[method]
+                  lo,hi=v['success_probability_by_cap_interval']
+                  assert 0<=lo<=hi<=1
+                  lccx,uccx=v['expected_CCX_attempt_interval']
+                  assert 0<=lccx<=uccx
+                  stages=v['all_stages']
+                  assert len(stages)==bits-1
+                  assert stages[0]['m']==4 and stages[-1]['m']==2*bits
+                  for s in stages:
+                      assert 0<=s['lower']<=s['upper']<=1
+                      assert s['tail_mass']>=0
+                      if s['m']>12:
+                          assert s['tail_mass']<=1/63+1e-9
+                          assert s['upper']-s['lower']<=s['tail_mass']+1e-9
+                      else:
+                          assert s['method']=='exact_full_FFT' and s['tail_mass']==0
+              c=item['cube_vs_plain']
+              if c['classification'] in ('certified_cube_win','certified_cube_loss'):
+                  low,high=c['ratio_interval']
+                  assert 0<=low<=high
+                  assert (high<1 if c['classification']=='certified_cube_win' else low>1)
+          print('Verified frozen public B31 survivor sampling, classical factor and rigorous ideal probability brackets',bits,group)
+          PY
+      - name: Keep original full JSON and run log for non-destructive receipt preservation
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-tailbound-n${{ matrix.bits }}-${{ matrix.group }}
+          path: |
+            qrr_tail_*.log
+            results/dark_star_ptp/dark_star_tail_bounded_n*.json
