@@ -624,3 +624,57 @@ treat arbitrary placement as the deployment policy.
 The 48-bit row is intentionally absent from the optimization-gain comparison
 because the fresh optimized replication and unique-placement datasets overlap at
 32 and 64 bits only. No discovery result was substituted just to fill the table.
+
+
+## 2026-10-14 — Preregistered 96-semiprime scalable-resource holdout: mixed result preserved
+
+**Milestone:** the frozen Dark Star + polynomial clean-ancilla arithmetic
+population audit completed successfully in GitHub Actions with **zero QPU jobs**.
+This is the first held-out population after the favorable three-scout audit;
+the selection/preregistration preceded the run.
+
+Evidence:
+- `docs/DARK_STAR_SCALABLE_RESOURCE_POPULATION_HOLDOUT_PREREG.md`
+- `hardware/dark_star_scalable_resource_population_holdout.py`
+- `docs/DARK_STAR_SCALABLE_RESOURCE_POPULATION_HOLDOUT_RESULT.md`
+- `results/dark_star_ptp/dark_star_scalable_resource_population_holdout.json` — all 96 rows, 51 eligible, full guardrail/exclusion data
+- `results/dark_star_ptp/dark_star_recycled_scalable_arithmetic_audit.json` — independently rerun baseline scout receipt
+- Actions run: https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38663133662 (passed)
+
+Primary *eligible-row* aggregate expected CCX ratios (transformed/baseline):
+
+| ell | trigger eligible | trigger CCX T/B | control eligible | control CCX T/B | trigger stronger? |
+|---:|---:|---:|---:|---:|---|
+| 3 | 11/16 | **0.799035** (20.10% saving) | 5/16 | 0.869060 | **yes** |
+| 5 | 6/16 | 0.906479 (9.35% saving) | 9/16 | **0.844764** | **no** |
+| 7 | 9/16 | 0.971187 (2.88% saving) | 11/16 | 0.983586 | **yes, weakly** |
+
+Improve/tie/worsen outcomes in eligible trigger rows:
+- ell=3: **10/0/1**;
+- ell=5: **2/0/4** (median row ratio 1.0228);
+- ell=7: **3/0/6** (median row ratio 1.0080).
+
+The odd-power order identity and witness-preservation tests had **zero
+violations**. The selected scout cases remain true successful mechanism probes,
+but their 43–69% savings are **not** population estimates. The ell=5
+trigger-enrichment hypothesis **failed** its frozen primary comparison; this is
+a useful falsification and must not be concealed. Ell=7 barely satisfies the
+aggregate directional comparison but does not yield a broadly favorable row
+distribution.
+
+**Mechanism survived:** for ell=3/5/7 trigger, aggregate phase-round ratios were
+0.7863/0.8859/0.9603 while CCX-per-executed-phase-round ratios were
+1.0161/1.0232/1.0114. Transformed modular constants are slightly **more**
+costly per round; positive aggregate effects come from earlier stopping.
+
+**Independent width result:** all held-out N are 17-bit. The explicit
+polynomial clean-ancilla arithmetic workspace requires 54 coherent qubits,
+so the matched conventional-wide to phase-recycled cap is **88 -> 55 peak
+logical qubits** (**37.5% fewer**). This width saving is from recycling, not
+from Dark Star. Neither is QPU speedup/fidelity evidence.
+
+The next falsification should enlarge and independently reseed the eligible
+population, include a bounded Pollard-p-1-style public classical baseline,
+verify factor-producing denominators explicitly, and evaluate the *full public
+selection policy*, including a no-transform option. Do not try to rescue
+ell=5 by selecting favorable rows post hoc.
