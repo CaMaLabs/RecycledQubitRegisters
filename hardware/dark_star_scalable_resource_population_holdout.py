@@ -242,6 +242,11 @@ def median_or_none(vals):
     return statistics.median(vals) if vals else None
 
 
+def mean_or_none(vals):
+    vals = [float(x) for x in vals if x is not None]
+    return statistics.mean(vals) if vals else None
+
+
 def summarize_group(rows: list[dict]) -> dict:
     eligible = [r for r in rows if r["eligible_quantum_row"]]
     resource = [r for r in eligible if "resource" in r]
@@ -286,6 +291,16 @@ def summarize_group(rows: list[dict]) -> dict:
             1.0 - sum_t_ccx / sum_b_ccx if sum_b_ccx else None
         ),
         "median_row_expected_ccx_ratio": median_or_none(ccx_ratios),
+        "mean_row_expected_ccx_ratio": mean_or_none(ccx_ratios),
+        "eligible_rows_expected_ccx_improved": sum(x < 1.0 - 1e-12 for x in ccx_ratios),
+        "eligible_rows_expected_ccx_tied": sum(abs(x - 1.0) <= 1e-12 for x in ccx_ratios),
+        "eligible_rows_expected_ccx_worsened": sum(x > 1.0 + 1e-12 for x in ccx_ratios),
+        "fraction_eligible_rows_expected_ccx_tied": frac(
+            sum(abs(x - 1.0) <= 1e-12 for x in ccx_ratios), len(ccx_ratios)
+        ),
+        "fraction_eligible_rows_expected_ccx_worsened": frac(
+            sum(x > 1.0 + 1e-12 for x in ccx_ratios), len(ccx_ratios)
+        ),
         "fraction_eligible_rows_lower_expected_ccx": frac(
             sum(x < 1.0 for x in ccx_ratios if x is not None),
             len(ccx_ratios),
@@ -298,6 +313,12 @@ def summarize_group(rows: list[dict]) -> dict:
         ),
         "median_row_expected_phase_round_ratio": median_or_none(phase_ratios),
         "median_ccx_per_phase_round_ratio": median_or_none(per_round),
+        "mean_ccx_per_phase_round_ratio": mean_or_none(per_round),
+        "mean_row_expected_phase_round_ratio": mean_or_none(phase_ratios),
+        "aggregate_ccx_per_phase_round_ratio": (
+            (sum_t_ccx / sum_b_ccx) / (sum_t_phase / sum_b_phase)
+            if sum_b_ccx and sum_b_phase and sum_t_phase else None
+        ),
         "median_combined_peak_width_reduction": median_or_none(
             [r["resource"]["combined_peak_width_reduction"] for r in resource]
         ),
@@ -321,6 +342,10 @@ def main() -> int:
             "Preregistered default population is fixed at 65536..131071; "
             "edit the preregistration before changing the range."
         )
+    if args.prime_min != 11:
+        raise SystemExit("Preregistered minimum factor prime is fixed at 11.")
+    if (args.start_bits, args.step_bits, args.shots_per_stage) != (4, 2, 4):
+        raise SystemExit("Preregistered staged policy is fixed at 4,2,4.")
     if args.per_group != 16:
         raise SystemExit(
             "Preregistered default sample is fixed at 16 per group per ell."
