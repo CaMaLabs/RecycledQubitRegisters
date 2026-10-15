@@ -1,0 +1,1506 @@
+{
+  "experiment": "dark_star_tail_bounded_qpe_classical_survivor_v1",
+  "revision": "2026-10-14-tail-bounded-qpe-classical-survivor-v1",
+  "bits": 18,
+  "group": "trigger",
+  "selected_public_N": [
+    195473,
+    256043
+  ],
+  "timestamp_utc": "2026-10-15T03:42:33.314760+00:00",
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "preregistration": "docs/DARK_STAR_TAIL_BOUNDED_QPE_CLASSICAL_SURVIVOR_PREREG.md",
+  "public_hash_salts": {
+    "selection": "QRR-tailbound-n17n18-survivors-v1-20261014",
+    "base": "QRR-tailbound-n17n18-base-v1-20261014"
+  },
+  "all_public_candidates_scanned": [
+    {
+      "N": 195473,
+      "base": 2,
+      "screen_rank": 1,
+      "public_B31_factored": false,
+      "public_B31_source": null,
+      "classical_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 219671,
+      "base": 2,
+      "screen_rank": 2,
+      "public_B31_factored": true,
+      "public_B31_source": "Pollard_p1_B31",
+      "classical_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 253187,
+      "base": 13,
+      "screen_rank": 3,
+      "public_B31_factored": true,
+      "public_B31_source": "Pollard_p1_B31",
+      "classical_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    },
+    {
+      "N": 256043,
+      "base": 17,
+      "screen_rank": 4,
+      "public_B31_factored": false,
+      "public_B31_source": null,
+      "classical_operation_counts": {
+        "gcd_calls": 81,
+        "modular_square_calls": 39,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      }
+    }
+  ],
+  "selftests": {
+    "passed": true,
+    "exact_complete_FFT_against_geometric_direct": true,
+    "public_CF_matches_original_slow_verifier": true,
+    "independent_exact_probabilities_bracketed": 9,
+    "bracketed_samples": [
+      [
+        35,
+        2,
+        8,
+        0.292343312671948,
+        0.29209315368863753,
+        0.3039745794698535
+      ],
+      [
+        35,
+        2,
+        10,
+        0.32346937722204705,
+        0.32340376017903466,
+        0.3353257484254602
+      ],
+      [
+        35,
+        2,
+        12,
+        0.3306860958261767,
+        0.32737107255033276,
+        0.339295594116334
+      ],
+      [
+        77,
+        2,
+        8,
+        0.12898015536142596,
+        0.12873572419855062,
+        0.14062079902070723
+      ],
+      [
+        77,
+        2,
+        10,
+        0.24217526902217293,
+        0.24211628584481015,
+        0.25404192316098884
+      ],
+      [
+        77,
+        2,
+        12,
+        0.258279246238006,
+        0.2582640725941082,
+        0.2701922432299745
+      ],
+      [
+        143,
+        2,
+        8,
+        0.0,
+        0.0,
+        0.011885074822156838
+      ],
+      [
+        143,
+        2,
+        10,
+        0.12859349190019184,
+        0.12855522600907923,
+        0.1404808633252577
+      ],
+      [
+        143,
+        2,
+        12,
+        0.23957496499789993,
+        0.23955934238485846,
+        0.2514875130207247
+      ]
+    ]
+  },
+  "rows": [
+    {
+      "N": 195473,
+      "bits": 18,
+      "group": "trigger",
+      "rank_index": 1,
+      "base": 2,
+      "cube_base": 8,
+      "p_validation_only": 47,
+      "q_validation_only": 4159,
+      "classical_after_B31": {
+        "first_additional_source": "Pollard_rho_floyd",
+        "factor": 47,
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "found": true,
+          "public_factor": 47,
+          "counts": {
+            "gcd_calls": 8,
+            "modular_squares": 24,
+            "iterations": 8,
+            "attempts": 1
+          }
+        },
+        "full_prime_trial": null,
+        "classically_complete": true
+      },
+      "baseline_order_validation_only": 47817,
+      "cube_order_validation_only": 15939,
+      "order_identity_verified": true,
+      "conditional_ideal_QPE_even_though_classically_factored": true,
+      "plain": {
+        "base": 2,
+        "order_validation_only": 47817,
+        "success_probability_by_cap_interval": [
+          0.0,
+          0.139192492227885
+        ],
+        "expected_CCX_attempt_interval": [
+          296485664.3355453,
+          319523656.0
+        ],
+        "expected_phase_round_interval": [
+          1262.8544919277788,
+          1360.0
+        ],
+        "CCX_per_factor_success_interval": [
+          2130040633.5863361,
+          null
+        ],
+        "high_precision_stage_max_tail": 0.0031177243655824416,
+        "total_examined_bins": 37302716,
+        "all_stages": [
+          {
+            "m": 4,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 16,
+            "phase_count": 47817,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 16,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0625,
+              "max_probability": 0.0625
+            },
+            "public_CF_unique_bins_checked": 16
+          },
+          {
+            "m": 6,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 64,
+            "phase_count": 47817,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 64,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.015625,
+              "max_probability": 0.015625
+            },
+            "public_CF_unique_bins_checked": 64
+          },
+          {
+            "m": 8,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 256,
+            "phase_count": 47817,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 256,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.00390625,
+              "max_probability": 0.00390625
+            },
+            "public_CF_unique_bins_checked": 256
+          },
+          {
+            "m": 10,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 1024,
+            "phase_count": 47817,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 1024,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0009765625,
+              "max_probability": 0.0009765625
+            },
+            "public_CF_unique_bins_checked": 1024
+          },
+          {
+            "m": 12,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 4096,
+            "phase_count": 47817,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 4096,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.000244140625,
+              "max_probability": 0.000244140625
+            },
+            "public_CF_unique_bins_checked": 4096
+          },
+          {
+            "m": 14,
+            "lower": 0.0,
+            "upper": 0.0031176840081653667,
+            "tail_mass": 0.0031176840081653667,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 16384,
+            "head_probability_mass": 0.9968823159918346,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937639473567859,
+            "total_CPU_seconds": 0.20538
+          },
+          {
+            "m": 16,
+            "lower": 0.0,
+            "upper": 0.0031177218432498766,
+            "tail_mass": 0.0031177218432498766,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 65536,
+            "head_probability_mass": 0.9968822781567501,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638716866185,
+            "total_CPU_seconds": 0.23818
+          },
+          {
+            "m": 18,
+            "lower": 0.0,
+            "upper": 0.003117724207936101,
+            "tail_mass": 0.003117724207936101,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 262144,
+            "head_probability_mass": 0.9968822757920639,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669572452,
+            "total_CPU_seconds": 0.33134
+          },
+          {
+            "m": 20,
+            "lower": 0.0,
+            "upper": 0.0031177243557293233,
+            "tail_mass": 0.0031177243557293233,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1048576,
+            "head_probability_mass": 0.9968822756442707,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638666616594,
+            "total_CPU_seconds": 0.70818
+          },
+          {
+            "m": 22,
+            "lower": 0.0,
+            "upper": 0.0031177243649660458,
+            "tail_mass": 0.0031177243649660458,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 3108105,
+            "head_probability_mass": 0.996882275635034,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638666431853,
+            "total_CPU_seconds": 1.66619
+          },
+          {
+            "m": 24,
+            "lower": 0.0,
+            "upper": 0.0031177243655434728,
+            "tail_mass": 0.0031177243655434728,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 3108105,
+            "head_probability_mass": 0.9968822756344565,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638666420306,
+            "total_CPU_seconds": 1.82667
+          },
+          {
+            "m": 26,
+            "lower": 0.0,
+            "upper": 0.003117724365579888,
+            "tail_mass": 0.003117724365579888,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 3108105,
+            "head_probability_mass": 0.9968822756344201,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638666419585,
+            "total_CPU_seconds": 1.76175
+          },
+          {
+            "m": 28,
+            "lower": 0.0,
+            "upper": 0.0031177243655816644,
+            "tail_mass": 0.0031177243655816644,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 3108105,
+            "head_probability_mass": 0.9968822756344183,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638666419539,
+            "total_CPU_seconds": 1.76885
+          },
+          {
+            "m": 30,
+            "lower": 0.0,
+            "upper": 0.0031177243655824416,
+            "tail_mass": 0.0031177243655824416,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 3108105,
+            "head_probability_mass": 0.9968822756344176,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638666419536,
+            "total_CPU_seconds": 1.8142
+          },
+          {
+            "m": 32,
+            "lower": 0.0,
+            "upper": 0.0031177243655823306,
+            "tail_mass": 0.0031177243655823306,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 3108105,
+            "head_probability_mass": 0.9968822756344177,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638666419536,
+            "total_CPU_seconds": 1.8788
+          },
+          {
+            "m": 34,
+            "lower": 0.0,
+            "upper": 0.0031177243655823306,
+            "tail_mass": 0.0031177243655823306,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 3108105,
+            "head_probability_mass": 0.9968822756344177,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638666419536,
+            "total_CPU_seconds": 1.91561
+          },
+          {
+            "m": 36,
+            "lower": 0.0,
+            "upper": 0.0031177243655817755,
+            "tail_mass": 0.0031177243655817755,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 3108105,
+            "phase_count": 47817,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 3108105,
+            "head_probability_mass": 0.9968822756344182,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638666419536,
+            "total_CPU_seconds": 1.882
+          }
+        ],
+        "public_valid_factor_producing_denominators": 0
+      },
+      "cube": {
+        "base": 8,
+        "order_validation_only": 15939,
+        "success_probability_by_cap_interval": [
+          0.0,
+          0.1391924922278155
+        ],
+        "expected_CCX_attempt_interval": [
+          300284048.1264787,
+          323570012.0
+        ],
+        "expected_phase_round_interval": [
+          1262.8544919278215,
+          1360.0
+        ],
+        "CCX_per_factor_success_interval": [
+          2157329345.285417,
+          null
+        ],
+        "high_precision_stage_max_tail": 0.0031177243655806652,
+        "total_examined_bins": 12437876,
+        "all_stages": [
+          {
+            "m": 4,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 16,
+            "phase_count": 15939,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 16,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0625,
+              "max_probability": 0.0625
+            },
+            "public_CF_unique_bins_checked": 16
+          },
+          {
+            "m": 6,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 64,
+            "phase_count": 15939,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 64,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.015625,
+              "max_probability": 0.015625
+            },
+            "public_CF_unique_bins_checked": 64
+          },
+          {
+            "m": 8,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 256,
+            "phase_count": 15939,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 256,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.00390625,
+              "max_probability": 0.00390625
+            },
+            "public_CF_unique_bins_checked": 256
+          },
+          {
+            "m": 10,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 1024,
+            "phase_count": 15939,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 1024,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0009765625,
+              "max_probability": 0.0009765625
+            },
+            "public_CF_unique_bins_checked": 1024
+          },
+          {
+            "m": 12,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 4096,
+            "phase_count": 15939,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 4096,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.000244140625,
+              "max_probability": 0.000244140625
+            },
+            "public_CF_unique_bins_checked": 4096
+          },
+          {
+            "m": 14,
+            "lower": 0.0,
+            "upper": 0.0031176840081644785,
+            "tail_mass": 0.0031176840081644785,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 16384,
+            "head_probability_mass": 0.9968823159918355,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937639475340688,
+            "total_CPU_seconds": 0.07261
+          },
+          {
+            "m": 16,
+            "lower": 0.0,
+            "upper": 0.003117721843247878,
+            "tail_mass": 0.003117721843247878,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 65536,
+            "head_probability_mass": 0.9968822781567521,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638718639021,
+            "total_CPU_seconds": 0.09669
+          },
+          {
+            "m": 18,
+            "lower": 0.0,
+            "upper": 0.00311772420793488,
+            "tail_mass": 0.00311772420793488,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 262144,
+            "head_probability_mass": 0.9968822757920651,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638671345289,
+            "total_CPU_seconds": 0.18632
+          },
+          {
+            "m": 20,
+            "lower": 0.0,
+            "upper": 0.003117724355727547,
+            "tail_mass": 0.003117724355727547,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1036035,
+            "head_probability_mass": 0.9968822756442725,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.993763866838943,
+            "total_CPU_seconds": 0.54357
+          },
+          {
+            "m": 22,
+            "lower": 0.0,
+            "upper": 0.0031177243649643804,
+            "tail_mass": 0.0031177243649643804,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1036035,
+            "head_probability_mass": 0.9968822756350356,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.993763866820469,
+            "total_CPU_seconds": 0.5529
+          },
+          {
+            "m": 24,
+            "lower": 0.0,
+            "upper": 0.0031177243655416964,
+            "tail_mass": 0.0031177243655416964,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1036035,
+            "head_probability_mass": 0.9968822756344583,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638668193142,
+            "total_CPU_seconds": 0.55216
+          },
+          {
+            "m": 26,
+            "lower": 0.0,
+            "upper": 0.0031177243655778897,
+            "tail_mass": 0.0031177243655778897,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1036035,
+            "head_probability_mass": 0.9968822756344221,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638668192422,
+            "total_CPU_seconds": 0.55693
+          },
+          {
+            "m": 28,
+            "lower": 0.0,
+            "upper": 0.003117724365580332,
+            "tail_mass": 0.003117724365580332,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1036035,
+            "head_probability_mass": 0.9968822756344197,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638668192376,
+            "total_CPU_seconds": 0.56404
+          },
+          {
+            "m": 30,
+            "lower": 0.0,
+            "upper": 0.003117724365580332,
+            "tail_mass": 0.003117724365580332,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1036035,
+            "head_probability_mass": 0.9968822756344197,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638668192375,
+            "total_CPU_seconds": 0.59471
+          },
+          {
+            "m": 32,
+            "lower": 0.0,
+            "upper": 0.003117724365580332,
+            "tail_mass": 0.003117724365580332,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1036035,
+            "head_probability_mass": 0.9968822756344197,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638668192373,
+            "total_CPU_seconds": 0.62825
+          },
+          {
+            "m": 34,
+            "lower": 0.0,
+            "upper": 0.0031177243655806652,
+            "tail_mass": 0.0031177243655806652,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1036035,
+            "head_probability_mass": 0.9968822756344193,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638668192373,
+            "total_CPU_seconds": 0.59801
+          },
+          {
+            "m": 36,
+            "lower": 0.0,
+            "upper": 0.003117724365580332,
+            "tail_mass": 0.003117724365580332,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1036035,
+            "phase_count": 15939,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1036035,
+            "head_probability_mass": 0.9968822756344197,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638668192373,
+            "total_CPU_seconds": 0.58253
+          }
+        ],
+        "public_valid_factor_producing_denominators": 0
+      },
+      "cube_vs_plain": {
+        "classification": "uncertain_or_no_factor_success",
+        "ratio_interval": [
+          null,
+          null
+        ]
+      },
+      "process_CPU_seconds": 24.06045
+    },
+    {
+      "N": 256043,
+      "bits": 18,
+      "group": "trigger",
+      "rank_index": 4,
+      "base": 17,
+      "cube_base": 4913,
+      "p_validation_only": 53,
+      "q_validation_only": 4831,
+      "classical_after_B31": {
+        "first_additional_source": "Pollard_rho_floyd",
+        "factor": 53,
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "found": true,
+          "public_factor": 53,
+          "counts": {
+            "gcd_calls": 6,
+            "modular_squares": 18,
+            "iterations": 6,
+            "attempts": 1
+          }
+        },
+        "full_prime_trial": null,
+        "classically_complete": true
+      },
+      "baseline_order_validation_only": 20930,
+      "cube_order_validation_only": 20930,
+      "order_identity_verified": true,
+      "conditional_ideal_QPE_even_though_classically_factored": true,
+      "plain": {
+        "base": 17,
+        "order_validation_only": 20930,
+        "success_probability_by_cap_interval": [
+          0.0,
+          0.1391924922277077
+        ],
+        "expected_CCX_attempt_interval": [
+          299935580.96654576,
+          323188880.0
+        ],
+        "expected_phase_round_interval": [
+          1262.8544919279002,
+          1360.0
+        ],
+        "CCX_per_factor_success_interval": [
+          2154825854.2269316,
+          null
+        ],
+        "high_precision_stage_max_tail": 0.0031177243655778897,
+        "total_examined_bins": 16330856,
+        "all_stages": [
+          {
+            "m": 4,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 16,
+            "phase_count": 20930,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 16,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0625,
+              "max_probability": 0.0625
+            },
+            "public_CF_unique_bins_checked": 16
+          },
+          {
+            "m": 6,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 64,
+            "phase_count": 20930,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 64,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.015625,
+              "max_probability": 0.015625
+            },
+            "public_CF_unique_bins_checked": 64
+          },
+          {
+            "m": 8,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 256,
+            "phase_count": 20930,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 256,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.00390625,
+              "max_probability": 0.00390625
+            },
+            "public_CF_unique_bins_checked": 256
+          },
+          {
+            "m": 10,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 1024,
+            "phase_count": 20930,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 1024,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0009765625,
+              "max_probability": 0.0009765625
+            },
+            "public_CF_unique_bins_checked": 1024
+          },
+          {
+            "m": 12,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 4096,
+            "phase_count": 20930,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 4096,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.000244140625,
+              "max_probability": 0.000244140625
+            },
+            "public_CF_unique_bins_checked": 4096
+          },
+          {
+            "m": 14,
+            "lower": 0.0,
+            "upper": 0.003117684008161592,
+            "tail_mass": 0.003117684008161592,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 16384,
+            "head_probability_mass": 0.9968823159918384,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.993763947710856,
+            "total_CPU_seconds": 0.09605
+          },
+          {
+            "m": 16,
+            "lower": 0.0,
+            "upper": 0.0031177218432453246,
+            "tail_mass": 0.0031177218432453246,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 65536,
+            "head_probability_mass": 0.9968822781567547,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638720406903,
+            "total_CPU_seconds": 0.11705
+          },
+          {
+            "m": 18,
+            "lower": 0.0,
+            "upper": 0.0031177242079321044,
+            "tail_mass": 0.0031177242079321044,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 262144,
+            "head_probability_mass": 0.9968822757920679,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638673113172,
+            "total_CPU_seconds": 0.20659
+          },
+          {
+            "m": 20,
+            "lower": 0.0,
+            "upper": 0.0031177243557249934,
+            "tail_mass": 0.0031177243557249934,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1048576,
+            "head_probability_mass": 0.996882275644275,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638670157314,
+            "total_CPU_seconds": 0.55756
+          },
+          {
+            "m": 22,
+            "lower": 0.0,
+            "upper": 0.003117724364961716,
+            "tail_mass": 0.003117724364961716,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756350383,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.993763866997257,
+            "total_CPU_seconds": 0.78916
+          },
+          {
+            "m": 24,
+            "lower": 0.0,
+            "upper": 0.003117724365539143,
+            "tail_mass": 0.003117724365539143,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344609,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669961026,
+            "total_CPU_seconds": 0.81754
+          },
+          {
+            "m": 26,
+            "lower": 0.0,
+            "upper": 0.0031177243655756692,
+            "tail_mass": 0.0031177243655756692,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344243,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960304,
+            "total_CPU_seconds": 0.79133
+          },
+          {
+            "m": 28,
+            "lower": 0.0,
+            "upper": 0.0031177243655775566,
+            "tail_mass": 0.0031177243655775566,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344224,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960257,
+            "total_CPU_seconds": 0.81055
+          },
+          {
+            "m": 30,
+            "lower": 0.0,
+            "upper": 0.0031177243655778897,
+            "tail_mass": 0.0031177243655778897,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344221,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960255,
+            "total_CPU_seconds": 0.83211
+          },
+          {
+            "m": 32,
+            "lower": 0.0,
+            "upper": 0.0031177243655777787,
+            "tail_mass": 0.0031177243655777787,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344222,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960255,
+            "total_CPU_seconds": 0.83657
+          },
+          {
+            "m": 34,
+            "lower": 0.0,
+            "upper": 0.0031177243655777787,
+            "tail_mass": 0.0031177243655777787,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344222,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960255,
+            "total_CPU_seconds": 0.84113
+          },
+          {
+            "m": 36,
+            "lower": 0.0,
+            "upper": 0.0031177243655778897,
+            "tail_mass": 0.0031177243655778897,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344221,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960255,
+            "total_CPU_seconds": 0.89064
+          }
+        ],
+        "public_valid_factor_producing_denominators": 0
+      },
+      "cube": {
+        "base": 4913,
+        "order_validation_only": 20930,
+        "success_probability_by_cap_interval": [
+          0.0,
+          0.1391924922277077
+        ],
+        "expected_CCX_attempt_interval": [
+          305120882.6361335,
+          328612176.0
+        ],
+        "expected_phase_round_interval": [
+          1262.8544919279002,
+          1360.0
+        ],
+        "CCX_per_factor_success_interval": [
+          2192078593.843843,
+          null
+        ],
+        "high_precision_stage_max_tail": 0.0031177243655778897,
+        "total_examined_bins": 16330856,
+        "all_stages": [
+          {
+            "m": 4,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 16,
+            "phase_count": 20930,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 16,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0625,
+              "max_probability": 0.0625
+            },
+            "public_CF_unique_bins_checked": 16
+          },
+          {
+            "m": 6,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 64,
+            "phase_count": 20930,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 64,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.015625,
+              "max_probability": 0.015625
+            },
+            "public_CF_unique_bins_checked": 64
+          },
+          {
+            "m": 8,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 256,
+            "phase_count": 20930,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 256,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.00390625,
+              "max_probability": 0.00390625
+            },
+            "public_CF_unique_bins_checked": 256
+          },
+          {
+            "m": 10,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 1024,
+            "phase_count": 20930,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 1024,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.0009765625,
+              "max_probability": 0.0009765625
+            },
+            "public_CF_unique_bins_checked": 1024
+          },
+          {
+            "m": 12,
+            "lower": 0.0,
+            "upper": 0.0,
+            "tail_mass": 0.0,
+            "nearest_included_probability": null,
+            "outcome_bins_examined": 4096,
+            "phase_count": 20930,
+            "method": "exact_full_FFT",
+            "fft_diagnostic": {
+              "outcome_count": 4096,
+              "probability_sum_before_clip": 1.0,
+              "minimum_probability_before_clip": 0.000244140625,
+              "max_probability": 0.000244140625
+            },
+            "public_CF_unique_bins_checked": 4096
+          },
+          {
+            "m": 14,
+            "lower": 0.0,
+            "upper": 0.003117684008161592,
+            "tail_mass": 0.003117684008161592,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 16384,
+            "head_probability_mass": 0.9968823159918384,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.993763947710856,
+            "total_CPU_seconds": 0.09473
+          },
+          {
+            "m": 16,
+            "lower": 0.0,
+            "upper": 0.0031177218432453246,
+            "tail_mass": 0.0031177218432453246,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 65536,
+            "head_probability_mass": 0.9968822781567547,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638720406903,
+            "total_CPU_seconds": 0.1173
+          },
+          {
+            "m": 18,
+            "lower": 0.0,
+            "upper": 0.0031177242079321044,
+            "tail_mass": 0.0031177242079321044,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 262144,
+            "head_probability_mass": 0.9968822757920679,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638673113172,
+            "total_CPU_seconds": 0.20636
+          },
+          {
+            "m": 20,
+            "lower": 0.0,
+            "upper": 0.0031177243557249934,
+            "tail_mass": 0.0031177243557249934,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1048576,
+            "head_probability_mass": 0.996882275644275,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638670157314,
+            "total_CPU_seconds": 0.5602
+          },
+          {
+            "m": 22,
+            "lower": 0.0,
+            "upper": 0.003117724364961716,
+            "tail_mass": 0.003117724364961716,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756350383,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.993763866997257,
+            "total_CPU_seconds": 0.77977
+          },
+          {
+            "m": 24,
+            "lower": 0.0,
+            "upper": 0.003117724365539143,
+            "tail_mass": 0.003117724365539143,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344609,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669961026,
+            "total_CPU_seconds": 0.80856
+          },
+          {
+            "m": 26,
+            "lower": 0.0,
+            "upper": 0.0031177243655756692,
+            "tail_mass": 0.0031177243655756692,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344243,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960304,
+            "total_CPU_seconds": 0.79769
+          },
+          {
+            "m": 28,
+            "lower": 0.0,
+            "upper": 0.0031177243655775566,
+            "tail_mass": 0.0031177243655775566,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344224,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960257,
+            "total_CPU_seconds": 0.80996
+          },
+          {
+            "m": 30,
+            "lower": 0.0,
+            "upper": 0.0031177243655778897,
+            "tail_mass": 0.0031177243655778897,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344221,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960255,
+            "total_CPU_seconds": 0.82895
+          },
+          {
+            "m": 32,
+            "lower": 0.0,
+            "upper": 0.0031177243655777787,
+            "tail_mass": 0.0031177243655777787,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344222,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960255,
+            "total_CPU_seconds": 0.84144
+          },
+          {
+            "m": 34,
+            "lower": 0.0,
+            "upper": 0.0031177243655777787,
+            "tail_mass": 0.0031177243655777787,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344222,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960255,
+            "total_CPU_seconds": 0.83737
+          },
+          {
+            "m": 36,
+            "lower": 0.0,
+            "upper": 0.0031177243655778897,
+            "tail_mass": 0.0031177243655778897,
+            "nearest_included_probability": 0.0,
+            "outcome_bins_examined": 1360450,
+            "phase_count": 20930,
+            "method": "center_plus_minus_32_analytic_tail",
+            "publicly_checked_distinct_bins": 1360450,
+            "head_probability_mass": 0.9968822756344221,
+            "universal_analytic_tail_bound": 0.015873015873015872,
+            "maximum_single_phase_head_oversum": 0.0,
+            "minimum_single_phase_head_mass": 0.9937638669960255,
+            "total_CPU_seconds": 0.85296
+          }
+        ],
+        "public_valid_factor_producing_denominators": 0
+      },
+      "cube_vs_plain": {
+        "classification": "uncertain_or_no_factor_success",
+        "ratio_interval": [
+          null,
+          null
+        ]
+      },
+      "process_CPU_seconds": 17.64794
+    }
+  ],
+  "summary": {
+    "selected": 2,
+    "screened": 4,
+    "prefilter_B31_factored": 2,
+    "classical_remaining_after_cumulative": 0,
+    "post_B31_sources": {
+      "Pollard_rho_floyd": 2
+    },
+    "classifications": {
+      "uncertain_or_no_factor_success": 2
+    },
+    "model_only": true
+  },
+  "mathematical_tail_bound": "Exact outcome head + omitted probability mass in ideal model; float evaluated with tolerance, not formally interval-arithmetic certified",
+  "claim_boundary": "counterfactual IDEAL-QPE logical CCX on tiny public-classically-factorable n17/18 semiprimes; not hardware/physical/runtime/RSA factoring advantage",
+  "logical_width": {
+    "arithmetic_workspace": 57,
+    "wide_peak": 93,
+    "recycled_peak": 58
+  }
+}
