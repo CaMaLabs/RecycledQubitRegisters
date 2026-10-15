@@ -1,0 +1,110 @@
+name: QRR fresh N22 full-tail SCORE ALREADY FROZEN public manifest
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n22-full-tail-score-frozen.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  score-from-preregistered-frozen-manifest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [trigger, control]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Require previously committed independent public manifest and unchanged SHA before scoring
+        run: |
+          test -s docs/DARK_STAR_N22_FULL_OUTCOME_BOUNDED_PREREG.md
+          test -s results/dark_star_ptp/dark_star_n22_full_tail_public_manifest.json
+          test -s hardware/dark_star_n22_full_tail_qpe_holdout.py
+          python3 - <<'PY'
+          import json,hashlib,subprocess
+          from pathlib import Path
+          path='results/dark_star_ptp/dark_star_n22_full_tail_public_manifest.json'
+          d=json.loads(Path(path).read_text())
+          canonical=json.dumps(d['selected_public_rows'],sort_keys=True,separators=(',',':'))
+          assert hashlib.sha256(canonical.encode()).hexdigest()==d['selected_sha256']
+          assert d['selected_sha256']=='d0cfd98eab0b92bc07c39a896e2e0039c3e065f6c6521c525dbefd676c2e49ff'
+          assert len(d['selected_public_rows'])==4
+          old=json.loads(Path('results/dark_star_ptp/dark_star_n22_public_manifest.json').read_text())
+          assert not set(x['N'] for x in d['selected_public_rows'])&set(x['N'] for x in old['selected_public_rows'])
+          assert d['zero_QPU'] and d['qpu_jobs_submitted']==0
+          # Strong provenance: manifest exists in an earlier ancestor Git commit.
+          frozen='2788bbe9760b815513a5d4f3f1bafe3686a70e92'
+          assert subprocess.run(['git','merge-base','--is-ancestor',frozen,'HEAD']).returncode==0
+          oldbytes=subprocess.check_output(['git','show',frozen+':'+path])
+          assert oldbytes==Path(path).read_bytes()
+          print('Frozen public-only manifest commit 2788bbe, strict SHA',d['selected_sha256'])
+          PY
+      - name: Install pinned fast public CF accelerator dependencies
+        run: python3 -m pip install numpy==2.1.3 numba==0.61.2
+      - name: Compile and run original frozen n22 full-outcome-tail study, ZERO QPU
+        shell: bash
+        env:
+          GROUP: ${{ matrix.group }}
+        run: |
+          set -o pipefail
+          python3 -m py_compile hardware/dark_star_n22_full_tail_qpe_holdout.py
+          python3 -u hardware/dark_star_n22_full_tail_qpe_holdout.py --group "$GROUP" | tee "n22_full_tail_${GROUP}.log"
+      - name: Check complete holdout rows with classical factor proofs and conservative cost intervals
+        shell: bash
+        env:
+          GROUP: ${{ matrix.group }}
+        run: |
+          python3 - <<'PY'
+          import json,math,os
+          from pathlib import Path
+          group=os.environ['GROUP']
+          root=Path('results/dark_star_ptp')
+          d=json.loads((root/f'dark_star_n22_full_tail_{group}.json').read_text())
+          m=json.loads((root/'dark_star_n22_full_tail_public_manifest.json').read_text())
+          assert d['group']==group and d['public_manifest_sha256']==m['selected_sha256']
+          assert d['zero_QPU'] and d['qpu_jobs_submitted']==0
+          assert d['selftests']['passed'] and d['selftests']['public_certificates_match_slow_factor_verifier']
+          assert d['samples']==16384 and d['outcome_half_window']==32 and d['alpha']==0.01
+          assert len(d['rows'])==2 and d['summary']['additional_classically_factored']==2
+          assert d['logical_width']=={'arithmetic_workspace':69,'wide_peak':113,'recycled_peak':70}
+          assert [r['N'] for r in d['rows']]==[r['N'] for r in m['selected_public_rows'] if r['group']==group]
+          for r in d['rows']:
+              n,a=r['N'],r['base']
+              assert 1<<21<=n<1<<22 and n%3==(2 if group=='trigger' else 1)
+              assert math.gcd(a,n)==1 and r['public_policies']=={'plain':a,'cube':pow(a,3,n)}
+              assert r['additional_public_classical']['classically_factored']
+              assert n%r['additional_public_classical']['factor']==0
+              assert r['validation_only']['known_odd_power_identity']
+              assert r['validation_only']['cube_order']==r['validation_only']['plain_order']//math.gcd(r['validation_only']['plain_order'],3)
+              for pol in ('plain','cube'):
+                  x=r[pol]
+                  l,h=x['factor_probability_by_cap_interval']
+                  assert 0<=l<=h<=1
+                  assert len(x['all_stages'])==21 and x['all_stages'][-1]['m']==44
+                  if x['exact_factor_incapable']:assert l==h==0
+                  for z in x['all_stages']:
+                      assert 0<=z['lower']<=z['upper']<=1+1e-9
+                      if z['mode']=='seeded_iid_uniform_eigenphase_estimate':
+                          assert z['n_eigenphase_values']==16384 and z['omission_upper_bound']==1/63
+                          assert z['eigenphase_Hoeffding_epsilon']==d['eigenphase_hoeffding_epsilon']
+                      if z['mode']=='exact_all_bin_FFT':
+                          assert abs(z['fft_normalization']-1)<1e-9
+              cls=r['cube_vs_plain']
+              if cls['status']=='cube_model_win':assert cls['ratio'][1]<1
+              if cls['status']=='cube_model_loss':assert cls['ratio'][0]>1
+          print('VERIFIED',group,'public classical and bounded complete-outcome ideal QPE')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n22-full-tail-scored-${{ matrix.group }}
+          path: |
+            n22_full_tail_*.log
+            results/dark_star_ptp/dark_star_n22_full_tail_*.json
