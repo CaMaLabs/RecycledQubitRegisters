@@ -819,3 +819,36 @@ fidelity/runtime improvement, RSA-2048 performance and altered Shor asymptotics
 remain unestablished. Next experiment should move to a larger fresh 20–24-bit
 population to avoid the bounded classical-preprocessing saturation seen here,
 with a pre-committed public selector and matched success-adjusted costs.
+
+
+## 2026-10-14 — Analytically bounded full-QPE tails at n17/n18; primary trigger fails, classical rho wins
+
+**Research lead and originating direction: Chase Lunsford / CaMaLabs.** Next preregistered zero-QPU numerical/mathematical falsification completed. Previous positive and negative QRR/Dark Star milestones remain preserved, especially 96-case n17 ell5 trigger-enrichment FAIL, 144-case n18 classical-first v2 ell3 trigger 2 improves/3 worse, ell5 enrichment FAIL, ell7 negative, n18 40-survivor public multi-exponent ladder **no benefit** over unconditional cube on triggers and locked control FAIL, and three tiny n10 full-outcome QPE successes offset by trivially classical factorization.
+
+Evidence:
+- Freeze: `docs/DARK_STAR_TAIL_BOUNDED_QPE_CLASSICAL_SURVIVOR_PREREG.md` commit **`6093fda1f1e6aba3c9b1081f90cf256a9cb66a6d`**, BEFORE new runs/sample results.
+- Script: `hardware/dark_star_tail_bounded_qpe_classical_survivor.py`, commit `1de30c3d4b83ae3cf7342cd885882ffd29c2e7cf`; no post-data code/seed changes.
+- Actual four-job experiment **PASS**: https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38677647156 (4/4 success), no QPU.
+- Independent complete immutable-artifact verification/preservation **PASS**: https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38677791142, all eight JSON receipts committed at `results/dark_star_ptp/dark_star_tail_bounded_n{17,18}_{trigger,control}.json`, including ALL publicly screened classical-positive Ns, exact sample order, both bases, all phase stages and complete model uncertainty intervals.
+- Full report `docs/DARK_STAR_TAIL_BOUNDED_QPE_CLASSICAL_SURVIVOR_RESULT.md`.
+
+FROZEN new sample: SHA-ranked n17 and n18 synthetic prime-pair semiprimes, split by **public N mod 3 trigger/control**, with prior sample Ns excluded by public identifier alone. The first TWO publicly B31-stage1/power2-classically-unresolved Ns per group were retained, **8 distinct selected Ns from 21 publicly scanned**, of which 13 were already solved by public B31 cascade. No true factor/order influences public choice or classical factor test. The cumulative **B47 → fixed-seed bounded Pollard rho → full prime trial** ledger later FACTORED **all 8** selected B31 survivors by **public Pollard rho**. Thus NOTHING remains for real quantum factoring at this toy size.
+
+Methodological new win: for exact ideal eigenphase mixture, 4-shot staged-QPE precision 4,6,…,34/36, all Q≤2^12 phase outcomes fully scored by FFT; above that, **65 centered phase outcomes per eigenphase** were explicitly evaluated. The omitted probability was bounded mathematically via its complement, with general bound ≤1/(2W−1)=1/63 at fixed W=32 (observed maximum stage omitted mass around 0.003118). Factor-producing acceptance is public CF denominator d even≤N + pow(base,d,N)==1 + actual nontrivial gcd. Two endpoints for each base: probability of factor extraction by cap and expected generic logical CCX per successfully factor-producing session with hypothetical restarts; bounds propagate **monotonically** through stage stopping. Floating-point roundoff was controlled by numerical tolerances, **not formally directed-rounding verified**. Nine tiny exact-full-FFT predefined control stage probabilities were confirmed within computed windows; all four independent CI validation jobs passed.
+
+| bits | group | N | plain order→cube order (validation only) | mathematical ideal-model cube/plain successful-CCX ratio band | class |
+|---|---|---|---|---|---|
+| 17 | trigger | 84479 | 10098→3366 | [0.758107,0.805213] | model cube win |
+| 17 | trigger | 99851 | 4830→1610 | [0.688894,0.722965] | model cube win |
+| 17 | control | 69721 | 616→616 | [1.034223,1.050892] | **model cube LOSS** |
+| 17 | control | 114391 | 6264→2088 | [0.760431,0.798302] | model cube win |
+| **18** | **trigger** | **195473** | 47817→15939 | UNDEFINED, zero public valid factor-producing d | **factor incapable** |
+| **18** | **trigger** | **256043** | 20930→20930 | UNDEFINED, zero public valid factor-producing d | **factor incapable** |
+| 18 | control | 235687 | 39060→13020 | [0.768253,0.846631] | model cube win |
+| 18 | control | 186751 | 1404→468 | [0.703023,0.720285] | model cube win |
+
+**Primary n18 trigger locked cohort FAILED to establish a factor-producing cost benefit.** Both selected moduli have **empty public valid factor-producing denominator sets**, so their actual factor-production probability is identically zero under the specified public CF verifier, even if hidden validation order shrinks. The raw generic omitted-tail algorithm intentionally produces loose theoretical upper success bounds despite empty valid sets; straightforward public set-emptiness tightens the bound to [0,0] for those cases, with no fabricated success. Of 8 total, 5 analytically bounded cube model wins, 1 loss and 2 factor-incapable. These were all trivially classically factored, and the sample is far too small to generalize.
+
+Independent logical phase recycling peak: **88→55** at n17 and **93→58** at n18 from one phase ancilla reuse with unchanged arithmetic workspace; NOT a physical-qubit saving claim or part of cube benefit. No new number-theory theorem, hardware speed/fidelity, fault-tolerant resource figure, RSA-scale factoring or real classical-plus-quantum speedup shown.
+
+**Next useful step:** carry the frozen analytic-tail bound and public factor-denominator *empty set* zero certificate to a larger 20–24bit public semiprime population, with a frozen stronger classical budget, a proper locked holdout, numeric interval precision diagnostics and explicit classical wall-clock/operations separate from logical CCX; avoid QPU charges until a genuine hardware-relevant advantage is supported.
