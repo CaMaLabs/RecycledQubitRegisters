@@ -1,0 +1,162 @@
+name: QRR n22 fresh public selection then independent cube comparator trials
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-dark-star-n22-ladder-vs-cube.yml
+  workflow_dispatch:
+
+concurrency:
+  group: qrr-n22-public-freeze-then-scoring
+  cancel-in-progress: false
+
+jobs:
+  freeze-public-only-manifest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    outputs:
+      frozen_sha: ${{ steps.freeze.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Generate ONLY deterministic public N and B31 classical manifest, no private orders
+        run: |
+          python3 -m py_compile hardware/dark_star_n22_public_manifest.py
+          python3 -u hardware/dark_star_n22_public_manifest.py | tee n22_public_manifest_freeze.log
+      - name: Validate frozen public selection and SHA256 before any resource scoring
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,math
+          from pathlib import Path
+          obj=json.loads(Path('results/dark_star_ptp/dark_star_n22_public_manifest.json').read_text())
+          selected=obj['selected_public_rows']
+          assert len(selected)==12 and len({r['N'] for r in selected})==12
+          assert obj['zero_qpu'] and obj['qpu_jobs_submitted']==0
+          assert all(set(r)=={'N','base','group','scan_rank','public_policy_exponents'} for r in selected)
+          for g in ('trigger','control'):
+              rows=[r for r in selected if r['group']==g]
+              scans=obj['public_screenings'][g]
+              assert len(rows)==6
+              assert sum(not s['public_B31_factored'] for s in scans)==6
+              assert len(scans)<=400
+              assert {r['N'] for r in rows}.issubset({r['N'] for r in scans})
+              for r in rows:
+                  n=r['N']
+                  assert (1<<21)<=n<(1<<22)
+                  assert n%3==(2 if g=='trigger' else 1)
+                  assert math.gcd(n,r['base'])==1
+                  assert r['public_policy_exponents']['plain']==0
+                  assert r['public_policy_exponents']['always3']==3
+                  assert r['public_policy_exponents']['ladder']==next((e for e in (3,5,7) if n%e not in (0,1)),0)
+          canonical=json.dumps(selected,sort_keys=True,separators=(',',':'))
+          assert obj['selected_manifest_sha256']==hashlib.sha256(canonical.encode()).hexdigest()
+          print('Frozen PUBLIC-only manifest, SHA256=',obj['selected_manifest_sha256'])
+          PY
+      - name: Commit manifest BEFORE any phase/outcome computation; fail if concurrent push conflicts
+        id: freeze
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n22_public_manifest.json
+          git commit -m "research(freeze): publish public-only n22 classical survivor manifest before quantum modeling"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n22-public-manifest-freeze
+          path: |
+            n22_public_manifest_freeze.log
+            results/dark_star_ptp/dark_star_n22_public_manifest.json
+
+  score-frozen-sample:
+    needs: freeze-public-only-manifest
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [trigger, control]
+        seed: [A, B]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.freeze-public-only-manifest.outputs.frozen_sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Prove public manifest exists in committed frozen SHA
+        run: |
+          test -s results/dark_star_ptp/dark_star_n22_public_manifest.json
+          test -s docs/DARK_STAR_N22_SELECTOR_VS_CUBE_PREREG.md
+          python3 -m py_compile hardware/dark_star_n22_selector_vs_cube.py
+      - name: Evaluate 22-bit ideal nearest-bin model and same-case classical factors
+        shell: bash
+        env:
+          GROUP: ${{ matrix.group }}
+          SEED: ${{ matrix.seed }}
+        run: |
+          set -o pipefail
+          python3 -u hardware/dark_star_n22_selector_vs_cube.py --group "$GROUP" --seed "$SEED" | tee "n22_${GROUP}_${SEED}.log"
+      - name: Validate all six samples, public policy and complete factor-producing cost accounting
+        shell: bash
+        env:
+          GROUP: ${{ matrix.group }}
+          SEED: ${{ matrix.seed }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os,json,hashlib,math
+          group,seed=os.environ['GROUP'],os.environ['SEED']
+          f=Path(f'results/dark_star_ptp/dark_star_n22_{group}_seed_{seed}.json')
+          d=json.loads(f.read_text())
+          assert d['complete'] and d['zero_qpu'] and d['qpu_jobs_submitted']==0
+          assert d['group']==group and d['seed']==seed and d['samples_per_stage']==8192
+          assert len(d['rows'])==6
+          assert d['summary']['selected']==6
+          assert d['summary']['classical_additional_factored']==6
+          assert d['selftests']['passes']
+          assert d['logical_width']=={'arithmetic_workspace':69,'wide_peak':113,'recycled_peak':70}
+          selected=json.loads(Path('results/dark_star_ptp/dark_star_n22_public_manifest.json').read_text())
+          assert d['manifest_sha256']==selected['selected_manifest_sha256']
+          assert {r['N'] for r in d['rows']}=={r['N'] for r in selected['selected_public_rows'] if r['group']==group}
+          for r in d['rows']:
+              n=r['N'];a=r['base']
+              assert (1<<21)<=n<(1<<22)
+              assert math.gcd(a,n)==1
+              assert n%3==(2 if group=='trigger' else 1)
+              assert r['additional_classical']['classically_factored']
+              assert n%r['additional_classical']['factor']==0
+              assert r['validation_only']['known_order_identity_ok']
+              assert r['validation_only']['half_order_witness_preservation_ok']
+              assert set(r['policies'])=={'plain','always3','ladder'}
+              assert r['policies']['plain']['exponent']==0
+              assert r['policies']['always3']['exponent']==3
+              assert r['policies']['ladder']['exponent']==next((e for e in (3,5,7) if n%e not in (0,1)),0)
+              for name,p in r['policies'].items():
+                  assert 0<=p['success_probability_by_cap']<=1
+                  assert p['expected_ccx_per_attempt']>=0
+                  assert len(p['stages'])==21
+                  assert p['stages'][-1]['m']==44
+                  assert (p['expected_ccx_per_success_with_restarts'] is None)==p['success_zero']
+          for x in d['summary']['comparisons'].values():
+              assert x['both_success']+x['either_zero_success']==6
+              assert x['improved']+x['tied']+x['worsened']==x['both_success']
+          print('Verified 6 N22 public samples, correct SHA manifest, all classical+quantum receipts',group,seed)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n22-${{ matrix.group }}-${{ matrix.seed }}
+          path: |
+            n22_*.log
+            results/dark_star_ptp/dark_star_n22_*.json
