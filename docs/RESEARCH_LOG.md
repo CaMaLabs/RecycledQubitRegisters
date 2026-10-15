@@ -1047,3 +1047,45 @@ Frozen new public classical selection: **7 candidate semiprimes screened**, **3/
 **Independent recycled-width checkpoint n22:** generic clean-ancilla arithmetic 69 coherent logical workspace qubits, textbook 44 phase qubits = 113 wide peak vs 70 phase-recycled peak (43 / 38.05% fewer simultaneous logical qubits). Separate from cubic order transform, NOT fault-tolerant physical cost or actual IBM QPU savings.
 
 **Next conditional gate:** only after pre-registering genuinely new independent sample and strengthened statistical/analytic accuracy, evaluate full-outcome vs nearest-bin mechanism while disclosing all public classical factor recovery. No paid QPU experiment warranted by current data.
+
+
+### Independent n22 full-outcome implementation cross-check — 2026-10-15 UTC
+
+An entirely separate mathematical implementation of the SAME frozen four-case
+22bit tail-bounded full-outcome QPE protocol independently completed:
+
+- Independent implementation:
+  `hardware/dark_star_n22_full_tail_bounded_qpe.py`
+  (different public even-d certificate recurrence, vectorized 65-bin head
+  and compiled Euclidean CF mask from the original scorer).
+- Numerical computational run:
+  [GitHub Actions 38697019918](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38697019918),
+  both trigger/control jobs **SUCCESS**, all 4 frozen N scored, no QPU.
+- The run's first automatic receipt commit encountered a Git **add/add
+  rebase conflict**, because the original implementation had already
+  committed results under the same canonical filenames. This is **not a
+  scientific scoring failure**. No force push occurred.
+- Independent numerical original-artifact reconciliation:
+  [GitHub Actions 38697316318](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38697316318)
+  **SUCCESS**. It validated the same public manifest SHA, four exact N/a,
+  validation-only orders, public CF-good-denominator counts, and modeled
+  factor-success intervals between **two separate implementations**.
+  Independent receipts are preserved without overwriting originals at:
+  `results/dark_star_ptp/dark_star_n22_full_tail_independent_{trigger,control}.json`.
+
+**Independent confirmation, not a new population:** the original and separate
+implementation both found the exact same primary trigger outcome: N=3623549
+cube/plain conservative logical CCX-per-success band approximately
+**[0.357458,1.989375]**, inconclusive; N=3351017 has **zero**
+public factor-producing denominators under both bases despite reducing
+validation order 836580→278860, hence successful-session ratio undefined.
+Control N=3910213 gives **[0.412419,2.489615]** and N=2895517
+**[0.475893,2.136414]**, both inconclusive. All four were independently
+factored classically.
+
+This independently preserves the numerical **win** (a separately coded
+public certificate/full-outcome-tail/staged-cost method agrees on frozen
+numbers) **and** the scientific negative: no preregistered n22 trigger
+cube advantage survives these conservative full-outcome probability
+intervals; 113→70 modeled logical-qubit width remains solely phase
+recycling. Zero QPU or paid IBM Runtime.
