@@ -1,0 +1,57 @@
+name: QRR n20 v3 freeze public survivor manifest
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n20-v3-manifest.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n20-v3-public-manifest
+  cancel-in-progress: false
+
+jobs:
+  public-manifest-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify runner has no IBM/QPU imports
+        run: |
+          if grep -nE '^[[:space:]]*(from|import)[[:space:]].*(qiskit_ibm_runtime|ibm_runtime_guard)|SamplerV2|EstimatorV2|QiskitRuntimeService' hardware/dark_star_n20_public_survivor_v3.py; then
+            echo 'QPU client reference: fail closed'
+            exit 1
+          fi
+      - name: Freeze selected N and public classical screens BEFORE quantum scoring
+        run: |
+          python3 hardware/dark_star_n20_public_survivor_v3.py --self-test
+          python3 -u hardware/dark_star_n20_public_survivor_v3.py --manifest-only
+      - name: Commit canonical public manifest without rewriting concurrent main
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n20_public_survivors_v3_manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: freeze n20 v3 public survivor manifest before hidden-order scoring"
+            for attempt in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              sleep 2
+            done
+            exit 1
+          fi
