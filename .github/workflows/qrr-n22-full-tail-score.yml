@@ -1,0 +1,119 @@
+name: QRR n22 full-outcome 65-bin and 99pct tail bounded trial (ZERO QPU)
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n22-full-tail-score.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n22-full-tail-scoring
+  cancel-in-progress: false
+
+jobs:
+  score:
+    name: Precommitted full QPE tail group ${{ matrix.group }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 26
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [trigger, control]
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Pin numeric compiler and CPU array environment
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - name: Fail closed if quantum runtime is imported or mentioned as executable
+        run: |
+          if grep -nE '^[[:space:]]*(from|import)[[:space:]].*(qiskit_ibm_runtime|ibm_runtime_guard)|SamplerV2|EstimatorV2|QiskitRuntimeService' hardware/dark_star_n22_full_tail_bounded_qpe.py; then
+            echo 'Forbidden QPU dependency'; exit 1
+          fi
+      - name: Evaluate public cert and exact FFT/CF selftests
+        run: python3 -u hardware/dark_star_n22_full_tail_bounded_qpe.py --self-test
+      - name: Run 2 new SHA-frozen public N and full QPE head bounds
+        run: |
+          python3 -u hardware/dark_star_n22_full_tail_bounded_qpe.py \
+            --group ${{ matrix.group }} --out n22_tail_${{ matrix.group }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: n22-tail-${{ matrix.group }}
+          path: n22_tail_${{ matrix.group }}.json
+          retention-days: 90
+          if-no-files-found: error
+
+  strict-merge:
+    name: Verify both cohorts and preserve unchanged original receipts
+    needs: [score]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: n22-tail-*
+          path: n22-tail-shards
+      - name: Verify frozen SHA, zero-QPU, complete sample and analytic bounds
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,pathlib
+          root=pathlib.Path("results/dark_star_ptp")
+          manifest=json.loads((root/"dark_star_n22_full_tail_public_manifest.json").read_text())
+          expected=manifest["selected_public_rows"]
+          sha=manifest["selected_sha256"]
+          assert sha==hashlib.sha256(json.dumps(expected,sort_keys=True,separators=(",",":")).encode()).hexdigest()
+          rows=[]
+          for group in ("trigger","control"):
+            src=pathlib.Path(f"n22-tail-shards/n22-tail-{group}/n22_tail_{group}.json")
+            obj=json.loads(src.read_text())
+            assert obj["complete"] and obj["zero_qpu"] and obj["qpu_jobs_submitted"]==0
+            assert obj["public_manifest_sha256"]==sha and obj["group"]==group
+            assert len(obj["rows"])==2
+            assert [r["N"] for r in obj["rows"]]==[r["N"] for r in expected if r["group"]==group]
+            for r in obj["rows"]:
+              assert r["validation_only"]["order_identity_ok"]
+              assert r["classical_after_B31"]["factored"]
+              assert r["plain"]["base"]==r["base"] and r["cube"]["base"]==pow(r["base"],3,r["N"])
+              assert len(r["plain"]["stages"])==len(r["cube"]["stages"])==21
+              for pol in ("plain","cube"):
+                for stage in r[pol]["stages"]:
+                  assert 0<=stage["lower"]<=stage["upper"]<=1
+                  assert stage["m"]%2==0 and 4<=stage["m"]<=44
+              print(group,r["N"],r["cube_vs_plain"])
+            rows.extend(obj["rows"])
+            (root/f"dark_star_n22_full_tail_{group}.json").write_bytes(src.read_bytes())
+          assert len({r["N"] for r in rows})==4
+          print("All four locked N and every modeled bound verified; zero QPU.")
+          PY
+      - name: Preserve original verified results despite simultaneous pushes
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n22_full_tail_{trigger,control}.json
+          git commit -m "results: preserve frozen four n22 full-QPE confidence-tail factor certificates"
+          for attempt in 1 2 3 4 5 6; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Receipts stored without force'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
