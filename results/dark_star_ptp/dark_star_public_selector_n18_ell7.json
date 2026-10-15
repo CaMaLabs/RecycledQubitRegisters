@@ -1,0 +1,5790 @@
+{
+  "experiment": "dark_star_public_selector_n18_v1",
+  "revision": "2026-10-14-public-selector-n18-exact-cf-v1",
+  "ell": 7,
+  "utc_timestamp": "2026-10-15T01:14:21.470058+00:00",
+  "preregistration": "docs/DARK_STAR_PUBLIC_SELECTOR_LARGER_HOLDOUT_PREREG.md",
+  "selection_salt": "QRR-public-selector-population-v2-20261014",
+  "base_salt": "QRR-public-selector-base-v2-20261014",
+  "population": {
+    "n_min": 131072,
+    "n_max": 262143,
+    "p_q_min": 11,
+    "per_group": 20,
+    "groups": [
+      "trigger",
+      "control"
+    ]
+  },
+  "stage_policy": {
+    "start_bits": 4,
+    "step_bits": 2,
+    "shots": 4,
+    "nearest_bin_only_ideal_QPE": true,
+    "explicitly_verified_CF_and_factor_GCD": true
+  },
+  "common_classical": {
+    "pollard_stage_one_bound": 31,
+    "baseline_power2_chain_cap_formula": "2*bit_length(N)+2"
+  },
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "selftests": {
+    "selftest": true,
+    "public_CF_GCD_checks": true,
+    "public_selector_no_order_oracle": true,
+    "classical_B31_fixed": true
+  },
+  "rows": [
+    {
+      "N": 235169,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 4,
+      "p_validation_only": 11,
+      "q_validation_only": 21379,
+      "base": 2,
+      "transformed_base": 128,
+      "public_selector_base": 128,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 11,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 11,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 106890,
+      "transformed_order_validation_only": 15270,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": false,
+      "transformed_half_order_factor_witness_validation_only": false,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 175139,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 6,
+      "p_validation_only": 43,
+      "q_validation_only": 4073,
+      "base": 2,
+      "transformed_base": 128,
+      "public_selector_base": 128,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 43,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 43,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": true,
+        "factor": 43,
+        "source": "power2_chain_gcd",
+        "step": 0,
+        "power_exponent": 1
+      },
+      "baseline_order_validation_only": 14252,
+      "transformed_order_validation_only": 2036,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 212663,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 3,
+      "p_validation_only": 11,
+      "q_validation_only": 19333,
+      "base": 13,
+      "transformed_base": 12932,
+      "public_selector_base": 12932,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 11,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 11,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 96660,
+      "transformed_order_validation_only": 96660,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 225557,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 3,
+      "p_validation_only": 59,
+      "q_validation_only": 3823,
+      "base": 11,
+      "transformed_base": 89269,
+      "public_selector_base": 89269,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 59,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 59,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 36946,
+      "transformed_order_validation_only": 5278,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 238489,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 6,
+      "p_validation_only": 71,
+      "q_validation_only": 3359,
+      "base": 7,
+      "transformed_base": 108076,
+      "public_selector_base": 108076,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 71,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 71,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 117530,
+      "transformed_order_validation_only": 16790,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 152227,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 5,
+      "p_validation_only": 191,
+      "q_validation_only": 797,
+      "base": 31,
+      "transformed_base": 19493,
+      "public_selector_base": 19493,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 191,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 191,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 15124,
+      "transformed_order_validation_only": 15124,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 138557,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 6,
+      "p_validation_only": 127,
+      "q_validation_only": 1091,
+      "base": 23,
+      "transformed_base": 64286,
+      "public_selector_base": 64286,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 127,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 127,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 68670,
+      "transformed_order_validation_only": 9810,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 138221,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 6,
+      "p_validation_only": 67,
+      "q_validation_only": 2063,
+      "base": 3,
+      "transformed_base": 2187,
+      "public_selector_base": 2187,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 67,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 67,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 22682,
+      "transformed_order_validation_only": 22682,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 147857,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 3,
+      "p_validation_only": 199,
+      "q_validation_only": 743,
+      "base": 29,
+      "transformed_base": 139404,
+      "public_selector_base": 139404,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 199,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 199,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 73458,
+      "transformed_order_validation_only": 10494,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 244361,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 5,
+      "p_validation_only": 13,
+      "q_validation_only": 18797,
+      "base": 23,
+      "transformed_base": 143634,
+      "public_selector_base": 143634,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 13,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 13,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 28194,
+      "transformed_order_validation_only": 28194,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": false,
+      "transformed_half_order_factor_witness_validation_only": false,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 236227,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 5,
+      "p_validation_only": 19,
+      "q_validation_only": 12433,
+      "base": 5,
+      "transformed_base": 78125,
+      "public_selector_base": 78125,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 19,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 19,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 1008,
+      "transformed_order_validation_only": 144,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 179141,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 4,
+      "p_validation_only": 359,
+      "q_validation_only": 499,
+      "base": 11,
+      "transformed_base": 139943,
+      "public_selector_base": 139943,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": false,
+        "factor": null,
+        "found_at": null,
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": false,
+          "factor": null,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 89142,
+      "transformed_order_validation_only": 89142,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {
+        "plain": {
+          "base": 11,
+          "order_validation_only": 89142,
+          "success_probability_by_cap": 0.9729142231144473,
+          "expected_phase_rounds": 1027.917626315331,
+          "expected_executions": 58.223375948309545,
+          "expected_arithmetic_ccx_per_attempt": 246434609.47261524,
+          "expected_ccx_per_success_with_restarts": 253295309.71778822,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 4.487222614973303e-05,
+              "expected_shots_reaching_stage": 3.999730774693709
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.00020192499710831372,
+              "expected_shots_reaching_stage": 3.998070923225287
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.0009198783404869934,
+              "expected_shots_reaching_stage": 3.990542407755861
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.0037242442889980575,
+              "expected_shots_reaching_stage": 3.9591833774445546
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.015514946953218362,
+              "expected_shots_reaching_stage": 3.832046739756658
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.06122350408373819,
+              "expected_shots_reaching_stage": 3.359799516408213
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.2087286413021083,
+              "expected_shots_reaching_stage": 2.0839509344235947
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.25336571684311193,
+              "expected_shots_reaching_stage": 0.7629525409232579
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.25336571585613865,
+              "expected_shots_reaching_stage": 0.23709873367840908
+            }
+          ]
+        },
+        "unconditional": {
+          "base": 139943,
+          "order_validation_only": 89142,
+          "success_probability_by_cap": 0.9729142231144473,
+          "expected_phase_rounds": 1027.917626315331,
+          "expected_executions": 58.223375948309545,
+          "expected_arithmetic_ccx_per_attempt": 253712154.5997274,
+          "expected_ccx_per_success_with_restarts": 260775460.54117286,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 4.487222614973303e-05,
+              "expected_shots_reaching_stage": 3.999730774693709
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.00020192499710831372,
+              "expected_shots_reaching_stage": 3.998070923225287
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.0009198783404869934,
+              "expected_shots_reaching_stage": 3.990542407755861
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.0037242442889980575,
+              "expected_shots_reaching_stage": 3.9591833774445546
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.015514946953218362,
+              "expected_shots_reaching_stage": 3.832046739756658
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.06122350408373819,
+              "expected_shots_reaching_stage": 3.359799516408213
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.2087286413021083,
+              "expected_shots_reaching_stage": 2.0839509344235947
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.25336571684311193,
+              "expected_shots_reaching_stage": 0.7629525409232579
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.25336571585613865,
+              "expected_shots_reaching_stage": 0.23709873367840908
+            }
+          ]
+        },
+        "public_selector": {
+          "base": 139943,
+          "order_validation_only": 89142,
+          "success_probability_by_cap": 0.9729142231144473,
+          "expected_phase_rounds": 1027.917626315331,
+          "expected_executions": 58.223375948309545,
+          "expected_arithmetic_ccx_per_attempt": 253712154.5997274,
+          "expected_ccx_per_success_with_restarts": 260775460.54117286,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 4.487222614973303e-05,
+              "expected_shots_reaching_stage": 3.999730774693709
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.00020192499710831372,
+              "expected_shots_reaching_stage": 3.998070923225287
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.0009198783404869934,
+              "expected_shots_reaching_stage": 3.990542407755861
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.0037242442889980575,
+              "expected_shots_reaching_stage": 3.9591833774445546
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.015514946953218362,
+              "expected_shots_reaching_stage": 3.832046739756658
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.06122350408373819,
+              "expected_shots_reaching_stage": 3.359799516408213
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.2087286413021083,
+              "expected_shots_reaching_stage": 2.0839509344235947
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.25336571684311193,
+              "expected_shots_reaching_stage": 0.7629525409232579
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.25336571585613865,
+              "expected_shots_reaching_stage": 0.23709873367840908
+            }
+          ]
+        }
+      },
+      "no_qpu_job": true
+    },
+    {
+      "N": 134671,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 5,
+      "p_validation_only": 137,
+      "q_validation_only": 983,
+      "base": 31,
+      "transformed_base": 2166,
+      "public_selector_base": 2166,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 137,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 137,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 66776,
+      "transformed_order_validation_only": 66776,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 254851,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 2,
+      "p_validation_only": 31,
+      "q_validation_only": 8221,
+      "base": 2,
+      "transformed_base": 128,
+      "public_selector_base": 128,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 31,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 31,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 8220,
+      "transformed_order_validation_only": 8220,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 137923,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 2,
+      "p_validation_only": 107,
+      "q_validation_only": 1289,
+      "base": 5,
+      "transformed_base": 78125,
+      "public_selector_base": 78125,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 1289,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 1289,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 34132,
+      "transformed_order_validation_only": 4876,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 250241,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 5,
+      "p_validation_only": 29,
+      "q_validation_only": 8629,
+      "base": 2,
+      "transformed_base": 128,
+      "public_selector_base": 128,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 29,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 29,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": true,
+        "factor": 29,
+        "source": "power2_chain_gcd",
+        "step": 1,
+        "power_exponent": 2
+      },
+      "baseline_order_validation_only": 20132,
+      "transformed_order_validation_only": 2876,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": false,
+      "transformed_half_order_factor_witness_validation_only": false,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 227317,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 6,
+      "p_validation_only": 53,
+      "q_validation_only": 4289,
+      "base": 23,
+      "transformed_base": 71421,
+      "public_selector_base": 71421,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 53,
+        "found_at": "power2_chain",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": true,
+          "factor": 53,
+          "source": "power2_chain_gcd",
+          "step": 1,
+          "power_exponent": 2
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 53,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": true,
+        "factor": 53,
+        "source": "power2_chain_gcd",
+        "step": 1,
+        "power_exponent": 2
+      },
+      "baseline_order_validation_only": 4288,
+      "transformed_order_validation_only": 4288,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 180343,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 2,
+      "p_validation_only": 23,
+      "q_validation_only": 7841,
+      "base": 19,
+      "transformed_base": 91831,
+      "public_selector_base": 91831,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 23,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 23,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 17248,
+      "transformed_order_validation_only": 2464,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 136499,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 6,
+      "p_validation_only": 11,
+      "q_validation_only": 12409,
+      "base": 2,
+      "transformed_base": 128,
+      "public_selector_base": 128,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 11,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 11,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 15510,
+      "transformed_order_validation_only": 15510,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 203177,
+      "ell": 7,
+      "group": "trigger",
+      "N_mod_ell": 2,
+      "p_validation_only": 13,
+      "q_validation_only": 15629,
+      "base": 29,
+      "transformed_base": 149009,
+      "public_selector_base": 149009,
+      "selector_transforms": true,
+      "common_classical": {
+        "found": true,
+        "factor": 13,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 13,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 46884,
+      "transformed_order_validation_only": 46884,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 153161,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 103,
+      "q_validation_only": 1487,
+      "base": 19,
+      "transformed_base": 24143,
+      "public_selector_base": 19,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 103,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 103,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 75786,
+      "transformed_order_validation_only": 75786,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 179159,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 97,
+      "q_validation_only": 1847,
+      "base": 13,
+      "transformed_base": 42867,
+      "public_selector_base": 13,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 97,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 97,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 88608,
+      "transformed_order_validation_only": 88608,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 135311,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 11,
+      "q_validation_only": 12301,
+      "base": 31,
+      "transformed_base": 99103,
+      "public_selector_base": 31,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 11,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 11,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 1025,
+      "transformed_order_validation_only": 1025,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": false,
+      "transformed_half_order_factor_witness_validation_only": false,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 171067,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 13,
+      "q_validation_only": 13159,
+      "base": 2,
+      "transformed_base": 128,
+      "public_selector_base": 2,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 13,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 13,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 26316,
+      "transformed_order_validation_only": 26316,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 177059,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 59,
+      "q_validation_only": 3001,
+      "base": 3,
+      "transformed_base": 2187,
+      "public_selector_base": 3,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 59,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 59,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 14500,
+      "transformed_order_validation_only": 14500,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 131167,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 29,
+      "q_validation_only": 4523,
+      "base": 19,
+      "transformed_base": 99801,
+      "public_selector_base": 19,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": false,
+        "factor": null,
+        "found_at": null,
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": false,
+          "factor": null,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": true,
+        "factor": 29,
+        "source": "power2_chain_gcd",
+        "step": 1,
+        "power_exponent": 2
+      },
+      "baseline_order_validation_only": 9044,
+      "transformed_order_validation_only": 1292,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {
+        "plain": {
+          "base": 19,
+          "order_validation_only": 9044,
+          "success_probability_by_cap": 0.9998727954571952,
+          "expected_phase_rounds": 632.3125967277756,
+          "expected_executions": 44.42383057873662,
+          "expected_arithmetic_ccx_per_attempt": 151259075.89829436,
+          "expected_ccx_per_success_with_restarts": 151278319.18772292,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.00044228189140091667,
+              "expected_shots_reaching_stage": 3.9973470910184687
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0022113936602762597,
+              "expected_shots_reaching_stage": 3.9797027946364536
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.007075861650134694,
+              "expected_shots_reaching_stage": 3.9159167527662375
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.026937765174897318,
+              "expected_shots_reaching_stage": 3.694224166687832
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.10551521799468623,
+              "expected_shots_reaching_stage": 2.9403626509281664
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.28946542116801055,
+              "expected_shots_reaching_stage": 1.4207969614903704
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.29561049634179315,
+              "expected_shots_reaching_stage": 0.3587511734807082
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.2956104963740645,
+              "expected_shots_reaching_stage": 0.08831710678953926
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.29561049630844877,
+              "expected_shots_reaching_stage": 0.021741842056530045
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.29561049738434997,
+              "expected_shots_reaching_stage": 0.005352391088727788
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.29561049793634186,
+              "expected_shots_reaching_stage": 0.0013176477936006215
+            }
+          ]
+        },
+        "unconditional": {
+          "base": 99801,
+          "order_validation_only": 1292,
+          "success_probability_by_cap": 0.9999998176243755,
+          "expected_phase_rounds": 371.3456573877292,
+          "expected_executions": 32.77734847193417,
+          "expected_arithmetic_ccx_per_attempt": 91053244.45505743,
+          "expected_ccx_per_success_with_restarts": 91053261.06095278,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.004643669977720068,
+              "expected_shots_reaching_stage": 3.972224134682523
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.02320147116111503,
+              "expected_shots_reaching_stage": 3.791677441177022
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.09466329207186683,
+              "expected_shots_reaching_stage": 3.0980628806275585
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.3048486572539217,
+              "expected_shots_reaching_stage": 1.5093619378388776
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.3452566774207163,
+              "expected_shots_reaching_stage": 0.33140616562626324
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.34525667742628807,
+              "expected_shots_reaching_stage": 0.06090387084080388
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.34525667746586974,
+              "expected_shots_reaching_stage": 0.011192554236478105
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.34525667749224576,
+              "expected_shots_reaching_stage": 0.0020569016152713476
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.3452566770410998,
+              "expected_shots_reaching_stage": 0.00037800524955312686
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.34525667776188357,
+              "expected_shots_reaching_stage": 6.946757577902695e-05
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.34525668746625116,
+              "expected_shots_reaching_stage": 1.2766341216518913e-05
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.3452566685541437,
+              "expected_shots_reaching_stage": 2.346122830107086e-06
+            }
+          ]
+        },
+        "public_selector": {
+          "base": 19,
+          "order_validation_only": 9044,
+          "success_probability_by_cap": 0.9998727954571952,
+          "expected_phase_rounds": 632.3125967277756,
+          "expected_executions": 44.42383057873662,
+          "expected_arithmetic_ccx_per_attempt": 151259075.89829436,
+          "expected_ccx_per_success_with_restarts": 151278319.18772292,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.00044228189140091667,
+              "expected_shots_reaching_stage": 3.9973470910184687
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0022113936602762597,
+              "expected_shots_reaching_stage": 3.9797027946364536
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.007075861650134694,
+              "expected_shots_reaching_stage": 3.9159167527662375
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.026937765174897318,
+              "expected_shots_reaching_stage": 3.694224166687832
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.10551521799468623,
+              "expected_shots_reaching_stage": 2.9403626509281664
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.28946542116801055,
+              "expected_shots_reaching_stage": 1.4207969614903704
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.29561049634179315,
+              "expected_shots_reaching_stage": 0.3587511734807082
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.2956104963740645,
+              "expected_shots_reaching_stage": 0.08831710678953926
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.29561049630844877,
+              "expected_shots_reaching_stage": 0.021741842056530045
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.29561049738434997,
+              "expected_shots_reaching_stage": 0.005352391088727788
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.29561049793634186,
+              "expected_shots_reaching_stage": 0.0013176477936006215
+            }
+          ]
+        }
+      },
+      "no_qpu_job": true
+    },
+    {
+      "N": 218597,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 47,
+      "q_validation_only": 4651,
+      "base": 13,
+      "transformed_base": 11178,
+      "public_selector_base": 13,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": false,
+        "factor": null,
+        "found_at": null,
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": false,
+          "factor": null,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 690,
+      "transformed_order_validation_only": 690,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {
+        "plain": {
+          "base": 13,
+          "order_validation_only": 690,
+          "success_probability_by_cap": 0.9998527771621782,
+          "expected_phase_rounds": 358.9237482400471,
+          "expected_executions": 31.918443664483082,
+          "expected_arithmetic_ccx_per_attempt": 86355293.11947674,
+          "expected_ccx_per_success_with_restarts": 86368008.46277964,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0028984706091689442,
+              "expected_shots_reaching_stage": 3.9826427565220306
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.011588597121335198,
+              "expected_shots_reaching_stage": 3.8856262112623137
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0430937016978115,
+              "expected_shots_reaching_stage": 3.5367077213642273
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.15746546473792994,
+              "expected_shots_reaching_stage": 2.4920886542916567
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.19711922189536718,
+              "expected_shots_reaching_stage": 1.1818679166131372
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.19711922189491887,
+              "expected_shots_reaching_stage": 0.4911036765615619
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.19711922188387423,
+              "expected_shots_reaching_stage": 0.20406918382884007
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.19711922190306577,
+              "expected_shots_reaching_stage": 0.08479723076093142
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.19711922181331532,
+              "expected_shots_reaching_stage": 0.035235944057410803
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.19711922208905208,
+              "expected_shots_reaching_stage": 0.014641654477818363
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.1971192211844014,
+              "expected_shots_reaching_stage": 0.006084072718229339
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.19711922643083427,
+              "expected_shots_reaching_stage": 0.0025281255417556932
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.1971192227338114,
+              "expected_shots_reaching_stage": 0.0010505164831749246
+            }
+          ]
+        },
+        "unconditional": {
+          "base": 11178,
+          "order_validation_only": 690,
+          "success_probability_by_cap": 0.9998527771621782,
+          "expected_phase_rounds": 358.9237482400471,
+          "expected_executions": 31.918443664483082,
+          "expected_arithmetic_ccx_per_attempt": 86788854.05059911,
+          "expected_ccx_per_success_with_restarts": 86801633.23337129,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0028984706091689442,
+              "expected_shots_reaching_stage": 3.9826427565220306
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.011588597121335198,
+              "expected_shots_reaching_stage": 3.8856262112623137
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0430937016978115,
+              "expected_shots_reaching_stage": 3.5367077213642273
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.15746546473792994,
+              "expected_shots_reaching_stage": 2.4920886542916567
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.19711922189536718,
+              "expected_shots_reaching_stage": 1.1818679166131372
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.19711922189491887,
+              "expected_shots_reaching_stage": 0.4911036765615619
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.19711922188387423,
+              "expected_shots_reaching_stage": 0.20406918382884007
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.19711922190306577,
+              "expected_shots_reaching_stage": 0.08479723076093142
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.19711922181331532,
+              "expected_shots_reaching_stage": 0.035235944057410803
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.19711922208905208,
+              "expected_shots_reaching_stage": 0.014641654477818363
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.1971192211844014,
+              "expected_shots_reaching_stage": 0.006084072718229339
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.19711922643083427,
+              "expected_shots_reaching_stage": 0.0025281255417556932
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.1971192227338114,
+              "expected_shots_reaching_stage": 0.0010505164831749246
+            }
+          ]
+        },
+        "public_selector": {
+          "base": 13,
+          "order_validation_only": 690,
+          "success_probability_by_cap": 0.9998527771621782,
+          "expected_phase_rounds": 358.9237482400471,
+          "expected_executions": 31.918443664483082,
+          "expected_arithmetic_ccx_per_attempt": 86355293.11947674,
+          "expected_ccx_per_success_with_restarts": 86368008.46277964,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0028984706091689442,
+              "expected_shots_reaching_stage": 3.9826427565220306
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.011588597121335198,
+              "expected_shots_reaching_stage": 3.8856262112623137
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0430937016978115,
+              "expected_shots_reaching_stage": 3.5367077213642273
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.15746546473792994,
+              "expected_shots_reaching_stage": 2.4920886542916567
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.19711922189536718,
+              "expected_shots_reaching_stage": 1.1818679166131372
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.19711922189491887,
+              "expected_shots_reaching_stage": 0.4911036765615619
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.19711922188387423,
+              "expected_shots_reaching_stage": 0.20406918382884007
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.19711922190306577,
+              "expected_shots_reaching_stage": 0.08479723076093142
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.19711922181331532,
+              "expected_shots_reaching_stage": 0.035235944057410803
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.19711922208905208,
+              "expected_shots_reaching_stage": 0.014641654477818363
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.1971192211844014,
+              "expected_shots_reaching_stage": 0.006084072718229339
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.19711922643083427,
+              "expected_shots_reaching_stage": 0.0025281255417556932
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.1971192227338114,
+              "expected_shots_reaching_stage": 0.0010505164831749246
+            }
+          ]
+        }
+      },
+      "no_qpu_job": true
+    },
+    {
+      "N": 151187,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 31,
+      "q_validation_only": 4877,
+      "base": 2,
+      "transformed_base": 128,
+      "public_selector_base": 2,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 31,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 31,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 24380,
+      "transformed_order_validation_only": 24380,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 164557,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 79,
+      "q_validation_only": 2083,
+      "base": 2,
+      "transformed_base": 128,
+      "public_selector_base": 2,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 79,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 79,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 27066,
+      "transformed_order_validation_only": 27066,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 228691,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 71,
+      "q_validation_only": 3221,
+      "base": 13,
+      "transformed_base": 87183,
+      "public_selector_base": 13,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": false,
+        "factor": null,
+        "found_at": null,
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": false,
+          "factor": null,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 1610,
+      "transformed_order_validation_only": 230,
+      "order_reduced_validation_only": true,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {
+        "plain": {
+          "base": 13,
+          "order_validation_only": 1610,
+          "success_probability_by_cap": 0.9999669741617885,
+          "expected_phase_rounds": 425.34513247018833,
+          "expected_executions": 35.373895217154896,
+          "expected_arithmetic_ccx_per_attempt": 101575966.83222008,
+          "expected_ccx_per_success_with_restarts": 101579321.57446003,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.002484440517229412,
+              "expected_shots_reaching_stage": 3.985118031340263
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.012417159411310524,
+              "expected_shots_reaching_stage": 3.8872402683005394
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.04324868763624605,
+              "expected_shots_reaching_stage": 3.5298956552013063
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.16487558784268833,
+              "expected_shots_reaching_stage": 2.4582566399207866
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.25362213580207565,
+              "expected_shots_reaching_stage": 1.0438136210245204
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.2536221358052513,
+              "expected_shots_reaching_stage": 0.32393506595953914
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.2536221358141119,
+              "expected_shots_reaching_stage": 0.10052937118459636
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.2536221356971537,
+              "expected_shots_reaching_stage": 0.031198087315128367
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.2536221353717473,
+              "expected_shots_reaching_stage": 0.00968195306082123
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.25362213707569903,
+              "expected_shots_reaching_stage": 0.0030046782675251333
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.2536221364684412,
+              "expected_shots_reaching_stage": 0.0009324659378260635
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.2536221407504374,
+              "expected_shots_reaching_stage": 0.00028937964204796024
+            }
+          ]
+        },
+        "unconditional": {
+          "base": 87183,
+          "order_validation_only": 230,
+          "success_probability_by_cap": 0.9999999267985833,
+          "expected_phase_rounds": 212.24265406945426,
+          "expected_executions": 23.411772067241778,
+          "expected_arithmetic_ccx_per_attempt": 51369343.47783779,
+          "expected_ccx_per_success_with_restarts": 51369347.23814679,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.008693489249505882,
+              "expected_shots_reaching_stage": 3.9481407144985674
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.043335848084948135,
+              "expected_shots_reaching_stage": 3.618792521917722
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.16487905465053806,
+              "expected_shots_reaching_stage": 2.5195653796790327
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.2968668893903353,
+              "expected_shots_reaching_stage": 1.0013402627184824
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.2968668893765879,
+              "expected_shots_reaching_stage": 0.2447551713025643
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.2968668893744046,
+              "expected_shots_reaching_stage": 0.05982491278273474
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.2968668893783093,
+              "expected_shots_reaching_stage": 0.014622858305406822
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.2968668893648286,
+              "expected_shots_reaching_stage": 0.0035742297827912016
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.29686688939117695,
+              "expected_shots_reaching_stage": 0.000873640315291175
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.2968668901235428,
+              "expected_shots_reaching_stage": 0.0002135417826909093
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.2968668891567149,
+              "expected_shots_reaching_stage": 5.219549977846251e-05
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.296866889511976,
+              "expected_shots_reaching_stage": 1.2758019401509445e-05
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.2968669179041927,
+              "expected_shots_reaching_stage": 3.118411595584779e-06
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.29686687146471163,
+              "expected_shots_reaching_stage": 7.622257119079374e-07
+            }
+          ]
+        },
+        "public_selector": {
+          "base": 13,
+          "order_validation_only": 1610,
+          "success_probability_by_cap": 0.9999669741617885,
+          "expected_phase_rounds": 425.34513247018833,
+          "expected_executions": 35.373895217154896,
+          "expected_arithmetic_ccx_per_attempt": 101575966.83222008,
+          "expected_ccx_per_success_with_restarts": 101579321.57446003,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.002484440517229412,
+              "expected_shots_reaching_stage": 3.985118031340263
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.012417159411310524,
+              "expected_shots_reaching_stage": 3.8872402683005394
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.04324868763624605,
+              "expected_shots_reaching_stage": 3.5298956552013063
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.16487558784268833,
+              "expected_shots_reaching_stage": 2.4582566399207866
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.25362213580207565,
+              "expected_shots_reaching_stage": 1.0438136210245204
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.2536221358052513,
+              "expected_shots_reaching_stage": 0.32393506595953914
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.2536221358141119,
+              "expected_shots_reaching_stage": 0.10052937118459636
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.2536221356971537,
+              "expected_shots_reaching_stage": 0.031198087315128367
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.2536221353717473,
+              "expected_shots_reaching_stage": 0.00968195306082123
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.25362213707569903,
+              "expected_shots_reaching_stage": 0.0030046782675251333
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.2536221364684412,
+              "expected_shots_reaching_stage": 0.0009324659378260635
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.2536221407504374,
+              "expected_shots_reaching_stage": 0.00028937964204796024
+            }
+          ]
+        }
+      },
+      "no_qpu_job": true
+    },
+    {
+      "N": 248459,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 367,
+      "q_validation_only": 677,
+      "base": 11,
+      "transformed_base": 107369,
+      "public_selector_base": 11,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": false,
+        "factor": null,
+        "found_at": null,
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": false,
+          "factor": null,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 123708,
+      "transformed_order_validation_only": 123708,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {
+        "plain": {
+          "base": 11,
+          "order_validation_only": 123708,
+          "success_probability_by_cap": 0.9373051257711903,
+          "expected_phase_rounds": 1100.4993170075159,
+          "expected_executions": 60.44812272059594,
+          "expected_arithmetic_ccx_per_attempt": 264590206.342502,
+          "expected_ccx_per_success_with_restarts": 282288231.51351494,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 3.233420624568945e-05,
+              "expected_shots_reaching_stage": 3.999805998947905
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.00012933682031170842,
+              "expected_shots_reaching_stage": 3.9987068241331545
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.00045267860867831834,
+              "expected_shots_reaching_stage": 3.9947004610541095
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.0018268621590157928,
+              "expected_shots_reaching_stage": 3.979259741567192
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.0073223768855287495,
+              "expected_shots_reaching_stage": 3.9178074265389977
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.029192537582674347,
+              "expected_shots_reaching_stage": 3.681178609897543
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.1125406529121216,
+              "expected_shots_reaching_stage": 2.881811202323127
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.23415727812482176,
+              "expected_shots_reaching_stage": 1.4842652917982437
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.2341572733766987,
+              "expected_shots_reaching_stage": 0.5105871643356658
+            }
+          ]
+        },
+        "unconditional": {
+          "base": 107369,
+          "order_validation_only": 123708,
+          "success_probability_by_cap": 0.9373051257711903,
+          "expected_phase_rounds": 1100.4993170075159,
+          "expected_executions": 60.44812272059594,
+          "expected_arithmetic_ccx_per_attempt": 265035223.41300544,
+          "expected_ccx_per_success_with_restarts": 282763015.0800054,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 3.233420624568945e-05,
+              "expected_shots_reaching_stage": 3.999805998947905
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.00012933682031170842,
+              "expected_shots_reaching_stage": 3.9987068241331545
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.00045267860867831834,
+              "expected_shots_reaching_stage": 3.9947004610541095
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.0018268621590157928,
+              "expected_shots_reaching_stage": 3.979259741567192
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.0073223768855287495,
+              "expected_shots_reaching_stage": 3.9178074265389977
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.029192537582674347,
+              "expected_shots_reaching_stage": 3.681178609897543
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.1125406529121216,
+              "expected_shots_reaching_stage": 2.881811202323127
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.23415727812482176,
+              "expected_shots_reaching_stage": 1.4842652917982437
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.2341572733766987,
+              "expected_shots_reaching_stage": 0.5105871643356658
+            }
+          ]
+        },
+        "public_selector": {
+          "base": 11,
+          "order_validation_only": 123708,
+          "success_probability_by_cap": 0.9373051257711903,
+          "expected_phase_rounds": 1100.4993170075159,
+          "expected_executions": 60.44812272059594,
+          "expected_arithmetic_ccx_per_attempt": 264590206.342502,
+          "expected_ccx_per_success_with_restarts": 282288231.51351494,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 3.233420624568945e-05,
+              "expected_shots_reaching_stage": 3.999805998947905
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.00012933682031170842,
+              "expected_shots_reaching_stage": 3.9987068241331545
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.00045267860867831834,
+              "expected_shots_reaching_stage": 3.9947004610541095
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.0018268621590157928,
+              "expected_shots_reaching_stage": 3.979259741567192
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.0073223768855287495,
+              "expected_shots_reaching_stage": 3.9178074265389977
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.029192537582674347,
+              "expected_shots_reaching_stage": 3.681178609897543
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.1125406529121216,
+              "expected_shots_reaching_stage": 2.881811202323127
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.23415727812482176,
+              "expected_shots_reaching_stage": 1.4842652917982437
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.2341572733766987,
+              "expected_shots_reaching_stage": 0.5105871643356658
+            }
+          ]
+        }
+      },
+      "no_qpu_job": true
+    },
+    {
+      "N": 191003,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 409,
+      "q_validation_only": 467,
+      "base": 2,
+      "transformed_base": 128,
+      "public_selector_base": 2,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 409,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 409,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 47532,
+      "transformed_order_validation_only": 47532,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 131741,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 47,
+      "q_validation_only": 2803,
+      "base": 11,
+      "transformed_base": 121244,
+      "public_selector_base": 11,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 47,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 47,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 64446,
+      "transformed_order_validation_only": 64446,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": false,
+      "transformed_half_order_factor_witness_validation_only": false,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 199319,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 37,
+      "q_validation_only": 5387,
+      "base": 7,
+      "transformed_base": 26267,
+      "public_selector_base": 7,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 37,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 37,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 48474,
+      "transformed_order_validation_only": 48474,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 260947,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 457,
+      "q_validation_only": 571,
+      "base": 17,
+      "transformed_base": 129989,
+      "public_selector_base": 17,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": false,
+        "factor": null,
+        "found_at": null,
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": false,
+          "factor": null,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 570,
+      "transformed_order_validation_only": 570,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": false,
+      "transformed_half_order_factor_witness_validation_only": false,
+      "policies": {
+        "plain": {
+          "base": 17,
+          "order_validation_only": 570,
+          "success_probability_by_cap": 0.0,
+          "expected_phase_rounds": 1360.0,
+          "expected_executions": 68.0,
+          "expected_arithmetic_ccx_per_attempt": 331193248.0,
+          "expected_ccx_per_success_with_restarts": null,
+          "success_zero": true,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            }
+          ]
+        },
+        "unconditional": {
+          "base": 129989,
+          "order_validation_only": 570,
+          "success_probability_by_cap": 0.0,
+          "expected_phase_rounds": 1360.0,
+          "expected_executions": 68.0,
+          "expected_arithmetic_ccx_per_attempt": 331386512.0,
+          "expected_ccx_per_success_with_restarts": null,
+          "success_zero": true,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            }
+          ]
+        },
+        "public_selector": {
+          "base": 17,
+          "order_validation_only": 570,
+          "success_probability_by_cap": 0.0,
+          "expected_phase_rounds": 1360.0,
+          "expected_executions": 68.0,
+          "expected_arithmetic_ccx_per_attempt": 331193248.0,
+          "expected_ccx_per_success_with_restarts": null,
+          "success_zero": true,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            }
+          ]
+        }
+      },
+      "no_qpu_job": true
+    },
+    {
+      "N": 178543,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 19,
+      "q_validation_only": 9397,
+      "base": 31,
+      "transformed_base": 30526,
+      "public_selector_base": 31,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 19,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 19,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 4698,
+      "transformed_order_validation_only": 4698,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 171389,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 367,
+      "q_validation_only": 467,
+      "base": 31,
+      "transformed_base": 52108,
+      "public_selector_base": 31,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": false,
+        "factor": null,
+        "found_at": null,
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": false,
+          "factor": null,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 85278,
+      "transformed_order_validation_only": 85278,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {
+        "plain": {
+          "base": 31,
+          "order_validation_only": 85278,
+          "success_probability_by_cap": 0.9747516627161191,
+          "expected_phase_rounds": 1020.431253173885,
+          "expected_executions": 57.98729591333628,
+          "expected_arithmetic_ccx_per_attempt": 245899524.30365846,
+          "expected_ccx_per_success_with_restarts": 252268894.43662614,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 2.34527075726559e-05,
+              "expected_shots_reaching_stage": 3.9998592859514175
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 7.035812195407937e-05,
+              "expected_shots_reaching_stage": 3.999202680548044
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.0003048851289306889,
+              "expected_shots_reaching_stage": 3.9966710115259216
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.001031916135196029,
+              "expected_shots_reaching_stage": 3.9874477842474234
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.004174371214493352,
+              "expected_shots_reaching_stage": 3.9523322936831935
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.0165208972017135,
+              "expected_shots_reaching_stage": 3.8153112996783225
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.06591551525143569,
+              "expected_shots_reaching_stage": 3.312897331748679
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.21888427682357656,
+              "expected_shots_reaching_stage": 1.9971394569121892
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.25257969690140336,
+              "expected_shots_reaching_stage": 0.7060834727980199
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.2525796973483877,
+              "expected_shots_reaching_stage": 0.22035129624308242
+            }
+          ]
+        },
+        "unconditional": {
+          "base": 52108,
+          "order_validation_only": 85278,
+          "success_probability_by_cap": 0.9747516627161191,
+          "expected_phase_rounds": 1020.431253173885,
+          "expected_executions": 57.98729591333628,
+          "expected_arithmetic_ccx_per_attempt": 251720768.50962743,
+          "expected_ccx_per_success_with_restarts": 258240922.41937226,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 2.34527075726559e-05,
+              "expected_shots_reaching_stage": 3.9998592859514175
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 7.035812195407937e-05,
+              "expected_shots_reaching_stage": 3.999202680548044
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.0003048851289306889,
+              "expected_shots_reaching_stage": 3.9966710115259216
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.001031916135196029,
+              "expected_shots_reaching_stage": 3.9874477842474234
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.004174371214493352,
+              "expected_shots_reaching_stage": 3.9523322936831935
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.0165208972017135,
+              "expected_shots_reaching_stage": 3.8153112996783225
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.06591551525143569,
+              "expected_shots_reaching_stage": 3.312897331748679
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.21888427682357656,
+              "expected_shots_reaching_stage": 1.9971394569121892
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.25257969690140336,
+              "expected_shots_reaching_stage": 0.7060834727980199
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.2525796973483877,
+              "expected_shots_reaching_stage": 0.22035129624308242
+            }
+          ]
+        },
+        "public_selector": {
+          "base": 31,
+          "order_validation_only": 85278,
+          "success_probability_by_cap": 0.9747516627161191,
+          "expected_phase_rounds": 1020.431253173885,
+          "expected_executions": 57.98729591333628,
+          "expected_arithmetic_ccx_per_attempt": 245899524.30365846,
+          "expected_ccx_per_success_with_restarts": 252268894.43662614,
+          "success_zero": false,
+          "quantum_modeled": true,
+          "stages": [
+            {
+              "phase_bits": 4,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 6,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 8,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 10,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 12,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 14,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 16,
+              "success_probability": 0.0,
+              "expected_shots_reaching_stage": 4.0
+            },
+            {
+              "phase_bits": 18,
+              "success_probability": 2.34527075726559e-05,
+              "expected_shots_reaching_stage": 3.9998592859514175
+            },
+            {
+              "phase_bits": 20,
+              "success_probability": 7.035812195407937e-05,
+              "expected_shots_reaching_stage": 3.999202680548044
+            },
+            {
+              "phase_bits": 22,
+              "success_probability": 0.0003048851289306889,
+              "expected_shots_reaching_stage": 3.9966710115259216
+            },
+            {
+              "phase_bits": 24,
+              "success_probability": 0.001031916135196029,
+              "expected_shots_reaching_stage": 3.9874477842474234
+            },
+            {
+              "phase_bits": 26,
+              "success_probability": 0.004174371214493352,
+              "expected_shots_reaching_stage": 3.9523322936831935
+            },
+            {
+              "phase_bits": 28,
+              "success_probability": 0.0165208972017135,
+              "expected_shots_reaching_stage": 3.8153112996783225
+            },
+            {
+              "phase_bits": 30,
+              "success_probability": 0.06591551525143569,
+              "expected_shots_reaching_stage": 3.312897331748679
+            },
+            {
+              "phase_bits": 32,
+              "success_probability": 0.21888427682357656,
+              "expected_shots_reaching_stage": 1.9971394569121892
+            },
+            {
+              "phase_bits": 34,
+              "success_probability": 0.25257969690140336,
+              "expected_shots_reaching_stage": 0.7060834727980199
+            },
+            {
+              "phase_bits": 36,
+              "success_probability": 0.2525796973483877,
+              "expected_shots_reaching_stage": 0.22035129624308242
+            }
+          ]
+        }
+      },
+      "no_qpu_job": true
+    },
+    {
+      "N": 205787,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 73,
+      "q_validation_only": 2819,
+      "base": 13,
+      "transformed_base": 189269,
+      "public_selector_base": 13,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 73,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 73,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 101448,
+      "transformed_order_validation_only": 101448,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 211849,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 11,
+      "q_validation_only": 19259,
+      "base": 19,
+      "transformed_base": 80808,
+      "public_selector_base": 19,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 11,
+        "found_at": "Pollard_p_minus_1_B31",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": false,
+          "factor": null,
+          "source": "step_limit"
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 11,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": false,
+        "factor": null,
+        "source": "step_limit"
+      },
+      "baseline_order_validation_only": 96290,
+      "transformed_order_validation_only": 96290,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    },
+    {
+      "N": 176107,
+      "ell": 7,
+      "group": "control",
+      "N_mod_ell": 1,
+      "p_validation_only": 61,
+      "q_validation_only": 2887,
+      "base": 11,
+      "transformed_base": 115401,
+      "public_selector_base": 11,
+      "selector_transforms": false,
+      "common_classical": {
+        "found": true,
+        "factor": 61,
+        "found_at": "power2_chain",
+        "baseline_gcd_factor": null,
+        "baseline_power2_chain": {
+          "factor_found": true,
+          "factor": 61,
+          "source": "power2_chain_gcd",
+          "step": 1,
+          "power_exponent": 2
+        },
+        "pollard_p_minus_1": {
+          "found": true,
+          "factor": 61,
+          "pow_count": 11,
+          "prime_power_exponents": [
+            [
+              2,
+              16
+            ],
+            [
+              3,
+              27
+            ],
+            [
+              5,
+              25
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              19,
+              19
+            ],
+            [
+              23,
+              23
+            ],
+            [
+              29,
+              29
+            ],
+            [
+              31,
+              31
+            ]
+          ],
+          "gcd_calls": 2
+        },
+        "pollard_p_minus_1_B": 31
+      },
+      "b_specific_power2_chain_diagnostic": {
+        "factor_found": true,
+        "factor": 61,
+        "source": "power2_chain_gcd",
+        "step": 1,
+        "power_exponent": 2
+      },
+      "baseline_order_validation_only": 1924,
+      "transformed_order_validation_only": 1924,
+      "order_reduced_validation_only": false,
+      "order_identity_ok": true,
+      "baseline_half_order_factor_witness_validation_only": true,
+      "transformed_half_order_factor_witness_validation_only": true,
+      "policies": {},
+      "no_qpu_job": true
+    }
+  ],
+  "summaries": {
+    "trigger": {
+      "selected": 20,
+      "common_classical_factored": 19,
+      "common_classical_unresolved": 1,
+      "classical_sources": {
+        "Pollard_p_minus_1_B31": 18,
+        "power2_chain": 1
+      },
+      "selector_changes": 20,
+      "selector_changes_among_unresolved": 1,
+      "order_reduced_validation_only_among_unresolved": 0,
+      "plain": {
+        "remaining_rows": 1,
+        "capable": 1,
+        "zero_success": 0,
+        "mean_success_probability": 0.9729142231144473,
+        "median_success_probability": 0.9729142231144473,
+        "sum_expected_ccx_attempted": 246434609.47261524,
+        "median_ccx_attempted": 246434609.47261524
+      },
+      "unconditional": {
+        "remaining_rows": 1,
+        "capable": 1,
+        "zero_success": 0,
+        "mean_success_probability": 0.9729142231144473,
+        "median_success_probability": 0.9729142231144473,
+        "sum_expected_ccx_attempted": 253712154.5997274,
+        "median_ccx_attempted": 253712154.5997274
+      },
+      "public_selector": {
+        "remaining_rows": 1,
+        "capable": 1,
+        "zero_success": 0,
+        "mean_success_probability": 0.9729142231144473,
+        "median_success_probability": 0.9729142231144473,
+        "sum_expected_ccx_attempted": 253712154.5997274,
+        "median_ccx_attempted": 253712154.5997274
+      },
+      "comparison_selector_vs_plain": {
+        "both_positive_success_count": 1,
+        "either_zero_success_count": 0,
+        "improved": 0,
+        "tied": 0,
+        "worsened": 1,
+        "median_per_row_CCX_per_success_ratio": 1.0295313435993692,
+        "aggregate_CCX_per_success_T_over_B": 1.0295313435993692,
+        "selector_success_coverage_at_least_plain": true,
+        "aggregate_ccx_attempted_ratio": 1.0295313435993692,
+        "primary_criterion_pass": false
+      }
+    },
+    "control": {
+      "selected": 20,
+      "common_classical_factored": 14,
+      "common_classical_unresolved": 6,
+      "classical_sources": {
+        "Pollard_p_minus_1_B31": 13,
+        "power2_chain": 1
+      },
+      "selector_changes": 0,
+      "selector_changes_among_unresolved": 0,
+      "order_reduced_validation_only_among_unresolved": 2,
+      "plain": {
+        "remaining_rows": 6,
+        "capable": 5,
+        "zero_success": 1,
+        "mean_success_probability": 0.8186248892114119,
+        "median_success_probability": 0.9873022199391487,
+        "sum_expected_ccx_attempted": 1180873314.4961517,
+        "median_ccx_attempted": 198579300.1009764
+      },
+      "unconditional": {
+        "remaining_rows": 6,
+        "capable": 5,
+        "zero_success": 1,
+        "mean_success_probability": 0.818651551678741,
+        "median_success_probability": 0.9873022199391487,
+        "sum_expected_ccx_attempted": 1077353945.9061272,
+        "median_ccx_attempted": 171387006.48234242
+      },
+      "public_selector": {
+        "remaining_rows": 6,
+        "capable": 5,
+        "zero_success": 1,
+        "mean_success_probability": 0.8186248892114119,
+        "median_success_probability": 0.9873022199391487,
+        "sum_expected_ccx_attempted": 1180873314.4961517,
+        "median_ccx_attempted": 198579300.1009764
+      },
+      "comparison_selector_vs_plain": {
+        "both_positive_success_count": 5,
+        "either_zero_success_count": 1,
+        "improved": 0,
+        "tied": 5,
+        "worsened": 0,
+        "median_per_row_CCX_per_success_ratio": 1.0,
+        "aggregate_CCX_per_success_T_over_B": 1.0,
+        "selector_success_coverage_at_least_plain": true,
+        "aggregate_ccx_attempted_ratio": 1.0,
+        "primary_criterion_pass": false
+      }
+    }
+  },
+  "violations": [],
+  "claim_boundary": "ideal nearest-bin QPE & generic logical CCX; not real quantum speedup or actual RSA-scale attack",
+  "logical_width": {
+    "workspace": 57,
+    "wide_peak": 93,
+    "recycled_peak": 58
+  }
+}
