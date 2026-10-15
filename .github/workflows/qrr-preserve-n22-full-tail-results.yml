@@ -43,7 +43,7 @@ jobs:
           canonical=json.dumps(manifest['selected_public_rows'],sort_keys=True,separators=(',',':'))
           assert manifest['selected_sha256']==hashlib.sha256(canonical.encode()).hexdigest()
           assert manifest['selected_sha256']=='d0cfd98eab0b92bc07c39a896e2e0039c3e065f6c6521c525dbefd676c2e49ff'
-          outputs=sorted(root.glob('dark_star_n22_full_tail_*.json'))
+          outputs=[root/'dark_star_n22_full_tail_control.json',root/'dark_star_n22_full_tail_trigger.json']
           assert len(outputs)==2,[str(x) for x in outputs]
           seen=set()
           nset=set()
