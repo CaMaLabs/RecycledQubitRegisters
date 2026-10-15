@@ -1,0 +1,109 @@
+name: Preserve verified QRR tail-bounded public-classical receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-tail-bounded-qpe-receipts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-tailbound-verified-receipt-preservation
+  cancel-in-progress: false
+
+jobs:
+  audit-and-preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download immutable data from ORIGINAL four-job successful run
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38677647156
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-tailbound-n*-*
+          merge-multiple: true
+          path: _receipts
+      - name: Independently validate all eight samples, classical ledgers, and QPE bounds
+        run: |
+          set -eu
+          mkdir -p results/dark_star_ptp
+          find _receipts -type f -name 'dark_star_tail_bounded_n*.json' -exec cp -t results/dark_star_ptp/ '{}' +
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,math
+          directory=Path('results/dark_star_ptp')
+          files=sorted(directory.glob('dark_star_tail_bounded_n*.json'))
+          assert len(files)==4,[str(f) for f in files]
+          seen=set(); Ns=set(); screened_count=0
+          for f in files:
+              obj=json.loads(f.read_text())
+              key=(obj['bits'],obj['group'])
+              assert key in {(17,'trigger'),(17,'control'),(18,'trigger'),(18,'control')}
+              assert key not in seen; seen.add(key)
+              assert obj['zero_QPU'] and obj['qpu_jobs_submitted']==0
+              assert obj['selftests']['passed']
+              assert obj['selftests']['independent_exact_probabilities_bracketed']==9
+              assert len(obj['rows'])==2
+              assert obj['summary']['selected']==2
+              assert obj['summary']['classical_remaining_after_cumulative']==0
+              assert len(obj['all_public_candidates_scanned'])==obj['summary']['screened']
+              screened_count+=len(obj['all_public_candidates_scanned'])
+              selected_ids={r['N'] for r in obj['rows']}
+              assert selected_ids==set(obj['selected_public_N'])
+              assert len(selected_ids)==2
+              for row in obj['rows']:
+                  n,a=row['N'],row['base']
+                  assert n not in Ns; Ns.add(n)
+                  assert (1<<(key[0]-1))<=n<(1<<key[0])
+                  assert n%3==(2 if key[1]=='trigger' else 1)
+                  assert math.gcd(n,a)==1
+                  assert row['cube_base']==pow(a,3,n)
+                  assert row['order_identity_verified']
+                  assert row['cube_order_validation_only']==row['baseline_order_validation_only']//math.gcd(row['baseline_order_validation_only'],3)
+                  assert row['classical_after_B31']['classically_complete']
+                  assert n%row['classical_after_B31']['factor']==0
+                  for base in ('plain','cube'):
+                      v=row[base]
+                      sl,sh=v['success_probability_by_cap_interval']
+                      assert 0<=sl<=sh<=1
+                      cl,ch=v['expected_CCX_attempt_interval']
+                      assert 0<=cl<=ch
+                      assert len(v['all_stages'])==key[0]-1
+                      for stage in v['all_stages']:
+                          assert 0<=stage['lower']<=stage['upper']<=1
+                          assert stage['tail_mass']>=0
+                          if stage['m']>12:
+                              assert stage['tail_mass']<=1/63+1e-9
+                              assert stage['upper']-stage['lower']<=stage['tail_mass']+1e-9
+                          else:
+                              assert stage['tail_mass']==0 and stage['method']=='exact_full_FFT'
+                  cls=row['cube_vs_plain']['classification']
+                  if cls in ('certified_cube_win','certified_cube_loss'):
+                      lo,hi=row['cube_vs_plain']['ratio_interval']
+                      assert lo<=hi and ((hi<1) if cls=='certified_cube_win' else (lo>1))
+              assert sum(s['public_B31_factored'] for s in obj['all_public_candidates_scanned'])==len(obj['all_public_candidates_scanned'])-2
+              print('VERIFIED',key,'scanned=',obj['summary']['screened'],
+                    'B31 factored=',obj['summary']['prefilter_B31_factored'],
+                    'model classifications=',obj['summary']['classifications'])
+          assert seen=={(17,'trigger'),(17,'control'),(18,'trigger'),(18,'control')}
+          assert len(Ns)==8
+          print('ALL verified:',len(Ns),'distinct public B31 survivors, screened=',screened_count,
+                'zero QPU, original run 38677647156')
+          PY
+      - name: Commit exact original research receipt JSON, no rerun/no data changes
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_tail_bounded_n*.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve all eight preregistered QPE-tail-bound and public factoring receipts"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
