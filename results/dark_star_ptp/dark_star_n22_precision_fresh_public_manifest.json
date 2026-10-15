@@ -1,0 +1,470 @@
+{
+  "experiment": "qrr_n22_independent_precision_holdout_public_manifest",
+  "preregistration": "docs/DARK_STAR_N22_FRESH_PRECISION_HOLDOUT_PREREG.md",
+  "selection_salt": "QRR-N22-FRESH-PRECISION-20261015",
+  "base_salt": "QRR-N22-FRESH-PRECISION-BASE-20261015",
+  "previous_n22_excluded": [
+    2131621,
+    2164181,
+    2176511,
+    2589401,
+    2594903,
+    2647753,
+    2750971,
+    2895517,
+    3230443,
+    3351017,
+    3622961,
+    3623549,
+    3779777,
+    3799363,
+    3910213,
+    4089931
+  ],
+  "frame": [
+    2097152,
+    4194303
+  ],
+  "selected_public_rows": [
+    {
+      "N": 2620559,
+      "base": 31,
+      "group": "trigger",
+      "rank": 2,
+      "public_policies": {
+        "plain": 31,
+        "cube": 29791
+      }
+    },
+    {
+      "N": 2622779,
+      "base": 2,
+      "group": "trigger",
+      "rank": 6,
+      "public_policies": {
+        "plain": 2,
+        "cube": 8
+      }
+    },
+    {
+      "N": 2489897,
+      "base": 11,
+      "group": "trigger",
+      "rank": 8,
+      "public_policies": {
+        "plain": 11,
+        "cube": 1331
+      }
+    },
+    {
+      "N": 3511889,
+      "base": 23,
+      "group": "trigger",
+      "rank": 9,
+      "public_policies": {
+        "plain": 23,
+        "cube": 12167
+      }
+    },
+    {
+      "N": 2322043,
+      "base": 3,
+      "group": "control",
+      "rank": 1,
+      "public_policies": {
+        "plain": 3,
+        "cube": 27
+      }
+    },
+    {
+      "N": 2207089,
+      "base": 5,
+      "group": "control",
+      "rank": 11,
+      "public_policies": {
+        "plain": 5,
+        "cube": 125
+      }
+    },
+    {
+      "N": 2556181,
+      "base": 11,
+      "group": "control",
+      "rank": 12,
+      "public_policies": {
+        "plain": 11,
+        "cube": 1331
+      }
+    },
+    {
+      "N": 3202981,
+      "base": 2,
+      "group": "control",
+      "rank": 16,
+      "public_policies": {
+        "plain": 2,
+        "cube": 8
+      }
+    }
+  ],
+  "public_screenings": {
+    "trigger": [
+      {
+        "N": 2810627,
+        "base": 19,
+        "rank": 1,
+        "public_B31_factored": true,
+        "classical_first_source": "power2_chain",
+        "public_factor": 17,
+        "primitive_operation_counts": {
+          "gcd_calls": 7,
+          "modular_square_calls": 2,
+          "pminusone_modular_pow_calls": 0,
+          "executed_pminusone": false
+        }
+      },
+      {
+        "N": 2620559,
+        "base": 31,
+        "rank": 2,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3059099,
+        "base": 19,
+        "rank": 3,
+        "public_B31_factored": true,
+        "classical_first_source": "power2_chain",
+        "public_factor": 17,
+        "primitive_operation_counts": {
+          "gcd_calls": 7,
+          "modular_square_calls": 2,
+          "pminusone_modular_pow_calls": 0,
+          "executed_pminusone": false
+        }
+      },
+      {
+        "N": 2990417,
+        "base": 31,
+        "rank": 4,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 41,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3695663,
+        "base": 11,
+        "rank": 5,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 23,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 2622779,
+        "base": 2,
+        "rank": 6,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3112997,
+        "base": 3,
+        "rank": 7,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 241,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 2489897,
+        "base": 11,
+        "rank": 8,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3511889,
+        "base": 23,
+        "rank": 9,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      }
+    ],
+    "control": [
+      {
+        "N": 2322043,
+        "base": 3,
+        "rank": 1,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 2518549,
+        "base": 19,
+        "rank": 2,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 11,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 2320939,
+        "base": 7,
+        "rank": 3,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 31,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 4074583,
+        "base": 19,
+        "rank": 4,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 79,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3098113,
+        "base": 3,
+        "rank": 5,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 211,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3263359,
+        "base": 19,
+        "rank": 6,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 11,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 2521699,
+        "base": 29,
+        "rank": 7,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 19,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3770581,
+        "base": 23,
+        "rank": 8,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 419,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 2687701,
+        "base": 11,
+        "rank": 9,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 127,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3553201,
+        "base": 17,
+        "rank": 10,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 23,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 2207089,
+        "base": 5,
+        "rank": 11,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 2556181,
+        "base": 11,
+        "rank": 12,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3084559,
+        "base": 13,
+        "rank": 13,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 241,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3349789,
+        "base": 2,
+        "rank": 14,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 23,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 2553073,
+        "base": 3,
+        "rank": 15,
+        "public_B31_factored": true,
+        "classical_first_source": "Pollard_p1_B31",
+        "public_factor": 29,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 3202981,
+        "base": 2,
+        "rank": 16,
+        "public_B31_factored": false,
+        "classical_first_source": null,
+        "public_factor": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 97,
+          "modular_square_calls": 47,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      }
+    ]
+  },
+  "selected_sha256": "5c18715c4448069e6231645e180e216b7e591e15a149cbc12d486fe9b9664570",
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "note": "This contains ONLY public N, coprime base, public transforms and bounded classical results; private factors/orders intentionally absent."
+}
