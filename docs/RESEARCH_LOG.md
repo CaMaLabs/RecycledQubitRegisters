@@ -888,3 +888,63 @@ Dark Star. Prior selected-scout gains, n17/n18 mixed/negative population
 evidence and the non-improvement of multi-exponent ladder vs always3 in earlier
 trigger panels remain in force; this new holdout must be allowed to falsify
 further selector claims. **No IBM Runtime paid use is authorized.**
+
+
+## 2026-10-14 — Completed disjoint n20 v3 public classical-survivor holdout: narrow pass, broader uncertainty
+
+**Successful fully reproducible milestone:** frozen public survivor manifest
+`a952fa4b57496136b29df7a3aca54a4361d4ec6ed5e0ee76c796602d5e840782`
+was committed **before** validation orders or quantum outcomes. Six independent
+zero-QPU jobs completed and the strict all-72-row hash-matched merge succeeded
+([Actions run 38677893149](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/38677893149)).
+The complete result and all raw per-panel receipts were committed:
+
+- `docs/DARK_STAR_N20_PUBLIC_POLICY_SURVIVOR_V3_PREREG.md`
+- `docs/DARK_STAR_N20_PUBLIC_POLICY_SURVIVOR_V3_RESULT.md`
+- `results/dark_star_ptp/dark_star_n20_public_survivors_v3_manifest.json`
+- `results/dark_star_ptp/dark_star_n20_v3_full_holdout.json`
+- six `results/dark_star_ptp/dark_star_n20_v3_ell{3,5,7}_{trigger,control}.json`.
+
+**Classical-first gate:** 293 20-bit synthetic semiprime N candidates
+publicly screened, **221** factored by the frozen cheap B31 public baseline;
+**72 distinct classically unsolved** N (12 per ell/group) were scored.
+This is a *conditional classical survivor* study, not a random-semiprime
+population-average factoring claim.
+
+The frozen ladder-versus-plain **trigger** ratios for model expected logical
+CCX per successful factor-producing staged session were:
+
+| Public-N stratum | Both factor-successful / 12 | ladder/plain | improved/tied/worse | bootstrap 95% CI |
+|---|---:|---:|---|---|
+| ell3 trigger | 9 | **0.832899** | 7/0/2 | [0.7723,0.9061] |
+| ell5 trigger | 10 | **0.799052** | 8/0/2 | [0.7443,0.8702] |
+| ell7 trigger | 9 | **0.806628** | 7/0/2 | [0.7443,0.8825] |
+
+Every trigger stratum preserved modeled factor-production coverage and had a
+strict improving majority among **both-positive comparable** cases; the
+prespecified directional trigger gate passed. **Do not misread 'ell5 trigger'
+or 'ell7 trigger' as evidence for the exponent ell=5/7**: these are
+N-residue strata, and the public ladder preferentially chooses the cube
+whenever N%3==2.
+
+**Indispensable simpler baseline:** ladder/always-cube successful-session
+ratios in the three trigger strata were **1.000000**, **0.994597**, and
+**0.965400**. Ell3 ladder is identically cube, and ell5/ell7 row-bootstrap
+95% intervals **include parity**. Thus the frozen broad gate technically
+passes but a general **additional multi-exponent advantage over cube is
+not established**. Do not erase prior negative ell5-enrichment, ell7, or
+multichoice results.
+
+**Numerical limitation was preregistered, not retrofitted:** true-order
+eigenphases were exhaustively enumerated for r<=4096; for larger r the
+nearest-bin ideal QPE probability uses 4096 seeded phase samples per stage,
+not exact all-bin QPE. Worst-case 95% per-stage sampling error bound
+±0.02122 is not an aggregate ratio error bound. The case bootstrap does not
+measure phase-simulation variance. Verify near-parity ladder/always-cube
+effects under independent frozen phase seeds and higher sample budget
+before relying on them.
+
+Independent generic 20-bit arithmetic logical width: **103 wide -> 64
+recycled** peak (**37.86% fewer**); 63 coherent arithmetic logical qubits
+remain. Zero IBM QPU jobs and no paid runtime. No QPU speed/fidelity,
+physical fault-tolerance or RSA-scale claim.
