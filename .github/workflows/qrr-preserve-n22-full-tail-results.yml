@@ -1,0 +1,115 @@
+name: Preserve original verified fresh N22 full-outcome-tail receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n22-full-tail-results.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-preserve-n22-fulloutcome-original-only
+  cancel-in-progress: false
+
+jobs:
+  independently-audit-and-preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Get unchanged receipts from successful scoring run 38696858911
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38696858911
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n22-full-tail-scored-*
+          merge-multiple: true
+          path: _original
+      - name: Independently validate both source results, frozen manifest and classical factorizations
+        run: |
+          set -eu
+          mkdir -p results/dark_star_ptp
+          find _original -type f -name 'dark_star_n22_full_tail_*.json' -exec cp -t results/dark_star_ptp '{}' +
+          python3 - <<'PY'
+          import hashlib,json,math
+          from pathlib import Path
+          root=Path('results/dark_star_ptp')
+          manifest=json.loads((root/'dark_star_n22_full_tail_public_manifest.json').read_text())
+          canonical=json.dumps(manifest['selected_public_rows'],sort_keys=True,separators=(',',':'))
+          assert manifest['selected_sha256']==hashlib.sha256(canonical.encode()).hexdigest()
+          assert manifest['selected_sha256']=='d0cfd98eab0b92bc07c39a896e2e0039c3e065f6c6521c525dbefd676c2e49ff'
+          outputs=sorted(root.glob('dark_star_n22_full_tail_*.json'))
+          assert len(outputs)==2,[str(x) for x in outputs]
+          seen=set()
+          nset=set()
+          for f in outputs:
+              x=json.loads(f.read_text())
+              g=x['group']
+              assert g in ('trigger','control') and g not in seen
+              seen.add(g)
+              assert x['public_manifest_sha256']==manifest['selected_sha256']
+              assert x['zero_QPU'] and x['qpu_jobs_submitted']==0
+              assert x['selftests']['passed'] and x['selftests']['public_certificates_match_slow_factor_verifier']
+              assert x['outcome_half_window']==32 and x['samples']==16384 and x['alpha']==0.01
+              assert x['simultaneous_union_tests']==168
+              assert len(x['rows'])==2
+              assert x['summary']['selected']==2
+              assert x['summary']['additional_classically_factored']==2
+              assert x['logical_width']=={'arithmetic_workspace':69,'wide_peak':113,'recycled_peak':70}
+              assert [r['N'] for r in x['rows']]==[r['N'] for r in manifest['selected_public_rows'] if r['group']==g]
+              for row in x['rows']:
+                  n,a=row['N'],row['base']
+                  assert n not in nset
+                  nset.add(n)
+                  assert 1<<21<=n<1<<22 and n%3==(2 if g=='trigger' else 1)
+                  assert math.gcd(a,n)==1
+                  assert row['public_policies']=={'plain':a,'cube':pow(a,3,n)}
+                  assert row['additional_public_classical']['classically_factored']
+                  assert n%row['additional_public_classical']['factor']==0
+                  assert row['validation_only']['known_odd_power_identity']
+                  assert row['validation_only']['cube_order']==row['validation_only']['plain_order']//math.gcd(row['validation_only']['plain_order'],3)
+                  for p in ('plain','cube'):
+                      v=row[p]
+                      assert len(v['all_stages'])==21
+                      s_low,s_high=v['factor_probability_by_cap_interval']
+                      assert 0<=s_low<=s_high<=1
+                      c_low,c_high=v['modeled_CCX_attempt_interval']
+                      assert 0<=c_low<=c_high+1e-6
+                      if v['exact_factor_incapable']:
+                          assert v['public_factor_producing_denominator_count']==0
+                          assert s_low==s_high==0
+                      for stage in v['all_stages']:
+                          assert 0<=stage['lower']<=stage['upper']<=1+1e-9
+                          if stage['mode']=='seeded_iid_uniform_eigenphase_estimate':
+                              assert stage['n_eigenphase_values']==16384
+                              assert stage['omission_upper_bound']==1/63
+                              assert stage['eigenphase_Hoeffding_epsilon']==x['eigenphase_hoeffding_epsilon']
+                          if stage['mode']=='exact_all_bin_FFT':
+                              assert abs(stage['fft_normalization']-1)<1e-9
+                  status=row['cube_vs_plain']['status']
+                  if status=='cube_model_win':
+                      assert row['cube_vs_plain']['ratio'][1]<1
+                  if status=='cube_model_loss':
+                      assert row['cube_vs_plain']['ratio'][0]>1
+              print('VERIFIED FROZEN',g,'public scan=',len(x['screening']),
+                   'N=',[r['N'] for r in x['rows']],
+                   'statuses=',x['summary']['cases_by_status'])
+          assert seen=={'trigger','control'} and len(nset)==4
+          print('SUCCESS: original four new N22 rows, all classical factors and complete confidence/tail metadata. ZERO QPU.')
+          PY
+      - name: Preserve exact original raw results without re-running or editing their numerical contents
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/dark_star_ptp/dark_star_n22_full_tail_control.json
+          git add results/dark_star_ptp/dark_star_n22_full_tail_trigger.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve fresh N22 full-outcome-tail QPE inconclusive receipts and public classical factors"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
