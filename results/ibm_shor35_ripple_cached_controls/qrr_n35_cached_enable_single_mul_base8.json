@@ -1,0 +1,61 @@
+{
+  "revision": "qrr-n35-cached-enable-primitive-modmul-v1-20261016",
+  "lead": "Chase Lunsford / CaMaLabs",
+  "date_utc": "2026-10-17T05:16:20.643423+00:00",
+  "prereg": "docs/QRR_N35_LATCHED_CONTROLS_SINGLE_MULTIPLIER_PREREG.md",
+  "base": 8,
+  "N": 35,
+  "kind": "one full-residue public controlled modular multiplier; NOT QPE",
+  "baseline": {
+    "primitive": 2062,
+    "logical": 30,
+    "cz": 29822,
+    "depth": 63922
+  },
+  "change": "precompute/reuse active=phase AND valid and per-source enable=active AND workbit",
+  "algorithm_reference": "hardware/qrr_n35_single_modmul_ripple_toffoli.py",
+  "qpu_jobs": 0,
+  "no_runtime_submission": true,
+  "no_order_or_orbit_used": true,
+  "target_backend": "ibm_fez",
+  "optimization_level": 1,
+  "seed_transpiler": 8776,
+  "frozen_native_cz_limit": 800,
+  "frozen_native_depth_limit": 2000,
+  "status": "COMPILE_SUCCESS",
+  "success": true,
+  "proof": {
+    "pass_all": true,
+    "actual_emitted_instruction_interpreter": true,
+    "exhaustive_control_residue_inputs": 128,
+    "all_aux_25_clean": true,
+    "full_work_input_values": 64,
+    "control_off_identity": true,
+    "invalid_y_identity": true,
+    "source_primitive_gate_counts": {
+      "cx": 445,
+      "ccx": 1105,
+      "x": 28
+    },
+    "primitive_gate_count": 1578
+  },
+  "source_logical_qubits": 32,
+  "source_depth": 1368,
+  "source_size": 1578,
+  "backend_qubits": 156,
+  "compiled_device_width": 156,
+  "compiled_native_ops": {
+    "sx": 36712,
+    "rz": 22915,
+    "cz": 19912,
+    "x": 1
+  },
+  "native_cz": 19912,
+  "native_depth": 44381,
+  "native_size": 79540,
+  "compile_seconds": 0.20504816600000453,
+  "primitive_optimization_pass": true,
+  "frozen_hardware_feasibility_pass": false,
+  "cz_delta_from_frozen_baseline": -9910,
+  "depth_delta_from_frozen_baseline": -19541
+}
