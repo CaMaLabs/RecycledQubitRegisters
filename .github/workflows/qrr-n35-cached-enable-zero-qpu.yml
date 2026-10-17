@@ -1,0 +1,98 @@
+name: QRR N35 cached-enabled Toffoli kernel native Fez ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-cached-enable-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-cached-enable-nonqpu-v1
+  cancel-in-progress: false
+
+jobs:
+  two-public-bases-cached-control:
+    name: N35 cached enable public base ${{ matrix.base }} CPU proof + compiler ONLY
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen native target compilation version
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Audit zero-QPU static source, frozen prereg and source baseline
+        run: |
+          python3 -m py_compile hardware/qrr_n35_latched_controls_single_modmul.py
+          test -s docs/QRR_N35_LATCHED_CONTROLS_SINGLE_MULTIPLIER_PREREG.md
+          python3 - <<'PY'
+          from pathlib import Path
+          src=Path('hardware/qrr_n35_latched_controls_single_modmul.py').read_text()
+          assert all(s not in src for s in ("SamplerV2","EstimatorV2","sampler.run","job.submit","job.run","job.result"))
+          assert 'exhaustive_actual_gate_proof' in src
+          assert 'ccx' in src and 'reference.modadd' in src
+          for base in (2,8):
+              p=Path(f"results/ibm_shor35_ripple_toffoli_kernel/qrr_n35_toffoli_ripple_single_mul_base{base}.json")
+              assert p.exists(),p
+          print("Frozen primitive controls, no QPU API and old baseline receipts present")
+          PY
+      - name: Exhaustive ORIGINAL 128-state proof and live IBM Fez target CPU transpile (no quantum jobs)
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=20s 480s python3 -u hardware/qrr_n35_latched_controls_single_modmul.py --base "$BASE" \
+            | tee "qrr_n35_cached_enable_base${BASE}.log"
+      - name: Independent receipt check and comparison to original immutable values
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          base=int(os.environ['BASE'])
+          old=json.loads(Path(f"results/ibm_shor35_ripple_toffoli_kernel/qrr_n35_toffoli_ripple_single_mul_base{base}.json").read_text())
+          new=json.loads(Path(f"results/ibm_shor35_ripple_cached_controls/qrr_n35_cached_enable_single_mul_base{base}.json").read_text())
+          assert new['N']==35 and new['base']==base
+          assert new['revision']=='qrr-n35-cached-enable-primitive-modmul-v1-20261016'
+          assert new['no_runtime_submission'] and new['qpu_jobs']==0
+          assert new['no_order_or_orbit_used']
+          assert new['target_backend']=='ibm_fez'
+          assert new['seed_transpiler']==8776 and new['optimization_level']==1
+          assert new['baseline']==dict(primitive=old['primitive_equivalence']['primitive_gate_count'],
+              logical=old['logical_qubits'],cz=old['native_cz'],depth=old['compiled_depth'])
+          assert new['proof']['pass_all']
+          assert new['proof']['exhaustive_control_residue_inputs']==128
+          assert new['proof']['all_aux_25_clean']
+          assert new['source_logical_qubits']==32
+          assert set(new['proof']['source_primitive_gate_counts'])=={'x','cx','ccx'}
+          assert new['status']=='COMPILE_SUCCESS' and new['success']
+          assert new['native_cz']>=0 and new['native_depth']>=0
+          assert new['frozen_native_cz_limit']==800 and new['frozen_native_depth_limit']==2000
+          assert new['primitive_optimization_pass']==(
+              new['native_cz']<old['native_cz'] and new['native_depth']<old['compiled_depth'])
+          assert new['frozen_hardware_feasibility_pass']==(
+              new['native_cz']<=800 and new['native_depth']<=2000)
+          print('AUDIT',base,'baseline_CZ',old['native_cz'],'new_CZ',new['native_cz'],
+                'baseline_depth',old['compiled_depth'],'new_depth',new['native_depth'],
+                'engineering_gain',new['primitive_optimization_pass'],
+                'hardware_feasible',new['frozen_hardware_feasibility_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-cached-enable-original-base${{ matrix.base }}
+          path: |
+            qrr_n35_cached_enable_*.log
+            results/ibm_shor35_ripple_cached_controls/qrr_n35_cached_enable_single_mul_base*.json
