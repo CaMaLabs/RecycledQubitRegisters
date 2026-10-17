@@ -34,7 +34,7 @@ Second unmodified-method [CI **38997012532**](https://github.com/CaMaLabs/Recycl
 | Frozen single controlled full-register reversible mod-mul kernel | Public a=2 | Public cube a³=8 |
 |---|---:|---:|
 | Exhaustive **actual emitted gate** input/control cases | 128/128 PASS | 128/128 PASS |
-| All 22 aux bits (acc/flags/carry/scratch) returned to zero | **yes** | **yes** |
+| All 23 aux bits (acc/flags/carry/scratch) returned to zero | **yes** | **yes** |
 | Primitive X/CX/CCX total | **1,964** | **2,062** |
 | Logical circuit qubits | 30 | 30 |
 | **IBM Fez-target compiled native CZ** | **27,929** | **29,822** |
