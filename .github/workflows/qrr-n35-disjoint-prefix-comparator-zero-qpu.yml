@@ -1,4 +1,5 @@
 name: QRR N35 disjoint prefix comparator exact gates ZERO QPU
+# Rerun unchanged comparator after pre-compile counter corrected 21,336->42,672.
 
 on:
   push:
@@ -15,7 +16,7 @@ concurrency:
 
 jobs:
   two-arm-comparator-study:
-    name: public N35 base ${{ matrix.base }} comparator 21336+1584+128 basis proofs, Fez CPU only
+    name: public N35 base ${{ matrix.base }} comparator 42672+1584+128 basis proofs, Fez CPU only
     runs-on: ubuntu-latest
     timeout-minutes: 14
     strategy:
@@ -70,7 +71,7 @@ jobs:
           assert z['true_order_not_used'] and z['orbit_not_used']
           assert z['optimization_level']==1 and z['seed_transpiler']==8776
           assert z['previous_baseline']==dict(cz=old['native_cz'],depth=old['native_depth'],primitive=old['complete_multiplier_proof']['primitive_gate_count'],logical=old['application_logical_qubits'])
-          assert z['comparator_gate_proof']['pass_all'] and z['comparator_gate_proof']['comparator_basis_cases']==21336
+          assert z['comparator_gate_proof']['pass_all'] and z['comparator_gate_proof']['comparator_basis_cases']==42672
           assert z['comparator_gate_proof']['all_carry_scratch_clean']
           assert z['modadd_subroutine_proof']['pass_all'] and z['modadd_subroutine_proof']['ideal_gate_cases']==1584
           assert z['modadd_subroutine_proof']['unique_count']==16
@@ -83,7 +84,7 @@ jobs:
           assert z['frozen_limit_cz']==800 and z['frozen_limit_depth']==2000
           assert z['engineering_gain_both_cz_depth']==(z['native_cz']<old['native_cz'] and z['native_depth']<old['native_depth'])
           assert z['qpu_feasibility_pass']==(z['native_cz']<=800 and z['native_depth']<=2000)
-          print('AUDITED',b,'21336 comparator, 1584 modadd, 128 full kernel direct actual gate checks',
+          print('AUDITED',b,'42672 comparator, 1584 modadd, 128 full kernel direct actual gate checks',
                 'CZ',old['native_cz'],'->',z['native_cz'],
                 'depth',old['native_depth'],'->',z['native_depth'],
                 'engineering',z['engineering_gain_both_cz_depth'],'device',z['qpu_feasibility_pass'],'NO QPU')
