@@ -1,0 +1,106 @@
+name: Preserve original N35 shared-carry negative findings and exact gate proofs
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-shared-carry-borrow.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-preserve-shared-carry-original-json-v1
+  cancel-in-progress: false
+
+jobs:
+  independent-original-results:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download original source workflow result artifacts; NEVER recompile
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39060426103
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-shared-carry-original-base*
+          merge-multiple: true
+          path: _original_source_artifacts
+      - name: Extract unchanged two original JSON receipts
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_shared_carry_borrow
+          for base in 2 8; do
+            f="qrr_n35_shared_carry_borrow_base${base}.json"
+            count="$(find _original_source_artifacts -type f -name "$f" | wc -l)"
+            test "$count" -eq 1 || { echo "Expected exactly ONE $f; saw $count"; exit 1; }
+            find _original_source_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_shared_carry_borrow/ '{}' +
+          done
+      - name: Independently verify 8192+1584+128 pristine actual-gate proofs and frozen negative costs
+        run: |
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          expected={2:(19552,42236,1897),8:(19895,43075,1917)}
+          for base in (2,8):
+              prev=json.loads(Path(f'results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base{base}.json').read_text())
+              cur=json.loads(Path(f'results/ibm_shor35_shared_carry_borrow/qrr_n35_shared_carry_borrow_base{base}.json').read_text())
+              assert cur['revision']=='qrr-n35-shared-carry-clean-borrow-v1-20261017'
+              assert cur['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert cur['N']==35 and cur['base']==base
+              assert cur['preregistration']=='docs/QRR_N35_SHARED_CARRY_REUSE_PREREG.md'
+              assert cur['previous_baseline']==dict(cz=prev['native_cz'],depth=prev['native_depth'],
+                  primitive=prev['complete_multiplier_proof']['primitive_gate_count'],
+                  logical=prev['application_logical_qubits'])
+              assert cur['original_combined_prefix_threshold_code_unchanged']
+              assert cur['original_cached_control_layout_unchanged']
+              assert cur['true_order_not_used'] and cur['orbit_encoding_not_used']
+              assert cur['qpu_jobs_submitted']==0 and cur['paid_runtime_authorized'] is False
+              assert cur['target_backend']=='ibm_fez' and cur['optimization_level']==1 and cur['seed_transpiler']==8776
+              one=cur['public_mod2n_adder_gate_proof']
+              assert one['passed'] and one['real_instruction_interpreter']
+              assert one['constants']==64 and one['inputs_per_constant']==128
+              assert one['actual_emitted_gate_cases']==8192 and one['carry_scratch_all_clean']
+              assert len(one['original_gates_by_constant'])==64
+              assert all(z['all_128_cases_pass'] for z in one['original_gates_by_constant'])
+              sub=cur['public_mod35_adder_gate_proof']
+              assert sub['pass_all'] and sub['real_instruction_interpreter']
+              assert sub['unique_count']==16 and sub['ideal_gate_cases']==1584 and sub['all_aux_clean']
+              assert len(sub['per_constant'])==16
+              full=cur['complete_multiplier_proof']
+              assert full['pass_all'] and full['actual_emitted_instruction_interpreter']
+              assert full['exhaustive_control_residue_inputs']==128 and full['all_aux_25_clean']
+              assert set(full['source_primitive_gate_counts'])=={'x','cx','ccx'}
+              assert cur['application_logical_qubits']==32
+              assert cur['status']=='COMPILE_SUCCESS' and cur['success']
+              assert (cur['native_cz'],cur['native_depth'],full['primitive_gate_count'])==expected[base]
+              assert cur['compiled_device_width']==156 and cur['native_ops']['cz']==cur['native_cz']
+              assert cur['native_size']>0 and cur['compile_seconds']>=0
+              assert cur['engineering_pass'] is False
+              assert cur['hardware_feasibility_pass'] is False
+              assert cur['native_cz']>prev['native_cz'] and cur['native_depth']>prev['native_depth']
+              assert cur['frozen_device_cz']==800 and cur['frozen_device_depth']==2000
+              assert math.isclose(cur['cz_saving_pct'],
+                  100*(prev['native_cz']-cur['native_cz'])/prev['native_cz'])
+              print('CONFIRMED ORIGINAL FAILED ENGINEERING GATE base',base,
+                    'CZ',prev['native_cz'],'->',cur['native_cz'],
+                    'depth',prev['native_depth'],'->',cur['native_depth'],
+                    '8192+1584+128 direct X/CX/CCX gate proofs pass',
+                    '32 qubits, clean 25 ancillas, 0 QPU jobs')
+          print('INDEPENDENT 2/2 ORIGINAL RECEIPT AUDIT COMPLETED: new shared carry algorithm valid but WORSE native cost')
+          PY
+      - name: Git commit only unchanged original numerical JSON results
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_shared_carry_borrow/qrr_n35_shared_carry_borrow_base2.json
+          git add results/ibm_shor35_shared_carry_borrow/qrr_n35_shared_carry_borrow_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: preserve both original N35 shared forward-carry clean-borrow gate proofs and negative native ISA cost ablation'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
