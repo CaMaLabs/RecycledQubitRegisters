@@ -1,0 +1,113 @@
+{
+  "revision": "QRR-phase-consensus-null-v1-20261016",
+  "date_utc": "2026-10-17T00:46:10.117778+00:00",
+  "lead": "Chase Lunsford / CaMaLabs",
+  "external_inspiration": "Alosh Denny, reverse-SynthID (independent elementary circular statistics; no borrowed code/data)",
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "phase_resolution_Q": 256,
+  "independent_blocks": 8,
+  "shots_per_block": 2048,
+  "replications_per_signal_condition": 32,
+  "claims_boundary": "Synthetic known-order ideal QPE histograms; no order discovery, factoring performance, real QPU evidence or novel theorem",
+  "orders": {
+    "4": {
+      "r_validation_only": 4,
+      "Q": 256,
+      "harmonic_k": 4,
+      "full_QPE_probability_fft_normalized": true,
+      "training_null_count": 128,
+      "test_null_count": 64,
+      "threshold_95pct_training_null": 0.6338970363606505,
+      "signal": {
+        "0": {
+          "mean_coherence": 1.0,
+          "median_coherence": 1.0,
+          "hit_rate": 1.0,
+          "trials": 32
+        },
+        "0.15": {
+          "mean_coherence": 0.9999782322341095,
+          "median_coherence": 0.9999804645781991,
+          "hit_rate": 1.0,
+          "trials": 32
+        },
+        "0.35": {
+          "mean_coherence": 0.9999048469049273,
+          "median_coherence": 0.9998994860226531,
+          "hit_rate": 1.0,
+          "trials": 32
+        }
+      },
+      "controls": {
+        "permuted_qpe_null": {
+          "false_positive_rate": 0.046875,
+          "median_coherence": 0.3134043524629198,
+          "trials": 64
+        },
+        "uniform_sham": {
+          "false_positive_rate": 0.015625,
+          "median_coherence": 0.24114786698075757,
+          "trials": 64
+        },
+        "stable_fixed_bin_artifact": {
+          "false_positive_rate": 1.0,
+          "median_coherence": 0.9885091630813865,
+          "trials": 64
+        }
+      },
+      "primary_synthetic_gate_pass": true,
+      "stable_artifact_can_false_positive": true
+    },
+    "6": {
+      "r_validation_only": 6,
+      "Q": 256,
+      "harmonic_k": 6,
+      "full_QPE_probability_fft_normalized": true,
+      "training_null_count": 128,
+      "test_null_count": 64,
+      "threshold_95pct_training_null": 0.6153255102545381,
+      "signal": {
+        "0": {
+          "mean_coherence": 0.9999949645971402,
+          "median_coherence": 0.999995148313235,
+          "hit_rate": 1.0,
+          "trials": 32
+        },
+        "0.15": {
+          "mean_coherence": 0.9999687188491494,
+          "median_coherence": 0.9999690730814408,
+          "hit_rate": 1.0,
+          "trials": 32
+        },
+        "0.35": {
+          "mean_coherence": 0.9998992253957706,
+          "median_coherence": 0.9999130251988964,
+          "hit_rate": 1.0,
+          "trials": 32
+        }
+      },
+      "controls": {
+        "permuted_qpe_null": {
+          "false_positive_rate": 0.03125,
+          "median_coherence": 0.32724558585967356,
+          "trials": 64
+        },
+        "uniform_sham": {
+          "false_positive_rate": 0.015625,
+          "median_coherence": 0.3366294816838771,
+          "trials": 64
+        },
+        "stable_fixed_bin_artifact": {
+          "false_positive_rate": 1.0,
+          "median_coherence": 0.9888540840329114,
+          "trials": 64
+        }
+      },
+      "primary_synthetic_gate_pass": true,
+      "stable_artifact_can_false_positive": true
+    }
+  },
+  "combined_primary_pass": true,
+  "adversarial_stable_artifact_exposes_non_specific_coherence": true
+}
