@@ -1,0 +1,97 @@
+name: Preserve accurate N35 relative-phase V-chain null intervention receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-relative-phase-null-vchain.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n35-null-vchain-original-audit
+  cancel-in-progress: false
+
+jobs:
+  verify-null-source-exact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Retrieve ONLY original compiled JSON after source-run audit failed intervention-exercised assertion
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39072419676
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-relative-phase-base*-original
+          merge-multiple: true
+          path: _null_original_source
+      - name: Save original exact JSON bytes
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_relative_phase_vchain
+          for base in 2 8; do
+            f="qrr_n35_relative_phase_clean_vchain_base${base}.json"
+            hits="$(find _null_original_source -type f -name "$f" | wc -l)"
+            test "$hits" -eq 1 || { echo "Expected exact source $f, found $hits"; exit 1; }
+            find _null_original_source -type f -name "$f" -exec cp -t results/ibm_shor35_relative_phase_vchain/ '{}' +
+          done
+      - name: Independent exact phase semantic pass, in-circuit RCCX ZERO and same compiler cost audit
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for b in (2,8):
+              old=json.loads(Path(f'results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base{b}.json').read_text())
+              d=json.loads(Path(f'results/ibm_shor35_relative_phase_vchain/qrr_n35_relative_phase_clean_vchain_base{b}.json').read_text())
+              assert d['revision']=='qrr-n35-clean-vchain-relative-phase-v1-20261017'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistration']=='docs/QRR_N35_RELATIVE_PHASE_CLEAN_VCHAIN_PREREG.md'
+              assert d['N']==35 and d['base']==b
+              assert d['qpu_jobs_submitted']==0 and d['no_quantum_runtime_submission'] and not d['paid_runtime_used']
+              assert d['read_only_target']=='ibm_fez'
+              assert d['frozen_transpiler_optimization_level']==1 and d['frozen_transpiler_seed']==8776
+              assert d['original_compiled_baseline']==dict(cz=old['native_cz'],depth=old['native_depth'],
+                    primitive=old['complete_multiplier_proof']['primitive_gate_count'],
+                    logical=old['application_logical_qubits'])
+              local=d['local_clean_chain_proof']
+              assert local['pass_all'] and local['direct_gate_basis_cases']==1022
+              assert local['all_scratch_clean'] and local['exact_complex_output_phase_plus_one']
+              assert local['relative_toffolis_observed']>0
+              assert local['inverse_relative_toffolis_observed']==local['relative_toffolis_observed']
+              assert local['inverse_operator_matrix_product_identity']
+              mod=d['public_modadd_phase_proof']
+              assert mod['pass_all'] and mod['source_gate_cases']==1584
+              assert mod['clean_helpers'] and mod['exact_complex_phase_plus_one']
+              full=d['full_modmul_phase_proof']
+              assert full['pass_all'] and full['full_residue_control_basis_cases']==128
+              assert full['all_25_auxiliaries_clean'] and full['exact_complex_output_phase_plus_one']
+              # Scientific null: source optimization physically NOT reached anywhere in full arithmetic!
+              ops=full['quantum_source_gate_counts']
+              assert ops.get('rccx',0)==0 and ops.get('rccx_dg',0)==0
+              assert ops==old['complete_multiplier_proof']['source_primitive_gate_counts']
+              assert d['status']=='COMPILE_SUCCESS' and d['success']
+              assert d['source_logical_qubits']==32
+              assert d['native_cz']==old['native_cz'] and d['native_depth']==old['native_depth']
+              assert d['native_cz_delta']==0 and d['native_depth_delta']==0
+              assert d['engineering_both_costs_improve'] is False
+              assert d['device_feasibility_gate'] is False
+              print('TRUE NULL INTERVENTION',b,'0 RCCX in full source',ops,
+                   'same CZ',d['native_cz'],'same depth',d['native_depth'],
+                   'phase-clean proofs PASS, original postcompile CI audit CORRECTLY FAILED to promote null, NO QPU')
+          print('2/2 original null receipts independently verified, preserve as no-effect finding')
+          PY
+      - name: Commit immutable original null result JSONs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_relative_phase_vchain/qrr_n35_relative_phase_clean_vchain_base2.json
+          git add results/ibm_shor35_relative_phase_vchain/qrr_n35_relative_phase_clean_vchain_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently preserve true null N35 clean-vchain relative-phase gate proof, zero RCCX in actual kernel and identical Fez costs'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
