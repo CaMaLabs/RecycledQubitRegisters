@@ -1,0 +1,116 @@
+name: QRR N35 relative-phase CLEAN V-chain exact unitary zero QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-relative-phase-clean-vchain-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-relative-phase-vchain-v1-zero-qpu
+  cancel-in-progress: false
+
+jobs:
+  phase-sensitive-two-base:
+    name: N35 public base ${{ matrix.base }} relative-phase v-chain unitary proof, Fez ISA CPU only
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2, 8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fixed quantum SDK for CPU-only emitted-operator check and native Fez target
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Prereg, source, zero-QPU static policy and original baseline
+        run: |
+          test -s docs/QRR_N35_RELATIVE_PHASE_CLEAN_VCHAIN_PREREG.md
+          python -m py_compile hardware/qrr_n35_relative_phase_clean_vchain.py
+          python - <<'PY'
+          from pathlib import Path
+          src=Path("hardware/qrr_n35_relative_phase_clean_vchain.py").read_text()
+          assert not any(s in src for s in ("SamplerV2","EstimatorV2","sampler.run","job.submit","job.run","job.result"))
+          assert "Operator(gate)" in src and "check_exact_phase" in src
+          assert "compute.inverse()" in src and "relative_phase_clean_multi_x" in src
+          assert "primitive.multi_x = relative_phase_clean_multi_x" in src
+          assert "verified.build(base)" in src
+          assert "exhaustive_local_clean_chain" in src
+          assert "exhaustive_modadd_phases" in src
+          assert "exhaustive_full_multiplier_phases" in src
+          for b in (2,8):
+              old=Path(f"results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base{b}.json")
+              assert old.exists(),old
+          print('EXACT source unitary phase proof, immutable previous best, ZERO QPU jobs')
+          PY
+      - name: Interpret actual RCCX/adjoint instruction complex phases on 1022+1584+128 states, compile IBM Fez target only
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 480s python -u hardware/qrr_n35_relative_phase_clean_vchain.py --base "$BASE" | tee "qrr_n35_relative_phase_base${BASE}.log"
+      - name: Independently check phase-correct source receipts, physical gate and baseline
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          base=int(os.environ['BASE'])
+          d=json.loads(Path(f"results/ibm_shor35_relative_phase_vchain/qrr_n35_relative_phase_clean_vchain_base{base}.json").read_text())
+          old=json.loads(Path(f"results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base{base}.json").read_text())
+          assert d['revision']=='qrr-n35-clean-vchain-relative-phase-v1-20261017'
+          assert d['N']==35 and d['base']==base
+          assert d['preregistration']=='docs/QRR_N35_RELATIVE_PHASE_CLEAN_VCHAIN_PREREG.md'
+          assert d['original_compiled_baseline']==dict(
+              cz=old['native_cz'],depth=old['native_depth'],
+              primitive=old['complete_multiplier_proof']['primitive_gate_count'],
+              logical=old['application_logical_qubits'])
+          assert d['true_multiplicative_order_not_injected'] and d['orbit_not_precomputed']
+          assert d['no_quantum_runtime_submission'] and not d['paid_runtime_used'] and d['qpu_jobs_submitted']==0
+          assert d['read_only_target']=='ibm_fez'
+          assert d['frozen_transpiler_optimization_level']==1 and d['frozen_transpiler_seed']==8776
+          local=d['local_clean_chain_proof']
+          assert local['pass_all'] and local['direct_gate_basis_cases']==1022
+          assert local['exact_complex_output_phase_plus_one'] and local['all_scratch_clean']
+          assert local['relative_toffolis_observed']>0
+          assert local['relative_toffolis_observed']==local['inverse_relative_toffolis_observed']
+          mod=d['public_modadd_phase_proof']
+          assert mod['pass_all'] and mod['source_gate_cases']==1584 and mod['unique_constants']==16
+          assert mod['clean_helpers'] and mod['exact_complex_phase_plus_one']
+          whole=d['full_modmul_phase_proof']
+          assert whole['pass_all'] and whole['full_residue_control_basis_cases']==128
+          assert whole['all_25_auxiliaries_clean'] and whole['exact_complex_output_phase_plus_one']
+          assert whole['output_equals_public_modular_multiplication']
+          assert whole['quantum_source_gate_counts'].get('rccx',0)>0
+          assert whole['quantum_source_gate_counts'].get('rccx_dg',0)>0
+          assert d['source_logical_qubits']==32
+          assert d['status']=='COMPILE_SUCCESS' and d['success']
+          assert d['compiled_native_ops']['cz']==d['native_cz']
+          assert d['native_cz']>0 and d['native_depth']>0
+          assert d['native_cz_device_limit']==800 and d['native_depth_device_limit']==2000
+          assert d['engineering_both_costs_improve']==(
+              d['native_cz']<old['native_cz'] and d['native_depth']<old['native_depth'])
+          assert d['device_feasibility_gate']==(d['native_cz']<=800 and d['native_depth']<=2000)
+          print('INDEPENDENT PHASE-EXACT AUDIT',base,'local',local['direct_gate_basis_cases'],
+              'modadd',mod['source_gate_cases'],'full',whole['full_residue_control_basis_cases'],
+              'CZ',old['native_cz'],'->',d['native_cz'],
+              'depth',old['native_depth'],'->',d['native_depth'],
+              'engineering',d['engineering_both_costs_improve'],
+              'hardware',d['device_feasibility_gate'],'ZERO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-relative-phase-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_relative_phase_base*.log
+            results/ibm_shor35_relative_phase_vchain/qrr_n35_relative_phase_clean_vchain_base*.json
