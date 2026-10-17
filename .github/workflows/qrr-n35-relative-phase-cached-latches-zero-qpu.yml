@@ -1,0 +1,116 @@
+name: N35 phase-correct cached RCCX control latches ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-relative-phase-cached-latches-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-phase-cached-latches-zeroqpu-v1
+  cancel-in-progress: false
+
+jobs:
+  two-public-bases:
+    name: N35 public base ${{ matrix.base }} 8+42672+1584+128 exact source gate phases then Fez CPU compilation
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install fixed native target SDK
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Audit precommitted hypothesis, original best source receipts and strictly non-QPU experiment
+        run: |
+          test -s docs/QRR_N35_RELATIVE_PHASE_CACHED_LATCH_PREREG.md
+          python -m py_compile hardware/qrr_n35_relative_phase_cached_latch.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_relative_phase_cached_latch.py').read_text()
+          assert all(word not in s for word in ("SamplerV2","EstimatorV2","sampler.run","job.submit","job.run","job.result"))
+          assert 'local_latch_unitary_test' in s
+          assert 'previous.exhaustive_comparator_phase_proof' in s
+          assert 'previous.exhaustive_modadd_phases' in s
+          assert 'previous.exhaustive_full_multiplier_phases' in s
+          assert 'Operator(RCCXGate().inverse())' in s
+          assert 'build_public_multiplier' in s
+          assert 'qc.append(compute' in s and 'qc.append(reverse' in s
+          for b in (2,8):
+              old=Path(f'results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{b}.json')
+              assert old.exists(),old
+          print("precommitted exact complex proof; authenticated backend READ ONLY; ZERO QPU")
+          PY
+      - name: Verify all emitted complex-source unitary phases and compile to IBM Fez native CPU target ONLY
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=20s 480s python -u hardware/qrr_n35_relative_phase_cached_latch.py --base "$BASE" | tee "qrr_n35_phase_cached_latch_base${BASE}.log"
+      - name: Independent original JSON invariant audit vs unchanged best
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          b=int(os.environ['BASE'])
+          d=json.loads(Path(f'results/ibm_shor35_phase_cached_latch/qrr_n35_phase_cached_latch_base{b}.json').read_text())
+          old=json.loads(Path(f'results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{b}.json').read_text())
+          assert d['revision']=='qrr-n35-relative-phase-cached-active-enable-v1-20261017'
+          assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert d['preregistered_document']=='docs/QRR_N35_RELATIVE_PHASE_CACHED_LATCH_PREREG.md'
+          assert d['base']==b and d['N']==35
+          src=old['full_modmul_phase_proof']['quantum_source_gate_counts']
+          assert d['previous_frozen_baseline']==dict(
+              cz=old['native_cz'],depth=old['native_depth'],logical=32,
+              rccx=src['rccx'],ccx=src['ccx'],cx=src['cx'],x=src['x'])
+          assert d['factors_not_used'] and d['order_not_injected'] and d['orbit_not_compiled']
+          assert not d['quantum_runtime_used'] and not d['paid_runtime_used'] and d['qpu_jobs_submitted']==0
+          assert d['backend_target']=='ibm_fez' and d['transpiler_seed']==8776 and d['transpiler_optimization']==1
+          p=d['local_latch_complex_proof']
+          assert p['pass_all'] and p['direct_actual_operator_cases']==8
+          assert p['operator_product_is_identity'] and p['output_complex_phase_exactly_plus_one'] and p['final_latch_zero']
+          c=d['comparator_complex_proof']
+          assert c['pass_all'] and c['actual_gate_comparator_cases']==42672
+          assert c['exact_complex_phase_plus_one'] and c['all_carry_scratch_clean']
+          m=d['modadd_complex_proof']
+          assert m['pass_all'] and m['source_gate_cases']==1584 and m['unique_constants']==16
+          assert m['exact_complex_phase_plus_one'] and m['clean_helpers']
+          f=d['full_multiplier_complex_proof']
+          assert f['pass_all'] and f['full_residue_control_basis_cases']==128
+          assert f['exact_complex_output_phase_plus_one'] and f['all_25_auxiliaries_clean']
+          assert d['verified_source_latch_replacements']==26
+          assert d['source_logical_qubits']==32
+          assert f['quantum_source_gate_counts']==dict(
+              cx=src['cx'],rccx=src['rccx']+26,x=src['x'],ccx=src['ccx']-26)
+          assert d['status']=='COMPILE_SUCCESS' and d['success']
+          assert d['native_cz']>0 and d['native_depth']>0
+          assert d['compiled_native_ops']['cz']==d['native_cz']
+          assert d['frozen_native_cz_cutoff']==800 and d['frozen_native_depth_cutoff']==2000
+          assert d['engineering_gate_pass']==(d['native_cz']<old['native_cz'] and d['native_depth']<old['native_depth'])
+          assert d['hardware_feasibility_gate_pass']==(d['native_cz']<=800 and d['native_depth']<=2000)
+          print('AUDIT BASE',b,'8 local+42672 cmp+1584 modadd+128 full complex +1 phases',
+                'RCCX cached +26 CCX -26',
+                'old native CZ',old['native_cz'],'new',d['native_cz'],
+                'old native depth',old['native_depth'],'new',d['native_depth'],
+                'engineering',d['engineering_gate_pass'],'hardware',d['hardware_feasibility_gate_pass'],'ZERO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-phase-cached-latch-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_phase_cached_latch_base*.log
+            results/ibm_shor35_phase_cached_latch/qrr_n35_phase_cached_latch_base*.json
