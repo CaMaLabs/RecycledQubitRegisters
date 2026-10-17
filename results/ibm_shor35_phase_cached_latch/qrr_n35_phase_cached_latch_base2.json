@@ -1,0 +1,300 @@
+{
+  "revision": "qrr-n35-relative-phase-cached-active-enable-v1-20261017",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "preregistered_document": "docs/QRR_N35_RELATIVE_PHASE_CACHED_LATCH_PREREG.md",
+  "utc": "2026-10-17T22:14:26.746841+00:00",
+  "base": 2,
+  "N": 35,
+  "kind": "one honest public six-bit-residue controlled modular multiplier",
+  "previous_frozen_baseline": {
+    "cz": 9263,
+    "depth": 21772,
+    "logical": 32,
+    "rccx": 596,
+    "ccx": 160,
+    "cx": 1033,
+    "x": 28
+  },
+  "intervention": "only 26 cached active and enable latch standard CCX -> RCCX / actual inverse",
+  "backend_target": "ibm_fez",
+  "transpiler_optimization": 1,
+  "transpiler_seed": 8776,
+  "frozen_native_cz_cutoff": 800,
+  "frozen_native_depth_cutoff": 2000,
+  "full_phase_exact_gate_proofs_required": true,
+  "factors_not_used": true,
+  "order_not_injected": true,
+  "orbit_not_compiled": true,
+  "qpu_jobs_submitted": 0,
+  "quantum_runtime_used": false,
+  "paid_runtime_used": false,
+  "status": "COMPILE_SUCCESS",
+  "success": true,
+  "local_latch_complex_proof": {
+    "pass_all": true,
+    "direct_actual_operator_cases": 8,
+    "initial_latch_zero": true,
+    "final_latch_zero": true,
+    "controls_preserved": true,
+    "semantic_controlled_probe_exact": true,
+    "output_complex_phase_exactly_plus_one": true,
+    "source_operation_counts": {
+      "rccx": 2,
+      "cx": 1
+    },
+    "actual_inverse_gate_name": "rccx",
+    "operator_product_is_identity": true
+  },
+  "comparator_complex_proof": {
+    "pass_all": true,
+    "actual_gate_comparator_cases": 42672,
+    "comparator_source_circuits": 240,
+    "rccx_inside_comparator_present": true,
+    "exact_complex_phase_plus_one": true,
+    "all_carry_scratch_clean": true,
+    "controls_inputs_and_flags_unchanged_except_expected_predicate": true,
+    "comparator_total_source_gate_distribution": {
+      "cx": 2316,
+      "ccx": 240,
+      "x": 240,
+      "rccx": 2004
+    }
+  },
+  "modadd_complex_proof": {
+    "pass_all": true,
+    "source_gate_cases": 1584,
+    "unique_constants": 16,
+    "per_constant": [
+      {
+        "public_constant": 2,
+        "source_gates": {
+          "cx": 83,
+          "rccx": 50,
+          "ccx": 11,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 4,
+        "source_gates": {
+          "cx": 65,
+          "rccx": 42,
+          "ccx": 10,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 8,
+        "source_gates": {
+          "cx": 63,
+          "rccx": 36,
+          "ccx": 9,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 11,
+        "source_gates": {
+          "cx": 95,
+          "rccx": 54,
+          "ccx": 12,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 13,
+        "source_gates": {
+          "cx": 95,
+          "rccx": 58,
+          "ccx": 12,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 16,
+        "source_gates": {
+          "cx": 61,
+          "rccx": 32,
+          "ccx": 8,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 17,
+        "source_gates": {
+          "cx": 86,
+          "rccx": 58,
+          "ccx": 12,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 19,
+        "source_gates": {
+          "cx": 91,
+          "rccx": 52,
+          "ccx": 12,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 23,
+        "source_gates": {
+          "cx": 104,
+          "rccx": 56,
+          "ccx": 12,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 26,
+        "source_gates": {
+          "cx": 89,
+          "rccx": 50,
+          "ccx": 11,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 27,
+        "source_gates": {
+          "cx": 100,
+          "rccx": 54,
+          "ccx": 12,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 29,
+        "source_gates": {
+          "cx": 100,
+          "rccx": 58,
+          "ccx": 12,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 31,
+        "source_gates": {
+          "cx": 113,
+          "rccx": 56,
+          "ccx": 12,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 32,
+        "source_gates": {
+          "cx": 59,
+          "rccx": 30,
+          "ccx": 7,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 33,
+        "source_gates": {
+          "cx": 86,
+          "rccx": 58,
+          "ccx": 12,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 34,
+        "source_gates": {
+          "cx": 84,
+          "rccx": 50,
+          "ccx": 11,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      }
+    ],
+    "clean_helpers": true,
+    "exact_complex_phase_plus_one": true,
+    "disabled_identity_full_six_bit_inputs": true
+  },
+  "full_multiplier_complex_proof": {
+    "pass_all": true,
+    "full_residue_control_basis_cases": 128,
+    "output_equals_public_modular_multiplication": true,
+    "all_25_auxiliaries_clean": true,
+    "control_unmodified": true,
+    "disabled_invalid_states_identity": true,
+    "exact_complex_output_phase_plus_one": true,
+    "quantum_source_gate_counts": {
+      "cx": 1033,
+      "rccx": 622,
+      "x": 28,
+      "ccx": 134
+    },
+    "source_instruction_count": 1817
+  },
+  "source_logical_qubits": 32,
+  "verified_source_latch_replacements": 26,
+  "backend_qubits": 156,
+  "native_cz": 8542,
+  "native_depth": 19819,
+  "native_size": 33274,
+  "compiled_device_width": 156,
+  "compiled_native_ops": {
+    "sx": 15804,
+    "rz": 8928,
+    "cz": 8542
+  },
+  "compile_seconds": 0.1668789280000027,
+  "native_cz_delta": -721,
+  "native_depth_delta": -1953,
+  "native_cz_change_pct": -7.7836554032171,
+  "native_depth_change_pct": -8.9702370016535,
+  "engineering_gate_pass": true,
+  "hardware_feasibility_gate_pass": false
+}
