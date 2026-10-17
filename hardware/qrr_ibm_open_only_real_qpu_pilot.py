@@ -103,14 +103,15 @@ def main():
                 return blocked(out,"Compiled circuit exceeds actual available device qubits.")
         print("REAL QPU preflight architecture/depth/native counts PASS",
               [(s["kind"],s["depth"],s["count_ops"]) for s in stats],flush=True)
-        # The CRITICAL guard is deliberately called last, immediately before
-        # Sampler.run, since backend discovery may change active instance.
+        # Constructing Sampler may touch service/backend state. The critical
+        # fail-closed Open Plan check therefore happens IMMEDIATELY BEFORE
+        # sampler.run rather than before Sampler construction.
+        sampler=SamplerV2(mode=backend,options={"max_execution_time":MAX_RUNTIME_SEC})
         proof=assert_open_plan_submission(service,backend)
         assert proof["open_plan_verified"] and str(proof["plan"]).lower()=="open"
         out["final_open_plan_proof"]=True
         out["status"]="READY_FOR_OPEN_ONLY_SUBMISSION"
         save(out)
-        sampler=SamplerV2(mode=backend,options={"max_execution_time":MAX_RUNTIME_SEC})
         job=sampler.run(compiled,shots=MAX_SHOTS)
         out.update(status="SUBMITTED_REAL_QPU",submission_performed=True,job_id=job.job_id())
         save(out)
