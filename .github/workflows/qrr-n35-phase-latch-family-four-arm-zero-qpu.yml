@@ -1,0 +1,121 @@
+name: QRR N35 active-only vs enable-only phase latch four-arm ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-phase-latch-family-four-arm-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-phase-latch-family-four-arm-v1
+  cancel-in-progress: false
+
+jobs:
+  isolated-public-latch-arms:
+    name: N35 ${{ matrix.variant }} base ${{ matrix.base }} 8+42672+1584+128 exact quantum-phase checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+        variant: [active_only,enable_only]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install fixed quantum unitary and Fez native compiler SDK
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Audit prereg, source, original untouched baseline and NO-QPU policy
+        run: |
+          test -s docs/QRR_N35_RELATIVE_PHASE_LATCH_FAMILY_ABLATION_PREREG.md
+          python -m py_compile hardware/qrr_n35_relative_phase_latch_families.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_relative_phase_latch_families.py').read_text()
+          assert not any(x in s for x in ('SamplerV2','EstimatorV2','sampler.run','job.submit','job.run','job.result'))
+          assert 'shared.local_latch_unitary_test' in s
+          assert 'previous.exhaustive_comparator_phase_proof' in s
+          assert 'previous.exhaustive_modadd_phases' in s
+          assert 'previous.exhaustive_full_multiplier_phases' in s
+          assert 'active_relative=variant=="active_only"' in s
+          assert 'enable_relative=variant=="enable_only"' in s
+          for b in (2,8):
+              assert Path(f'results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{b}.json').exists()
+              assert Path(f'results/ibm_shor35_phase_cached_latch/qrr_n35_phase_cached_latch_base{b}.json').exists()
+          print('Original verified control baselines present. Zero QPU authorization.')
+          PY
+      - name: Complete strict actual emitted quantum operator phase proofs, then read-only Fez target CPU compile
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+          VARIANT: ${{ matrix.variant }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 480s python -u hardware/qrr_n35_relative_phase_latch_families.py --variant "$VARIANT" --base "$BASE" | tee "qrr_n35_latch_family_${VARIANT}_base${BASE}.log"
+      - name: Independent source proof and exact frozen base/family invariant audit
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+          VARIANT: ${{ matrix.variant }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          b=int(os.environ['BASE']);v=os.environ['VARIANT']
+          d=json.loads(Path(f'results/ibm_shor35_phase_latch_family_ablation/qrr_n35_{v}_base{b}.json').read_text())
+          old=json.loads(Path(f'results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{b}.json').read_text())
+          both=json.loads(Path(f'results/ibm_shor35_phase_cached_latch/qrr_n35_phase_cached_latch_base{b}.json').read_text())
+          assert d['revision']=='qrr-n35-phase-latch-family-ablation-v1-20261017'
+          assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert d['preregistration']=='docs/QRR_N35_RELATIVE_PHASE_LATCH_FAMILY_ABLATION_PREREG.md'
+          assert d['N']==35 and d['base']==b and d['variant']==v
+          frozen=old['full_modmul_phase_proof']['quantum_source_gate_counts']
+          assert d['original_neither_baseline']==dict(cz=old['native_cz'],depth=old['native_depth'],
+              logical=32,rccx=frozen['rccx'],ccx=frozen['ccx'],cx=frozen['cx'],x=frozen['x'])
+          assert d['original_combined_baseline']==dict(cz=both['native_cz'],depth=both['native_depth'])
+          assert d['input_order_not_injected'] and d['secret_factors_not_used'] and d['precomputed_multiplicative_orbit_not_used']
+          assert d['actual_qpu_jobs']==0 and d['no_quantum_runtime'] and d['no_paid_runtime']
+          assert d['backend_target']=='ibm_fez' and d['optimization_level']==1 and d['seed_transpiler']==8776
+          l=d['local_rccx_latch_phase_proof']
+          assert l['pass_all'] and l['direct_actual_operator_cases']==8
+          assert l['output_complex_phase_exactly_plus_one'] and l['operator_product_is_identity']
+          c=d['unchanged_comparator_phase_proof']
+          assert c['pass_all'] and c['actual_gate_comparator_cases']==42672 and c['exact_complex_phase_plus_one']
+          m=d['unchanged_modadd_phase_proof']
+          assert m['pass_all'] and m['source_gate_cases']==1584 and m['unique_constants']==16
+          assert m['exact_complex_phase_plus_one']
+          f=d['full_multiplier_phase_proof']
+          assert f['pass_all'] and f['full_residue_control_basis_cases']==128
+          assert f['all_25_auxiliaries_clean'] and f['exact_complex_output_phase_plus_one']
+          assert d['source_logical_qubits']==32
+          n=2 if v=='active_only' else 24
+          assert d['predicted_source_replacement_count']==n and d['actual_latch_replacement_count']==n
+          expected=dict(cx=frozen['cx'],rccx=frozen['rccx']+n,x=frozen['x'],ccx=frozen['ccx']-n)
+          assert f['quantum_source_gate_counts']==expected and d['expected_source_gate_distribution']==expected
+          assert d['status']=='COMPILE_SUCCESS' and d['success']
+          assert d['compiled_native_cz']>0 and d['compiled_native_depth']>0
+          assert d['compiled_native_ops']['cz']==d['compiled_native_cz']
+          assert d['device_native_cz_cutoff']==800 and d['device_native_depth_cutoff']==2000
+          assert d['engineering_arm_both_metrics_improve']==(
+              d['compiled_native_cz']<old['native_cz'] and d['compiled_native_depth']<old['native_depth'])
+          assert d['hardware_gate_pass']==(
+              d['compiled_native_cz']<=800 and d['compiled_native_depth']<=2000)
+          print('SOURCE AUDIT',v,b,'8+42672+1584+128 phase-exact source gates',
+              'source RCCX',expected['rccx'],'CZ',old['native_cz'],'->',d['compiled_native_cz'],
+              'depth',old['native_depth'],'->',d['compiled_native_depth'],
+              'engineering',d['engineering_arm_both_metrics_improve'],
+              'QPU physical gate',d['hardware_gate_pass'],'zero runtime')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-phase-latch-family-${{ matrix.variant }}-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_latch_family_*.log
+            results/ibm_shor35_phase_latch_family_ablation/qrr_n35_*_base*.json
