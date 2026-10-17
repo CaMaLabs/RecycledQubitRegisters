@@ -1297,3 +1297,26 @@ New original [`hardware/qrr_n35_public_prefix_carry_single_modmul.py`](../hardwa
 **Engineering proof gate PASS four-for-four; immutable real device gate FAIL ALL.** Even previous best full combined **12,517 CZ /32,312 depth** is much larger than **800 CZ /2,000 depth**, so no full four-phase Shor test or IBM free/paid QPU run authorized. These were *read-only target* CPU compilations only, not actual device execution or new factoring progress. The genuinely measured IBM Fez real Open-only N15 phase recycling milestone remains independently true and recorded. N35 classically factors trivially.
 
 **Next:** preserve both components in future verified baseline and attempt a preregistered reuse/shared-carry or modulo wrap reduction under the same X/CX/CCX + all-ancilla-clean gate-level test; address remaining native Toffoli synthesis cost before building four-phase Shor, with ZERO automatic QPU fallback.
+
+
+## 2026-10-17 — N35 shared forward-carry/reverse-borrow uncompute: 8192+1584+128 true gate proofs pass; compiled native CZ 56% WORSE
+
+**Research lead: Chase Lunsford / CaMaLabs.** Previous N35 full-register arithmetic trials had [verified best](QRR_N35_PUBLIC_CONSTANT_PREFIX_CARRY_RESULT.md) single public controlled modular multiplier costs on read-only `ibm_fez` native target **a2 CZ12517/depth32312**, cube a8 **CZ12680/depth33138**. Earlier independently [isolated prefix vs threshold optimization](QRR_N35_PREFIX_THRESHOLD_COMPONENT_ABLATION_RESULT.md) showed prefix-only much stronger than public threshold-only, and the combination favored. All remain beyond frozen real-QPU CZ<=800/depth<=2000 cutoff; no N35 QPU use.
+
+The next proposed change was [frozen before results](QRR_N35_SHARED_CARRY_REUSE_PREREG.md), commit `c3b61efe87ab2ce6725e739a84c295a20777ab57`: compute **one reused clean enabled low-bit carry chain**, update all sum bits, **uncompute the stored carries from the updated output via reversible subtract-k borrow recurrence**, in the existing six clean carry bits rather than recalculating comparator for each sum bit. Exactly one candidate; same original public N35 one-multiplier cached-enable full-residue circuit, 32 application qubits, IBM Fez target read-only, Qiskit~=2.5.2/runtime~=0.47.0, opt1, seed8776, no private order or orbit, no synthetic eigenphase, and strictly NO real QPU submission.
+
+Original new [zero-QPU two-arm CI **39060426103**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39060426103): **2/2 SUCCESS as correct compiler/test execution**. Both base2 and cube8 passed **8192/8192** emitted X/CX/CCX conditional modulo64 addition cases (ALL 64 public constants×64 input states×2 control), independent **1584/1584** emitted-gate modulo35 add cases (16 public constants×99) and complete controlled-modmul **128/128** ideal emitted-gate basis input/control cases, with every **25 ancillary qubits clean** and invalid y>=35 identity. **This is a genuine arithmetic correctness gain for the candidate, NOT evidence of native resource gain.** [Independent unchanged original JSON verification/preservation **39060515347**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39060515347) **SUCCESS**, archived `results/ibm_shor35_shared_carry_borrow/qrr_n35_shared_carry_borrow_base{2,8}.json` unchanged, with complete original CZ/depth/primitive gates, proofs, source provenance and no QPU. Full negative [result report](QRR_N35_SHARED_CARRY_REUSE_RESULT.md).
+
+| Public N35 one multiplier, Fez CPU target only | Frozen old best | New shared carry | Change |
+|---|---:|---:|---:|
+| Original base2 native CZ | **12517** | **19552** | **+56.20% worse** |
+| Original base2 native depth | **32312** | **42236** | **+30.71% worse** |
+| Public cube8 native CZ | **12680** | **19895** | **+56.90% worse** |
+| Public cube8 native depth | **33138** | **43075** | **+29.99% worse** |
+| Original logical application qubits | 32 | 32 | unchanged |
+| New candidate full ideal gate proofs | baseline prior PASS | **both 8192+1584+128 PASS** | no garbage |
+| New real IBM QPU submissions | 0 | **0** | free/premium protected |
+
+**Recorded negative engineering result:** The shared-carry forward-and-reverse cleanup works exactly, but its conditional carry/borrow network creates substantially MORE native two-qubit costs and depth on `ibm_fez` than repeated public carry-prefix comparators. Frozen **engineering improvement gate FAILED** for both arms; frozen **CZ<=800/depth<=2000 QPU gate FAILED** too. No real quantum runtime used. Preserve the old best combined prefix/threshold method, and treat this as verified falsification of the current sharing implementation rather than user-facing hardware progress. Do not weaken gates, rerun different seeds or silently promote an order-specific orbit toy as equivalent.
+
+**Next fixed research question** should address public-constant arithmetic/condition complexity in a separate protocol; e.g. a purpose-built single-control Toffoli constant adder reducing the high-fan-in carry AND/OR chains or a special sparse public constant policy. Keep original real IBM Fez Open Plan N15 phase-recycling success intact and separate. No RSA-scale hardware factoring claim.
