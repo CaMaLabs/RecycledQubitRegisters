@@ -1,0 +1,289 @@
+{
+  "revision": "qrr-n35-prefix-vs-threshold-component-ablation-v1-20261016",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "date_utc": "2026-10-17T05:51:08.700281+00:00",
+  "preregistered_document": "docs/QRR_N35_PREFIX_THRESHOLD_COMPONENT_ABLATION_PREREG.md",
+  "N": 35,
+  "base": 2,
+  "variant": "threshold_only",
+  "experiment": "One public full-residue controlled modular multiplier: isolated component A or B",
+  "previous_baseline": {
+    "cz": 18719,
+    "depth": 42335,
+    "primitive": 1536,
+    "logical": 32
+  },
+  "changed_components": [
+    "public divisible-threshold comparator shortening ONLY"
+  ],
+  "old_cached_enable_layout_preserved": true,
+  "true_order_not_used": true,
+  "orbit_not_used": true,
+  "target_backend": "ibm_fez",
+  "optimization_level": 1,
+  "seed_transpiler": 8776,
+  "frozen_limit_cz": 800,
+  "frozen_limit_depth": 2000,
+  "qpu_jobs_submitted": 0,
+  "no_QPU_runtime": true,
+  "status": "COMPILE_SUCCESS",
+  "success": true,
+  "modadd_subroutine_proof": {
+    "pass_all": true,
+    "real_instruction_interpreter": true,
+    "unique_public_constants": [
+      2,
+      4,
+      8,
+      11,
+      13,
+      16,
+      17,
+      19,
+      23,
+      26,
+      27,
+      29,
+      31,
+      32,
+      33,
+      34
+    ],
+    "unique_count": 16,
+    "ideal_gate_cases": 1584,
+    "per_constant": [
+      {
+        "constant": 2,
+        "gate_count": 118,
+        "gate_types": {
+          "cx": 41,
+          "ccx": 75,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 4,
+        "gate_count": 93,
+        "gate_types": {
+          "cx": 25,
+          "ccx": 66,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 8,
+        "gate_count": 86,
+        "gate_types": {
+          "cx": 25,
+          "ccx": 59,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 11,
+        "gate_count": 129,
+        "gate_types": {
+          "cx": 27,
+          "ccx": 100,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 13,
+        "gate_count": 130,
+        "gate_types": {
+          "cx": 31,
+          "ccx": 97,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 16,
+        "gate_count": 81,
+        "gate_types": {
+          "cx": 25,
+          "ccx": 54,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 17,
+        "gate_count": 125,
+        "gate_types": {
+          "cx": 38,
+          "ccx": 85,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 19,
+        "gate_count": 124,
+        "gate_types": {
+          "cx": 27,
+          "ccx": 95,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 23,
+        "gate_count": 138,
+        "gate_types": {
+          "cx": 28,
+          "ccx": 108,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 26,
+        "gate_count": 117,
+        "gate_types": {
+          "cx": 35,
+          "ccx": 80,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 27,
+        "gate_count": 131,
+        "gate_types": {
+          "cx": 28,
+          "ccx": 101,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 29,
+        "gate_count": 132,
+        "gate_types": {
+          "cx": 32,
+          "ccx": 98,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 31,
+        "gate_count": 143,
+        "gate_types": {
+          "cx": 29,
+          "ccx": 112,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 32,
+        "gate_count": 78,
+        "gate_types": {
+          "cx": 25,
+          "ccx": 51,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 33,
+        "gate_count": 128,
+        "gate_types": {
+          "cx": 42,
+          "ccx": 84,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      },
+      {
+        "constant": 34,
+        "gate_count": 119,
+        "gate_types": {
+          "cx": 42,
+          "ccx": 75,
+          "x": 2
+        },
+        "input_cases": 99,
+        "all_aux_clean": true,
+        "pass_all": true
+      }
+    ],
+    "external_enable_off_all_64_inputs": true,
+    "active_on_all_35_valid_inputs": true,
+    "all_aux_clean": true
+  },
+  "complete_multiplier_proof": {
+    "pass_all": true,
+    "actual_emitted_instruction_interpreter": true,
+    "exhaustive_control_residue_inputs": 128,
+    "all_aux_25_clean": true,
+    "full_work_input_values": 64,
+    "control_off_identity": true,
+    "invalid_y_identity": true,
+    "source_primitive_gate_counts": {
+      "cx": 421,
+      "ccx": 1007,
+      "x": 28
+    },
+    "primitive_gate_count": 1456
+  },
+  "application_logical_qubits": 32,
+  "source_native_primitive_counts": {
+    "cx": 421,
+    "ccx": 1007,
+    "x": 28
+  },
+  "backend_device_width": 156,
+  "native_cz": 18010,
+  "native_depth": 39868,
+  "native_size": 72063,
+  "compiled_device_width": 156,
+  "compiler_seconds": 0.1900508539999919,
+  "native_ops": {
+    "sx": 33126,
+    "rz": 20926,
+    "cz": 18010,
+    "x": 1
+  },
+  "engineering_gain_both_cz_depth": true,
+  "qpu_feasibility_pass": false,
+  "cz_saving_pct": 3.7875954912121377,
+  "depth_saving_pct": 5.827329632691626
+}
