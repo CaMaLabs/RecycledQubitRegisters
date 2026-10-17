@@ -62,7 +62,7 @@ def public_threshold_predicate(qc,x,threshold,flag,carry,chain,
 
 
 def exhaustive_comparator_gate_proof():
-    """21,336 direct X/CX/CCX basis checks, both signs/control/flag states."""
+    """42,672 direct X/CX/CCX basis checks, both signs/control/flag states."""
     trials=0
     distinct=0
     for w in range(1,BITS+1):
@@ -102,7 +102,7 @@ def exhaustive_comparator_gate_proof():
                                     actual=actual,expected=expected,
                                     actual_x=actual_x,dirty=dirty)))
                             trials+=1
-    assert trials==21336,(trials,distinct)
+    assert trials==42672,(trials,distinct)
     return dict(pass_all=True,comparator_basis_cases=trials,
                 unique_comparator_circuits=distinct,
                 both_flag_states=True,both_controls=True,
