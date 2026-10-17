@@ -1229,3 +1229,28 @@ The full-permutation compiler is public/order-independent yet NOT scalable gener
 **Critical new negative interpretation:** cube8 single controlled multiplication costs **6.78% MORE CZ** and **6.63% MORE depth** than base2 when compiled with the same primitive arithmetic. The cubic power-order 12→4 effect cannot magically reduce ONE modular multiplication's cost; its prior four-phase-round benefit came from two of four public powers becoming identity in the cube schedule `[8,29,1,1]`, compared to plain `[2,4,16,11]`. This new single-multiplier kernel is much simpler than previously controlled QFT-based arithmetic, but different work scopes make raw per-method 1-round-to-4-round CZ ratios misleading. **Neither single controlled modular multiplication is acceptable for another real QPU hardware run** (over 34× CZ threshold and >29× depth threshold). No free Open Plan runtime consumed. Recycled hardware N15 original 49/64 proper-factor success remains independently preserved.
 
 Next gate: factorized constant-specific modular arithmetic, reuse carry ancillas and reduce heavy multi-control chains, with a new frozen small-resource test BEFORE full Shor QPE or user-authorized hardware. Do not silently substitute order-dependent orbit compilation or weaken CZ≤800/depth≤2000 posthoc.
+
+
+## 2026-10-16 — Public N35 cached enable controls cut REAL-TARGET compiler CZ 33%; 128/128 gate proof PASS, hardware feasibility FAIL
+
+**Research lead: Chase Lunsford / CaMaLabs.** Continue the original reversible full-residue N35 modular-multiplication program, preserving the previous independently verified N15 real IBM Fez Open-only recycled QPE factor recovery and the N35 negative public-permutation and general-arithmetic reports. The immediately preceding [explicit single controlled X/CX/CCX Toffoli/ripple kernel](QRR_N35_TOFFOLI_RIPPLE_SINGLE_MULTIPLIER_RESULT.md) had gate-level proofs 128/128 (all 64 six-bit y values × both control states; every 23 ancillary bits uncomputed) with IBM Fez compiler results base2 CZ27929 depth59947, cube8 CZ29822 depth63922. Both FAILED frozen **CZ<=800 and depth<=2000** hardware criteria. No device run.
+
+**Frozen before new scoring:** [QRR_N35_LATCHED_CONTROLS_SINGLE_MULTIPLIER_PREREG.md](QRR_N35_LATCHED_CONTROLS_SINGLE_MULTIPLIER_PREREG.md), commit `bffed30fb4c7db1a5b6c92437c06b94ebf9b81a7`. ONE new intervention, preserving the exact same prior verified reversible comparator/modadd/Toffoli arithmetic functions: compute `active=phase AND valid` once, compute/reverse `enable=active AND work[i]` for each of six forward and six inverse modular additions, use `[enable]` instead of repeatedly applying three-element control `[phase,valid,work[i]]`, and use `active` for the coherent controlled register swaps. Adds two **clean** control ancillas, so 30→32 logical qubits. No private factors/order, handwired order-orbit, new gate decomposition, QFT, alternate transpiler seed or layout tuning.
+
+[Original matched 2/2 CPU proof + IBM Fez-target only compilation CI **39005624438**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39005624438) SUCCESS, `qiskit~=2.5.2`, runtime~=0.47.0, opt level1, seed8776. **ALL 128 actual emitted X/CX/CCX gate-input controls×residues pass for BOTH a=2 and cube a³=8, every one of 25 aux qubits cleaned**; no Sampler, real quantum runtime or hardware execution. The [independent original CI receipt audit/preservation **39005699941**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39005699941) SUCCESS and saved **unchanged original JSON files** `results/ibm_shor35_ripple_cached_controls/qrr_n35_cached_enable_single_mul_base{2,8}.json`. Full [experiment result](QRR_N35_LATCHED_CONTROLS_SINGLE_MULTIPLIER_RESULT.md).
+
+| N35 full six-bit ONE controlled modmul, Fez ISA COMPILER ONLY | Old unlatched | New cached | Benefit |
+|---|---:|---:|---:|
+| Base2 primitive source X/CX/CCX |1964|**1536**|−21.8%|
+| Base2 native CZ |27929|**18719**|**−32.98%**|
+| Base2 native depth |59947|**42335**|**−29.38%**|
+| Cube8 primitive source X/CX/CCX |2062|**1578**|−23.5%|
+| Cube8 native CZ |29822|**19912**|**−33.23%**|
+| Cube8 native depth |63922|**44381**|**−30.57%**|
+| True ideal gate-level proof |128/128|**128/128**|all helpers zero|
+| Logical circuit qubits |30|32|two new clean ancillas|
+| Frozen <=800CZ / <=2000depth |FAIL|**FAIL**|zero real QPU|
+
+**Verified engineering success:** ~33% lower native CZ and 29–31% lower compiled native depth in *both* fixed public arms, traceable to shared enabled controls. **Verified hardware limitation:** even smallest arm 18719 CZ/42335 depth remains **23.4×** / **21.2×** frozen hardware criterion, so not feasible for free Open QPU experiment; ZERO actual QPU jobs, free or paid runtime. Cube remains **more expensive per SINGLE multiplier** than base2 (19912 vs18719 CZ), consistent with no claim about order-shortening benefit until multi-round QPE tests. Different fixed-layout qubit count (32 vs30) means this is an honest target-native compiler engineering ablation, NOT a controlled hardware fidelity comparison, practical factoring result or fault-tolerant asymptotic claim.
+
+**Next scientific move:** preregister/freeze a separate **constant-specific modular carry/prefix circuit** to reduce the repeated wrap comparator and high-fan-in Toffoli v-chain overhead. Repeat independent actual-gate 128-state tests and immutable CZ/depth native target audit before considering a full 4-bit factoring pipeline, and never silently weaken prior device thresholds or substitute order-encoded affine toy circuits. 
