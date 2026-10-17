@@ -16,6 +16,7 @@ import argparse
 import json
 import os
 import time
+import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -377,11 +378,12 @@ def main(base):
     except Exception as exc:
         receipt.update(success=False,status='FAIL',
             error_type=type(exc).__name__,error_message=str(exc)[:1600],
+            error_stack=traceback.format_exc()[-2800:],
             qpu_jobs_submitted=0)
         save()
         print("RELATIVE_PHASE N35 PHASE_GATE_OR_COMPILER_FAIL",
             base,type(exc).__name__,str(exc)[:750],
-            "ZERO QPU",flush=True)
+            traceback.format_exc()[-1900:],"ZERO QPU",flush=True)
         return 1
 
 
