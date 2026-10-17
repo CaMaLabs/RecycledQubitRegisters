@@ -1,0 +1,106 @@
+name: QRR N35 public prefix carry and threshold comparison ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-prefix-carry-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-prefix-carry-public-constant-zero-qpu
+  cancel-in-progress: false
+
+jobs:
+  two-public-modmul-kernels:
+    name: public base ${{ matrix.base }} subroutine+whole-gate proofs then Fez native compiler
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Gate-source integrity, freeze, non-QPU policy and original receipts
+        run: |
+          python -m py_compile hardware/qrr_n35_public_prefix_carry_single_modmul.py
+          test -s docs/QRR_N35_PUBLIC_CONSTANT_PREFIX_CARRY_PREREG.md
+          python - <<'PY'
+          from pathlib import Path
+          src=Path("hardware/qrr_n35_public_prefix_carry_single_modmul.py").read_text()
+          assert not any(x in src for x in ("SamplerV2","EstimatorV2","sampler.run","job.submit","job.run","job.result"))
+          assert "exhaustive_modadd_gate_test" in src
+          assert "verified.exhaustive_actual_gate_proof" in src
+          assert "primitive.modadd=optimized_modadd" in src
+          assert "public_threshold_predicate" in src and "constant_add_from_prefix_carry" in src
+          for b in (2,8):
+              old=Path(f"results/ibm_shor35_ripple_cached_controls/qrr_n35_cached_enable_single_mul_base{b}.json")
+              assert old.exists(),old
+          print("PREREGISTERED: no QPU, both old source baselines exist")
+          PY
+      - name: Exhaustive every-public-constant emitted adder and full controlled multiplier gate proofs; CPU compiler only
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 480s python -u hardware/qrr_n35_public_prefix_carry_single_modmul.py --base "$BASE" \
+            | tee "qrr_n35_public_prefix_carry_base${BASE}.log"
+      - name: Independently check 128 full gate outputs + all modular constant additions and native compiler receipt
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          base=int(os.environ['BASE'])
+          old=json.loads(Path(f"results/ibm_shor35_ripple_cached_controls/qrr_n35_cached_enable_single_mul_base{base}.json").read_text())
+          new=json.loads(Path(f"results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base{base}.json").read_text())
+          assert new['revision']=='qrr-n35-public-prefix-carry-constant-adder-v1-20261016'
+          assert new['N']==35 and new['base']==base
+          assert new['previous_baseline']=={
+              'cz':old['native_cz'],'depth':old['native_depth'],
+              'primitive':old['proof']['primitive_gate_count'],
+              'logical':old['source_logical_qubits']}
+          assert new['target_backend']=='ibm_fez' and new['optimization_level']==1 and new['seed_transpiler']==8776
+          assert new['no_QPU_runtime'] is True and new['qpu_jobs_submitted']==0
+          assert new['true_order_not_used'] and new['orbit_not_used']
+          sub=new['modadd_subroutine_proof']
+          assert sub['pass_all'] and sub['real_instruction_interpreter'] and sub['all_aux_clean']
+          assert sub['unique_count']>=8
+          assert sub['ideal_gate_cases']==sub['unique_count']*99
+          assert all(x['pass_all'] and x['all_aux_clean'] and x['input_cases']==99 for x in sub['per_constant'])
+          full=new['complete_multiplier_proof']
+          assert full['pass_all'] and full['actual_emitted_instruction_interpreter']
+          assert full['exhaustive_control_residue_inputs']==128 and full['all_aux_25_clean']
+          assert set(full['source_primitive_gate_counts'])=={'x','cx','ccx'}
+          assert new['application_logical_qubits']==32
+          assert new['status']=='COMPILE_SUCCESS' and new['success']
+          assert new['native_cz']>=0 and new['native_depth']>=0
+          assert new['native_ops']['cz']==new['native_cz']
+          assert new['frozen_limit_cz']==800 and new['frozen_limit_depth']==2000
+          assert new['engineering_gain_both_cz_depth']==(
+              new['native_cz']<old['native_cz'] and new['native_depth']<old['native_depth'])
+          assert new['qpu_feasibility_pass']==(new['native_cz']<=800 and new['native_depth']<=2000)
+          print('AUDIT VALID',base,'sub-gate checks',sub['ideal_gate_cases'],
+              'full-gate checks',full['exhaustive_control_residue_inputs'],
+              'CZ',old['native_cz'],'->',new['native_cz'],'depth',
+              old['native_depth'],'->',new['native_depth'],
+              'engineering',new['engineering_gain_both_cz_depth'],
+              'hardware',new['qpu_feasibility_pass'],'NO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-prefix-carry-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_public_prefix_carry_base*.log
+            results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base*.json
