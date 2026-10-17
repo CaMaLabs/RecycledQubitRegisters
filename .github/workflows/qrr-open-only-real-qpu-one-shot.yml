@@ -4,7 +4,7 @@ on:
   workflow_dispatch:  # explicit user-initiated rerun after IBM Open credentials are available
   push:
     paths:
-      - .github/workflows/qrr-open-only-real-qpu-one-shot.yml
+      - .github/workflows/qrr-open-only-real-qpu-one-shot.yml  # credential-availability retrigger; single workflow only
 
 permissions:
   contents: write
