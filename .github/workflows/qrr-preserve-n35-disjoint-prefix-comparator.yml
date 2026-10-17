@@ -1,0 +1,100 @@
+name: Independently verify/preserve original N35 disjoint comparator negative results
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-disjoint-prefix-comparator.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-disjoint-public-prefix-preserve-v1
+  cancel-in-progress: false
+
+jobs:
+  original-receipt-audit-and-preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Retrieve ORIGINAL source-run artifacts, do not recompile
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39071031851
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-disjoint-public-comparator-base*-original
+          merge-multiple: true
+          path: _original_source_artifacts
+      - name: Copy only two original JSON receipts
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_disjoint_prefix_comparator
+          for base in 2 8; do
+            f="qrr_n35_disjoint_comparator_base${base}.json"
+            hits="$(find _original_source_artifacts -type f -name "$f" | wc -l)"
+            test "$hits" -eq 1 || { echo "Expected exactly one original $f; found $hits"; exit 1; }
+            find _original_source_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_disjoint_prefix_comparator/ '{}' +
+          done
+      - name: Independently check gate proofs, original frozen numeric baseline and no-QPU policy
+        run: |
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          root=Path('results/ibm_shor35_disjoint_prefix_comparator')
+          oldroot=Path('results/ibm_shor35_public_prefix_carry')
+          expected={2:(21839,49751,2538),8:(22727,51441,2647)}
+          for base in (2,8):
+              row=json.loads((root/f'qrr_n35_disjoint_comparator_base{base}.json').read_text())
+              old=json.loads((oldroot/f'qrr_n35_public_prefix_carry_base{base}.json').read_text())
+              assert row['revision']=='qrr-n35-disjoint-prefix-comparator-v1-20261017'
+              assert row['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert row['preregistered_document']=='docs/QRR_N35_DISJOINT_PREFIX_COMPARATOR_PREREG.md'
+              assert row['N']==35 and row['base']==base
+              assert row['true_order_not_used'] and row['orbit_not_used']
+              assert row['old_cached_enable_layout_preserved'] is True
+              assert row['no_QPU_runtime'] is True and row['qpu_jobs_submitted']==0
+              assert row['target_backend']=='ibm_fez' and row['optimization_level']==1 and row['seed_transpiler']==8776
+              assert row['previous_baseline']==dict(cz=old['native_cz'],depth=old['native_depth'],
+                  primitive=old['complete_multiplier_proof']['primitive_gate_count'],
+                  logical=old['application_logical_qubits'])
+              p=row['comparator_gate_proof']
+              assert p['pass_all'] and p['comparator_basis_cases']==42672
+              assert p['unique_comparator_circuits']==240 and p['both_flag_states']
+              assert p['both_controls'] and p['geq_and_lt'] and p['all_carry_scratch_clean']
+              sub=row['modadd_subroutine_proof']
+              assert sub['pass_all'] and sub['real_instruction_interpreter'] and sub['all_aux_clean']
+              assert sub['unique_count']==16 and sub['ideal_gate_cases']==1584
+              assert all(s['pass_all'] and s['input_cases']==99 and s['all_aux_clean'] for s in sub['per_constant'])
+              m=row['complete_multiplier_proof']
+              assert m['pass_all'] and m['actual_emitted_instruction_interpreter']
+              assert m['exhaustive_control_residue_inputs']==128 and m['all_aux_25_clean']
+              assert set(m['source_primitive_gate_counts'])=={'x','cx','ccx'}
+              assert row['application_logical_qubits']==32
+              assert row['status']=='COMPILE_SUCCESS' and row['success']
+              assert (row['native_cz'],row['native_depth'],m['primitive_gate_count'])==expected[base]
+              assert row['compiled_device_width']==156 and row['native_ops']['cz']==row['native_cz']
+              assert row['native_cz']>old['native_cz'] and row['native_depth']>old['native_depth']
+              assert row['engineering_gain_both_cz_depth'] is False
+              assert row['qpu_feasibility_pass'] is False
+              assert row['frozen_limit_cz']==800 and row['frozen_limit_depth']==2000
+              print('VERIFIED source-result',base,'direct comparator 42672, modadd 1584, full 128, all helpers clean;',
+                    'native CZ old->new',old['native_cz'],row['native_cz'],'depth',old['native_depth'],row['native_depth'],
+                    'ENGINEERING NEGATIVE; NO QPU')
+          print('2/2 original unchanged source-result audits SUCCESS. Research negative preserved.')
+          PY
+      - name: Preserve ONLY unchanged original JSON receipts in research repository
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_disjoint_prefix_comparator/qrr_n35_disjoint_comparator_base2.json
+          git add results/ibm_shor35_disjoint_prefix_comparator/qrr_n35_disjoint_comparator_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently verify and preserve both original negative disjoint N35 public-comparator native Fez costs'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
