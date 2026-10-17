@@ -1,6 +1,7 @@
 name: QRR ONE-SHOT real IBM QPU only if active plan cryptographically queried as OPEN
 
 on:
+  workflow_dispatch:  # explicit user-initiated rerun after IBM Open credentials are available
   push:
     paths:
       - .github/workflows/qrr-open-only-real-qpu-one-shot.yml
