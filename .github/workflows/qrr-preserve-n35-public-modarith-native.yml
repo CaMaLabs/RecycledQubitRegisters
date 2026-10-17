@@ -1,0 +1,112 @@
+name: Preserve original four N35 public-arithmetic zero-QPU native receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-public-modarith-native.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-arithmetic-verified-original-preservation
+  cancel-in-progress: false
+
+jobs:
+  audit-four-fixed-arms-and-preserve-original:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Independently download original four source-job receipts, never recompiling
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38996345928
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-modarith-*-original
+          merge-multiple: true
+          path: _unaltered_source_artifacts
+      - name: Copy exact original four numerical JSONs
+        run: |
+          set -eu
+          mkdir -p results/ibm_shor35_modarith_identity_pruned
+          for kind in recycled wide; do
+            for label in plain cube; do
+              name="qrr_n35_public_modarith_${kind}_${label}.json"
+              count="$(find _unaltered_source_artifacts -type f -name "$name" | wc -l)"
+              test "$count" -eq 1 || { echo "Expected one original receipt for $name, saw $count"; exit 1; }
+              find _unaltered_source_artifacts -type f -name "$name" -exec cp -t results/ibm_shor35_modarith_identity_pruned/ '{}' +
+            done
+          done
+      - name: Strict independent numerical audit of all four public arms and old full-permutation control
+        run: |
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          root=Path('results/ibm_shor35_modarith_identity_pruned')
+          perm=Path('results/ibm_shor35_generic_permutation')
+          good=0
+          fail_feasibility=0
+          original={}
+          for kind in ('recycled','wide'):
+              for base,label in ((2,'plain'),(8,'cube')):
+                  p=root/f'qrr_n35_public_modarith_{kind}_{label}.json'
+                  d=json.loads(p.read_text())
+                  assert d['revision']=='qrr-n35-public-reversible-shift-add-cube-v1-20261016'
+                  assert d['N']==35 and d['base']==base and d['architecture']==kind
+                  assert d['backend']=='ibm_fez' and d['phase_bits']==4
+                  assert d['optimization_level']==1 and d['seed_transpiler']==8776
+                  assert d['true_order_used_in_circuit_construction'] is False
+                  assert d['orbit_encoding_used'] is False
+                  assert d['explicit_64_state_permutation_synthesis_used'] is False
+                  assert d['semantic_reference_verified'] and d['semantic_self_test']['pass']
+                  assert d['qpu_submitted'] is False and d['qpu_jobs_submitted']==0
+                  assert d['phase_power_multipliers']==([2,4,16,11] if base==2 else [8,29,1,1])
+                  assert d['identity_rounds']==([] if base==2 else [2,3])
+                  assert d['status']=='COMPILE_SUCCESS' and d['success']
+                  expected_logical=26 if kind=='recycled' else 29
+                  assert d['source_logical_qubits']==expected_logical
+                  v=d['stats']
+                  assert v['logical_qubits']==expected_logical
+                  assert v['native_cz']>0 and v['native_depth']>0 and v['native_size']>0
+                  assert v['compile_seconds']>=0
+                  assert v['compiled_device_width']==156
+                  assert v['max_heuristic_cz']==800 and v['max_heuristic_depth']==2000
+                  assert not v['native_hardware_feasibility_pass']
+                  original[(kind,label)]=v
+                  good+=1
+                  fail_feasibility+=1
+                  print('VERIFIED',kind,label,'CZ',v['native_cz'],'DEPTH',v['native_depth'],
+                        'SOURCE_LOGICAL',v['logical_qubits'])
+              p=json.loads((perm/f'qrr_n35_cube_feasibility_4b_{kind}.json').read_text())
+              assert p['N']==35 and p['seed_base']==2 and p['transformed_base']==8
+              for label in ('plain','cube'):
+                  m='baseline' if label=='plain' else 'preconditioned'
+                  orig=next(r for r in p['rows'] if r['label']==m)
+                  a=original[(kind,label)]
+                  # Different compiler optimization levels; use only as
+                  # descriptive cross-method scale, NOT a controlled ablation.
+                  assert a['native_cz']>orig['cz']
+                  assert a['native_depth']>orig['compiled_depth']
+              assert original[(kind,'cube')]['native_cz']<original[(kind,'plain')]['native_cz']
+              assert original[(kind,'cube')]['native_depth']<original[(kind,'plain')]['native_depth']
+          assert good==4 and fail_feasibility==4
+          print('SUCCESS: EXACT FOUR unchanged original CPU/target-native compiler results. All physical run gates FAIL. ZERO QPU.')
+          PY
+      - name: Commit original receipts only, without modifying numeric contents
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_modarith_identity_pruned/qrr_n35_public_modarith_recycled_plain.json
+          git add results/ibm_shor35_modarith_identity_pruned/qrr_n35_public_modarith_recycled_cube.json
+          git add results/ibm_shor35_modarith_identity_pruned/qrr_n35_public_modarith_wide_plain.json
+          git add results/ibm_shor35_modarith_identity_pruned/qrr_n35_public_modarith_wide_cube.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve all N35 public arithmetic compiler costs and infeasible native gate thresholds"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
