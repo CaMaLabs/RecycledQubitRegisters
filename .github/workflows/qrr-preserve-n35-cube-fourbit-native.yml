@@ -30,8 +30,10 @@ jobs:
         run: |
           set -eu
           mkdir -p results/ibm_shor35_generic_permutation
-          cp _source_receipts/qrr_n35_cube_feasibility_4b_recycled.json results/ibm_shor35_generic_permutation/
-          cp _source_receipts/qrr_n35_cube_feasibility_4b_wide.json results/ibm_shor35_generic_permutation/
+          find _source_receipts -type f -name 'qrr_n35_cube_feasibility_4b_recycled.json' -exec cp -t results/ibm_shor35_generic_permutation/ '{}' +
+          find _source_receipts -type f -name 'qrr_n35_cube_feasibility_4b_wide.json' -exec cp -t results/ibm_shor35_generic_permutation/ '{}' +
+          test -s results/ibm_shor35_generic_permutation/qrr_n35_cube_feasibility_4b_recycled.json
+          test -s results/ibm_shor35_generic_permutation/qrr_n35_cube_feasibility_4b_wide.json
           python3 - <<'PY'
           import json,math
           from pathlib import Path
