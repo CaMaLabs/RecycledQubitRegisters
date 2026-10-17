@@ -169,14 +169,25 @@ def exhaustive_local_clean_chain():
         controls = list(control) if control is not None else []
         relative_phase_clean_multi_x(qc, controls, target[0], scratch)
         idx, instr, counts = actual_complex_instructions(qc)
+        # Qiskit may give RCCXGate.inverse() the SAME name 'rccx':
+        # it is self-inverse in that representation. Check the ACTUAL
+        # matrix product, rather than assuming an invented 'rccx_dg' label.
+        forward_op=np.asarray(Operator(RCCXGate()).data,dtype=complex)
+        inverse_op=np.asarray(Operator(RCCXGate().inverse()).data,dtype=complex)
+        assert np.allclose(inverse_op @ forward_op,np.eye(8),atol=EPS),(
+            'Relative-phase compute/uncompute operators not inverses')
+        reverse_name=RCCXGate().inverse().name
         if n >= 3:
-            assert counts.get("rccx",0) == n - 2
-            assert counts.get("rccx_dg",0) == n - 2
-            assert counts.get("ccx",0) == 1
+            assert counts.get("ccx",0) == 1,(n,counts)
+            if reverse_name=="rccx":
+                assert counts.get("rccx",0)==2*(n-2),(n,counts)
+            else:
+                assert counts.get("rccx",0)==n-2,(n,counts)
+                assert counts.get(reverse_name,0)==n-2,(n,counts)
         else:
-            assert counts.get("rccx",0) == 0 and counts.get("rccx_dg",0) == 0
-        count_rccx += counts.get("rccx",0)
-        count_inverse += counts.get("rccx_dg",0)
+            assert counts.get("rccx",0) == 0 and counts.get("rccx_dg",0) == 0,(n,counts)
+        count_rccx += max(0,n-2)
+        count_inverse += max(0,n-2)
         positions = [idx[q] for q in controls]
         target_pos = idx[target[0]]
         aux_pos = [idx[q] for q in scratch]
@@ -205,7 +216,9 @@ def exhaustive_local_clean_chain():
         exact_complex_output_phase_plus_one=True,
         local_source_counts=gate_sizes,
         relative_toffolis_observed=count_rccx,
-        inverse_relative_toffolis_observed=count_inverse)
+        inverse_relative_toffolis_observed=count_inverse,
+        inverse_gate_name=RCCXGate().inverse().name,
+        inverse_operator_matrix_product_identity=True)
 
 
 def exhaustive_modadd_phases(public_constants):
