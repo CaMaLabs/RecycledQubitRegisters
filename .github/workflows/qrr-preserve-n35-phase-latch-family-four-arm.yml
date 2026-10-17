@@ -1,0 +1,128 @@
+name: Independently preserve original 4 N35 phase-latch family ablation artifacts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-phase-latch-family-four-arm.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-phase-latch-family-original-receipts-v1
+  cancel-in-progress: false
+
+jobs:
+  independently-audit-four-originals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download original 4-arm source-run artifacts WITHOUT rerunning science
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39074602823
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-phase-latch-family-*-original
+          merge-multiple: true
+          path: _original_4arm_latch_artifacts
+      - name: Copy the exactly four original result JSON bytes
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_phase_latch_family_ablation
+          for variant in active_only enable_only; do
+            for base in 2 8; do
+              f="qrr_n35_${variant}_base${base}.json"
+              hits="$(find _original_4arm_latch_artifacts -type f -name "$f" | wc -l)"
+              test "$hits" -eq 1 || { echo "Not exactly one original source-result $f: found $hits"; exit 1; }
+              find _original_4arm_latch_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_phase_latch_family_ablation/ '{}' +
+            done
+          done
+      - name: Independently audit all four phase proofs, old original native gates, and family PASS/FAIL
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('results/ibm_shor35_phase_latch_family_ablation')
+          expected={('active_only',2):(9042,21541,598,158,1033,True),
+                    ('active_only',8):(9156,21820,618,160,1077,True),
+                    ('enable_only',2):(8756,21007,620,136,1033,True),
+                    ('enable_only',8):(9424,21995,640,138,1077,False)}
+          by_family={}
+          for variant in ('active_only','enable_only'):
+              by_family[variant]=[]
+              for base in (2,8):
+                  old=json.loads(Path(f'results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{base}.json').read_text())
+                  both=json.loads(Path(f'results/ibm_shor35_phase_cached_latch/qrr_n35_phase_cached_latch_base{base}.json').read_text())
+                  d=json.loads((root/f'qrr_n35_{variant}_base{base}.json').read_text())
+                  assert d['revision']=='qrr-n35-phase-latch-family-ablation-v1-20261017'
+                  assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+                  assert d['preregistration']=='docs/QRR_N35_RELATIVE_PHASE_LATCH_FAMILY_ABLATION_PREREG.md'
+                  assert d['N']==35 and d['base']==base and d['variant']==variant
+                  p=old['full_modmul_phase_proof']['quantum_source_gate_counts']
+                  assert d['original_neither_baseline']==dict(cz=old['native_cz'],
+                      depth=old['native_depth'],logical=32,
+                      rccx=p['rccx'],ccx=p['ccx'],cx=p['cx'],x=p['x'])
+                  assert d['original_combined_baseline']==dict(cz=both['native_cz'],depth=both['native_depth'])
+                  assert d['input_order_not_injected'] and d['secret_factors_not_used']
+                  assert d['precomputed_multiplicative_orbit_not_used']
+                  assert d['actual_qpu_jobs']==0 and d['no_quantum_runtime'] and d['no_paid_runtime']
+                  assert d['backend_target']=='ibm_fez' and d['optimization_level']==1 and d['seed_transpiler']==8776
+                  latch=d['local_rccx_latch_phase_proof']
+                  assert latch['pass_all'] and latch['direct_actual_operator_cases']==8
+                  assert latch['operator_product_is_identity'] and latch['output_complex_phase_exactly_plus_one']
+                  c=d['unchanged_comparator_phase_proof']
+                  assert c['pass_all'] and c['actual_gate_comparator_cases']==42672
+                  assert c['exact_complex_phase_plus_one'] and c['all_carry_scratch_clean']
+                  mod=d['unchanged_modadd_phase_proof']
+                  assert mod['pass_all'] and mod['source_gate_cases']==1584 and mod['unique_constants']==16
+                  assert mod['exact_complex_phase_plus_one'] and mod['clean_helpers']
+                  whole=d['full_multiplier_phase_proof']
+                  assert whole['pass_all'] and whole['full_residue_control_basis_cases']==128
+                  assert whole['exact_complex_output_phase_plus_one'] and whole['all_25_auxiliaries_clean']
+                  assert whole['output_equals_public_modular_multiplication']
+                  assert d['source_logical_qubits']==32
+                  n=2 if variant=='active_only' else 24
+                  assert d['predicted_source_replacement_count']==n
+                  assert d['actual_latch_replacement_count']==n
+                  native_cz,native_depth,rccx,ccx,cx,eng=expected[(variant,base)]
+                  assert d['expected_source_gate_distribution']==dict(cx=cx,rccx=rccx,x=28,ccx=ccx)
+                  assert whole['quantum_source_gate_counts']==dict(cx=cx,rccx=rccx,x=28,ccx=ccx)
+                  assert d['status']=='COMPILE_SUCCESS' and d['success']
+                  assert d['compiled_native_cz']==native_cz and d['compiled_native_depth']==native_depth
+                  assert d['compiled_native_ops']['cz']==native_cz
+                  assert d['compiled_device_width']==156
+                  assert d['cz_delta_from_neither']==native_cz-old['native_cz']
+                  assert d['depth_delta_from_neither']==native_depth-old['native_depth']
+                  assert d['engineering_arm_both_metrics_improve'] is eng
+                  assert d['hardware_gate_pass'] is False
+                  assert d['device_native_cz_cutoff']==800 and d['device_native_depth_cutoff']==2000
+                  by_family[variant].append(eng)
+                  print('AUDITED ORIGINAL',variant,'base',base,
+                      'all 8+42672+1584+128 +1 phase gate states',
+                      'CZ',old['native_cz'],'->',native_cz,
+                      'depth',old['native_depth'],'->',native_depth,
+                      'engineering',eng,'hardware FAIL, zero QPU')
+          assert len(by_family)==2 and all(len(x)==2 for x in by_family.values())
+          assert all(by_family['active_only'])
+          assert by_family['enable_only']==[True,False]
+          print('PRE-REGISTERED TWO-BASE FAMILY GATES: active_only PASS, enable_only FAIL')
+          print('4 original source JSONs independently verified WITHOUT rescore/recompilation')
+          PY
+      - name: Commit original numerical results as immutable evidence
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_phase_latch_family_ablation/qrr_n35_active_only_base2.json
+          git add results/ibm_shor35_phase_latch_family_ablation/qrr_n35_active_only_base8.json
+          git add results/ibm_shor35_phase_latch_family_ablation/qrr_n35_enable_only_base2.json
+          git add results/ibm_shor35_phase_latch_family_ablation/qrr_n35_enable_only_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: preserve original four-arm N35 phase-exact active-only/enable-only latch family ablation and two-base mixed gate'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
