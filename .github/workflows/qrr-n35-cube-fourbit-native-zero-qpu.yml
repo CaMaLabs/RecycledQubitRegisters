@@ -1,0 +1,107 @@
+name: QRR N35 public cube four-bit native Fez zero-QPU preflight
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-cube-fourbit-native-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-cube-zero-qpu-public-base-paired
+  cancel-in-progress: false
+
+jobs:
+  full-register-order-independent-n35-compile:
+    name: N35 4bit zero-QPU ${{ matrix.kind }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    strategy:
+      fail-fast: false
+      matrix:
+        kind: [recycled, wide]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install prior fixed IBM native target compiler API
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Freeze no-Sampler/no-QPU source boundary and base semantics
+        env:
+          KIND: ${{ matrix.kind }}
+        run: |
+          python3 - <<'PY'
+          import ast,math
+          from pathlib import Path
+          src=Path('hardware/ibm_shor35_public_odd_power_preflight.py').read_text()
+          tree=ast.parse(src)
+          assert 'SamplerV2' not in src and 'sampler.run' not in src
+          assert 'job.run' not in src and 'job.submit' not in src
+          assert pow(2,3,35)==8 and math.gcd(2,35)==1
+          def order(b):
+              x=1
+              for i in range(1,100):
+                  x=x*b%35
+                  if x==1:return i
+          assert order(2)==12 and order(8)==4
+          assert pow(2,6,35)==pow(8,2,35)==29
+          assert math.gcd(28,35)==7 and math.gcd(30,35)==5
+          assert Path('docs/QRR_N35_PUBLIC_CUBE_NATIVE_FOUR_BIT_PREREG.md').exists()
+          print('4bit exact N35 public semiprime base/order witness and no-Sampler script checked.')
+          PY
+      - name: Compile BOTH unchanged and public-cube bases against live IBM Fez target; ZERO QPU
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          KIND: ${{ matrix.kind }}
+        run: |
+          set -o pipefail
+          mkdir -p results/ibm_shor35_generic_permutation
+          timeout --signal=TERM --kill-after=30s 1200s python3 -u hardware/ibm_shor35_public_odd_power_preflight.py \
+            --backend ibm_fez --seed-base 2 --exponent 3 \
+            --phase-bits 4 --kind "$KIND" \
+            --profile 1_clean_kg24 --optimization-level 2 --seeds 8776 \
+            --outdir results/ibm_shor35_generic_permutation \
+            | tee "qrr_n35_cube_4b_${KIND}_compile.log"
+          python3 - <<'PY'
+          import glob,json,os,shutil
+          from pathlib import Path
+          kind=os.environ['KIND']
+          root=Path('results/ibm_shor35_generic_permutation')
+          original=sorted(root.glob('n35_public_odd_power_preflight_*.json'))
+          assert len(original)==1,original
+          dst=root/f'qrr_n35_cube_feasibility_4b_{kind}.json'
+          shutil.copyfile(original[0],dst)
+          obj=json.loads(dst.read_text())
+          assert obj['backend']=='ibm_fez' and obj['N']==35
+          assert obj['seed_base']==2 and obj['transformed_base']==8
+          assert obj['validation_orders']=={'seed_base':12,'transformed_base':4}
+          assert obj['phase_bits']==[4] and obj['kinds']==[kind]
+          assert obj['seeds']==[8776] and obj['optimization_level']==2
+          assert obj['profile']=='1_clean_kg24'
+          assert obj['order_used_in_circuit_construction'] is False
+          assert obj['orbit_encoding_used'] is False
+          assert len(obj['rows'])==2
+          assert {x['label'] for x in obj['rows']}=={'baseline','preconditioned'}
+          for x in obj['rows']:
+              assert x['phase_bits']==4 and x['kind']==kind
+              assert x['success'],x.get('error','generic circuit compilation failed')
+              assert x['seed_transpiler']==8776
+              assert x['validation_order']==(12 if x['label']=='baseline' else 4)
+              assert x['logical_qubits']>0
+              assert x['compiled_depth']>=0 and x['cz']>=0
+          print('AUDITED two order-independent full residue (not orbit compiled) N35 base arms, zero QPU')
+          print('COST_COMPARISON',json.dumps(obj['comparisons'],sort_keys=True))
+          print('FROZEN_RESULT_PATH',dst)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-4bit-native-${{ matrix.kind }}-original-receipt
+          path: |
+            qrr_n35_cube_4b_*.log
+            results/ibm_shor35_generic_permutation/qrr_n35_cube_feasibility_4b_*.json
+            results/ibm_shor35_generic_permutation/n35_public_odd_power_preflight_*.json
