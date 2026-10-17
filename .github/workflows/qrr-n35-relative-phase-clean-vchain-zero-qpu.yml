@@ -1,4 +1,5 @@
 name: QRR N35 relative-phase CLEAN V-chain exact unitary zero QPU
+# Second harness-only correction: Qiskit inverse RCCX has name rccx and actual operator inverse checked in source.
 # Diagnostic rerun: only prints exact failed phase-proof assertion stack; no circuit gate change.
 
 on:
@@ -92,7 +93,8 @@ jobs:
           assert whole['all_25_auxiliaries_clean'] and whole['exact_complex_output_phase_plus_one']
           assert whole['output_equals_public_modular_multiplication']
           assert whole['quantum_source_gate_counts'].get('rccx',0)>0
-          assert whole['quantum_source_gate_counts'].get('rccx_dg',0)>0
+          assert local['inverse_operator_matrix_product_identity']
+          assert whole['quantum_source_gate_counts'].get('rccx',0)>0
           assert d['source_logical_qubits']==32
           assert d['status']=='COMPILE_SUCCESS' and d['success']
           assert d['compiled_native_ops']['cz']==d['native_cz']
