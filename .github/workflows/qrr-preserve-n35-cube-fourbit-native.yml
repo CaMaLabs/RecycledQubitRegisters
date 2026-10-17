@@ -1,0 +1,85 @@
+name: Preserve verified N35 public cube native zero-QPU receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-cube-fourbit-native.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  independent-original-artifact-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch original N35 4-bit recycled/wide compiler-run artifacts without recompiling
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38995707019
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-4bit-native-*-original-receipt
+          merge-multiple: true
+          path: _source_receipts
+      - name: Verify exact two original fixed full-residue JSONs and all native cost gates
+        run: |
+          set -eu
+          mkdir -p results/ibm_shor35_generic_permutation
+          cp _source_receipts/qrr_n35_cube_feasibility_4b_recycled.json results/ibm_shor35_generic_permutation/
+          cp _source_receipts/qrr_n35_cube_feasibility_4b_wide.json results/ibm_shor35_generic_permutation/
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          root=Path('results/ibm_shor35_generic_permutation')
+          statuses={}
+          for kind in ('recycled','wide'):
+              p=root/f'qrr_n35_cube_feasibility_4b_{kind}.json'
+              d=json.loads(p.read_text())
+              assert d['experiment']=='n35_public_odd_power_precondition_preflight_v1'
+              assert d['backend']=='ibm_fez' and d['N']==35
+              assert d['seed_base']==2 and d['public_exponent']==3 and d['transformed_base']==8
+              assert d['public_condition_N_mod_3_eq_2'] and d['validation_orders']=={'seed_base':12,'transformed_base':4}
+              assert d['order_used_in_circuit_construction'] is False and d['orbit_encoding_used'] is False
+              assert d['construction']=='full_residue_permutation_from_N_and_transformed_base'
+              assert d['phase_bits']==[4] and d['kinds']==[kind]
+              assert d['profile']=='1_clean_kg24' and d['optimization_level']==2 and d['seeds']==[8776]
+              assert len(d['rows'])==2
+              by_label={row['label']:row for row in d['rows']}
+              assert set(by_label)=={'baseline','preconditioned'}
+              for label,base,order in (('baseline',2,12),('preconditioned',8,4)):
+                  r=by_label[label]
+                  assert r['success'] and r['base']==base and r['validation_order']==order
+                  assert r['phase_bits']==4 and r['kind']==kind
+                  assert r['profile']==d['profile'] and r['optimization_level']==2 and r['seed_transpiler']==8776
+                  assert r['order_used_in_circuit_construction'] is False and r['orbit_encoding_used'] is False
+                  assert r['logical_qubits']>0 and r['compiled_depth']>0 and r['cz']>0
+                  assert r['compiled_size']>0 and r['compile_seconds']>=0
+              b,c=by_label['baseline'],by_label['preconditioned']
+              cmp=d['comparisons'][f'4b_{kind}']
+              assert cmp['baseline_cz']==b['cz'] and cmp['preconditioned_cz']==c['cz']
+              assert cmp['baseline_depth']==b['compiled_depth'] and cmp['preconditioned_depth']==c['compiled_depth']
+              assert math.isclose(cmp['cz_reduction_fraction'],(b['cz']-c['cz'])/b['cz'])
+              assert math.isclose(cmp['depth_reduction_fraction'],(b['compiled_depth']-c['compiled_depth'])/b['compiled_depth'])
+              # Frozen 800 CZ/2000-depth requires ALL four arms to pass.
+              statuses[kind]={'baseline_cz':b['cz'],'cube_cz':c['cz'],
+                 'baseline_depth':b['compiled_depth'],'cube_depth':c['compiled_depth'],
+                 'pass_real_qpu_heuristic':all(x['cz']<=800 and x['compiled_depth']<=2000 for x in (b,c))}
+              print('ORIGINAL_N35',kind,json.dumps(statuses[kind]),flush=True)
+          assert all(not x['pass_real_qpu_heuristic'] for x in statuses.values())
+          print('RESULT: order/blind full-residue compilation costs improved on BOTH architectures but REAL QPU gate FAILS, ZERO QPU')
+          PY
+      - name: Commit unchanged original source JSON receipts (no recompilation)
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_generic_permutation/qrr_n35_cube_feasibility_4b_recycled.json
+          git add results/ibm_shor35_generic_permutation/qrr_n35_cube_feasibility_4b_wide.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve actual frozen N35 4bit Fez native compile receipts, both too deep for QPU"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
