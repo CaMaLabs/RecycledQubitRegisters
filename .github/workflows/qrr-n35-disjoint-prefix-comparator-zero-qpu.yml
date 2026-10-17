@@ -1,0 +1,97 @@
+name: QRR N35 disjoint prefix comparator exact gates ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-disjoint-prefix-comparator-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-disjoint-prefix-comparator-zeroqpu-v1
+  cancel-in-progress: false
+
+jobs:
+  two-arm-comparator-study:
+    name: public N35 base ${{ matrix.base }} comparator 21336+1584+128 basis proofs, Fez CPU only
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2, 8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install fixed backend compiler only
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Verify frozen prereg, comparator source integrity and old baseline receipts
+        run: |
+          test -s docs/QRR_N35_DISJOINT_PREFIX_COMPARATOR_PREREG.md
+          python -m py_compile hardware/qrr_n35_disjoint_prefix_comparator_single_modmul.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_disjoint_prefix_comparator_single_modmul.py').read_text()
+          assert all(term not in s for term in ("SamplerV2","EstimatorV2","sampler.run","job.submit","job.run","job.result"))
+          assert "exhaustive_comparator_gate_proof" in s
+          assert "unique_comparator_circuits" in s
+          assert "exhaustive_modadd_gate_test" in s
+          assert "verified.exhaustive_actual_gate_proof" in s
+          assert "primitive.modadd=optimized_modadd" in s
+          for b in (2,8):
+              assert Path(f"results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base{b}.json").exists()
+          print('Source/prereg/old verified baselines OK; absolutely zero QPU submission.')
+          PY
+      - name: Exhaustive emitted-gate comparator/subroutine/kernel proofs, then READ-ONLY IBM Fez native target compilation
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 480s python -u hardware/qrr_n35_disjoint_prefix_comparator_single_modmul.py --base "$BASE" | tee "qrr_n35_disjoint_prefix_base${BASE}.log"
+      - name: Verify original immutable results and direct gate-level primitive proofs
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          b=int(os.environ['BASE'])
+          z=json.loads(Path(f'results/ibm_shor35_disjoint_prefix_comparator/qrr_n35_disjoint_comparator_base{b}.json').read_text())
+          old=json.loads(Path(f'results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base{b}.json').read_text())
+          assert z['revision']=='qrr-n35-disjoint-prefix-comparator-v1-20261017'
+          assert z['N']==35 and z['base']==b and z['target_backend']=='ibm_fez'
+          assert z['no_QPU_runtime'] and z['qpu_jobs_submitted']==0
+          assert z['true_order_not_used'] and z['orbit_not_used']
+          assert z['optimization_level']==1 and z['seed_transpiler']==8776
+          assert z['previous_baseline']==dict(cz=old['native_cz'],depth=old['native_depth'],primitive=old['complete_multiplier_proof']['primitive_gate_count'],logical=old['application_logical_qubits'])
+          assert z['comparator_gate_proof']['pass_all'] and z['comparator_gate_proof']['comparator_basis_cases']==21336
+          assert z['comparator_gate_proof']['all_carry_scratch_clean']
+          assert z['modadd_subroutine_proof']['pass_all'] and z['modadd_subroutine_proof']['ideal_gate_cases']==1584
+          assert z['modadd_subroutine_proof']['unique_count']==16
+          assert z['complete_multiplier_proof']['pass_all']
+          assert z['complete_multiplier_proof']['exhaustive_control_residue_inputs']==128
+          assert z['complete_multiplier_proof']['all_aux_25_clean']
+          assert z['application_logical_qubits']==32
+          assert z['status']=='COMPILE_SUCCESS' and z['success']
+          assert z['native_ops']['cz']==z['native_cz'] and z['native_depth']>0
+          assert z['frozen_limit_cz']==800 and z['frozen_limit_depth']==2000
+          assert z['engineering_gain_both_cz_depth']==(z['native_cz']<old['native_cz'] and z['native_depth']<old['native_depth'])
+          assert z['qpu_feasibility_pass']==(z['native_cz']<=800 and z['native_depth']<=2000)
+          print('AUDITED',b,'21336 comparator, 1584 modadd, 128 full kernel direct actual gate checks',
+                'CZ',old['native_cz'],'->',z['native_cz'],
+                'depth',old['native_depth'],'->',z['native_depth'],
+                'engineering',z['engineering_gain_both_cz_depth'],'device',z['qpu_feasibility_pass'],'NO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-disjoint-public-comparator-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_disjoint_prefix_base*.log
+            results/ibm_shor35_disjoint_prefix_comparator/qrr_n35_disjoint_comparator_base*.json
