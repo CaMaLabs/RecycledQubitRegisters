@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime,timezone
-import json,math,time
+import json,math,time,os
 from pathlib import Path
 
 from qiskit import QuantumCircuit,QuantumRegister
@@ -216,8 +216,9 @@ def run(base):
             "basis",receipt["primitive_equivalence"]["tested_basis_inputs"],
             "all helpers CLEAN","prim_gates",qc.size(),"logical",qc.num_qubits,flush=True)
         # Backend target READ only, no sampler construction, job submission.
+        token=os.environ.get("IBM_QUANTUM_API_KEY","").strip()
         service=QiskitRuntimeService(channel="ibm_quantum_platform",
-            plans_preference=["open"])
+            plans_preference=["open"],**({"token":token} if token else {}))
         backend=service.backend("ibm_fez")
         if getattr(backend,"simulator",False):raise RuntimeError("Not hardware backend")
         if backend.num_qubits<qc.num_qubits:raise RuntimeError("backend too small")
