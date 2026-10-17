@@ -1,0 +1,124 @@
+name: Independently preserve 4 original N35 prefix-vs-threshold component artifacts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-prefix-threshold-component-ablation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n35-prefix-threshold-isolated-component-receipts
+  cancel-in-progress: false
+
+jobs:
+  audit-and-preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download ORIGINAL 4-arm source-run immutable artifacts without rescoring
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39007742612
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-component-*-original
+          merge-multiple: true
+          path: _original_component_artifacts
+      - name: Find exactly four source-run originals and preserve their bytes
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_prefix_threshold_ablation
+          for variant in prefix_only threshold_only; do
+            for base in 2 8; do
+              filename="qrr_n35_component_${variant}_base${base}.json"
+              matches="$(find _original_component_artifacts -type f -name "$filename" | wc -l)"
+              test "$matches" -eq 1 || { echo "Wrong original source-result count $filename: $matches"; exit 1; }
+              find _original_component_artifacts -type f -name "$filename" -exec cp -t results/ibm_shor35_prefix_threshold_ablation/ '{}' +
+            done
+          done
+      - name: Independent 4/4 public math, gate semantics, fixed old+combined controls and interaction audit
+        run: |
+          python3 - <<'PY'
+          import json, math
+          from pathlib import Path
+          p=Path('results/ibm_shor35_prefix_threshold_ablation')
+          expected={
+             ('prefix_only',2):(14392,38007,1973),
+             ('prefix_only',8):(14948,39590,2015),
+             ('threshold_only',2):(18010,39868,1456),
+             ('threshold_only',8):(19344,42472,1504),
+          }
+          frozen={2:(18719,42335,12517,32312),
+                  8:(19912,44381,12680,33138)}
+          all_results={}
+          for base in (2,8):
+              old=json.loads(Path(f'results/ibm_shor35_ripple_cached_controls/qrr_n35_cached_enable_single_mul_base{base}.json').read_text())
+              both=json.loads(Path(f'results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base{base}.json').read_text())
+              old_cz,old_depth,both_cz,both_depth=frozen[base]
+              assert old['native_cz']==old_cz and old['native_depth']==old_depth
+              assert both['native_cz']==both_cz and both['native_depth']==both_depth
+              for variant in ('prefix_only','threshold_only'):
+                  filename=p/f'qrr_n35_component_{variant}_base{base}.json'
+                  d=json.loads(filename.read_text())
+                  assert d['revision']=='qrr-n35-prefix-vs-threshold-component-ablation-v1-20261016'
+                  assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+                  assert d['preregistered_document']=='docs/QRR_N35_PREFIX_THRESHOLD_COMPONENT_ABLATION_PREREG.md'
+                  assert d['variant']==variant and d['base']==base and d['N']==35
+                  assert d['changed_components']==(
+                     ['public prefix-carry conditional add ONLY'] if variant=='prefix_only' else
+                     ['public divisible-threshold comparator shortening ONLY'])
+                  assert d['previous_baseline']==dict(cz=old['native_cz'],
+                    depth=old['native_depth'],primitive=old['proof']['primitive_gate_count'],
+                    logical=old['source_logical_qubits'])
+                  assert d['true_order_not_used'] and d['orbit_not_used']
+                  assert d['old_cached_enable_layout_preserved']
+                  assert d['no_QPU_runtime'] is True and d['qpu_jobs_submitted']==0
+                  assert d['optimization_level']==1 and d['seed_transpiler']==8776 and d['target_backend']=='ibm_fez'
+                  s=d['modadd_subroutine_proof']
+                  assert s['pass_all'] and s['real_instruction_interpreter'] and s['all_aux_clean']
+                  assert s['unique_count']==16 and s['ideal_gate_cases']==1584 and len(s['per_constant'])==16
+                  assert all(z['pass_all'] and z['all_aux_clean'] and z['input_cases']==99 for z in s['per_constant'])
+                  full=d['complete_multiplier_proof']
+                  assert full['pass_all'] and full['actual_emitted_instruction_interpreter']
+                  assert full['exhaustive_control_residue_inputs']==128 and full['all_aux_25_clean']
+                  assert set(full['source_primitive_gate_counts'])=={'x','cx','ccx'}
+                  assert d['application_logical_qubits']==32
+                  assert d['status']=='COMPILE_SUCCESS' and d['success']
+                  assert (d['native_cz'],d['native_depth'],full['primitive_gate_count'])==expected[(variant,base)]
+                  assert d['compiled_device_width']==156 and d['native_ops']['cz']==d['native_cz']
+                  assert d['native_size']>0 and d['compiler_seconds']>=0
+                  assert d['engineering_gain_both_cz_depth'] is True
+                  assert d['native_cz']<old_cz and d['native_depth']<old_depth
+                  assert d['frozen_limit_cz']==800 and d['frozen_limit_depth']==2000
+                  assert d['qpu_feasibility_pass'] is False
+                  all_results[(variant,base)]=d
+                  print('ORIGINAL ARM VERIFIED',variant,'base',base,'CZ',d['native_cz'],
+                        'depth',d['native_depth'],'128+1584 direct ideal-gate cases, zero QPU')
+              pref=all_results[('prefix_only',base)]
+              short=all_results[('threshold_only',base)]
+              interaction_cz=both_cz-(pref['native_cz']+short['native_cz']-old_cz)
+              interaction_depth=both_depth-(pref['native_depth']+short['native_depth']-old_depth)
+              print('INTERACTION RESIDUAL base',base,'CZ',interaction_cz,'depth',interaction_depth,
+                    'negative means combined variant beats additive prediction')
+          assert len(all_results)==4
+          print('RESULT: all four isolated component experiments verified, original JSON unchanged, immutable real-QPU gate fail')
+          PY
+      - name: Commit ONLY unchanged original source results, no science re-run
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_prefix_threshold_ablation/qrr_n35_component_prefix_only_base2.json
+          git add results/ibm_shor35_prefix_threshold_ablation/qrr_n35_component_prefix_only_base8.json
+          git add results/ibm_shor35_prefix_threshold_ablation/qrr_n35_component_threshold_only_base2.json
+          git add results/ibm_shor35_prefix_threshold_ablation/qrr_n35_component_threshold_only_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently verify/preserve four original isolated N35 prefix-vs-threshold gate proofs and native compilation controls'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
