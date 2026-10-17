@@ -1,0 +1,83 @@
+name: QRR ONE-SHOT real IBM QPU only if active plan cryptographically queried as OPEN
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-open-only-real-qpu-one-shot.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-one-shot-open-only-qpu
+  cancel-in-progress: false
+
+jobs:
+  one-guarded-real-qpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install repository's prior verified Qiskit/IBM Runtime API versions
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: STRICT OPEN-ONLY single Sampler job or fail-closed preflight receipt
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          IBM_QUANTUM_INSTANCE: ${{ secrets.IBM_QUANTUM_INSTANCE }}
+        run: |
+          set -o pipefail
+          python -m py_compile hardware/ibm_runtime_guard.py hardware/qrr_ibm_open_only_real_qpu_pilot.py
+          python -u hardware/qrr_ibm_open_only_real_qpu_pilot.py | tee qrr_real_qpu_open_only.log
+      - name: Validate no paid charges or spurious real QPU claims
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('results/real_qpu/qrr_n15_open_only_real_qpu_pilot.json')
+          if not p.exists():
+              raise SystemExit('No auditable receipt; fail closed, inspect job logs. Cannot claim QPU submission.')
+          d=json.loads(p.read_text())
+          assert d['require_verified_active_plan']=='open'
+          assert d['authorizes_paid_runtime']==False
+          assert d['allow_simulators']==False
+          assert d['shots_per_circuit']==64
+          assert d['max_execution_time_seconds']==30
+          assert d['N']==15 and d['phase_bits']==4
+          if d['submission_performed']:
+              assert d['verified_plan']=='open' and d['final_open_plan_proof'] is True
+              assert isinstance(d['job_id'],str) and d['job_id']
+              assert d['status'] in ('MEASURED_REAL_QPU','SUBMITTED_REAL_QPU','SUBMITTED_PENDING_OR_RESULT_ERROR','SUBMITTED_RESULT_OR_API_ERROR')
+              if d['status']=='MEASURED_REAL_QPU':
+                  assert len(d['results'])==2
+                  assert {x['architecture'] for x in d['results']}=={'wide','recycled'}
+          else:
+              assert d['job_id'] is None
+              assert d['status']=='PREFLIGHT_BLOCKED'
+          print('AUDITED Open-only',d['status'],'backend',d.get('backend','none'),'job_id',d.get('job_id'))
+          PY
+      - name: Preserve one-shot unmodified public result, no API credentials
+        if: always()
+        run: |
+          if [ -f results/real_qpu/qrr_n15_open_only_real_qpu_pilot.json ]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add results/real_qpu/qrr_n15_open_only_real_qpu_pilot.json
+            if ! git diff --cached --quiet; then
+              git commit -m "results: preserve one-shot Open Plan real-QPU proof or no-submission preflight blocker"
+              git push origin "HEAD:${GITHUB_REF_NAME}"
+            fi
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-open-only-real-qpu-one-shot
+          path: |
+            results/real_qpu/qrr_n15_open_only_real_qpu_pilot.json
+            qrr_real_qpu_open_only.log
