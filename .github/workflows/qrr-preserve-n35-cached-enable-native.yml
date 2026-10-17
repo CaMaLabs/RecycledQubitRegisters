@@ -1,0 +1,99 @@
+name: QRR audit and preserve original N35 cached-enable zero-QPU receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-cached-enable-native.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-cached-enable-receipt-verify
+  cancel-in-progress: false
+
+jobs:
+  preserve-original-two:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Retrieve original immutable public-base2 and cube8 compiler artifacts (no rerun)
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39005624438
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-cached-enable-original-base*
+          merge-multiple: true
+          path: _source_original
+      - name: Copy EXACT original JSON results from GitHub Actions artifacts
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_ripple_cached_controls
+          for base in 2 8; do
+            f="qrr_n35_cached_enable_single_mul_base${base}.json"
+            hits="$(find _source_original -type f -name "$f" | wc -l)"
+            test "$hits" -eq 1 || { echo "Original result missing/duplicated $f ($hits)"; exit 1; }
+            find _source_original -type f -name "$f" -exec cp -t results/ibm_shor35_ripple_cached_controls/ '{}' +
+          done
+      - name: Independent frozen baseline, all 128 basis cases, native CZ/depth audit
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          old_root=Path('results/ibm_shor35_ripple_toffoli_kernel')
+          new_root=Path('results/ibm_shor35_ripple_cached_controls')
+          expected={2:(1536,18719,42335),8:(1578,19912,44381)}
+          for base in (2,8):
+              before=json.loads((old_root/f'qrr_n35_toffoli_ripple_single_mul_base{base}.json').read_text())
+              current=json.loads((new_root/f'qrr_n35_cached_enable_single_mul_base{base}.json').read_text())
+              assert current['revision']=='qrr-n35-cached-enable-primitive-modmul-v1-20261016'
+              assert current['lead']=='Chase Lunsford / CaMaLabs'
+              assert current['base']==base and current['N']==35
+              assert current['target_backend']=='ibm_fez'
+              assert current['optimization_level']==1 and current['seed_transpiler']==8776
+              assert current['no_runtime_submission'] is True and current['qpu_jobs']==0
+              assert current['no_order_or_orbit_used'] is True
+              assert current['change']=='precompute/reuse active=phase AND valid and per-source enable=active AND workbit'
+              assert current['baseline']==dict(primitive=before['primitive_equivalence']['primitive_gate_count'],
+                  logical=before['logical_qubits'],cz=before['native_cz'],depth=before['compiled_depth'])
+              proof=current['proof']
+              assert proof['pass_all'] and proof['actual_emitted_instruction_interpreter']
+              assert proof['exhaustive_control_residue_inputs']==128
+              assert proof['all_aux_25_clean'] and proof['full_work_input_values']==64
+              assert proof['control_off_identity'] and proof['invalid_y_identity']
+              assert set(proof['source_primitive_gate_counts'])=={'x','cx','ccx'}
+              assert proof['primitive_gate_count']==sum(proof['source_primitive_gate_counts'].values())
+              assert current['source_logical_qubits']==32
+              assert current['status']=='COMPILE_SUCCESS' and current['success']
+              assert current['compiled_device_width']==156
+              assert current['compiled_native_ops']['cz']==current['native_cz']
+              assert (proof['primitive_gate_count'],current['native_cz'],current['native_depth'])==expected[base]
+              assert current['native_cz']<before['native_cz']
+              assert current['native_depth']<before['compiled_depth']
+              assert current['cz_delta_from_frozen_baseline']==current['native_cz']-before['native_cz']
+              assert current['depth_delta_from_frozen_baseline']==current['native_depth']-before['compiled_depth']
+              assert current['primitive_optimization_pass'] is True
+              assert current['frozen_native_cz_limit']==800 and current['frozen_native_depth_limit']==2000
+              assert current['frozen_hardware_feasibility_pass'] is False
+              print('VERIFIED',base,'all 128 emitted-gate input cases, all aux clean, CZ',
+                  before['native_cz'],'->',current['native_cz'],'depth',
+                  before['compiled_depth'],'->',current['native_depth'],
+                  'HARDWARE_BLOCKED, ZERO QPU',flush=True)
+          print('INDEPENDENT AUDIT OF ORIGINAL 2/2 RESULT ARTIFACTS PASSED')
+          PY
+      - name: Preserve untouched original receipt bytes in research repo
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_ripple_cached_controls/qrr_n35_cached_enable_single_mul_base2.json
+          git add results/ibm_shor35_ripple_cached_controls/qrr_n35_cached_enable_single_mul_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently verify/preserve both 128-state N35 cached-enable native-compiler improvements and device gate failures'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
