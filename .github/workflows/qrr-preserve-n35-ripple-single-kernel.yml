@@ -1,0 +1,87 @@
+name: Preserve 2 original exhaustive N35 ripple-gate proofs and Fez compilation receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-ripple-single-kernel.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  independently-verify-original-results:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download exactly the original two CI source artifacts, NO rerun of compiler
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 38997012532
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-ripple-original-base*
+          merge-multiple: true
+          path: _original_source
+      - name: Copy original two JSON files and confirm no third-party data
+        run: |
+          set -eu
+          mkdir -p results/ibm_shor35_ripple_toffoli_kernel
+          for base in 2 8; do
+            file="qrr_n35_toffoli_ripple_single_mul_base${base}.json"
+            count="$(find _original_source -type f -name "$file" | wc -l)"
+            test "$count" -eq 1 || { echo "Missing or duplicate original $file: $count"; exit 1; }
+            find _original_source -type f -name "$file" -exec cp -t results/ibm_shor35_ripple_toffoli_kernel/ '{}' +
+          done
+      - name: Independently audit all 128 direct-gate inputs, clean helpers, native cost and zero QPU
+        run: |
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          root=Path('results/ibm_shor35_ripple_toffoli_kernel')
+          results={}
+          for a in (2,8):
+              path=root/f'qrr_n35_toffoli_ripple_single_mul_base{a}.json'
+              d=json.loads(path.read_text())
+              assert d['experiment']=='qrr-n35-primitive-clean-ripple-modmul-20261016-v1'
+              assert d['N']==35 and d['base']==a and d['backend_target']=='ibm_fez'
+              assert d['single_controlled_multiplier_no_QPE']
+              assert d['QPU_jobs_submitted']==0 and d['paid_QPU_runtime'] is False
+              assert d['order_injected_into_circuit'] is False and d['orbit_precomputed'] is False
+              assert d['transpiler_seed']==8776 and d['optimization_level']==1
+              eq=d['primitive_equivalence']
+              assert eq['passed'] and eq['tested_basis_inputs']==128
+              assert eq['genuine_gate_level_equivalence']
+              assert eq['all_ancillas_zero'] and eq['invalid_states_identity_checked']
+              assert eq['control_zero_identity_checked']
+              assert set(eq['source_primitive_ops'])=={'x','cx','ccx'}
+              assert d['logical_qubits']==30
+              assert eq['primitive_gate_count']==sum(eq['source_primitive_ops'].values())
+              assert d['status']=='COMPILE_SUCCESS' and d['success']
+              assert d['backend_qubits']==156 and d['compiled_device_width']==156
+              assert d['native_cz']>0 and d['compiled_depth']>0 and d['compiled_size']>0
+              assert d['heuristic_max_cz']==800 and d['heuristic_max_depth']==2000
+              assert d['physical_device_feasible_heuristic'] is False
+              assert d['compiled_native_ops']['cz']==d['native_cz']
+              results[a]={'cz':d['native_cz'],'depth':d['compiled_depth'],
+                  'primitive_gates':eq['primitive_gate_count']}
+              print('VERIFIED ORIGINAL N35',a,'128/128 gates and cleaned scratch',
+                    'CZ',d['native_cz'],'depth',d['compiled_depth'],'NO QPU')
+          assert results[2]=={'cz':27929,'depth':59947,'primitive_gates':1964}
+          assert results[8]=={'cz':29822,'depth':63922,'primitive_gates':2062}
+          assert results[8]['cz']>results[2]['cz']
+          print('SUCCESS: both exact original N35 gate-level-reversible proofs, cube per-MULTIPLIER is costlier, 2/2 hardware feasibility FAILS')
+          PY
+      - name: Commit unchanged original result receipts
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_ripple_toffoli_kernel/qrr_n35_toffoli_ripple_single_mul_base2.json
+          git add results/ibm_shor35_ripple_toffoli_kernel/qrr_n35_toffoli_ripple_single_mul_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: preserve N35 primitive ripple clean-ancilla actual gate proofs and negative native multiplier costs'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
