@@ -1,0 +1,293 @@
+{
+  "revision": "qrr-n35-clean-vchain-relative-phase-v1-20261017",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "date_utc": "2026-10-17T21:47:51.916537+00:00",
+  "preregistration": "docs/QRR_N35_RELATIVE_PHASE_CLEAN_VCHAIN_PREREG.md",
+  "N": 35,
+  "base": 8,
+  "kind": "one public full-residue controlled modular multiplier",
+  "original_compiled_baseline": {
+    "cz": 12680,
+    "depth": 33138,
+    "primitive": 1883,
+    "logical": 32
+  },
+  "frozen_transpiler_optimization_level": 1,
+  "frozen_transpiler_seed": 8776,
+  "read_only_target": "ibm_fez",
+  "native_cz_device_limit": 800,
+  "native_depth_device_limit": 2000,
+  "relative_phase_rccx_only_inside_clean_v_chain": true,
+  "actual_instruction_complex_phase_proof_required": true,
+  "true_multiplicative_order_not_injected": true,
+  "orbit_not_precomputed": true,
+  "qpu_jobs_submitted": 0,
+  "paid_runtime_used": false,
+  "no_quantum_runtime_submission": true,
+  "success": true,
+  "status": "COMPILE_SUCCESS",
+  "local_clean_chain_proof": {
+    "pass_all": true,
+    "direct_gate_basis_cases": 1022,
+    "all_control_sizes_0_through_8": true,
+    "all_scratch_clean": true,
+    "exact_complex_output_phase_plus_one": true,
+    "local_source_counts": {
+      "0": {
+        "x": 1
+      },
+      "1": {
+        "cx": 1
+      },
+      "2": {
+        "ccx": 1
+      },
+      "3": {
+        "rccx": 2,
+        "ccx": 1
+      },
+      "4": {
+        "rccx": 4,
+        "ccx": 1
+      },
+      "5": {
+        "rccx": 6,
+        "ccx": 1
+      },
+      "6": {
+        "rccx": 8,
+        "ccx": 1
+      },
+      "7": {
+        "rccx": 10,
+        "ccx": 1
+      },
+      "8": {
+        "rccx": 12,
+        "ccx": 1
+      }
+    },
+    "relative_toffolis_observed": 21,
+    "inverse_relative_toffolis_observed": 21,
+    "inverse_gate_name": "rccx",
+    "inverse_operator_matrix_product_identity": true
+  },
+  "public_modadd_phase_proof": {
+    "pass_all": true,
+    "source_gate_cases": 1584,
+    "unique_constants": 16,
+    "per_constant": [
+      {
+        "public_constant": 2,
+        "source_gates": {
+          "cx": 83,
+          "ccx": 61,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 4,
+        "source_gates": {
+          "cx": 65,
+          "ccx": 52,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 8,
+        "source_gates": {
+          "cx": 63,
+          "ccx": 45,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 11,
+        "source_gates": {
+          "cx": 95,
+          "ccx": 66,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 13,
+        "source_gates": {
+          "cx": 95,
+          "ccx": 70,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 16,
+        "source_gates": {
+          "cx": 61,
+          "ccx": 40,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 17,
+        "source_gates": {
+          "cx": 86,
+          "ccx": 70,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 19,
+        "source_gates": {
+          "cx": 91,
+          "ccx": 64,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 23,
+        "source_gates": {
+          "cx": 104,
+          "ccx": 68,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 26,
+        "source_gates": {
+          "cx": 89,
+          "ccx": 61,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 27,
+        "source_gates": {
+          "cx": 100,
+          "ccx": 66,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 29,
+        "source_gates": {
+          "cx": 100,
+          "ccx": 70,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 31,
+        "source_gates": {
+          "cx": 113,
+          "ccx": 68,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 32,
+        "source_gates": {
+          "cx": 59,
+          "ccx": 37,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 33,
+        "source_gates": {
+          "cx": 86,
+          "ccx": 70,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      },
+      {
+        "public_constant": 34,
+        "source_gates": {
+          "cx": 84,
+          "ccx": 61,
+          "x": 2
+        },
+        "actual_gate_cases": 99,
+        "clean_aux": true,
+        "exact_phase": true
+      }
+    ],
+    "clean_helpers": true,
+    "exact_complex_phase_plus_one": true,
+    "disabled_identity_full_six_bit_inputs": true
+  },
+  "full_modmul_phase_proof": {
+    "pass_all": true,
+    "full_residue_control_basis_cases": 128,
+    "output_equals_public_modular_multiplication": true,
+    "all_25_auxiliaries_clean": true,
+    "control_unmodified": true,
+    "disabled_invalid_states_identity": true,
+    "exact_complex_output_phase_plus_one": true,
+    "quantum_source_gate_counts": {
+      "cx": 1077,
+      "ccx": 778,
+      "x": 28
+    },
+    "source_instruction_count": 1883
+  },
+  "source_logical_qubits": 32,
+  "backend_qubits": 156,
+  "native_cz": 12680,
+  "native_depth": 33138,
+  "native_size": 54103,
+  "compiled_device_width": 156,
+  "compiled_native_ops": {
+    "sx": 23131,
+    "rz": 18291,
+    "cz": 12680,
+    "x": 1
+  },
+  "compile_seconds": 0.12083415300000411,
+  "engineering_both_costs_improve": false,
+  "device_feasibility_gate": false,
+  "native_cz_delta": 0,
+  "native_depth_delta": 0
+}
