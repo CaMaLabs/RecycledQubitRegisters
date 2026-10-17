@@ -1,0 +1,104 @@
+name: Independently preserve N35 public prefix-carry original native compiler receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-prefix-carry-native.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-public-prefix-carry-preservation-v1
+  cancel-in-progress: false
+
+jobs:
+  original-receipts-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download both ORIGINAL experiment artifacts (do not rerun)
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39006320227
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-prefix-carry-base*-original
+          merge-multiple: true
+          path: _original_artifacts
+      - name: Retrieve exact two original JSONs without modifying numerical outputs
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_public_prefix_carry
+          for base in 2 8; do
+            f="qrr_n35_public_prefix_carry_base${base}.json"
+            count="$(find _original_artifacts -type f -name "$f" | wc -l)"
+            test "$count" -eq 1 || { echo "Missing/duplicate original $f count $count"; exit 1; }
+            find _original_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_public_prefix_carry/ '{}' +
+          done
+      - name: Strict independent clean-gate, frozen original baseline and device-gate audit
+        run: |
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          oldroot=Path('results/ibm_shor35_ripple_cached_controls')
+          root=Path('results/ibm_shor35_public_prefix_carry')
+          original_native={2:(12517,32312,1817),8:(12680,33138,1883)}
+          for base in (2,8):
+              old=json.loads((oldroot/f'qrr_n35_cached_enable_single_mul_base{base}.json').read_text())
+              d=json.loads((root/f'qrr_n35_public_prefix_carry_base{base}.json').read_text())
+              assert d['revision']=='qrr-n35-public-prefix-carry-constant-adder-v1-20261016'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['N']==35 and d['base']==base
+              assert d['preregistered_document']=='docs/QRR_N35_PUBLIC_CONSTANT_PREFIX_CARRY_PREREG.md'
+              assert d['target_backend']=='ibm_fez' and d['optimization_level']==1 and d['seed_transpiler']==8776
+              assert d['no_QPU_runtime'] and d['qpu_jobs_submitted']==0
+              assert d['true_order_not_used'] and d['orbit_not_used']
+              assert d['old_cached_enable_layout_preserved']
+              assert d['previous_baseline']==dict(cz=old['native_cz'],depth=old['native_depth'],
+                                    primitive=old['proof']['primitive_gate_count'],
+                                    logical=old['source_logical_qubits'])
+              sub=d['modadd_subroutine_proof']
+              assert sub['pass_all'] and sub['real_instruction_interpreter'] and sub['all_aux_clean']
+              assert sub['unique_count']==16
+              assert len(sub['unique_public_constants'])==16
+              assert sub['ideal_gate_cases']==1584
+              assert len(sub['per_constant'])==16
+              assert all(z['pass_all'] and z['all_aux_clean'] and z['input_cases']==99 for z in sub['per_constant'])
+              full=d['complete_multiplier_proof']
+              assert full['pass_all'] and full['actual_emitted_instruction_interpreter']
+              assert full['exhaustive_control_residue_inputs']==128 and full['all_aux_25_clean']
+              assert set(full['source_primitive_gate_counts'])=={'x','cx','ccx'}
+              assert d['application_logical_qubits']==32
+              assert d['status']=='COMPILE_SUCCESS' and d['success']
+              assert (d['native_cz'],d['native_depth'],full['primitive_gate_count'])==original_native[base]
+              assert d['compiled_device_width']==156
+              assert d['native_ops']['cz']==d['native_cz']
+              assert d['native_size']>0 and d['compiler_seconds']>=0
+              assert d['engineering_gain_both_cz_depth'] is True
+              assert d['native_cz']<old['native_cz'] and d['native_depth']<old['native_depth']
+              assert math.isclose(d['cz_saving_pct'],100*(old['native_cz']-d['native_cz'])/old['native_cz'])
+              assert math.isclose(d['depth_saving_pct'],100*(old['native_depth']-d['native_depth'])/old['native_depth'])
+              assert d['frozen_limit_cz']==800 and d['frozen_limit_depth']==2000
+              assert d['qpu_feasibility_pass'] is False
+              print('AUDITED ORIGINAL base',base,'16 public constants / 1584 subroutine basis checks',
+                    '128 full multiplier checks; native CZ',old['native_cz'],'->',d['native_cz'],
+                    'depth',old['native_depth'],'->',d['native_depth'],
+                    'source primitive count',old['proof']['primitive_gate_count'],'->',full['primitive_gate_count'],
+                    'hardware gate FAIL, no QPU',flush=True)
+          print('COMPLETE two-arm frozen N35 CPU compiler audit success; all original JSON bytes preserved')
+          PY
+      - name: Commit original unchanged numeric receipts
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base2.json
+          git add results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently audit/preserve both original N35 prefix-carry constant-arithmetic native reductions and QPU infeasibility'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
