@@ -1,0 +1,96 @@
+name: QRR N35 public modular arithmetic identity-pruning preflight ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-public-modarith-fourbit-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-public-modarith-4bit-zero-qpu-v1
+  cancel-in-progress: false
+
+jobs:
+  arithmetic-n35-four-arm:
+    name: N35 public base ${{ matrix.base }} ${{ matrix.kind }} ZERO-QPU
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        kind: [recycled, wide]
+        base: [2, 8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Qiskit runtime only for backend read; no Sampler used
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Compile source and ensure no runtime primitive, public base and frozen gates
+        run: |
+          python -m py_compile hardware/qrr_n35_public_modarith_identity_pruned_preflight.py
+          test -s docs/QRR_N35_ARITHMETIC_REPLACEMENT_PREREG.md
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+          t=Path('hardware/qrr_n35_public_modarith_identity_pruned_preflight.py').read_text()
+          ast.parse(t)
+          assert 'SamplerV2' not in t and 'sampler.run' not in t
+          assert 'EstimatorV2' not in t and 'job.submit' not in t
+          print("ZERO-QPU source includes no runtime submission; prereg and source syntactically valid")
+          PY
+      - name: Frozen arithmetic modular multiplier compilation from public base against real IBM Fez target only
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+          KIND: ${{ matrix.kind }}
+        run: |
+          set -o pipefail
+          echo "CPU-ONLY COMPILER, ZERO IBM QPU JOBS, $KIND base=$BASE"
+          timeout --signal=TERM --kill-after=20s 360s python -u hardware/qrr_n35_public_modarith_identity_pruned_preflight.py \
+            --backend ibm_fez --base "$BASE" --kind "$KIND" \
+            --phase-bits 4 --optimization-level 1 --seed 8776 \
+            | tee "qrr_n35_arithmetic_${KIND}_base${BASE}.log"
+      - name: Require real ISA result and frozen immutable public-arithmetic semantics
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+          KIND: ${{ matrix.kind }}
+        run: |
+          python - <<'PY'
+          import json,os,math
+          from pathlib import Path
+          n=35;a=int(os.environ['BASE']);kind=os.environ['KIND']
+          prefix='plain' if a==2 else 'cube'
+          path=Path(f'results/ibm_shor35_modarith_identity_pruned/qrr_n35_public_modarith_{kind}_{prefix}.json')
+          row=json.loads(path.read_text())
+          assert row['qpu_jobs_submitted']==0 and not row['qpu_submitted']
+          assert row['base']==a and row['phase_bits']==4 and row['backend']=='ibm_fez'
+          assert row['optimization_level']==1 and row['seed_transpiler']==8776
+          assert row['true_order_used_in_circuit_construction'] is False
+          assert row['orbit_encoding_used'] is False
+          assert row['explicit_64_state_permutation_synthesis_used'] is False
+          assert row['semantic_reference_verified'] and row['semantic_self_test']['pass']
+          assert row['identity_rounds']==([] if a==2 else [2,3])
+          assert row['status']=='COMPILE_SUCCESS' and row['success']
+          assert row['source_logical_qubits']==(26 if kind=='recycled' else 29)
+          stats=row['stats']
+          assert stats['native_cz']>=0 and stats['native_depth']>=0
+          assert stats['logical_qubits']==row['source_logical_qubits']
+          assert stats['max_heuristic_cz']==800 and stats['max_heuristic_depth']==2000
+          print('SEMANTICS, ZERO-QPU, RESOURCE VERIFICATION PASSED')
+          print('NATIVE_CZ',stats['native_cz'],'NATIVE_DEPTH',stats['native_depth'],
+                'NATIVE_HARDWARE_GATE',stats['native_hardware_feasibility_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-modarith-${{ matrix.kind }}-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_arithmetic_*.log
+            results/ibm_shor35_modarith_identity_pruned/qrr_n35_public_modarith_*.json
