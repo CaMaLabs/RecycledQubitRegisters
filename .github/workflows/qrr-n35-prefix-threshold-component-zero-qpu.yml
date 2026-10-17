@@ -1,0 +1,116 @@
+name: QRR N35 prefix-only vs threshold-only 4-arm Fez target ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-prefix-threshold-component-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-prefix-threshold-component-ablation-v1
+  cancel-in-progress: false
+
+jobs:
+  four-public-arms:
+    name: ${{ matrix.variant }} public base ${{ matrix.base }} 1584+128 primitive proofs then no-QPU compiler
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+        variant: [prefix_only, threshold_only]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fixed Qiskit versions for IBM backend target read-only
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Prereg and non-QPU script audit with unchanged baseline artifacts
+        run: |
+          test -s docs/QRR_N35_PREFIX_THRESHOLD_COMPONENT_ABLATION_PREREG.md
+          python -m py_compile hardware/qrr_n35_prefix_threshold_component_ablation.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_prefix_threshold_component_ablation.py').read_text()
+          assert all(word not in s for word in ('SamplerV2','EstimatorV2','sampler.run','job.submit','job.run','job.result'))
+          assert 'ablation_predicate' in s and 'ablation_constant_add' in s
+          assert 'primitive.add_constant_mod2n' in s
+          assert 'primitive.predicate' in s
+          assert 'verified.build(base)' in s and 'verified.exhaustive_actual_gate_proof' in s
+          assert 'exhaustive_modadd_gate_test' in s
+          for a in (2,8):
+              for f in (
+                f'results/ibm_shor35_ripple_cached_controls/qrr_n35_cached_enable_single_mul_base{a}.json',
+                f'results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base{a}.json'):
+                  assert Path(f).exists(),f
+          print('FROZEN four-arm source and historical controls; zero QPU')
+          PY
+      - name: ACTUAL emitted primitive modular-add + complete-multiplier gates then IBM Fez CPU compiler
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+          VARIANT: ${{ matrix.variant }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 480s python -u hardware/qrr_n35_prefix_threshold_component_ablation.py \
+            --base "$BASE" --variant "$VARIANT" \
+            | tee "qrr_n35_component_${VARIANT}_base${BASE}.log"
+      - name: Audit full original semantic receipts against frozen old baseline
+        env:
+          BASE: ${{ matrix.base }}
+          VARIANT: ${{ matrix.variant }}
+        run: |
+          python - <<'PY'
+          import json,os,math
+          from pathlib import Path
+          base=int(os.environ['BASE']);variant=os.environ['VARIANT']
+          d=json.loads(Path(f'results/ibm_shor35_prefix_threshold_ablation/qrr_n35_component_{variant}_base{base}.json').read_text())
+          old=json.loads(Path(f'results/ibm_shor35_ripple_cached_controls/qrr_n35_cached_enable_single_mul_base{base}.json').read_text())
+          assert d['revision']=='qrr-n35-prefix-vs-threshold-component-ablation-v1-20261016'
+          assert d['preregistered_document']=='docs/QRR_N35_PREFIX_THRESHOLD_COMPONENT_ABLATION_PREREG.md'
+          assert d['variant']==variant and d['base']==base and d['N']==35
+          assert d['changed_components']==(
+             ['public prefix-carry conditional add ONLY'] if variant=='prefix_only' else
+             ['public divisible-threshold comparator shortening ONLY'])
+          assert d['previous_baseline']==dict(
+            cz=old['native_cz'],depth=old['native_depth'],
+            primitive=old['proof']['primitive_gate_count'],logical=old['source_logical_qubits'])
+          assert d['old_cached_enable_layout_preserved']
+          assert d['true_order_not_used'] and d['orbit_not_used']
+          assert d['no_QPU_runtime'] and d['qpu_jobs_submitted']==0
+          assert d['optimization_level']==1 and d['seed_transpiler']==8776 and d['target_backend']=='ibm_fez'
+          s=d['modadd_subroutine_proof']
+          assert s['pass_all'] and s['real_instruction_interpreter'] and s['all_aux_clean']
+          assert s['unique_count']==16 and s['ideal_gate_cases']==1584
+          assert all(r['pass_all'] and r['all_aux_clean'] and r['input_cases']==99 for r in s['per_constant'])
+          f=d['complete_multiplier_proof']
+          assert f['pass_all'] and f['actual_emitted_instruction_interpreter']
+          assert f['exhaustive_control_residue_inputs']==128 and f['all_aux_25_clean']
+          assert set(f['source_primitive_gate_counts'])=={'x','cx','ccx'}
+          assert d['application_logical_qubits']==32
+          assert d['status']=='COMPILE_SUCCESS' and d['success']
+          assert d['native_cz']>0 and d['native_depth']>0
+          assert d['native_ops']['cz']==d['native_cz']
+          assert d['frozen_limit_cz']==800 and d['frozen_limit_depth']==2000
+          assert d['engineering_gain_both_cz_depth']==(
+            d['native_cz']<old['native_cz'] and d['native_depth']<old['native_depth'])
+          assert d['qpu_feasibility_pass']==(
+            d['native_cz']<=800 and d['native_depth']<=2000)
+          print('VERIFIED SINGLE COMPONENT',variant,base,'CZ',d['native_cz'],'depth',d['native_depth'],
+            'old CZ',old['native_cz'],'old depth',old['native_depth'],
+            'engineering success',d['engineering_gain_both_cz_depth'],
+            'device',d['qpu_feasibility_pass'],'ZERO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-component-${{ matrix.variant }}-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_component_*.log
+            results/ibm_shor35_prefix_threshold_ablation/qrr_n35_component_*.json
