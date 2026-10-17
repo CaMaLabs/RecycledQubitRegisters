@@ -1,0 +1,59 @@
+name: QRR independent spectral-phase consensus pilot zero QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-spectral-coherence-pilot.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fixed-null-coherence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install numpy==2.1.3
+      - name: Run frozen synthetic ideal-QPE, matched noise, permutation nulls and persistent-artifact test
+        shell: bash
+        run: |
+          set -o pipefail
+          python -u hardware/qrr_spectral_phase_consensus_pilot.py | tee qrr_phase_consensus.log
+      - name: Validate EVERY synthetic group, negative controls and no quantum claims
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('results/dark_star_ptp/qrr_spectral_phase_consensus_pilot.json')
+          d=json.loads(p.read_text())
+          assert d['zero_QPU'] and d['qpu_jobs_submitted']==0
+          assert d['phase_resolution_Q']==256 and d['independent_blocks']==8
+          assert d['shots_per_block']==2048
+          assert set(d['orders'])=={'4','6'}
+          for order,row in d['orders'].items():
+              assert row['r_validation_only']==int(order)
+              assert row['harmonic_k']==int(order)
+              assert 0<=row['threshold_95pct_training_null']<=1
+              assert all(k in row['controls'] for k in ('permuted_qpe_null','uniform_sham','stable_fixed_bin_artifact'))
+              assert all(k in row['signal'] for k in ('0','0.15','0.35'))
+              assert all(0<=z['hit_rate']<=1 for z in row['signal'].values())
+              assert all(0<=z['false_positive_rate']<=1 for z in row['controls'].values())
+          print("Audited both positive/null/persistent-artifact groups; no QPU, no factor claims")
+          PY
+      - name: Commit complete outcome receipt, including FAILURE if primary detection gate fails
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/qrr_spectral_phase_consensus_pilot.json
+          if ! git diff --cached --quiet; then
+            git commit -m "results: preserve all SynthID-inspired QPE phase-consensus pilot controls including negative artifact"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
