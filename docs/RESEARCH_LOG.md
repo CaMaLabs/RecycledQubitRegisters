@@ -1254,3 +1254,28 @@ Next gate: factorized constant-specific modular arithmetic, reuse carry ancillas
 **Verified engineering success:** ~33% lower native CZ and 29–31% lower compiled native depth in *both* fixed public arms, traceable to shared enabled controls. **Verified hardware limitation:** even smallest arm 18719 CZ/42335 depth remains **23.4×** / **21.2×** frozen hardware criterion, so not feasible for free Open QPU experiment; ZERO actual QPU jobs, free or paid runtime. Cube remains **more expensive per SINGLE multiplier** than base2 (19912 vs18719 CZ), consistent with no claim about order-shortening benefit until multi-round QPE tests. Different fixed-layout qubit count (32 vs30) means this is an honest target-native compiler engineering ablation, NOT a controlled hardware fidelity comparison, practical factoring result or fault-tolerant asymptotic claim.
 
 **Next scientific move:** preregister/freeze a separate **constant-specific modular carry/prefix circuit** to reduce the repeated wrap comparator and high-fan-in Toffoli v-chain overhead. Repeat independent actual-gate 128-state tests and immutable CZ/depth native target audit before considering a full 4-bit factoring pipeline, and never silently weaken prior device thresholds or substitute order-encoded affine toy circuits. 
+
+
+## 2026-10-16 — N35 low-prefix carry and public threshold stripping: verified extra 33–36% native CZ saving, device gate still FAIL
+
+**Research lead / originating program: Chase Lunsford / CaMaLabs.** New fixed zero-QPU arithmetic optimizer [frozen preregistration](QRR_N35_PUBLIC_CONSTANT_PREFIX_CARRY_PREREG.md), original pre-scoring git commit **`ca7d523a1c2b0e752d7c69b5c73a416964a11622`**, designed after the prior [N35 cached active/enable control](QRR_N35_LATCHED_CONTROLS_SINGLE_MULTIPLIER_RESULT.md) passed full ideal gate-level proofs but still failed hardware feasibility. Old source baseline base2 CZ18,719 depth42,335; cube8 CZ19,912 depth44,381; 32 logical qubits, 25 returned-clean ancillas. Frozen limit CZ≤800 native / depth≤2000 for EVERY arm and NO QPU submission.
+
+New original [`hardware/qrr_n35_public_prefix_carry_single_modmul.py`](../hardware/qrr_n35_public_prefix_carry_single_modmul.py) retains old controlled multiplier, active+enable logic, validity check, clean accumulator and Toffoli source primitives. A SINGLE combined candidate replaces controlled constant suffix-ripple increment with a per-output-bit prefix-carry toggle while lower input bits are still unchanged (from highest to lowest), and strips known trailing zeros of public comparison thresholds. Does **not** use N35 true orders, factors, affine orbit or a precomputed full truth table. Only X/CX/CCX actual source gates, no Sampler/Estimator.
+
+[Original 2/2 independent native CPU target-compiler jobs **39006320227**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39006320227) SUCCESS, Qiskit~=2.5.2, IBM Fez TARGET read-only, opt1, seed8776. Each arm **PASSED direct emitted-gate subroutine verification for every 16 public modular-add constants ×(35 valid enableON +64 enableOFF)=1,584/1,584**, AND complete controlled multiplier public y=0..63 × control{0,1} **128/128 ideal-gate cases per arm**, every **25 helper qubits clean**. [Independent unchanged original JSON audit/preservation CI **39006395142**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39006395142) SUCCESS, receipts `results/ibm_shor35_public_prefix_carry/qrr_n35_public_prefix_carry_base{2,8}.json`. Full [report](QRR_N35_PUBLIC_CONSTANT_PREFIX_CARRY_RESULT.md).
+
+| IBM Fez TARGET compile of ONE full-residue public N35 multiplier | Old cached base2 | New base2 | Old cached cube8 | New cube8 |
+|---|---:|---:|---:|---:|
+| Source X+CX+CCX primitive gates |1536|**1817**|1578|**1883**|
+| Source CX |445|**1033**|445|**1077**|
+| Source CCX |1063|**756**|1105|**778**|
+| Native CZ |18719|**12517**|19912|**12680**|
+| Native depth |42335|**32312**|44381|**33138**|
+| Logical qubits |32|32|32|32|
+| Real QPU jobs |0|**0**|0|**0**|
+
+**Verified new engineering win:** base2 native CZ **−33.13%**, depth **−23.68%**; cube8 native CZ **−36.32%**, depth **−25.33%**, same Qiskit target settings, with all 3,424 additional total public arithmetic/whole multiplier ideal emitted-gate cases passed across two arms. A source gate count INCREASE accompanies native cost reduction due to fewer CCX (Toffoli) and more cheaper CX (CNOT). Both public prefix carry and public threshold shortening were changed **TOGETHER**; no attribution of percent savings to one alone.
+
+**Failed real-device gate still immutable:** best base2 case native **12,517 CZ and 32,312 depth**, respectively **15.65× and 16.16×** 800/2000 heuristic limits *for just ONE multiplier*. **ZERO QPU execution, free runtime or paid runtime consumed**. No whole four-round quantum circuit or practical factoring success was measured. Even the cube8 solitary multiplier remains slightly more expensive than base2 (CZ12,680 vs12,517); earlier cubic order r12→r4 gain arose in multiround public modular powers [2,4,16,11]→[8,29,1,1] making two rounds identity. Prior successful real IBM N15 phase-register recycling milestone and all negative N35 reports remain independently intact.
+
+**Next stage:** compare comparator/carry optimization components separately under new frozen experimental protocols or design a shared-carry/uncompute network to eliminate repeated high-fan-in Toffoli controls. No automatic transition to a QPU or larger four-phase-bit Shor run until separate feasibility and public factor-production control gates pass.
