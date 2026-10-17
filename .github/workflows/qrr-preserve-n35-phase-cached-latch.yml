@@ -1,0 +1,112 @@
+name: Preserve ORIGINAL phase-exact cached-control N35 mixed-result receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-phase-cached-latch.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-phase-cached-latch-original-preservation-v1
+  cancel-in-progress: false
+
+jobs:
+  audit-and-preserve-original:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download EXACT original CI artifacts (do not rerun native compilation)
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39074215604
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-phase-cached-latch-base*-original
+          merge-multiple: true
+          path: _original_source_artifacts
+      - name: Copy exactly one original JSON per base, byte-for-byte
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_phase_cached_latch
+          for base in 2 8; do
+            f="qrr_n35_phase_cached_latch_base${base}.json"
+            count="$(find _original_source_artifacts -type f -name "$f" | wc -l)"
+            test "$count" -eq 1 || { echo "Expected exactly one original $f, got $count"; exit 1; }
+            find _original_source_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_phase_cached_latch/ '{}' +
+          done
+      - name: Independent original strict complex gate proofs, fixed baseline and mixed native cost audit
+        run: |
+          python - <<'PY'
+          import json,math
+          from pathlib import Path
+          previous=Path('results/ibm_shor35_relative_phase_ripple')
+          current=Path('results/ibm_shor35_phase_cached_latch')
+          known={2:(8542,19819,622,134,1033,True),
+                 8:(9328,22005,642,136,1077,False)}
+          for base in (2,8):
+              old=json.loads((previous/f'qrr_n35_relative_phase_clean_vchain_base{base}.json').read_text())
+              now=json.loads((current/f'qrr_n35_phase_cached_latch_base{base}.json').read_text())
+              assert now['revision']=='qrr-n35-relative-phase-cached-active-enable-v1-20261017'
+              assert now['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert now['preregistered_document']=='docs/QRR_N35_RELATIVE_PHASE_CACHED_LATCH_PREREG.md'
+              assert now['base']==base and now['N']==35
+              assert now['intervention']=='only 26 cached active and enable latch standard CCX -> RCCX / actual inverse'
+              ops=old['full_modmul_phase_proof']['quantum_source_gate_counts']
+              assert now['previous_frozen_baseline']==dict(cz=old['native_cz'],
+                   depth=old['native_depth'],logical=32,
+                   rccx=ops['rccx'],ccx=ops['ccx'],cx=ops['cx'],x=ops['x'])
+              assert now['factors_not_used'] and now['order_not_injected'] and now['orbit_not_compiled']
+              assert now['qpu_jobs_submitted']==0
+              assert not now['quantum_runtime_used'] and not now['paid_runtime_used']
+              assert now['backend_target']=='ibm_fez'
+              assert now['transpiler_optimization']==1 and now['transpiler_seed']==8776
+              local=now['local_latch_complex_proof']
+              assert local['pass_all'] and local['direct_actual_operator_cases']==8
+              assert local['operator_product_is_identity'] and local['output_complex_phase_exactly_plus_one']
+              assert local['final_latch_zero'] and local['semantic_controlled_probe_exact']
+              compare=now['comparator_complex_proof']
+              assert compare['pass_all'] and compare['actual_gate_comparator_cases']==42672
+              assert compare['exact_complex_phase_plus_one'] and compare['all_carry_scratch_clean']
+              add=now['modadd_complex_proof']
+              assert add['pass_all'] and add['source_gate_cases']==1584 and add['unique_constants']==16
+              assert add['exact_complex_phase_plus_one'] and add['clean_helpers']
+              whole=now['full_multiplier_complex_proof']
+              assert whole['pass_all'] and whole['full_residue_control_basis_cases']==128
+              assert whole['output_equals_public_modular_multiplication']
+              assert whole['all_25_auxiliaries_clean'] and whole['exact_complex_output_phase_plus_one']
+              assert whole['disabled_invalid_states_identity']
+              assert now['verified_source_latch_replacements']==26
+              assert now['source_logical_qubits']==32
+              cz,depth,rccx,ccx,cx,engineering=known[base]
+              assert whole['quantum_source_gate_counts']==dict(cx=cx,rccx=rccx,x=28,ccx=ccx)
+              assert now['status']=='COMPILE_SUCCESS' and now['success']
+              assert now['native_cz']==cz and now['native_depth']==depth
+              assert now['compiled_device_width']==156 and now['compiled_native_ops']['cz']==cz
+              assert now['native_cz_delta']==cz-old['native_cz']
+              assert now['native_depth_delta']==depth-old['native_depth']
+              assert math.isclose(now['native_cz_change_pct'],100*(cz-old['native_cz'])/old['native_cz'])
+              assert math.isclose(now['native_depth_change_pct'],100*(depth-old['native_depth'])/old['native_depth'])
+              assert now['engineering_gate_pass'] is engineering
+              assert now['frozen_native_cz_cutoff']==800 and now['frozen_native_depth_cutoff']==2000
+              assert now['hardware_feasibility_gate_pass'] is False
+              print('ORIGINAL RECEIPT AUDIT PASS',base,'all 8+42672+1584+128 phase-exact source cases',
+                  'CZ',old['native_cz'],'->',cz,'depth',old['native_depth'],'->',depth,
+                  'engineering',engineering,'hardware FAIL no QPU')
+          print('INDEPENDENT AUDIT 2/2 PASSED; FROZEN TWO-BASE ENGINEERING CRITERION FAILED (cube depth worsened)')
+          PY
+      - name: Commit original two JSON receipts, unchanged
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_phase_cached_latch/qrr_n35_phase_cached_latch_base2.json
+          git add results/ibm_shor35_phase_cached_latch/qrr_n35_phase_cached_latch_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: audit/preserve N35 phase-exact cached-control original mixed compiler outcome, base2 gains and cubic depth regression'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
