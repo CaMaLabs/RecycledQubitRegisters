@@ -1,0 +1,290 @@
+{
+  "experiment": "n35_public_odd_power_precondition_preflight_v1",
+  "script_revision": "2026-09-14-n35-public-odd-power-precondition-v1",
+  "timestamp_utc": "2026-10-17T02:38:43.238469+00:00",
+  "zero_qpu": true,
+  "backend": "ibm_fez",
+  "N": 35,
+  "seed_base": 2,
+  "public_exponent": 3,
+  "transformed_base": 8,
+  "public_condition_N_mod_3_eq_2": true,
+  "order_used_in_circuit_construction": false,
+  "orbit_encoding_used": false,
+  "construction": "full_residue_permutation_from_N_and_transformed_base",
+  "validation_orders": {
+    "seed_base": 12,
+    "transformed_base": 4
+  },
+  "profile": "1_clean_kg24",
+  "optimization_level": 2,
+  "seeds": [
+    8776
+  ],
+  "phase_bits": [
+    4
+  ],
+  "kinds": [
+    "recycled"
+  ],
+  "rows": [
+    {
+      "success": true,
+      "label": "baseline",
+      "base": 2,
+      "validation_order": 12,
+      "phase_bits": 4,
+      "kind": "recycled",
+      "profile": "1_clean_kg24",
+      "optimization_level": 2,
+      "seed_transpiler": 8776,
+      "order_used_in_circuit_construction": false,
+      "orbit_encoding_used": false,
+      "round_multipliers": [
+        11,
+        16,
+        4,
+        2
+      ],
+      "direct_mcx_by_round": [
+        20,
+        20,
+        26,
+        29
+      ],
+      "basis_change_cx_by_round": [
+        62,
+        62,
+        74,
+        88
+      ],
+      "logical_qubits": 11,
+      "high_level_depth": 435,
+      "high_level_size": 892,
+      "high_level_ops": {
+        "x": 489,
+        "cx": 286,
+        "mcx": 95,
+        "h": 8,
+        "if_else": 6,
+        "reset": 4,
+        "measure_2": 4
+      },
+      "compiled_qubits": 156,
+      "compiled_depth": 17108,
+      "compiled_size": 34277,
+      "cz": 8455,
+      "measure": 0,
+      "measure_2": 4,
+      "reset": 4,
+      "if_else": 6,
+      "compiled_ops": {
+        "sx": 16942,
+        "cz": 8455,
+        "rz": 8385,
+        "x": 481,
+        "if_else": 6,
+        "reset": 4,
+        "measure_2": 4
+      },
+      "compile_seconds": 0.20235933800000083
+    },
+    {
+      "success": true,
+      "label": "preconditioned",
+      "base": 8,
+      "validation_order": 4,
+      "phase_bits": 4,
+      "kind": "recycled",
+      "profile": "1_clean_kg24",
+      "optimization_level": 2,
+      "seed_transpiler": 8776,
+      "order_used_in_circuit_construction": false,
+      "orbit_encoding_used": false,
+      "round_multipliers": [
+        1,
+        1,
+        29,
+        8
+      ],
+      "direct_mcx_by_round": [
+        0,
+        0,
+        14,
+        21
+      ],
+      "basis_change_cx_by_round": [
+        0,
+        0,
+        60,
+        78
+      ],
+      "logical_qubits": 11,
+      "high_level_depth": 199,
+      "high_level_size": 380,
+      "high_level_ops": {
+        "x": 185,
+        "cx": 138,
+        "mcx": 35,
+        "h": 8,
+        "if_else": 6,
+        "reset": 4,
+        "measure_2": 4
+      },
+      "compiled_qubits": 156,
+      "compiled_depth": 6595,
+      "compiled_size": 13345,
+      "cz": 3325,
+      "measure": 0,
+      "measure_2": 4,
+      "reset": 4,
+      "if_else": 6,
+      "compiled_ops": {
+        "sx": 6608,
+        "cz": 3325,
+        "rz": 3210,
+        "x": 188,
+        "if_else": 6,
+        "reset": 4,
+        "measure_2": 4
+      },
+      "compile_seconds": 0.07835247700000281
+    }
+  ],
+  "best": {
+    "baseline_4b_recycled": {
+      "success": true,
+      "label": "baseline",
+      "base": 2,
+      "validation_order": 12,
+      "phase_bits": 4,
+      "kind": "recycled",
+      "profile": "1_clean_kg24",
+      "optimization_level": 2,
+      "seed_transpiler": 8776,
+      "order_used_in_circuit_construction": false,
+      "orbit_encoding_used": false,
+      "round_multipliers": [
+        11,
+        16,
+        4,
+        2
+      ],
+      "direct_mcx_by_round": [
+        20,
+        20,
+        26,
+        29
+      ],
+      "basis_change_cx_by_round": [
+        62,
+        62,
+        74,
+        88
+      ],
+      "logical_qubits": 11,
+      "high_level_depth": 435,
+      "high_level_size": 892,
+      "high_level_ops": {
+        "x": 489,
+        "cx": 286,
+        "mcx": 95,
+        "h": 8,
+        "if_else": 6,
+        "reset": 4,
+        "measure_2": 4
+      },
+      "compiled_qubits": 156,
+      "compiled_depth": 17108,
+      "compiled_size": 34277,
+      "cz": 8455,
+      "measure": 0,
+      "measure_2": 4,
+      "reset": 4,
+      "if_else": 6,
+      "compiled_ops": {
+        "sx": 16942,
+        "cz": 8455,
+        "rz": 8385,
+        "x": 481,
+        "if_else": 6,
+        "reset": 4,
+        "measure_2": 4
+      },
+      "compile_seconds": 0.20235933800000083
+    },
+    "preconditioned_4b_recycled": {
+      "success": true,
+      "label": "preconditioned",
+      "base": 8,
+      "validation_order": 4,
+      "phase_bits": 4,
+      "kind": "recycled",
+      "profile": "1_clean_kg24",
+      "optimization_level": 2,
+      "seed_transpiler": 8776,
+      "order_used_in_circuit_construction": false,
+      "orbit_encoding_used": false,
+      "round_multipliers": [
+        1,
+        1,
+        29,
+        8
+      ],
+      "direct_mcx_by_round": [
+        0,
+        0,
+        14,
+        21
+      ],
+      "basis_change_cx_by_round": [
+        0,
+        0,
+        60,
+        78
+      ],
+      "logical_qubits": 11,
+      "high_level_depth": 199,
+      "high_level_size": 380,
+      "high_level_ops": {
+        "x": 185,
+        "cx": 138,
+        "mcx": 35,
+        "h": 8,
+        "if_else": 6,
+        "reset": 4,
+        "measure_2": 4
+      },
+      "compiled_qubits": 156,
+      "compiled_depth": 6595,
+      "compiled_size": 13345,
+      "cz": 3325,
+      "measure": 0,
+      "measure_2": 4,
+      "reset": 4,
+      "if_else": 6,
+      "compiled_ops": {
+        "sx": 6608,
+        "cz": 3325,
+        "rz": 3210,
+        "x": 188,
+        "if_else": 6,
+        "reset": 4,
+        "measure_2": 4
+      },
+      "compile_seconds": 0.07835247700000281
+    }
+  },
+  "comparisons": {
+    "4b_recycled": {
+      "baseline_cz": 8455,
+      "preconditioned_cz": 3325,
+      "cz_reduction_fraction": 0.6067415730337079,
+      "baseline_depth": 17108,
+      "preconditioned_depth": 6595,
+      "depth_reduction_fraction": 0.614507832592939,
+      "baseline_logical_qubits": 11,
+      "preconditioned_logical_qubits": 11
+    }
+  }
+}
