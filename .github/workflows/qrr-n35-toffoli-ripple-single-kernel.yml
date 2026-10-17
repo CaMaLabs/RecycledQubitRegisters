@@ -1,0 +1,87 @@
+name: QRR N35 clean Toffoli ripple ONE controlled-multiplier ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-toffoli-ripple-single-kernel.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-ripple-single-modmul-zero-qpu
+  cancel-in-progress: false
+
+jobs:
+  prove-128-and-compile:
+    name: primitive ripple N35 one kernel base ${{ matrix.base }} ZERO QPU
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install fixed target compiler; ZERO runtime primitive
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Check pinned research, source and zero IBM QPU submission calls
+        run: |
+          test -s docs/QRR_N35_TOFFOLI_RIPPLE_SINGLE_MULTIPLIER_PREREG.md
+          python -m py_compile hardware/qrr_n35_single_modmul_ripple_toffoli.py
+          python - <<'PY'
+          from pathlib import Path
+          text=Path("hardware/qrr_n35_single_modmul_ripple_toffoli.py").read_text()
+          assert not any(x in text for x in ("SamplerV2","EstimatorV2","sampler.run","job.submit","job.run","job.result"))
+          assert "verify_actual_basis_gates" in text
+          assert "ccx" in text
+          print("Source-only, primitive binary quantum gates, NO QPU submission API")
+          PY
+      - name: Actual primitive X/CX/CCX 128-state exhaustive proof then IBM Fez compiler only
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 600s python -u hardware/qrr_n35_single_modmul_ripple_toffoli.py --base "$BASE" | tee "qrr_n35_ripple_base${BASE}.log"
+      - name: Independently validate receipt and frozen native gates
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import os,json
+          from pathlib import Path
+          base=int(os.environ["BASE"])
+          f=Path(f"results/ibm_shor35_ripple_toffoli_kernel/qrr_n35_toffoli_ripple_single_mul_base{base}.json")
+          z=json.loads(f.read_text())
+          assert z["N"]==35 and z["base"]==base
+          assert z["QPU_jobs_submitted"]==0 and not z["paid_QPU_runtime"]
+          assert z["single_controlled_multiplier_no_QPE"]
+          assert not z["order_injected_into_circuit"] and not z["orbit_precomputed"]
+          assert z["backend_target"]=="ibm_fez"
+          assert z["transpiler_seed"]==8776 and z["optimization_level"]==1
+          assert z["primitive_equivalence"]["passed"]
+          assert z["primitive_equivalence"]["tested_basis_inputs"]==128
+          assert z["primitive_equivalence"]["all_ancillas_zero"]
+          assert z["primitive_equivalence"]["genuine_gate_level_equivalence"]
+          assert z["status"]=="COMPILE_SUCCESS" and z["success"]
+          assert z["native_cz"]>=0 and z["compiled_depth"]>=0
+          assert z["heuristic_max_cz"]==800 and z["heuristic_max_depth"]==2000
+          assert z["physical_device_feasible_heuristic"]==(
+            z["native_cz"]<=800 and z["compiled_depth"]<=2000)
+          print("ORIGINAL PRIMITIVE 128-STATE CLEAN GATE PROOF VERIFIED; CZ",
+            z["native_cz"],"depth",z["compiled_depth"],"feasible",z["physical_device_feasible_heuristic"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-ripple-original-base${{ matrix.base }}
+          path: |
+            qrr_n35_ripple_*.log
+            results/ibm_shor35_ripple_toffoli_kernel/qrr_n35_toffoli_ripple_single_mul_base*.json
