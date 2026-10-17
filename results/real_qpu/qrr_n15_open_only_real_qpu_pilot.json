@@ -1,7 +1,7 @@
 {
   "experiment": "qrr_shor15_matched_real_qpu_open_plan_only_v1",
   "research_lead": "Chase Lunsford / CaMaLabs",
-  "timestamp_utc": "2026-10-17T01:05:15.907008+00:00",
+  "timestamp_utc": "2026-10-17T02:23:42.810166+00:00",
   "authorizes_paid_runtime": false,
   "require_verified_active_plan": "open",
   "allow_simulators": false,
@@ -12,9 +12,97 @@
   "wide_qubits": 8,
   "shots_per_circuit": 64,
   "max_execution_time_seconds": 30,
-  "submission_performed": false,
-  "status": "PREFLIGHT_BLOCKED",
+  "submission_performed": true,
+  "status": "MEASURED_REAL_QPU",
   "disclaimer": "actual device experiment if submitted; toy N=15 classical factors trivial; a^3 no order shortening for order 4",
-  "job_id": null,
-  "block_reason": "IBM Quantum configured credential rejected (InvalidAccountError)."
+  "verified_plan": "open",
+  "backend": "ibm_fez",
+  "backend_qubits": 156,
+  "account_identifiers_redacted": true,
+  "transpiled_stats": [
+    {
+      "kind": "recycled",
+      "logical_qubits": 5,
+      "compiled_qubits": 156,
+      "physical_layout": [
+        144,
+        143,
+        142,
+        136,
+        141
+      ],
+      "depth": 180,
+      "size": 266,
+      "count_ops": {
+        "sx": 105,
+        "rz": 85,
+        "cz": 55,
+        "x": 7,
+        "if_else": 6,
+        "reset": 4,
+        "measure_2": 4
+      }
+    },
+    {
+      "kind": "wide",
+      "logical_qubits": 8,
+      "compiled_qubits": 156,
+      "physical_layout": [
+        143,
+        144,
+        145,
+        146,
+        136,
+        142,
+        123,
+        141
+      ],
+      "depth": 221,
+      "size": 360,
+      "count_ops": {
+        "sx": 154,
+        "rz": 107,
+        "cz": 87,
+        "x": 8,
+        "measure": 4
+      }
+    }
+  ],
+  "final_open_plan_proof": true,
+  "job_id": "db9dod1gv2cc73e5c410",
+  "results": [
+    {
+      "architecture": "recycled",
+      "counts": {
+        "1000": 18,
+        "1100": 15,
+        "0100": 16,
+        "1101": 1,
+        "0000": 14
+      },
+      "proper_factor_shot_fraction": 0.765625,
+      "factor_recovered": true,
+      "factors": {
+        "3x5": 49
+      }
+    },
+    {
+      "architecture": "wide",
+      "counts": {
+        "0000": 21,
+        "0100": 19,
+        "1100": 8,
+        "1011": 2,
+        "1000": 11,
+        "1101": 1,
+        "0110": 1,
+        "0010": 1
+      },
+      "proper_factor_shot_fraction": 0.59375,
+      "factor_recovered": true,
+      "factors": {
+        "3x5": 38
+      }
+    }
+  ]
 }
