@@ -1,0 +1,65 @@
+name: QRR IBM Open credential diagnostic only — ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-ibm-auth-diagnostic-no-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  classify-account-auth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install "qiskit-ibm-runtime~=0.47.0"
+      - name: Check IBM key shape and Open Plan instance login ONLY (never print secret)
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+        run: |
+          set +x
+          python - <<'PY'
+          import os
+          from qiskit_ibm_runtime import QiskitRuntimeService
+          token=os.getenv('IBM_QUANTUM_API_KEY','').strip()
+          print('SECRET_PRESENT',bool(token))
+          print('IBM_PLATFORM_44_CHARACTER_API_KEY_SHAPE',len(token)==44)
+          if not token:
+              print('DIAGNOSIS NO_SECRET')
+              raise SystemExit(0)
+          if len(token)!=44:
+              print('DIAGNOSIS NOT_CURRENT_PLATFORM_API_KEY_SHAPE')
+              print('NO IBM API calls; ZERO QPU')
+              raise SystemExit(0)
+          # NO BACKEND RESOLUTION, NO QUANTUM JOBS, NO SAMPLER AT ALL.
+          # Only authenticate, Open Plan filter and count matching instances.
+          try:
+              service=QiskitRuntimeService(channel='ibm_quantum_platform',
+                  token=token, plans_preference=['open'])
+              instances=service.instances()
+              open_rows=[z for z in instances if str(z.get('plan','')).lower()=='open']
+              print('DIAGNOSIS OPEN_ACCOUNT_AUTH_SUCCESS')
+              print('OPEN_INSTANCES_AVAILABLE',bool(open_rows))
+          except Exception as exc:
+              msg=str(exc).lower()
+              if 'unable to retrieve instances' in msg or 'valid api token' in msg:
+                  reason='IBM_API_TOKEN_REJECTED_DURING_INSTANCE_LOOKUP'
+              elif 'unauthoriz' in msg or '401' in msg or 'invalid api key' in msg:
+                  reason='IBM_AUTH_UNAUTHORIZED'
+              elif 'invalid `token` value' in msg:
+                  reason='TOKEN_SHAPE_OR_ACCOUNT_VALIDATION'
+              elif 'no instance' in msg or 'no available' in msg or 'instances matching' in msg:
+                  reason='OPEN_PLAN_INSTANCE_NOT_AVAILABLE'
+              else:
+                  reason='OTHER_ACCOUNT_INITIALIZATION_ERROR'
+              print('DIAGNOSIS',reason)
+              print('ERROR_CLASS',type(exc).__name__)
+          print('No QPU selection/submission; no paid or free runtime consumed.')
+          PY
