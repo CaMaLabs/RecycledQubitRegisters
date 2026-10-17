@@ -1,0 +1,141 @@
+{
+  "revision": "qrr-n35-public-reversible-shift-add-cube-v1-20261016",
+  "experiment": "N35 public-identity-pruned arithmetic-based controlled modular multiplication",
+  "date_utc": "2026-10-17T02:48:43.330373+00:00",
+  "lead": "Chase Lunsford / CaMaLabs",
+  "preregistration": "docs/QRR_N35_ARITHMETIC_REPLACEMENT_PREREG.md",
+  "source": "hardware/generic_modarith_shor.py (existing public n-bit shift-add compute/swap/uncompute)",
+  "compiler_compatibility": "hardware/ibm_shor35_generic_modarith_preflight_explicit.py (eager controlled IntegerComparator/DraperQFTAdder)",
+  "public_only_optimization": "elide entire controlled U when pow(base,2**k,N)==1; no private order used",
+  "backend": "ibm_fez",
+  "N": 35,
+  "base": 8,
+  "phase_bits": 4,
+  "architecture": "recycled",
+  "phase_power_multipliers": [
+    8,
+    29,
+    1,
+    1
+  ],
+  "identity_rounds": [
+    2,
+    3
+  ],
+  "nontrivial_rounds": 2,
+  "validation_only_order": 4,
+  "true_order_used_in_circuit_construction": false,
+  "orbit_encoding_used": false,
+  "explicit_64_state_permutation_synthesis_used": false,
+  "semantic_reference_verified": true,
+  "optimization_level": 1,
+  "seed_transpiler": 8776,
+  "qpu_submitted": false,
+  "qpu_jobs_submitted": 0,
+  "status": "COMPILE_SUCCESS",
+  "success": true,
+  "frozen_hardware_heuristic": {
+    "max_cz": 800,
+    "max_depth": 2000,
+    "hardware_feasible": false
+  },
+  "semantic_self_test": {
+    "pass": true,
+    "N": 35,
+    "a": 8,
+    "work_bits": 6,
+    "phase_bits": 4,
+    "order_used_in_circuit_construction": false,
+    "modadd_cases": 1190,
+    "controlled_modmul_cases": 512,
+    "powers": [
+      {
+        "bit": 0,
+        "multiplier": 8,
+        "inverse": 22
+      },
+      {
+        "bit": 1,
+        "multiplier": 29,
+        "inverse": 29
+      },
+      {
+        "bit": 2,
+        "multiplier": 1,
+        "inverse": 1
+      },
+      {
+        "bit": 3,
+        "multiplier": 1,
+        "inverse": 1
+      }
+    ],
+    "resources": {
+      "modulus": 35,
+      "base": 8,
+      "work_bits": 6,
+      "phase_bits": 4,
+      "accumulator_qubits": 6,
+      "constant_qubits": 6,
+      "modular_flag_qubits": 1,
+      "validity_flag_qubits": 1,
+      "hls_scratch_qubits": 5,
+      "arithmetic_qubits_excluding_phase": 25,
+      "recycled_logical_qubits": 26,
+      "wide_logical_qubits": 29
+    },
+    "full_register_semantics": "multiply modulo N for y<N; identity for y>=N; arithmetic ancillas clean"
+  },
+  "logical_resources": {
+    "modulus": 35,
+    "base": 8,
+    "work_bits": 6,
+    "phase_bits": 4,
+    "accumulator_qubits": 6,
+    "constant_qubits": 6,
+    "modular_flag_qubits": 1,
+    "validity_flag_qubits": 1,
+    "hls_scratch_qubits": 5,
+    "arithmetic_qubits_excluding_phase": 25,
+    "recycled_logical_qubits": 26,
+    "wide_logical_qubits": 29
+  },
+  "backend_name_resolved": "ibm_fez",
+  "backend_qubits": 156,
+  "mid_measure_supported": true,
+  "source_logical_qubits": 26,
+  "highlevel_ops": {
+    "x": 319,
+    "c3cmp": 48,
+    "c3DraperQFTAdder": 24,
+    "cDraperQFTAdder": 24,
+    "ccswap": 12,
+    "h": 8,
+    "if_else": 6,
+    "reset": 4,
+    "measure_2": 4,
+    "cmp": 4
+  },
+  "highlevel_size": 453,
+  "highlevel_depth": 176,
+  "stats": {
+    "native_cz": 859632,
+    "native_depth": 2370305,
+    "native_size": 3739852,
+    "compiled_device_width": 156,
+    "compiled_native_ops": {
+      "sx": 1697068,
+      "rz": 1183040,
+      "cz": 859632,
+      "x": 98,
+      "if_else": 6,
+      "reset": 4,
+      "measure_2": 4
+    },
+    "compile_seconds": 30.601947689,
+    "logical_qubits": 26,
+    "max_heuristic_cz": 800,
+    "max_heuristic_depth": 2000,
+    "native_hardware_feasibility_pass": false
+  }
+}
