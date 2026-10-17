@@ -49,16 +49,21 @@ def main():
     save(out)
     token=os.environ.get("IBM_QUANTUM_API_KEY","").strip()
     instance=os.environ.get("IBM_QUANTUM_INSTANCE","").strip()
-    if not token:
-        return blocked(out,"IBM_QUANTUM_API_KEY unavailable in this execution environment; no credential is guessed or logged.")
-    kwargs=dict(channel="ibm_quantum_platform",token=token,
+    # A local workstation may have a saved IBM account; a fresh GitHub
+    # runner will not. In both cases, the ACTIVE service must still pass
+    # strict open-only verification immediately before any Sampler.run.
+    kwargs=dict(channel="ibm_quantum_platform",
                 plans_preference=["open"],region="us-east")
+    if token:
+        kwargs["token"]=token
     if instance:
         kwargs["instance"]=instance
     try:
         service=QiskitRuntimeService(**kwargs)
     except Exception as exc:
-        return blocked(out,"Could not authenticate the configured IBM Quantum credentials ("+type(exc).__name__+").")
+        reason=("IBM_QUANTUM_API_KEY not available and no usable saved account in this execution environment"
+                if not token else "IBM Quantum configured credential rejected")
+        return blocked(out,reason+" ("+type(exc).__name__+").")
     try:
         # Guard the initial plan and confirm this is an actual free/open instance.
         assert_open_plan_submission(service)
