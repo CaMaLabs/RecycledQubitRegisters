@@ -1372,3 +1372,28 @@ The [new original source `hardware/qrr_n35_relative_phase_ripple_carry.py`](../h
 **FROZEN ENGINEERING GATE PASSED 2/2:** clear matched same-target native CZ & depth reductions without relaxing clean-ancilla, full-residue or phase correctness, and 596/616 real RCCX gates are present in both full kernels, unlike the initial null intervention. **FROZEN HARDWARE GATE FAILED 2/2:** even smallest 9263 CZ and depth21772 still exceed 800CZ/2000depth by **11.58× and 10.89× respectively, for ONE multiplier only**. No IBM physical N35 test, Open Plan free hours or paid runtime. No generic factoring/cryptographic advantage claim, no complete four-QPE-round resource estimate from this single multiplier, and no asymptotic theorem. Existing full four-round public-cubic comparisons remain a separate scope.
 
 **Next gate:** explore further phase-exact native comparator cost optimization with full direct complex-unitary proofs, or revisit four-bit QPE only if one-kernel resource path becomes technically credible; never weaken QPU thresholds or hardcode N35 multiplicative orbits. Preserve successful milestone alongside both original null/negative controls.
+
+
+## 2026-10-17 — RCCX active/enable cached controls: exact quantum phase proof PASS; base2 8542 CZ/19819 depth WIN, cube8 depth regression; engineering gate FAILED
+
+**Research lead Chase Lunsford / CaMaLabs.** Continuation of phase-exact N35 full-six-bit work arithmetic. The previous independently verified [public shortened-ripple comparator RCCX temporary carry program](QRR_N35_RELATIVE_PHASE_RIPPLE_CARRY_RESULT.md) passed all full/coherent gate-phase checks and compiled native `ibm_fez` CPU target to **base2 9,263 CZ depth21,772 and cube8 9,426 CZ depth21,933**, same 32 logical source qubits, 25 clean helper qubits. Both N35 examples remain far beyond unchanged real-QPU feasibility CZ<=800/depth<=2000. The actual IBM Fez Open Plan N15 phase-recycling pilot remains a different, genuine QPU milestone, not evidence for public N35 cubic quantum factoring.
+
+**Preregistered BEFORE scoring:** [`QRR_N35_RELATIVE_PHASE_CACHED_LATCH_PREREG.md`](QRR_N35_RELATIVE_PHASE_CACHED_LATCH_PREREG.md), original commit `5537b57907162795ead8f64c74d21c3e0cda07ac`, freezes EXACT ONE new change: substitute Qiskit `RCCXGate()` and its ACTUAL inverse for the 26 standard source CCX gates comprising 2 `active=phase&valid` cached latch build/cleanup and 24 `enable=active&work[i]` build/cleanup across 6 forward+6 inverse modular weighted additions. Preserve original coherent semantic target gates, same public full-residue arithmetic/comparator RCCX carries, 32 application qubits, Qiskit~=2.5.2/runtime~=0.47.0, `ibm_fez` authenticated read-only target, opt1 seed8776, no extra seed/layout selection, no true order/factors/orbit injection, zero real QPU.
+
+**Actual source gate quantum PHASE verification (each base):** [`hardware/qrr_n35_relative_phase_cached_latch.py`](../hardware/qrr_n35_relative_phase_cached_latch.py) extracts exact `Operator(inst.operation)` complex monomial basis mapping and requires final amplitude **+1** and exact output on **8/8** separate RCCX→controlled semantic CX→inverse latch cases, **42,672/42,672** untouched comparator phase-cases, **1,584/1,584** untouched public modulo35 adder phase-cases and **128/128** full controlled multiply y0..63×control0/1 phase-cases, with ALL 25 helpers returned zero. Exact local matrix inverse `Operator(RCCX.inverse())·Operator(RCCX)=I`. New source FULL RCCX actually increases **596→622** base2 and **616→642** cube8, with exact CCX decreasing **160→134** and **162→136**, proving the 26-latch intervention exercised.
+
+[Original both-public-base source GitHub Actions CI **39074215604**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39074215604) **2/2 SUCCESS** for tests, original pinned Fez CPU-native compiler and independent CI source JSON invariants. [Independent untouched ORIGINAL JSON artifact audit/preservation CI **39074317133**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39074317133) **SUCCESS**, saved `results/ibm_shor35_phase_cached_latch/qrr_n35_phase_cached_latch_base{2,8}.json` EXACT original files. Full [report](QRR_N35_RELATIVE_PHASE_CACHED_LATCH_RESULT.md).
+
+| ONE N35 multiplier Fez CPU TARGET only | Frozen old phase-correct | New relative cached latch | Outcome |
+|---|---:|---:|---:|
+| Base2 native CZ | 9,263 | **8,542** | −7.78% GOOD |
+| Base2 compiled depth | 21,772 | **19,819** | −8.97% GOOD |
+| Cube8 native CZ | 9,426 | **9,328** | −1.04% GOOD |
+| Cube8 compiled depth | **21,933** | 22,005 | +0.33% WORSE |
+| Logical application qubits | 32 | 32 | unchanged |
+| Complete emitted quantum phase proof | 128/128 +1 | 128/128 +1 | PASS |
+| Real IBM QPU jobs | 0 | **0** | no Runtime |
+
+**Correct strict interpretation:** the two-arm frozen engineering PASS requiring **BOTH** native CZ AND depth improvements for **BOTH bases FAILED** due to the cube8 depth regression, even though base2 is the new lowest-cost single kernel. All static/phase correctness controls PASSED. **Both immutable physical device gates FAIL:** even base2 8542 CZ and depth19819 remain 10.68× /9.91× frozen thresholds 800/2000, before any four-phase Shor QPE; zero QPU free/paid runtime, no N35 hardware factor recovery, no RSA-scale claims.
+
+**Next objective:** isolate active-only vs enable-only RCCX substitutions as distinct fixed arms under a precommitted frozen A/B protocol, to determine which latch family drives the cube depth regression and whether one can pass the two-arm gate. Do NOT postselect a base, adjust frozen seed, relax device gate or hide this mixed result.
