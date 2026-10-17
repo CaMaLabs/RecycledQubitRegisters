@@ -1,0 +1,48 @@
+{
+  "experiment": "qrr-n35-primitive-clean-ripple-modmul-20261016-v1",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "preregistration": "docs/QRR_N35_TOFFOLI_RIPPLE_SINGLE_MULTIPLIER_PREREG.md",
+  "date_utc": "2026-10-17T02:59:26.413269+00:00",
+  "N": 35,
+  "base": 2,
+  "public_cubic_policy": false,
+  "backend_target": "ibm_fez",
+  "single_controlled_multiplier_no_QPE": true,
+  "order_injected_into_circuit": false,
+  "orbit_precomputed": false,
+  "QPU_jobs_submitted": 0,
+  "paid_QPU_runtime": false,
+  "transpiler_seed": 8776,
+  "optimization_level": 1,
+  "heuristic_max_cz": 800,
+  "heuristic_max_depth": 2000,
+  "status": "COMPILE_SUCCESS",
+  "success": true,
+  "logical_qubits": 30,
+  "primitive_equivalence": {
+    "passed": true,
+    "tested_basis_inputs": 128,
+    "all_ancillas_zero": true,
+    "invalid_states_identity_checked": true,
+    "control_zero_identity_checked": true,
+    "primitive_gate_count": 1964,
+    "source_primitive_ops": {
+      "cx": 418,
+      "ccx": 1518,
+      "x": 28
+    },
+    "genuine_gate_level_equivalence": true
+  },
+  "backend_qubits": 156,
+  "compile_seconds": 0.31785559000000063,
+  "compiled_device_width": 156,
+  "compiled_depth": 59947,
+  "compiled_size": 110795,
+  "compiled_native_ops": {
+    "sx": 51529,
+    "rz": 31337,
+    "cz": 27929
+  },
+  "native_cz": 27929,
+  "physical_device_feasible_heuristic": false
+}
