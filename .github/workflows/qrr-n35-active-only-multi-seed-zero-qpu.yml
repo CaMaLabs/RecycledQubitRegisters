@@ -1,3 +1,5 @@
+# Audit-only bugfix: active_only -> actual receipt key device_feasible_active.
+# Same seeds, phase proofs, circuits, Fez target and frozen acceptance gates.
 name: QRR N35 active-only eight matched native placement seeds ZERO QPU
 
 on:
@@ -108,7 +110,7 @@ jobs:
                   assert x['compiled_native_ops']['cz']==x['cz']
                   assert x['compiled_device_width']==z['backend_reported_qubits']
                   assert x['compiled_total_ops']>0 and x['compiler_elapsed_seconds']>=0
-                  assert r[f'device_feasible_{tag}']==(x['cz']<=800 and x['depth']<=2000)
+                  assert r['device_feasible_active' if tag=='active_only' else 'device_feasible_neither']==(x['cz']<=800 and x['depth']<=2000)
               assert r['delta_active_minus_neither']==dict(cz=r['active_only']['cz']-r['neither']['cz'],
                     depth=r['active_only']['depth']-r['neither']['depth'])
               dz.append(r['delta_active_minus_neither']['cz'])
