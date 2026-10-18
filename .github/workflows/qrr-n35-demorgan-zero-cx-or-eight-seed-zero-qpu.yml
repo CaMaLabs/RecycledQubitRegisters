@@ -1,0 +1,185 @@
+name: QRR N35 De Morgan zero-CX OR comparator 8 paired seeds ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-demorgan-zero-cx-or-eight-seed-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-demorgan-zero-cx-or-eight-seed-zero-qpu
+  cancel-in-progress: false
+
+jobs:
+  two-public-bases:
+    name: N35 public base ${{ matrix.base }} 4+42672+1584+3x128 phase checks, eight matched triples CPU Fez
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Pinned CPU-only IBM target compilation SDK
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Strict preregistration, untouched controls, no device execution audit
+        run: |
+          set -euo pipefail
+          test -s docs/QRR_N35_DEMORGAN_OR_CARRY_EIGHT_SEED_PREREG.md
+          python -m py_compile hardware/qrr_n35_demorgan_zero_cx_or_multiseed.py
+          python - <<'PY'
+          from pathlib import Path
+          src=Path('hardware/qrr_n35_demorgan_zero_cx_or_multiseed.py').read_text()
+          forbidden=('SamplerV2','EstimatorV2','sampler.run','job.submit','job.run','job.result','backend.run')
+          assert not any(word in src for word in forbidden)
+          assert "SEEDS=(11,37,101,409,8776,12011,20261,45673)" in src
+          assert "demorgan_ripple_predicate" in src
+          assert "previous.phase_aware_ripple_predicate" in src
+          assert "orbase.minimized_or_ripple_predicate" in src
+          assert "previous.exhaustive_full_multiplier_phases" in src
+          assert "previous.exhaustive_modadd_phases" in src
+          assert "previous.actual_complex_instructions" in src
+          assert "previous.check_exact_phase" in src
+          assert "Operator(RCCXGate().inverse())" in src
+          assert "generate_preset_pass_manager" in src
+          for b in (2,8):
+              for f in (
+                f'results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{b}.json',
+                f'results/ibm_shor35_or_carry_multi_seed/qrr_n35_or_carry_multiseed_base{b}.json'):
+                  assert Path(f).exists(),f
+          print('FROZEN ZERO-QPU source phase proof, 3 arms x8 seeds x2 bases, all existing source JSON controls preserved.')
+          PY
+      - name: Actual exact source quantum-phase tests and read-only target native compilation (no QPU)
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 560s python -u hardware/qrr_n35_demorgan_zero_cx_or_multiseed.py --base "$BASE" | tee "qrr_n35_demorgan_zero_cx_base${BASE}.log"
+      - name: Independently audit full source + every paired original, prior OR and candidate CPU cost
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os,statistics
+          from pathlib import Path
+          b=int(os.environ['BASE'])
+          d=json.loads(Path(f'results/ibm_shor35_demorgan_zero_cx_or/qrr_n35_demorgan_zero_cx_base{b}.json').read_text())
+          original=json.loads(Path(f'results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{b}.json').read_text())
+          old_or=json.loads(Path(f'results/ibm_shor35_or_carry_multi_seed/qrr_n35_or_carry_multiseed_base{b}.json').read_text())
+          seeds=[11,37,101,409,8776,12011,20261,45673]
+          assert d['revision']=='qrr-n35-demorgan-zero-cx-or-eight-matched-seeds-v1-20261018'
+          assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert d['preregistration']=='docs/QRR_N35_DEMORGAN_OR_CARRY_EIGHT_SEED_PREREG.md'
+          assert d['N']==35 and d['base']==b and d['seed_list']==seeds
+          assert d['optimization_level']==1 and d['read_only_target']=='ibm_fez'
+          assert d['true_multiplicative_order_not_injected'] and d['hidden_prime_factors_not_used'] and d['source_orbit_not_precomputed']
+          assert d['real_qpu_jobs']==0 and not d['used_free_quantum_runtime'] and not d['used_paid_quantum_runtime']
+          assert d['physical_cz_cutoff']==800 and d['physical_depth_cutoff']==2000
+          assert d['status']=='COMPILE_SUCCESS' and d['success'] and d['all_eight_seed_triples_compiled']
+          old_or_original=old_or['original_historical_seed_8776']
+          h=d['historical_8776_controls']
+          assert h['original']==dict(cz=original['native_cz'],
+               depth=original['native_depth'],
+               source=original['full_modmul_phase_proof']['quantum_source_gate_counts'])
+          assert h['original']['cz']==old_or_original['cz'] and h['original']['depth']==old_or_original['depth']
+          seed_anchor=next(row for row in old_or['paired_seed_metrics'] if row['seed']==8776)
+          assert h['one_cx_or']['cz']==seed_anchor['candidate']['cz'] and h['one_cx_or']['depth']==seed_anchor['candidate']['depth']
+          p=d['source_complex_phase_proofs']
+          assert p['pass_all'] and p['boolean_identity_and_rccx_inverse']['pass_all']
+          assert p['boolean_identity_and_rccx_inverse']['public_boolean_or_cases']==4
+          assert p['boolean_identity_and_rccx_inverse']['actual_rccx_inverse_operator_product_identity']
+          assert p['candidate_comparator_phase_proof']['pass_all']
+          assert p['candidate_comparator_phase_proof']['actual_emitted_gate_cases']==42672
+          assert p['candidate_comparator_phase_proof']['final_complex_phase_plus_one_every_case']
+          assert p['candidate_public_modadd_phase_proof']['pass_all']
+          assert p['candidate_public_modadd_phase_proof']['source_gate_cases']==1584
+          assert p['candidate_public_modadd_phase_proof']['exact_complex_phase_plus_one']
+          assert p['all_source_phase_amplitudes_exactly_plus_one'] and p['all_three_source_logical_qubits_32']
+          assert p['all_three_25_helpers_clean'] and p['exact_ccx_and_rccx_unchanged']
+          assert p['public_or_steps_rewritten']==(171 if b==2 else 180)
+          assert p['eliminated_cx_relative_to_one_cx_or']==2*p['public_or_steps_rewritten']
+          assert p['added_public_literal_x_relative_to_one_cx_or']==6*p['public_or_steps_rewritten']
+          for variant in ('original','one_cx_or','demorgan_zero_cx'):
+              v=p[variant+'_full_multiplier_phase_proof']
+              assert v['pass_all'] and v['full_residue_control_basis_cases']==128
+              assert v['all_25_auxiliaries_clean'] and v['exact_complex_output_phase_plus_one']
+              assert v['disabled_invalid_states_identity'] and v['control_unmodified']
+          assert p['one_cx_or_full_multiplier_phase_proof']['quantum_source_gate_counts']==h['one_cx_or']['source']
+          prior=h['one_cx_or']['source']
+          candidate_ops=p['demorgan_full_multiplier_phase_proof']['quantum_source_gate_counts']
+          assert candidate_ops==dict(cx=prior['cx']-2*p['public_or_steps_rewritten'],
+               rccx=prior['rccx'],x=prior['x']+6*p['public_or_steps_rewritten'],ccx=prior['ccx'])
+          rows=d['seed_triple_metrics']
+          assert len(rows)==8 and [q['seed'] for q in rows]==seeds
+          for i,row in enumerate(rows):
+              control_seed=old_or['paired_seed_metrics'][i]
+              # The matched compiled historic original + OR target should
+              # reproduce the previously independently preserved 8-seed data,
+              # with no backend target/SDK drift across runs.
+              assert control_seed['seed']==row['seed']
+              for name,ref in (('original','original'),('one_cx_or','candidate')):
+                  now=row['circuits'][name]
+                  previous_row=control_seed[ref]
+                  assert now['cz']==previous_row['cz'] and now['depth']==previous_row['depth'],(b,name,row['seed'],now,previous_row)
+              for name in ('original','one_cx_or','demorgan_zero_cx'):
+                  metric=row['circuits'][name]
+                  assert metric['cz']>0 and metric['depth']>0
+                  assert metric['native_count_ops']['cz']==metric['cz']
+                  assert metric['compiled_isa_width']==d['backend_reported_qubits']
+                  assert metric['native_size']>0 and metric['compiler_seconds']>=0
+                  assert row['device_feasibility'][name]==(
+                     metric['cz']<=800 and metric['depth']<=2000)
+              for reference in ('original','one_cx_or'):
+                  expected=dict(
+                     cz=row['circuits']['demorgan_zero_cx']['cz']-row['circuits'][reference]['cz'],
+                     depth=row['circuits']['demorgan_zero_cx']['depth']-row['circuits'][reference]['depth'])
+                  assert row['deltas']['demorgan_minus_'+reference]==expected
+              assert row['candidate_better_than_one_cx_both']==all(
+                  row['deltas']['demorgan_minus_one_cx_or'][key]<0 for key in ('cz','depth'))
+              assert row['candidate_better_than_original_both']==all(
+                  row['deltas']['demorgan_minus_original'][key]<0 for key in ('cz','depth'))
+          sm=d['native_summary']
+          assert sm['all_previous_8776_anchors_exactly_reproduced']
+          assert sm['no_postselected_seeds'] and sm['all_24_arms_fail_device_gate']
+          for reference in ('one_cx_or','original'):
+              ds=[row['deltas']['demorgan_minus_'+reference] for row in rows]
+              dz=[v['cz'] for v in ds];dd=[v['depth'] for v in ds]
+              summary=sm[reference]
+              assert summary['pairs']==8
+              assert summary['strictly_lower_cz_count']==sum(z<0 for z in dz)
+              assert summary['strictly_lower_depth_count']==sum(x<0 for x in dd)
+              assert summary['jointly_better_cz_and_depth_count']==sum(z<0 and x<0 for z,x in zip(dz,dd))
+              assert summary['paired_cz_median']==statistics.median(dz)
+              assert summary['paired_depth_median']==statistics.median(dd)
+              assert summary['paired_cz_min']==min(dz) and summary['paired_cz_max']==max(dz)
+              assert summary['paired_depth_min']==min(dd) and summary['paired_depth_max']==max(dd)
+              assert summary['six_of_eight_joint_rule_pass']==(summary['jointly_better_cz_and_depth_count']>=6)
+              assert summary['paired_medians_both_negative']==(statistics.median(dz)<0 and statistics.median(dd)<0)
+          assert sm['primary_robust_this_base_pass']==(
+              sm['one_cx_or']['six_of_eight_joint_rule_pass'] and sm['one_cx_or']['paired_medians_both_negative'])
+          assert sm['secondary_robust_vs_original_pass']==(
+              sm['original']['six_of_eight_joint_rule_pass'] and sm['original']['paired_medians_both_negative'])
+          print('INDEPENDENT ORIGINAL 8-SEED THREE ARM CPU AUDIT',b,
+             'new-vs-oneCX joint wins',sm['one_cx_or']['jointly_better_cz_and_depth_count'],
+             'CZ median',sm['one_cx_or']['paired_cz_median'],
+             'depth median',sm['one_cx_or']['paired_depth_median'],
+             'primary robust',sm['primary_robust_this_base_pass'],
+             'secondary robust vs original',sm['secondary_robust_vs_original_pass'],
+             'no QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-demorgan-zero-cx-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_demorgan_zero_cx_base*.log
+            results/ibm_shor35_demorgan_zero_cx_or/qrr_n35_demorgan_zero_cx_base*.json
