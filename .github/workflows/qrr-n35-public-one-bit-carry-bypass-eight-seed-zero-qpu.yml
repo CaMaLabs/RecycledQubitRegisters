@@ -1,0 +1,159 @@
+name: QRR N35 public one-bit carry bypass eight matched seeds ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-public-one-bit-carry-bypass-eight-seed-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-public-carry-bypass-demorgan-eight-seeds-v1-zero-qpu
+  cancel-in-progress: false
+
+jobs:
+  two-public-base-matched-seeds:
+    name: public base ${{ matrix.base }} phase-exact public carry bypass, 8 paired seeds, Fez CPU native
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exactly original Qiskit and read-only backend target compiler
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Check preregistered 8 seeds, immutable strongest original source and ZERO QPU policy
+        run: |
+          set -e
+          test -s docs/QRR_N35_PUBLIC_ONE_BIT_CARRY_BYPASS_MULTI_SEED_PREREG.md
+          python -m py_compile hardware/qrr_n35_public_one_bit_carry_bypass_multiseed.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_public_one_bit_carry_bypass_multiseed.py').read_text()
+          assert all(token not in s for token in
+             ('SamplerV2','EstimatorV2','sampler.run','estimator.run','job.submit','job.run','job.result','backend.run'))
+          assert 'SEEDS=(11,37,101,409,8776,12011,20261,45673)' in s
+          assert 'primitive.predicate=dm.demorgan_ripple_predicate' in s
+          assert 'best.constant_add_from_prefix_carry=one_bit_bypass_constant_add' in s
+          assert 'primitive.multi_x(qc,controls+[target[j-1]],target[j],chain)' in s
+          assert 'dm.exhaustive_demorgan_comparator_phase_proof()' in s
+          assert s.count('previous.exhaustive_modadd_phases(')>=2
+          assert s.count('previous.exhaustive_full_multiplier_phases(')>=2
+          assert 'cpu_compile(pm,circuits["baseline"])' in s
+          assert 'cpu_compile(pm,circuits["candidate"])' in s
+          for base in (2,8):
+              p=Path(f'results/ibm_shor35_demorgan_zero_cx_or/qrr_n35_demorgan_zero_cx_base{base}.json')
+              assert p.exists(),p
+          print('Frozen public N35 exact phase proof; strongest De Morgan source baseline; zero QPU job methods')
+          PY
+      - name: Exhaustive emitted-unitary phase verification then eight paired authentic Fez target CPU compilations, no QPU
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 570s python -u hardware/qrr_n35_public_one_bit_carry_bypass_multiseed.py --base "$BASE" |
+            tee "qrr_n35_one_bit_carry_bypass_base${BASE}.log"
+      - name: Independent per-arm original receipt and all 8 paired native seed check
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os,statistics
+          from pathlib import Path
+          base=int(os.environ['BASE'])
+          r=json.loads(Path(f'results/ibm_shor35_one_bit_carry_bypass_multiseed/qrr_n35_one_bit_carry_bypass_base{base}.json').read_text())
+          original=json.loads(Path(f'results/ibm_shor35_demorgan_zero_cx_or/qrr_n35_demorgan_zero_cx_base{base}.json').read_text())
+          anchor=next(row for row in original['seed_triple_metrics'] if row['seed']==8776)
+          old=anchor['circuits']['demorgan_zero_cx']
+          prior=original['source_complex_phase_proofs']['demorgan_full_multiplier_phase_proof']['quantum_source_gate_counts']
+          seeds=[11,37,101,409,8776,12011,20261,45673]
+          assert r['revision']=='qrr-n35-one-bit-carry-bypass-demorgan-eight-matched-seeds-v1-20261018'
+          assert r['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert r['preregistration']=='docs/QRR_N35_PUBLIC_ONE_BIT_CARRY_BYPASS_MULTI_SEED_PREREG.md'
+          assert r['N']==35 and r['base']==base and r['seeds']==seeds
+          assert r['optimization_level']==1 and r['read_only_native_target']=='ibm_fez'
+          assert r['status']=='COMPILE_SUCCESS' and r['success'] and r['all_native_pair_compilations_completed']
+          assert r['only_one_constant_adder_change'] and r['original_de_morgan_and_carry_semantics_preserved']
+          assert r['source_order_not_injected'] and r['private_factors_not_used'] and r['orbit_not_hardcoded']
+          assert r['qpu_jobs_submitted']==0 and r['no_qpu_submissions']
+          assert not r['quantum_runtime_used'] and not r['paid_runtime_used']
+          assert r['hardware_cz_limit']==800 and r['hardware_depth_limit']==2000
+          hist=r['historical_anchor']
+          assert hist['baseline']['cz']==old['cz'] and hist['baseline']['depth']==old['depth']
+          assert hist['baseline']['source']==prior
+          assert hist['carry_bypasses']==23
+          pr=r['exact_source_complex_proofs']
+          assert pr['pass_all']
+          assert pr['public_carry_identity']['pass_all'] and pr['public_carry_identity']['exhaustive_low_prefix_cases']>0
+          assert pr['demorgan_inverse_operator_proof']['pass_all']
+          assert pr['unchanged_demorgan_comparator_phase_proof']['pass_all']
+          assert pr['unchanged_demorgan_comparator_phase_proof']['actual_emitted_gate_cases']==42672
+          for k in ('baseline_modadd_phase_proof','candidate_modadd_phase_proof'):
+              assert pr[k]['pass_all'] and pr[k]['source_gate_cases']==1584
+              assert pr[k]['exact_complex_phase_plus_one'] and pr[k]['clean_helpers']
+          for k in ('baseline_full_multiplier_phase_proof','candidate_full_multiplier_phase_proof'):
+              assert pr[k]['pass_all'] and pr[k]['full_residue_control_basis_cases']==128
+              assert pr[k]['exact_complex_output_phase_plus_one'] and pr[k]['all_25_auxiliaries_clean']
+          assert pr['actual_source_bypasses']==23
+          assert pr['removed_source_cx']==46
+          assert pr['both_circuits_32_logical_qubits'] and pr['both_circuits_25_clean_helpers']
+          assert pr['every_emitted_gate_output_complex_amplitude_plus_one']
+          expected=dict(prior)
+          expected['cx']-=46
+          assert pr['candidate_full_multiplier_phase_proof']['quantum_source_gate_counts']==expected
+          rows=r['eight_pairs']
+          assert len(rows)==8 and [p['seed'] for p in rows]==seeds
+          cz=[];dep=[]
+          for p in rows:
+              for name in ('baseline','candidate'):
+                  o=p[name]
+                  assert o['cz']>0 and o['depth']>0
+                  assert o['native_count_ops']['cz']==o['cz']
+                  assert o['device_width']==r['fez_target_device_qubits']
+                  assert o['native_size']>0 and o['compiler_seconds']>=0
+                  assert p[name+'_hardware_feasible']==(o['cz']<=800 and o['depth']<=2000)
+              d=p['delta_candidate_minus_baseline']
+              assert d==dict(cz=p['candidate']['cz']-p['baseline']['cz'],
+                             depth=p['candidate']['depth']-p['baseline']['depth'])
+              assert p['strict_both_metric_improvement']==(d['cz']<0 and d['depth']<0)
+              cz.append(d['cz']);dep.append(d['depth'])
+          s=r['summary']
+          assert s['paired_seeds']==8 and s['complete_fixed_seed_list']
+          assert s['strict_both_resource_wins']==sum(a<0 and b<0 for a,b in zip(cz,dep))
+          assert s['strictly_less_cz_seeds']==sum(x<0 for x in cz)
+          assert s['strictly_less_depth_seeds']==sum(x<0 for x in dep)
+          assert s['median_paired_cz_delta']==statistics.median(cz)
+          assert s['median_paired_depth_delta']==statistics.median(dep)
+          assert s['minimum_paired_cz_delta']==min(cz) and s['maximum_paired_cz_delta']==max(cz)
+          assert s['minimum_paired_depth_delta']==min(dep) and s['maximum_paired_depth_delta']==max(dep)
+          p8776=rows[seeds.index(8776)]
+          exact=(p8776['baseline']['cz']==old['cz'] and p8776['baseline']['depth']==old['depth'])
+          assert s['seed8776_baseline_historical_exact_reproduction']==exact
+          assert s['robust_engineering_per_base_pass']==(
+              exact and s['strict_both_resource_wins']>=6 and statistics.median(cz)<0 and statistics.median(dep)<0)
+          assert s['all_original_and_new_seeds_fail_device_heuristic']==all(
+              not p['baseline_hardware_feasible'] and not p['candidate_hardware_feasible'] for p in rows)
+          print('MATCHED EIGHT N35 PUBLIC CARRY SEED AUDIT',base,
+              '23 source bypasses, 46 CX removed',
+              'unitary proof 42672 cmp +1584 each modadd+128 each full+1 exact phase',
+              'joint wins',s['strict_both_resource_wins'],
+              'medianCZ',s['median_paired_cz_delta'],'medianDepth',s['median_paired_depth_delta'],
+              'anchor',exact,'robust',s['robust_engineering_per_base_pass'],'NO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-one-bit-carry-bypass-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_one_bit_carry_bypass_base*.log
+            results/ibm_shor35_one_bit_carry_bypass_multiseed/qrr_n35_one_bit_carry_bypass_base*.json
