@@ -1,0 +1,38 @@
+# Frozen BEFORE scoring — N35 public OR-carry negative-control identity, exact unitary, eight matched IBM Fez CPU compiler seeds
+
+**Research lead / original program:** Chase Lunsford / CaMaLabs. Date 2026-10-17 (PDT). **ZERO REAL QPU JOBS**. The IBM `ibm_fez` target is authenticated/read ONLY for CPU circuit compilation; no Sampler, Estimator, hardware execution, paid runtime or Open Plan free runtime. All source proof cases precede every target read; original receipts preserved regardless of outcome.
+
+## Frozen scientific baseline and result to falsify
+
+The demonstrated public N=35 full 6-bit-residue single controlled modular multiplier with a fully unitary, phase-exact `RCCX` compute/inverse temporary comparator carry is `hardware/qrr_n35_relative_phase_ripple_carry.py`, [original independently checked source result](QRR_N35_RELATIVE_PHASE_RIPPLE_CARRY_RESULT.md). IBM Fez target-native CPU opt1 seed8776 baseline: a2 CZ9263/depth21772; public cube a8 CZ9426/depth21933; application width32 including 25 clean auxiliaries. Source output correct full six-bit residue and 128/128 control cases, with exact final quantum phase+1; 42,672 comparator checks and 1,584 public modulo35-add checks. Its original JSONs are immutable in `results/ibm_shor35_relative_phase_ripple/`.
+
+The later [active-only 8-seed matched study](QRR_N35_ACTIVE_ONLY_MULTI_SEED_PLACEMENT_RESULT.md) proved a **favorable original seed8776 was not robust**: base2 5/8 joint native CZ+depth wins, cubic base8 1/8 and median regression. Thus DO NOT include active/enable RCCX cache-latch changes here. Compare **only** the original comparator-only `neither` versus ONE genuinely different controlled constant arithmetic comparator synthesis, on the same eight frozen placement seeds and both public bases. Previous disjoint minterm comparator and shared carry attempts were separately verified regressions; do not erase them.
+
+## EXACTLY ONE isolated change, justified by an unsigned carry Boolean identity
+
+Within the *temporary* carry computation of the original phase-aware public ripple comparator `phase_aware_ripple_predicate(qc,x,t,flag,carry,chain,controls,geq)`, keep the entire control/source arithmetic/circuit, all original `b=0` carry steps, leading-carry initialization and semantic flag `primitive.multi_x` UNCHANGED. Change **ONLY** internal steps where public complement constant `const=(2**n)-threshold` has bit `b_i=1` for `i>=1`. Original Boolean carry
+`c_i = x_i OR c_{i-1} = x_i XOR c_{i-1} XOR (x_i AND c_{i-1})`
+uses, for initially clean c_i, the sequence `CX(x_i,c_i); CX(c_{i-1},c_i); RCCX(x_i,c_{i-1},c_i)`.
+
+New *public polarity* identity:
+`x_i OR c_{i-1} = x_i XOR ((NOT x_i) AND c_{i-1})`.
+Emit `CX(x_i,c_i); X(x_i); RCCX(x_i,c_{i-1},c_i); X(x_i)` for the clean temporary forward carry, preserving the exact input x_i after the step. On reverse uncomputation, use the **literal adjoint in reverse order** `X(x_i); RCCX.inverse(x_i,c_{i-1},c_i); X(x_i); CX(x_i,c_i)`. Compared to original b=1 step, this eliminates 1 CX per compute and 1 CX per uncompute while adding two temporary X per compute and two X per uncompute, with the **same RCCX count**. This is not a shortcut to specific inputs: the Boolean identity holds for ALL x_i and prior carry bits. It never substitutes RCCX for the semantic predicate target flip. Other bits and `geq=False` polarity are unchanged.
+
+Original and new comparator carry networks must be shown as source-circuit **exact unitary** with outputs final complex amplitude +1 on all tested initialized-clean basis states. Standalone RCCX is only relative-phase Toffoli; do not treat classical bit equality as quantum equivalence. No changes to N35 public modular correction, base, source control latches, source register qubits32 / helper25, public prefix-carry constant bit adder, inverse weighted accumulator cleanup, validity/power schedule, multiplicative orbit/order or factors.
+
+## Frozen independent verification prior to target and compile
+
+Construct baseline original source by `previous.verified.build(base)` **before monkey-patching** original comparator. Construct candidate using the same `verified.build(base)` AFTER monkey-patching ONLY the comparator global (both `primitive.predicate` and `previous.phase_aware_ripple_predicate` for standalone verifier). The comparator and full unitary sources are verified independently. Enforce:
+
+1. ORIGINAL and CANDIDATE comparator each independently pass Qiskit **actual emitted Operator** monomial-phase interpretation of **42,672/42,672** basis cases over bit-width1–6, thresholds1..2^w−1, geq and lt, enable0/1, input flag0/1. All carry/scratch clean, controls and input x unchanged, final exact quantum complex phase+1. Candidate source MUST contain extra X and fewer CX on public b1 comparator cases, but same public comparator Boolean mapping.
+2. ORIGINAL and CANDIDATE public modulo35 constant adder checks each pass **1,584/1,584** actual emitted operator-phase cases (all 16 public constants each 35 active valid or64 disabled arbitrary inputs), all helpers clean and final phase exactly+1.
+3. ORIGINAL and CANDIDATE complete full6bit-residue controlled multiplier each pass **128/128** output/control inputs and all25 auxiliary clean, exact phase+1; identity if disabled or y>=35, correct public controlled multiplication otherwise. Both source logical width 32, all original cache latches remain exact CCX, no new ancilla. Assert candidate has more X, fewer CX and **identical RCCX and CCX source counts**, to verify real intervention and no hidden algorithm variation. No true order, factors, lookup table or 12-state orbit injection.
+4. Only after all these checks pass read the **same** authenticated `ibm_fez` backend target ONCE per job. Compile two source circuits for each **one of eight fixed seeds** `[11,37,101,409,8776,12011,20261,45673]`, exactly original then candidate, `qiskit~=2.5.2`, `qiskit-ibm-runtime~=0.47.0`, optimization1, `seed_transpiler=seed`. **8 matched seeds×2 circuits×2 public bases =32 CPU target compiles**. No search, optimizer tweak, alternative bit polarity, cherry-picked layout or post-result removal.
+5. Report full native per-seed original and new count_ops/CZ/depth/layout width/size, exact paired CZ/depth delta candidate−original, per-base medians/min/max and jointly-improved seed counts. Require original `neither` seed8776 still matches archived a2=9263/21772 and cube8=9426/21933; anchor drift makes historical reproducibility inconclusive.
+6. Save original raw JSON source-run receipts even for regression or error, audit source artifacts independently without recompiling or changing values. Record original CI failures separately from experiment failures. No device runtime.
+
+## Immutable frozen decision rules
+
+**Robust engineering PASS ONLY IF BOTH public base arms** prove all phase-correct emitted-source gates, compile all eight pairings, reproduce historical original seed8776 baseline EXACTLY, AND each separately achieves **>=6 of8 seeds with BOTH CZ<reference CZ and depth<reference depth**, with median paired CZ and depth deltas strictly negative. Otherwise **NOT ROBUST**, regardless of favorable isolated metric or seed; do not relabel as a breakthrough. If phase error, reject before compilation.
+
+**Device feasibility independently CZ<=800 and native depth<=2000**, for BOTH bases. No QPU submission in this experiment regardless of compiler outcome; N35 public factorization is trivially classical and one controlled multiplication is not a full Shor factoring circuit. Preserve attribution, all prior real IBM N15 hardware and N35 negative/positive experimental records.
