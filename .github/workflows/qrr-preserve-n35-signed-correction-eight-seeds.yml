@@ -1,0 +1,168 @@
+name: Independently preserve original N35 signed-constant eight-seed two-base mixed results
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-signed-correction-eight-seeds.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-signed-correction-original-8seed-preservation-v1
+  cancel-in-progress: false
+
+jobs:
+  audit-untouched-source-results:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download ORIGINAL eight-matched-seed artifacts from 2/2 successful experiment, never recompile
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39108692489
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-signed-modadd-base*-original
+          merge-multiple: true
+          path: _untouched_source_artifacts
+      - name: Copy only two original JSONs without editing their numeric contents
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_signed_constant_correction
+          for b in 2 8; do
+            filename="qrr_n35_signed_correction_base${b}.json"
+            found="$(find _untouched_source_artifacts -type f -name "$filename" | wc -l)"
+            test "$found" -eq 1 || { echo "Expected exactly 1 original $filename, got $found"; exit 1; }
+            find _untouched_source_artifacts -type f -name "$filename" -exec cp -t results/ibm_shor35_signed_constant_correction/ '{}' +
+          done
+      - name: Independently audit original pre-scoring source facts, 32 ISA CPU compiles and both positive/negative gate results
+        run: |
+          python - <<'PY'
+          import json,statistics
+          from pathlib import Path
+          SEEDS=[11,37,101,409,8776,12011,20261,45673]
+          expected={
+            2:[
+              (7932,18529,7536,17307),
+              (7875,18757,7685,17829),
+              (7955,18618,7520,17574),
+              (7676,18220,7642,17523),
+              (7887,18221,7345,16858),
+              (7737,18413,7574,17646),
+              (7744,18497,7352,17274),
+              (8135,19192,7257,16959)
+            ],
+            8:[
+              (8242,18553,8174,18900),
+              (8321,19496,8347,19525),
+              (7604,18627,8317,19254),
+              (8156,19775,8064,19139),
+              (7802,18449,8199,19269),
+              (8137,18982,7828,18527),
+              (8328,19457,7984,18843),
+              (8290,19122,8038,18746)
+            ]
+          }
+          expected_source={
+            2:dict(cx=292,rccx=556,x=1608,ccx=155),
+            8:dict(cx=315,rccx=608,x=1788,ccx=163)
+          }
+          expected_summary={2:(8,8,8,-394,-1133,-878,-34,-2233,-697),
+                            8:(4,5,4,-80,-173.5,-344,713,-636,820)}
+          for b in (2,8):
+            f=Path(f'results/ibm_shor35_signed_constant_correction/qrr_n35_signed_correction_base{b}.json')
+            d=json.loads(f.read_text())
+            ref=json.loads(Path(f'results/ibm_shor35_one_bit_carry_bypass_multiseed/qrr_n35_one_bit_carry_bypass_base{b}.json').read_text())
+            assert d['revision']=='qrr-n35-signed-public-constant-modadd-eight-seeds-v1-20261018'
+            assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+            assert d['preregistration']=='docs/QRR_N35_SIGNED_CONSTANT_CORRECTION_MULTI_SEED_PREREG.md'
+            assert d['N']==35 and d['base']==b and d['seeds']==SEEDS
+            assert d['read_only_native_backend']=='ibm_fez' and d['compiler_optimization_level']==1
+            assert d['full_residue_six_bit_work_and_control'] and d['original_robust_arithmetic_preserved_except_signed_rule']
+            assert d['true_order_not_used'] and d['private_factors_not_used'] and d['precomputed_orbit_not_used']
+            assert not d['quantum_runtime_used'] and not d['paid_quantum_runtime_used'] and d['qpu_jobs_submitted']==0
+            assert d['immutable_device_cz_limit']==800 and d['immutable_device_depth_limit']==2000
+            assert d['status']=='COMPILE_SUCCESS' and d['success'] and d['no_quantum_device_jobs']
+            assert d['target_device_width']==156
+            assert d['original_robust_seed8776']==dict(
+                 cz=ref['eight_pairs'][SEEDS.index(8776)]['candidate']['cz'],
+                 depth=ref['eight_pairs'][SEEDS.index(8776)]['candidate']['depth'],
+                 source=ref['exact_source_complex_proofs']['candidate_full_multiplier_phase_proof']['quantum_source_gate_counts'])
+            proof=d['quantum_source_proofs']
+            assert proof['pass_all'] and proof['exact_complex_quantum_output_phase_plus_one_for_both']
+            assert proof['both_circuits_32_logical_qubits'] and proof['both_circuits_all_25_aux_clean']
+            assert proof['actual_signed_k_above_half_branch_calls']==7
+            assert proof['actual_unchanged_small_k_branch_calls']==5
+            assert proof['public_signed_identity']['pass_all']
+            assert proof['public_signed_identity']['public_test_cases']==3366
+            assert proof['public_signed_identity']['seven_signed_weighted_additions_per_public_base']
+            assert proof['unchanged_comparator_phase_proof']['pass_all']
+            assert proof['unchanged_comparator_phase_proof']['actual_emitted_gate_cases']==42672
+            assert proof['unchanged_comparator_phase_proof']['final_complex_phase_plus_one_every_case']
+            for key in ('baseline_modadd_phase_proof','signed_modadd_phase_proof'):
+               item=proof[key]
+               assert item['pass_all'] and item['source_gate_cases']==1584
+               assert item['unique_constants']==16 and item['clean_helpers'] and item['exact_complex_phase_plus_one']
+            for key in ('baseline_full_multiplier_phase_proof','signed_full_multiplier_phase_proof'):
+               item=proof[key]
+               assert item['pass_all'] and item['full_residue_control_basis_cases']==128
+               assert item['all_25_auxiliaries_clean'] and item['exact_complex_output_phase_plus_one']
+               assert item['disabled_invalid_states_identity'] and item['output_equals_public_modular_multiplication']
+            assert proof['candidate_source_gate_counts']==expected_source[b]
+            assert proof['original_source_gate_counts']==ref['exact_source_complex_proofs']['candidate_full_multiplier_phase_proof']['quantum_source_gate_counts']
+            rows=d['matched_seed_pairs']
+            assert len(rows)==8 and [z['seed'] for z in rows]==SEEDS
+            dz=[]; dd=[]
+            for i,row in enumerate(rows):
+               orig=row['baseline'];new=row['candidate']
+               assert (orig['cz'],orig['depth'],new['cz'],new['depth'])==expected[b][i],(b,i,row)
+               assert (orig['cz'],orig['depth'])==(
+                 ref['eight_pairs'][i]['candidate']['cz'],ref['eight_pairs'][i]['candidate']['depth'])
+               for side,blob in (('baseline',orig),('candidate',new)):
+                  assert blob['native_count_ops']['cz']==blob['cz']
+                  assert blob['compiled_device_width']==156
+                  assert blob['native_size']>0 and blob['compiler_seconds']>=0
+                  assert row[f'{side}_device_feasible']==(blob['cz']<=800 and blob['depth']<=2000)
+               cz=new['cz']-orig['cz'];depth=new['depth']-orig['depth']
+               assert row['candidate_minus_baseline']==dict(cz=cz,depth=depth)
+               assert row['strict_both_improve']==(cz<0 and depth<0)
+               dz.append(cz);dd.append(depth)
+            s=d['summary']
+            assert s['seeds']==8 and s['no_seeds_excluded']
+            assert (s['both_metric_strict_win_seeds'],s['cz_win_seeds'],s['depth_win_seeds'],
+               s['paired_median_cz_delta'],s['paired_median_depth_delta'],
+               s['paired_min_cz_delta'],s['paired_max_cz_delta'],
+               s['paired_min_depth_delta'],s['paired_max_depth_delta'])==expected_summary[b]
+            assert s['both_metric_strict_win_seeds']==sum(x<0 and y<0 for x,y in zip(dz,dd))
+            assert s['paired_median_cz_delta']==statistics.median(dz)
+            assert s['paired_median_depth_delta']==statistics.median(dd)
+            assert s['original_seed8776_reproduced_exact'] and not s['historical_anchor_drift']
+            assert s['six_of_eight_joint_win_gate']==(b==2)
+            assert s['both_median_deltas_strictly_negative']
+            assert s['robust_engineering_per_base_pass']==(b==2)
+            assert s['all_layouts_fail_immutable_device_gate']
+            print('IMMUTABLE SOURCE SUCCESS',b,
+              'complex source 3366+42672+2*1584+2*128 PASS',
+              'changed branches 7; 8 complete matched native CPU pairs',
+              'joint wins',s['both_metric_strict_win_seeds'],
+              'median paired CZ',s['paired_median_cz_delta'],
+              'median depth',s['paired_median_depth_delta'],
+              'ROBUST',s['robust_engineering_per_base_pass'],
+              'HARDWARE FAIL and ZERO QPU')
+          print('COMPLETE 2/2 independent source-artifact success; preserve honest two-base robust gate FAIL')
+          PY
+      - name: Commit only original unchanged source-run JSON bytes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_signed_constant_correction/qrr_n35_signed_correction_base2.json
+          git add results/ibm_shor35_signed_constant_correction/qrr_n35_signed_correction_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently preserve original N35 signed correction eight-seed base2 PASS/cube8 FAIL quantum-phase native CPU source'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
