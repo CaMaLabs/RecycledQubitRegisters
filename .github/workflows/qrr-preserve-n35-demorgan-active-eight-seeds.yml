@@ -1,0 +1,141 @@
+name: Independently audit/preserve original N35 De Morgan plus active latch 8-seed robustness failure
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-demorgan-active-eight-seeds.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-demorgan-active-original-two-base-8-seed-receipts
+  cancel-in-progress: false
+
+jobs:
+  no-rescoring-original-artifacts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch BOTH original source-run artifacts without re-running quantum software
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39100095129
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-demorgan-active-base*-original
+          merge-multiple: true
+          path: _immutable_originals
+      - name: Copy exactly one original numerical receipt for each public base
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_demorgan_active_only
+          for base in 2 8; do
+            f="qrr_n35_demorgan_active_only_base${base}.json"
+            n="$(find _immutable_originals -type f -name "$f" | wc -l)"
+            test "$n" -eq 1 || { echo "Wrong source artifact count for $f: $n"; exit 1; }
+            find _immutable_originals -type f -name "$f" -exec cp -t results/ibm_shor35_demorgan_active_only/ '{}' +
+          done
+      - name: Independent original 32 CPU native gate output, exact phase proof, historical baseline, robust FAIL and ZERO-QPU audit
+        run: |
+          python3 - <<'PY'
+          import json,statistics
+          from pathlib import Path
+          seeds=[11,37,101,409,8776,12011,20261,45673]
+          known={
+           2:[
+            (8214,19400,7980,19046),(8298,19708,8256,19374),
+            (8026,18965,8306,19594),(8367,19244,8082,19461),
+            (7993,18604,8225,19554),(8379,19559,8072,19105),
+            (8562,19775,8259,19783),(8224,19261,8458,20035)],
+           8:[
+            (8629,20313,8487,20497),(8601,20292,8481,20118),
+            (8639,20262,8793,20503),(8222,19715,8692,20795),
+            (8758,20575,8036,19202),(8415,20069,8221,19485),
+            (8720,20718,8459,19859),(8585,20964,8499,19835)]
+          }
+          expected_summary={2:(3,-138.0,112.5),8:(5,-131.0,-379.0)}
+          for b in (2,8):
+              r=json.loads(Path(f'results/ibm_shor35_demorgan_active_only/qrr_n35_demorgan_active_only_base{b}.json').read_text())
+              original=json.loads(Path(f'results/ibm_shor35_demorgan_zero_cx_or/qrr_n35_demorgan_zero_cx_base{b}.json').read_text())
+              assert r['revision']=='qrr-n35-demorgan-active-only-eight-matched-v1-20261018'
+              assert r['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert r['prereg']=='docs/QRR_N35_DEMORGAN_ACTIVE_LATCH_MATCHED_PREREG.md'
+              assert r['modulus']==35 and r['base']==b and r['seeds']==seeds
+              assert r['hardware_target_read_only']=='ibm_fez' and r['optimization_level']==1
+              assert r['true_order_not_used'] and r['factors_not_used'] and r['multiplication_orbit_not_hardcoded']
+              assert r['physical_cz_limit']==800 and r['physical_depth_limit']==2000
+              assert r['actual_qpu_jobs']==0 and not r['free_runtime_used'] and not r['paid_runtime_used']
+              assert r['status']=='COMPILE_SUCCESS' and r['success'] and r['all_8_pairs_completed']
+              origanchor=original['seed_triple_metrics'][4]['circuits']['demorgan_zero_cx']
+              assert (r['historical_original']['cz'],r['historical_original']['depth'])==(
+                     origanchor['cz'],origanchor['depth'])
+              p=r['complex_source_gate_proof']
+              assert p['pass_all'] and p['both_source_32_qubits'] and p['all_25_helper_bits_clean']
+              assert p['exact_quantum_output_phase_plus_one'] and p['exactly_two_active_rccx_replaced']
+              assert p['boolean_identity']['pass_all'] and p['boolean_identity']['public_boolean_or_cases']==4
+              assert p['local_active']['pass_all'] and p['local_active']['direct_actual_operator_cases']==8
+              assert p['local_active']['output_complex_phase_exactly_plus_one']
+              assert p['comparator']['pass_all'] and p['comparator']['actual_emitted_gate_cases']==42672
+              assert p['comparator']['final_complex_phase_plus_one_every_case']
+              assert p['modadd']['pass_all'] and p['modadd']['source_gate_cases']==1584
+              assert p['modadd']['exact_complex_phase_plus_one']
+              for name in ('original_full','candidate_full'):
+                  full=p[name]
+                  assert full['pass_all'] and full['full_residue_control_basis_cases']==128
+                  assert full['all_25_auxiliaries_clean'] and full['exact_complex_output_phase_plus_one']
+              src=original['source_complex_phase_proofs']['demorgan_full_multiplier_phase_proof']['quantum_source_gate_counts']
+              assert r['historical_original']['source']==src and p['source_old']==src
+              assert p['source_active']==dict(cx=src['cx'],rccx=src['rccx']+2,
+                           x=src['x'],ccx=src['ccx']-2)
+              rows=r['pairs']
+              assert len(rows)==8 and [x['seed'] for x in rows]==seeds
+              dz=[];dt=[]
+              for i,v in enumerate(rows):
+                  a=v['original'];q=v['active_only']
+                  assert (a['cz'],a['depth'],q['cz'],q['depth'])==known[b][i]
+                  for name,cost in (('original',a),('active_only',q)):
+                      assert cost['cz']>0 and cost['depth']>0
+                      assert cost['native_count_ops']['cz']==cost['cz']
+                      assert cost['compiled_device_width']==r['target_device_qubits']
+                      assert cost['native_total_ops']>0 and cost['seconds']>=0
+                  assert v['physical_device_old']==(a['cz']<=800 and a['depth']<=2000)
+                  assert v['physical_device_active']==(q['cz']<=800 and q['depth']<=2000)
+                  x=q['cz']-a['cz']; y=q['depth']-a['depth']
+                  assert v['delta_active_minus_original']==dict(cz=x,depth=y)
+                  assert v['paired_both_improve']==(x<0 and y<0)
+                  dz.append(x);dt.append(y)
+              s=r['summary']
+              assert s['eight_matched_pairs_complete'] and s['paired_seed_count']==8
+              assert (s['joint_both_improve'],s['median_paired_cz'],s['median_paired_depth'])==expected_summary[b]
+              assert s['joint_both_improve']==sum(x<0 and y<0 for x,y in zip(dz,dt))
+              assert s['cz_improve_count']==sum(x<0 for x in dz)
+              assert s['depth_improve_count']==sum(y<0 for y in dt)
+              assert s['median_paired_cz']==statistics.median(dz)
+              assert s['median_paired_depth']==statistics.median(dt)
+              assert s['min_paired_cz']==min(dz) and s['max_paired_cz']==max(dz)
+              assert s['min_paired_depth']==min(dt) and s['max_paired_depth']==max(dt)
+              assert s['frozen_original_seed_8776_exact'] is True
+              assert s['six_of_eight_joint_rule'] is False
+              assert s['robust_gate_this_base_pass'] is False
+              assert s['every_seed_fails_device_gate'] is True
+              print('UNMODIFIED ORIGINAL RECEIPT AUDIT N35 base',b,
+                 'phase+1 proofs PASS; 8 matched compiles; joint wins',s['joint_both_improve'],
+                 'median CZ',s['median_paired_cz'],'median depth',s['median_paired_depth'],
+                 'historical seed exact; robust criterion FAIL; all native hardware gates FAIL; QPU jobs0')
+          print('SUCCESS original source-run 2 independent bases, 32 CPU compilations archived WITHOUT rerun')
+          PY
+      - name: Commit original JSONs ONLY; do not overwrite any previous baseline
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_demorgan_active_only/qrr_n35_demorgan_active_only_base2.json
+          git add results/ibm_shor35_demorgan_active_only/qrr_n35_demorgan_active_only_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently preserve N35 DeMorgan plus active RCCX 8-seed mixed regression, correct phase, failed two-base robustness'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
