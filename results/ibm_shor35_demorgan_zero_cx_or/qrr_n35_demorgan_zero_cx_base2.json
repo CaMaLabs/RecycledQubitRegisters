@@ -1,0 +1,854 @@
+{
+  "revision": "qrr-n35-demorgan-zero-cx-or-eight-matched-seeds-v1-20261018",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "utc": "2026-10-18T04:11:38.649720+00:00",
+  "preregistration": "docs/QRR_N35_DEMORGAN_OR_CARRY_EIGHT_SEED_PREREG.md",
+  "experiment": "One full-residue six-bit N35 controlled modular multiplier, three fixed comparator variants",
+  "N": 35,
+  "base": 2,
+  "seed_list": [
+    11,
+    37,
+    101,
+    409,
+    8776,
+    12011,
+    20261,
+    45673
+  ],
+  "historical_8776_controls": {
+    "original": {
+      "cz": 9263,
+      "depth": 21772,
+      "source": {
+        "cx": 1033,
+        "rccx": 596,
+        "x": 28,
+        "ccx": 160
+      }
+    },
+    "one_cx_or": {
+      "cz": 8311,
+      "depth": 19981,
+      "source": {
+        "cx": 691,
+        "rccx": 596,
+        "x": 712,
+        "ccx": 160
+      }
+    },
+    "or_steps": 171
+  },
+  "exact_one_component_intervention": "OR carry c=1 xor((not x)&(not p)); temporary RCCX+actual inverse",
+  "read_only_target": "ibm_fez",
+  "optimization_level": 1,
+  "physical_cz_cutoff": 800,
+  "physical_depth_cutoff": 2000,
+  "true_multiplicative_order_not_injected": true,
+  "hidden_prime_factors_not_used": true,
+  "source_orbit_not_precomputed": true,
+  "real_qpu_jobs": 0,
+  "used_free_quantum_runtime": false,
+  "used_paid_quantum_runtime": false,
+  "seed_triple_metrics": [
+    {
+      "seed": 11,
+      "circuits": {
+        "original": {
+          "cz": 8774,
+          "depth": 20129,
+          "native_count_ops": {
+            "sx": 16179,
+            "rz": 9420,
+            "cz": 8774
+          },
+          "compiled_isa_width": 156,
+          "native_size": 34373,
+          "compiler_seconds": 0.12018095899999537
+        },
+        "one_cx_or": {
+          "cz": 8532,
+          "depth": 20683,
+          "native_count_ops": {
+            "sx": 15936,
+            "rz": 9265,
+            "cz": 8532,
+            "x": 318
+          },
+          "compiled_isa_width": 156,
+          "native_size": 34051,
+          "compiler_seconds": 0.10900514600000122
+        },
+        "demorgan_zero_cx": {
+          "cz": 8214,
+          "depth": 19400,
+          "native_count_ops": {
+            "sx": 15492,
+            "rz": 8360,
+            "cz": 8214,
+            "x": 74
+          },
+          "compiled_isa_width": 156,
+          "native_size": 32140,
+          "compiler_seconds": 0.10331881899999473
+        }
+      },
+      "deltas": {
+        "demorgan_minus_original": {
+          "cz": -560,
+          "depth": -729
+        },
+        "demorgan_minus_one_cx_or": {
+          "cz": -318,
+          "depth": -1283
+        }
+      },
+      "candidate_better_than_one_cx_both": true,
+      "candidate_better_than_original_both": true,
+      "device_feasibility": {
+        "original": false,
+        "one_cx_or": false,
+        "demorgan_zero_cx": false
+      }
+    },
+    {
+      "seed": 37,
+      "circuits": {
+        "original": {
+          "cz": 8856,
+          "depth": 20523,
+          "native_count_ops": {
+            "sx": 16367,
+            "rz": 9252,
+            "cz": 8856
+          },
+          "compiled_isa_width": 156,
+          "native_size": 34475,
+          "compiler_seconds": 0.12005143900000803
+        },
+        "one_cx_or": {
+          "cz": 8606,
+          "depth": 20913,
+          "native_count_ops": {
+            "sx": 16119,
+            "rz": 9120,
+            "cz": 8606,
+            "x": 308
+          },
+          "compiled_isa_width": 156,
+          "native_size": 34153,
+          "compiler_seconds": 0.1381294690000061
+        },
+        "demorgan_zero_cx": {
+          "cz": 8298,
+          "depth": 19708,
+          "native_count_ops": {
+            "sx": 15689,
+            "cz": 8298,
+            "rz": 8250,
+            "x": 94
+          },
+          "compiled_isa_width": 156,
+          "native_size": 32331,
+          "compiler_seconds": 0.12449809199999606
+        }
+      },
+      "deltas": {
+        "demorgan_minus_original": {
+          "cz": -558,
+          "depth": -815
+        },
+        "demorgan_minus_one_cx_or": {
+          "cz": -308,
+          "depth": -1205
+        }
+      },
+      "candidate_better_than_one_cx_both": true,
+      "candidate_better_than_original_both": true,
+      "device_feasibility": {
+        "original": false,
+        "one_cx_or": false,
+        "demorgan_zero_cx": false
+      }
+    },
+    {
+      "seed": 101,
+      "circuits": {
+        "original": {
+          "cz": 9125,
+          "depth": 21276,
+          "native_count_ops": {
+            "sx": 16835,
+            "rz": 9514,
+            "cz": 9125
+          },
+          "compiled_isa_width": 156,
+          "native_size": 35474,
+          "compiler_seconds": 0.09893875599999546
+        },
+        "one_cx_or": {
+          "cz": 8340,
+          "depth": 20193,
+          "native_count_ops": {
+            "sx": 15599,
+            "rz": 9087,
+            "cz": 8340,
+            "x": 314
+          },
+          "compiled_isa_width": 156,
+          "native_size": 33340,
+          "compiler_seconds": 0.14066520699999785
+        },
+        "demorgan_zero_cx": {
+          "cz": 8026,
+          "depth": 18965,
+          "native_count_ops": {
+            "sx": 15159,
+            "rz": 8184,
+            "cz": 8026,
+            "x": 85
+          },
+          "compiled_isa_width": 156,
+          "native_size": 31454,
+          "compiler_seconds": 0.12322591800000282
+        }
+      },
+      "deltas": {
+        "demorgan_minus_original": {
+          "cz": -1099,
+          "depth": -2311
+        },
+        "demorgan_minus_one_cx_or": {
+          "cz": -314,
+          "depth": -1228
+        }
+      },
+      "candidate_better_than_one_cx_both": true,
+      "candidate_better_than_original_both": true,
+      "device_feasibility": {
+        "original": false,
+        "one_cx_or": false,
+        "demorgan_zero_cx": false
+      }
+    },
+    {
+      "seed": 409,
+      "circuits": {
+        "original": {
+          "cz": 8953,
+          "depth": 20627,
+          "native_count_ops": {
+            "sx": 16531,
+            "rz": 9350,
+            "cz": 8953
+          },
+          "compiled_isa_width": 156,
+          "native_size": 34834,
+          "compiler_seconds": 0.12413948399999697
+        },
+        "one_cx_or": {
+          "cz": 8685,
+          "depth": 20547,
+          "native_count_ops": {
+            "sx": 16235,
+            "rz": 9232,
+            "cz": 8685,
+            "x": 318
+          },
+          "compiled_isa_width": 156,
+          "native_size": 34470,
+          "compiler_seconds": 0.1101839990000002
+        },
+        "demorgan_zero_cx": {
+          "cz": 8367,
+          "depth": 19244,
+          "native_count_ops": {
+            "sx": 15787,
+            "cz": 8367,
+            "rz": 8337,
+            "x": 55
+          },
+          "compiled_isa_width": 156,
+          "native_size": 32546,
+          "compiler_seconds": 0.09977493299999196
+        }
+      },
+      "deltas": {
+        "demorgan_minus_original": {
+          "cz": -586,
+          "depth": -1383
+        },
+        "demorgan_minus_one_cx_or": {
+          "cz": -318,
+          "depth": -1303
+        }
+      },
+      "candidate_better_than_one_cx_both": true,
+      "candidate_better_than_original_both": true,
+      "device_feasibility": {
+        "original": false,
+        "one_cx_or": false,
+        "demorgan_zero_cx": false
+      }
+    },
+    {
+      "seed": 8776,
+      "circuits": {
+        "original": {
+          "cz": 9263,
+          "depth": 21772,
+          "native_count_ops": {
+            "sx": 17058,
+            "rz": 9607,
+            "cz": 9263
+          },
+          "compiled_isa_width": 156,
+          "native_size": 35928,
+          "compiler_seconds": 0.10592567199999792
+        },
+        "one_cx_or": {
+          "cz": 8311,
+          "depth": 19981,
+          "native_count_ops": {
+            "sx": 15478,
+            "rz": 9172,
+            "cz": 8311,
+            "x": 318
+          },
+          "compiled_isa_width": 156,
+          "native_size": 33279,
+          "compiler_seconds": 0.09802368599999056
+        },
+        "demorgan_zero_cx": {
+          "cz": 7993,
+          "depth": 18604,
+          "native_count_ops": {
+            "sx": 15027,
+            "rz": 8250,
+            "cz": 7993,
+            "x": 65
+          },
+          "compiled_isa_width": 156,
+          "native_size": 31335,
+          "compiler_seconds": 0.09767752300000154
+        }
+      },
+      "deltas": {
+        "demorgan_minus_original": {
+          "cz": -1270,
+          "depth": -3168
+        },
+        "demorgan_minus_one_cx_or": {
+          "cz": -318,
+          "depth": -1377
+        }
+      },
+      "candidate_better_than_one_cx_both": true,
+      "candidate_better_than_original_both": true,
+      "device_feasibility": {
+        "original": false,
+        "one_cx_or": false,
+        "demorgan_zero_cx": false
+      }
+    },
+    {
+      "seed": 12011,
+      "circuits": {
+        "original": {
+          "cz": 9034,
+          "depth": 20977,
+          "native_count_ops": {
+            "sx": 16662,
+            "rz": 9511,
+            "cz": 9034
+          },
+          "compiled_isa_width": 156,
+          "native_size": 35207,
+          "compiler_seconds": 0.10060074199999747
+        },
+        "one_cx_or": {
+          "cz": 8691,
+          "depth": 20798,
+          "native_count_ops": {
+            "sx": 16256,
+            "rz": 9154,
+            "cz": 8691,
+            "x": 312
+          },
+          "compiled_isa_width": 156,
+          "native_size": 34413,
+          "compiler_seconds": 0.12978380899998854
+        },
+        "demorgan_zero_cx": {
+          "cz": 8379,
+          "depth": 19559,
+          "native_count_ops": {
+            "sx": 15825,
+            "cz": 8379,
+            "rz": 8304,
+            "x": 65
+          },
+          "compiled_isa_width": 156,
+          "native_size": 32573,
+          "compiler_seconds": 0.12459634599998992
+        }
+      },
+      "deltas": {
+        "demorgan_minus_original": {
+          "cz": -655,
+          "depth": -1418
+        },
+        "demorgan_minus_one_cx_or": {
+          "cz": -312,
+          "depth": -1239
+        }
+      },
+      "candidate_better_than_one_cx_both": true,
+      "candidate_better_than_original_both": true,
+      "device_feasibility": {
+        "original": false,
+        "one_cx_or": false,
+        "demorgan_zero_cx": false
+      }
+    },
+    {
+      "seed": 20261,
+      "circuits": {
+        "original": {
+          "cz": 9255,
+          "depth": 21719,
+          "native_count_ops": {
+            "sx": 17109,
+            "rz": 9586,
+            "cz": 9255
+          },
+          "compiled_isa_width": 156,
+          "native_size": 35950,
+          "compiler_seconds": 0.11448617300000308
+        },
+        "one_cx_or": {
+          "cz": 8880,
+          "depth": 21060,
+          "native_count_ops": {
+            "sx": 16605,
+            "rz": 9161,
+            "cz": 8880,
+            "x": 318
+          },
+          "compiled_isa_width": 156,
+          "native_size": 34964,
+          "compiler_seconds": 0.11971191199999964
+        },
+        "demorgan_zero_cx": {
+          "cz": 8562,
+          "depth": 19775,
+          "native_count_ops": {
+            "sx": 16161,
+            "cz": 8562,
+            "rz": 8249,
+            "x": 90
+          },
+          "compiled_isa_width": 156,
+          "native_size": 33062,
+          "compiler_seconds": 0.11845404100000678
+        }
+      },
+      "deltas": {
+        "demorgan_minus_original": {
+          "cz": -693,
+          "depth": -1944
+        },
+        "demorgan_minus_one_cx_or": {
+          "cz": -318,
+          "depth": -1285
+        }
+      },
+      "candidate_better_than_one_cx_both": true,
+      "candidate_better_than_original_both": true,
+      "device_feasibility": {
+        "original": false,
+        "one_cx_or": false,
+        "demorgan_zero_cx": false
+      }
+    },
+    {
+      "seed": 45673,
+      "circuits": {
+        "original": {
+          "cz": 9288,
+          "depth": 21476,
+          "native_count_ops": {
+            "sx": 17121,
+            "rz": 9354,
+            "cz": 9288
+          },
+          "compiled_isa_width": 156,
+          "native_size": 35763,
+          "compiler_seconds": 0.12199831899999936
+        },
+        "one_cx_or": {
+          "cz": 8542,
+          "depth": 20502,
+          "native_count_ops": {
+            "sx": 15977,
+            "rz": 9201,
+            "cz": 8542,
+            "x": 318
+          },
+          "compiled_isa_width": 156,
+          "native_size": 34038,
+          "compiler_seconds": 0.11535511599998927
+        },
+        "demorgan_zero_cx": {
+          "cz": 8224,
+          "depth": 19261,
+          "native_count_ops": {
+            "sx": 15538,
+            "rz": 8327,
+            "cz": 8224,
+            "x": 68
+          },
+          "compiled_isa_width": 156,
+          "native_size": 32157,
+          "compiler_seconds": 0.1023103859999992
+        }
+      },
+      "deltas": {
+        "demorgan_minus_original": {
+          "cz": -1064,
+          "depth": -2215
+        },
+        "demorgan_minus_one_cx_or": {
+          "cz": -318,
+          "depth": -1241
+        }
+      },
+      "candidate_better_than_one_cx_both": true,
+      "candidate_better_than_original_both": true,
+      "device_feasibility": {
+        "original": false,
+        "one_cx_or": false,
+        "demorgan_zero_cx": false
+      }
+    }
+  ],
+  "status": "COMPILE_SUCCESS",
+  "success": true,
+  "source_complex_phase_proofs": {
+    "pass_all": true,
+    "boolean_identity_and_rccx_inverse": {
+      "pass_all": true,
+      "public_boolean_or_cases": 4,
+      "actual_rccx_inverse_operator_product_identity": true,
+      "inverse_gate_name": "rccx"
+    },
+    "candidate_comparator_phase_proof": {
+      "pass_all": true,
+      "actual_emitted_gate_cases": 42672,
+      "unique_signed_comparator_circuits": 240,
+      "zero_workspace_after_every_case": true,
+      "correct_x_control_and_flag": true,
+      "final_complex_phase_plus_one_every_case": true,
+      "source_gate_distribution": {
+        "cx": 252,
+        "ccx": 240,
+        "x": 5400,
+        "rccx": 2004
+      }
+    },
+    "candidate_public_modadd_phase_proof": {
+      "pass_all": true,
+      "source_gate_cases": 1584,
+      "unique_constants": 16,
+      "per_constant": [
+        {
+          "public_constant": 2,
+          "source_gates": {
+            "cx": 27,
+            "x": 142,
+            "rccx": 50,
+            "ccx": 11
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 4,
+          "source_gates": {
+            "cx": 25,
+            "rccx": 42,
+            "x": 102,
+            "ccx": 10
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 8,
+          "source_gates": {
+            "cx": 23,
+            "rccx": 36,
+            "x": 102,
+            "ccx": 9
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 11,
+          "source_gates": {
+            "cx": 31,
+            "rccx": 54,
+            "x": 162,
+            "ccx": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 13,
+          "source_gates": {
+            "cx": 31,
+            "rccx": 58,
+            "x": 162,
+            "ccx": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 16,
+          "source_gates": {
+            "cx": 21,
+            "rccx": 32,
+            "x": 102,
+            "ccx": 8
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 17,
+          "source_gates": {
+            "cx": 30,
+            "x": 142,
+            "rccx": 58,
+            "ccx": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 19,
+          "source_gates": {
+            "cx": 31,
+            "x": 152,
+            "rccx": 52,
+            "ccx": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 23,
+          "source_gates": {
+            "cx": 32,
+            "rccx": 56,
+            "x": 182,
+            "ccx": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 26,
+          "source_gates": {
+            "cx": 29,
+            "x": 152,
+            "rccx": 50,
+            "ccx": 11
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 27,
+          "source_gates": {
+            "cx": 32,
+            "x": 172,
+            "rccx": 54,
+            "ccx": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 29,
+          "source_gates": {
+            "cx": 32,
+            "rccx": 58,
+            "x": 172,
+            "ccx": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 31,
+          "source_gates": {
+            "cx": 33,
+            "x": 202,
+            "rccx": 56,
+            "ccx": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 32,
+          "source_gates": {
+            "cx": 19,
+            "rccx": 30,
+            "x": 102,
+            "ccx": 7
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 33,
+          "source_gates": {
+            "cx": 30,
+            "x": 142,
+            "rccx": 58,
+            "ccx": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 34,
+          "source_gates": {
+            "cx": 28,
+            "x": 142,
+            "rccx": 50,
+            "ccx": 11
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        }
+      ],
+      "clean_helpers": true,
+      "exact_complex_phase_plus_one": true,
+      "disabled_identity_full_six_bit_inputs": true
+    },
+    "original_full_multiplier_phase_proof": {
+      "pass_all": true,
+      "full_residue_control_basis_cases": 128,
+      "output_equals_public_modular_multiplication": true,
+      "all_25_auxiliaries_clean": true,
+      "control_unmodified": true,
+      "disabled_invalid_states_identity": true,
+      "exact_complex_output_phase_plus_one": true,
+      "quantum_source_gate_counts": {
+        "cx": 1033,
+        "rccx": 596,
+        "x": 28,
+        "ccx": 160
+      },
+      "source_instruction_count": 1817
+    },
+    "one_cx_or_full_multiplier_phase_proof": {
+      "pass_all": true,
+      "full_residue_control_basis_cases": 128,
+      "output_equals_public_modular_multiplication": true,
+      "all_25_auxiliaries_clean": true,
+      "control_unmodified": true,
+      "disabled_invalid_states_identity": true,
+      "exact_complex_output_phase_plus_one": true,
+      "quantum_source_gate_counts": {
+        "cx": 691,
+        "rccx": 596,
+        "x": 712,
+        "ccx": 160
+      },
+      "source_instruction_count": 2159
+    },
+    "demorgan_full_multiplier_phase_proof": {
+      "pass_all": true,
+      "full_residue_control_basis_cases": 128,
+      "output_equals_public_modular_multiplication": true,
+      "all_25_auxiliaries_clean": true,
+      "control_unmodified": true,
+      "disabled_invalid_states_identity": true,
+      "exact_complex_output_phase_plus_one": true,
+      "quantum_source_gate_counts": {
+        "cx": 349,
+        "rccx": 596,
+        "x": 1738,
+        "ccx": 160
+      },
+      "source_instruction_count": 2843
+    },
+    "all_source_phase_amplitudes_exactly_plus_one": true,
+    "all_three_source_logical_qubits_32": true,
+    "all_three_25_helpers_clean": true,
+    "public_or_steps_rewritten": 171,
+    "eliminated_cx_relative_to_one_cx_or": 342,
+    "added_public_literal_x_relative_to_one_cx_or": 1026,
+    "exact_ccx_and_rccx_unchanged": true
+  },
+  "backend_reported_qubits": 156,
+  "all_eight_seed_triples_compiled": true,
+  "native_summary": {
+    "one_cx_or": {
+      "pairs": 8,
+      "strictly_lower_cz_count": 8,
+      "strictly_lower_depth_count": 8,
+      "jointly_better_cz_and_depth_count": 8,
+      "paired_cz_median": -318.0,
+      "paired_depth_median": -1262.0,
+      "paired_cz_min": -318,
+      "paired_cz_max": -308,
+      "paired_depth_min": -1377,
+      "paired_depth_max": -1205,
+      "six_of_eight_joint_rule_pass": true,
+      "paired_medians_both_negative": true
+    },
+    "original": {
+      "pairs": 8,
+      "strictly_lower_cz_count": 8,
+      "strictly_lower_depth_count": 8,
+      "jointly_better_cz_and_depth_count": 8,
+      "paired_cz_median": -674.0,
+      "paired_depth_median": -1681.0,
+      "paired_cz_min": -1270,
+      "paired_cz_max": -558,
+      "paired_depth_min": -3168,
+      "paired_depth_max": -729,
+      "six_of_eight_joint_rule_pass": true,
+      "paired_medians_both_negative": true
+    },
+    "all_previous_8776_anchors_exactly_reproduced": true,
+    "primary_robust_this_base_pass": true,
+    "secondary_robust_vs_original_pass": true,
+    "all_24_arms_fail_device_gate": true,
+    "no_postselected_seeds": true
+  }
+}
