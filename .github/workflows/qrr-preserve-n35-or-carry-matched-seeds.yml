@@ -1,0 +1,165 @@
+name: Independently audit and preserve 32 original phase-exact N35 OR-carry CPU compiler results
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-or-carry-matched-seeds.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-or-carry-eight-matched-source-preserve
+  cancel-in-progress: false
+
+jobs:
+  original-source-artifact-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download ORIGINAL scientific source-run artifacts; do not rerun Qiskit or score new circuits
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39095494407
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-or-carry-base*-original
+          merge-multiple: true
+          path: _original_source_run_artifacts
+      - name: Preserve original two JSON result receipts BYTE FOR BYTE
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_or_carry_multi_seed
+          for base in 2 8; do
+            f="qrr_n35_or_carry_multiseed_base${base}.json"
+            hits="$(find _original_source_run_artifacts -type f -name "$f" | wc -l)"
+            test "$hits" -eq 1 || { echo "Wrong original source artifact count for $f: $hits"; exit 1; }
+            find _original_source_run_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_or_carry_multi_seed/ '{}' +
+          done
+      - name: Independently verify all 32 original numerical outputs, phase-oracle proofs, frozen target anchor, negative joint gate
+        run: |
+          python3 - <<'PY'
+          import json,statistics
+          from pathlib import Path
+          seeds=[11,37,101,409,8776,12011,20261,45673]
+          # Post-experiment exact ORIGINAL readings for byte-preservation
+          # audit, NOT a source pre-selection or retuned variant.
+          frozen_old={
+             2:[(8774,20129),(8856,20523),(9125,21276),(8953,20627),
+                (9263,21772),(9034,20977),(9255,21719),(9288,21476)],
+             8:[(8908,21194),(9290,21648),(9232,21288),(9281,21510),
+                (9426,21933),(9279,22085),(9176,21398),(9178,21952)]}
+          original_new={
+             2:[(8532,20683),(8606,20913),(8340,20193),(8685,20547),
+                (8311,19981),(8691,20798),(8880,21060),(8542,20502)],
+             8:[(8907,21042),(8624,20964),(8963,21548),(8550,21003),
+                (9141,21528),(8739,21359),(9048,22035),(8915,22286)]}
+          frozen_summary={
+             2:dict(joint=6,cz=8,depth=6,median_cz=-359.0,median_depth=-419.0,
+                    min_cz=-952,max_cz=-242,min_depth=-1791,max_depth=554,
+                    robust=True,steps=171,cx_saved=342,x_added=684),
+             8:dict(joint=5,cz=8,depth=5,median_cz=-277.0,median_depth=-278.5,
+                    min_cz=-731,max_cz=-1,min_depth=-726,max_depth=637,
+                    robust=False,steps=180,cx_saved=360,x_added=720)}
+          for b in (2,8):
+              f=Path(f'results/ibm_shor35_or_carry_multi_seed/qrr_n35_or_carry_multiseed_base{b}.json')
+              d=json.loads(f.read_text())
+              old=json.loads(Path(f'results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{b}.json').read_text())
+              assert d['revision']=='qrr-n35-or-carry-minimization-matched-seeds-v1-20261017'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistration']=='docs/QRR_N35_OR_CARRY_MINIMIZATION_MULTI_SEED_PREREG.md'
+              assert d['N']==35 and d['base']==b and d['seed_list']==seeds
+              assert d['read_only_ibm_target']=='ibm_fez' and d['compiler_optimization_level']==1
+              assert d['true_factorization_order_not_used'] and d['hidden_factors_not_used']
+              assert d['precomputed_orbit_not_used']
+              assert d['real_qpu_jobs']==0 and not d['used_paid_runtime'] and not d['used_free_qpu_runtime']
+              assert d['no_real_quantum_runtime'] and d['device_native_cz_cutoff']==800 and d['device_native_depth_cutoff']==2000
+              assert d['status']=='COMPILE_SUCCESS' and d['success']
+              assert d['all_original_and_candidate_seed_runs_complete']
+              h=d['original_historical_seed_8776']
+              assert h['cz']==old['native_cz'] and h['depth']==old['native_depth']
+              assert h['source']==old['full_modmul_phase_proof']['quantum_source_gate_counts']
+              p=d['exact_source_phase_proofs']
+              assert p['pass_all'] and p['all_actual_gate_phases_plus_one']
+              assert p['all_25_auxiliaries_clean'] and p['both_source_32_qubits']
+              assert p['semantic_rccx_and_ccx_unchanged']
+              bb=p['boolean_or_identity']
+              assert bb['pass_all'] and bb['independent_boolean_cases']==4
+              assert bb['exact_rccx_inverse_operator_identity']
+              cc=p['minimized_comparator']
+              assert cc['pass_all'] and cc['actual_emitted_gate_cases']==42672
+              assert cc['unique_signed_comparator_circuits']==240
+              assert cc['zero_workspace_after_every_case'] and cc['final_complex_phase_plus_one_every_case']
+              m=p['new_public_modadd']
+              assert m['pass_all'] and m['source_gate_cases']==1584 and m['unique_constants']==16
+              assert m['exact_complex_phase_plus_one'] and m['clean_helpers']
+              for tag in ('original_full_multiplier','candidate_full_multiplier'):
+                  a=p[tag]
+                  assert a['pass_all'] and a['full_residue_control_basis_cases']==128
+                  assert a['all_25_auxiliaries_clean'] and a['exact_complex_output_phase_plus_one']
+                  assert a['control_unmodified'] and a['disabled_invalid_states_identity']
+              o=p['original_full_multiplier']['quantum_source_gate_counts']
+              n=p['candidate_full_multiplier']['quantum_source_gate_counts']
+              assert o==h['source']
+              assert n['rccx']==o['rccx'] and n['ccx']==o['ccx']
+              metrics=frozen_summary[b]
+              assert p['or_carry_recurrence_steps_rewritten']==metrics['steps']
+              assert p['source_gate_cx_saved']==metrics['cx_saved']
+              assert p['source_gate_x_added']==metrics['x_added']
+              assert n['cx']==o['cx']-metrics['cx_saved']
+              assert n['x']==o['x']+metrics['x_added']
+              rows=d['paired_seed_metrics']
+              assert len(rows)==8 and [r['seed'] for r in rows]==seeds
+              dz=[];dd=[]
+              for i,r in enumerate(rows):
+                  orig=r['original'];new=r['candidate']
+                  assert (orig['cz'],orig['depth'])==frozen_old[b][i]
+                  assert (new['cz'],new['depth'])==original_new[b][i]
+                  for tag,v in [('original',orig),('candidate',new)]:
+                      assert v['cz']>0 and v['depth']>0
+                      assert v['native_count_ops']['cz']==v['cz']
+                      assert v['compiled_isa_width']==d['backend_qubits']==156
+                      assert v['native_size']>0 and v['compiler_seconds']>=0
+                      assert r[f'device_feasible_{tag}']==(v['cz']<=800 and v['depth']<=2000)
+                  z=new['cz']-orig['cz'];dt=new['depth']-orig['depth']
+                  assert r['paired_delta_candidate_minus_original']==dict(cz=z,depth=dt)
+                  assert r['strictly_better_both']==(z<0 and dt<0)
+                  dz.append(z);dd.append(dt)
+              s=d['summary']
+              assert s['complete_eight_pairs'] and s['no_postselected_seeds']
+              assert s['both_cz_and_depth_improve_count']==metrics['joint']==sum(z<0 and t<0 for z,t in zip(dz,dd))
+              assert s['cz_strict_improvement_count']==metrics['cz']==sum(z<0 for z in dz)
+              assert s['depth_strict_improvement_count']==metrics['depth']==sum(t<0 for t in dd)
+              assert s['paired_cz_delta_median']==metrics['median_cz']==statistics.median(dz)
+              assert s['paired_depth_delta_median']==metrics['median_depth']==statistics.median(dd)
+              assert s['paired_cz_delta_min']==metrics['min_cz']==min(dz)
+              assert s['paired_cz_delta_max']==metrics['max_cz']==max(dz)
+              assert s['paired_depth_delta_min']==metrics['min_depth']==min(dd)
+              assert s['paired_depth_delta_max']==metrics['max_depth']==max(dd)
+              assert s['exact_8776_original_baseline_reproduced'] is True
+              assert s['anchor_drift_makes_historical_robustness_inconclusive'] is False
+              assert s['robust_engineering_this_base_pass']==metrics['robust']
+              assert s['all_original_eight_layouts_fail_device_gate']
+              assert s['all_candidate_eight_layouts_fail_device_gate']
+              print('AUDITED UNCHANGED SOURCE RECEIPT base',b,
+                 'source 4+42672+1584+128+128 quantum+1 basis cases PASS',
+                 'CZ 8/8 improve, BOTH wins',metrics['joint'],'median dCZ',metrics['median_cz'],
+                 'median depth',metrics['median_depth'],'original 8776 anchored',
+                 'robustness',metrics['robust'],'ALL QPU gates FAIL, ZERO hardware')
+          print('2/2 original source-arm artifact audits pass; original 32/32 native outputs preserved; full two-base robust engineering gate FAIL')
+          PY
+      - name: Commit EXACT original JSON output receipts and nothing else
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_or_carry_multi_seed/qrr_n35_or_carry_multiseed_base2.json
+          git add results/ibm_shor35_or_carry_multi_seed/qrr_n35_or_carry_multiseed_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently preserve phase-exact public N35 OR carry eight matched seed pairs per base, all 32 original Fez target CPU compilations and failed joint gate'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
