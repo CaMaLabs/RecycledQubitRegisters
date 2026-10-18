@@ -1,0 +1,167 @@
+name: QRR N35 public constant-carry fusion 8 matched seeds ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-fused-constant-carry-eight-seed-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-fused-constant-carry-matched-eight-seeds-v1
+  cancel-in-progress: false
+
+jobs:
+  two-public-base-matched-pairs:
+    name: public base ${{ matrix.base }} 8192+42672+1584+128+128 phase proofs then 16 matched Fez CPU compiles
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen IBM native target CPU toolchain
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Read prereg, audit exact-seed source and strictly no-QPU code
+        run: |
+          test -s docs/QRR_N35_FUSED_CONSTANT_CARRY_MULTISEED_PREREG.md
+          python -m py_compile hardware/qrr_n35_fused_constant_carry_multiseed.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path("hardware/qrr_n35_fused_constant_carry_multiseed.py").read_text()
+          assert all(word not in s for word in (
+             'SamplerV2','EstimatorV2','sampler.run','backend.run','job.submit',
+             'job.run','job.result'))
+          assert "SEEDS=(11,37,101,409,8776,12011,20261,45673)" in s
+          assert "fused_constant_add" in s
+          assert "best.public_threshold_predicate" in s
+          assert "best.constant_add_from_prefix_carry=ORIGINAL_ADDER" in s
+          assert "best.constant_add_from_prefix_carry=fused_constant_add" in s
+          assert "verified.build(base)" in s
+          assert "previous.exhaustive_full_multiplier_phases" in s
+          assert "previous.exhaustive_comparator_phase_proof" in s
+          assert "previous.exhaustive_modadd_phases" in s
+          assert "exhaustive_fused_six_bit_add_phase_proof" in s
+          assert "compile_isa_target" in s and "statistics.median" in s
+          for b in (2,8):
+              f=Path(f"results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{b}.json")
+              assert f.exists(),f
+          print("Frozen 8 seeds; exact quantum phase gate proof; original source immutable; no real QPU")
+          PY
+      - name: Phase-exact source instructions plus eight paired native Fez CPU seeds, ZERO QPU
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 570s python -u hardware/qrr_n35_fused_constant_carry_multiseed.py --base "$BASE" | tee "qrr_n35_fused_constant_carry_base${BASE}.log"
+      - name: Independent original result audit — every seed, source quantum phase and frozen limits
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os,statistics
+          from pathlib import Path
+          base=int(os.environ['BASE'])
+          out=Path(f"results/ibm_shor35_fused_constant_carry_multiseed/qrr_n35_fused_constant_carry_base{base}.json")
+          r=json.loads(out.read_text())
+          old=json.loads(Path(f"results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{base}.json").read_text())
+          assert r['revision']=='qrr-n35-fused-public-bit-carry-matched-seeds-v1-20261017'
+          assert r['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert r['preregistration']=='docs/QRR_N35_FUSED_CONSTANT_CARRY_MULTISEED_PREREG.md'
+          assert r['base']==base and r['N']==35
+          assert r['scope']=='one controlled full-six-bit modular multiplication with public N35'
+          seeds=[11,37,101,409,8776,12011,20261,45673]
+          assert r['seeds']==seeds and r['optimization_level']==1
+          assert r['target_backend']=='ibm_fez'
+          assert r['old_baseline']==dict(cz=old['native_cz'],depth=old['native_depth'],
+              source=old['full_modmul_phase_proof']['quantum_source_gate_counts'])
+          assert r['true_order_not_used'] and r['private_factors_not_used'] and r['precalculated_orbits_not_used']
+          assert r['qpu_jobs_submitted']==0 and not r['quantum_runtime_used'] and not r['paid_runtime_used']
+          assert r['limit_native_cz']==800 and r['limit_native_depth']==2000
+          p=r['all_source_unitary_proofs']
+          assert p['pass_all'] and p['direct_gate_complex_phase_check_before_backend_read']
+          assert p['source_width_both_32'] and p['source_seed_independent']
+          add=p['six_bit_constant_add']
+          assert add['pass_all'] and add['actual_emitted_source_complex_gate_cases']==8192
+          assert add['all_carry_and_scratch_clean'] and add['exact_complex_phase_plus_one']
+          assert len(add['per_constant'])==64
+          assert add['fused_polarity_bit_terms_across_64_constants']>0
+          assert p['comparator']['pass_all'] and p['comparator']['actual_gate_comparator_cases']==42672
+          assert p['comparator']['all_carry_scratch_clean'] and p['comparator']['exact_complex_phase_plus_one']
+          assert p['modadd']['pass_all'] and p['modadd']['source_gate_cases']==1584
+          assert p['modadd']['unique_constants']==16 and p['modadd']['exact_complex_phase_plus_one']
+          for key in ('old_full_proof','new_full_proof'):
+              f=p[key]
+              assert f['pass_all'] and f['full_residue_control_basis_cases']==128
+              assert f['all_25_auxiliaries_clean'] and f['exact_complex_output_phase_plus_one']
+              assert f['disabled_invalid_states_identity']
+          src=p['source_change']
+          assert src['pass_all'] and src['removed_semantic_controlled_cx']>0
+          assert src['added_comparator_clean_x']==2*src['removed_semantic_controlled_cx']
+          assert src['extra_rccx']==0 and src['extra_exact_ccx']==0
+          assert src['old_source']==old['full_modmul_phase_proof']['quantum_source_gate_counts']
+          assert src['new_source']['cx']<src['old_source']['cx']
+          assert src['new_source']['rccx']==src['old_source']['rccx']
+          assert src['new_source']['ccx']==src['old_source']['ccx']
+          assert r['status']=='COMPILE_SUCCESS' and r['success']
+          assert r['full_eight_pair_seed_series_completed']
+          rows=r['seed_pairs']
+          assert len(rows)==8 and [x['seed'] for x in rows]==seeds
+          dz=[];dd=[]
+          for row in rows:
+              for tag,field in (('old_neither','device_feasible_old'),('fused_constant','device_feasible_fused')):
+                  x=row[tag]
+                  assert x['cz']>0 and x['depth']>0
+                  assert x['native_ops']['cz']==x['cz']
+                  assert x['compiled_device_width']==r['backend_qubits']
+                  assert x['compiled_gates']>0 and x['compiler_seconds']>=0
+                  assert row[field]==(x['cz']<=800 and x['depth']<=2000)
+              x=row['old_neither'];y=row['fused_constant']
+              zz=y['cz']-x['cz'];dt=y['depth']-x['depth']
+              assert row['difference_fused_minus_old']==dict(cz=zz,depth=dt)
+              assert row['paired_strict_improvement_both']==(zz<0 and dt<0)
+              dz.append(zz);dd.append(dt)
+          s=r['summary']
+          assert s['matched_seed_pairs']==8 and s['all_original_seed_rows_preserved']
+          assert s['both_metrics_strict_improvement_seed_count']==sum(z<0 and t<0 for z,t in zip(dz,dd))
+          assert s['cz_improvement_seeds']==sum(z<0 for z in dz)
+          assert s['depth_improvement_seeds']==sum(t<0 for t in dd)
+          assert s['paired_cz_delta_median']==statistics.median(dz)
+          assert s['paired_depth_delta_median']==statistics.median(dd)
+          assert s['paired_cz_delta_min']==min(dz) and s['paired_cz_delta_max']==max(dz)
+          assert s['paired_depth_delta_min']==min(dd) and s['paired_depth_delta_max']==max(dd)
+          assert s['joint_wins_at_least_six_of_eight']==(s['both_metrics_strict_improvement_seed_count']>=6)
+          assert s['both_medians_negative']==(statistics.median(dz)<0 and statistics.median(dd)<0)
+          anchor=rows[seeds.index(8776)]['old_neither']
+          old_anchor=(anchor['cz']==old['native_cz'] and anchor['depth']==old['native_depth'])
+          assert s['original_8776_anchor_exact_reproduction']==old_anchor
+          assert s['backend_drift_inconclusive_if_anchor_changed']==(not old_anchor)
+          assert s['robust_per_base_pass']==(old_anchor and s['joint_wins_at_least_six_of_eight'] and s['both_medians_negative'])
+          assert s['all_new_layouts_hardware_infeasible']==all(not x['device_feasible_fused'] for x in rows)
+          assert s['all_old_layouts_hardware_infeasible']==all(not x['device_feasible_old'] for x in rows)
+          print("AUDIT N35 public constant carry fusion",base,
+                "8192+42672+1584+128+128 complex-phase cases",
+                "removed CX",src['removed_semantic_controlled_cx'],
+                "all eight pairs",s['matched_seed_pairs'],
+                "median CZ",s['paired_cz_delta_median'],
+                "median depth",s['paired_depth_delta_median'],
+                "joint wins",s['both_metrics_strict_improvement_seed_count'],
+                "anchor",old_anchor,"robust",s['robust_per_base_pass'],
+                "QPU jobs 0")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-fused-constant-carry-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_fused_constant_carry_base*.log
+            results/ibm_shor35_fused_constant_carry_multiseed/qrr_n35_fused_constant_carry_base*.json
