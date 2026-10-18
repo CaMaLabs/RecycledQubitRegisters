@@ -63,7 +63,17 @@ A **separate** [independent exact original-artifact audit and permanent preserva
 - [Original base2 matched eight-seed receipt](../results/ibm_shor35_active_only_multi_seed/qrr_n35_active_only_multiseed_base2.json).
 - [Original cubic base8 matched eight-seed receipt](../results/ibm_shor35_active_only_multi_seed/qrr_n35_active_only_multiseed_base8.json).
 
-This independently audited original negative result is stronger provenance than "rerunning until a CI green", and preserves the CI failure as part of the history.
+The original negative result and original red CI remain preserved as independent provenance; the subsequent audit-key repair and verified full green rerun do **not** replace those receipts or alter the scientific verdict.
+
+## Completed workflow repair and independent 32/32 rerun verification (2026-10-17)
+
+The original experiment's **postcompilation audit** accessed `r[f'device_feasible_{tag}']` with `tag=active_only`, but the correctly saved source result calls the field `device_feasible_active`. This CI-only issue was repaired by [commit `d9cfe355`](https://github.com/CaMaLabs/RecycledQubitRegisters/commit/d9cfe355e9c54f0f55298edf7f93395af1097a28), mapping `active_only` to `device_feasible_active` and `neither` to `device_feasible_neither`. No gates, seeds, native backend, transpiler configuration, source-phase tests, acceptance gates or original data were changed.
+
+[**Corrected full source workflow 39084396945**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39084396945): **both base jobs SUCCESS**, including **all 32 matched native Fez CPU compilations and both postcompilation audits**, without any real QPU submission. [**Independent green-run original-artifact comparison 39084519756**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39084519756): **SUCCESS**. It retrieved the new original JSONs without recompilation, checked **all 32 CZ/depth values, full compiled ISA operation count dictionaries and sizes, target widths**, and matched full emitted-gate complex-phase proof receipts, eight fixed seeds, exact seed8776 historical anchor, medians and robustness decisions against the *previously archived* red-audit experiment. Every original versus new numerical compiler result was **identical**. Differences in CPU walltime and timestamps are intentionally not compared.
+
+Both unmodified **green rerun source JSONs** are archived separately under [`results/ibm_shor35_active_only_multi_seed_green_rerun_39084396945/`](../results/ibm_shor35_active_only_multi_seed_green_rerun_39084396945/), with [SHA-256 and every-seed reconciliation manifest](../results/ibm_shor35_active_only_multi_seed_green_rerun_39084396945/rerun_vs_prior_independent_audit.json). Original first-run results remain unchanged. The original 39080813622 CI historical failure remains visible; the corrected **39084396945 workflow and separate 39084519756 audit are both green**.
+
+**Scientific verdict unchanged:** active-only improves both CZ/depth for base2 **5/8** seeds and cube8 **1/8** seeds, failing the predeclared ≥6/8 robustness gate at both bases. All compiled native circuits still fail CZ≤800/depth≤2000 hardware preflight. **Zero real QPU jobs, free Open runtime or paid runtime consumed.**
 
 ## Interpretation — what this result establishes and what it does not
 
