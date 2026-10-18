@@ -1,0 +1,148 @@
+name: Audit exact original N35 eight-seed GREEN rerun vs preserved earlier red-audit results
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-audit-n35-active-multiseed-clean-rerun.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n35-eight-seed-clean-rerun-independent-verification
+  cancel-in-progress: false
+
+jobs:
+  reconcile-two-original-runs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download only both green workflow original raw JSON artifacts, NO recompilation
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39084396945
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-active-only-eight-matched-base*-original
+          merge-multiple: true
+          path: _green_run_artifacts
+      - name: Preserve exact green-rerun JSON bytes in new distinct repository folder
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_active_only_multi_seed_green_rerun_39084396945
+          for base in 2 8; do
+            name="qrr_n35_active_only_multiseed_base${base}.json"
+            count="$(find _green_run_artifacts -type f -name "$name" | wc -l)"
+            test "$count" -eq 1 || { echo "Expected exactly one green-run source receipt $name, got $count"; exit 1; }
+            find _green_run_artifacts -type f -name "$name" -exec cp -t results/ibm_shor35_active_only_multi_seed_green_rerun_39084396945/ '{}' +
+          done
+      - name: Strict independent historical/source rerun science data reconciliation, all 32 compiler outputs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,statistics
+          prior=Path('results/ibm_shor35_active_only_multi_seed')
+          fresh=Path('results/ibm_shor35_active_only_multi_seed_green_rerun_39084396945')
+          report={'experiment':'N35 eight matched Fez CPU seeds 2 public bases',
+                  'source_original_workflow_run_id':39080813622,
+                  'source_original_workflow_conclusion':'failure (downstream audit key typo only)',
+                  'corrected_full_workflow_run_id':39084396945,
+                  'corrected_full_workflow_conclusion':'success',
+                  'repair_git_commit':'d9cfe355e9c54f0f55298edf7f93395af1097a28',
+                  'repair_description':'Only downstream audit JSON key active_only => active; original circuits, settings, seeds and outcomes unchanged',
+                  'seeds':[11,37,101,409,8776,12011,20261,45673],
+                  'bases':{},'quantum_jobs_submitted':0}
+          natively_compiled=0
+          for b in (2,8):
+              filename=f'qrr_n35_active_only_multiseed_base{b}.json'
+              old_raw=(prior/filename).read_bytes()
+              new_raw=(fresh/filename).read_bytes()
+              old=json.loads(old_raw)
+              new=json.loads(new_raw)
+              assert new['revision']==old['revision']=='qrr-n35-active-only-matched-multiseed-v1-20261017'
+              assert new['preregistration']==old['preregistration']=='docs/QRR_N35_ACTIVE_ONLY_MULTI_SEED_PLACEMENT_PREREG.md'
+              assert old['research_lead']==new['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert old['base']==new['base']==b and old['N']==new['N']==35
+              assert old['seed_list']==new['seed_list']==report['seeds']
+              assert old['original_8776_historical_controls']==new['original_8776_historical_controls']
+              assert old['source_complex_phase_proofs']==new['source_complex_phase_proofs']
+              assert old['source_complex_phase_proofs']['all_complex_phases_plus_one'] is True
+              assert old['source_complex_phase_proofs']['all_25_helpers_clean'] is True
+              assert old['qpu_jobs_submitted']==new['qpu_jobs_submitted']==0
+              assert not old['quantum_runtime_used'] and not new['quantum_runtime_used']
+              assert not old['paid_runtime_used'] and not new['paid_runtime_used']
+              assert old['read_only_backend_target']==new['read_only_backend_target']=='ibm_fez'
+              assert old['compiler_optimization_level']==new['compiler_optimization_level']==1
+              assert old['backend_reported_qubits']==new['backend_reported_qubits']==156
+              assert old['status']==new['status']=='COMPILE_SUCCESS'
+              assert old['success'] and new['success'] and old['all_seeds_completed'] and new['all_seeds_completed']
+              assert old['summary']==new['summary'],(b,old['summary'],new['summary'])
+              orows=old['seed_pair_results']
+              nrows=new['seed_pair_results']
+              assert len(orows)==len(nrows)==8
+              seed_comparison=[]
+              for i,(a,c) in enumerate(zip(orows,nrows)):
+                  assert a['seed']==c['seed']==report['seeds'][i]
+                  assert a['delta_active_minus_neither']==c['delta_active_minus_neither']
+                  assert a['matched_seed_improves_both']==c['matched_seed_improves_both']
+                  for label in ('neither','active_only'):
+                      z=a[label];w=c[label]
+                      # The full native metrics and target ISA gates must remain identical;
+                      # avoid comparing UTC timestamps or CPU walltime, which do vary.
+                      for key in ('cz','depth','compiled_device_width',
+                                  'compiled_native_ops','compiled_total_ops'):
+                          assert z[key]==w[key],(b,a['seed'],label,key,z[key],w[key])
+                      natively_compiled+=1
+                  seed_comparison.append({
+                      'seed':a['seed'],
+                      'neither_cz':a['neither']['cz'],
+                      'neither_depth':a['neither']['depth'],
+                      'active_only_cz':a['active_only']['cz'],
+                      'active_only_depth':a['active_only']['depth'],
+                      'matched_delta_cz':a['delta_active_minus_neither']['cz'],
+                      'matched_delta_depth':a['delta_active_minus_neither']['depth'],
+                      'both_improve':a['matched_seed_improves_both']})
+              s=new['summary']
+              assert s['frozen_seed_8776_exact_historical_reproduction'] is True
+              assert s['robust_engineering_per_base_pass'] is False
+              assert s['both_metrics_strict_improvement_seed_count']==(5 if b==2 else 1)
+              assert s['all_eight_active_layouts_fail_device_gate'] is True
+              assert s['all_eight_neither_layouts_fail_device_gate'] is True
+              report['bases'][str(b)]={
+                  'old_sha256':hashlib.sha256(old_raw).hexdigest(),
+                  'green_rerun_sha256':hashlib.sha256(new_raw).hexdigest(),
+                  'all_16_native_isa_compiler_results_identical_to_original':True,
+                  'all_source_phase_proofs_identical':True,
+                  'joint_improvement_seeds':s['both_metrics_strict_improvement_seed_count'],
+                  'median_delta_cz':s['paired_cz_delta_median'],
+                  'median_delta_depth':s['paired_depth_delta_median'],
+                  'robust_engineering_pass':False,
+                  'hardware_gate_pass':False,
+                  'seed_results':seed_comparison}
+              print(f'VALIDATED GREEN RERUN base={b} all 8 original seed pairs identical, '
+                    f'both_improve={s["both_metrics_strict_improvement_seed_count"]}/8, '
+                    f'CZ median {s["paired_cz_delta_median"]}, depth median {s["paired_depth_delta_median"]}, '
+                    'strict robustness FALSE, physical gate FALSE, QPU ZERO')
+          assert natively_compiled==32
+          report['independently_verified_compiled_circuits']=natively_compiled
+          report['every_original_vs_green_rerun_native_gate_result_identical']=True
+          report['predeclared_robustness_gate_pass']=False
+          report['predeclared_hardware_feasibility_gate_pass']=False
+          reportpath=fresh/'rerun_vs_prior_independent_audit.json'
+          reportpath.write_text(json.dumps(report,indent=2,sort_keys=True)+'\n')
+          print('INDEPENDENT EXACT MATCH SUCCESS: 32/32 source CPU-native circuits; neither science metric nor gate was changed.')
+          PY
+      - name: Commit TWO green rerun original receipts and independent reconciliation manifest
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_active_only_multi_seed_green_rerun_39084396945/
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: preserve independently audited clean green N35 eight-seed rerun, 32/32 exact original Fez ISA outputs and still-negative robustness'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
