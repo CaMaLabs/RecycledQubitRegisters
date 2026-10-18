@@ -1,0 +1,1452 @@
+{
+  "revision": "qrr-n35-fused-public-bit-carry-matched-seeds-v1-20261017",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "utc": "2026-10-18T00:18:36.609593+00:00",
+  "preregistration": "docs/QRR_N35_FUSED_CONSTANT_CARRY_MULTISEED_PREREG.md",
+  "N": 35,
+  "base": 2,
+  "scope": "one controlled full-six-bit modular multiplication with public N35",
+  "experiment": "one-bit public-constant/carry XOR predicate fusion vs unchanged prior best, eight matched compiler seeds",
+  "old_baseline": {
+    "cz": 9263,
+    "depth": 21772,
+    "source": {
+      "cx": 1033,
+      "rccx": 596,
+      "x": 28,
+      "ccx": 160
+    }
+  },
+  "seeds": [
+    11,
+    37,
+    101,
+    409,
+    8776,
+    12011,
+    20261,
+    45673
+  ],
+  "optimization_level": 1,
+  "target_backend": "ibm_fez",
+  "exact_complex_source_gate_proofs_required": true,
+  "limit_native_cz": 800,
+  "limit_native_depth": 2000,
+  "true_order_not_used": true,
+  "private_factors_not_used": true,
+  "precalculated_orbits_not_used": true,
+  "qpu_jobs_submitted": 0,
+  "quantum_runtime_used": false,
+  "paid_runtime_used": false,
+  "seed_pairs": [
+    {
+      "seed": 11,
+      "old_neither": {
+        "cz": 8774,
+        "depth": 20129,
+        "native_ops": {
+          "sx": 16179,
+          "rz": 9420,
+          "cz": 8774
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 34373,
+        "compiler_seconds": 0.14639659299999153
+      },
+      "fused_constant": {
+        "cz": 8694,
+        "depth": 20628,
+        "native_ops": {
+          "sx": 16055,
+          "rz": 9355,
+          "cz": 8694,
+          "x": 4
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 34108,
+        "compiler_seconds": 0.14599430999999186
+      },
+      "difference_fused_minus_old": {
+        "cz": -80,
+        "depth": 499
+      },
+      "paired_strict_improvement_both": false,
+      "device_feasible_old": false,
+      "device_feasible_fused": false
+    },
+    {
+      "seed": 37,
+      "old_neither": {
+        "cz": 8856,
+        "depth": 20523,
+        "native_ops": {
+          "sx": 16367,
+          "rz": 9252,
+          "cz": 8856
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 34475,
+        "compiler_seconds": 0.1468694910000039
+      },
+      "fused_constant": {
+        "cz": 9167,
+        "depth": 21642,
+        "native_ops": {
+          "sx": 16943,
+          "rz": 9364,
+          "cz": 9167,
+          "x": 3
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 35477,
+        "compiler_seconds": 0.1256026989999981
+      },
+      "difference_fused_minus_old": {
+        "cz": 311,
+        "depth": 1119
+      },
+      "paired_strict_improvement_both": false,
+      "device_feasible_old": false,
+      "device_feasible_fused": false
+    },
+    {
+      "seed": 101,
+      "old_neither": {
+        "cz": 9125,
+        "depth": 21276,
+        "native_ops": {
+          "sx": 16835,
+          "rz": 9514,
+          "cz": 9125
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 35474,
+        "compiler_seconds": 0.11787269799999933
+      },
+      "fused_constant": {
+        "cz": 9218,
+        "depth": 21092,
+        "native_ops": {
+          "sx": 17042,
+          "rz": 9272,
+          "cz": 9218,
+          "x": 2
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 35534,
+        "compiler_seconds": 0.15543150599999933
+      },
+      "difference_fused_minus_old": {
+        "cz": 93,
+        "depth": -184
+      },
+      "paired_strict_improvement_both": false,
+      "device_feasible_old": false,
+      "device_feasible_fused": false
+    },
+    {
+      "seed": 409,
+      "old_neither": {
+        "cz": 8953,
+        "depth": 20627,
+        "native_ops": {
+          "sx": 16531,
+          "rz": 9350,
+          "cz": 8953
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 34834,
+        "compiler_seconds": 0.14757046900000148
+      },
+      "fused_constant": {
+        "cz": 9173,
+        "depth": 21435,
+        "native_ops": {
+          "sx": 16970,
+          "rz": 9258,
+          "cz": 9173,
+          "x": 2
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 35403,
+        "compiler_seconds": 0.16243919699999765
+      },
+      "difference_fused_minus_old": {
+        "cz": 220,
+        "depth": 808
+      },
+      "paired_strict_improvement_both": false,
+      "device_feasible_old": false,
+      "device_feasible_fused": false
+    },
+    {
+      "seed": 8776,
+      "old_neither": {
+        "cz": 9263,
+        "depth": 21772,
+        "native_ops": {
+          "sx": 17058,
+          "rz": 9607,
+          "cz": 9263
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 35928,
+        "compiler_seconds": 0.12264207100000135
+      },
+      "fused_constant": {
+        "cz": 8906,
+        "depth": 21167,
+        "native_ops": {
+          "sx": 16444,
+          "rz": 9206,
+          "cz": 8906,
+          "x": 3
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 34559,
+        "compiler_seconds": 0.17128091900001152
+      },
+      "difference_fused_minus_old": {
+        "cz": -357,
+        "depth": -605
+      },
+      "paired_strict_improvement_both": true,
+      "device_feasible_old": false,
+      "device_feasible_fused": false
+    },
+    {
+      "seed": 12011,
+      "old_neither": {
+        "cz": 9034,
+        "depth": 20977,
+        "native_ops": {
+          "sx": 16662,
+          "rz": 9511,
+          "cz": 9034
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 35207,
+        "compiler_seconds": 0.11945415000000992
+      },
+      "fused_constant": {
+        "cz": 9052,
+        "depth": 20955,
+        "native_ops": {
+          "sx": 16669,
+          "rz": 9292,
+          "cz": 9052,
+          "x": 4
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 35017,
+        "compiler_seconds": 0.12442612300000633
+      },
+      "difference_fused_minus_old": {
+        "cz": 18,
+        "depth": -22
+      },
+      "paired_strict_improvement_both": false,
+      "device_feasible_old": false,
+      "device_feasible_fused": false
+    },
+    {
+      "seed": 20261,
+      "old_neither": {
+        "cz": 9255,
+        "depth": 21719,
+        "native_ops": {
+          "sx": 17109,
+          "rz": 9586,
+          "cz": 9255
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 35950,
+        "compiler_seconds": 0.13787210099999925
+      },
+      "fused_constant": {
+        "cz": 8914,
+        "depth": 20924,
+        "native_ops": {
+          "sx": 16444,
+          "rz": 9231,
+          "cz": 8914,
+          "x": 4
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 34593,
+        "compiler_seconds": 0.16104836400000977
+      },
+      "difference_fused_minus_old": {
+        "cz": -341,
+        "depth": -795
+      },
+      "paired_strict_improvement_both": true,
+      "device_feasible_old": false,
+      "device_feasible_fused": false
+    },
+    {
+      "seed": 45673,
+      "old_neither": {
+        "cz": 9288,
+        "depth": 21476,
+        "native_ops": {
+          "sx": 17121,
+          "rz": 9354,
+          "cz": 9288
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 35763,
+        "compiler_seconds": 0.14912118000000874
+      },
+      "fused_constant": {
+        "cz": 9062,
+        "depth": 21468,
+        "native_ops": {
+          "sx": 16743,
+          "rz": 9299,
+          "cz": 9062,
+          "x": 2
+        },
+        "compiled_device_width": 156,
+        "compiled_gates": 35106,
+        "compiler_seconds": 0.1544401400000055
+      },
+      "difference_fused_minus_old": {
+        "cz": -226,
+        "depth": -8
+      },
+      "paired_strict_improvement_both": true,
+      "device_feasible_old": false,
+      "device_feasible_fused": false
+    }
+  ],
+  "success": true,
+  "status": "COMPILE_SUCCESS",
+  "all_source_unitary_proofs": {
+    "pass_all": true,
+    "direct_gate_complex_phase_check_before_backend_read": true,
+    "old_full_proof": {
+      "pass_all": true,
+      "full_residue_control_basis_cases": 128,
+      "output_equals_public_modular_multiplication": true,
+      "all_25_auxiliaries_clean": true,
+      "control_unmodified": true,
+      "disabled_invalid_states_identity": true,
+      "exact_complex_output_phase_plus_one": true,
+      "quantum_source_gate_counts": {
+        "cx": 1033,
+        "rccx": 596,
+        "x": 28,
+        "ccx": 160
+      },
+      "source_instruction_count": 1817
+    },
+    "new_full_proof": {
+      "pass_all": true,
+      "full_residue_control_basis_cases": 128,
+      "output_equals_public_modular_multiplication": true,
+      "all_25_auxiliaries_clean": true,
+      "control_unmodified": true,
+      "disabled_invalid_states_identity": true,
+      "exact_complex_output_phase_plus_one": true,
+      "quantum_source_gate_counts": {
+        "cx": 982,
+        "rccx": 596,
+        "x": 130,
+        "ccx": 160
+      },
+      "source_instruction_count": 1868
+    },
+    "six_bit_constant_add": {
+      "pass_all": true,
+      "actual_emitted_source_complex_gate_cases": 8192,
+      "all_64_public_constants": true,
+      "all_64_six_bit_work_inputs": true,
+      "both_external_enable_values": true,
+      "exact_complex_phase_plus_one": true,
+      "all_carry_and_scratch_clean": true,
+      "fused_polarity_bit_terms_across_64_constants": 129,
+      "relative_phase_rccx_observed_in_comparator": 888,
+      "per_constant": [
+        {
+          "public_constant": 0,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 0,
+          "actual_source_operation_counts": {}
+        },
+        {
+          "public_constant": 1,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 0,
+          "actual_source_operation_counts": {
+            "cx": 11,
+            "rccx": 20,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 2,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 0,
+          "actual_source_operation_counts": {
+            "cx": 9,
+            "rccx": 12,
+            "ccx": 4
+          }
+        },
+        {
+          "public_constant": 3,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 27,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 2
+          }
+        },
+        {
+          "public_constant": 4,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 0,
+          "actual_source_operation_counts": {
+            "cx": 7,
+            "rccx": 6,
+            "ccx": 3
+          }
+        },
+        {
+          "public_constant": 5,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 23,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 2
+          }
+        },
+        {
+          "public_constant": 6,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 21,
+            "rccx": 12,
+            "ccx": 4,
+            "x": 2
+          }
+        },
+        {
+          "public_constant": 7,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 39,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 4
+          }
+        },
+        {
+          "public_constant": 8,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 0,
+          "actual_source_operation_counts": {
+            "cx": 5,
+            "rccx": 2,
+            "ccx": 2
+          }
+        },
+        {
+          "public_constant": 9,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 19,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 2
+          }
+        },
+        {
+          "public_constant": 10,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 17,
+            "rccx": 12,
+            "ccx": 4,
+            "x": 2
+          }
+        },
+        {
+          "public_constant": 11,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 35,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 4
+          }
+        },
+        {
+          "public_constant": 12,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 15,
+            "rccx": 6,
+            "ccx": 3,
+            "x": 2
+          }
+        },
+        {
+          "public_constant": 13,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 31,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 4
+          }
+        },
+        {
+          "public_constant": 14,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 29,
+            "rccx": 12,
+            "ccx": 4,
+            "x": 4
+          }
+        },
+        {
+          "public_constant": 15,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 47,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 6
+          }
+        },
+        {
+          "public_constant": 16,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 0,
+          "actual_source_operation_counts": {
+            "cx": 3,
+            "ccx": 1
+          }
+        },
+        {
+          "public_constant": 17,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 15,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 2
+          }
+        },
+        {
+          "public_constant": 18,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 13,
+            "rccx": 12,
+            "ccx": 4,
+            "x": 2
+          }
+        },
+        {
+          "public_constant": 19,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 31,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 4
+          }
+        },
+        {
+          "public_constant": 20,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 11,
+            "rccx": 6,
+            "ccx": 3,
+            "x": 2
+          }
+        },
+        {
+          "public_constant": 21,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 27,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 4
+          }
+        },
+        {
+          "public_constant": 22,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 25,
+            "rccx": 12,
+            "ccx": 4,
+            "x": 4
+          }
+        },
+        {
+          "public_constant": 23,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 43,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 6
+          }
+        },
+        {
+          "public_constant": 24,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 9,
+            "rccx": 2,
+            "ccx": 2,
+            "x": 2
+          }
+        },
+        {
+          "public_constant": 25,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 23,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 4
+          }
+        },
+        {
+          "public_constant": 26,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 21,
+            "rccx": 12,
+            "ccx": 4,
+            "x": 4
+          }
+        },
+        {
+          "public_constant": 27,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 39,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 6
+          }
+        },
+        {
+          "public_constant": 28,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 19,
+            "rccx": 6,
+            "ccx": 3,
+            "x": 4
+          }
+        },
+        {
+          "public_constant": 29,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 35,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 6
+          }
+        },
+        {
+          "public_constant": 30,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 33,
+            "rccx": 12,
+            "ccx": 4,
+            "x": 6
+          }
+        },
+        {
+          "public_constant": 31,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 4,
+          "actual_source_operation_counts": {
+            "cx": 51,
+            "rccx": 20,
+            "ccx": 5,
+            "x": 8
+          }
+        },
+        {
+          "public_constant": 32,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 0,
+          "actual_source_operation_counts": {
+            "cx": 1
+          }
+        },
+        {
+          "public_constant": 33,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 11,
+            "rccx": 20,
+            "x": 2,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 34,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 9,
+            "rccx": 12,
+            "x": 2,
+            "ccx": 4
+          }
+        },
+        {
+          "public_constant": 35,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 27,
+            "rccx": 20,
+            "x": 4,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 36,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 7,
+            "rccx": 6,
+            "x": 2,
+            "ccx": 3
+          }
+        },
+        {
+          "public_constant": 37,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 23,
+            "rccx": 20,
+            "x": 4,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 38,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 21,
+            "rccx": 12,
+            "x": 4,
+            "ccx": 4
+          }
+        },
+        {
+          "public_constant": 39,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 39,
+            "rccx": 20,
+            "x": 6,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 40,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 5,
+            "rccx": 2,
+            "x": 2,
+            "ccx": 2
+          }
+        },
+        {
+          "public_constant": 41,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 19,
+            "rccx": 20,
+            "x": 4,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 42,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 17,
+            "rccx": 12,
+            "x": 4,
+            "ccx": 4
+          }
+        },
+        {
+          "public_constant": 43,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 35,
+            "rccx": 20,
+            "x": 6,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 44,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 15,
+            "rccx": 6,
+            "x": 4,
+            "ccx": 3
+          }
+        },
+        {
+          "public_constant": 45,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 31,
+            "rccx": 20,
+            "x": 6,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 46,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 29,
+            "rccx": 12,
+            "x": 6,
+            "ccx": 4
+          }
+        },
+        {
+          "public_constant": 47,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 4,
+          "actual_source_operation_counts": {
+            "cx": 47,
+            "rccx": 20,
+            "x": 8,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 48,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 1,
+          "actual_source_operation_counts": {
+            "cx": 3,
+            "x": 2,
+            "ccx": 1
+          }
+        },
+        {
+          "public_constant": 49,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 15,
+            "rccx": 20,
+            "x": 4,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 50,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 13,
+            "rccx": 12,
+            "x": 4,
+            "ccx": 4
+          }
+        },
+        {
+          "public_constant": 51,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 31,
+            "rccx": 20,
+            "x": 6,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 52,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 11,
+            "rccx": 6,
+            "x": 4,
+            "ccx": 3
+          }
+        },
+        {
+          "public_constant": 53,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 27,
+            "rccx": 20,
+            "x": 6,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 54,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 25,
+            "rccx": 12,
+            "x": 6,
+            "ccx": 4
+          }
+        },
+        {
+          "public_constant": 55,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 4,
+          "actual_source_operation_counts": {
+            "cx": 43,
+            "rccx": 20,
+            "x": 8,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 56,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 2,
+          "actual_source_operation_counts": {
+            "cx": 9,
+            "rccx": 2,
+            "x": 4,
+            "ccx": 2
+          }
+        },
+        {
+          "public_constant": 57,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 23,
+            "rccx": 20,
+            "x": 6,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 58,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 21,
+            "rccx": 12,
+            "x": 6,
+            "ccx": 4
+          }
+        },
+        {
+          "public_constant": 59,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 4,
+          "actual_source_operation_counts": {
+            "cx": 39,
+            "rccx": 20,
+            "x": 8,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 60,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 3,
+          "actual_source_operation_counts": {
+            "cx": 19,
+            "rccx": 6,
+            "x": 6,
+            "ccx": 3
+          }
+        },
+        {
+          "public_constant": 61,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 4,
+          "actual_source_operation_counts": {
+            "cx": 35,
+            "rccx": 20,
+            "x": 8,
+            "ccx": 5
+          }
+        },
+        {
+          "public_constant": 62,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 4,
+          "actual_source_operation_counts": {
+            "cx": 33,
+            "rccx": 12,
+            "x": 8,
+            "ccx": 4
+          }
+        },
+        {
+          "public_constant": 63,
+          "basis_cases": 128,
+          "clean_carry_and_chain": true,
+          "complex_phase_exactly_plus_one": true,
+          "fused_carry_polarity_terms": 5,
+          "actual_source_operation_counts": {
+            "cx": 51,
+            "rccx": 20,
+            "x": 10,
+            "ccx": 5
+          }
+        }
+      ]
+    },
+    "comparator": {
+      "pass_all": true,
+      "actual_gate_comparator_cases": 42672,
+      "comparator_source_circuits": 240,
+      "rccx_inside_comparator_present": true,
+      "exact_complex_phase_plus_one": true,
+      "all_carry_scratch_clean": true,
+      "controls_inputs_and_flags_unchanged_except_expected_predicate": true,
+      "comparator_total_source_gate_distribution": {
+        "cx": 2316,
+        "ccx": 240,
+        "x": 240,
+        "rccx": 2004
+      }
+    },
+    "modadd": {
+      "pass_all": true,
+      "source_gate_cases": 1584,
+      "unique_constants": 16,
+      "per_constant": [
+        {
+          "public_constant": 2,
+          "source_gates": {
+            "cx": 80,
+            "rccx": 50,
+            "ccx": 11,
+            "x": 8
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 4,
+          "source_gates": {
+            "cx": 62,
+            "rccx": 42,
+            "ccx": 10,
+            "x": 8
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 8,
+          "source_gates": {
+            "cx": 60,
+            "rccx": 36,
+            "ccx": 9,
+            "x": 8
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 11,
+          "source_gates": {
+            "cx": 90,
+            "rccx": 54,
+            "ccx": 12,
+            "x": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 13,
+          "source_gates": {
+            "cx": 90,
+            "rccx": 58,
+            "ccx": 12,
+            "x": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 16,
+          "source_gates": {
+            "cx": 58,
+            "rccx": 32,
+            "ccx": 8,
+            "x": 8
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 17,
+          "source_gates": {
+            "cx": 82,
+            "rccx": 58,
+            "ccx": 12,
+            "x": 10
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 19,
+          "source_gates": {
+            "cx": 86,
+            "rccx": 52,
+            "ccx": 12,
+            "x": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 23,
+          "source_gates": {
+            "cx": 98,
+            "rccx": 56,
+            "ccx": 12,
+            "x": 14
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 26,
+          "source_gates": {
+            "cx": 84,
+            "rccx": 50,
+            "ccx": 11,
+            "x": 12
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 27,
+          "source_gates": {
+            "cx": 94,
+            "rccx": 54,
+            "ccx": 12,
+            "x": 14
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 29,
+          "source_gates": {
+            "cx": 94,
+            "rccx": 58,
+            "ccx": 12,
+            "x": 14
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 31,
+          "source_gates": {
+            "cx": 106,
+            "rccx": 56,
+            "ccx": 12,
+            "x": 16
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 32,
+          "source_gates": {
+            "cx": 56,
+            "rccx": 30,
+            "ccx": 7,
+            "x": 8
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 33,
+          "source_gates": {
+            "cx": 82,
+            "rccx": 58,
+            "ccx": 12,
+            "x": 10
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        },
+        {
+          "public_constant": 34,
+          "source_gates": {
+            "cx": 80,
+            "rccx": 50,
+            "ccx": 11,
+            "x": 10
+          },
+          "actual_gate_cases": 99,
+          "clean_aux": true,
+          "exact_phase": true
+        }
+      ],
+      "clean_helpers": true,
+      "exact_complex_phase_plus_one": true,
+      "disabled_identity_full_six_bit_inputs": true
+    },
+    "source_change": {
+      "pass_all": true,
+      "old_source": {
+        "cx": 1033,
+        "rccx": 596,
+        "x": 28,
+        "ccx": 160
+      },
+      "new_source": {
+        "cx": 982,
+        "rccx": 596,
+        "x": 130,
+        "ccx": 160
+      },
+      "removed_semantic_controlled_cx": 51,
+      "added_comparator_clean_x": 102,
+      "extra_rccx": 0,
+      "extra_exact_ccx": 0,
+      "unchanged_layout_32_logical_qubits": true
+    },
+    "source_width_both_32": true,
+    "source_seed_independent": true
+  },
+  "backend_qubits": 156,
+  "full_eight_pair_seed_series_completed": true,
+  "summary": {
+    "matched_seed_pairs": 8,
+    "both_metrics_strict_improvement_seed_count": 3,
+    "cz_improvement_seeds": 4,
+    "depth_improvement_seeds": 5,
+    "paired_cz_delta_median": -31.0,
+    "paired_depth_delta_median": -15.0,
+    "paired_cz_delta_min": -357,
+    "paired_cz_delta_max": 311,
+    "paired_depth_delta_min": -795,
+    "paired_depth_delta_max": 1119,
+    "joint_wins_at_least_six_of_eight": false,
+    "both_medians_negative": true,
+    "all_original_seed_rows_preserved": true,
+    "original_8776_anchor_exact_reproduction": true,
+    "backend_drift_inconclusive_if_anchor_changed": false,
+    "robust_per_base_pass": false,
+    "all_new_layouts_hardware_infeasible": true,
+    "all_old_layouts_hardware_infeasible": true
+  }
+}
