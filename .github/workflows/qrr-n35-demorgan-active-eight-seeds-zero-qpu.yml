@@ -1,0 +1,144 @@
+name: QRR N35 De Morgan + active-only RCCX latch 8 matched seeds ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-demorgan-active-eight-seeds-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-demorgan-active-only-8seed-two-base
+  cancel-in-progress: false
+
+jobs:
+  both-public-bases:
+    name: public N35 base ${{ matrix.base }} eight matched De Morgan vs active RCCX exact phase, Fez target CPU
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fixed native Qiskit target compiler, no QPU
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Enforce prereg, frozen source controls, historical original receipts, no hardware method
+        run: |
+          test -s docs/QRR_N35_DEMORGAN_ACTIVE_LATCH_MATCHED_PREREG.md
+          python -m py_compile hardware/qrr_n35_demorgan_active_latch_matched_seeds.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_demorgan_active_latch_matched_seeds.py').read_text()
+          assert all(x not in s for x in ('SamplerV2','EstimatorV2','sampler.run','job.submit','job.run','job.result','backend.run'))
+          assert 'SEEDS=(11,37,101,409,8776,12011,20261,45673)' in s
+          assert 'primitive.predicate=demorgan.demorgan_ripple_predicate' in s
+          assert 'family.build_variant(base,"active_only")' in s
+          assert 'previous.verified.build(base)' in s
+          assert 'demorgan.exhaustive_demorgan_comparator_phase_proof' in s
+          assert 'previous.exhaustive_full_multiplier_phases' in s
+          assert 'family.shared.local_latch_unitary_test' in s
+          assert 'statistics.median' in s
+          for b in (2,8):
+              assert Path(f'results/ibm_shor35_demorgan_zero_cx_or/qrr_n35_demorgan_zero_cx_base{b}.json').exists()
+          print('Frozen phase-source comparator, 8 original-vs-active exact matched seeds per base, zero QPU')
+          PY
+      - name: Exact original and candidate emitted-gate quantum phase proof then 16 CPU-only Qiskit Fez compiles
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 560s python -u hardware/qrr_n35_demorgan_active_latch_matched_seeds.py --base "$BASE" | tee "qrr_n35_demorgan_active_base${BASE}.log"
+      - name: Independent complete original 8-seed source record audit, phase proof and predeclared robustness gate
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,statistics,os
+          from pathlib import Path
+          b=int(os.environ['BASE'])
+          z=json.loads(Path(f'results/ibm_shor35_demorgan_active_only/qrr_n35_demorgan_active_only_base{b}.json').read_text())
+          prior=json.loads(Path(f'results/ibm_shor35_demorgan_zero_cx_or/qrr_n35_demorgan_zero_cx_base{b}.json').read_text())
+          seeds=[11,37,101,409,8776,12011,20261,45673]
+          assert z['revision']=='qrr-n35-demorgan-active-only-eight-matched-v1-20261018'
+          assert z['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert z['prereg']=='docs/QRR_N35_DEMORGAN_ACTIVE_LATCH_MATCHED_PREREG.md'
+          assert z['modulus']==35 and z['base']==b and z['seeds']==seeds
+          assert z['hardware_target_read_only']=='ibm_fez' and z['optimization_level']==1
+          assert z['physical_cz_limit']==800 and z['physical_depth_limit']==2000
+          assert z['true_order_not_used'] and z['factors_not_used'] and z['multiplication_orbit_not_hardcoded']
+          assert z['actual_qpu_jobs']==0 and not z['free_runtime_used'] and not z['paid_runtime_used']
+          assert z['status']=='COMPILE_SUCCESS' and z['success'] and z['all_8_pairs_completed']
+          anchor0=prior['seed_triple_metrics'][4]['circuits']['demorgan_zero_cx']
+          assert z['historical_original']['cz']==anchor0['cz'] and z['historical_original']['depth']==anchor0['depth']
+          assert z['historical_original']['source']==prior['source_complex_phase_proofs']['demorgan_full_multiplier_phase_proof']['quantum_source_gate_counts']
+          proof=z['complex_source_gate_proof']
+          assert proof['pass_all'] and proof['both_source_32_qubits']
+          assert proof['all_25_helper_bits_clean'] and proof['exact_quantum_output_phase_plus_one']
+          assert proof['exactly_two_active_rccx_replaced']
+          assert proof['boolean_identity']['pass_all'] and proof['boolean_identity']['public_boolean_or_cases']==4
+          assert proof['local_active']['pass_all'] and proof['local_active']['direct_actual_operator_cases']==8
+          assert proof['comparator']['pass_all'] and proof['comparator']['actual_emitted_gate_cases']==42672
+          assert proof['comparator']['final_complex_phase_plus_one_every_case']
+          assert proof['modadd']['pass_all'] and proof['modadd']['source_gate_cases']==1584
+          assert proof['modadd']['exact_complex_phase_plus_one']
+          for tag in ('original_full','candidate_full'):
+              p=proof[tag]
+              assert p['pass_all'] and p['full_residue_control_basis_cases']==128
+              assert p['all_25_auxiliaries_clean'] and p['exact_complex_output_phase_plus_one']
+          original=proof['source_old'];active=proof['source_active']
+          assert original==z['historical_original']['source']
+          assert active==dict(cx=original['cx'],rccx=original['rccx']+2,
+                         x=original['x'],ccx=original['ccx']-2)
+          rows=z['pairs']
+          assert len(rows)==8 and [r['seed'] for r in rows]==seeds
+          dc=[];dd=[]
+          for row in rows:
+              for field,key in (('original','physical_device_old'),('active_only','physical_device_active')):
+                  cost=row[field]
+                  assert cost['cz']>0 and cost['depth']>0
+                  assert cost['native_count_ops']['cz']==cost['cz']
+                  assert cost['native_total_ops']>0
+                  assert cost['compiled_device_width']==z['target_device_qubits']
+                  assert cost['seconds']>=0
+                  assert row[key]==(cost['cz']<=800 and cost['depth']<=2000)
+              c=row['active_only']['cz']-row['original']['cz']
+              d=row['active_only']['depth']-row['original']['depth']
+              assert row['delta_active_minus_original']==dict(cz=c,depth=d)
+              assert row['paired_both_improve']==(c<0 and d<0)
+              dc.append(c);dd.append(d)
+          s=z['summary']
+          assert s['eight_matched_pairs_complete'] and s['paired_seed_count']==8
+          assert s['joint_both_improve']==sum(c<0 and d<0 for c,d in zip(dc,dd))
+          assert s['cz_improve_count']==sum(c<0 for c in dc)
+          assert s['depth_improve_count']==sum(d<0 for d in dd)
+          assert s['median_paired_cz']==statistics.median(dc)
+          assert s['median_paired_depth']==statistics.median(dd)
+          assert s['min_paired_cz']==min(dc) and s['max_paired_cz']==max(dc)
+          assert s['min_paired_depth']==min(dd) and s['max_paired_depth']==max(dd)
+          assert s['six_of_eight_joint_rule']==(s['joint_both_improve']>=6)
+          assert s['negative_both_medians']==(statistics.median(dc)<0 and statistics.median(dd)<0)
+          anchor=rows[4]['original']
+          anchorok=(anchor['cz'],anchor['depth'])==(z['historical_original']['cz'],z['historical_original']['depth'])
+          assert s['frozen_original_seed_8776_exact']==anchorok
+          assert s['robust_gate_this_base_pass']==(anchorok and s['six_of_eight_joint_rule'] and s['negative_both_medians'])
+          assert s['every_seed_fails_device_gate']==all(not p['physical_device_active'] for p in rows)
+          print('PHASE-EXACT INDEPENDENT SOURCE AUDIT',b,'joint wins',s['joint_both_improve'],
+            'medCZ',s['median_paired_cz'],'medDepth',s['median_paired_depth'],
+            'anchor8776',anchorok,'robust',s['robust_gate_this_base_pass'],'no QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-demorgan-active-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_demorgan_active_base*.log
+            results/ibm_shor35_demorgan_active_only/qrr_n35_demorgan_active_only_base*.json
