@@ -1,0 +1,127 @@
+name: Verify and preserve N35 De Morgan original compiler receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-demorgan-zero-cx-or.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  original-receipt-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39096222447
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-demorgan-zero-cx-base*-original
+          merge-multiple: true
+          path: _original_artifacts
+      - name: Preserve original source-run JSONs without recompiling
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_demorgan_zero_cx_or
+          for base in 2 8; do
+            f="qrr_n35_demorgan_zero_cx_base${base}.json"
+            hits="$(find _original_artifacts -type f -name "$f" | wc -l)"
+            test "$hits" -eq 1 || exit 1
+            find _original_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_demorgan_zero_cx_or/ '{}' +
+          done
+      - name: Independent comparison with all eight immutable historical control seeds
+        run: |
+          python - <<'PY'
+          import json,statistics
+          from pathlib import Path
+          seeds=[11,37,101,409,8776,12011,20261,45673]
+          for b in (2,8):
+              z=json.loads(Path(f'results/ibm_shor35_demorgan_zero_cx_or/qrr_n35_demorgan_zero_cx_base{b}.json').read_text())
+              prev=json.loads(Path(f'results/ibm_shor35_or_carry_multi_seed/qrr_n35_or_carry_multiseed_base{b}.json').read_text())
+              old=json.loads(Path(f'results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{b}.json').read_text())
+              assert z['revision']=='qrr-n35-demorgan-zero-cx-or-eight-matched-seeds-v1-20261018'
+              assert z['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert z['preregistration']=='docs/QRR_N35_DEMORGAN_OR_CARRY_EIGHT_SEED_PREREG.md'
+              assert z['N']==35 and z['base']==b and z['seed_list']==seeds
+              assert z['optimization_level']==1 and z['read_only_target']=='ibm_fez'
+              assert z['status']=='COMPILE_SUCCESS' and z['success']
+              assert z['all_eight_seed_triples_compiled'] and z['real_qpu_jobs']==0
+              assert not z['used_free_quantum_runtime'] and not z['used_paid_quantum_runtime']
+              assert z['physical_cz_cutoff']==800 and z['physical_depth_cutoff']==2000
+              phase=z['source_complex_phase_proofs']
+              assert phase['pass_all'] and phase['all_source_phase_amplitudes_exactly_plus_one']
+              assert phase['all_three_source_logical_qubits_32'] and phase['all_three_25_helpers_clean']
+              assert phase['boolean_identity_and_rccx_inverse']['pass_all']
+              assert phase['boolean_identity_and_rccx_inverse']['public_boolean_or_cases']==4
+              assert phase['boolean_identity_and_rccx_inverse']['actual_rccx_inverse_operator_product_identity']
+              cmp=phase['candidate_comparator_phase_proof']
+              assert cmp['pass_all'] and cmp['actual_emitted_gate_cases']==42672
+              assert cmp['final_complex_phase_plus_one_every_case'] and cmp['zero_workspace_after_every_case']
+              add=phase['candidate_public_modadd_phase_proof']
+              assert add['pass_all'] and add['source_gate_cases']==1584
+              assert add['exact_complex_phase_plus_one'] and add['clean_helpers']
+              for name in ('original','one_cx_or','demorgan'):
+                  p=phase[name+'_full_multiplier_phase_proof']
+                  assert p['pass_all'] and p['full_residue_control_basis_cases']==128
+                  assert p['all_25_auxiliaries_clean'] and p['exact_complex_output_phase_plus_one']
+              k=171 if b==2 else 180
+              assert phase['public_or_steps_rewritten']==k
+              assert phase['eliminated_cx_relative_to_one_cx_or']==2*k
+              assert phase['added_public_literal_x_relative_to_one_cx_or']==6*k
+              src=phase['demorgan_full_multiplier_phase_proof']['quantum_source_gate_counts']
+              ref=phase['one_cx_or_full_multiplier_phase_proof']['quantum_source_gate_counts']
+              assert src==dict(cx=ref['cx']-2*k,x=ref['x']+6*k,
+                  rccx=ref['rccx'],ccx=ref['ccx'])
+              h=z['historical_8776_controls']
+              assert h['original']==dict(cz=old['native_cz'],depth=old['native_depth'],
+                 source=old['full_modmul_phase_proof']['quantum_source_gate_counts'])
+              rows=z['seed_triple_metrics']
+              assert len(rows)==8 and [x['seed'] for x in rows]==seeds
+              for i,row in enumerate(rows):
+                  earlier=prev['paired_seed_metrics'][i]
+                  assert earlier['seed']==row['seed']
+                  for name,refname in (('original','original'),('one_cx_or','candidate')):
+                      c=row['circuits'][name]
+                      assert (c['cz'],c['depth'])==(earlier[refname]['cz'],earlier[refname]['depth'])
+                  for name,c in row['circuits'].items():
+                      assert c['cz']>0 and c['depth']>0
+                      assert c['native_count_ops']['cz']==c['cz']
+                      assert c['compiled_isa_width']==z['backend_reported_qubits']
+                      assert row['device_feasibility'][name]==(c['cz']<=800 and c['depth']<=2000)
+                  for refname in ('original','one_cx_or'):
+                      diff=row['deltas']['demorgan_minus_'+refname]
+                      assert diff==dict(
+                          cz=row['circuits']['demorgan_zero_cx']['cz']-row['circuits'][refname]['cz'],
+                          depth=row['circuits']['demorgan_zero_cx']['depth']-row['circuits'][refname]['depth'])
+              anchor=next(row for row in rows if row['seed']==8776)
+              assert all((anchor['circuits'][name]['cz'],anchor['circuits'][name]['depth'])==(
+                 h[name]['cz'],h[name]['depth']) for name in ('original','one_cx_or'))
+              summary=z['native_summary']
+              assert summary['all_previous_8776_anchors_exactly_reproduced']
+              assert summary['all_24_arms_fail_device_gate']
+              for refname in ('one_cx_or','original'):
+                  v=[row['deltas']['demorgan_minus_'+refname] for row in rows]
+                  cz=[p['cz'] for p in v];depth=[p['depth'] for p in v]
+                  report=summary[refname]
+                  assert report['jointly_better_cz_and_depth_count']==8
+                  assert all(a<0 and d<0 for a,d in zip(cz,depth))
+                  assert report['paired_cz_median']==statistics.median(cz)
+                  assert report['paired_depth_median']==statistics.median(depth)
+              assert summary['primary_robust_this_base_pass'] is True
+              assert summary['secondary_robust_vs_original_pass'] is True
+              print('AUDIT PASS original base',b,'8/8 jointly better than both controls; 42,672 comparator + 1584 modadd + 3x128 exact phase; all physical gates FAIL, zero QPU')
+          PY
+      - name: Commit only original receipts
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_demorgan_zero_cx_or/qrr_n35_demorgan_zero_cx_base2.json
+          git add results/ibm_shor35_demorgan_zero_cx_or/qrr_n35_demorgan_zero_cx_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: preserve original phase-exact De Morgan N35 8-seed native compiler receipts'
+            git push
+          fi
