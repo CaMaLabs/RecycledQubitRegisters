@@ -1,0 +1,165 @@
+name: Independently preserve original N35 constant carry fusion eight-seed negative robustness
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-fused-constant-carry-eight-seed.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-fused-carry-original-eight-pair-artifact-audit
+  cancel-in-progress: false
+
+jobs:
+  independent-exact-original-preservation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Retrieve ORIGINAL trial artifacts, not a new native compilation
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39082263845
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-fused-constant-carry-base*-original
+          merge-multiple: true
+          path: _source_results
+      - name: Copy precisely two original JSONs without editing numbers
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_fused_constant_carry_multiseed
+          for base in 2 8; do
+            f="qrr_n35_fused_constant_carry_base${base}.json"
+            hits="$(find _source_results -type f -name "$f" | wc -l)"
+            test "$hits" -eq 1 || { echo "Expected exactly one original $f but found $hits"; exit 1; }
+            find _source_results -type f -name "$f" -exec cp -t results/ibm_shor35_fused_constant_carry_multiseed/ '{}' +
+          done
+      - name: Check original 32 native outputs, phase-proof counts, matched controls, 8776 reproduction and strict failed gate
+        run: |
+          python - <<'PY'
+          import json,statistics
+          from pathlib import Path
+          seeds=[11,37,101,409,8776,12011,20261,45673]
+          # Frozen *after* source execution for audit only; these values MUST
+          # match original source logs and JSON. Not seed-selection inputs.
+          original_logged={
+            2:[
+              (8774,20129,8694,20628),
+              (8856,20523,9167,21642),
+              (9125,21276,9218,21092),
+              (8953,20627,9173,21435),
+              (9263,21772,8906,21167),
+              (9034,20977,9052,20955),
+              (9255,21719,8914,20924),
+              (9288,21476,9062,21468)],
+            8:[
+              (8908,21194,9040,21615),
+              (9290,21648,9266,22048),
+              (9232,21288,9022,21529),
+              (9281,21510,9108,21610),
+              (9426,21933,9261,21876),
+              (9279,22085,8872,20718),
+              (9176,21398,8999,21956),
+              (9178,21952,9194,21474)]
+          }
+          expected={2:dict(wins=3,median_cz=-31,median_depth=-15,removed_cx=51),
+                    8:dict(wins=2,median_cz=-169,median_depth=170.5,removed_cx=55)}
+          for base in (2,8):
+              f=Path(f'results/ibm_shor35_fused_constant_carry_multiseed/qrr_n35_fused_constant_carry_base{base}.json')
+              d=json.loads(f.read_text())
+              old=json.loads(Path(f'results/ibm_shor35_relative_phase_ripple/qrr_n35_relative_phase_clean_vchain_base{base}.json').read_text())
+              assert d['revision']=='qrr-n35-fused-public-bit-carry-matched-seeds-v1-20261017'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistration']=='docs/QRR_N35_FUSED_CONSTANT_CARRY_MULTISEED_PREREG.md'
+              assert d['N']==35 and d['base']==base and d['seeds']==seeds
+              assert d['optimization_level']==1 and d['target_backend']=='ibm_fez'
+              assert d['true_order_not_used'] and d['private_factors_not_used'] and d['precalculated_orbits_not_used']
+              assert d['qpu_jobs_submitted']==0 and not d['quantum_runtime_used'] and not d['paid_runtime_used']
+              assert d['limit_native_cz']==800 and d['limit_native_depth']==2000
+              assert d['old_baseline']==dict(
+                 cz=old['native_cz'],depth=old['native_depth'],
+                 source=old['full_modmul_phase_proof']['quantum_source_gate_counts'])
+              p=d['all_source_unitary_proofs']
+              assert p['pass_all'] and p['direct_gate_complex_phase_check_before_backend_read']
+              assert p['source_width_both_32'] and p['source_seed_independent']
+              a=p['six_bit_constant_add']
+              assert a['pass_all'] and a['actual_emitted_source_complex_gate_cases']==8192
+              assert a['all_carry_and_scratch_clean'] and a['exact_complex_phase_plus_one']
+              assert a['all_64_public_constants'] and a['all_64_six_bit_work_inputs']
+              assert a['both_external_enable_values'] and len(a['per_constant'])==64
+              assert a['fused_polarity_bit_terms_across_64_constants']>0
+              assert a['relative_phase_rccx_observed_in_comparator']>0
+              assert p['comparator']['pass_all'] and p['comparator']['actual_gate_comparator_cases']==42672
+              assert p['comparator']['all_carry_scratch_clean'] and p['comparator']['exact_complex_phase_plus_one']
+              assert p['modadd']['pass_all'] and p['modadd']['source_gate_cases']==1584
+              assert p['modadd']['unique_constants']==16 and p['modadd']['exact_complex_phase_plus_one']
+              for part in ('old_full_proof','new_full_proof'):
+                  sub=p[part]
+                  assert sub['pass_all'] and sub['full_residue_control_basis_cases']==128
+                  assert sub['all_25_auxiliaries_clean'] and sub['exact_complex_output_phase_plus_one']
+                  assert sub['control_unmodified'] and sub['disabled_invalid_states_identity']
+              ch=p['source_change']
+              assert ch['pass_all'] and ch['unchanged_layout_32_logical_qubits']
+              assert ch['old_source']==d['old_baseline']['source']
+              assert ch['removed_semantic_controlled_cx']==expected[base]['removed_cx']
+              assert ch['added_comparator_clean_x']==2*expected[base]['removed_cx']
+              assert ch['extra_rccx']==0 and ch['extra_exact_ccx']==0
+              assert ch['new_source']['rccx']==ch['old_source']['rccx']
+              assert ch['new_source']['ccx']==ch['old_source']['ccx']
+              assert ch['new_source']['cx']==ch['old_source']['cx']-expected[base]['removed_cx']
+              assert ch['new_source']['x']==ch['old_source']['x']+2*expected[base]['removed_cx']
+              assert d['status']=='COMPILE_SUCCESS' and d['success']
+              assert d['full_eight_pair_seed_series_completed']
+              r=d['seed_pairs']
+              assert len(r)==8 and [row['seed'] for row in r]==seeds
+              dz=[];dt=[]
+              for i,row in enumerate(r):
+                  oldq=row['old_neither'];newq=row['fused_constant']
+                  assert (oldq['cz'],oldq['depth'],newq['cz'],newq['depth'])==original_logged[base][i],(base,i,row)
+                  for source,gate in ((oldq,'device_feasible_old'),(newq,'device_feasible_fused')):
+                      assert source['native_ops']['cz']==source['cz']
+                      assert source['compiled_device_width']==d['backend_qubits']==156
+                      assert source['compiled_gates']>0 and source['compiler_seconds']>=0
+                      assert source['cz']>0 and source['depth']>0
+                      assert row[gate]==(source['cz']<=800 and source['depth']<=2000)
+                  dc=newq['cz']-oldq['cz'];dd=newq['depth']-oldq['depth']
+                  assert row['difference_fused_minus_old']==dict(cz=dc,depth=dd)
+                  assert row['paired_strict_improvement_both']==(dc<0 and dd<0)
+                  dz.append(dc);dt.append(dd)
+              sm=d['summary']
+              assert sm['matched_seed_pairs']==8 and sm['all_original_seed_rows_preserved']
+              assert sm['both_metrics_strict_improvement_seed_count']==expected[base]['wins']
+              assert sm['cz_improvement_seeds']==sum(x<0 for x in dz)
+              assert sm['depth_improvement_seeds']==sum(x<0 for x in dt)
+              assert sm['paired_cz_delta_median']==statistics.median(dz)==expected[base]['median_cz']
+              assert sm['paired_depth_delta_median']==statistics.median(dt)==expected[base]['median_depth']
+              assert sm['paired_cz_delta_min']==min(dz) and sm['paired_cz_delta_max']==max(dz)
+              assert sm['paired_depth_delta_min']==min(dt) and sm['paired_depth_delta_max']==max(dt)
+              assert sm['joint_wins_at_least_six_of_eight'] is False
+              assert sm['original_8776_anchor_exact_reproduction'] is True
+              assert sm['backend_drift_inconclusive_if_anchor_changed'] is False
+              assert sm['robust_per_base_pass'] is False
+              assert sm['all_new_layouts_hardware_infeasible'] and sm['all_old_layouts_hardware_infeasible']
+              print('AUDITED ORIGINAL N35 CONSTANT FUSION BASE',base,'8 exact pairs',
+                    'unitary gates 8192+42672+1584+128+128, CX removed',
+                    expected[base]['removed_cx'],'joint both wins',expected[base]['wins'],
+                    'median deltas',sm['paired_cz_delta_median'],sm['paired_depth_delta_median'],
+                    '8776 exact anchor YES, robust NO, hardware NO, QPU jobs ZERO')
+          print('SUCCESS: both original unaltered two-base phase-correct 8-seed negative native compiler results independently verified')
+          PY
+      - name: Preserve unchanged original JSON receipts under results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_fused_constant_carry_multiseed/qrr_n35_fused_constant_carry_base2.json
+          git add results/ibm_shor35_fused_constant_carry_multiseed/qrr_n35_fused_constant_carry_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: preserve original phase-correct N35 constant-carry fuse eight-seed two-base placement robustness FAIL, no QPU'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
