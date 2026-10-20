@@ -1,0 +1,152 @@
+name: QRR N24 frozen public predictor exact witness holdout ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n24-public-predictor-validation-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n24-public-predictor-frozen-validation
+  cancel-in-progress: false
+
+jobs:
+  independent-24bit-order-witness-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Confirm original public manifest independently on main and banned quantum hardware imports
+        run: |
+          test -s docs/DARK_STAR_N24_PUBLIC_PREDICTOR_PREREG.md
+          test -s results/dark_star_ptp/dark_star_n24_public_predictor_manifest.json
+          python3 -m py_compile hardware/dark_star_n24_public_predictor_validate.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('results/dark_star_ptp/dark_star_n24_public_predictor_manifest.json')
+          j=json.loads(p.read_text())
+          assert j['selected_sha256']=='d20a59ede42509cb3fd85ce5c6e1a61bd5edb70621964ebbd3ddea5d6ea2b889'
+          assert len(j['selected_public_rows'])==16
+          assert hashlib.sha256(json.dumps(j['selected_public_rows'],sort_keys=True,separators=(',',':')).encode()).hexdigest()==j['selected_sha256']
+          assert j['no_validation_factors_or_orders'] and j['labels_not_evaluated_or_used_for_selection']
+          for f in (
+             'hardware/dark_star_n24_public_predictor_manifest.py',
+             'hardware/dark_star_n24_public_predictor_validate.py'):
+              s=Path(f).read_text()
+              assert not any(w in s for w in ('qiskit_ibm_runtime','QiskitRuntimeService','SamplerV2','EstimatorV2','backend.run','job.submit'))
+          print('PUBLIC N24 SHA-frozen manifest committed BEFORE labels; no quantum runtime')
+          PY
+      - name: Evaluate all 16 public classical-first labels, cube-witness invariant, P1/P2 frozen gate ZERO QPU
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=10s 480s python3 -u hardware/dark_star_n24_public_predictor_validate.py | tee qrr_n24_public_predictor_validation.log
+      - name: Independently verify 16 public rows, classification sums, all exact group/invariance and original SHA
+        run: |
+          python3 - <<'PY'
+          import json,math,hashlib
+          from pathlib import Path
+          mf=json.loads(Path('results/dark_star_ptp/dark_star_n24_public_predictor_manifest.json').read_text())
+          d=json.loads(Path('results/dark_star_ptp/dark_star_n24_public_predictor_validation.json').read_text())
+          assert d['experiment']=='n24_public_only_reversal_predictor_vs_full_exact_order_witness_labels'
+          assert d['source_public_manifest_commit']=='6a3eb458d63c15b57468ceafadae6c94ebe5c260'
+          assert d['source_public_manifest_sha256']==mf['selected_sha256']
+          assert d['QPE_not_scored'] and d['native_backend_not_read']
+          assert d['no_QPU'] and d['qpu_jobs_submitted']==0
+          assert not d['free_runtime_used'] and not d['paid_runtime_used']
+          rows=d['rows']
+          assert len(rows)==16 and len({r['N'] for r in rows})==16
+          for r,original in zip(rows,mf['selected_public_rows']):
+              for k in original:
+                  assert r[k]==original[k],(r['N'],k)
+              N=r['N'];a=r['base'];b=r['public_cube']
+              classical=r['public_post_B31_classical']
+              assert classical['classically_factored']
+              f=int(classical['factor'])
+              assert 1<f<N and N%f==0
+              q=N//f
+              assert sorted((f,q))==r['validation_only']['factors']
+              assert all(2000<=v<=6000 for v in (f,q))
+              v=r['validation_only']
+              rr=v['order_plain'];br=v['order_cube']
+              assert pow(a,rr,N)==1 and pow(b,br,N)==1
+              assert br==rr//math.gcd(rr,3)
+              assert v['shrunk_by_exact_factor_three']==(rr%3==0)
+              wa=v['plain_witness']; wb=v['cube_witness']
+              assert wa['factor_success']==wb['factor_success']
+              assert wa['factors']==wb['factors']
+              assert v['exact_cube_half_order_witness_invariance_verified']
+              if rr%2==0:
+                  assert br%2==0 and wa['x']==wb['x']
+                  assert wa['x']==pow(a,rr//2,N)==pow(b,br//2,N)
+              else:
+                  assert br%2==1 and wa['x']==wb['x']==None
+              assert r['label_T_shrunk_and_factor_witness']==(
+                  rr%3==0 and bool(wa['factor_success']))
+              assert r['P1_correct']==(r['P1_mod3_1_predict_positive']==r['label_T_shrunk_and_factor_witness'])
+              assert r['P2_correct']==(
+                r['P2_public_bitweight_proxy']['P2_source_proxy_predict_positive']==r['label_T_shrunk_and_factor_witness'])
+              assert r['zero_QPU']
+          s=d['summary']
+          assert s['all_16_prelabel_manifest_sha_matched'] and s['all_16_classically_factored_by_public_algorithm']
+          assert s['all_16_odd_cube_factor_witness_invariant'] and s['zero_QPU']
+          g1=sum(z['label_T_shrunk_and_factor_witness'] for z in rows if z['group']=='G1_mod3_1')
+          g2=sum(z['label_T_shrunk_and_factor_witness'] for z in rows if z['group']=='G2_mod3_2')
+          assert s['predeclared_P1_group_mod3_1_target_positive']==g1
+          assert s['predeclared_P1_group_mod3_2_target_positive']==g2
+          assert s['predeclared_P1_gate_pass']==(g1>=6 and g2<=2)
+          for name,pred in [('P1_confusion',lambda z:z['P1_mod3_1_predict_positive']),
+                             ('P2_public_bitweight_confusion',lambda z:z['P2_public_bitweight_proxy']['P2_source_proxy_predict_positive'])]:
+              c=s[name]
+              assert c['tp']==sum(pred(z) and z['label_T_shrunk_and_factor_witness'] for z in rows)
+              assert c['fp']==sum(pred(z) and not z['label_T_shrunk_and_factor_witness'] for z in rows)
+              assert c['fn']==sum(not pred(z) and z['label_T_shrunk_and_factor_witness'] for z in rows)
+              assert c['tn']==sum(not pred(z) and not z['label_T_shrunk_and_factor_witness'] for z in rows)
+              assert sum(c[k] for k in ('tp','fp','fn','tn'))==16
+          K=g1+g2
+          p=sum(math.comb(K,x)*math.comb(16-K,8-x)
+                   for x in range(g1,min(8,K)+1) if 0<=8-x<=16-K)/math.comb(16,8)
+          assert math.isclose(s['exact_one_sided_enrichment_hypergeom_p_descriptive'],p)
+          assert s['always_negative_accuracy']==(16-K)/16
+          print('INDEPENDENT AUDIT SUCCESS: 16 public post-B31 factors, exact order+witness invariant,',
+               'G1 positive',g1,'/8 G2 positive',g2,'/8 P1 gate',s['predeclared_P1_gate_pass'],
+               'P1 confusion',s['P1_confusion'],'P2',s['P2_public_bitweight_confusion'],
+               'No QPE nor QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n24-original-public-predictor-validation
+          path: |
+            results/dark_star_ptp/dark_star_n24_public_predictor_validation.json
+            qrr_n24_public_predictor_validation.log
+          retention-days: 90
+      - name: Preserve original exact scorer output after independent audit, no rerun or filtering
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n24_public_predictor_validation.json
+          git commit -m "results: independently verify/freeze 16 N24 exact public cubic order plus half-order witness labels, P1/P2 predictions and zero QPU"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'All original 16 N24 predictor outcomes preserved, zero QPU'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
