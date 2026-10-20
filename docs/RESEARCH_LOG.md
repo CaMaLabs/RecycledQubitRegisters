@@ -1827,3 +1827,32 @@ including zero-CF-certificate negative cases, before any claims
 about reliable cubic preconditioning or new hardware benefit.
 Separate classical CPU work from abstract CCX; no RSA or
 asymptotic factoring claim.
+
+
+## 2026-10-20 — New 35-qubit N35 FULL FOUR-CONTROLLED-POWER BLOCK: phase-exact source sign selector 8/8 both-base native paired wins, QPU preflight FAIL
+
+**Lead/originating work: Chase Lunsford / CaMaLabs.** Continuing from the independently confirmed [public source static signed modulo35 constant selector](QRR_N35_STATIC_SIGN_FRESH_SEED_HOLDOUT_RESULT.md) (original per-k source-only score `S=CX+6CCX+3RCCX`, signed for odd public k, original positive for even, **fresh 8/8 base2 and 7/8 cubic8 single-multiplier ISA resource wins**). We explicitly excluded the later [complement-conjugation negative](QRR_N35_COMPLEMENT_CONJUGATE_CONSTANT_ADD_RESULT.md) (both bases only 1/8 new-seed wins). Historic real IBM Fez Open Plan N15 qubit recycling demonstration is unrelated genuine hardware work, **not** real N35 factor recovery.
+
+**Distinct pre-scoring frozen 4-control source+native trial:** [`docs/QRR_N35_STATIC_SIGN_FOUR_POWER_BLOCK_PREREG.md`](QRR_N35_STATIC_SIGN_FOUR_POWER_BLOCK_PREREG.md), initial commit **`55ef0e4cbee5381dea331f1c31919966eb0e2b20`**. New [`hardware/qrr_n35_static_sign_four_controlled_powers.py`](../hardware/qrr_n35_static_sign_four_controlled_powers.py) builds **one actually integrated 35-qubit public modular-exponentiation BLOCK**, four phase controls, six-bit work, **25 shared initially/returned-clean helpers** (accumulator, validity, temporary carries, enable/wrap); uses the exact prior Qiskit gate-proven public source modulo35 adder for original or selected source and skips only public powers m=1. **Base2 schedule [2,4,16,11]**, four real multiplication stages; **cubic base8 [8,29,1,1]**, two real stages/two public identity stages. All select/decomposition decisions from public k and modular exponentiation alone; no hidden true period/order, factor/orbit/injected output table.
+
+**Before any IBM backend access:** original 34×2 public k source-gate and sign-map receipts EXACTLY reproduced; original **3366 algebraic identity, 42672 quantum-phase comparator, 6732 both-sign modadd, 128+128 prior single-multiplier actual quantum gates** passed. Then BOTH original and selected **35-qubit** four-control block literal Qiskit `Operator` emitted gates were exhaustively interpreted on 16 phase control patterns ×64 six-bit y =**1024 exact +1 quantum-phase, semantic output, unchanged phase-control, all25 ancillas zero** per circuit, across two bases **4096 independently phase-checked full-block basis inputs PASS**. This validates the ideal coherent quantum modular-power unitary with clean input ancillas, NOT its noisy quantum execution or complete Shor QPE.
+
+[Original two job experiment CI **39512264987**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39512264987) **2/2 SUCCESS**, read-only IBM Fez hardware *TARGET*, Qiskit~=2.5.2/runtime~=0.47, optimization1, **EIGHT NEW** transpiler seeds [239,647,1453,3701,6211,9421,16673,27191] with matched old-selected circuits per seed and base, **32 original real CPU ISA native compilation runs**, no QPU. Four extra original one-multiplier seed8776 anchor compiles exactly reproduced old/signed values for both bases; NOT in eight-seed new count. [Independent original artifact strict audit and preservation CI **39512588036**](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39512588036) **SUCCESS**, verified all32 exact original `CZ/depth` scores and full Qiskit complex-phase proofs against previous immutable source receipts and predeclared strict gates, then committed unchanged original source JSON `results/ibm_shor35_four_power_sign_selector/qrr_n35_four_power_sign_source_base{2,8}.json`. Complete [report and all 16 paired rows](QRR_N35_STATIC_SIGN_FOUR_POWER_BLOCK_RESULT.md).
+
+| NEW integrated four-controlled public modular powers, IBM Fez CPU native ISA only | Public base2 | Public cubic base8 |
+|---|---:|---:|
+| Complete 35-qubit source phase basis inputs tested for original+selected | 2048 PASS | 2048 PASS |
+| All scratch bits returned zero and quantum output phase+1 | **PASS** | **PASS** |
+| Public nonidentity multipliers in four control positions | 4 | 2 |
+| NEW frozen matched Qiskit transpiler seeds per public base | 8 | 8 |
+| **Same-seed strict both CZ AND depth wins for sign selector** | **8/8 PASS** | **8/8 PASS** |
+| Median paired native CZ savings (original−selected) | **3717.5** | **1407** |
+| Median paired native depth savings | **9389** | **3911** |
+| Best observed SELECTED CZ among new seeds | 28528 | 14471 |
+| Best observed SELECTED depth among new seeds | 65461 | 33951 |
+| Frozen physical feasibility CZ≤800 AND depth≤2000 | **FAIL ALL** | **FAIL ALL** |
+| Real IBM QPU jobs, free/paid quantum runtime | **0** | **0** |
+
+**Milestone WIN:** Both public bases produce **8/8 matched CZ AND depth native reductions** using the unchanged original frozen public-source sign map even after assembling and exhaustively checking the *integrated* 4-control quantum modular-exponentiation block. Source original 35-qubit gate distributions base2 `CX1213 RCCX2374 CCX648 X6890`→selected `CX1107 RCCX2082 CCX602 X5970`; cube8 `CX625 RCCX1236 CCX329 X3612`→`CX575 RCCX1094 CCX309 X3052`. This is materially stronger provenance than extrapolating from standalone modular multipliers and validates ideal amplitude+1 across all 4096 clean-input full-block basis tests. **Hardware hard gate still FAILS by >one order of magnitude even for cube8; no inverse QFT, readout, actual quantum sampling or factoring whatsoever.** No N35 Open Plan QPU or paid QPU, and no cryptanalytic speedup, theorem, or practical RSA/ML-KEM break.
+
+**Next stop:** To test complete Shor readout, preregister adding inverse QFT and measurement with exact source and native whole-circuit checks, but remain strictly CPU-only and do not reduce physical thresholds because of attractive compiler percentage gains. Alternatively target huge full-block arithmetic cost reductions before investing in readout/QPU. Preserve all earlier positive/negative controls and original N15 real hardware pilot separately.
