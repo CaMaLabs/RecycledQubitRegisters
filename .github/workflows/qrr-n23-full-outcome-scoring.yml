@@ -1,0 +1,97 @@
+name: QRR N23 fresh eight-case full-outcome bounded QPE ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n23-full-outcome-scoring.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n23-full-outcome
+  cancel-in-progress: false
+
+jobs:
+  score:
+    name: Fresh N23 full-QPE ${{ matrix.group }} index ${{ matrix.index }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        group: [trigger, control]
+        index: [0,1,2,3]
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fixed numerical packages for CPU-only QPE model
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - name: Fail closed if IBM QPU/Runtime code is present
+        run: |
+          if grep -nE '^[[:space:]]*(from|import)[[:space:]].*(qiskit_ibm_runtime|ibm_runtime_guard)|SamplerV2|EstimatorV2|QiskitRuntimeService' hardware/dark_star_n23_full_outcome_holdout.py hardware/analyze_dark_star_n23_full_outcome.py; then
+            echo 'Unexpected quantum hardware client in CPU model'; exit 1
+          fi
+      - name: Score ONLY independently preregistered public N23 manifest row
+        run: |
+          python3 -u hardware/dark_star_n23_full_outcome_holdout.py \
+            --group ${{ matrix.group }} --index ${{ matrix.index }} \
+            --out ${{ matrix.group }}_${{ matrix.index }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.group }}_${{ matrix.index }}
+          path: ${{ matrix.group }}_${{ matrix.index }}.json
+          retention-days: 90
+          if-no-files-found: error
+
+  merge-and-preserve:
+    needs: score
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          path: n23-shards
+          pattern: '*_*'
+      - name: Independent complete audit of all 8 original zero-QPU phase receipts
+        run: |
+          python3 hardware/analyze_dark_star_n23_full_outcome.py --shards n23-shards
+          mkdir -p results/dark_star_ptp
+          for group in trigger control; do
+            for i in 0 1 2 3; do
+              cp "n23-shards/${group}_${i}/${group}_${i}.json" "results/dark_star_ptp/dark_star_n23_full_outcome_${group}_index${i}.json"
+            done
+          done
+      - name: Preserve original 8 source artifacts and immutable merged summary
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n23_full_outcome_*.json
+          git commit -m "results: preserve all eight SHA-frozen N23 full-QPE classical-first original shard receipts"
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo "All eight original research receipts preserved without force"; exit 0
+            fi
+            sleep 2
+          done
+          echo 'Failed to merge; original Actions artifacts retained'
+          exit 1
