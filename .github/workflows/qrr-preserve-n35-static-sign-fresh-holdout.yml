@@ -1,0 +1,178 @@
+name: Independently preserve N35 static-sign fresh-seed quantum phase holdout original results
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-static-sign-fresh-holdout.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-static-sign-original-fresh-holdout-artifacts
+  cancel-in-progress: false
+
+jobs:
+  byte-preserve-and-independently-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download two ORIGINAL source-run eight-FRESH-seed JSON artifacts; DO NOT recompile
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39368270962
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-static-sign-fresh-holdout-base*-original
+          merge-multiple: true
+          path: _original_fresh_source
+      - name: Copy precisely one immutable original source JSON per public base
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_static_sign_selector_fresh_holdout
+          for base in 2 8; do
+            fn="qrr_n35_static_sign_fresh_holdout_base${base}.json"
+            count="$(find _original_fresh_source -type f -name "$fn" | wc -l)"
+            test "$count" -eq 1 || { echo "Missing/duplicate $fn, count=$count"; exit 1; }
+            find _original_fresh_source -type f -name "$fn" -exec cp -t results/ibm_shor35_static_sign_selector_fresh_holdout/ '{}' +
+          done
+      - name: Independently verify all 36 source-run Fez CPU native counts, fresh seeds, exact original source quantum phases and frozen gate
+        run: |
+          python3 - <<'PY'
+          import json,statistics
+          from pathlib import Path
+          fresh=[1729,3137,5003,7919,10103,13007,20011,31799]
+          expected={
+            2:[
+              (7887,18221,6871,16626),
+              (7779,18549,7144,16260),
+              (8375,19117,7031,16218),
+              (8318,19484,6663,15740),
+              (7977,18828,6649,15393),
+              (8270,19352,7314,16468),
+              (8207,18911,7013,16229),
+              (8120,19386,7172,16387),
+              (7792,18397,7061,15900)],
+            8:[
+              (7802,18449,7315,16286),
+              (8146,19054,7487,16857),
+              (8164,19253,7501,16723),
+              (8114,19005,6863,16582),
+              (8174,19149,7044,16429),
+              (8336,19126,7058,16991),
+              (7507,18257,7507,17149),
+              (8128,19763,7426,17407),
+              (8369,19564,7474,16911)]
+          }
+          medians={2:(-1075.0,-2891.5),8:(-798.5,-2389.5)}
+          wins={2:8,8:7}
+          for base in (2,8):
+              d=json.loads(Path(f'results/ibm_shor35_static_sign_selector_fresh_holdout/qrr_n35_static_sign_fresh_holdout_base{base}.json').read_text())
+              old=json.loads(Path(f'results/ibm_shor35_static_gate_sign_selector/qrr_n35_static_sign_selector_base{base}.json').read_text())
+              assert d['revision']=='qrr-n35-static-sign-selector-fresh-seed-holdout-v1-20261019'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistration']=='docs/QRR_N35_STATIC_GATE_SIGN_FRESH_SEED_HOLDOUT_PREREG.md'
+              assert d['old_verified_result_document']=='docs/QRR_N35_STATIC_GATE_COST_SIGN_SELECTOR_RESULT.md'
+              assert d['N']==35 and d['base']==base and d['fresh_seeds']==fresh
+              assert d['historical_anchor_seed']==8776
+              assert d['all_pair_seeds_in_compile_order']==[8776]+fresh
+              assert d['original_source_score_formula']==old['source_score_formula']
+              assert d['original_k_selection_map_immutable'] is True
+              assert d['read_only_ibm_target']=='ibm_fez' and d['optimizer_level']==1
+              assert d['device_cz_limit']==800 and d['device_depth_limit']==2000
+              assert d['full_six_bit_public_residue'] and d['true_order_not_used']
+              assert d['prime_factors_not_used'] and d['precomputed_modular_orbit_not_used']
+              assert d['qpu_jobs_submitted']==0 and not d['quantum_runtime_used'] and not d['paid_runtime_used']
+              assert d['status']=='COMPILE_SUCCESS' and d['success']
+              assert d['all_eighteen_native_compilations_complete']
+              p=d['before_backend_source_quantum_proof']
+              assert p['original_all_34_source_score_rows_exact_match']
+              assert p['public_sign_choice_map_exact_match']
+              assert p['full_source_gate_distribution_exact_match']
+              assert p['every_amplitude_exactly_plus_one'] and p['all_25_aux_clean']
+              assert p['application_logical_qubits']==32
+              assert p['public_arithmetic_identity']['pass_all'] and p['public_arithmetic_identity']['cases']==3366
+              cmp=p['comparator_complex_phase_proof']
+              assert cmp['pass_all'] and cmp['actual_emitted_gate_cases']==42672
+              assert cmp['final_complex_phase_plus_one_every_case']
+              mod=p['all_34_both_implementations_phase_proof']
+              assert mod['pass_all'] and mod['total_quantum_operator_basis_cases']==6732
+              assert mod['exact_complex_phase_plus_one'] and mod['all_aux_clean']
+              assert len(mod['per_public_k'])==34
+              full=p['full_multipliers_complex_phase_proof']
+              oldfull=old['prebackend_exact_quantum_gate_proofs']['whole_full_multiplier']
+              assert full['actual_signed_weighted_additions']==oldfull['actual_signed_weighted_additions']
+              assert full['actual_positive_weighted_additions']==oldfull['actual_positive_weighted_additions']
+              assert full['selection_for_each_weight']==oldfull['selection_for_each_weight']
+              for name in ('original_full','candidate_full'):
+                  fp=full[name]
+                  assert fp['pass_all'] and fp['full_residue_control_basis_cases']==128
+                  assert fp['all_25_auxiliaries_clean'] and fp['exact_complex_output_phase_plus_one']
+                  assert fp['quantum_source_gate_counts']==oldfull[name]['quantum_source_gate_counts']
+              arch=next(x for x in old['matched_seed_pairs'] if x['seed']==8776)
+              historical=d['frozen_old_8776_native_anchor']
+              assert historical=={v:{k:arch[v][k] for k in ('cz','depth')} for v in ('original','candidate')}
+              allrows=[d['original_anchor_pair']]+d['fresh_seed_pairs']
+              assert len(allrows)==9 and [r['seed'] for r in allrows]==[8776]+fresh
+              assert set(fresh).isdisjoint(set(old['seeds']))
+              deltas_c=[];deltas_d=[]
+              for i,row in enumerate(allrows):
+                  a=row['original'];c=row['candidate']
+                  assert (a['cz'],a['depth'],c['cz'],c['depth'])==expected[base][i]
+                  for which in ('original','candidate'):
+                      z=row[which]
+                      assert z['cz']>0 and z['depth']>0
+                      assert z['native_ops']['cz']==z['cz']
+                      assert z['device_width']==d['fez_target_num_qubits']==156
+                      assert z['native_size']>0 and z['compiler_seconds']>=0
+                      assert row[which+'_hardware_feasible']==(z['cz']<=800 and z['depth']<=2000)
+                  dc=c['cz']-a['cz'];dd=c['depth']-a['depth']
+                  assert row['candidate_minus_original']==dict(cz=dc,depth=dd)
+                  assert row['both_native_resources_improved']==(dc<0 and dd<0)
+                  if i>0:
+                      deltas_c.append(dc);deltas_d.append(dd)
+              s=d['fresh_holdout_summary']
+              assert s['fresh_pairs']==8 and s['anchor_8776_is_separate_and_not_counted']
+              assert s['anchor_original_and_selected_both_exact_historical']
+              assert not s['historical_anchor_drift']
+              assert s['fresh_joint_cz_and_depth_improvement_seeds']==wins[base]
+              assert s['fresh_joint_cz_and_depth_improvement_seeds']==sum(c<0 and dd<0 for c,dd in zip(deltas_c,deltas_d))
+              assert s['fresh_cz_improvement_seeds']==sum(c<0 for c in deltas_c)
+              assert s['fresh_depth_improvement_seeds']==sum(dd<0 for dd in deltas_d)
+              assert s['fresh_median_paired_cz_delta']==statistics.median(deltas_c)==medians[base][0]
+              assert s['fresh_median_paired_depth_delta']==statistics.median(deltas_d)==medians[base][1]
+              assert s['fresh_min_paired_cz_delta']==min(deltas_c)
+              assert s['fresh_max_paired_cz_delta']==max(deltas_c)
+              assert s['fresh_min_paired_depth_delta']==min(deltas_d)
+              assert s['fresh_max_paired_depth_delta']==max(deltas_d)
+              assert s['frozen_rule_at_least_six_of_eight_joint']
+              assert s['both_fresh_paired_medians_strictly_negative']
+              assert s['fresh_holdout_per_base_pass']
+              assert s['every_fresh_and_anchor_result_preserved']
+              assert s['all_fresh_and_anchor_compiles_fail_device_gate']
+              if base==8:
+                  # HOLDOUT SEED 13007 had equal CZ, so it must NOT count as a joint win.
+                  tie=next(z for z in d['fresh_seed_pairs'] if z['seed']==13007)
+                  assert tie['candidate_minus_original']['cz']==0
+                  assert tie['candidate_minus_original']['depth']==-1108
+                  assert tie['both_native_resources_improved'] is False
+              print('VERIFIED ORIGINAL HOLDOUT',base,'fresh strict joint win',wins[base],'/8',
+                  'fresh median CZ/depth',medians[base],
+                  'source score 34 k EXACT, +1 quantum phases, 25 clean',
+                  'separate historic 8776 anchor same, physical hardware budget FAIL, ZERO QPU',flush=True)
+          print('SUCCESS: both-original holdout source-run JSON artifacts independently checked, no Qiskit compiler rerun or hardware jobs')
+          PY
+      - name: Byte-preserve original two JSON results; do NOT change score data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_static_sign_selector_fresh_holdout/qrr_n35_static_sign_fresh_holdout_base2.json
+          git add results/ibm_shor35_static_sign_selector_fresh_holdout/qrr_n35_static_sign_fresh_holdout_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independent original fresh N35 sign selector 8/8 base2 and7/8 cube8 native CPU holdout verification and strict no-QPU gate'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
