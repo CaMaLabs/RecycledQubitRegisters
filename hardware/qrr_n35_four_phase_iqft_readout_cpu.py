@@ -81,7 +81,10 @@ def readout_circuit(power,regs,base,variant):
     items=list(q.data)
     assert len(items)>=6
     assert [z.operation.name for z in items[:5]]==["x","h","h","h","h"]
-    assert items[-5].operation.name in ("qft_dg","qft","QFT_dg","QFT†","QFTGate_dg","qft_dg")
+    # Gate display names vary by Qiskit version: verify the actual unitary.
+    assert np.allclose(np.asarray(Operator(items[-5].operation).data),
+                       np.asarray(Operator(QFTGate(4).inverse()).data),
+                       rtol=0,atol=1e-9)
     assert all(z.operation.name=="measure" for z in items[-4:])
     assert q.num_qubits==35 and q.num_clbits==4
     assert sum(z.operation.name=="measure" for z in items)==4
