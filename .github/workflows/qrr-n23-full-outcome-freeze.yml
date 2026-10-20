@@ -1,0 +1,60 @@
+name: QRR N23 public classical survivor manifest freeze ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n23-full-outcome-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n23-full-outcome-freeze
+  cancel-in-progress: false
+
+jobs:
+  public-only-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Independently choose public N/a with B31 classical factor ledger BEFORE quantum scoring
+        run: |
+          python3 -u hardware/dark_star_n23_full_outcome_public_manifest.py
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          path=Path("results/dark_star_ptp/dark_star_n23_full_outcome_public_manifest.json")
+          a=json.loads(path.read_text())
+          rows=a["selected_public_rows"]
+          assert len(rows)==8 and len({x["N"] for x in rows})==8
+          assert a["zero_QPU"] and a["qpu_jobs_submitted"]==0
+          for group in ("trigger","control"):
+            chosen=[x for x in rows if x["group"]==group]
+            assert len(chosen)==4
+            assert all(not next(s for s in a["public_screenings"][group] if s["N"]==x["N"])["public_B31_factored"] for x in chosen)
+            assert all(set(x)=={"N","base","group","rank","public_policies"} for x in chosen)
+          assert hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(",",":")).encode()).hexdigest()==a["selected_sha256"]
+          print("FROZEN PUBLIC N23 MANIFEST VERIFIED",a["selected_sha256"])
+          PY
+      - name: Save immutable selection on main BEFORE any quantum calculation
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n23_full_outcome_public_manifest.json
+          git commit -m "results: freeze eight new public N23 semiprimes and classical B31 screens before quantum outcomes"
+          for attempt in 1 2 3 4 5 6; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 2
+          done
+          exit 1
