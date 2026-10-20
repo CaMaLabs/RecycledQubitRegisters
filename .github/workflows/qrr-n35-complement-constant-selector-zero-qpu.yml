@@ -1,0 +1,155 @@
+name: N35 public complement-conjugate constant add source selector, matched CPU seeds ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-complement-constant-selector-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-public-complement-constant-encoding-new-seeds-zeroqpu
+  cancel-in-progress: false
+
+jobs:
+  both-public-bases:
+    name: N35 public base ${{ matrix.base }} 16384 plus exact phase proofs, 18 CPU compiler jobs, ZERO QPU
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install fixed Qiskit native CPU compiler SDK
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Freeze/zero QPU source plus untouched original signed selector receipts
+        run: |
+          test -s docs/QRR_N35_COMPLEMENT_CONJUGATE_CONSTANT_ADD_PREREG.md
+          python -m py_compile hardware/qrr_n35_complement_constant_source_selector.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_complement_constant_source_selector.py').read_text()
+          assert all(x not in s for x in ('SamplerV2','EstimatorV2','sampler.run','job.submit','job.run','job.result','backend.run'))
+          assert 'SEEDS=(43,127,211,887,1597,3571,8017,25013)' in s
+          assert 'ANCHOR=8776' in s
+          assert 'conjugated_constant_add' in s
+          assert 'oldselector.source_gate_cost' in s
+          assert 'previous.actual_complex_instructions' in s
+          assert 'previous.evolve_basis' in s
+          assert 'previous.check_exact_phase' in s
+          assert 'oldselector.prebackend_static_source_selector' in s
+          assert 'oldselector.prove_whole_source_variants' in s
+          assert 'oldselector.native_compile' in s
+          for b in (2,8):
+              x=Path(f'results/ibm_shor35_static_gate_sign_selector/qrr_n35_static_sign_selector_base{b}.json')
+              assert x.exists(),x
+          print('FROZEN new complement-conjugation test; ORIGINAL archived sign selector unchanged; ZERO IBM QPU')
+          PY
+      - name: Execute exact emitted-source quantum phase proofs then fresh matched Fez CPU native compiler comparisons
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 640s python -u hardware/qrr_n35_complement_constant_source_selector.py --base "$BASE" | tee "n35_complement_const_base${BASE}.log"
+      - name: Independently audit frozen public selectors, quantum complex phases, native matched values and hardware no-go
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,statistics,os
+          from pathlib import Path
+          b=int(os.environ['BASE'])
+          d=json.loads(Path(f'results/ibm_shor35_complement_constant_selector/qrr_n35_complement_constant_selector_base{b}.json').read_text())
+          frozen=json.loads(Path(f'results/ibm_shor35_static_gate_sign_selector/qrr_n35_static_sign_selector_base{b}.json').read_text())
+          seeds=[43,127,211,887,1597,3571,8017,25013]
+          assert d['revision']=='qrr-n35-complement-conjugated-public-constant-selector-v1-20261019'
+          assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert d['preregistration']=='docs/QRR_N35_COMPLEMENT_CONJUGATE_CONSTANT_ADD_PREREG.md'
+          assert d['base']==b and d['N']==35
+          assert d['seeds']==[8776]+seeds and d['new_seeds']==seeds
+          assert d['historical_anchor_seed']==8776 and d['optimizer_level']==1
+          assert d['read_only_ibm_target']=='ibm_fez'
+          assert d['hard_device_cz_limit']==800 and d['hard_device_depth_limit']==2000
+          assert d['original_outer_sign_map_immutable'] and d['true_order_not_used']
+          assert d['prime_factors_not_used'] and d['public_orbit_not_compiled']
+          assert d['qpu_jobs_submitted']==0 and not d['paid_runtime_used'] and not d['quantum_runtime_used']
+          p=d['before_target_exact_complex_source_proofs']
+          assert p['pass_all'] and p['archived_public_k_sign_rows_exact_match']
+          assert p['archived_public_k_sign_selection_exact_match']
+          assert p['original_baseline_full_gate_counts_exact_match']
+          assert len(p['public_64_value_source_score_table'])==64
+          assert len(p['inner_64_value_encoding_selector'])==64
+          for v in range(64):
+              row=p['public_64_value_source_score_table'][v]
+              assert row['public_value']==v
+              want='conjugated' if v and row['conjugated_source_score']<row['direct_source_score'] else 'direct'
+              assert row['selected_source_encoding']==want
+              assert p['inner_64_value_encoding_selector'][str(v)]==want
+          s=p['both_inner_mod64_adders_operator_proof']
+          assert s['pass_all'] and s['actual_operator_basis_cases']==16384
+          assert s['output_phase_exact_plus_one'] and s['all_carry_scratch_clean']
+          assert p['original_de_morgan_comparator_complex_proof']['actual_emitted_gate_cases']==42672
+          assert p['original_public_arithmetic_identities']['cases']==3366
+          for k in ('original_both_outer_signs_mod35_phase_proof','candidate_both_outer_signs_mod35_phase_proof'):
+              assert p[k]['pass_all'] and p[k]['total_quantum_operator_basis_cases']==6732
+              assert p[k]['exact_complex_phase_plus_one'] and p[k]['all_aux_clean']
+          for k in ('original_full_multiplier_phase_proof','candidate_full_multiplier_phase_proof'):
+              assert p[k]['pass_all'] and p[k]['full_residue_control_basis_cases']==128
+              assert p[k]['all_25_auxiliaries_clean'] and p[k]['exact_complex_output_phase_plus_one']
+          assert p['original_full_source_gates']==frozen['prebackend_exact_quantum_gate_proofs']['whole_full_multiplier']['candidate_full']['quantum_source_gate_counts']
+          assert p['both_source_width32'] and p['all_25_auxiliary_qubits_clean']
+          assert d['status']=='COMPILE_SUCCESS' and d['success']
+          assert d['all_36_native_cpu_compilations_completed'] and d['no_actual_quantum_device_use']
+          rows=d['paired_native_seed_results']
+          assert len(rows)==9 and [z['seed'] for z in rows]==[8776]+seeds
+          for row in rows:
+              for k in ('prior_selected','candidate'):
+                  r=row[k]
+                  assert r['cz']>0 and r['depth']>0
+                  assert r['native_ops']['cz']==r['cz'] and r['device_width']==d['fez_target_device_qubits']
+                  assert r['native_size']>0 and r['compiler_seconds']>=0
+              dz=row['candidate']['cz']-row['prior_selected']['cz']
+              dd=row['candidate']['depth']-row['prior_selected']['depth']
+              assert row['candidate_minus_prior_selected']==dict(cz=dz,depth=dd)
+              assert row['strict_both_native_resources_improve']==(dz<0 and dd<0)
+              assert row['source_conjugated_inner_adds']==p['selected_conjugated_inner_addition_calls']
+              assert row['prior_hardware_feasible']==(row['prior_selected']['cz']<=800 and row['prior_selected']['depth']<=2000)
+              assert row['candidate_hardware_feasible']==(row['candidate']['cz']<=800 and row['candidate']['depth']<=2000)
+          summary=d['new_seed_summary'];fresh=rows[1:]
+          dz=[z['candidate_minus_prior_selected']['cz'] for z in fresh]
+          dd=[z['candidate_minus_prior_selected']['depth'] for z in fresh]
+          wins=sum(x<0 and y<0 for x,y in zip(dz,dd))
+          assert summary['eight_new_seed_pairs']==8 and summary['all_nine_pairs_recorded']
+          assert summary['new_joint_CZ_and_depth_improvement_seed_count']==wins
+          assert summary['median_new_paired_CZ_delta']==statistics.median(dz)
+          assert summary['median_new_paired_depth_delta']==statistics.median(dd)
+          assert summary['at_least_six_of_eight_joint_wins']==(wins>=6)
+          anchor=next(z for z in frozen['matched_seed_pairs'] if z['seed']==8776)['candidate']
+          exact=rows[0]['prior_selected']['cz']==anchor['cz'] and rows[0]['prior_selected']['depth']==anchor['depth']
+          assert summary['frozen_8776_previous_selected_anchor_exact']==exact
+          assert summary['robust_engineering_per_base_pass']==(exact and
+             p['selected_conjugated_inner_addition_calls']>0 and wins>=6 and
+             statistics.median(dz)<0 and statistics.median(dd)<0)
+          assert summary['all_nine_pairs_fail_hardware_gate']
+          print('SUCCESS original audit public',b,'inner 16384 plus phase proof 42672+6732+6732+128+128',
+                'source conjugated',p['selected_conjugated_inner_addition_calls'],
+                'new joint wins',wins,'medianCZ',statistics.median(dz),
+                'medianDepth',statistics.median(dd),'anchor',exact,
+                'robust',summary['robust_engineering_per_base_pass'],'ZERO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-complement-constant-base${{ matrix.base }}-original
+          path: |
+            n35_complement_const_base*.log
+            results/ibm_shor35_complement_constant_selector/qrr_n35_complement_constant_selector_base*.json
