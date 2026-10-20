@@ -1,0 +1,168 @@
+name: QRR N35 static public source cost sign selector eight matched seeds ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-static-gate-cost-sign-selector-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-static-gate-sign-eight-matched-seeds-zeroqpu
+  cancel-in-progress: false
+
+jobs:
+  public-source-selector-bases:
+    name: N35 public base ${{ matrix.base }} all34 public k source proxy/phase and eight native Fez CPU seed pairs
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Pin Qiskit native target and source operator SDK (no QPU jobs)
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Frozen preregistration and read-only backend / source contract
+        run: |
+          test -s docs/QRR_N35_STATIC_GATE_COST_SIGN_SELECTOR_PREREG.md
+          python -m py_compile hardware/qrr_n35_static_gate_cost_sign_selector.py
+          python - <<'PY'
+          from pathlib import Path
+          src=Path("hardware/qrr_n35_static_gate_cost_sign_selector.py").read_text()
+          assert not any(q in src for q in ("SamplerV2","EstimatorV2","sampler.run","job.submit","job.run","job.result","backend.run"))
+          assert "SEEDS=(11,37,101,409,8776,12011,20261,45673)" in src
+          assert "ops.get(\"cx\",0)+6*ops.get(\"ccx\",0)+3*ops.get(\"rccx\",0)" in src
+          assert 'choice="signed" if sp<op else "positive"' in src
+          assert "prebackend_static_source_selector" in src
+          assert "quantum_phase_per_k_adds" in src
+          assert "previous.actual_complex_instructions" in src
+          assert "previous.evolve_basis" in src
+          assert "previous.exhaustive_full_multiplier_phases" in src
+          assert "dm.exhaustive_demorgan_comparator_phase_proof" in src
+          assert "candidate_minus_original" in src
+          for b in (2,8):
+              p=Path(f"results/ibm_shor35_one_bit_carry_bypass_multiseed/qrr_n35_one_bit_carry_bypass_base{b}.json")
+              assert p.exists(),p
+          print('Predeclared local static proxy selector, exact-phase source proof, ORIGINAL baseline, ZERO QPU')
+          PY
+      - name: Source-gate complex phase tests, then fixed matched eight-seed Fez native CPU compilation ONLY
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 600s python -u hardware/qrr_n35_static_gate_cost_sign_selector.py --base "$BASE" \
+            | tee "qrr_n35_static_sign_selector_base${BASE}.log"
+      - name: Independent source result postcompiler audit against untouched original one-bit-bypass eight-seed receipts
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os,statistics
+          from pathlib import Path
+          b=int(os.environ["BASE"])
+          d=json.loads(Path(f"results/ibm_shor35_static_gate_sign_selector/qrr_n35_static_sign_selector_base{b}.json").read_text())
+          old=json.loads(Path(f"results/ibm_shor35_one_bit_carry_bypass_multiseed/qrr_n35_one_bit_carry_bypass_base{b}.json").read_text())
+          seeds=[11,37,101,409,8776,12011,20261,45673]
+          assert d["revision"]=="qrr-n35-static-source-gate-sign-selector-v1-20261019"
+          assert d["research_lead"]=="Chase Lunsford / CaMaLabs"
+          assert d["preregistration"]=="docs/QRR_N35_STATIC_GATE_COST_SIGN_SELECTOR_PREREG.md"
+          assert d["N"]==35 and d["base"]==b and d["seeds"]==seeds
+          assert d["source_score_formula"]=="cx+6*ccx+3*rccx; x excluded; ties choose positive"
+          assert d["compiler_optimization_level"]==1 and d["transpiler_target"]=="ibm_fez"
+          assert d["read_only_ibm_fez_native_target"]
+          assert d["true_multiplicative_order_not_used"] and d["public_orbit_not_compiled"] and d["private_prime_factors_not_used"]
+          assert not d["quantum_runtime_used"] and not d["paid_runtime_used"] and d["qpu_jobs_submitted"]==0
+          assert d["hardware_cz_limit"]==800 and d["hardware_depth_limit"]==2000
+          assert d["status"]=="COMPILE_SUCCESS" and d["success"] and d["all_16_native_cpu_compiles_complete"]
+          p=d["prebackend_exact_quantum_gate_proofs"]
+          assert p["public_identity"]["pass_all"] and p["public_identity"]["cases"]==3366
+          assert p["unchanged_comparator"]["pass_all"] and p["unchanged_comparator"]["actual_emitted_gate_cases"]==42672
+          assert p["both_branches_per_k"]["pass_all"] and p["both_branches_per_k"]["total_quantum_operator_basis_cases"]==6732
+          assert p["both_branches_per_k"]["exact_complex_phase_plus_one"]
+          assert len(p["both_branches_per_k"]["per_public_k"])==34
+          assert p["everything_complex_phase_exactly_plus_one"] and p["all_helpers_clean"]
+          full=p["whole_full_multiplier"]
+          assert full["pass_all"] and full["both_source_circuits_32_qubits"]
+          assert full["both_return_all_25_ancillas_clean"] and full["both_full_input_complex_phases_exactly_plus_one"]
+          assert full["original_full"]["pass_all"] and full["candidate_full"]["pass_all"]
+          assert full["original_full"]["full_residue_control_basis_cases"]==128
+          assert full["candidate_full"]["full_residue_control_basis_cases"]==128
+          assert full["original_full"]["quantum_source_gate_counts"]==d["original_historical_8776"]["source"]
+          assert full["actual_signed_weighted_additions"]+full["actual_positive_weighted_additions"]==12
+          assert d["original_historical_8776"]["source"]==old["exact_source_complex_proofs"]["candidate_full_multiplier_phase_proof"]["quantum_source_gate_counts"]
+          selected=d["public_k_sign_selection"]
+          table=d["prebackend_public_k_source_score_table"]
+          assert len(selected)==34 and len(table)==34
+          assert all(x["public_k"]==i for i,x in enumerate(table,1))
+          assert all(x["selected_branch"]==selected[str(x["public_k"])] for x in table)
+          assert all(x["positive_static_proxy"]==
+              x["positive_gate_counts"].get("cx",0)+6*x["positive_gate_counts"].get("ccx",0)+3*x["positive_gate_counts"].get("rccx",0) for x in table)
+          assert all(x["signed_static_proxy"]==
+              x["signed_gate_counts"].get("cx",0)+6*x["signed_gate_counts"].get("ccx",0)+3*x["signed_gate_counts"].get("rccx",0) for x in table)
+          assert all(x["selected_branch"]==("signed" if x["signed_static_proxy"]<x["positive_static_proxy"] else "positive") for x in table)
+          assert d["selector_static_score_summary"]["signed_count"]==sum(v=="signed" for v in selected.values())
+          assert d["selector_static_score_summary"]["positive_count"]==sum(v=="positive" for v in selected.values())
+          rows=d["matched_seed_pairs"]
+          assert len(rows)==8 and [x["seed"] for x in rows]==seeds
+          dr=[];dd=[]
+          for i,row in enumerate(rows):
+              baseline=row["original"]
+              oldrow=old["eight_pairs"][i]["candidate"]
+              assert baseline["cz"]==oldrow["cz"] and baseline["depth"]==oldrow["depth"],(b,i,baseline,oldrow)
+              for v in ("original","candidate"):
+                  item=row[v]
+                  assert item["cz"]>0 and item["depth"]>0
+                  assert item["native_ops"]["cz"]==item["cz"]
+                  assert item["device_width"]==d["fez_device_qubits"]
+                  assert item["native_size"]>0 and item["compiler_seconds"]>=0
+                  assert row[v+"_hardware_feasible"]==(item["cz"]<=800 and item["depth"]<=2000)
+              dz=row["candidate"]["cz"]-baseline["cz"]
+              dy=row["candidate"]["depth"]-baseline["depth"]
+              assert row["candidate_minus_original"]==dict(cz=dz,depth=dy)
+              assert row["both_cz_and_depth_strictly_improve"]==(dz<0 and dy<0)
+              dr.append(dz);dd.append(dy)
+          s=d["summary"]
+          assert s["total_seed_pairs"]==8 and s["every_seed_reported"]
+          assert s["joint_cz_depth_improvement_seed_count"]==sum(x<0 and y<0 for x,y in zip(dr,dd))
+          assert s["cz_improvement_seeds"]==sum(x<0 for x in dr)
+          assert s["depth_improvement_seeds"]==sum(y<0 for y in dd)
+          assert s["median_paired_cz_delta"]==statistics.median(dr)
+          assert s["median_paired_depth_delta"]==statistics.median(dd)
+          assert s["min_paired_cz_delta"]==min(dr) and s["max_paired_cz_delta"]==max(dr)
+          assert s["min_paired_depth_delta"]==min(dd) and s["max_paired_depth_delta"]==max(dd)
+          assert s["joint_win_rule_at_least_six"]==(s["joint_cz_depth_improvement_seed_count"]>=6)
+          assert s["paired_cz_and_depth_medians_negative"]==(statistics.median(dr)<0 and statistics.median(dd)<0)
+          assert s["weighted_modadd_source_changes_nonzero"]==(full["actual_signed_weighted_additions"]>0)
+          assert s["original_8776_anchor_exact"]==(
+               rows[seeds.index(8776)]["original"]["cz"]==d["original_historical_8776"]["cz"]
+               and rows[seeds.index(8776)]["original"]["depth"]==d["original_historical_8776"]["depth"])
+          assert s["robust_gate_per_base_pass"]==(s["original_8776_anchor_exact"]
+               and s["weighted_modadd_source_changes_nonzero"] and s["joint_win_rule_at_least_six"]
+               and s["paired_cz_and_depth_medians_negative"])
+          assert s["all_source_and_candidate_layouts_fail_hardware_gate"]
+          print("AUDIT original source public base",b,
+                "static signed k",full["actual_signed_weighted_additions"],
+                "3366 public identities +42672 cmp +6732 dual-k +128+128 complete phase checks",
+                "8/8 paired seed outputs; joint wins",s["joint_cz_depth_improvement_seed_count"],
+                "median CZ",s["median_paired_cz_delta"],
+                "median depth",s["median_paired_depth_delta"],
+                "historical anchor",s["original_8776_anchor_exact"],
+                "robust",s["robust_gate_per_base_pass"],"hardware FAIL ZERO QPU")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-static-gate-sign-selector-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_static_sign_selector_base*.log
+            results/ibm_shor35_static_gate_sign_selector/qrr_n35_static_sign_selector_base*.json
