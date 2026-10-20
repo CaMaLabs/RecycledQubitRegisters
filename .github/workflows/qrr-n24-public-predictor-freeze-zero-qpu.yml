@@ -1,0 +1,85 @@
+name: QRR N24 public-only predictor manifest freeze BEFORE labels ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n24-public-predictor-freeze-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n24-public-predictor-manifest-freeze
+  cancel-in-progress: false
+
+jobs:
+  public-before-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Freeze independent public SHA selection and precommitted P1/P2 features ONLY
+        run: |
+          test -s docs/DARK_STAR_N24_PUBLIC_PREDICTOR_PREREG.md
+          python3 -m py_compile hardware/dark_star_n24_public_predictor_manifest.py
+          python3 -u hardware/dark_star_n24_public_predictor_manifest.py
+          python3 - <<'PY'
+          import hashlib,json,math
+          from pathlib import Path
+          p=Path('results/dark_star_ptp/dark_star_n24_public_predictor_manifest.json')
+          m=json.loads(p.read_text())
+          rows=m['selected_public_rows']
+          assert len(rows)==16 and len({r['N'] for r in rows})==16
+          assert m['no_QPU'] and m['qpu_jobs_submitted']==0
+          assert m['labels_not_evaluated_or_used_for_selection'] and m['no_validation_factors_or_orders']
+          assert m['interval']==[2**23,2**24] and m['prime_construction_range']==[2000,6000]
+          assert m['selection_salt']=='QRR-N24-PUBLIC-PREDICTOR-V1-POP-20261020'
+          assert m['base_salt']=='QRR-N24-PUBLIC-PREDICTOR-V1-BASE-20261020'
+          assert m['public_bitweight_j']==list(range(8))
+          assert hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()==m['selected_sha256']
+          expected_keys={'N','base','public_cube','group','rank','P1_mod3_1_predict_positive',
+                       'P2_public_bitweight_proxy','jacobi_symbol','public_B31_unfactored'}
+          for group,mod in [('G1_mod3_1',1),('G2_mod3_2',2)]:
+              sel=[r for r in rows if r['group']==group]
+              assert len(sel)==8
+              for r in sel:
+                  assert set(r)==expected_keys
+                  assert 2**23<=r['N']<2**24 and r['N']%3==mod
+                  assert math.gcd(r['N'],r['base'])==1
+                  assert r['public_cube']==pow(r['base'],3,r['N'])
+                  assert r['P1_mod3_1_predict_positive']==(mod==1)
+                  assert r['jacobi_symbol'] in (-1,1)
+                  proxy=r['P2_public_bitweight_proxy']
+                  assert proxy['plain_sum']==sum(proxy['plain_bitcounts'])
+                  assert proxy['cube_sum']==sum(proxy['cube_bitcounts'])
+                  assert proxy['cube_minus_plain']==proxy['cube_sum']-proxy['plain_sum']
+                  assert proxy['P2_source_proxy_predict_positive']==(proxy['cube_sum']<proxy['plain_sum'])
+                  screened=next(x for x in m['public_screenings'][group] if x['N']==r['N'])
+                  assert screened['base']==r['base'] and screened['rank']==r['rank']
+                  assert not screened['public_B31_factored'] and r['public_B31_unfactored']
+          print('FROZEN manifest',m['selected_sha256'],
+                '16 new 24bit public N, B31/sha P1/P2, NO p/q/orders/factor witness',flush=True)
+          PY
+      - name: Commit original PUBLIC manifest into main BEFORE any held-out order or witness calculation
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n24_public_predictor_manifest.json
+          git commit -m "results: freeze 16 public N24 SHA-picked B31 surviving N/base predictor cases before hidden-order labels"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo "FROZEN PUBLIC MANIFEST committed, no quantum evaluation yet"; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
