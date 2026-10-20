@@ -1,0 +1,171 @@
+name: Independently preserve original N35 FOUR-WIDE inverse-QFT/readout source/ISA receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-four-wide-iqft-original.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-preserve-n35-four-wide-iqft-original-v1
+  cancel-in-progress: false
+
+jobs:
+  audit-and-archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Download ORIGINAL source run binary artifacts, no recompilation
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39514204062
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-four-wide-iqft-base*-original
+          merge-multiple: true
+          path: _original_n35_iqft_artifacts
+      - name: Preserve precisely two original result JSONs unchanged
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_four_phase_iqft_readout
+          for base in 2 8; do
+            f="qrr_n35_four_phase_iqft_base${base}.json"
+            count="$(find _original_n35_iqft_artifacts -type f -name "$f" | wc -l)"
+            test "$count" -eq 1 || { echo "Missing or duplicate original $f: $count"; exit 1; }
+            find _original_n35_iqft_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_four_phase_iqft_readout/ '{}' +
+          done
+      - name: Independent exact 8 matched pairs per base, analytic QFT, source clean phase and zero-QPU audit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,statistics
+          seeds=[239,647,1453,3701,6211,9421,16673,27191]
+          original_expected={
+             2:[
+              (33109,76280,29051,67710),
+              (31039,72463,28934,66627),
+              (32780,76784,29358,66717),
+              (33144,75964,28572,65926),
+              (31031,75534,28605,66541),
+              (32233,76181,29927,68251),
+              (32875,77587,29186,66773),
+              (31498,73696,29296,66626)],
+             8:[
+              (17279,39357,14909,33890),
+              (16587,38874,15262,35415),
+              (16752,40427,15013,34631),
+              (16677,39924,14671,34088),
+              (16878,40701,15465,35616),
+              (16691,39424,15148,34634),
+              (16775,40023,15405,35340),
+              (16257,39847,14517,34094)]
+          }
+          expected_summary={2:(8,-2924.0,-8781.5,-4572,-2105,-10814,-5836),
+                            8:(8,-1641.0,-5276.0,-2370,-1325,-5836,-3459)}
+          for b in (2,8):
+              d=json.loads(Path(f'results/ibm_shor35_four_phase_iqft_readout/qrr_n35_four_phase_iqft_base{b}.json').read_text())
+              old=json.loads(Path(f'results/ibm_shor35_four_power_sign_selector/qrr_n35_four_power_sign_source_base{b}.json').read_text())
+              assert d['revision']=='qrr-n35-four-control-wide-phase-iqft-measure-v1-20261020'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistered_document']=='docs/QRR_N35_FULL_FOUR_PHASE_IQFT_READOUT_PREREG.md'
+              assert d['public_N']==35 and d['public_base']==b and d['seeds']==seeds
+              assert d['original_public_powers']==old['public_power_schedule']
+              assert d['source_logical_qubits']==35 and d['source_classical_bits']==4
+              assert d['optimization_level']==1 and d['backend_target']=='ibm_fez'
+              assert d['no_midcircuit_recycling_or_feedback']
+              assert d['true_order_not_injected'] and d['private_factors_not_used'] and d['orbit_not_injected']
+              assert d['no_measurement_outcomes_sampled'] and d['number_of_factor_recoveries_measured']==0
+              assert d['zero_QPU'] and d['qpu_jobs_submitted']==0
+              assert not d['free_runtime_used'] and not d['paid_runtime_used']
+              assert d['frozen_native_CZ_cutoff']==800 and d['frozen_native_depth_cutoff']==2000
+              assert d['source_all_phase_prechecks_completed'] and d['status']=='COMPILE_SUCCESS' and d['success']
+              assert d['no_QPU_jobs_generated']
+              fft=d['analytic_inverse_QFT_prebackend']
+              assert fft['pass_all'] and fft['phase_qubits']==4
+              assert fft['analytic_QFT_inverse_matrix_16x16_checked']
+              assert fft['actual_QFT_and_inverse_exact_DFT_matrices']
+              assert fft['actual_inverse_times_QFT_identity']
+              assert fft['H4_uniform_positive_16_amplitudes']
+              p=d['prebackend_phase_proofs']
+              assert p['source_histograms_exactly_frozen'] and p['four_power_schedule_exactly_frozen']
+              assert p['public_source_safety']['all_proofs_pass_before_any_IBM_backend_access']
+              for label,reference in [('old_source','original'),('selected_source','selected')]:
+                  source=p[label]
+                  assert source['pass_all'] and source['exact_source_operator_basis_cases']==1024
+                  assert source['all_25_helpers_clean'] and source['exact_complex_phase_plus_one']
+                  assert source['source_logical_qubits']==35
+                  assert source['source_gate_histogram']==old['four_power_source_phase_proofs'][reference]['source_gate_histogram']
+              for v in ('original','selected'):
+                  structure=d['prebackend_readout_structure'][v]
+                  assert structure['pass_all']
+                  assert structure['exactly_four_terminal_measurements']
+                  assert structure['four_H_initial_phase_preparations']
+                  assert structure['initial_work_basis_one']
+                  assert structure['older_power_block_unmodified']
+                  assert structure['neither_recycled_phase_nor_semiclassical_feedback']
+                  assert structure['source_qubits']==35 and structure['source_classical_bits']==4
+                  assert structure['public_multiplier_schedule']==old['public_power_schedule']
+              rows=d['native_seed_pairs']
+              assert len(rows)==8 and [r['seed'] for r in rows]==seeds
+              assert d['source_original_four_power_native_seed_metrics']==old['eight_seed_native_pairs']
+              dz=[];dd=[]
+              for i,r in enumerate(rows):
+                  o=r['original'];a=r['selected']
+                  assert (o['native_cz'],o['native_depth'],a['native_cz'],a['native_depth'])==original_expected[b][i],(b,i,r)
+                  for which,cost in (('original',o),('selected',a)):
+                      assert cost['native_cz']>0 and cost['native_depth']>0
+                      assert cost['native_ops']['cz']==cost['native_cz']
+                      assert cost['native_ops']['measure']==4
+                      assert cost['compiled_device_width']==d['backend_device_qubits']
+                      assert cost['compiled_classical_bits']==4
+                      assert cost['exactly_four_native_terminal_measurements']
+                      assert r[f'{which}_device_feasible']==(cost['native_cz']<=800 and cost['native_depth']<=2000)
+                      archive=old['eight_seed_native_pairs'][i][which]
+                      assert r['archived_no_QFT_same_seed_descriptive_only'][f'{which}_archived_CZ']==archive['native_cz']
+                      assert r['archived_no_QFT_same_seed_descriptive_only'][f'{which}_archived_depth']==archive['native_depth']
+                      assert r['full_minus_historical_noQFT_delta_descriptive_only'][f'{which}_CZ']==cost['native_cz']-archive['native_cz']
+                      assert r['full_minus_historical_noQFT_delta_descriptive_only'][f'{which}_depth']==cost['native_depth']-archive['native_depth']
+                  cz=a['native_cz']-o['native_cz']
+                  depth=a['native_depth']-o['native_depth']
+                  assert r['paired_delta']==dict(cz=cz,depth=depth)
+                  assert r['jointly_CZ_and_depth_lower']==(cz<0 and depth<0)
+                  dz.append(cz);dd.append(depth)
+              s=d['summary']
+              assert (s['paired_joint_both_resource_wins'],
+                      s['median_paired_CZ_delta'],s['median_paired_depth_delta'],
+                      s['delta_CZ_range'][0],s['delta_CZ_range'][1],
+                      s['delta_depth_range'][0],s['delta_depth_range'][1])==expected_summary[b]
+              assert s['paired_joint_both_resource_wins']==sum(cz<0 and dep<0 for cz,dep in zip(dz,dd))
+              assert s['median_paired_CZ_delta']==statistics.median(dz)
+              assert s['median_paired_depth_delta']==statistics.median(dd)
+              assert s['robustness_both_cz_and_depth_gate_pass'] is True
+              assert s['all_qpu_preflights_fail'] and s['all_eight_source_old_and_new_readout_compilations_present']
+              print('AUDITED TRUE ORIGINAL IQFT N35 base',b,
+                    'matched 8/8 native CZ and depth selected wins',
+                    'median paired CZ',s['median_paired_CZ_delta'],
+                    'median depth',s['median_paired_depth_delta'],
+                    'valid QFT exact 16x16, 1024+1024 phase-correct 35-qubit source, 4 measures, QPU 0')
+          print('INDEPENDENT ORIGINAL 32 QFT readout native CPU compilations VERIFIED; archive bytes unchanged')
+          PY
+      - name: Commit exactly two unchanged original result JSON bytes
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_four_phase_iqft_readout/qrr_n35_four_phase_iqft_base2.json
+          git add results/ibm_shor35_four_phase_iqft_readout/qrr_n35_four_phase_iqft_base8.json
+          git commit -m 'results: independently preserve original N35 four-wide inverse-QFT readout 32 native compilations and 8/8 matched CZ-depth savings both bases'
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 2
+          done
+          exit 1
