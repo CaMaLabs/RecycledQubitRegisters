@@ -1751,3 +1751,79 @@ Last [signed k>17 correction attempt](QRR_N35_SIGNED_CONSTANT_CORRECTION_MULTI_S
 **Critical verified negative:** More favorable original-source CX and X counts and correct quantum phase DO NOT consistently imply lower compiled native CZ/depth; complement-conjugation changes routing/placement enough to incur regressions under both public bases. The isolated seed8776 base2 gain is not a robust engineering pass. Never promote this implementation over latest holdout-proven source-cost sign selector or tune the selector proxy weights/seeds after looking at these negative results. No real Fez N35 jobs, no paid IBM runtime, no QPU quantum advantage. Full four-round QPE resource counts and real device gate remain out of scope.
 
 **Next:** Seek an algebraically valid elimination of repeated temporary modulo-N wrap/borrow correction comparisons or design an in-place public constant adder with true reduction in relative-phase two-qubit operations, preregister robust matched seeds from the start. Alternatively move toward cross-modulus validation without reusing N35's known order or factors; preserve current robust source as control.
+
+
+## 2026-10-20 — independent N23 full-outcome cube holdout: trigger FAIL, three control model wins
+
+**Scientific record before moving further:** independently preregistered NEW 23bit
+cube-vs-plain Dark Star full-outcome-head/tail holdout,
+`docs/DARK_STAR_N23_FULL_OUTCOME_CUBE_PREREG.md`, frozen commit
+`d50c62b129702e56b35f7b6a6a4ecd69d6d5240f`. Previous N22 *positive*
+3/4 trigger result remains preserved and is **not** overwritten; prior
+N17/N18 negative enrichment and public-selector outcomes also remain valid
+on their respective method-specific populations.
+
+**Public-only selection before model scoring:** workflow
+[39509108244](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39509108244)
+SUCCESS, 23bit public SHA-rank manifest
+`results/dark_star_ptp/dark_star_n23_full_outcome_public_manifest.json`,
+selected SHA256
+`fe345f8c762b58e545cdaeb5d6f28188aa546dfbaba049c9ac58e3b0b1181b37`.
+Of 21 publicly screened semiprimes, **13 already factored** via
+gcd/power2/Pollard-p−1 B31; **8 new public-classical B31 survivors**
+(4 trigger N mod3=2, 4 control N mod3=1) frozen with no
+validation factors/orders/QPE costs exposed. All 8 eventually
+**factored with PUBLIC B47/rho/trial**, no real QPU workload.
+
+**Original eight independent matched scoring shards AND all-shard verifier
+passed** [GitHub Actions 39509404291](https://github.com/CaMaLabs/RecycledQubitRegisters/actions/runs/39509404291).
+Frozen high-precision full-outcome HEAD method: 22 stages m4..46,
+four ideal shots/stage, complete FFT y histograms through m18,
+65 centered bins and analytic omitted tails ≤1/63 for higher m,
+131072 nominal IID SHA PRNG eigenphase draws where validation
+r>131072 (else exhaustive r), empirical Bernstein nominal
+99%-simultaneous family **1408**. Actual public CF-denominator,
+proper-GCD factor certificates and their classical CPU/modmult
+ledgers preserved. Phase PRNG not a formal IID certificate and
+floating math not outward-rounded; only *ideal-model* intervals.
+
+| Public group | New N | Validation r(a)→r(a³) | Public even factor-producing CF d a/a³ | Cube/plain generic logical CCX per factor SUCCESS interval | Outcome |
+|---|---:|---|---:|---|---|
+| **Trigger** | 4958741 | 82565→82565 | **0/0** | undefined | **factor-incapable** |
+| **Trigger** | 6535103 | 1084348→1084348 | 3/3 | **[0.941356,1.085360]** | **INCONCLUSIVE** |
+| **Trigger** | 7692497 | 548310→182770 | **0/0** | undefined | **factor-incapable EVEN THOUGH order shrank** |
+| **Trigger** | 6957281 | 6032→6032 | 577/577 | **[1.004388,1.017557]** | **model LOSS** |
+| Control | 4316413 | 718458→239486 | 3/9 | **[0.768092,0.874714]** | MODEL WIN |
+| Control | 7075567 | 586968→195656 | 6/18 | **[0.770684,0.871192]** | MODEL WIN |
+| Control | 6394693 | 106488→35496 | 30/90 | **[0.799529,0.843385]** | MODEL WIN |
+| Control | 6690841 | 1663321→1663321 | **0/0** | undefined | factor-incapable |
+
+The **PRIMARY preregistered N mod3=2 trigger gate FAILS**: only
+2/4 jointly factor-capable (needed≥3), **0/4 bounded cube wins**
+(needed≥3), 1 bounded cube model loss, 1 inconclusive, 2 exact
+factor-incapable. In the CONTROL stratum unexpectedly **3/4**
+have bounded cube-model wins and 1 is factor-incapable;
+controls are NOT substituted for the trigger study and the
+eight selected toy keys do NOT establish that the opposite residue
+is a universal predictor. This is important evidence
+against the hypothesis that N mod3=2 is a reliable public
+selector for useful cube-shortened order and factor witness.
+
+**Archive all wins and nulls:** complete public selection/screen ledger,
+all 8 unchanged per-job JSON and merged
+`results/dark_star_ptp/dark_star_n23_full_outcome_all_eight.json`,
+complete result
+`docs/DARK_STAR_N23_FULL_OUTCOME_CUBE_RESULT.md`.
+The unchanged generic arithmetic workspace at 23bits is 72
+logical qubits, wide 118 vs one-phase-recycled 73 peak
+(45 fewer, **38.14%**): a distinct phase-register recycling
+effect, not Dark Star cubing, not fault-tolerant physical
+qubits or actual QPU performance. **Zero IBM QPU shots/jobs,
+zero paid/free Runtime.**
+
+**Next gate:** A strictly PUBLIC and cheap N/a predictor that
+does not itself factor N must survive a new independent sample,
+including zero-CF-certificate negative cases, before any claims
+about reliable cubic preconditioning or new hardware benefit.
+Separate classical CPU work from abstract CCX; no RSA or
+asymptotic factoring claim.
