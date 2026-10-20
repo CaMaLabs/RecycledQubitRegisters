@@ -1,0 +1,180 @@
+name: Independently audit/preserve original N35 complement-conjugate negative eight-seed results
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-complement-constant-selector-original.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-complement-constant-original-negative-preservation
+  cancel-in-progress: false
+
+jobs:
+  original-artifact-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download two ORIGINAL source-run result artifacts WITHOUT rerunning quantum source/CPU compiler
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39376281237
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-complement-constant-base*-original
+          merge-multiple: true
+          path: _original_complement_artifacts
+      - name: Preserve unchanged original source result JSON bytes only
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_complement_constant_selector
+          for base in 2 8; do
+            f="qrr_n35_complement_constant_selector_base${base}.json"
+            count="$(find _original_complement_artifacts -type f -name "$f" | wc -l)"
+            test "$count" -eq 1 || { echo "Expected ONE original $f but found $count"; exit 1; }
+            find _original_complement_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_complement_constant_selector/ '{}' +
+          done
+      - name: Independently validate all 36 original native outputs, frozen public selector, exact phase proofs and physical no-go
+        run: |
+          python - <<'PY'
+          import json,statistics
+          from pathlib import Path
+          seeds=[8776,43,127,211,887,1597,3571,8017,25013]
+          original_expected={
+            2:[
+              (6871,16626,6809,16088),
+              (7151,16247,7442,17270),
+              (7191,16241,7086,16634),
+              (7313,16858,7001,16433),
+              (7007,16254,7183,16551),
+              (7169,16321,6970,16321),
+              (7035,15847,7517,16495),
+              (7209,16058,7575,16922),
+              (7156,16515,7246,16515)],
+            8:[
+              (7315,16286,7550,17498),
+              (7343,16732,7690,17291),
+              (7304,16791,7321,16542),
+              (7224,16627,7240,17119),
+              (7344,16724,7595,17312),
+              (7328,17136,7424,17338),
+              (7229,16406,7472,16912),
+              (7447,16760,7367,17132),
+              (7346,16852,7293,16840)]
+          }
+          expected_summary={2:(1,3,1,133,345,-312,482,-425,1023,12,12),
+                            8:(1,2,2,56.5,432,-80,347,-249,588,10,14)}
+          expected_old={2:dict(cx=275,rccx=520,x=1508,ccx=148),
+                        8:dict(cx=284,rccx=538,x=1528,ccx=151)}
+          expected_new={2:dict(cx=255,rccx=520,x=1392,ccx=148),
+                        8:dict(cx=267,rccx=538,x=1428,ccx=151)}
+          for base in (2,8):
+            path=Path(f'results/ibm_shor35_complement_constant_selector/qrr_n35_complement_constant_selector_base{base}.json')
+            d=json.loads(path.read_text())
+            prev=json.loads(Path(f'results/ibm_shor35_static_gate_sign_selector/qrr_n35_static_sign_selector_base{base}.json').read_text())
+            assert d['revision']=='qrr-n35-complement-conjugated-public-constant-selector-v1-20261019'
+            assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+            assert d['preregistration']=='docs/QRR_N35_COMPLEMENT_CONJUGATE_CONSTANT_ADD_PREREG.md'
+            assert d['base']==base and d['N']==35
+            assert d['status']=='COMPILE_SUCCESS' and d['success']
+            assert d['optimizer_level']==1 and d['read_only_ibm_target']=='ibm_fez'
+            assert d['seeds']==seeds and d['new_seeds']==seeds[1:]
+            assert d['historical_anchor_seed']==8776
+            assert d['original_outer_sign_map_immutable']
+            assert d['qpu_jobs_submitted']==0 and not d['quantum_runtime_used'] and not d['paid_runtime_used']
+            assert d['no_actual_quantum_device_use'] and d['all_36_native_cpu_compilations_completed']
+            assert d['hard_device_cz_limit']==800 and d['hard_device_depth_limit']==2000
+            assert d['true_order_not_used'] and d['prime_factors_not_used'] and d['public_orbit_not_compiled']
+            p=d['before_target_exact_complex_source_proofs']
+            assert p['pass_all'] and p['archived_public_k_sign_rows_exact_match']
+            assert p['archived_public_k_sign_selection_exact_match']
+            assert p['original_baseline_full_gate_counts_exact_match']
+            assert p['exact_final_complex_output_phase_plus_one'] and p['all_25_auxiliary_qubits_clean']
+            assert p['both_source_width32'] and p['full_residue_y_zero_through_63']
+            assert p['original_full_source_gates']==expected_old[base]
+            assert p['candidate_full_source_gates']==expected_new[base]
+            assert p['original_full_source_gates']==prev['prebackend_exact_quantum_gate_proofs']['whole_full_multiplier']['candidate_full']['quantum_source_gate_counts']
+            assert p['selected_conjugated_inner_addition_calls']==expected_summary[base][9]
+            assert p['selected_direct_inner_addition_calls']==expected_summary[base][10]
+            assert p['selected_conjugated_inner_addition_calls']>0
+            assert len(p['public_64_value_source_score_table'])==64
+            assert len(p['inner_64_value_encoding_selector'])==64
+            for v,row in enumerate(p['public_64_value_source_score_table']):
+                assert row['public_value']==v
+                assert row['selected_source_encoding']==('conjugated' if v and
+                     row['conjugated_source_score']<row['direct_source_score'] else 'direct')
+                assert p['inner_64_value_encoding_selector'][str(v)]==row['selected_source_encoding']
+            inner=p['both_inner_mod64_adders_operator_proof']
+            assert inner['pass_all'] and inner['actual_operator_basis_cases']==16384
+            assert inner['output_phase_exact_plus_one'] and inner['all_carry_scratch_clean']
+            assert p['original_public_arithmetic_identities']['cases']==3366
+            assert p['original_de_morgan_comparator_complex_proof']['actual_emitted_gate_cases']==42672
+            for label in ('original_both_outer_signs_mod35_phase_proof','candidate_both_outer_signs_mod35_phase_proof'):
+                z=p[label]
+                assert z['pass_all'] and z['total_quantum_operator_basis_cases']==6732
+                assert z['exact_complex_phase_plus_one'] and z['all_aux_clean']
+            for label in ('original_full_multiplier_phase_proof','candidate_full_multiplier_phase_proof'):
+                z=p[label]
+                assert z['pass_all'] and z['full_residue_control_basis_cases']==128
+                assert z['all_25_auxiliaries_clean'] and z['exact_complex_output_phase_plus_one']
+            rows=d['paired_native_seed_results']
+            assert len(rows)==9 and [z['seed'] for z in rows]==seeds
+            cz=[];depth=[]
+            for i,r in enumerate(rows):
+                original=r['prior_selected'];candidate=r['candidate']
+                assert (original['cz'],original['depth'],candidate['cz'],candidate['depth'])==original_expected[base][i]
+                for q in (original,candidate):
+                    assert q['native_ops']['cz']==q['cz'] and q['device_width']==d['fez_target_device_qubits']
+                    assert q['native_size']>0 and q['compiler_seconds']>=0
+                dc=candidate['cz']-original['cz']
+                dd=candidate['depth']-original['depth']
+                assert r['candidate_minus_prior_selected']==dict(cz=dc,depth=dd)
+                assert r['strict_both_native_resources_improve']==(dc<0 and dd<0)
+                assert r['source_conjugated_inner_adds']==p['selected_conjugated_inner_addition_calls']
+                assert not r['prior_hardware_feasible'] and not r['candidate_hardware_feasible']
+                if i:
+                    cz.append(dc);depth.append(dd)
+            old_anchor=next(z for z in prev['matched_seed_pairs'] if z['seed']==8776)['candidate']
+            assert rows[0]['prior_selected']['cz']==old_anchor['cz']
+            assert rows[0]['prior_selected']['depth']==old_anchor['depth']
+            wins=sum(x<0 and y<0 for x,y in zip(cz,depth))
+            sm=d['new_seed_summary']
+            assert (sm['new_joint_CZ_and_depth_improvement_seed_count'],
+              sm['new_CZ_improvement_seeds'],sm['new_depth_improvement_seeds'],
+              sm['median_new_paired_CZ_delta'],sm['median_new_paired_depth_delta'],
+              sm['min_new_CZ_delta'],sm['max_new_CZ_delta'],
+              sm['min_new_depth_delta'],sm['max_new_depth_delta'],
+              p['selected_conjugated_inner_addition_calls'],
+              p['selected_direct_inner_addition_calls'])==expected_summary[base]
+            assert sm['eight_new_seed_pairs']==8 and sm['all_nine_pairs_recorded']
+            assert sm['frozen_8776_previous_selected_anchor_exact']
+            assert sm['new_joint_CZ_and_depth_improvement_seed_count']==wins==1
+            assert sm['median_new_paired_CZ_delta']==statistics.median(cz)
+            assert sm['median_new_paired_depth_delta']==statistics.median(depth)
+            assert not sm['robust_engineering_per_base_pass'] and not sm['at_least_six_of_eight_joint_wins']
+            assert sm['all_nine_pairs_fail_hardware_gate']
+            print('IMMUTABLE ORIGINAL SCIENCE VERIFIED N35',base,
+              'complement actually used',p['selected_conjugated_inner_addition_calls'],
+              'direct arithmetic 16,384, compare 42,672, per-k old/new 6,732x2, full 128x2 +1 phases CLEAN',
+              '9 original old/new paired results (18 CPU compiles), fresh 1/8 joint win',
+              'median CZ',statistics.median(cz),'median depth',statistics.median(depth),
+              '8776 anchor exact, engineering FAIL, hardware FAIL, QPU 0')
+          print('PASS: all 36 original Fez CPU outcomes, source complex-unitary proofs, and zero-QPU controls independently verified')
+          PY
+      - name: Commit original source-run numeric JSON receipts unchanged
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_complement_constant_selector/qrr_n35_complement_constant_selector_base2.json
+          git add results/ibm_shor35_complement_constant_selector/qrr_n35_complement_constant_selector_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently preserve 36 original N35 complemented public-constant Fez CPU compiles, exact quantum-phase gates and frozen negative 1-of-8 robustness'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
