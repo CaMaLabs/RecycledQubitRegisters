@@ -1,0 +1,2206 @@
+{
+  "experiment": "n24_public_only_reversal_predictor_vs_full_exact_order_witness_labels",
+  "preregistered_document": "docs/DARK_STAR_N24_PUBLIC_PREDICTOR_PREREG.md",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "completed_utc": "2026-10-20T23:07:21.350600+00:00",
+  "source_public_manifest_sha256": "d20a59ede42509cb3fd85ce5c6e1a61bd5edb70621964ebbd3ddea5d6ea2b889",
+  "source_public_manifest_commit": "6a3eb458d63c15b57468ceafadae6c94ebe5c260",
+  "immutable_population": [
+    8388608,
+    16777216
+  ],
+  "source_public_frame_prime_construction": [
+    2000,
+    6000
+  ],
+  "exact_algebra_not_a_novel_theorem": true,
+  "QPE_not_scored": true,
+  "native_backend_not_read": true,
+  "no_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "free_runtime_used": false,
+  "paid_runtime_used": false,
+  "summary": {
+    "predeclared_P1_group_mod3_1_target_positive": 2,
+    "predeclared_P1_group_mod3_2_target_positive": 2,
+    "predeclared_P1_thresholds": {
+      "g1_min_positive": 6,
+      "g2_max_positive": 2
+    },
+    "predeclared_P1_gate_pass": false,
+    "P1_confusion": {
+      "tp": 2,
+      "fp": 6,
+      "fn": 2,
+      "tn": 6,
+      "positive_labels": 4,
+      "negative_labels": 12,
+      "sensitivity": 0.5,
+      "specificity": 0.5,
+      "accuracy": 0.5,
+      "balanced_accuracy": 0.5
+    },
+    "P2_public_bitweight_confusion": {
+      "tp": 0,
+      "fp": 1,
+      "fn": 4,
+      "tn": 11,
+      "positive_labels": 4,
+      "negative_labels": 12,
+      "sensitivity": 0.0,
+      "specificity": 0.9166666666666666,
+      "accuracy": 0.6875,
+      "balanced_accuracy": 0.4583333333333333
+    },
+    "always_negative_accuracy": 0.75,
+    "exact_one_sided_enrichment_hypergeom_p_descriptive": 0.7153846153846154,
+    "jacobi_descriptive": {
+      "-1": {
+        "n": 10,
+        "original_witness_capable": 9,
+        "T_positive": 3
+      },
+      "1": {
+        "n": 6,
+        "original_witness_capable": 3,
+        "T_positive": 1
+      }
+    },
+    "group_results": {
+      "G1_mod3_1": {
+        "n": 8,
+        "target_T_positive": 2,
+        "order_shrinks_by_3": 4,
+        "plain_and_cube_good_witness": 6,
+        "first_classical_sources": {
+          "Pollard_rho_floyd_64": 6,
+          "Pollard_p_minus_1_B47": 2
+        }
+      },
+      "G2_mod3_2": {
+        "n": 8,
+        "target_T_positive": 2,
+        "order_shrinks_by_3": 4,
+        "plain_and_cube_good_witness": 6,
+        "first_classical_sources": {
+          "complete_prime_trial": 1,
+          "Pollard_rho_floyd_64": 7
+        }
+      }
+    },
+    "all_16_prelabel_manifest_sha_matched": true,
+    "all_16_classically_factored_by_public_algorithm": true,
+    "all_16_odd_cube_factor_witness_invariant": true,
+    "zero_QPU": true,
+    "qpu_jobs_submitted": 0,
+    "inference_caveat": "16 balanced selected B31 survivors, classically factored; P1 posthoc from N23 controls, no QPE probabilities or hardware, P2 descriptive only"
+  },
+  "rows": [
+    {
+      "N": 15319861,
+      "base": 23,
+      "public_cube": 12167,
+      "group": "G1_mod3_1",
+      "rank": 3,
+      "P1_mod3_1_predict_positive": true,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          4,
+          3,
+          6,
+          12,
+          13,
+          4,
+          13,
+          13
+        ],
+        "cube_bitcounts": [
+          9,
+          13,
+          11,
+          16,
+          10,
+          13,
+          11,
+          12
+        ],
+        "plain_sum": 68,
+        "cube_sum": 95,
+        "cube_minus_plain": 27,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": -1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 17,
+          "gcd_calls": 17,
+          "modular_square_calls": 51,
+          "attempts": 1,
+          "found": true,
+          "factor": 2711
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 2711,
+        "total_public_classical_CPU_ms": 0.0713,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          2711,
+          5651
+        ],
+        "lambda_N": 1531150,
+        "order_plain": 1531150,
+        "order_cube": 1531150,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": false,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 2073916,
+          "factors": [
+            [
+              2711,
+              5651
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 2073916,
+          "factors": [
+            [
+              2711,
+              5651
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": false,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.0713,
+      "validation_CPU_ms": 0.2353,
+      "zero_QPU": true
+    },
+    {
+      "N": 12454609,
+      "base": 23,
+      "public_cube": 12167,
+      "group": "G1_mod3_1",
+      "rank": 4,
+      "P1_mod3_1_predict_positive": true,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          4,
+          3,
+          6,
+          10,
+          13,
+          12,
+          12,
+          12
+        ],
+        "cube_bitcounts": [
+          9,
+          10,
+          9,
+          14,
+          9,
+          14,
+          13,
+          10
+        ],
+        "plain_sum": 72,
+        "cube_sum": 88,
+        "cube_minus_plain": 16,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": -1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": true,
+          "factor": 3331,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": null,
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_p_minus_1_B47",
+        "factor": 3331,
+        "total_public_classical_CPU_ms": 0.0334,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          3331,
+          3739
+        ],
+        "lambda_N": 2074590,
+        "order_plain": 2074590,
+        "order_cube": 691530,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": true,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 8364142,
+          "factors": [
+            [
+              3331,
+              3739
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 8364142,
+          "factors": [
+            [
+              3331,
+              3739
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": true,
+      "P1_correct": true,
+      "P2_correct": false,
+      "public_post_B31_CPU_ms": 0.0334,
+      "validation_CPU_ms": 0.1558,
+      "zero_QPU": true
+    },
+    {
+      "N": 10878391,
+      "base": 2,
+      "public_cube": 8,
+      "group": "G1_mod3_1",
+      "rank": 5,
+      "P1_mod3_1_predict_positive": true,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          16,
+          16
+        ],
+        "cube_bitcounts": [
+          1,
+          1,
+          1,
+          8,
+          9,
+          12,
+          13,
+          11
+        ],
+        "plain_sum": 47,
+        "cube_sum": 56,
+        "cube_minus_plain": 9,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": 1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": true,
+          "factor": 3109,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": null,
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_p_minus_1_B47",
+        "factor": 3109,
+        "total_public_classical_CPU_ms": 0.0271,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          3109,
+          3499
+        ],
+        "lambda_N": 1811964,
+        "order_plain": 258852,
+        "order_cube": 86284,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": true,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 6917524,
+          "factors": [
+            [
+              3109,
+              3499
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 6917524,
+          "factors": [
+            [
+              3109,
+              3499
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": true,
+      "P1_correct": true,
+      "P2_correct": false,
+      "public_post_B31_CPU_ms": 0.0271,
+      "validation_CPU_ms": 0.1122,
+      "zero_QPU": true
+    },
+    {
+      "N": 10219201,
+      "base": 17,
+      "public_cube": 4913,
+      "group": "G1_mod3_1",
+      "rank": 6,
+      "P1_mod3_1_predict_positive": true,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          2,
+          3,
+          6,
+          15,
+          12,
+          17,
+          9,
+          14
+        ],
+        "cube_bitcounts": [
+          6,
+          14,
+          13,
+          12,
+          14,
+          12,
+          13,
+          10
+        ],
+        "plain_sum": 78,
+        "cube_sum": 94,
+        "cube_minus_plain": 16,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": 1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 14,
+          "gcd_calls": 14,
+          "modular_square_calls": 42,
+          "attempts": 1,
+          "found": true,
+          "factor": 3079
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 3079,
+        "total_public_classical_CPU_ms": 0.0414,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          3079,
+          3319
+        ],
+        "lambda_N": 1702134,
+        "order_plain": 283689,
+        "order_cube": 94563,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": true,
+        "plain_witness": {
+          "factor_success": false,
+          "x": null,
+          "factors": []
+        },
+        "cube_witness": {
+          "factor_success": false,
+          "x": null,
+          "factors": []
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": false,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.0414,
+      "validation_CPU_ms": 0.1127,
+      "zero_QPU": true
+    },
+    {
+      "N": 8549227,
+      "base": 13,
+      "public_cube": 2197,
+      "group": "G1_mod3_1",
+      "rank": 7,
+      "P1_mod3_1_predict_positive": true,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          3,
+          4,
+          9,
+          13,
+          13,
+          11,
+          14,
+          12
+        ],
+        "cube_bitcounts": [
+          5,
+          12,
+          8,
+          10,
+          7,
+          12,
+          9,
+          11
+        ],
+        "plain_sum": 79,
+        "cube_sum": 74,
+        "cube_minus_plain": -5,
+        "P2_source_proxy_predict_positive": true
+      },
+      "jacobi_symbol": -1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 24,
+          "gcd_calls": 24,
+          "modular_square_calls": 72,
+          "attempts": 1,
+          "found": true,
+          "factor": 4073
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 4073,
+        "total_public_classical_CPU_ms": 0.0468,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          2099,
+          4073
+        ],
+        "lambda_N": 4271528,
+        "order_plain": 1067882,
+        "order_cube": 1067882,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": false,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 5266390,
+          "factors": [
+            [
+              2099,
+              4073
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 5266390,
+          "factors": [
+            [
+              2099,
+              4073
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": false,
+      "P2_correct": false,
+      "public_post_B31_CPU_ms": 0.0468,
+      "validation_CPU_ms": 0.2259,
+      "zero_QPU": true
+    },
+    {
+      "N": 12662677,
+      "base": 23,
+      "public_cube": 12167,
+      "group": "G1_mod3_1",
+      "rank": 9,
+      "P1_mod3_1_predict_positive": true,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          4,
+          3,
+          6,
+          12,
+          13,
+          8,
+          13,
+          10
+        ],
+        "cube_bitcounts": [
+          9,
+          12,
+          9,
+          11,
+          8,
+          11,
+          12,
+          8
+        ],
+        "plain_sum": 69,
+        "cube_sum": 80,
+        "cube_minus_plain": 11,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": 1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 45,
+          "gcd_calls": 45,
+          "modular_square_calls": 135,
+          "attempts": 1,
+          "found": true,
+          "factor": 2503
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 2503,
+        "total_public_classical_CPU_ms": 0.0809,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          2503,
+          5059
+        ],
+        "lambda_N": 703062,
+        "order_plain": 351531,
+        "order_cube": 117177,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": true,
+        "plain_witness": {
+          "factor_success": false,
+          "x": null,
+          "factors": []
+        },
+        "cube_witness": {
+          "factor_success": false,
+          "x": null,
+          "factors": []
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": false,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.0809,
+      "validation_CPU_ms": 0.165,
+      "zero_QPU": true
+    },
+    {
+      "N": 9928417,
+      "base": 5,
+      "public_cube": 125,
+      "group": "G1_mod3_1",
+      "rank": 10,
+      "P1_mod3_1_predict_positive": true,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          2,
+          3,
+          5,
+          12,
+          15,
+          11,
+          11,
+          13
+        ],
+        "cube_bitcounts": [
+          6,
+          7,
+          12,
+          10,
+          16,
+          12,
+          14,
+          13
+        ],
+        "plain_sum": 72,
+        "cube_sum": 90,
+        "cube_minus_plain": 18,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": -1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 93,
+          "gcd_calls": 93,
+          "modular_square_calls": 279,
+          "attempts": 2,
+          "found": true,
+          "factor": 3413
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 3413,
+        "total_public_classical_CPU_ms": 0.1023,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          2909,
+          3413
+        ],
+        "lambda_N": 2480524,
+        "order_plain": 2480524,
+        "order_cube": 2480524,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": false,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 4058056,
+          "factors": [
+            [
+              2909,
+              3413
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 4058056,
+          "factors": [
+            [
+              2909,
+              3413
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": false,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.1023,
+      "validation_CPU_ms": 0.3309,
+      "zero_QPU": true
+    },
+    {
+      "N": 9841129,
+      "base": 29,
+      "public_cube": 24389,
+      "group": "G1_mod3_1",
+      "rank": 11,
+      "P1_mod3_1_predict_positive": true,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          4,
+          5,
+          10,
+          9,
+          16,
+          13,
+          14,
+          8
+        ],
+        "cube_bitcounts": [
+          9,
+          14,
+          13,
+          12,
+          10,
+          12,
+          15,
+          10
+        ],
+        "plain_sum": 79,
+        "cube_sum": 95,
+        "cube_minus_plain": 16,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": -1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 42,
+          "gcd_calls": 42,
+          "modular_square_calls": 126,
+          "attempts": 1,
+          "found": true,
+          "factor": 2819
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 2819,
+        "total_public_classical_CPU_ms": 0.0597,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          2819,
+          3491
+        ],
+        "lambda_N": 4917410,
+        "order_plain": 4917410,
+        "order_cube": 4917410,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": false,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 8113083,
+          "factors": [
+            [
+              2819,
+              3491
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 8113083,
+          "factors": [
+            [
+              2819,
+              3491
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": false,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.0597,
+      "validation_CPU_ms": 0.2036,
+      "zero_QPU": true
+    },
+    {
+      "N": 10807151,
+      "base": 11,
+      "public_cube": 1331,
+      "group": "G2_mod3_2",
+      "rank": 2,
+      "P1_mod3_1_predict_positive": false,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          3,
+          5,
+          7,
+          10,
+          11,
+          13,
+          9,
+          14
+        ],
+        "cube_bitcounts": [
+          6,
+          8,
+          10,
+          12,
+          9,
+          9,
+          15,
+          14
+        ],
+        "plain_sum": 72,
+        "cube_sum": 83,
+        "cube_minus_plain": 11,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": -1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 128,
+          "gcd_calls": 128,
+          "modular_square_calls": 384,
+          "attempts": 2,
+          "found": false,
+          "factor": null
+        },
+        "prime_trial_97": {
+          "found": false,
+          "checks": 25,
+          "factor": null
+        },
+        "full_trial": {
+          "found": true,
+          "checks": 342,
+          "factor": 2477
+        },
+        "first_factor_source": "complete_prime_trial",
+        "factor": 2477,
+        "total_public_classical_CPU_ms": 0.4378,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          2477,
+          4363
+        ],
+        "lambda_N": 5400156,
+        "order_plain": 1800052,
+        "order_cube": 1800052,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": false,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 8320242,
+          "factors": [
+            [
+              2477,
+              4363
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 8320242,
+          "factors": [
+            [
+              2477,
+              4363
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": true,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.4378,
+      "validation_CPU_ms": 0.651,
+      "zero_QPU": true
+    },
+    {
+      "N": 13411667,
+      "base": 2,
+      "public_cube": 8,
+      "group": "G2_mod3_2",
+      "rank": 3,
+      "P1_mod3_1_predict_positive": false,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          7,
+          13,
+          13
+        ],
+        "cube_bitcounts": [
+          1,
+          1,
+          1,
+          13,
+          11,
+          10,
+          8,
+          7
+        ],
+        "plain_sum": 38,
+        "cube_sum": 52,
+        "cube_minus_plain": 14,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": -1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 28,
+          "gcd_calls": 28,
+          "modular_square_calls": 84,
+          "attempts": 1,
+          "found": true,
+          "factor": 3499
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 3499,
+        "total_public_classical_CPU_ms": 0.0509,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          3499,
+          3833
+        ],
+        "lambda_N": 6702168,
+        "order_plain": 1675542,
+        "order_cube": 558514,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": true,
+        "plain_witness": {
+          "factor_success": false,
+          "x": 13411666,
+          "factors": []
+        },
+        "cube_witness": {
+          "factor_success": false,
+          "x": 13411666,
+          "factors": []
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": true,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.0509,
+      "validation_CPU_ms": 0.1389,
+      "zero_QPU": true
+    },
+    {
+      "N": 12161921,
+      "base": 23,
+      "public_cube": 12167,
+      "group": "G2_mod3_2",
+      "rank": 4,
+      "P1_mod3_1_predict_positive": false,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          4,
+          3,
+          6,
+          11,
+          10,
+          11,
+          13,
+          8
+        ],
+        "cube_bitcounts": [
+          9,
+          15,
+          8,
+          16,
+          12,
+          9,
+          17,
+          16
+        ],
+        "plain_sum": 66,
+        "cube_sum": 102,
+        "cube_minus_plain": 36,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": 1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 56,
+          "gcd_calls": 56,
+          "modular_square_calls": 168,
+          "attempts": 1,
+          "found": true,
+          "factor": 2663
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 2663,
+        "total_public_classical_CPU_ms": 0.0706,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          2663,
+          4567
+        ],
+        "lambda_N": 6077346,
+        "order_plain": 6077346,
+        "order_cube": 2025782,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": true,
+        "plain_witness": {
+          "factor_success": false,
+          "x": 12161920,
+          "factors": []
+        },
+        "cube_witness": {
+          "factor_success": false,
+          "x": 12161920,
+          "factors": []
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": true,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.0706,
+      "validation_CPU_ms": 0.1479,
+      "zero_QPU": true
+    },
+    {
+      "N": 13208333,
+      "base": 11,
+      "public_cube": 1331,
+      "group": "G2_mod3_2",
+      "rank": 5,
+      "P1_mod3_1_predict_positive": false,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          3,
+          5,
+          7,
+          10,
+          11,
+          10,
+          9,
+          13
+        ],
+        "cube_bitcounts": [
+          6,
+          8,
+          11,
+          12,
+          14,
+          14,
+          12,
+          17
+        ],
+        "plain_sum": 68,
+        "cube_sum": 94,
+        "cube_minus_plain": 26,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": -1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 54,
+          "gcd_calls": 54,
+          "modular_square_calls": 162,
+          "attempts": 1,
+          "found": true,
+          "factor": 2339
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 2339,
+        "total_public_classical_CPU_ms": 0.0721,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          2339,
+          5647
+        ],
+        "lambda_N": 6600174,
+        "order_plain": 314294,
+        "order_cube": 314294,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": false,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 12417752,
+          "factors": [
+            [
+              2339,
+              5647
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 12417752,
+          "factors": [
+            [
+              2339,
+              5647
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": true,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.0721,
+      "validation_CPU_ms": 0.1782,
+      "zero_QPU": true
+    },
+    {
+      "N": 10494119,
+      "base": 23,
+      "public_cube": 12167,
+      "group": "G2_mod3_2",
+      "rank": 6,
+      "P1_mod3_1_predict_positive": false,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          4,
+          3,
+          6,
+          13,
+          10,
+          11,
+          8,
+          7
+        ],
+        "cube_bitcounts": [
+          9,
+          7,
+          14,
+          8,
+          17,
+          14,
+          7,
+          10
+        ],
+        "plain_sum": 62,
+        "cube_sum": 86,
+        "cube_minus_plain": 24,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": -1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 28,
+          "gcd_calls": 28,
+          "modular_square_calls": 84,
+          "attempts": 1,
+          "found": true,
+          "factor": 3181
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 3181,
+        "total_public_classical_CPU_ms": 0.0487,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          3181,
+          3299
+        ],
+        "lambda_N": 5243820,
+        "order_plain": 5243820,
+        "order_cube": 1747940,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": true,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 8359667,
+          "factors": [
+            [
+              3181,
+              3299
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 8359667,
+          "factors": [
+            [
+              3181,
+              3299
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": true,
+      "P1_correct": false,
+      "P2_correct": false,
+      "public_post_B31_CPU_ms": 0.0487,
+      "validation_CPU_ms": 0.1491,
+      "zero_QPU": true
+    },
+    {
+      "N": 10237943,
+      "base": 13,
+      "public_cube": 2197,
+      "group": "G2_mod3_2",
+      "rank": 7,
+      "P1_mod3_1_predict_positive": false,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          3,
+          4,
+          9,
+          12,
+          13,
+          14,
+          10,
+          12
+        ],
+        "cube_bitcounts": [
+          5,
+          12,
+          14,
+          10,
+          15,
+          10,
+          13,
+          9
+        ],
+        "plain_sum": 77,
+        "cube_sum": 88,
+        "cube_minus_plain": 11,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": 1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 28,
+          "gcd_calls": 28,
+          "modular_square_calls": 84,
+          "attempts": 1,
+          "found": true,
+          "factor": 2671
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 2671,
+        "total_public_classical_CPU_ms": 0.048,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          2671,
+          3833
+        ],
+        "lambda_N": 5115720,
+        "order_plain": 1705240,
+        "order_cube": 1705240,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": false,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 8969219,
+          "factors": [
+            [
+              2671,
+              3833
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 8969219,
+          "factors": [
+            [
+              2671,
+              3833
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": true,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.048,
+      "validation_CPU_ms": 0.1396,
+      "zero_QPU": true
+    },
+    {
+      "N": 10303847,
+      "base": 19,
+      "public_cube": 6859,
+      "group": "G2_mod3_2",
+      "rank": 10,
+      "P1_mod3_1_predict_positive": false,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          3,
+          5,
+          10,
+          8,
+          18,
+          9,
+          14,
+          10
+        ],
+        "cube_bitcounts": [
+          8,
+          15,
+          7,
+          10,
+          9,
+          12,
+          15,
+          15
+        ],
+        "plain_sum": 77,
+        "cube_sum": 91,
+        "cube_minus_plain": 14,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": 1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 56,
+          "gcd_calls": 56,
+          "modular_square_calls": 168,
+          "attempts": 1,
+          "found": true,
+          "factor": 3019
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 3019,
+        "total_public_classical_CPU_ms": 0.0701,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          3019,
+          3413
+        ],
+        "lambda_N": 5148708,
+        "order_plain": 1716236,
+        "order_cube": 1716236,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": false,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 2092168,
+          "factors": [
+            [
+              3019,
+              3413
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 2092168,
+          "factors": [
+            [
+              3019,
+              3413
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": false,
+      "P1_correct": true,
+      "P2_correct": true,
+      "public_post_B31_CPU_ms": 0.0701,
+      "validation_CPU_ms": 0.2435,
+      "zero_QPU": true
+    },
+    {
+      "N": 12720251,
+      "base": 11,
+      "public_cube": 1331,
+      "group": "G2_mod3_2",
+      "rank": 12,
+      "P1_mod3_1_predict_positive": false,
+      "P2_public_bitweight_proxy": {
+        "plain_bitcounts": [
+          3,
+          5,
+          7,
+          12,
+          11,
+          16,
+          9,
+          13
+        ],
+        "cube_bitcounts": [
+          6,
+          8,
+          16,
+          12,
+          7,
+          15,
+          10,
+          11
+        ],
+        "plain_sum": 76,
+        "cube_sum": 85,
+        "cube_minus_plain": 9,
+        "P2_source_proxy_predict_positive": false
+      },
+      "jacobi_symbol": -1,
+      "public_B31_unfactored": true,
+      "public_post_B31_classical": {
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "iterations": 93,
+          "gcd_calls": 93,
+          "modular_square_calls": 279,
+          "attempts": 2,
+          "found": true,
+          "factor": 3413
+        },
+        "prime_trial_97": null,
+        "full_trial": null,
+        "first_factor_source": "Pollard_rho_floyd_64",
+        "factor": 3413,
+        "total_public_classical_CPU_ms": 0.1219,
+        "classically_factored": true
+      },
+      "validation_only": {
+        "factors": [
+          3413,
+          3727
+        ],
+        "lambda_N": 6356556,
+        "order_plain": 3178278,
+        "order_cube": 1059426,
+        "order_cube_identity_verified": true,
+        "shrunk_by_exact_factor_three": true,
+        "plain_witness": {
+          "factor_success": true,
+          "x": 1863499,
+          "factors": [
+            [
+              3413,
+              3727
+            ]
+          ]
+        },
+        "cube_witness": {
+          "factor_success": true,
+          "x": 1863499,
+          "factors": [
+            [
+              3413,
+              3727
+            ]
+          ]
+        },
+        "exact_cube_half_order_witness_invariance_verified": true
+      },
+      "label_T_shrunk_and_factor_witness": true,
+      "P1_correct": false,
+      "P2_correct": false,
+      "public_post_B31_CPU_ms": 0.1219,
+      "validation_CPU_ms": 0.2108,
+      "zero_QPU": true
+    }
+  ],
+  "original_public_screenings": {
+    "G1_mod3_1": [
+      {
+        "N": 11912443,
+        "base": 19,
+        "rank": 1,
+        "public_B31_factored": true,
+        "classical_factor": 3907,
+        "first_source": "Pollard_p1_B31",
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 8823229,
+        "base": 5,
+        "rank": 2,
+        "public_B31_factored": true,
+        "classical_factor": 2341,
+        "first_source": "Pollard_p1_B31",
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 15319861,
+        "base": 23,
+        "rank": 3,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 12454609,
+        "base": 23,
+        "rank": 4,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 10878391,
+        "base": 2,
+        "rank": 5,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 10219201,
+        "base": 17,
+        "rank": 6,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 8549227,
+        "base": 13,
+        "rank": 7,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 13805689,
+        "base": 23,
+        "rank": 8,
+        "public_B31_factored": true,
+        "classical_factor": 4093,
+        "first_source": "Pollard_p1_B31",
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 12662677,
+        "base": 23,
+        "rank": 9,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 9928417,
+        "base": 5,
+        "rank": 10,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 9841129,
+        "base": 29,
+        "rank": 11,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      }
+    ],
+    "G2_mod3_2": [
+      {
+        "N": 13678547,
+        "base": 23,
+        "rank": 1,
+        "public_B31_factored": true,
+        "classical_factor": 5981,
+        "first_source": "Pollard_p1_B31",
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 10807151,
+        "base": 11,
+        "rank": 2,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 13411667,
+        "base": 2,
+        "rank": 3,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 12161921,
+        "base": 23,
+        "rank": 4,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 13208333,
+        "base": 11,
+        "rank": 5,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 10494119,
+        "base": 23,
+        "rank": 6,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 10237943,
+        "base": 13,
+        "rank": 7,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 16162967,
+        "base": 13,
+        "rank": 8,
+        "public_B31_factored": true,
+        "classical_factor": 4481,
+        "first_source": "Pollard_p1_B31",
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 11836631,
+        "base": 13,
+        "rank": 9,
+        "public_B31_factored": true,
+        "classical_factor": 2791,
+        "first_source": "Pollard_p1_B31",
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 10303847,
+        "base": 19,
+        "rank": 10,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 16102433,
+        "base": 2,
+        "rank": 11,
+        "public_B31_factored": true,
+        "classical_factor": 4201,
+        "first_source": "Pollard_p1_B31",
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 12720251,
+        "base": 11,
+        "rank": 12,
+        "public_B31_factored": false,
+        "classical_factor": null,
+        "first_source": null,
+        "operation_counts": {
+          "gcd_calls": 105,
+          "modular_square_calls": 51,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      }
+    ]
+  }
+}
