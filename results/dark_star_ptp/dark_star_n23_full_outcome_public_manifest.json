@@ -1,0 +1,396 @@
+{
+  "experiment": "QRR-independent-N23-full-outcome-public-manifest",
+  "preregistration": "docs/DARK_STAR_N23_FULL_OUTCOME_CUBE_PREREG.md",
+  "N_interval": [
+    4194304,
+    8388607
+  ],
+  "selection_salt": "QRR-N23-FULLOUTCOME-V1-POP-20261020",
+  "base_salt": "QRR-N23-FULLOUTCOME-V1-BASE-20261020",
+  "selected_public_rows": [
+    {
+      "N": 4958741,
+      "base": 19,
+      "group": "trigger",
+      "rank": 1,
+      "public_policies": {
+        "plain": 19,
+        "cube": 6859
+      }
+    },
+    {
+      "N": 6535103,
+      "base": 2,
+      "group": "trigger",
+      "rank": 6,
+      "public_policies": {
+        "plain": 2,
+        "cube": 8
+      }
+    },
+    {
+      "N": 7692497,
+      "base": 19,
+      "group": "trigger",
+      "rank": 12,
+      "public_policies": {
+        "plain": 19,
+        "cube": 6859
+      }
+    },
+    {
+      "N": 6957281,
+      "base": 29,
+      "group": "trigger",
+      "rank": 14,
+      "public_policies": {
+        "plain": 29,
+        "cube": 24389
+      }
+    },
+    {
+      "N": 4316413,
+      "base": 5,
+      "group": "control",
+      "rank": 1,
+      "public_policies": {
+        "plain": 5,
+        "cube": 125
+      }
+    },
+    {
+      "N": 7075567,
+      "base": 3,
+      "group": "control",
+      "rank": 2,
+      "public_policies": {
+        "plain": 3,
+        "cube": 27
+      }
+    },
+    {
+      "N": 6394693,
+      "base": 13,
+      "group": "control",
+      "rank": 5,
+      "public_policies": {
+        "plain": 13,
+        "cube": 2197
+      }
+    },
+    {
+      "N": 6690841,
+      "base": 13,
+      "group": "control",
+      "rank": 7,
+      "public_policies": {
+        "plain": 13,
+        "cube": 2197
+      }
+    }
+  ],
+  "public_screenings": {
+    "trigger": [
+      {
+        "N": 4958741,
+        "base": 19,
+        "rank": 1,
+        "public_B31_factored": false,
+        "public_factor": null,
+        "source": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 7270559,
+        "base": 29,
+        "rank": 2,
+        "public_B31_factored": true,
+        "public_factor": 19,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 6777437,
+        "base": 2,
+        "rank": 3,
+        "public_B31_factored": true,
+        "public_factor": 31,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 4717541,
+        "base": 19,
+        "rank": 4,
+        "public_B31_factored": true,
+        "public_factor": 1013,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 6651389,
+        "base": 2,
+        "rank": 5,
+        "public_B31_factored": true,
+        "public_factor": 41,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 6535103,
+        "base": 2,
+        "rank": 6,
+        "public_B31_factored": false,
+        "public_factor": null,
+        "source": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 7445051,
+        "base": 5,
+        "rank": 7,
+        "public_B31_factored": true,
+        "public_factor": 73,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 7763087,
+        "base": 19,
+        "rank": 8,
+        "public_B31_factored": true,
+        "public_factor": 10337,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 7126577,
+        "base": 31,
+        "rank": 9,
+        "public_B31_factored": true,
+        "public_factor": 19,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 5879777,
+        "base": 29,
+        "rank": 10,
+        "public_B31_factored": true,
+        "public_factor": 43,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 5649821,
+        "base": 31,
+        "rank": 11,
+        "public_B31_factored": true,
+        "public_factor": 19,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 7692497,
+        "base": 19,
+        "rank": 12,
+        "public_B31_factored": false,
+        "public_factor": null,
+        "source": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 6662423,
+        "base": 29,
+        "rank": 13,
+        "public_B31_factored": true,
+        "public_factor": 953,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 6957281,
+        "base": 29,
+        "rank": 14,
+        "public_B31_factored": false,
+        "public_factor": null,
+        "source": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      }
+    ],
+    "control": [
+      {
+        "N": 4316413,
+        "base": 5,
+        "rank": 1,
+        "public_B31_factored": false,
+        "public_factor": null,
+        "source": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 7075567,
+        "base": 3,
+        "rank": 2,
+        "public_B31_factored": false,
+        "public_factor": null,
+        "source": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 6164629,
+        "base": 2,
+        "rank": 3,
+        "public_B31_factored": true,
+        "public_factor": 31,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 7485007,
+        "base": 2,
+        "rank": 4,
+        "public_B31_factored": true,
+        "public_factor": 113,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 6394693,
+        "base": 13,
+        "rank": 5,
+        "public_B31_factored": false,
+        "public_factor": null,
+        "source": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 8101039,
+        "base": 3,
+        "rank": 6,
+        "public_B31_factored": true,
+        "public_factor": 37,
+        "source": "Pollard_p1_B31",
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 6690841,
+        "base": 13,
+        "rank": 7,
+        "public_B31_factored": false,
+        "public_factor": null,
+        "source": null,
+        "primitive_operation_counts": {
+          "gcd_calls": 101,
+          "modular_square_calls": 49,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      }
+    ]
+  },
+  "selected_sha256": "fe345f8c762b58e545cdaeb5d6f28188aa546dfbaba049c9ac58e3b0b1181b37",
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "note": "Only public N,base,group,sha-rank,B31 factor/screen ledger. No validation factor/order or QPE cost."
+}
