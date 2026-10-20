@@ -1,0 +1,179 @@
+name: Independently preserve original 32 CPU N35 four-power-block sign-selector measurements
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-four-controlled-powers-sign-selector.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-four-public-powers-immutable-originals
+  cancel-in-progress: false
+
+jobs:
+  independent-original-results-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download exact original source-experiment artifacts, NEVER rerun quantum circuits/compilers
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39512264987
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-sign-four-powers-base*-original
+          merge-multiple: true
+          path: _original_four_power_artifacts
+      - name: Copy precisely two original JSON raw receipts unmodified
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_four_power_sign_selector
+          for base in 2 8; do
+            f="qrr_n35_four_power_sign_source_base${base}.json"
+            count="$(find _original_four_power_artifacts -type f -name "$f" | wc -l)"
+            test "$count" -eq 1 || { echo "Missing/duplicate original result $f ($count)"; exit 1; }
+            find _original_four_power_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_four_power_sign_selector/ '{}' +
+          done
+      - name: Independently audit every original 35-qubit 8-seed result, phase proof, source, anchor, strict engineering and device gate
+        run: |
+          python - <<'PY'
+          import json,statistics
+          from pathlib import Path
+          seeds=[239,647,1453,3701,6211,9421,16673,27191]
+          numeric={
+            2:[
+              (32887,75879,29171,67537),
+              (32676,75265,29579,66740),
+              (32455,76638,28528,66573),
+              (31415,75331,28668,66577),
+              (32937,76508,29044,66484),
+              (32900,75910,29027,65461),
+              (32634,76979,28915,66530),
+              (32277,74931,29521,68394)],
+            8:[
+              (15872,37896,14607,34068),
+              (16637,39185,15044,34881),
+              (15895,37669,15385,35470),
+              (17390,40393,15173,35493),
+              (15722,37461,15073,34111),
+              (16334,39446,15318,35452),
+              (17057,41267,14850,34467),
+              (16020,37359,14471,33951)]
+          }
+          anchors={2:(7887,18221,6871,16626),8:(7802,18449,7315,16286)}
+          gate_expect={
+             2:({'cx':1213,'rccx':2374,'x':6890,'ccx':648},
+                {'cx':1107,'rccx':2082,'x':5970,'ccx':602}),
+             8:({'cx':625,'rccx':1236,'x':3612,'ccx':329},
+                {'cx':575,'rccx':1094,'x':3052,'ccx':309})
+          }
+          for base in (2,8):
+            file=Path(f'results/ibm_shor35_four_power_sign_selector/qrr_n35_four_power_sign_source_base{base}.json')
+            z=json.loads(file.read_text())
+            prior=json.loads(Path(
+              f'results/ibm_shor35_static_gate_sign_selector/qrr_n35_static_sign_selector_base{base}.json').read_text())
+            assert z['revision']=='qrr-n35-four-public-powers-static-sign-source-20261020-v1'
+            assert z['research_lead']=='Chase Lunsford / CaMaLabs'
+            assert z['preregistration']=='docs/QRR_N35_STATIC_SIGN_FOUR_POWER_BLOCK_PREREG.md'
+            assert z['public_N']==35 and z['public_base']==base
+            assert z['public_power_schedule']==({2:[2,4,16,11],8:[8,29,1,1]}[base])
+            assert z['phase_control_qubits']==4 and z['work_qubits']==6
+            assert z['clean_auxiliary_qubits']==25 and z['total_source_logical_qubits']==35
+            assert z['eight_NEW_seeds']==seeds and z['single_stage_anchor_seed']==8776
+            assert z['backend_name']=='ibm_fez' and z['optimization_level']==1
+            assert z['no_qft_or_measurement_or_quantum_device_run']
+            assert z['order_not_injected'] and z['factors_not_used'] and z['multiplicative_orbit_not_hardcoded']
+            assert z['qpu_jobs_submitted']==0 and not z['paid_quantum_runtime_used']
+            assert not z['free_quantum_runtime_used']
+            assert z['physical_native_cz_cutoff']==800 and z['physical_native_depth_cutoff']==2000
+            assert z['status']=='COMPILE_SUCCESS' and z['success'] and z['all_eight_pairs_complete']
+            assert z['backend_target_qubits']==156
+            p=z['original_source_phase_preflight']
+            assert p['frozen_original_34_source_gate_vectors_exact_match']
+            assert p['frozen_original_34_sign_choices_exact_match']
+            assert p['original_single_multiplier_source_exact_match']
+            assert p['all_proofs_pass_before_any_IBM_backend_access']
+            assert p['public_arithmetic_identity']['cases']==3366
+            assert p['comparator_exact_complex_phase']['actual_emitted_gate_cases']==42672
+            assert p['both_signed_positive_k_1_to_34_exact_complex_phase']['total_quantum_operator_basis_cases']==6732
+            assert p['both_signed_positive_k_1_to_34_exact_complex_phase']['exact_complex_phase_plus_one']
+            ref=prior['prebackend_exact_quantum_gate_proofs']['whole_full_multiplier']
+            for k in ('original_full','candidate_full'):
+                q=p['original_single_multiplier_complex_phase'][k]
+                assert q['pass_all'] and q['full_residue_control_basis_cases']==128
+                assert q['all_25_auxiliaries_clean'] and q['exact_complex_output_phase_plus_one']
+                assert q['quantum_source_gate_counts']==ref[k]['quantum_source_gate_counts']
+            q=z['four_power_source_phase_proofs']
+            assert q['two_source_blocks_1024_cases_each_pass']
+            assert q['public_identity_rounds']==({2:0,8:2}[base])
+            assert q['source_gate_histograms_differ']
+            for idx,variant in enumerate(('original','selected')):
+                proof=q[variant]
+                assert proof['pass_all'] and proof['exact_source_operator_basis_cases']==1024
+                assert proof['all_25_helpers_clean'] and proof['exact_complex_phase_plus_one']
+                assert proof['phase_inputs_unchanged'] and proof['invalid_work_inputs_identity']
+                assert proof['source_logical_qubits']==35
+                assert proof['source_gate_histogram']==gate_expect[base][idx]
+            assert sum(t['weighted_additions'] for t in q['source_rounds_original'][:4])==(
+                48 if base==2 else 24)
+            anchor=z['historical_one_multiplier_anchor']
+            assert anchor['seed']==8776 and anchor['exact_reproduction'] is True
+            assert (anchor['original']['native_cz'],anchor['original']['native_depth'],
+                anchor['selected']['native_cz'],anchor['selected']['native_depth'])==anchors[base]
+            rows=z['eight_seed_native_pairs']
+            assert len(rows)==8 and [r['seed'] for r in rows]==seeds
+            deltas=[]
+            for i,row in enumerate(rows):
+                old,new=row['original'],row['selected']
+                assert (old['native_cz'],old['native_depth'],
+                    new['native_cz'],new['native_depth'])==numeric[base][i]
+                for version,cost in (('original',old),('selected',new)):
+                    assert cost['native_cz']>0 and cost['native_depth']>0
+                    assert cost['native_ops']['cz']==cost['native_cz']
+                    assert cost['device_width']==z['backend_target_qubits']
+                    assert cost['native_total_ops']>0 and cost['compiler_seconds']>=0
+                    assert row[version+'_device_feasible']==(
+                        cost['native_cz']<=800 and cost['native_depth']<=2000)
+                dc=new['native_cz']-old['native_cz']
+                dd=new['native_depth']-old['native_depth']
+                assert row['paired_delta']==dict(cz=dc,depth=dd)
+                assert row['joint_two_metrics_strict_improvement']==(dc<0 and dd<0)
+                deltas.append((dc,dd))
+            s=z['summary']
+            dz=[a for a,b in deltas]; dd=[b for a,b in deltas]
+            assert s['paired_seed_count']==8 and s['no_seed_excluded']
+            assert s['strict_both_metrics_wins']==sum(a<0 and b<0 for a,b in deltas)==8
+            assert s['strict_cz_wins']==sum(a<0 for a in dz)==8
+            assert s['strict_depth_wins']==sum(b<0 for b in dd)==8
+            assert s['paired_median_cz_delta']==statistics.median(dz)
+            assert s['paired_median_depth_delta']==statistics.median(dd)
+            assert s['paired_min_cz_delta']==min(dz) and s['paired_max_cz_delta']==max(dz)
+            assert s['paired_min_depth_delta']==min(dd) and s['paired_max_depth_delta']==max(dd)
+            assert s['frozen_single_stage_8776_anchors_reproduce']
+            assert s['meets_at_least_six_of_eight_joint_wins'] and s['both_paired_medians_negative']
+            assert s['robust_per_base_pass']
+            assert s['every_original_and_selected_block_fails_device_feasibility']
+            print('ORIGINAL EXACT SCIENTIFIC RECEIPT VERIFIED base',base,
+              '4 powers',z['public_power_schedule'],
+              '1024+1024 source +1 phase proofs, all 25 auxiliaries clean,',
+              '8/8 BOTH CZ/DEPTH wins, paired median savings',
+              -statistics.median(dz),'CZ',-statistics.median(dd),'depth;',
+              'historical anchor PASS; native device gate FAIL; ZERO QPU')
+          print('SUCCESS: BOTH public full four-controlled-power CPU studies and 32 original native receipts independently audited')
+          PY
+      - name: Commit byte-identical original two source-run JSONs without recomputing science
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_four_power_sign_selector/qrr_n35_four_power_sign_source_base2.json
+          git add results/ibm_shor35_four_power_sign_selector/qrr_n35_four_power_sign_source_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently audit/preserve both original N35 four-controlled-power sign-selector 8-seed robust wins, QPU infeasible'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
