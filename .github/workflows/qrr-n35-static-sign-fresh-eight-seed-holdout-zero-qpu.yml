@@ -1,0 +1,160 @@
+name: QRR N35 frozen public sign static selector FRESH 8-seed holdout ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-static-sign-fresh-eight-seed-holdout-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-static-source-sign-fresh-seeds-holdout-noqpu
+  cancel-in-progress: false
+
+jobs:
+  two-public-base-fresh-seed-holdouts:
+    name: N35 base ${{ matrix.base }} eight new matched seeds plus historical 8776 anchor, phase-exact, CPU Fez target only
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original frozen Qiskit source-gate unitary and target compiler
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Verify new prereg, FRESH seed list, unmodified original selector, zero QPU and previous frozen original artifacts
+        run: |
+          test -s docs/QRR_N35_STATIC_GATE_SIGN_FRESH_SEED_HOLDOUT_PREREG.md
+          python -m py_compile hardware/qrr_n35_static_sign_selector_fresh_holdout.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_static_sign_selector_fresh_holdout.py').read_text()
+          assert all(x not in s for x in ('SamplerV2','EstimatorV2','sampler.run','job.submit','job.run','job.result','backend.run'))
+          assert 'FRESH_SEEDS=(1729,3137,5003,7919,10103,13007,20011,31799)' in s
+          assert 'ALL_SEEDS=(ANCHOR,)+FRESH_SEEDS' in s
+          assert 'original.bootstrap_original_best()' in s
+          assert 'original.prebackend_static_source_selector()' in s
+          assert 'original.quantum_phase_per_k_adds' in s
+          assert 'original.prove_whole_source_variants' in s
+          assert 'original.exhaustive' not in s or 'original.exhaustive' in s # no-op; source phase proof checked below
+          assert 'rows==archived["prebackend_public_k_source_score_table"]' in s
+          for b in (2,8):
+              prior=Path(f'results/ibm_shor35_static_gate_sign_selector/qrr_n35_static_sign_selector_base{b}.json')
+              assert prior.exists(),prior
+          print('FROZEN holdout 8 NEW seeds, separate 8776 anchor; exact original public source tables; ZERO QPU')
+          PY
+      - name: Verify original quantum phase source exactness and compile original-vs-selected nine matched CPU seeds (no quantum jobs)
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 650s python -u hardware/qrr_n35_static_sign_selector_fresh_holdout.py --base "$BASE" \
+            | tee "qrr_n35_static_sign_fresh_holdout_base${BASE}.log"
+      - name: Audit exact prior source gate map and 8776 anchor; independently check all eight FRESH paired native outcomes
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os,statistics
+          from pathlib import Path
+          b=int(os.environ['BASE'])
+          x=json.loads(Path(f'results/ibm_shor35_static_sign_selector_fresh_holdout/qrr_n35_static_sign_fresh_holdout_base{b}.json').read_text())
+          prior=json.loads(Path(f'results/ibm_shor35_static_gate_sign_selector/qrr_n35_static_sign_selector_base{b}.json').read_text())
+          fresh=[1729,3137,5003,7919,10103,13007,20011,31799]
+          assert x['revision']=='qrr-n35-static-sign-selector-fresh-seed-holdout-v1-20261019'
+          assert x['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert x['preregistration']=='docs/QRR_N35_STATIC_GATE_SIGN_FRESH_SEED_HOLDOUT_PREREG.md'
+          assert x['N']==35 and x['base']==b and x['fresh_seeds']==fresh
+          assert x['all_pair_seeds_in_compile_order']==[8776]+fresh
+          assert x['historical_anchor_seed']==8776
+          assert x['original_source_score_formula']==prior['source_score_formula']
+          assert x['original_k_selection_map_immutable']
+          assert x['read_only_ibm_target']=='ibm_fez' and x['optimizer_level']==1
+          assert x['device_cz_limit']==800 and x['device_depth_limit']==2000
+          assert x['full_six_bit_public_residue'] and x['true_order_not_used'] and x['prime_factors_not_used'] and x['precomputed_modular_orbit_not_used']
+          assert x['qpu_jobs_submitted']==0 and not x['quantum_runtime_used'] and not x['paid_runtime_used']
+          assert x['success'] and x['status']=='COMPILE_SUCCESS' and x['all_eighteen_native_compilations_complete']
+          proof=x['before_backend_source_quantum_proof']
+          assert proof['original_all_34_source_score_rows_exact_match']
+          assert proof['public_sign_choice_map_exact_match']
+          assert proof['full_source_gate_distribution_exact_match']
+          assert proof['every_amplitude_exactly_plus_one'] and proof['all_25_aux_clean']
+          assert proof['application_logical_qubits']==32
+          assert proof['public_arithmetic_identity']['pass_all'] and proof['public_arithmetic_identity']['cases']==3366
+          assert proof['comparator_complex_phase_proof']['pass_all'] and proof['comparator_complex_phase_proof']['actual_emitted_gate_cases']==42672
+          assert proof['all_34_both_implementations_phase_proof']['pass_all'] and proof['all_34_both_implementations_phase_proof']['total_quantum_operator_basis_cases']==6732
+          m=proof['full_multipliers_complex_phase_proof']
+          for name in ('original_full','candidate_full'):
+              assert m[name]['pass_all'] and m[name]['full_residue_control_basis_cases']==128
+              assert m[name]['all_25_auxiliaries_clean'] and m[name]['exact_complex_output_phase_plus_one']
+              assert m[name]['quantum_source_gate_counts']==prior['prebackend_exact_quantum_gate_proofs']['whole_full_multiplier'][name]['quantum_source_gate_counts']
+          assert m['actual_signed_weighted_additions']==prior['prebackend_exact_quantum_gate_proofs']['whole_full_multiplier']['actual_signed_weighted_additions']
+          anchor=x['original_anchor_pair']
+          original_anchor=next(z for z in prior['matched_seed_pairs'] if z['seed']==8776)
+          assert anchor['seed']==8776
+          for variant in ('original','candidate'):
+              assert anchor[variant]['cz']==original_anchor[variant]['cz']
+              assert anchor[variant]['depth']==original_anchor[variant]['depth']
+          assert x['frozen_old_8776_native_anchor']=={
+              v:{k:original_anchor[v][k] for k in ('cz','depth')} for v in ('original','candidate')}
+          freshrows=x['fresh_seed_pairs']
+          assert len(freshrows)==8 and [z['seed'] for z in freshrows]==fresh
+          assert set(fresh).isdisjoint(prior['seeds'])
+          dc=[];dd=[]
+          for row in [anchor]+freshrows:
+              for v in ('original','candidate'):
+                  z=row[v]
+                  assert z['cz']>0 and z['depth']>0
+                  assert z['native_ops']['cz']==z['cz']
+                  assert z['device_width']==x['fez_target_num_qubits']
+                  assert z['native_size']>0 and z['compiler_seconds']>=0
+                  assert row[v+'_hardware_feasible']==(z['cz']<=800 and z['depth']<=2000)
+              cz=row['candidate']['cz']-row['original']['cz']
+              depth=row['candidate']['depth']-row['original']['depth']
+              assert row['candidate_minus_original']==dict(cz=cz,depth=depth)
+              assert row['both_native_resources_improved']==(cz<0 and depth<0)
+              if row['seed']!=8776:
+                  dc.append(cz);dd.append(depth)
+          s=x['fresh_holdout_summary']
+          assert s['fresh_pairs']==8 and s['anchor_8776_is_separate_and_not_counted']
+          assert s['anchor_original_and_selected_both_exact_historical'] and not s['historical_anchor_drift']
+          assert s['fresh_joint_cz_and_depth_improvement_seeds']==sum(a<0 and b<0 for a,b in zip(dc,dd))
+          assert s['fresh_cz_improvement_seeds']==sum(a<0 for a in dc)
+          assert s['fresh_depth_improvement_seeds']==sum(a<0 for a in dd)
+          assert s['fresh_median_paired_cz_delta']==statistics.median(dc)
+          assert s['fresh_median_paired_depth_delta']==statistics.median(dd)
+          assert s['fresh_min_paired_cz_delta']==min(dc) and s['fresh_max_paired_cz_delta']==max(dc)
+          assert s['fresh_min_paired_depth_delta']==min(dd) and s['fresh_max_paired_depth_delta']==max(dd)
+          assert s['frozen_rule_at_least_six_of_eight_joint']==(s['fresh_joint_cz_and_depth_improvement_seeds']>=6)
+          assert s['both_fresh_paired_medians_strictly_negative']==(statistics.median(dc)<0 and statistics.median(dd)<0)
+          assert s['fresh_holdout_per_base_pass']==(
+              s['anchor_original_and_selected_both_exact_historical'] and
+              s['frozen_rule_at_least_six_of_eight_joint'] and
+              s['both_fresh_paired_medians_strictly_negative'])
+          assert s['every_fresh_and_anchor_result_preserved']
+          assert s['all_fresh_and_anchor_compiles_fail_device_gate']
+          print('HOLDOUT FROZEN TWO-BASE ORIGINAL SOURCE AUDIT',b,
+                'fresh joint wins',s['fresh_joint_cz_and_depth_improvement_seeds'],'/8',
+                'med CZ',s['fresh_median_paired_cz_delta'],
+                'med depth',s['fresh_median_paired_depth_delta'],
+                'robust heldout',s['fresh_holdout_per_base_pass'],
+                '8776 exact archival target anchor',
+                'no QPU hardware all FAIL',flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-static-sign-fresh-holdout-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_static_sign_fresh_holdout_base*.log
+            results/ibm_shor35_static_sign_selector_fresh_holdout/qrr_n35_static_sign_fresh_holdout_base*.json
