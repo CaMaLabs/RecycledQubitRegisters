@@ -1,0 +1,212 @@
+name: Independently audit and preserve ORIGINAL N35 ideal phase 4/6/8 probability artifacts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-ideal-phase-4-6-8-original.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-preserve-n35-ideal-phase-widths-4-6-8-v1
+  cancel-in-progress: false
+
+jobs:
+  independent-source-artifact-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download original result artifacts from source CI run 39540677040 without rerunning mathematical projection
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39540677040
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-ideal-phase-468-base*-original
+          merge-multiple: true
+          path: _original_468_result_artifacts
+      - name: Copy exact unmodified two source run JSONs only
+        run: |
+          set -euo pipefail
+          mkdir -p results/n35_ideal_phase_precision
+          for base in 2 8; do
+            file="qrr_n35_ideal_phase_precision_base${base}.json"
+            hits="$(find _original_468_result_artifacts -type f -name "$file" | wc -l)"
+            test "$hits" -eq 1 || { echo "Required exactly one original $file, got $hits"; exit 1; }
+            find _original_468_result_artifacts -type f -name "$file" -exec cp -t results/n35_ideal_phase_precision/ '{}' +
+          done
+      - name: Independently recompute all 4 6 8 bit probabilities from interference and public CF/GCD, original 4bit anchor and no QPU
+        run: |
+          python3 - <<'PY'
+          import json,math,cmath
+          from pathlib import Path
+
+          expected={
+            2:{4:(0.0,.375,0.0,.375,.09375),
+               6:(.11475625909649509,.6175934628134934,.03125,.59375,.083984375),
+               8:(.29255219303964786,.7971511026718785,.0546875,.65625,.0833740234375)},
+            8:{4:(.5,.75,.125,.6875,.25),
+               6:(.5,.75,.21875,.828125,.25),
+               8:(.5,.75,.2734375,.89453125,.25)}
+          }
+          def public_qs(k,M):
+              if k==0:return []
+              a,b=k,M
+              digits=[]
+              while b:
+                  q,r=divmod(a,b);digits.append(q);a,b=b,r
+              pn2,pn1=0,1;qn2,qn1=1,0
+              qs=[]
+              for digit in digits:
+                  pn=digit*pn1+pn2;qn=digit*qn1+qn2
+                  if 2<=qn<=M and qn not in qs:qs.append(qn)
+                  pn2,pn1=pn1,pn;qn2,qn1=qn1,qn
+              assert M//math.gcd(k,M) in qs
+              return qs
+          def witness(base,r):
+              if r<2 or r%2 or pow(base,r,35)!=1:
+                  return None
+              h=pow(base,r//2,35)
+              gm,gp=math.gcd(h-1,35),math.gcd(h+1,35)
+              valid=sorted(v for v in (gm,gp) if 1<v<35 and 35%v==0)
+              if not valid:return None
+              return dict(r=r,proper_factor=valid[0],complementary_factor=35//valid[0],
+                          public_half_power=h,gcd_minus=gm,gcd_plus=gp)
+          for base in (2,8):
+              src=Path(f'results/n35_ideal_phase_precision/qrr_n35_ideal_phase_precision_base{base}.json')
+              d=json.loads(src.read_text())
+              old=json.loads(Path(f'results/n35_ideal_iqft_outcome/qrr_n35_ideal_iqft_outcomes_base{base}.json').read_text())
+              assert d['revision']=='qrr-n35-ideal-phase-precision-4-6-8-v1-20261020'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistration']=='docs/QRR_N35_IDEAL_PHASE_PRECISION_4_6_8_PREREG.md'
+              assert d['N']==35 and d['public_base']==base and d['frozen_phase_bits']==[4,6,8]
+              assert d['status']=='ALL_4_6_8_IDEAL_QFT_AND_PUBLIC_SCORING_PROOFS_PASS' and d['success']
+              assert d['no_backend_token_or_device_access'] and d['no_free_or_paid_quantum_runtime']
+              assert d['actual_qpu_jobs']==0 and d['actual_device_shots']==0
+              assert not d['new_six_eight_bit_circuit_built'] and not d['recycled_phase_control_implemented']
+              assert d['source_work_bits']==6 and d['source_clean_ancillas']==25
+              assert d['identical_fixed_public_r_ceiling']==64
+              assert d['historical_original_fourbit_receipt']==f'results/n35_ideal_iqft_outcome/qrr_n35_ideal_iqft_outcomes_base{base}.json'
+              ps=d['verified_existing_4bit_full_source']
+              assert ps['pass_all'] and ps['quantum_complex_output_phase_plus_one']
+              assert ps['all_25_ancillas_returned_zero']
+              for v in ('original','selected'):
+                  proof=ps['full_power_source_proofs'][v]
+                  assert proof['pass_all'] and proof['exact_source_operator_basis_cases']==1024
+                  assert proof['exact_complex_phase_plus_one'] and proof['all_25_helpers_clean']
+                  assert ps['terminal_readout_checks'][v]['pass_all']
+              cls=d['public_classical_prechecks']
+              assert cls['gcd_base_minus_one']==math.gcd(base-1,35)
+              assert cls['gcd_base_plus_one']==math.gcd(base+1,35)
+              assert cls['pre_qft_immediate_factor']==(7 if base==8 else None)
+              assert cls['pre_qft_classical_gcd_preempts_quantum_claim']==(base==8)
+              assert d['descriptive_order_after_all_scores']['public_power_bruteforce_first_r']==(12 if base==2 else 4)
+              assert d['descriptive_order_after_all_scores']['order_not_used_in_model_or_postprocessing']
+              assert set(d['outcomes_by_phase_bits'])=={'4','6','8'}
+              for bits in (4,6,8):
+                  M=2**bits;block=d['outcomes_by_phase_bits'][str(bits)]
+                  amp=block['quantum_probability_verification'];score=block['public_postprocessing']
+                  assert block['outcome_case_count']==M
+                  assert len(block['outcomes'])==M
+                  assert amp['pass_all'] and amp['phase_bits']==bits and amp['precision_M']==M
+                  assert amp['actual_complex_amplitude_comparison_count']==M*64
+                  assert amp['independent_Numpy_complex_FFT']
+                  assert amp['independent_literal_Qiskit_QFTGate_Statevector']
+                  assert amp['max_complex_amplitude_difference']<1e-9
+                  assert abs(amp['phase_probability_sum']-1)<1e-10
+                  assert amp['hypothetical_WIDE_logical_qubits']==bits+31
+                  assert amp['not_an_implemented_six_or_eight_bit_source']==(bits!=4)
+                  assert amp['no_adaptive_or_recycled_control_circuit_constructed']
+                  assert amp['hypothetical_WIDE_device_CZ_unknown'] and amp['hypothetical_WIDE_device_depth_unknown']
+                  assert amp['public_controlled_power_schedule']==[pow(base,2**i,35) for i in range(bits)]
+                  assert amp['public_nonidentity_controlled_power_count']==sum(pow(base,2**i,35)!=1 for i in range(bits))
+                  public_work=[pow(base,c,35) for c in range(M)]
+                  assert amp['public_work_values_for_every_control']==public_work
+                  # Independent explicit finite complex interference calculation, no numpy / Qiskit.
+                  groups={}
+                  for c,y in enumerate(public_work):
+                      groups.setdefault(y,[]).append(c)
+                  probabilities=[]
+                  for k in range(M):
+                      value=sum(abs(sum(
+                          cmath.exp(-2j*math.pi*k*c/M)/M for c in cs))**2
+                          for cs in groups.values())
+                      probabilities.append(value)
+                  assert abs(sum(probabilities)-1)<1e-10
+                  assert len(block['exact_ideal_probabilities_all_outcomes'])==M
+                  strict=[];bounded=[]
+                  for k,row in enumerate(block['outcomes']):
+                      assert row['phase_outcome_k']==k and row['phase_fraction']==f'{k}/{M}'
+                      assert abs(row['ideal_probability']-probabilities[k])<1e-9
+                      assert abs(row['ideal_probability']-block['exact_ideal_probabilities_all_outcomes'][k])<1e-14
+                      q=public_qs(k,M)
+                      for policy_name,max_m,hits in (
+                          ('strict_CF_convergents',1,strict),
+                          ('bounded_public_multiples_upto_four',4,bounded)):
+                          policy=row[policy_name]
+                          assert policy['continued_fraction_denominators']==q
+                          expected_attempts=[]
+                          seen=set();first=None
+                          for v in q:
+                              for m in range(1,max_m+1):
+                                  r=v*m
+                                  if r>64 or r in seen:continue
+                                  seen.add(r)
+                                  expected_attempts.append(dict(q=v,multiplier=m,r=r,even=r%2==0))
+                                  match=witness(base,r)
+                                  if match and first is None:
+                                      first=dict(continued_fraction_q=v,public_multiple=m,**match)
+                          assert policy['all_public_r_candidates']==expected_attempts
+                          assert policy['public_even_exponent_tests']==sum(x['even'] for x in expected_attempts)
+                          assert policy['first_success']==first
+                          assert policy['success']==(first is not None)
+                          assert policy['input_measurement_zero_policy']==(k==0)
+                          hits.append(int(policy['success']))
+                      if bits==4:
+                          original_row=old['ideal_phase_outcome_rows'][k]
+                          assert abs(row['ideal_probability']-original_row['ideal_probability'])<1e-9
+                          for name in ('strict_CF_convergents','bounded_public_multiples_upto_four'):
+                              assert row[name]==original_row[name]
+                  assert not strict[0] and not bounded[0]
+                  quantities=[
+                    sum(p*h for p,h in zip(probabilities,strict)),
+                    sum(p*h for p,h in zip(probabilities,bounded)),
+                    sum(strict)/M,sum(bounded)/M,probabilities[0]]
+                  observations=[
+                    score['strict_CF_ideal_success_probability'],
+                    score['bounded_4_public_multiples_ideal_success_probability'],
+                    score['strict_cf_uniform_k_baseline'],
+                    score['bounded_cf_uniform_k_baseline'],
+                    score['zero_phase_outcome_probability']]
+                  assert all(abs(a-b)<1e-9 for a,b in zip(quantities,observations))
+                  assert all(abs(a-b)<1e-9 for a,b in zip(observations,expected[base][bits]))
+                  assert score['strict_successful_k']==[k for k,hit in enumerate(strict) if hit]
+                  assert score['bounded_successful_k']==[k for k,hit in enumerate(bounded) if hit]
+                  assert score['strictly_public_candidate_max_r']==64
+                  assert score['no_true_order_input'] and score['every_k_including_zero_scored']
+                  if bits==4:
+                      orig=old['postprocessing_score']
+                      assert abs(observations[0]-orig['strict_cf_ideal_success_probability'])<1e-9
+                      assert abs(observations[1]-orig['bounded_4_public_multiples_ideal_success_probability'])<1e-9
+                  print('ORIGINAL RESULTS INDEPENDENTLY VERIFIED N35 base',base,'bits',bits,
+                      'M',M,'strict',observations[0],'bounded',observations[1],
+                      'uniform strict',observations[2],'uniform bounded',observations[3],
+                      'P(k0)',observations[4],
+                      'all k public policy and interference checked; NO QPU')
+          print('TWO full original N35 4/6/8 IDEAL projection artifacts fully audited; both source science jobs passed, original post-audit case typo documented')
+          PY
+      - name: Commit byte-preserved original numerical JSON artifacts, no new computation or scoring changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/n35_ideal_phase_precision/qrr_n35_ideal_phase_precision_base2.json
+          git add results/n35_ideal_phase_precision/qrr_n35_ideal_phase_precision_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently audit and preserve N35 b4/b6/b8 ideal QFT amplitude and public factor scores (b4 source only), zero QPU'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
