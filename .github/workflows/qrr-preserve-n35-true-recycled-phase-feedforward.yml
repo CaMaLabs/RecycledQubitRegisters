@@ -1,4 +1,5 @@
 name: Independently audit/archive ORIGINAL N35 true one-phase recycled dynamic source and all ideal branches
+# Audit-only key correction: source nested structure actual_qpu_jobs (lowercase); original science artifacts and all physical tests unchanged.
 
 on:
   push:
@@ -97,7 +98,7 @@ jobs:
                   assert sc['all_conditional_feedback_gates_inspected']
                   assert sc['exact_feedback_angles_and_prior_classical_bit_controls']
                   assert sc['IQFT_measurements_lsb_first_in_classical_output']
-                  assert sc['actual_QPU_jobs']==0
+                  assert sc['actual_qpu_jobs']==0
                   assert sc['physical_ISA_native_cost_not_computed']
                   schedule=sc['public_stage_build_sequence']
                   assert len(schedule)==bits
