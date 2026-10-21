@@ -1,0 +1,160 @@
+name: QRR N35 fourbit wide IQFT ideal distribution and public factor scoring ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-fourbit-ideal-outcome-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-fourbit-ideal-outcome-v1-zeroqpu
+  cancel-in-progress: false
+
+jobs:
+  both-public-bases:
+    name: N35 ideal QFT fourbit source + 1024 amplitude + public CF scoring base ${{ matrix.base }} NO QPU
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pinned Qiskit for LOCAL mathematical statevector proof only
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Frozen prereg, source integrity and hard ZERO-QPU audit
+        run: |
+          test -s docs/QRR_N35_FOUR_BIT_IDEAL_OUTCOME_FACTOR_SCORING_PREREG.md
+          python -m py_compile hardware/qrr_n35_four_bit_ideal_outcome_scoring.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path("hardware/qrr_n35_four_bit_ideal_outcome_scoring.py").read_text()
+          for forbidden in ["QiskitRuntimeService(","service.backend(","generate_preset_pass_manager(","SamplerV2(","EstimatorV2(","backend.run(","job.submit(","job.run("]:
+              assert forbidden not in s, forbidden
+          assert "Statevector(state).evolve(" in s
+          assert "QFTGate(4).inverse()" in s
+          assert "exhaustive_four_controlled_power_phase" in s
+          assert "continued_fraction_denominators" in s and "factor_from_r" in s
+          assert "public_classical_baseline" in s and "pre_qft_immediate_factor" in s
+          assert "score_policy" in s and "descriptive_actual_order" in s
+          for b in [2,8]:
+              assert Path(f"results/ibm_shor35_four_phase_iqft_readout/qrr_n35_four_phase_iqft_base{b}.json").exists()
+          print("ZERO quantum runtime calls in experiment; original four-wide source receipts available")
+          PY
+      - name: Reprove actual 35-qubit four-power source + IQFT then independently cross-check exact ideal amplitudes
+        env:
+          BASE: ${{ matrix.base }}
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 660s python -u hardware/qrr_n35_four_bit_ideal_outcome_scoring.py --base "$BASE" |
+            tee "qrr_n35_fourbit_outcome_base${BASE}.log"
+      - name: Independent arithmetic+probability+source-receipt and classical-baseline audit
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,math,os
+          from pathlib import Path
+          base=int(os.environ['BASE'])
+          f=Path(f"results/n35_ideal_iqft_outcome/qrr_n35_ideal_iqft_outcomes_base{base}.json")
+          d=json.loads(f.read_text())
+          assert d["revision"]=="qrr-n35-fourbit-ideal-iqft-factor-scoring-v1-20261020"
+          assert d["research_lead"]=="Chase Lunsford / CaMaLabs"
+          assert d["preregistered_document"]=="docs/QRR_N35_FOUR_BIT_IDEAL_OUTCOME_FACTOR_SCORING_PREREG.md"
+          assert d["public_base"]==base and d["N"]==35
+          assert d["status"]=="ALL_IDEAL_OUTCOME_AND_CLASSICAL_SCORE_PROOFS_PASS" and d["success"]
+          assert d["source_phase_qubits"]==4 and d["source_work_qubits"]==6
+          assert d["original_source_ancillas"]==25
+          assert d["actual_quantum_device_shots"]==0 and d["external_qpu_calls"]==0
+          assert not d["free_quantum_runtime_used"] and not d["paid_quantum_runtime_used"]
+          assert d["no_IBM_backend_or_quantum_runtime_access"]
+          assert d["postprocessing_derived_from_only_public_a_N_k"] and not d["postprocessing_uses_true_order"]
+          source=d["previous_source_exact_gate_verification"]
+          assert source["pass_all"] and source["quantum_complex_output_phase_plus_one"]
+          assert source["all_25_ancillas_returned_zero"] and source["original_selected_identical_public_power_action"]
+          for v in ("original","selected"):
+              p=source["full_power_source_proofs"][v]
+              assert p["pass_all"] and p["exact_source_operator_basis_cases"]==1024
+              assert p["exact_complex_phase_plus_one"] and p["all_25_helpers_clean"]
+              z=source["terminal_readout_checks"][v]
+              assert z["pass_all"] and z["exactly_four_terminal_measurements"]
+              assert z["initial_work_basis_one"] and z["four_H_initial_phase_preparations"]
+          ideal=d["independent_analytic_statevector_check"]
+          assert ideal["pass_all"] and ideal["all_1024_complex_amplitudes_checked"]
+          assert ideal["independent_qiskit_statevector_amplitude_check"]
+          assert ideal["max_complex_amplitude_difference"]<1e-9
+          assert ideal["distribution_normalized"] and abs(ideal["total_probability"]-1)<1e-10
+          assert ideal["public_power_work_values_for_16_controls"]==[pow(base,c,35) for c in range(16)]
+          rows=d["ideal_phase_outcome_rows"]
+          assert len(rows)==16 and [r["phase_outcome_k"] for r in rows]==list(range(16))
+          probs=[r["ideal_probability"] for r in rows]
+          assert all(math.isfinite(x) and x>=-1e-10 for x in probs)
+          assert abs(sum(probs)-1)<1e-10
+          # Independent double-sum interference form (same ideal 35q source map).
+          for k,p in enumerate(probs):
+              independent=0.0
+              for c in range(16):
+                  for c0 in range(16):
+                      if pow(base,c,35)==pow(base,c0,35):
+                          independent+=math.cos(2*math.pi*k*(c-c0)/16)/256
+              assert abs(independent-p)<1e-9,(base,k,p,independent)
+          def evaluate_scored(rows,name):
+              return sum(r["ideal_probability"]*int(r[name]["success"]) for r in rows)
+          score=d["postprocessing_score"]
+          assert score["all_16_outcomes_scored_without_postselection"]
+          assert score["phase_outcome_zero_never_scores_success"]
+          assert not score["postprocessor_uses_true_period"]
+          assert not rows[0]["strict_CF_convergents"]["success"]
+          assert not rows[0]["bounded_public_multiples_upto_four"]["success"]
+          assert abs(score["strict_cf_ideal_success_probability"]-evaluate_scored(rows,"strict_CF_convergents"))<1e-10
+          assert abs(score["bounded_4_public_multiples_ideal_success_probability"]-evaluate_scored(rows,"bounded_public_multiples_upto_four"))<1e-10
+          for row in rows:
+              strict=row["strict_CF_convergents"]
+              bounded=row["bounded_public_multiples_upto_four"]
+              assert strict["continued_fraction_denominators"]==bounded["continued_fraction_denominators"]
+              assert strict["success"]<=bounded["success"]
+              assert all(2<=q<=16 for q in strict["continued_fraction_denominators"])
+              for name,policy,max_m in [("strict",strict,1),("bounded",bounded,4)]:
+                  for z in policy["all_public_r_candidates"]:
+                      assert z["r"]==z["q"]*z["multiplier"] and 1<=z["multiplier"]<=max_m
+                      assert z["r"]<=64
+                  if policy["success"]:
+                      w=policy["first_success"]
+                      assert w and 1<w["proper_factor"]<35 and 35%w["proper_factor"]==0
+                      assert w["public_multiple"]<=max_m
+                      assert w["r"]%2==0 and pow(base,w["r"],35)==1
+                      h=pow(base,w["r"]//2,35)
+                      assert math.gcd(h-1,35)==w["gcd_minus"]
+                      assert math.gcd(h+1,35)==w["gcd_plus"]
+          assert abs(score["strict_cf_uniform_fourbit_k_baseline"]-
+                      sum(r["strict_CF_convergents"]["success"] for r in rows)/16)<1e-10
+          assert abs(score["bounded_cf_uniform_fourbit_k_baseline"]-
+                      sum(r["bounded_public_multiples_upto_four"]["success"] for r in rows)/16)<1e-10
+          classical=d["public_classical_baseline"]
+          assert classical["gcd_base_minus_one"]==math.gcd(base-1,35)
+          assert classical["gcd_base_plus_one"]==math.gcd(base+1,35)
+          assert classical["pre_qft_classical_gcd_preempts_quantum_claim"]==(base==8)
+          assert classical["pre_qft_immediate_factor"]==(7 if base==8 else None)
+          assert d["descriptive_post_scoring_order_verification"]["actual_order"]==(12 if base==2 else 4)
+          print("PASS independent original ideal readout + 1024 complex state amplitudes, 16 actual outcomes, CF strict/bounded and classical GCD base",base)
+          print("Strict CF ideal success",score["strict_cf_ideal_success_probability"],
+                "bounded CF ideal success",score["bounded_4_public_multiples_ideal_success_probability"],
+                "uniform strict",score["strict_cf_uniform_fourbit_k_baseline"],
+                "classical gcd preempt",classical["pre_qft_classical_gcd_preempts_quantum_claim"],
+                "all source phase+1; NO IBM backend/QPU")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-fourbit-ideal-outcome-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_fourbit_outcome_base*.log
+            results/n35_ideal_iqft_outcome/qrr_n35_ideal_iqft_outcomes_base*.json
