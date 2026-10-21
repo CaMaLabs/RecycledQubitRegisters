@@ -1,0 +1,155 @@
+name: QRR N35 TRUE one recycled phase qubit dynamic IQFT zero QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-true-recycled-phase-feedforward-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-true-one-phase-recycled-dynamic-iqft-v1-zeroqpu
+  cancel-in-progress: false
+
+jobs:
+  both-public-bases:
+    name: public base ${{ matrix.base }} one recycled phase qubit + 4/6/8 ideal dynamic readout ZERO QPU
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Qiskit for gate-source and ideal CPU branch validation only
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Prereg, original signed source receipts, actual conditional feedforward and strict ZERO QPU audit
+        run: |
+          test -s docs/QRR_N35_TRUE_RECYCLED_PHASE_FEEDFORWARD_PREREG.md
+          python -m py_compile hardware/qrr_n35_true_recycled_phase_feedforward.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_true_recycled_phase_feedforward.py').read_text()
+          for x in ('QiskitRuntimeService(','service.backend(','generate_preset_pass_manager(',
+                    'SamplerV2(','EstimatorV2(','backend.run(','job.submit(','job.run('):
+              assert x not in s,x
+          for x in ('with qc.if_test(','qc.measure(phase,','qc.reset(phase)',
+                    'qc.h(phase)','previous.exhaustive_full_multiplier_phases',
+                    'all_outcomes_match_independent_wide_IQFT',
+                    'previous.exhaustive_full_multiplier_phases(qc,r,power)',
+                    'bits-1-t','bits-1-j'):
+              assert x in s,x
+          assert 'BITS=(4,6,8)' in s and 'ROOT=Path("results/n35_true_recycled_phase_feedforward")' in s
+          for b in (2,8):
+              for path in (
+                  f'results/n35_ideal_phase_precision/qrr_n35_ideal_phase_precision_base{b}.json',
+                  f'results/ibm_shor35_static_sign_selector/qrr_n35_static_sign_selector_base{b}.json'):
+                  assert Path(path).exists(),path
+          print('Precommitted 32q / one-phase dynamic Qiskit source, no backend or hardware calls')
+          PY
+      - name: Prove six distinct actual arithmetic stage operators and dynamic source, then exact 4/6/8 full branch outcome probabilities
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 780s python -u hardware/qrr_n35_true_recycled_phase_feedforward.py --base "$BASE" |
+            tee "qrr_n35_true_recycled_phase_base${BASE}.log"
+      - name: Audit exact source arithmetic gate proof, dynamic control-flow, 336 outcomes vs original independently verified WIDE QFT
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,math,os
+          from pathlib import Path
+          base=int(os.environ['BASE'])
+          d=json.loads(Path(f'results/n35_true_recycled_phase_feedforward/qrr_n35_recycled_phase_feedforward_base{base}.json').read_text())
+          wide=json.loads(Path(f'results/n35_ideal_phase_precision/qrr_n35_ideal_phase_precision_base{base}.json').read_text())
+          assert d['revision']=='qrr-n35-one-true-recycled-phase-qubit-adaptive-iqft-v1-20261020'
+          assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert d['preregistration']=='docs/QRR_N35_TRUE_RECYCLED_PHASE_FEEDFORWARD_PREREG.md'
+          assert d['N']==35 and d['public_base']==base and d['phase_precision_bits']==[4,6,8]
+          assert d['success'] and d['status']=='ALL_4_6_8_TRUE_RECYCLED_DYNAMIC_SOURCE_AND_IDEAL_BRANCH_PROOFS_PASS'
+          assert d['source_logical_qubits']==32 and d['one_reused_phase_qubit']
+          assert d['original_six_work_plus_25_helpers_preserved']
+          assert d['IBM_backend_or_token_not_used'] and d['native_compiler_not_called']
+          assert d['actual_QPU_jobs']==0 and d['actual_device_shots']==0
+          assert not d['quantum_runtime_used']
+          m=d['original_public_source_selection_exact']
+          assert m['pass_all'] and m['original_public_34_source_rows_exact']
+          assert m['positive_even_signed_odd'] and len(m['selection'])==34
+          assert d['verified_distinct_nonidentity_public_powers']==[2,4,8,11,16,29]
+          assert d['total_distinct_stage_gate_semantic_cases']==768
+          for power in (2,4,8,11,16,29):
+              s=d['phase_exact_stage_proofs'][str(power)]
+              assert s['public_multiplier']==power and s['source_logical_qubits']==32
+              assert s['actual_gate_basis_cases']==128 and s['all_25_ancilla_bits_clean']
+              assert s['complex_output_phase_plus_one'] and s['correct_public_residue_modular_multiplication']
+              assert s['true_emitted_source_instruction_count']>0
+              assert set(s['source_gate_counts'])<=set(('x','cx','ccx','rccx'))
+          assert d['total_exact_phase_outcome_probabilities_compared']==336
+          assert set(d['full_results'])=={'4','6','8'}
+          for bits in (4,6,8):
+              block=d['full_results'][str(bits)]
+              assert block['phase_precision_bits']==bits and block['public_base']==base
+              assert block['quantum_gate_source_built_32_qubits']
+              assert not block['real_hardware_runtime_or_native_compilation']
+              source=block['dynamic_gate_source_structure']
+              assert source['pass_all'] and source['source_quantum_qubits']==32
+              assert source['source_classical_result_bits']==bits
+              assert source['actual_midcircuit_measure_count']==bits
+              assert source['actual_midcircuit_reset_count']==bits-1
+              assert source['actual_H_count']==2*bits
+              assert source['actual_classical_if_else_feedback_count']==bits*(bits-1)//2
+              assert source['exact_feedback_angles_and_prior_classical_bit_controls']
+              assert source['IQFT_measurements_lsb_first_in_classical_output']
+              assert source['physical_ISA_native_cost_not_computed']
+              assert source['actual_QPU_jobs']==0
+              stages=source['public_stage_build_sequence']
+              assert [z['stage_j'] for z in stages]==list(range(bits-1,-1,-1))
+              assert [z['public_multiplier'] for z in stages]==[pow(base,1<<j,35) for j in range(bits-1,-1,-1)]
+              for stage in stages:
+                  assert stage['measured_classical_index']==bits-1-stage['stage_j']
+                  assert stage['weighted_mod35_additions']==(0 if stage['identity_stage_skipped'] else 12)
+              instrument=block['ideal_conditional_quantum_branch_proof']
+              assert instrument['pass_all'] and instrument['source_phase_qubits_reused']==1
+              assert instrument['work_register_bits']==6 and instrument['input_work_basis_one']
+              assert instrument['full_work_coherence_preserved'] and instrument['branch_result_count']==1<<bits
+              assert instrument['all_histories_enumerated'] and instrument['all_stage_probability_sums_equal_one']
+              assert abs(instrument['final_probability_sum']-1)<1e-10
+              assert instrument['not_an_end_to_end_Qiskit_dynamic_shot_simulation']
+              expected=wide['outcomes_by_phase_bits'][str(bits)]['exact_ideal_probabilities_all_outcomes']
+              observed=block['all_outcome_probabilities_recycled']
+              assert len(observed)==len(expected)==1<<bits
+              assert block['archived_wide_ideal_reference_probabilities']==expected
+              assert block['exact_recycled_vs_wide_probability_comparisons']==len(expected)
+              actual_diff=max(abs(x-y) for x,y in zip(observed,expected))
+              assert abs(actual_diff-block['maximum_absolute_probability_difference'])<1e-14
+              assert actual_diff<1e-9
+              assert block['all_outcomes_match_independent_wide_IQFT']
+              strict=sum(p*int(row['strict_CF_convergents']['success'])
+                        for p,row in zip(observed,wide['outcomes_by_phase_bits'][str(bits)]['outcomes']))
+              bounded=sum(p*int(row['bounded_public_multiples_upto_four']['success'])
+                        for p,row in zip(observed,wide['outcomes_by_phase_bits'][str(bits)]['outcomes']))
+              assert abs(strict-block['public_factor_strict_ideal_probability'])<1e-9
+              assert abs(bounded-block['public_factor_bounded_ideal_probability'])<1e-9
+              assert block['public_factor_policy_unchanged']
+              print('TRUE DYNAMIC SOURCE+IDEAL BRANCH VERIFIED',base,bits,
+                 '32 source QUBITS,',bits,'CLASSICAL readout bits,',
+                 bits-1,'true phase resets,',bits*(bits-1)//2,'conditional feedforward P,',
+                 len(expected),'matched IQFT ideal outputs max_delta',actual_diff,
+                 'strict',strict,'bounded',bounded,'ZERO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-true-recycled-phase-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_true_recycled_phase_base*.log
+            results/n35_true_recycled_phase_feedforward/qrr_n35_recycled_phase_feedforward_base*.json
