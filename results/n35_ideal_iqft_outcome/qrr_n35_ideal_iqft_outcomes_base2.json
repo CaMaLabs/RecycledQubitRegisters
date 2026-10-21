@@ -1,0 +1,2534 @@
+{
+  "revision": "qrr-n35-fourbit-ideal-iqft-factor-scoring-v1-20261020",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "computed_utc": "2026-10-21T03:33:06.871743+00:00",
+  "preregistered_document": "docs/QRR_N35_FOUR_BIT_IDEAL_OUTCOME_FACTOR_SCORING_PREREG.md",
+  "N": 35,
+  "public_base": 2,
+  "scope": "ideal 4bit WIDE quantum phase readout with public CF proper factor tests",
+  "original_previous_readout_receipt": "results/ibm_shor35_four_phase_iqft_readout/qrr_n35_four_phase_iqft_base2.json",
+  "source_phase_qubits": 4,
+  "source_work_qubits": 6,
+  "original_source_ancillas": 25,
+  "external_qpu_calls": 0,
+  "free_quantum_runtime_used": false,
+  "paid_quantum_runtime_used": false,
+  "no_IBM_backend_or_quantum_runtime_access": true,
+  "actual_quantum_device_shots": 0,
+  "output_case_count": 16,
+  "postprocessing_uses_true_order": false,
+  "success": true,
+  "status": "ALL_IDEAL_OUTCOME_AND_CLASSICAL_SCORE_PROOFS_PASS",
+  "previous_source_exact_gate_verification": {
+    "pass_all": true,
+    "analytic_qft_unitary": {
+      "pass_all": true,
+      "phase_qubits": 4,
+      "actual_QFT_and_inverse_exact_DFT_matrices": true,
+      "actual_inverse_times_QFT_identity": true,
+      "analytic_QFT_inverse_matrix_16x16_checked": true,
+      "H4_uniform_positive_16_amplitudes": true,
+      "numeric_tolerance": 1e-09
+    },
+    "prebackend_public_arithmetic": {
+      "public_arithmetic_identity": {
+        "pass_all": true,
+        "all_public_k_1_through_34": true,
+        "six_bit_disabled_identity": true,
+        "enabled_values_all_0_through_34": true,
+        "cases": 3366,
+        "underflow_cleanup_exact_for_every_valid_k": true
+      },
+      "rccx_inverse_operator_identity": {
+        "pass_all": true,
+        "public_boolean_or_cases": 4,
+        "actual_rccx_inverse_operator_product_identity": true,
+        "inverse_gate_name": "rccx"
+      },
+      "comparator_exact_complex_phase": {
+        "pass_all": true,
+        "actual_emitted_gate_cases": 42672,
+        "unique_signed_comparator_circuits": 240,
+        "zero_workspace_after_every_case": true,
+        "correct_x_control_and_flag": true,
+        "final_complex_phase_plus_one_every_case": true,
+        "source_gate_distribution": {
+          "cx": 252,
+          "ccx": 240,
+          "x": 5400,
+          "rccx": 2004
+        }
+      },
+      "both_signed_positive_k_1_to_34_exact_complex_phase": {
+        "pass_all": true,
+        "total_quantum_operator_basis_cases": 6732,
+        "per_public_k": [
+          {
+            "public_k": 1,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 25,
+                "x": 142,
+                "rccx": 58,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 25,
+                "x": 182,
+                "rccx": 50,
+                "ccx": 11
+              }
+            }
+          },
+          {
+            "public_k": 2,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 23,
+                "x": 142,
+                "rccx": 50,
+                "ccx": 11
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 28,
+                "x": 222,
+                "rccx": 58,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 3,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "ccx": 12,
+                "x": 142,
+                "rccx": 50
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 16,
+                "x": 82,
+                "ccx": 7,
+                "rccx": 30
+              }
+            }
+          },
+          {
+            "public_k": 4,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 21,
+                "rccx": 42,
+                "x": 102,
+                "ccx": 10
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 25,
+                "rccx": 56,
+                "x": 82,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 5,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "rccx": 58,
+                "x": 142,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 23,
+                "rccx": 50,
+                "x": 92,
+                "ccx": 11
+              }
+            }
+          },
+          {
+            "public_k": 6,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 24,
+                "x": 142,
+                "rccx": 50,
+                "ccx": 11
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "x": 132,
+                "rccx": 58,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 7,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "rccx": 56,
+                "x": 172,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 21,
+                "rccx": 42,
+                "x": 82,
+                "ccx": 10
+              }
+            }
+          },
+          {
+            "public_k": 8,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 19,
+                "rccx": 36,
+                "x": 102,
+                "ccx": 9
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "rccx": 54,
+                "x": 112,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 9,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "x": 142,
+                "rccx": 58,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 24,
+                "x": 132,
+                "rccx": 50,
+                "ccx": 11
+              }
+            }
+          },
+          {
+            "public_k": 10,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 24,
+                "x": 142,
+                "rccx": 50,
+                "ccx": 11
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "x": 172,
+                "rccx": 58,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 11,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "rccx": 54,
+                "x": 162,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 19,
+                "rccx": 36,
+                "x": 82,
+                "ccx": 9
+              }
+            }
+          },
+          {
+            "public_k": 12,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 22,
+                "rccx": 42,
+                "x": 122,
+                "ccx": 10
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "rccx": 56,
+                "x": 102,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 13,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "rccx": 58,
+                "x": 162,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 24,
+                "rccx": 50,
+                "x": 112,
+                "ccx": 11
+              }
+            }
+          },
+          {
+            "public_k": 14,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 25,
+                "x": 162,
+                "rccx": 50,
+                "ccx": 11
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "x": 152,
+                "rccx": 58,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 15,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 28,
+                "x": 192,
+                "rccx": 56,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 22,
+                "x": 102,
+                "rccx": 42,
+                "ccx": 10
+              }
+            }
+          },
+          {
+            "public_k": 16,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 17,
+                "rccx": 32,
+                "x": 102,
+                "ccx": 8
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "rccx": 52,
+                "x": 132,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 17,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "x": 142,
+                "rccx": 58,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 25,
+                "x": 162,
+                "rccx": 50,
+                "ccx": 11
+              }
+            }
+          },
+          {
+            "public_k": 18,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 24,
+                "x": 142,
+                "rccx": 50,
+                "ccx": 11
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 28,
+                "x": 202,
+                "rccx": 58,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 19,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "x": 152,
+                "rccx": 52,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 17,
+                "x": 82,
+                "rccx": 32,
+                "ccx": 8
+              }
+            }
+          },
+          {
+            "public_k": 20,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 22,
+                "rccx": 42,
+                "x": 112,
+                "ccx": 10
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "rccx": 56,
+                "x": 92,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 21,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "rccx": 58,
+                "x": 152,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 24,
+                "rccx": 50,
+                "x": 102,
+                "ccx": 11
+              }
+            }
+          },
+          {
+            "public_k": 22,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 25,
+                "x": 152,
+                "rccx": 50,
+                "ccx": 11
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "x": 142,
+                "rccx": 58,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 23,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 28,
+                "rccx": 56,
+                "x": 182,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 22,
+                "rccx": 42,
+                "x": 92,
+                "ccx": 10
+              }
+            }
+          },
+          {
+            "public_k": 24,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 20,
+                "rccx": 36,
+                "x": 112,
+                "ccx": 9
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "rccx": 54,
+                "x": 122,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 25,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "x": 152,
+                "rccx": 58,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 25,
+                "x": 142,
+                "rccx": 50,
+                "ccx": 11
+              }
+            }
+          },
+          {
+            "public_k": 26,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 25,
+                "x": 152,
+                "rccx": 50,
+                "ccx": 11
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 28,
+                "x": 182,
+                "rccx": 58,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 27,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 28,
+                "x": 172,
+                "rccx": 54,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 20,
+                "x": 92,
+                "rccx": 36,
+                "ccx": 9
+              }
+            }
+          },
+          {
+            "public_k": 28,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 23,
+                "rccx": 42,
+                "x": 132,
+                "ccx": 10
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 27,
+                "rccx": 56,
+                "x": 112,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 29,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 28,
+                "rccx": 58,
+                "x": 172,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 25,
+                "rccx": 50,
+                "x": 122,
+                "ccx": 11
+              }
+            }
+          },
+          {
+            "public_k": 30,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "x": 172,
+                "rccx": 50,
+                "ccx": 11
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 28,
+                "x": 162,
+                "rccx": 58,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 31,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 29,
+                "x": 202,
+                "rccx": 56,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 23,
+                "x": 112,
+                "rccx": 42,
+                "ccx": 10
+              }
+            }
+          },
+          {
+            "public_k": 32,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 17,
+                "rccx": 30,
+                "x": 102,
+                "ccx": 7
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 28,
+                "rccx": 50,
+                "x": 142,
+                "ccx": 12
+              }
+            }
+          },
+          {
+            "public_k": 33,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "x": 142,
+                "rccx": 58,
+                "ccx": 12
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 26,
+                "x": 182,
+                "rccx": 50,
+                "ccx": 11
+              }
+            }
+          },
+          {
+            "public_k": 34,
+            "positive": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 24,
+                "x": 142,
+                "rccx": 50,
+                "ccx": 11
+              }
+            },
+            "signed": {
+              "pass_all": true,
+              "cases": 99,
+              "phase_exact_plus_one": true,
+              "all_aux_clean": true,
+              "actual_source_gates": {
+                "cx": 29,
+                "x": 222,
+                "rccx": 58,
+                "ccx": 12
+              }
+            }
+          }
+        ],
+        "exact_complex_phase_plus_one": true,
+        "all_aux_clean": true,
+        "every_public_constant_both_branches_verified": true
+      },
+      "original_single_multiplier_complex_phase": {
+        "pass_all": true,
+        "original_full": {
+          "pass_all": true,
+          "full_residue_control_basis_cases": 128,
+          "output_equals_public_modular_multiplication": true,
+          "all_25_auxiliaries_clean": true,
+          "control_unmodified": true,
+          "disabled_invalid_states_identity": true,
+          "exact_complex_output_phase_plus_one": true,
+          "quantum_source_gate_counts": {
+            "cx": 303,
+            "rccx": 596,
+            "x": 1738,
+            "ccx": 160
+          },
+          "source_instruction_count": 2797
+        },
+        "candidate_full": {
+          "pass_all": true,
+          "full_residue_control_basis_cases": 128,
+          "output_equals_public_modular_multiplication": true,
+          "all_25_auxiliaries_clean": true,
+          "control_unmodified": true,
+          "disabled_invalid_states_identity": true,
+          "exact_complex_output_phase_plus_one": true,
+          "quantum_source_gate_counts": {
+            "cx": 275,
+            "rccx": 520,
+            "x": 1508,
+            "ccx": 148
+          },
+          "source_instruction_count": 2451
+        },
+        "actual_signed_weighted_additions": 6,
+        "actual_positive_weighted_additions": 6,
+        "weighted_public_constants": [
+          2,
+          4,
+          8,
+          16,
+          32,
+          29,
+          17,
+          34,
+          33,
+          31,
+          27,
+          19
+        ],
+        "selection_for_each_weight": [
+          "positive",
+          "positive",
+          "positive",
+          "positive",
+          "positive",
+          "signed",
+          "signed",
+          "positive",
+          "signed",
+          "signed",
+          "signed",
+          "signed"
+        ],
+        "no_true_order_or_orbit_or_factor_inputs": true,
+        "both_source_circuits_32_qubits": true,
+        "both_return_all_25_ancillas_clean": true,
+        "both_full_input_complex_phases_exactly_plus_one": true
+      },
+      "frozen_original_34_source_gate_vectors_exact_match": true,
+      "frozen_original_34_sign_choices_exact_match": true,
+      "original_single_multiplier_source_exact_match": true,
+      "original_single_multiplier_source_qubits": 32,
+      "all_proofs_pass_before_any_IBM_backend_access": true
+    },
+    "full_power_source_proofs": {
+      "original": {
+        "pass_all": true,
+        "exact_source_operator_basis_cases": 1024,
+        "all_16_phase_control_patterns": true,
+        "all_64_sixbit_residues": true,
+        "invalid_work_inputs_identity": true,
+        "all_25_helpers_clean": true,
+        "phase_inputs_unchanged": true,
+        "exact_complex_phase_plus_one": true,
+        "source_gate_histogram": {
+          "cx": 1213,
+          "rccx": 2374,
+          "x": 6890,
+          "ccx": 648
+        },
+        "source_instruction_count": 11125,
+        "source_logical_qubits": 35
+      },
+      "selected": {
+        "pass_all": true,
+        "exact_source_operator_basis_cases": 1024,
+        "all_16_phase_control_patterns": true,
+        "all_64_sixbit_residues": true,
+        "invalid_work_inputs_identity": true,
+        "all_25_helpers_clean": true,
+        "phase_inputs_unchanged": true,
+        "exact_complex_phase_plus_one": true,
+        "source_gate_histogram": {
+          "cx": 1107,
+          "rccx": 2082,
+          "x": 5970,
+          "ccx": 602
+        },
+        "source_instruction_count": 9761,
+        "source_logical_qubits": 35
+      }
+    },
+    "terminal_readout_checks": {
+      "original": {
+        "pass_all": true,
+        "source_qubits": 35,
+        "source_classical_bits": 4,
+        "exactly_four_terminal_measurements": true,
+        "four_H_initial_phase_preparations": true,
+        "initial_work_basis_one": true,
+        "public_multiplier_schedule": [
+          2,
+          4,
+          16,
+          11
+        ],
+        "older_power_block_unmodified": true,
+        "neither_recycled_phase_nor_semiclassical_feedback": true
+      },
+      "selected": {
+        "pass_all": true,
+        "source_qubits": 35,
+        "source_classical_bits": 4,
+        "exactly_four_terminal_measurements": true,
+        "four_H_initial_phase_preparations": true,
+        "initial_work_basis_one": true,
+        "public_multiplier_schedule": [
+          2,
+          4,
+          16,
+          11
+        ],
+        "older_power_block_unmodified": true,
+        "neither_recycled_phase_nor_semiclassical_feedback": true
+      }
+    },
+    "source_circuit_sizes": {
+      "original": {
+        "readout_source_qubits": 35,
+        "readout_classical_bits": 4,
+        "original_power_source_size": 11125,
+        "complete_readout_source_size": 11135
+      },
+      "selected": {
+        "readout_source_qubits": 35,
+        "readout_classical_bits": 4,
+        "original_power_source_size": 9761,
+        "complete_readout_source_size": 9771
+      }
+    },
+    "full_source_1024_case_proof_per_variant": true,
+    "original_selected_identical_public_power_action": true,
+    "quantum_complex_output_phase_plus_one": true,
+    "all_25_ancillas_returned_zero": true
+  },
+  "independent_analytic_statevector_check": {
+    "pass_all": true,
+    "independent_qiskit_statevector_amplitude_check": true,
+    "all_1024_complex_amplitudes_checked": true,
+    "max_complex_amplitude_difference": 9.770486520536568e-16,
+    "distribution_normalized": true,
+    "total_probability": 0.9999999999999999,
+    "four_phase_bits": true,
+    "six_work_bits": true,
+    "trace_out_all_64_work_states": true,
+    "h4_prepared_phase_amplitude": 0.25,
+    "public_power_work_values_for_16_controls": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      29,
+      23,
+      11,
+      22,
+      9,
+      18,
+      1,
+      2,
+      4,
+      8
+    ],
+    "original_and_selected_ideal_output_identical": true,
+    "quantum_device_measurements": 0,
+    "proof_uses_no_private_factors_or_multiplicative_order": true
+  },
+  "ideal_phase_outcome_rows": [
+    {
+      "phase_outcome_k": 0,
+      "phase_fraction": "0/16",
+      "ideal_probability": 0.09375,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [],
+        "public_even_exponent_tests": 0,
+        "all_public_r_candidates": [],
+        "input_measurement_zero_policy": true
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [],
+        "public_even_exponent_tests": 0,
+        "all_public_r_candidates": [],
+        "input_measurement_zero_policy": true
+      }
+    },
+    {
+      "phase_outcome_k": 1,
+      "phase_fraction": "1/16",
+      "ideal_probability": 0.0625,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          16
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          16
+        ],
+        "public_even_exponent_tests": 4,
+        "all_public_r_candidates": [
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 2,
+            "r": 32,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 3,
+            "r": 48,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 4,
+            "r": 64,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 2,
+      "phase_fraction": "2/16",
+      "ideal_probability": 0.03125,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          8
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 8,
+            "multiplier": 1,
+            "r": 8,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          8
+        ],
+        "public_even_exponent_tests": 4,
+        "all_public_r_candidates": [
+          {
+            "q": 8,
+            "multiplier": 1,
+            "r": 8,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 2,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 3,
+            "r": 24,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 4,
+            "r": 32,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 3,
+      "phase_fraction": "3/16",
+      "ideal_probability": 0.06250000000000003,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          5,
+          16
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 5,
+            "multiplier": 1,
+            "r": 5,
+            "even": false
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          5,
+          16
+        ],
+        "public_even_exponent_tests": 6,
+        "all_public_r_candidates": [
+          {
+            "q": 5,
+            "multiplier": 1,
+            "r": 5,
+            "even": false
+          },
+          {
+            "q": 5,
+            "multiplier": 2,
+            "r": 10,
+            "even": true
+          },
+          {
+            "q": 5,
+            "multiplier": 3,
+            "r": 15,
+            "even": false
+          },
+          {
+            "q": 5,
+            "multiplier": 4,
+            "r": 20,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 2,
+            "r": 32,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 3,
+            "r": 48,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 4,
+            "r": 64,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 4,
+      "phase_fraction": "4/16",
+      "ideal_probability": 0.09375,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          4
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 4,
+            "multiplier": 1,
+            "r": 4,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": true,
+        "first_success": {
+          "continued_fraction_q": 4,
+          "public_multiple": 3,
+          "r": 12,
+          "proper_factor": 5,
+          "complementary_factor": 7,
+          "public_half_power": 29,
+          "gcd_minus": 7,
+          "gcd_plus": 5
+        },
+        "continued_fraction_denominators": [
+          4
+        ],
+        "public_even_exponent_tests": 4,
+        "all_public_r_candidates": [
+          {
+            "q": 4,
+            "multiplier": 1,
+            "r": 4,
+            "even": true
+          },
+          {
+            "q": 4,
+            "multiplier": 2,
+            "r": 8,
+            "even": true
+          },
+          {
+            "q": 4,
+            "multiplier": 3,
+            "r": 12,
+            "even": true
+          },
+          {
+            "q": 4,
+            "multiplier": 4,
+            "r": 16,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 5,
+      "phase_fraction": "5/16",
+      "ideal_probability": 0.06249999999999997,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          3,
+          16
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 3,
+            "multiplier": 1,
+            "r": 3,
+            "even": false
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": true,
+        "first_success": {
+          "continued_fraction_q": 3,
+          "public_multiple": 4,
+          "r": 12,
+          "proper_factor": 5,
+          "complementary_factor": 7,
+          "public_half_power": 29,
+          "gcd_minus": 7,
+          "gcd_plus": 5
+        },
+        "continued_fraction_denominators": [
+          3,
+          16
+        ],
+        "public_even_exponent_tests": 6,
+        "all_public_r_candidates": [
+          {
+            "q": 3,
+            "multiplier": 1,
+            "r": 3,
+            "even": false
+          },
+          {
+            "q": 3,
+            "multiplier": 2,
+            "r": 6,
+            "even": true
+          },
+          {
+            "q": 3,
+            "multiplier": 3,
+            "r": 9,
+            "even": false
+          },
+          {
+            "q": 3,
+            "multiplier": 4,
+            "r": 12,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 2,
+            "r": 32,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 3,
+            "r": 48,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 4,
+            "r": 64,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 6,
+      "phase_fraction": "6/16",
+      "ideal_probability": 0.03125,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          2,
+          3,
+          8
+        ],
+        "public_even_exponent_tests": 2,
+        "all_public_r_candidates": [
+          {
+            "q": 2,
+            "multiplier": 1,
+            "r": 2,
+            "even": true
+          },
+          {
+            "q": 3,
+            "multiplier": 1,
+            "r": 3,
+            "even": false
+          },
+          {
+            "q": 8,
+            "multiplier": 1,
+            "r": 8,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": true,
+        "first_success": {
+          "continued_fraction_q": 3,
+          "public_multiple": 4,
+          "r": 12,
+          "proper_factor": 5,
+          "complementary_factor": 7,
+          "public_half_power": 29,
+          "gcd_minus": 7,
+          "gcd_plus": 5
+        },
+        "continued_fraction_denominators": [
+          2,
+          3,
+          8
+        ],
+        "public_even_exponent_tests": 8,
+        "all_public_r_candidates": [
+          {
+            "q": 2,
+            "multiplier": 1,
+            "r": 2,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 2,
+            "r": 4,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 3,
+            "r": 6,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 4,
+            "r": 8,
+            "even": true
+          },
+          {
+            "q": 3,
+            "multiplier": 1,
+            "r": 3,
+            "even": false
+          },
+          {
+            "q": 3,
+            "multiplier": 3,
+            "r": 9,
+            "even": false
+          },
+          {
+            "q": 3,
+            "multiplier": 4,
+            "r": 12,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 2,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 3,
+            "r": 24,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 4,
+            "r": 32,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 7,
+      "phase_fraction": "7/16",
+      "ideal_probability": 0.06250000000000004,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          2,
+          7,
+          16
+        ],
+        "public_even_exponent_tests": 2,
+        "all_public_r_candidates": [
+          {
+            "q": 2,
+            "multiplier": 1,
+            "r": 2,
+            "even": true
+          },
+          {
+            "q": 7,
+            "multiplier": 1,
+            "r": 7,
+            "even": false
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          2,
+          7,
+          16
+        ],
+        "public_even_exponent_tests": 10,
+        "all_public_r_candidates": [
+          {
+            "q": 2,
+            "multiplier": 1,
+            "r": 2,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 2,
+            "r": 4,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 3,
+            "r": 6,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 4,
+            "r": 8,
+            "even": true
+          },
+          {
+            "q": 7,
+            "multiplier": 1,
+            "r": 7,
+            "even": false
+          },
+          {
+            "q": 7,
+            "multiplier": 2,
+            "r": 14,
+            "even": true
+          },
+          {
+            "q": 7,
+            "multiplier": 3,
+            "r": 21,
+            "even": false
+          },
+          {
+            "q": 7,
+            "multiplier": 4,
+            "r": 28,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 2,
+            "r": 32,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 3,
+            "r": 48,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 4,
+            "r": 64,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 8,
+      "phase_fraction": "8/16",
+      "ideal_probability": 0.09375,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          2
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 2,
+            "multiplier": 1,
+            "r": 2,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          2
+        ],
+        "public_even_exponent_tests": 4,
+        "all_public_r_candidates": [
+          {
+            "q": 2,
+            "multiplier": 1,
+            "r": 2,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 2,
+            "r": 4,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 3,
+            "r": 6,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 4,
+            "r": 8,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 9,
+      "phase_fraction": "9/16",
+      "ideal_probability": 0.062499999999999944,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          2,
+          7,
+          16
+        ],
+        "public_even_exponent_tests": 2,
+        "all_public_r_candidates": [
+          {
+            "q": 2,
+            "multiplier": 1,
+            "r": 2,
+            "even": true
+          },
+          {
+            "q": 7,
+            "multiplier": 1,
+            "r": 7,
+            "even": false
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          2,
+          7,
+          16
+        ],
+        "public_even_exponent_tests": 10,
+        "all_public_r_candidates": [
+          {
+            "q": 2,
+            "multiplier": 1,
+            "r": 2,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 2,
+            "r": 4,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 3,
+            "r": 6,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 4,
+            "r": 8,
+            "even": true
+          },
+          {
+            "q": 7,
+            "multiplier": 1,
+            "r": 7,
+            "even": false
+          },
+          {
+            "q": 7,
+            "multiplier": 2,
+            "r": 14,
+            "even": true
+          },
+          {
+            "q": 7,
+            "multiplier": 3,
+            "r": 21,
+            "even": false
+          },
+          {
+            "q": 7,
+            "multiplier": 4,
+            "r": 28,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 2,
+            "r": 32,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 3,
+            "r": 48,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 4,
+            "r": 64,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 10,
+      "phase_fraction": "10/16",
+      "ideal_probability": 0.03125,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          2,
+          3,
+          8
+        ],
+        "public_even_exponent_tests": 2,
+        "all_public_r_candidates": [
+          {
+            "q": 2,
+            "multiplier": 1,
+            "r": 2,
+            "even": true
+          },
+          {
+            "q": 3,
+            "multiplier": 1,
+            "r": 3,
+            "even": false
+          },
+          {
+            "q": 8,
+            "multiplier": 1,
+            "r": 8,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": true,
+        "first_success": {
+          "continued_fraction_q": 3,
+          "public_multiple": 4,
+          "r": 12,
+          "proper_factor": 5,
+          "complementary_factor": 7,
+          "public_half_power": 29,
+          "gcd_minus": 7,
+          "gcd_plus": 5
+        },
+        "continued_fraction_denominators": [
+          2,
+          3,
+          8
+        ],
+        "public_even_exponent_tests": 8,
+        "all_public_r_candidates": [
+          {
+            "q": 2,
+            "multiplier": 1,
+            "r": 2,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 2,
+            "r": 4,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 3,
+            "r": 6,
+            "even": true
+          },
+          {
+            "q": 2,
+            "multiplier": 4,
+            "r": 8,
+            "even": true
+          },
+          {
+            "q": 3,
+            "multiplier": 1,
+            "r": 3,
+            "even": false
+          },
+          {
+            "q": 3,
+            "multiplier": 3,
+            "r": 9,
+            "even": false
+          },
+          {
+            "q": 3,
+            "multiplier": 4,
+            "r": 12,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 2,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 3,
+            "r": 24,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 4,
+            "r": 32,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 11,
+      "phase_fraction": "11/16",
+      "ideal_probability": 0.06250000000000003,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          3,
+          16
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 3,
+            "multiplier": 1,
+            "r": 3,
+            "even": false
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": true,
+        "first_success": {
+          "continued_fraction_q": 3,
+          "public_multiple": 4,
+          "r": 12,
+          "proper_factor": 5,
+          "complementary_factor": 7,
+          "public_half_power": 29,
+          "gcd_minus": 7,
+          "gcd_plus": 5
+        },
+        "continued_fraction_denominators": [
+          3,
+          16
+        ],
+        "public_even_exponent_tests": 6,
+        "all_public_r_candidates": [
+          {
+            "q": 3,
+            "multiplier": 1,
+            "r": 3,
+            "even": false
+          },
+          {
+            "q": 3,
+            "multiplier": 2,
+            "r": 6,
+            "even": true
+          },
+          {
+            "q": 3,
+            "multiplier": 3,
+            "r": 9,
+            "even": false
+          },
+          {
+            "q": 3,
+            "multiplier": 4,
+            "r": 12,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 2,
+            "r": 32,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 3,
+            "r": 48,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 4,
+            "r": 64,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 12,
+      "phase_fraction": "12/16",
+      "ideal_probability": 0.09375,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          4
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 4,
+            "multiplier": 1,
+            "r": 4,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": true,
+        "first_success": {
+          "continued_fraction_q": 4,
+          "public_multiple": 3,
+          "r": 12,
+          "proper_factor": 5,
+          "complementary_factor": 7,
+          "public_half_power": 29,
+          "gcd_minus": 7,
+          "gcd_plus": 5
+        },
+        "continued_fraction_denominators": [
+          4
+        ],
+        "public_even_exponent_tests": 4,
+        "all_public_r_candidates": [
+          {
+            "q": 4,
+            "multiplier": 1,
+            "r": 4,
+            "even": true
+          },
+          {
+            "q": 4,
+            "multiplier": 2,
+            "r": 8,
+            "even": true
+          },
+          {
+            "q": 4,
+            "multiplier": 3,
+            "r": 12,
+            "even": true
+          },
+          {
+            "q": 4,
+            "multiplier": 4,
+            "r": 16,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 13,
+      "phase_fraction": "13/16",
+      "ideal_probability": 0.06249999999999989,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          5,
+          16
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 5,
+            "multiplier": 1,
+            "r": 5,
+            "even": false
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          5,
+          16
+        ],
+        "public_even_exponent_tests": 6,
+        "all_public_r_candidates": [
+          {
+            "q": 5,
+            "multiplier": 1,
+            "r": 5,
+            "even": false
+          },
+          {
+            "q": 5,
+            "multiplier": 2,
+            "r": 10,
+            "even": true
+          },
+          {
+            "q": 5,
+            "multiplier": 3,
+            "r": 15,
+            "even": false
+          },
+          {
+            "q": 5,
+            "multiplier": 4,
+            "r": 20,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 2,
+            "r": 32,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 3,
+            "r": 48,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 4,
+            "r": 64,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 14,
+      "phase_fraction": "14/16",
+      "ideal_probability": 0.03125,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          8
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 8,
+            "multiplier": 1,
+            "r": 8,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          8
+        ],
+        "public_even_exponent_tests": 4,
+        "all_public_r_candidates": [
+          {
+            "q": 8,
+            "multiplier": 1,
+            "r": 8,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 2,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 3,
+            "r": 24,
+            "even": true
+          },
+          {
+            "q": 8,
+            "multiplier": 4,
+            "r": 32,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    },
+    {
+      "phase_outcome_k": 15,
+      "phase_fraction": "15/16",
+      "ideal_probability": 0.06249999999999996,
+      "strict_CF_convergents": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          16
+        ],
+        "public_even_exponent_tests": 1,
+        "all_public_r_candidates": [
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      },
+      "bounded_public_multiples_upto_four": {
+        "success": false,
+        "first_success": null,
+        "continued_fraction_denominators": [
+          16
+        ],
+        "public_even_exponent_tests": 4,
+        "all_public_r_candidates": [
+          {
+            "q": 16,
+            "multiplier": 1,
+            "r": 16,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 2,
+            "r": 32,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 3,
+            "r": 48,
+            "even": true
+          },
+          {
+            "q": 16,
+            "multiplier": 4,
+            "r": 64,
+            "even": true
+          }
+        ],
+        "input_measurement_zero_policy": false
+      }
+    }
+  ],
+  "postprocessing_score": {
+    "strict_cf_ideal_success_probability": 0.0,
+    "bounded_4_public_multiples_ideal_success_probability": 0.375,
+    "strict_cf_uniform_fourbit_k_baseline": 0.0,
+    "bounded_cf_uniform_fourbit_k_baseline": 0.375,
+    "all_16_outcomes_scored_without_postselection": true,
+    "phase_outcome_zero_never_scores_success": true,
+    "postprocessor_uses_true_period": false,
+    "bounded_4_public_modular_exponent_search_not_strict_shor": true,
+    "strict_successful_outcomes": [],
+    "bounded_successful_outcomes": [
+      4,
+      5,
+      6,
+      10,
+      11,
+      12
+    ]
+  },
+  "public_classical_baseline": {
+    "gcd_base_minus_one": 1,
+    "gcd_base_plus_one": 1,
+    "pre_qft_immediate_factor": null,
+    "pre_qft_classical_gcd_preempts_quantum_claim": false,
+    "four_public_even_exponent_scan": [
+      {
+        "candidate_even_r": 2,
+        "result": null
+      },
+      {
+        "candidate_even_r": 4,
+        "result": null
+      },
+      {
+        "candidate_even_r": 6,
+        "result": null
+      },
+      {
+        "candidate_even_r": 8,
+        "result": null
+      }
+    ],
+    "classical_even_exponent_scan_finds_factor": false,
+    "classical_inputs_only": true,
+    "no_period_or_factors_used_to_choose_exponent_candidates": true
+  },
+  "descriptive_post_scoring_order_verification": {
+    "descriptive_only": true,
+    "actual_order": 12,
+    "first_modulus_70_search": true,
+    "strictly_not_used_for_CF_candidate_generation_or_probabilities": true
+  },
+  "postprocessing_derived_from_only_public_a_N_k": true,
+  "ideal_distribution_complete": true
+}
