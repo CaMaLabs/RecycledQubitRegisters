@@ -51,8 +51,10 @@ def source_proof(base):
         assert p["pass_all"] and p["exact_source_operator_basis_cases"]==1024
         assert p["all_25_helpers_clean"] and p["exact_complex_phase_plus_one"]
         assert p["source_gate_histogram"]==frozen["source_gate_histogram"]
-        assert rounds==historical["prebackend_phase_proofs"][
-            "four_power_schedule_exactly_frozen"] if False else True
+        prior_receipt=json.loads(Path(historical["original_frozen_four_power_block_receipt"]).read_text())
+        original_rounds_key="source_rounds_original" if variant=="original" else "source_rounds_selected"
+        assert rounds==prior_receipt["four_power_source_phase_proofs"][original_rounds_key]
+        assert [z["public_multiplier"] for z in rounds[:4]]==powers.public_schedule(base)
         readout_c,readout_check=readout.readout_circuit(power,regs,base,variant)
         assert readout_check["pass_all"]
         assert readout_check["exactly_four_terminal_measurements"]
