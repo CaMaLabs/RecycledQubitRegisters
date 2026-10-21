@@ -1,4 +1,5 @@
 name: QRR N35 TRUE one recycled phase qubit dynamic IQFT zero QPU
+# Preflight-only receipt-path correction to original powers.BASELINE_ARCHIVED; dynamic arithmetic/phase protocol unchanged.
 
 on:
   push:
@@ -49,7 +50,7 @@ jobs:
           for b in (2,8):
               for path in (
                   f'results/n35_ideal_phase_precision/qrr_n35_ideal_phase_precision_base{b}.json',
-                  f'results/ibm_shor35_static_sign_selector/qrr_n35_static_sign_selector_base{b}.json'):
+                  f'results/ibm_shor35_static_gate_sign_selector/qrr_n35_static_sign_selector_base{b}.json'):
                   assert Path(path).exists(),path
           print('Precommitted 32q / one-phase dynamic Qiskit source, no backend or hardware calls')
           PY
