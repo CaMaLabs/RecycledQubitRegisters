@@ -1,0 +1,137 @@
+name: Independently archive original Fez dynamic N35 b4/6/8 CPU ISA capability and costs
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-true-dynamic-fez-isa-original.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-preserve-dynamic-fez-isa-20261021-v1
+  cancel-in-progress: false
+
+jobs:
+  independent-original-result-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download both ORIGINAL science-run 6-arm results, WITHOUT backend reads or recompilation
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39729198098
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-dynamic-isa-base*-original
+          merge-multiple: true
+          path: _original_dynamic_isa_artifacts
+      - name: Preserve precisely two original JSON bytes
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_true_recycled_dynamic_fez_isa
+          for base in 2 8; do
+            f="qrr_n35_dynamic_isa_base${base}.json"
+            count="$(find _original_dynamic_isa_artifacts -type f -name "$f" | wc -l)"
+            test "$count" -eq 1 || { echo "Not exactly one original source receipt for $f: $count"; exit 1; }
+            find _original_dynamic_isa_artifacts -type f -name "$f" -exec cp -t results/ibm_shor35_true_recycled_dynamic_fez_isa/ '{}' +
+          done
+      - name: Independent immutable original 6-arm measurements and honest semantic caveat
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          numeric={
+            2:{4:(29813,69008,6),6:(43613,99325,15),8:(59446,138604,28)},
+            8:{4:(14499,34259,6),6:(14499,34259,15),8:(14499,34259,28)}
+          }
+          for b in (2,8):
+              p=Path(f'results/ibm_shor35_true_recycled_dynamic_fez_isa/qrr_n35_dynamic_isa_base{b}.json')
+              d=json.loads(p.read_text())
+              old=json.loads(Path(f'results/n35_true_recycled_phase_feedforward/qrr_n35_recycled_phase_feedforward_base{b}.json').read_text())
+              assert d['revision']=='qrr-n35-dynamic-fez-readonly-native-lowerability-v1-20261021'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistration']=='docs/QRR_N35_TRUE_RECYCLED_PHASE_DYNAMIC_FEZ_ISA_PREREG.md'
+              assert d['N']==35 and d['public_base']==b and d['phase_precisions']==[4,6,8]
+              assert d['source_true_recycled_phase_qubits']==1 and d['source_logical_qubits']==32
+              assert d['original_arithmetic_order_not_injected'] and d['private_factors_not_used']
+              assert d['hardware_target_name']=='ibm_fez'
+              assert d['transpile_optimization_level']==1 and d['transpile_seed']==8776
+              assert d['read_only_backend_metadata_only'] and d['no_ibm_runtime_primitives']
+              assert d['qpu_jobs_submitted']==0 and d['hardware_shots']==0
+              assert not d['free_or_paid_qpu_runtime_used']
+              assert d['physical_feasibility_native_cz_limit']==800
+              assert d['physical_feasibility_native_depth_limit']==2000
+              assert d['study_completed'] and d['success']
+              assert d['status']=='SOURCE_AND_CPU_TARGET_SUPPORT_STUDY_COMPLETE'
+              prep=d['before_backend_source_validation']
+              assert prep['original_archived_reference_valid']
+              assert prep['original_unmodified_public_source_selection']
+              assert prep['six_distinct_stage_phase_proof_cases_from_original_receipt']==768
+              assert old['total_distinct_stage_gate_semantic_cases']==768
+              assert prep['original_ideal_adaptive_outcomes_from_archived_source']==336
+              assert old['total_exact_phase_outcome_probabilities_compared']==336
+              assert prep['no_new_source_stage_proof_reexecution_claimed']
+              assert set(prep['source_gate_structures_exact'])=={'4','6','8'}
+              target=d['backend_target_read_only_snapshot']
+              assert target['reported_qubits']==156 and target['target_metadata_only_no_hardware_job']
+              ops=target['supported_target_instruction_names']
+              assert 'if_else' in ops and 'measure' in ops and 'reset' in ops and 'cz' in ops
+              cap=target['dynamic_capability_names_present']
+              assert all(cap[k] for k in ('if_else','measure','reset','cz','rz','sx'))
+              assert d['summary']['accepted_native_compiles']==3
+              assert d['summary']['rejected_native_compiles']==0
+              assert d['summary']['structurally_certified_dynamic_compiles']==0
+              assert d['summary']['full_dynamic_lowerability_per_base_certified'] is False
+              assert d['summary']['backend_declares_required_dynamic_isa_instructions'] is True
+              assert set(d['per_precision'])=={'4','6','8'}
+              for bits in (4,6,8):
+                  row=d['per_precision'][str(bits)]
+                  sc=prep['source_gate_structures_exact'][str(bits)]
+                  rc=old['full_results'][str(bits)]['dynamic_gate_source_structure']
+                  assert sc['source_operation_counts']==rc['actual_Qiskit_dynamic_gate_operation_counts']
+                  assert sc['source_structure_matches_immutable_original']
+                  assert sc['archived_independent_ideal_outcomes_matched']==1<<bits
+                  assert row['original_source_operation_counts']==sc['source_operation_counts']
+                  assert row['original_dynamic_structure_preserved_before_compile']
+                  assert row['bits']==bits and row['source_quantum_qubits']==32
+                  assert row['source_classical_bits']==bits
+                  assert row['compiler_acceptance'] and row['native_costs_available']
+                  assert row['status']=='COMPILED_UNCERTIFIED_DYNAMIC_SEMANTICS'
+                  cz,depth,feedback=numeric[b][bits]
+                  assert row['native_cz']==cz and row['native_depth']==depth
+                  assert row['native_operation_counts']['cz']==cz
+                  assert row['native_operation_counts']['if_else']==feedback
+                  assert row['native_operation_counts']['measure']==bits
+                  assert row['native_operation_counts']['reset']==bits-1
+                  assert row['compiled_isa_width']==156
+                  assert not row['native_hardware_gate_pass']
+                  assert row['classical_feedback_structurally_preserved']
+                  assert not row['classical_feedback_semantics_certified']
+                  examine=row['full_compiled_dynamic_semantics_inspection']
+                  assert examine['compiler_preserved_source_feedback']
+                  assert not examine['classical_feedforward_semantics_certified']
+                  assert examine['problems'],(b,bits,examine)
+                  assert not examine['physical_feedback_latency_verified']
+                  assert examine['physical_device_execution_supported_not_proven']
+                  assert row['runtime_submissions']==0
+                  print('ORIGINAL AUDIT',b,'precision',bits,
+                    'source 32q',bits,'clbits, full if_else',feedback,'CZ',cz,'depth',depth,
+                    'COMPILED but phase semantics NOT CERTIFIED',
+                    'problems=',examine['problems'][:4],'NO QPU')
+          print('SUCCESS: independently archived 2 original genuine source-run JSONs, all six CPU ISA compiles, limitations explicit; ZERO quantum hardware')
+          PY
+      - name: Git commit both UNMODIFIED original numerical source artifacts only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_true_recycled_dynamic_fez_isa/qrr_n35_dynamic_isa_base2.json
+          git add results/ibm_shor35_true_recycled_dynamic_fez_isa/qrr_n35_dynamic_isa_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently preserve true recycled N35 6-arm IBM Fez native CPU dynamic ISA support, semantic uncertainty, failed QPU resource gate'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
