@@ -1,0 +1,1639 @@
+{
+  "revision": "qrr-n35-fez-compiled-classical-feedback-phase-operator-v1-20261021",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "timestamp_utc": "2026-10-22T05:47:16.379159+00:00",
+  "preregistration": "docs/QRR_N35_TRUE_RECYCLED_DYNAMIC_FEEDBACK_PHASE_PREREG.md",
+  "public_N": 35,
+  "public_base": 8,
+  "phase_widths": [
+    4,
+    6,
+    8
+  ],
+  "compiler_target_backend": "ibm_fez",
+  "compiler_opt": 1,
+  "compiler_seed": 8776,
+  "source_one_recycled_phase_qubit": true,
+  "source_quantum_qubits": 32,
+  "physical_preflight_max_native_cz": 800,
+  "physical_preflight_max_native_depth": 2000,
+  "private_factors_used": false,
+  "true_order_injected": false,
+  "observed_real_quantum_jobs": 0,
+  "zero_ibm_free_or_paid_qpu_runtime": true,
+  "no_runtime_job_submissions": true,
+  "compiled_feedback_proofs": {
+    "4": {
+      "bits": 4,
+      "source_quantum_qubits": 32,
+      "source_classical_result_bits": 4,
+      "status": "NATIVE_DYNAMIC_FEEDBACK_PHASE_NOT_CERTIFIED",
+      "native_phase_branch_operators_certified": false,
+      "historical_native_counts_reproduced": true,
+      "no_hardware_run": true,
+      "compiler_acceptance": true,
+      "compiled_native_cz": 14499,
+      "compiled_native_depth": 34259,
+      "native_ops": {
+        "sx": 27405,
+        "rz": 14941,
+        "cz": 14499,
+        "x": 125,
+        "if_else": 6,
+        "measure": 4,
+        "reset": 3
+      },
+      "compiled_qubit_width": 156,
+      "compiled_classical_width": 4,
+      "compile_elapsed_seconds": 0.3242009540000055,
+      "actual_native_conditional_operators": {
+        "pass_all": false,
+        "original_classical_feedback_count": 6,
+        "emitted_compiled_if_else_count": 6,
+        "all_native_condition_body_operators_proved": true,
+        "measurement_classical_targets": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "measured_physical_phase_positions": [
+          91,
+          91,
+          86,
+          85
+        ],
+        "reset_physical_phase_positions": [
+          91,
+          91,
+          86
+        ],
+        "conditional_physical_phase_positions": [
+          [
+            91
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ]
+        ],
+        "recycled_phase_single_compiled_physical_wire": false,
+        "unique_compiled_phase_locations": [
+          85,
+          86,
+          91
+        ],
+        "dynamic_operation_counts": {
+          "sx": 27405,
+          "rz": 14941,
+          "cz": 14499,
+          "x": 125,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "fully_certified_prior_classical_measurement_conditions": true,
+        "branch_global_phase_equivalence_is_not_physical_noise_validation": true,
+        "native_device_fidelity_or_feedback_latency_not_measured": true,
+        "problems": [
+          "compiled phase operations map to multiple physical wires; reuse not independently certified"
+        ],
+        "conditional_phase_unitaries": [
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 2,
+            "earlier_stage_t": 3,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 1,
+            "earlier_stage_t": 3,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 1,
+            "earlier_stage_t": 2,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.086835766330224,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.39269908169872414,
+            "stage_j": 0,
+            "earlier_stage_t": 3,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.551115123125783e-17,
+            "conditional_branch_global_phase_radians": -4.739934906993976e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 0,
+            "earlier_stage_t": 2,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 2,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 2,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 0,
+            "earlier_stage_t": 1,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          }
+        ]
+      },
+      "device_cz_depth_feasibility": false
+    },
+    "6": {
+      "bits": 6,
+      "source_quantum_qubits": 32,
+      "source_classical_result_bits": 6,
+      "status": "NATIVE_DYNAMIC_FEEDBACK_PHASE_NOT_CERTIFIED",
+      "native_phase_branch_operators_certified": false,
+      "historical_native_counts_reproduced": true,
+      "no_hardware_run": true,
+      "compiler_acceptance": true,
+      "compiled_native_cz": 14499,
+      "compiled_native_depth": 34259,
+      "native_ops": {
+        "sx": 27409,
+        "rz": 14949,
+        "cz": 14499,
+        "x": 125,
+        "if_else": 15,
+        "measure": 6,
+        "reset": 5
+      },
+      "compiled_qubit_width": 156,
+      "compiled_classical_width": 6,
+      "compile_elapsed_seconds": 0.3344070850000094,
+      "actual_native_conditional_operators": {
+        "pass_all": false,
+        "original_classical_feedback_count": 15,
+        "emitted_compiled_if_else_count": 15,
+        "all_native_condition_body_operators_proved": true,
+        "measurement_classical_targets": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "measured_physical_phase_positions": [
+          91,
+          91,
+          91,
+          91,
+          86,
+          85
+        ],
+        "reset_physical_phase_positions": [
+          91,
+          91,
+          91,
+          91,
+          86
+        ],
+        "conditional_physical_phase_positions": [
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ]
+        ],
+        "recycled_phase_single_compiled_physical_wire": false,
+        "unique_compiled_phase_locations": [
+          85,
+          86,
+          91
+        ],
+        "dynamic_operation_counts": {
+          "sx": 27409,
+          "rz": 14949,
+          "cz": 14499,
+          "x": 125,
+          "if_else": 15,
+          "measure": 6,
+          "reset": 5
+        },
+        "fully_certified_prior_classical_measurement_conditions": true,
+        "branch_global_phase_equivalence_is_not_physical_noise_validation": true,
+        "native_device_fidelity_or_feedback_latency_not_measured": true,
+        "problems": [
+          "compiled phase operations map to multiple physical wires; reuse not independently certified"
+        ],
+        "conditional_phase_unitaries": [
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 4,
+            "earlier_stage_t": 5,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 3,
+            "earlier_stage_t": 5,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 3,
+            "earlier_stage_t": 4,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.086835766330224,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.39269908169872414,
+            "stage_j": 2,
+            "earlier_stage_t": 5,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.551115123125783e-17,
+            "conditional_branch_global_phase_radians": -4.739934906993976e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 2,
+            "earlier_stage_t": 4,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 2,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 2,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 2,
+            "earlier_stage_t": 3,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.1850105367549055,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.19634954084936207,
+            "stage_j": 1,
+            "earlier_stage_t": 5,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 1.1443916996305594e-16,
+            "conditional_branch_global_phase_radians": 8.980873840670943e-17,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.086835766330224,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -0.39269908169872414,
+            "stage_j": 1,
+            "earlier_stage_t": 4,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.551115123125783e-17,
+            "conditional_branch_global_phase_radians": -4.739934906993976e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 2,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 2,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 1,
+            "earlier_stage_t": 3,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 3,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 3,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 1,
+            "earlier_stage_t": 2,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.234097921967246,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.09817477042468103,
+            "stage_j": 0,
+            "earlier_stage_t": 5,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 4.166779751183313e-18,
+            "conditional_branch_global_phase_radians": -8.049461269416283e-17,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.1850105367549055,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -0.19634954084936207,
+            "stage_j": 0,
+            "earlier_stage_t": 4,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 1.1443916996305594e-16,
+            "conditional_branch_global_phase_radians": 8.980873840670943e-17,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 2,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.086835766330224,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 2,
+            "expected_phase_angle": -0.39269908169872414,
+            "stage_j": 0,
+            "earlier_stage_t": 3,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.551115123125783e-17,
+            "conditional_branch_global_phase_radians": -4.739934906993976e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 3,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 3,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 0,
+            "earlier_stage_t": 2,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 4,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 4,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 0,
+            "earlier_stage_t": 1,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          }
+        ]
+      },
+      "device_cz_depth_feasibility": false
+    },
+    "8": {
+      "bits": 8,
+      "source_quantum_qubits": 32,
+      "source_classical_result_bits": 8,
+      "status": "NATIVE_DYNAMIC_FEEDBACK_PHASE_NOT_CERTIFIED",
+      "native_phase_branch_operators_certified": false,
+      "historical_native_counts_reproduced": true,
+      "no_hardware_run": true,
+      "compiler_acceptance": true,
+      "compiled_native_cz": 14499,
+      "compiled_native_depth": 34259,
+      "native_ops": {
+        "sx": 27413,
+        "rz": 14957,
+        "cz": 14499,
+        "x": 125,
+        "if_else": 28,
+        "measure": 8,
+        "reset": 7
+      },
+      "compiled_qubit_width": 156,
+      "compiled_classical_width": 8,
+      "compile_elapsed_seconds": 0.3719130949999965,
+      "actual_native_conditional_operators": {
+        "pass_all": false,
+        "original_classical_feedback_count": 28,
+        "emitted_compiled_if_else_count": 28,
+        "all_native_condition_body_operators_proved": true,
+        "measurement_classical_targets": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "measured_physical_phase_positions": [
+          91,
+          91,
+          91,
+          91,
+          91,
+          91,
+          86,
+          85
+        ],
+        "reset_physical_phase_positions": [
+          91,
+          91,
+          91,
+          91,
+          91,
+          91,
+          86
+        ],
+        "conditional_physical_phase_positions": [
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            91
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ],
+          [
+            86
+          ]
+        ],
+        "recycled_phase_single_compiled_physical_wire": false,
+        "unique_compiled_phase_locations": [
+          85,
+          86,
+          91
+        ],
+        "dynamic_operation_counts": {
+          "sx": 27413,
+          "rz": 14957,
+          "cz": 14499,
+          "x": 125,
+          "if_else": 28,
+          "measure": 8,
+          "reset": 7
+        },
+        "fully_certified_prior_classical_measurement_conditions": true,
+        "branch_global_phase_equivalence_is_not_physical_noise_validation": true,
+        "native_device_fidelity_or_feedback_latency_not_measured": true,
+        "problems": [
+          "compiled phase operations map to multiple physical wires; reuse not independently certified"
+        ],
+        "conditional_phase_unitaries": [
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 6,
+            "earlier_stage_t": 7,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 5,
+            "earlier_stage_t": 7,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 5,
+            "earlier_stage_t": 6,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.086835766330224,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.39269908169872414,
+            "stage_j": 4,
+            "earlier_stage_t": 7,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.551115123125783e-17,
+            "conditional_branch_global_phase_radians": -4.739934906993976e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 4,
+            "earlier_stage_t": 6,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 2,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 2,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 4,
+            "earlier_stage_t": 5,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.1850105367549055,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.19634954084936207,
+            "stage_j": 3,
+            "earlier_stage_t": 7,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 1.1443916996305594e-16,
+            "conditional_branch_global_phase_radians": 8.980873840670943e-17,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.086835766330224,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -0.39269908169872414,
+            "stage_j": 3,
+            "earlier_stage_t": 6,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.551115123125783e-17,
+            "conditional_branch_global_phase_radians": -4.739934906993976e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 2,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 2,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 3,
+            "earlier_stage_t": 5,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 3,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 3,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 3,
+            "earlier_stage_t": 4,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.234097921967246,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.09817477042468103,
+            "stage_j": 2,
+            "earlier_stage_t": 7,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 4.166779751183313e-18,
+            "conditional_branch_global_phase_radians": -8.049461269416283e-17,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.1850105367549055,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -0.19634954084936207,
+            "stage_j": 2,
+            "earlier_stage_t": 6,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 1.1443916996305594e-16,
+            "conditional_branch_global_phase_radians": 8.980873840670943e-17,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 2,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.086835766330224,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 2,
+            "expected_phase_angle": -0.39269908169872414,
+            "stage_j": 2,
+            "earlier_stage_t": 5,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.551115123125783e-17,
+            "conditional_branch_global_phase_radians": -4.739934906993976e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 3,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 3,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 2,
+            "earlier_stage_t": 4,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 4,
+            "condition_literal": true,
+            "physical_qubits": [
+              91
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 4,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 2,
+            "earlier_stage_t": 3,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.258641614573416,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.04908738521234052,
+            "stage_j": 1,
+            "earlier_stage_t": 7,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 1.3619336969305002e-19,
+            "conditional_branch_global_phase_radians": -1.597307531595593e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.234097921967246,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -0.09817477042468103,
+            "stage_j": 1,
+            "earlier_stage_t": 6,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 4.166779751183313e-18,
+            "conditional_branch_global_phase_radians": -8.049461269416283e-17,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 2,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.1850105367549055,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 2,
+            "expected_phase_angle": -0.19634954084936207,
+            "stage_j": 1,
+            "earlier_stage_t": 5,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 1.1443916996305594e-16,
+            "conditional_branch_global_phase_radians": 8.980873840670943e-17,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 3,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.086835766330224,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 3,
+            "expected_phase_angle": -0.39269908169872414,
+            "stage_j": 1,
+            "earlier_stage_t": 4,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.551115123125783e-17,
+            "conditional_branch_global_phase_radians": -4.739934906993976e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 4,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 4,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 1,
+            "earlier_stage_t": 3,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 5,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 5,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 1,
+            "earlier_stage_t": 2,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 0,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.270913460876501,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 0,
+            "expected_phase_angle": -0.02454369260617026,
+            "stage_j": 0,
+            "earlier_stage_t": 7,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 1.1107649934270853e-16,
+            "conditional_branch_global_phase_radians": -6.480643534418948e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 1,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.258641614573416,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 1,
+            "expected_phase_angle": -0.04908738521234052,
+            "stage_j": 0,
+            "earlier_stage_t": 6,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 1.3619336969305002e-19,
+            "conditional_branch_global_phase_radians": -1.597307531595593e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 2,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.234097921967246,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 2,
+            "expected_phase_angle": -0.09817477042468103,
+            "stage_j": 0,
+            "earlier_stage_t": 5,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 4.166779751183313e-18,
+            "conditional_branch_global_phase_radians": -8.049461269416283e-17,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 3,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.1850105367549055,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 3,
+            "expected_phase_angle": -0.19634954084936207,
+            "stage_j": 0,
+            "earlier_stage_t": 4,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 1.1443916996305594e-16,
+            "conditional_branch_global_phase_radians": 8.980873840670943e-17,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 4,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 6.086835766330224,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 4,
+            "expected_phase_angle": -0.39269908169872414,
+            "stage_j": 0,
+            "earlier_stage_t": 3,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.551115123125783e-17,
+            "conditional_branch_global_phase_radians": -4.739934906993976e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 5,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.890486225480862,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 5,
+            "expected_phase_angle": -0.7853981633974483,
+            "stage_j": 0,
+            "earlier_stage_t": 2,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 5.2410411078542584e-17,
+            "conditional_branch_global_phase_radians": -7.185442258536365e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          },
+          {
+            "classical_bit": 6,
+            "condition_literal": true,
+            "physical_qubits": [
+              86
+            ],
+            "body_present": true,
+            "body_qubits": 1,
+            "body_original_operation_names": [
+              "rz"
+            ],
+            "body_global_phase": 5.497787143782138,
+            "body_classical_bits": 1,
+            "has_nontrivial_else": false,
+            "expected_classical_bit": 6,
+            "expected_phase_angle": -1.5707963267948966,
+            "stage_j": 0,
+            "earlier_stage_t": 1,
+            "unitary_trace_overlap_magnitude": 1.0,
+            "phase_unitary_max_error_after_global_alignment": 2.860594363054923e-18,
+            "conditional_branch_global_phase_radians": -2.8041635051934406e-16,
+            "equivalent_to_source_phasegate_up_to_global_phase": true
+          }
+        ]
+      },
+      "device_cz_depth_feasibility": false
+    }
+  },
+  "status": "NATIVE_CONDITIONAL_PHASE_SOURCE_COMPARISON_COMPLETE",
+  "study_completed": true,
+  "success": true,
+  "source_integrity_from_unchanged_original": {
+    "original_archived_reference_valid": true,
+    "original_unmodified_public_source_selection": true,
+    "six_distinct_stage_phase_proof_cases_from_original_receipt": 768,
+    "original_ideal_adaptive_outcomes_from_archived_source": 336,
+    "source_gate_structures_exact": {
+      "4": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 4,
+        "source_gate_count": 5052,
+        "source_operation_counts": {
+          "x": 3053,
+          "rccx": 1094,
+          "cx": 575,
+          "ccx": 309,
+          "h": 8,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 16,
+        "existing_stage_source_phase_proofs_true": 768
+      },
+      "6": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 6,
+        "source_gate_count": 5069,
+        "source_operation_counts": {
+          "x": 3053,
+          "rccx": 1094,
+          "cx": 575,
+          "ccx": 309,
+          "if_else": 15,
+          "h": 12,
+          "measure": 6,
+          "reset": 5
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 64,
+        "existing_stage_source_phase_proofs_true": 768
+      },
+      "8": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 8,
+        "source_gate_count": 5090,
+        "source_operation_counts": {
+          "x": 3053,
+          "rccx": 1094,
+          "cx": 575,
+          "ccx": 309,
+          "if_else": 28,
+          "h": 16,
+          "measure": 8,
+          "reset": 7
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 256,
+        "existing_stage_source_phase_proofs_true": 768
+      }
+    },
+    "no_new_source_stage_proof_reexecution_claimed": true
+  },
+  "original_exact_native_isa_receipt_reference": {
+    "original_revision": "qrr-n35-dynamic-fez-readonly-native-lowerability-v1-20261021",
+    "original_scientific_source_run_id": 39729198098,
+    "independent_raw_original_audit_run_id": 39729456702
+  },
+  "actual_target_read_only_capabilities": {
+    "qubits": 156,
+    "instructions": [
+      "cz",
+      "delay",
+      "id",
+      "if_else",
+      "measure",
+      "measure_2",
+      "measure_reset",
+      "measure_reset_2",
+      "reset",
+      "reset_2",
+      "rz",
+      "sx",
+      "x",
+      "xslow"
+    ],
+    "if_else_declared": true,
+    "reset_declared": true,
+    "measure_declared": true
+  },
+  "summary": {
+    "all_three_precision_widths_tested": true,
+    "strictly_certified_widths": 0,
+    "all_original_native_costs_unchanged": true,
+    "all_conditional_phase_semantics_certified": false,
+    "no_real_qpu_job_or_fidelity_claims": true,
+    "all_hardware_resource_gates_failed": true
+  }
+}
