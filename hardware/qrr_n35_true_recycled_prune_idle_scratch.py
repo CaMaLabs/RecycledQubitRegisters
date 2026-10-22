@@ -81,7 +81,7 @@ def source_dynamic_audit(orig,bits):
 
 def reduction_with_exact_instruction_identity(original,bits):
     scratch,source_info=source_dynamic_audit(original,bits)
-    kept=[reg for reg in original.qregs if reg is not scratch]
+    kept=[reg for reg in original.qregs if reg.name!='scratch']
     assert len(kept)==len(original.qregs)-1
     assert not any(r.name=="scratch" for r in kept)
     pruned=QuantumCircuit(*kept,*original.cregs,
