@@ -1,0 +1,1191 @@
+{
+  "revision": "qrr-n35-true-recycled-23q-idle-scratch-prune-v1-20261022",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "date_utc": "2026-10-22T07:13:26.933465+00:00",
+  "preregistration": "docs/QRR_N35_TRUE_RECYCLED_IDLE_SCRATCH_PREREG.md",
+  "N": 35,
+  "public_base": 2,
+  "phase_precision_list": [
+    4,
+    6,
+    8
+  ],
+  "transpiler_seeds": [
+    509,
+    1223,
+    4093,
+    8776
+  ],
+  "transpiler_optimization_level": 1,
+  "backend_target": "ibm_fez",
+  "original_source_width": 32,
+  "candidate_source_width": 23,
+  "candidate_removed_only_nine_idle_scratch": true,
+  "previous_frozen_seed8776": {
+    "4": [
+      29813,
+      69008
+    ],
+    "6": [
+      43613,
+      99325
+    ],
+    "8": [
+      59446,
+      138604
+    ]
+  },
+  "original_real_recycled_phase_qubit_count": 1,
+  "original_six_work_qubits_unmodified": true,
+  "original_improved_arithmetic_unchanged": true,
+  "previous_original_768_stage_proof_archived": true,
+  "original_336_phase_outcome_probabilities_per_base_archived": true,
+  "true_modular_order_not_injected": true,
+  "public_N35_factors_not_compiled": true,
+  "frozen_native_cz_gate": 800,
+  "frozen_native_depth_gate": 2000,
+  "physical_one_wire_phase_mapping_is_unresolved": true,
+  "physical_feedback_latency_not_measured": true,
+  "qpu_jobs_submitted": 0,
+  "IBM_free_or_paid_quantum_runtime_used": false,
+  "all_source_proofs": {
+    "4": {
+      "original_source_width": 32,
+      "original_classical_width": 4,
+      "scratch_qubits_checked": 9,
+      "scratch_live_instruction_count": 0,
+      "scratch_all_nine_actually_unused": true,
+      "source_instruction_count": 9783,
+      "source_gate_count": 9783,
+      "original_source_gate_counts": {
+        "x": 5971,
+        "rccx": 2082,
+        "cx": 1107,
+        "ccx": 602,
+        "h": 8,
+        "if_else": 6,
+        "measure": 4,
+        "reset": 3
+      },
+      "source_phase_reused_qubit_count": 1,
+      "all_conditionals_one_phase_wire": true,
+      "original_measurement_count": 4,
+      "original_reset_count": 3,
+      "original_conditional_count": 6,
+      "reduced_source_width": 23,
+      "removed_idle_source_qubits": 9,
+      "unchanged_original_instruction_order_and_operands": true,
+      "unchanged_original_gate_operations_and_params": true,
+      "unchanged_conditional_body_and_previous_classical_control": true,
+      "unchanged_original_native_gate_source_histogram": true,
+      "dynamic_measure_reset_and_feedback_preserved": true,
+      "mathematically_identical_reduced_source_instrument_on_live_registers": true,
+      "not_newly_rerunning_archived_768_stage_or_672_outcome_ideal_proofs": true
+    },
+    "6": {
+      "original_source_width": 32,
+      "original_classical_width": 6,
+      "scratch_qubits_checked": 9,
+      "scratch_live_instruction_count": 0,
+      "scratch_all_nine_actually_unused": true,
+      "source_instruction_count": 14710,
+      "source_gate_count": 14710,
+      "original_source_gate_counts": {
+        "x": 8969,
+        "rccx": 3134,
+        "cx": 1663,
+        "ccx": 906,
+        "if_else": 15,
+        "h": 12,
+        "measure": 6,
+        "reset": 5
+      },
+      "source_phase_reused_qubit_count": 1,
+      "all_conditionals_one_phase_wire": true,
+      "original_measurement_count": 6,
+      "original_reset_count": 5,
+      "original_conditional_count": 15,
+      "reduced_source_width": 23,
+      "removed_idle_source_qubits": 9,
+      "unchanged_original_instruction_order_and_operands": true,
+      "unchanged_original_gate_operations_and_params": true,
+      "unchanged_conditional_body_and_previous_classical_control": true,
+      "unchanged_original_native_gate_source_histogram": true,
+      "dynamic_measure_reset_and_feedback_preserved": true,
+      "mathematically_identical_reduced_source_instrument_on_live_registers": true,
+      "not_newly_rerunning_archived_768_stage_or_672_outcome_ideal_proofs": true
+    },
+    "8": {
+      "original_source_width": 32,
+      "original_classical_width": 8,
+      "scratch_qubits_checked": 9,
+      "scratch_live_instruction_count": 0,
+      "scratch_all_nine_actually_unused": true,
+      "source_instruction_count": 19641,
+      "source_gate_count": 19641,
+      "original_source_gate_counts": {
+        "x": 11967,
+        "rccx": 4186,
+        "cx": 2219,
+        "ccx": 1210,
+        "if_else": 28,
+        "h": 16,
+        "measure": 8,
+        "reset": 7
+      },
+      "source_phase_reused_qubit_count": 1,
+      "all_conditionals_one_phase_wire": true,
+      "original_measurement_count": 8,
+      "original_reset_count": 7,
+      "original_conditional_count": 28,
+      "reduced_source_width": 23,
+      "removed_idle_source_qubits": 9,
+      "unchanged_original_instruction_order_and_operands": true,
+      "unchanged_original_gate_operations_and_params": true,
+      "unchanged_conditional_body_and_previous_classical_control": true,
+      "unchanged_original_native_gate_source_histogram": true,
+      "dynamic_measure_reset_and_feedback_preserved": true,
+      "mathematically_identical_reduced_source_instrument_on_live_registers": true,
+      "not_newly_rerunning_archived_768_stage_or_672_outcome_ideal_proofs": true
+    }
+  },
+  "pairs": [
+    {
+      "bits": 4,
+      "seed": 509,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 29338,
+        "compiled_native_depth": 68531,
+        "native_operation_counts": {
+          "sx": 55495,
+          "cz": 29338,
+          "rz": 28931,
+          "x": 270,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 4,
+        "compiled_total_native_ops": 114047,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          105,
+          107,
+          108,
+          110,
+          126
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 6,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.3794389920000043,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 29353,
+        "compiled_native_depth": 65641,
+        "native_operation_counts": {
+          "sx": 55401,
+          "cz": 29353,
+          "rz": 28484,
+          "x": 226,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 4,
+        "compiled_total_native_ops": 113477,
+        "distinct_physically_touched_addresses": 25,
+        "phase_related_physical_locations": [
+          83,
+          85,
+          88,
+          89,
+          90
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 6,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.4573105329999976,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": 15,
+        "depth": -2890
+      },
+      "both_cz_depth_strictly_better": false
+    },
+    {
+      "bits": 4,
+      "seed": 1223,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 28990,
+        "compiled_native_depth": 66457,
+        "native_operation_counts": {
+          "sx": 54817,
+          "rz": 29018,
+          "cz": 28990,
+          "x": 214,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 4,
+        "compiled_total_native_ops": 113052,
+        "distinct_physically_touched_addresses": 28,
+        "phase_related_physical_locations": [
+          119,
+          131,
+          133
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 6,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.39948410099999876,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 29522,
+        "compiled_native_depth": 67201,
+        "native_operation_counts": {
+          "sx": 55892,
+          "cz": 29522,
+          "rz": 28636,
+          "x": 241,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 4,
+        "compiled_total_native_ops": 114304,
+        "distinct_physically_touched_addresses": 24,
+        "phase_related_physical_locations": [
+          105,
+          126,
+          128
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 6,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.4056752409999973,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": 532,
+        "depth": 744
+      },
+      "both_cz_depth_strictly_better": false
+    },
+    {
+      "bits": 4,
+      "seed": 4093,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 29113,
+        "compiled_native_depth": 66911,
+        "native_operation_counts": {
+          "sx": 55085,
+          "cz": 29113,
+          "rz": 28690,
+          "x": 238,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 4,
+        "compiled_total_native_ops": 113139,
+        "distinct_physically_touched_addresses": 27,
+        "phase_related_physical_locations": [
+          92,
+          93,
+          111
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 6,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.4010137780000065,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 27974,
+        "compiled_native_depth": 65251,
+        "native_operation_counts": {
+          "sx": 52812,
+          "rz": 28920,
+          "cz": 27974,
+          "x": 251,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 4,
+        "compiled_total_native_ops": 109970,
+        "distinct_physically_touched_addresses": 24,
+        "phase_related_physical_locations": [
+          83,
+          96,
+          97,
+          107
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 6,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.41235376099999144,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": -1139,
+        "depth": -1660
+      },
+      "both_cz_depth_strictly_better": true
+    },
+    {
+      "bits": 4,
+      "seed": 8776,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 29813,
+        "compiled_native_depth": 69008,
+        "native_operation_counts": {
+          "sx": 56394,
+          "cz": 29813,
+          "rz": 29079,
+          "x": 260,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 4,
+        "compiled_total_native_ops": 115559,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          106,
+          118,
+          127,
+          129,
+          130
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 6,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.3395783410000064,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 29223,
+        "compiled_native_depth": 68106,
+        "native_operation_counts": {
+          "sx": 55240,
+          "cz": 29223,
+          "rz": 28738,
+          "x": 274,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 4,
+        "compiled_total_native_ops": 113488,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          144,
+          146,
+          147
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 6,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.4302915000000098,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": -590,
+        "depth": -902
+      },
+      "both_cz_depth_strictly_better": true
+    },
+    {
+      "bits": 6,
+      "seed": 509,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 44350,
+        "compiled_native_depth": 102302,
+        "native_operation_counts": {
+          "sx": 83916,
+          "cz": 44350,
+          "rz": 43733,
+          "x": 335,
+          "if_else": 15,
+          "measure": 6,
+          "reset": 5
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 6,
+        "compiled_total_native_ops": 172360,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          94,
+          95,
+          99
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 15,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.8191477959999958,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 44038,
+        "compiled_native_depth": 101597,
+        "native_operation_counts": {
+          "sx": 83314,
+          "cz": 44038,
+          "rz": 42961,
+          "x": 369,
+          "if_else": 15,
+          "measure": 6,
+          "reset": 5
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 6,
+        "compiled_total_native_ops": 170708,
+        "distinct_physically_touched_addresses": 25,
+        "phase_related_physical_locations": [
+          118,
+          128,
+          129,
+          130
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 15,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.7984212400000104,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": -312,
+        "depth": -705
+      },
+      "both_cz_depth_strictly_better": true
+    },
+    {
+      "bits": 6,
+      "seed": 1223,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 44960,
+        "compiled_native_depth": 103663,
+        "native_operation_counts": {
+          "sx": 85112,
+          "cz": 44960,
+          "rz": 43863,
+          "x": 374,
+          "if_else": 15,
+          "measure": 6,
+          "reset": 5
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 6,
+        "compiled_total_native_ops": 174335,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          102,
+          103,
+          104
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 15,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.9029553289999939,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 43574,
+        "compiled_native_depth": 99905,
+        "native_operation_counts": {
+          "sx": 82279,
+          "cz": 43574,
+          "rz": 42992,
+          "x": 331,
+          "if_else": 15,
+          "measure": 6,
+          "reset": 5
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 6,
+        "compiled_total_native_ops": 169202,
+        "distinct_physically_touched_addresses": 24,
+        "phase_related_physical_locations": [
+          85,
+          86,
+          88,
+          89,
+          90
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 15,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.972370521000002,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": -1386,
+        "depth": -3758
+      },
+      "both_cz_depth_strictly_better": true
+    },
+    {
+      "bits": 6,
+      "seed": 4093,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 44626,
+        "compiled_native_depth": 100574,
+        "native_operation_counts": {
+          "sx": 84320,
+          "cz": 44626,
+          "rz": 43681,
+          "x": 331,
+          "if_else": 15,
+          "measure": 6,
+          "reset": 5
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 6,
+        "compiled_total_native_ops": 172984,
+        "distinct_physically_touched_addresses": 26,
+        "phase_related_physical_locations": [
+          97,
+          107,
+          122,
+          124,
+          127
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 15,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.7294032639999983,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 44116,
+        "compiled_native_depth": 102416,
+        "native_operation_counts": {
+          "sx": 83413,
+          "cz": 44116,
+          "rz": 43560,
+          "x": 366,
+          "if_else": 15,
+          "measure": 6,
+          "reset": 5
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 6,
+        "compiled_total_native_ops": 171481,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          109,
+          126,
+          127
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 15,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.9052329720000074,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": -510,
+        "depth": 1842
+      },
+      "both_cz_depth_strictly_better": false
+    },
+    {
+      "bits": 6,
+      "seed": 8776,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 43613,
+        "compiled_native_depth": 99325,
+        "native_operation_counts": {
+          "sx": 82433,
+          "cz": 43613,
+          "rz": 43315,
+          "x": 353,
+          "if_else": 15,
+          "measure": 6,
+          "reset": 5
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 6,
+        "compiled_total_native_ops": 169740,
+        "distinct_physically_touched_addresses": 25,
+        "phase_related_physical_locations": [
+          105,
+          106,
+          117,
+          125,
+          126
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 15,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 1.0010653899999937,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 44313,
+        "compiled_native_depth": 102275,
+        "native_operation_counts": {
+          "sx": 83923,
+          "cz": 44313,
+          "rz": 43466,
+          "x": 387,
+          "if_else": 15,
+          "measure": 6,
+          "reset": 5
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 6,
+        "compiled_total_native_ops": 172115,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          97,
+          105,
+          118,
+          125,
+          128
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 15,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 0.761879608000001,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": 700,
+        "depth": 2950
+      },
+      "both_cz_depth_strictly_better": false
+    },
+    {
+      "bits": 8,
+      "seed": 509,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 59044,
+        "compiled_native_depth": 137359,
+        "native_operation_counts": {
+          "sx": 111663,
+          "cz": 59044,
+          "rz": 58301,
+          "x": 475,
+          "if_else": 28,
+          "measure": 8,
+          "reset": 7
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 8,
+        "compiled_total_native_ops": 229526,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          83,
+          84,
+          85,
+          96,
+          103,
+          104
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 28,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 1.5545913929999955,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 59690,
+        "compiled_native_depth": 137015,
+        "native_operation_counts": {
+          "sx": 112898,
+          "cz": 59690,
+          "rz": 58231,
+          "x": 481,
+          "if_else": 28,
+          "measure": 8,
+          "reset": 7
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 8,
+        "compiled_total_native_ops": 231343,
+        "distinct_physically_touched_addresses": 28,
+        "phase_related_physical_locations": [
+          106,
+          117,
+          125,
+          127
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 28,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 1.7060148650000002,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": 646,
+        "depth": -344
+      },
+      "both_cz_depth_strictly_better": false
+    },
+    {
+      "bits": 8,
+      "seed": 1223,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 59476,
+        "compiled_native_depth": 136393,
+        "native_operation_counts": {
+          "sx": 112408,
+          "cz": 59476,
+          "rz": 57929,
+          "x": 473,
+          "if_else": 28,
+          "measure": 8,
+          "reset": 7
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 8,
+        "compiled_total_native_ops": 230329,
+        "distinct_physically_touched_addresses": 28,
+        "phase_related_physical_locations": [
+          110,
+          112,
+          114
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 28,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 1.4463710920000068,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 59438,
+        "compiled_native_depth": 137940,
+        "native_operation_counts": {
+          "sx": 112432,
+          "cz": 59438,
+          "rz": 58035,
+          "x": 519,
+          "if_else": 28,
+          "measure": 8,
+          "reset": 7
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 8,
+        "compiled_total_native_ops": 230467,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          109,
+          125,
+          129,
+          130,
+          143,
+          144,
+          145,
+          147
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 28,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 1.2970433440000022,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": -38,
+        "depth": 1547
+      },
+      "both_cz_depth_strictly_better": false
+    },
+    {
+      "bits": 8,
+      "seed": 4093,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 59697,
+        "compiled_native_depth": 138064,
+        "native_operation_counts": {
+          "sx": 112975,
+          "cz": 59697,
+          "rz": 58289,
+          "x": 502,
+          "if_else": 28,
+          "measure": 8,
+          "reset": 7
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 8,
+        "compiled_total_native_ops": 231506,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          97,
+          107,
+          108,
+          109,
+          118,
+          129
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 28,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 1.3939071109999759,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 58772,
+        "compiled_native_depth": 137350,
+        "native_operation_counts": {
+          "sx": 111009,
+          "cz": 58772,
+          "rz": 58128,
+          "x": 491,
+          "if_else": 28,
+          "measure": 8,
+          "reset": 7
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 8,
+        "compiled_total_native_ops": 228443,
+        "distinct_physically_touched_addresses": 28,
+        "phase_related_physical_locations": [
+          125,
+          126,
+          127,
+          128
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 28,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 1.3469896839999933,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": -925,
+        "depth": -714
+      },
+      "both_cz_depth_strictly_better": true
+    },
+    {
+      "bits": 8,
+      "seed": 8776,
+      "status": "MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS",
+      "source_counts_exact": true,
+      "original_32q": {
+        "version": "original_32q",
+        "compiled_native_cz": 59446,
+        "compiled_native_depth": 138604,
+        "native_operation_counts": {
+          "sx": 112486,
+          "cz": 59446,
+          "rz": 58198,
+          "x": 512,
+          "if_else": 28,
+          "measure": 8,
+          "reset": 7
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 8,
+        "compiled_total_native_ops": 230685,
+        "distinct_physically_touched_addresses": 28,
+        "phase_related_physical_locations": [
+          106,
+          107,
+          109,
+          117,
+          126,
+          127,
+          129,
+          130,
+          131
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 28,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 1.5061002010000095,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "pruned_23q": {
+        "version": "pruned_23q",
+        "compiled_native_cz": 59730,
+        "compiled_native_depth": 138953,
+        "native_operation_counts": {
+          "sx": 113029,
+          "cz": 59730,
+          "rz": 58256,
+          "x": 478,
+          "if_else": 28,
+          "measure": 8,
+          "reset": 7
+        },
+        "compiled_device_qubit_width": 156,
+        "compiled_classical_result_width": 8,
+        "compiled_total_native_ops": 231536,
+        "distinct_physically_touched_addresses": 23,
+        "phase_related_physical_locations": [
+          108,
+          109,
+          117,
+          118,
+          126,
+          128,
+          129
+        ],
+        "phase_single_fixed_physical_address_proven": false,
+        "physical_phase_mapping_not_proven": true,
+        "conditional_if_else_operator_equivalence_pass": true,
+        "checked_compiled_conditional_count": 28,
+        "compiled_feedforward_control_classical_bit_order_preserved": true,
+        "compiler_elapsed_seconds": 1.4413045939999733,
+        "hardware_gate_pass": false,
+        "hardware_backend_exec_or_latency_NOT_measured": true
+      },
+      "delta_candidate_minus_original": {
+        "cz": 284,
+        "depth": 349
+      },
+      "both_cz_depth_strictly_better": false
+    }
+  ],
+  "status": "ALL_NATIVE_PAIRS_COMPLETE",
+  "success": true,
+  "original_archived_source_integrity": {
+    "original_archived_reference_valid": true,
+    "original_unmodified_public_source_selection": true,
+    "six_distinct_stage_phase_proof_cases_from_original_receipt": 768,
+    "original_ideal_adaptive_outcomes_from_archived_source": 336,
+    "source_gate_structures_exact": {
+      "4": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 4,
+        "source_gate_count": 9783,
+        "source_operation_counts": {
+          "x": 5971,
+          "rccx": 2082,
+          "cx": 1107,
+          "ccx": 602,
+          "h": 8,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 16,
+        "existing_stage_source_phase_proofs_true": 768
+      },
+      "6": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 6,
+        "source_gate_count": 14710,
+        "source_operation_counts": {
+          "x": 8969,
+          "rccx": 3134,
+          "cx": 1663,
+          "ccx": 906,
+          "if_else": 15,
+          "h": 12,
+          "measure": 6,
+          "reset": 5
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 64,
+        "existing_stage_source_phase_proofs_true": 768
+      },
+      "8": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 8,
+        "source_gate_count": 19641,
+        "source_operation_counts": {
+          "x": 11967,
+          "rccx": 4186,
+          "cx": 2219,
+          "ccx": 1210,
+          "if_else": 28,
+          "h": 16,
+          "measure": 8,
+          "reset": 7
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 256,
+        "existing_stage_source_phase_proofs_true": 768
+      }
+    },
+    "no_new_source_stage_proof_reexecution_claimed": true
+  },
+  "backend_device_width": 156,
+  "backend_required_dynamic_instruction_names_present": true,
+  "summary": {
+    "original_and_pruned_source_equivalence_pass": true,
+    "source_quantum_qubit_reduction": 9,
+    "original_source_width": 32,
+    "new_source_width": 23,
+    "native_pair_count": 12,
+    "intended_matched_pair_count": 12,
+    "all_24_cpu_native_compiles_succeeded": true,
+    "native_if_else_branch_operator_proof_all_compiles": true,
+    "all_original_8776_anchors_exact": true,
+    "robust_native_improvement_every_precision": false,
+    "per_precision": {
+      "4": {
+        "native_compiles_both_success": 4,
+        "candidate_both_metrics_improve_seed_count": 2,
+        "median_paired_cz_delta": -287.5,
+        "median_paired_depth_delta": -1281.0,
+        "min_paired_cz_delta": -1139,
+        "max_paired_cz_delta": 532,
+        "min_paired_depth_delta": -2890,
+        "max_paired_depth_delta": 744,
+        "exact_old_seed8776_anchor_reproduced": true,
+        "robust_native_gate_pass": false,
+        "all_candidate_device_gates_failed": true
+      },
+      "6": {
+        "native_compiles_both_success": 4,
+        "candidate_both_metrics_improve_seed_count": 2,
+        "median_paired_cz_delta": -411.0,
+        "median_paired_depth_delta": 568.5,
+        "min_paired_cz_delta": -1386,
+        "max_paired_cz_delta": 700,
+        "min_paired_depth_delta": -3758,
+        "max_paired_depth_delta": 2950,
+        "exact_old_seed8776_anchor_reproduced": true,
+        "robust_native_gate_pass": false,
+        "all_candidate_device_gates_failed": true
+      },
+      "8": {
+        "native_compiles_both_success": 4,
+        "candidate_both_metrics_improve_seed_count": 1,
+        "median_paired_cz_delta": 123.0,
+        "median_paired_depth_delta": 2.5,
+        "min_paired_cz_delta": -925,
+        "max_paired_cz_delta": 646,
+        "min_paired_depth_delta": -714,
+        "max_paired_depth_delta": 1547,
+        "exact_old_seed8776_anchor_reproduced": true,
+        "robust_native_gate_pass": false,
+        "all_candidate_device_gates_failed": true
+      }
+    },
+    "existing_phase_wire_physical_mapping_uncertainty_retained": true,
+    "no_device_execution_or_shot_claims": true
+  }
+}
