@@ -1,0 +1,154 @@
+name: QRR N35 TRUE recycled phase IBM Fez DYNAMIC ISA read-only CPU preflight ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-true-recycled-dynamic-fez-isa-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-true-recycled-dynamic-fez-isa-cpu
+  cancel-in-progress: false
+
+jobs:
+  two-public-base-dynamic-target:
+    name: public base ${{ matrix.base }} true 32q dynamic source b4/6/8 Fez ISA read only
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install fixed Qiskit for ISA target CPU compilation ONLY
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Static safety, preregistration, unchanged old ideal and source receipts
+        run: |
+          test -s docs/QRR_N35_TRUE_RECYCLED_PHASE_DYNAMIC_FEZ_ISA_PREREG.md
+          python -m py_compile hardware/qrr_n35_true_recycled_dynamic_fez_isa.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_true_recycled_dynamic_fez_isa.py').read_text()
+          for forbidden in (
+             'SamplerV2(', 'EstimatorV2(', 'backend.run(', 'service.run(',
+             'job.submit(', 'job.run(', 'Sampler(', 'Estimator('):
+              assert forbidden not in s,forbidden
+          assert 'source.build_dynamic_source(base,bits)' in s
+          assert 'source.inspect_dynamic_source' in s
+          assert 'source.configure_original_public_arithmetic' in s
+          assert 'generate_preset_pass_manager' in s
+          assert 'backend.target.operation_names' in s
+          assert '("if_else","measure","reset"' in s
+          assert 'pm.run(qc)' in s
+          assert 'except Exception as exc' in s
+          assert 'FROZEN_SEED=8776' in s and 'FROZEN_OPTIMIZATION=1' in s
+          for base in (2,8):
+              original=Path(f'results/n35_true_recycled_phase_feedforward/qrr_n35_recycled_phase_feedforward_base{base}.json')
+              ideal=Path(f'results/n35_ideal_phase_precision/qrr_n35_ideal_phase_precision_base{base}.json')
+              assert original.exists() and ideal.exists(),(original,ideal)
+          print('Rebuild ORIGINAL 32q dynamic source, no job API, target metadata READ ONLY')
+          PY
+      - name: Original-source validation before read-only Fez target, three native CPU compile attempts
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 780s python -u hardware/qrr_n35_true_recycled_dynamic_fez_isa.py --base "$BASE" | tee "qrr_n35_true_dynamic_isa_base${BASE}.log"
+      - name: Audit EVERY source b, target capability, native rejection OR strict retained dynamics
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          b=int(os.environ['BASE'])
+          d=json.loads(Path(f'results/ibm_shor35_true_recycled_dynamic_fez_isa/qrr_n35_dynamic_isa_base{b}.json').read_text())
+          old=json.loads(Path(f'results/n35_true_recycled_phase_feedforward/qrr_n35_recycled_phase_feedforward_base{b}.json').read_text())
+          assert d['revision']=='qrr-n35-dynamic-fez-readonly-native-lowerability-v1-20261021'
+          assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert d['preregistration']=='docs/QRR_N35_TRUE_RECYCLED_PHASE_DYNAMIC_FEZ_ISA_PREREG.md'
+          assert d['N']==35 and d['public_base']==b
+          assert d['phase_precisions']==[4,6,8]
+          assert d['source_true_recycled_phase_qubits']==1 and d['source_logical_qubits']==32
+          assert d['original_arithmetic_order_not_injected'] and d['private_factors_not_used']
+          assert d['qpu_jobs_submitted']==0 and d['hardware_shots']==0
+          assert d['no_ibm_runtime_primitives'] and d['read_only_backend_metadata_only']
+          assert not d['free_or_paid_qpu_runtime_used']
+          assert d['transpile_seed']==8776 and d['transpile_optimization_level']==1
+          assert d['hardware_target_name']=='ibm_fez'
+          assert d['physical_feasibility_native_cz_limit']==800
+          assert d['physical_feasibility_native_depth_limit']==2000
+          assert d['status']=='SOURCE_AND_CPU_TARGET_SUPPORT_STUDY_COMPLETE'
+          assert d['study_completed'] and d['success']
+          p=d['before_backend_source_validation']
+          assert p['original_archived_reference_valid']
+          assert p['original_unmodified_public_source_selection']
+          assert p['six_distinct_stage_phase_proof_cases_from_original_receipt']==768
+          assert p['original_ideal_adaptive_outcomes_from_archived_source']==336
+          assert p['no_new_source_stage_proof_reexecution_claimed']
+          assert set(p['source_gate_structures_exact'])=={'4','6','8'}
+          target=d['backend_target_read_only_snapshot']
+          assert target['reported_qubits']>=32 and target['target_metadata_only_no_hardware_job']
+          caps=target['dynamic_capability_names_present']
+          assert all(isinstance(caps[k],bool) for k in ('if_else','measure','reset','p','h','cz','rz','sx'))
+          s=d['summary']
+          assert s['all_three_widths_tested']
+          assert s['accepted_native_compiles']+s['rejected_native_compiles']==3
+          assert s['backend_declares_required_dynamic_isa_instructions']==(
+              caps['if_else'] and caps['measure'] and caps['reset'])
+          assert s['no_hardware_submission_under_any_condition']
+          assert s['no_hardware_compatibility_guarantee_even_if_cpu_compiled']
+          for width in (4,6,8):
+              z=d['per_precision'][str(width)]
+              src=p['source_gate_structures_exact'][str(width)]
+              assert z['bits']==width and z['source_quantum_qubits']==32 and z['source_classical_bits']==width
+              assert z['original_dynamic_structure_preserved_before_compile']
+              assert z['original_source_operation_counts']==src['source_operation_counts']
+              assert src['source_structure_matches_immutable_original']
+              assert src['archived_independent_ideal_outcomes_matched']==1<<width
+              assert z['runtime_submissions']==0
+              if z['compiler_acceptance']:
+                  assert z['native_costs_available'] and z['native_cz']>=0 and z['native_depth']>0
+                  assert z['status'] in ('COMPILED_STRUCTURALLY_CERTIFIED','COMPILED_UNCERTIFIED_DYNAMIC_SEMANTICS')
+                  assert z['native_operation_counts']['cz']==z['native_cz']
+                  assert z['native_hardware_gate_pass']==(
+                    z['native_cz']<=800 and z['native_depth']<=2000)
+                  q=z['full_compiled_dynamic_semantics_inspection']
+                  assert z['classical_feedback_structurally_preserved']==q['compiler_preserved_source_feedback']
+                  assert z['classical_feedback_semantics_certified']==q['classical_feedforward_semantics_certified']
+                  if z['status']=='COMPILED_STRUCTURALLY_CERTIFIED':
+                    assert z['classical_feedback_semantics_certified'] and not q['problems']
+              else:
+                  assert z['status']=='COMPILER_REJECTED_DYNAMIC_SOURCE'
+                  assert not z['native_costs_available'] and not z['native_hardware_gate_pass']
+                  assert z['compilation_error_type'] and z['compilation_error_message']
+              print('ORIGINAL 32Q DYNAMIC FEZ CPU ISA',b,'precision',width,
+                'status',z['status'],
+                'CZ',z.get('native_cz','UNAVAILABLE'),
+                'depth',z.get('native_depth','UNAVAILABLE'),
+                'NO QPU')
+          assert s['full_dynamic_lowerability_per_base_certified']==(
+              s['backend_declares_required_dynamic_isa_instructions'] and
+              all(d['per_precision'][str(w)]['status']=='COMPILED_STRUCTURALLY_CERTIFIED'
+                  for w in (4,6,8)))
+          print('SUCCESS: exact original source, all 3 authentic native compiler attempts audited',
+                'supported dynamic',s['full_dynamic_lowerability_per_base_certified'],
+                'NO HARDWARE JOB')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-dynamic-isa-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_true_dynamic_isa_base*.log
+            results/ibm_shor35_true_recycled_dynamic_fez_isa/qrr_n35_dynamic_isa_base*.json
