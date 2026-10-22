@@ -1,0 +1,169 @@
+name: Independently preserve genuine one-phase-recycled N35 32q to 23q source results
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-true-recycled-23q-idle-scratch.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-true-recycled-23q-source-preserve-v1
+  cancel-in-progress: false
+
+jobs:
+  original-two-arm-artifact-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download EXACT original science run 39738979913 JSON, do NOT recompile
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39738979913
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-true-23q-scratch-base*-original
+          merge-multiple: true
+          path: _original_23q_source
+      - name: Preserve two complete original JSON receipt files without modification
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_true_recycled_idle_scratch_pruning
+          for base in 2 8; do
+            f="qrr_n35_prune_idle_scratch_base${base}.json"
+            hits="$(find _original_23q_source -type f -name "$f" | wc -l)"
+            test "$hits" -eq 1 || { echo "Missing/duplicated original source $f count $hits"; exit 1; }
+            find _original_23q_source -type f -name "$f" -exec cp -t results/ibm_shor35_true_recycled_idle_scratch_pruning/ '{}' +
+          done
+      - name: Independently audit each original 48 native compiler metric, all phase branch operators and immutable seed8776 anchors
+        run: |
+          python - <<'PY'
+          import json,statistics
+          from pathlib import Path
+          widths=(4,6,8)
+          seeds=(509,1223,4093,8776)
+          expected={
+           2:{
+            4:[(29338,68531,29353,65641),(28990,66457,29522,67201),(29113,66911,27974,65251),(29813,69008,29223,68106)],
+            6:[(44350,102302,44038,101597),(44960,103663,43574,99905),(44626,100574,44116,102416),(43613,99325,44313,102275)],
+            8:[(59044,137359,59690,137015),(59476,136393,59438,137940),(59697,138064,58772,137350),(59446,138604,59730,138953)]},
+           8:{
+            4:[(15553,36197,14857,34038),(14858,34807,14097,32814),(14687,35256,14810,33649),(14499,34259,15036,34595)],
+            6:[(15553,36197,14857,34038),(14858,34807,14097,32814),(14687,35256,14810,33649),(14499,34259,15036,34597)],
+            8:[(15553,36197,14857,34038),(14858,34807,14097,32814),(14687,35256,14810,33649),(14499,34259,15036,34599)]}}
+          expected_wins={2:{4:(2,-287.5,-1281),6:(2,-411,568.5),8:(1,123,2.5)},
+                         8:{4:(2,-286.5,-1800),6:(2,-286.5,-1800),8:(2,-286.5,-1800)}}
+          total_native=0
+          for base in (2,8):
+              d=json.loads(Path(f'results/ibm_shor35_true_recycled_idle_scratch_pruning/qrr_n35_prune_idle_scratch_base{base}.json').read_text())
+              old=json.loads(Path(f'results/ibm_shor35_true_recycled_dynamic_fez_isa/qrr_n35_dynamic_isa_base{base}.json').read_text())
+              aud=json.loads(Path(f'results/ibm_shor35_true_recycled_dynamic_feedback_audit/qrr_n35_native_dynamic_feedback_phase_base{base}.json').read_text())
+              assert d['revision']=='qrr-n35-true-recycled-23q-idle-scratch-prune-v1-20261022'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistration']=='docs/QRR_N35_TRUE_RECYCLED_IDLE_SCRATCH_PREREG.md'
+              assert d['N']==35 and d['public_base']==base and d['phase_precision_list']==[4,6,8]
+              assert d['transpiler_seeds']==list(seeds) and d['transpiler_optimization_level']==1
+              assert d['backend_target']=='ibm_fez' and d['backend_device_width']==156
+              assert d['original_source_width']==32 and d['candidate_source_width']==23
+              assert d['candidate_removed_only_nine_idle_scratch'] and d['original_real_recycled_phase_qubit_count']==1
+              assert d['original_six_work_qubits_unmodified'] and d['original_improved_arithmetic_unchanged']
+              assert d['true_modular_order_not_injected'] and d['public_N35_factors_not_compiled']
+              assert d['previous_original_768_stage_proof_archived'] and d['original_336_phase_outcome_probabilities_per_base_archived']
+              assert d['qpu_jobs_submitted']==0 and d['IBM_free_or_paid_quantum_runtime_used'] is False
+              assert d['status']=='ALL_NATIVE_PAIRS_COMPLETE' and d['success']
+              pre=d['original_archived_source_integrity']
+              assert pre['original_archived_reference_valid'] and pre['original_unmodified_public_source_selection']
+              assert pre['six_distinct_stage_phase_proof_cases_from_original_receipt']==768
+              assert pre['original_ideal_adaptive_outcomes_from_archived_source']==336
+              assert old['summary']['accepted_native_compiles']==3 and aud['study_completed']
+              for bits in widths:
+                  s=d['all_source_proofs'][str(bits)]
+                  assert s['original_source_width']==32 and s['reduced_source_width']==23
+                  assert s['scratch_qubits_checked']==9 and s['scratch_live_instruction_count']==0
+                  assert s['scratch_all_nine_actually_unused'] and s['removed_idle_source_qubits']==9
+                  assert s['unchanged_original_instruction_order_and_operands']
+                  assert s['unchanged_original_gate_operations_and_params']
+                  assert s['unchanged_conditional_body_and_previous_classical_control']
+                  assert s['unchanged_original_native_gate_source_histogram']
+                  assert s['dynamic_measure_reset_and_feedback_preserved']
+                  assert s['original_measurement_count']==bits
+                  assert s['original_reset_count']==bits-1
+                  assert s['original_conditional_count']==bits*(bits-1)//2
+              rows=d['pairs']
+              assert len(rows)==12 and [(z['bits'],z['seed']) for z in rows]==[
+                 (bits,seed) for bits in widths for seed in seeds]
+              for bits in widths:
+                  subset=[z for z in rows if z['bits']==bits]
+                  dz=[];dd=[]
+                  for i,row in enumerate(subset):
+                      assert row['status']=='MATCHED_TWO_COMPILATIONS_AND_FEEDBACK_OPERATOR_PASS'
+                      assert row['source_counts_exact']
+                      o=row['original_32q'];p=row['pruned_23q']
+                      assert (o['compiled_native_cz'],o['compiled_native_depth'],
+                              p['compiled_native_cz'],p['compiled_native_depth'])==expected[base][bits][i],(
+                                 base,bits,seeds[i],row)
+                      for tag,v in (('original_32q',o),('pruned_23q',p)):
+                          assert v['version']==tag and v['compiled_native_cz']>0 and v['compiled_native_depth']>0
+                          assert v['native_operation_counts']['cz']==v['compiled_native_cz']
+                          assert v['compiled_device_qubit_width']==156
+                          assert v['compiled_classical_result_width']==bits
+                          assert v['conditional_if_else_operator_equivalence_pass']
+                          assert v['checked_compiled_conditional_count']==bits*(bits-1)//2
+                          assert v['compiled_feedforward_control_classical_bit_order_preserved']
+                          assert v['native_operation_counts']['measure']==bits
+                          assert v['native_operation_counts']['reset']==bits-1
+                          assert v['native_operation_counts']['if_else']==bits*(bits-1)//2
+                          assert v['hardware_gate_pass']==(v['compiled_native_cz']<=800 and v['compiled_native_depth']<=2000)
+                          assert v['hardware_gate_pass'] is False
+                          assert v['distinct_physically_touched_addresses']>=1
+                          assert v['physical_phase_mapping_not_proven']==(not v['phase_single_fixed_physical_address_proven'])
+                      dz.append(p['compiled_native_cz']-o['compiled_native_cz'])
+                      dd.append(p['compiled_native_depth']-o['compiled_native_depth'])
+                      assert row['delta_candidate_minus_original']==dict(cz=dz[-1],depth=dd[-1])
+                      assert row['both_cz_depth_strictly_better']==(dz[-1]<0 and dd[-1]<0)
+                      if row['seed']==8776:
+                          frozen=old['per_precision'][str(bits)]
+                          assert (o['compiled_native_cz'],o['compiled_native_depth'])==(frozen['native_cz'],frozen['native_depth'])
+                      total_native+=2
+                  sm=d['summary']['per_precision'][str(bits)]
+                  wins=sum(z<0 and t<0 for z,t in zip(dz,dd))
+                  assert (wins,statistics.median(dz),statistics.median(dd))==expected_wins[base][bits]
+                  assert sm['candidate_both_metrics_improve_seed_count']==wins
+                  assert sm['median_paired_cz_delta']==statistics.median(dz)
+                  assert sm['median_paired_depth_delta']==statistics.median(dd)
+                  assert sm['robust_native_gate_pass'] is False
+                  assert sm['exact_old_seed8776_anchor_reproduced'] is True
+                  assert sm['all_candidate_device_gates_failed']
+                  print('ORIGINAL TRUE SOURCE IDLE9 VERIFIED',base,'b',bits,
+                      '32->23 source qubits, four native seed pairs, wins',wins,
+                      'median CZ',statistics.median(dz),'depth',statistics.median(dd),
+                      'all classical branch operators preserved, device FAIL, 0 QPU')
+              s=d['summary']
+              assert s['native_pair_count']==12 and s['intended_matched_pair_count']==12
+              assert s['all_24_cpu_native_compiles_succeeded']
+              assert s['native_if_else_branch_operator_proof_all_compiles']
+              assert s['all_original_8776_anchors_exact']
+              assert s['robust_native_improvement_every_precision'] is False
+              assert s['source_quantum_qubit_reduction']==9
+              assert s['original_source_width']==32 and s['new_source_width']==23
+              assert s['existing_phase_wire_physical_mapping_uncertainty_retained']
+              assert s['no_device_execution_or_shot_claims']
+          assert total_native==48,total_native
+          print('VERIFIED ALL 48 ORIGINAL CPU ISA OUTPUTS, BOTH BASES, THREE PRECISIONS, FOUR SEEDS;',
+             '32->23 source width VALID, native-cost robustness FAIL, physical wire uncertified, ZERO QPU')
+          PY
+      - name: Commit immutable original two JSON results only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_true_recycled_idle_scratch_pruning/qrr_n35_prune_idle_scratch_base2.json
+          git add results/ibm_shor35_true_recycled_idle_scratch_pruning/qrr_n35_prune_idle_scratch_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently verify and preserve 48 original Fez CPU ISA dynamic comparisons, proven N35 32q to 23q idle scratch prune, native robustness FAIL'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
