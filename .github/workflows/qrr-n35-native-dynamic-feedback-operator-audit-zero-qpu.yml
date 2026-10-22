@@ -1,0 +1,143 @@
+name: QRR N35 compiled Fez dynamic if_else feedback unitary Operator audit ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-native-dynamic-feedback-operator-audit-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-compiled-classical-feedback-operator-v1
+  cancel-in-progress: false
+
+jobs:
+  both-public-bases:
+    name: base ${{ matrix.base }} b4/6/8 native if_else RZ vs source P branch phase proof CPU ONLY
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Pinned native compiler and complex quantum matrix library
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Prereg, no QPU calls, actual operator source and immutable prior native costs
+        run: |
+          test -s docs/QRR_N35_TRUE_RECYCLED_DYNAMIC_FEEDBACK_PHASE_PREREG.md
+          python -m py_compile hardware/qrr_n35_native_dynamic_feedback_phase_audit.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_native_dynamic_feedback_phase_audit.py').read_text()
+          for w in ('backend.run(', 'service.run(', 'SamplerV2(', 'EstimatorV2(',
+                    'job.submit(', 'job.run(', 'sampler.run(', 'estimator.run('):
+              assert w not in s,w
+          for w in (
+               'PhaseGate(angle)', 'Operator(true_body)', 'compiled.find_bit',
+               'oldaudit.original_structure_exact(base)',
+               'generate_preset_pass_manager', 'seed_transpiler=SEED',
+               'np.trace(want.conj().T@observed)',
+               'conditional_branch_global_phase_radians',
+               'recycled_phase_single_compiled_physical_wire',
+               'historical_native_counts_reproduced'):
+              assert w in s,w
+          for base in (2,8):
+              assert Path(f'results/ibm_shor35_true_recycled_dynamic_fez_isa/qrr_n35_dynamic_isa_base{base}.json').exists()
+              assert Path(f'results/n35_true_recycled_phase_feedforward/qrr_n35_recycled_phase_feedforward_base{base}.json').exists()
+          print('FROZEN exact compiled if_else unitary up-to-branch-global-phase test; ZERO QPU')
+          PY
+      - name: Inspect original 32q dynamic circuit after Fez target native CPU transpilation without real hardware execution
+        shell: bash
+        env:
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+          BASE: ${{ matrix.base }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 780s python -u hardware/qrr_n35_native_dynamic_feedback_phase_audit.py --base "$BASE" | tee "qrr_n35_native_feedback_operator_base${BASE}.log"
+      - name: Independently audit exact operator comparison, 6-arm ISA native anchor, physical feasibility distinction
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          base=int(os.environ['BASE'])
+          d=json.loads(Path(f'results/ibm_shor35_true_recycled_dynamic_feedback_audit/qrr_n35_native_dynamic_feedback_phase_base{base}.json').read_text())
+          old=json.loads(Path(f'results/ibm_shor35_true_recycled_dynamic_fez_isa/qrr_n35_dynamic_isa_base{base}.json').read_text())
+          assert d['revision']=='qrr-n35-fez-compiled-classical-feedback-phase-operator-v1-20261021'
+          assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert d['preregistration']=='docs/QRR_N35_TRUE_RECYCLED_DYNAMIC_FEEDBACK_PHASE_PREREG.md'
+          assert d['public_N']==35 and d['public_base']==base and d['phase_widths']==[4,6,8]
+          assert d['compiler_target_backend']=='ibm_fez' and d['compiler_opt']==1 and d['compiler_seed']==8776
+          assert d['source_one_recycled_phase_qubit'] and d['source_quantum_qubits']==32
+          assert d['private_factors_used'] is False and d['true_order_injected'] is False
+          assert d['observed_real_quantum_jobs']==0 and d['zero_ibm_free_or_paid_qpu_runtime']
+          assert d['no_runtime_job_submissions']
+          assert d['physical_preflight_max_native_cz']==800 and d['physical_preflight_max_native_depth']==2000
+          assert d['success'] and d['study_completed']
+          assert d['status']=='NATIVE_CONDITIONAL_PHASE_SOURCE_COMPARISON_COMPLETE'
+          assert d['source_integrity_from_unchanged_original']['original_archived_reference_valid']
+          assert d['source_integrity_from_unchanged_original']['six_distinct_stage_phase_proof_cases_from_original_receipt']==768
+          assert d['source_integrity_from_unchanged_original']['original_ideal_adaptive_outcomes_from_archived_source']==336
+          assert d['actual_target_read_only_capabilities']['if_else_declared']
+          assert d['actual_target_read_only_capabilities']['reset_declared']
+          assert d['actual_target_read_only_capabilities']['measure_declared']
+          assert set(d['compiled_feedback_proofs'])=={'4','6','8'}
+          counted=0
+          for bits in (4,6,8):
+              r=d['compiled_feedback_proofs'][str(bits)]
+              old_r=old['per_precision'][str(bits)]
+              assert r['bits']==bits and r['source_quantum_qubits']==32 and r['source_classical_result_bits']==bits
+              assert r['no_hardware_run']
+              if r['status']=='NATIVE_PHASE_AUDIT_EXCEPTION':
+                  assert r['exception_type'] and r['exception_message']
+                  print('NATIVE CONDITIONAL PHASE AUDIT EXCEPTION',base,bits,r['exception_message'][:240])
+                  continue
+              assert r['compiler_acceptance']
+              assert r['compiled_native_cz']==old_r['native_cz']
+              assert r['compiled_native_depth']==old_r['native_depth']
+              assert r['native_ops']==old_r['native_operation_counts']
+              assert r['historical_native_counts_reproduced']
+              assert r['compiled_classical_width']==bits and r['compiled_qubit_width']==156
+              assert not r['device_cz_depth_feasibility']
+              q=r['actual_native_conditional_operators']
+              assert q['original_classical_feedback_count']==bits*(bits-1)//2
+              assert q['emitted_compiled_if_else_count']==bits*(bits-1)//2
+              assert q['dynamic_operation_counts']['measure']==bits
+              assert q['dynamic_operation_counts']['reset']==bits-1
+              assert q['dynamic_operation_counts']['if_else']==bits*(bits-1)//2
+              assert len(q['conditional_phase_unitaries'])==bits*(bits-1)//2
+              for item in q['conditional_phase_unitaries']:
+                  if item.get('equivalent_to_source_phasegate_up_to_global_phase'):
+                      assert item['phase_unitary_max_error_after_global_alignment']<1e-9
+                      assert abs(item['unitary_trace_overlap_magnitude']-1)<1e-9
+              assert r['native_phase_branch_operators_certified']==(
+                 q['pass_all'] and r['historical_native_counts_reproduced'])
+              counted+=int(r['native_phase_branch_operators_certified'])
+              print('AUDIT exact compiled conditional matrix base',base,'bits',bits,
+                    'proof',r['native_phase_branch_operators_certified'],
+                    'single physical phase wire',q['recycled_phase_single_compiled_physical_wire'],
+                    'up to branch global phase',q['all_native_condition_body_operators_proved'],
+                    'problems',q['problems'][:3],
+                    'CZ',r['compiled_native_cz'],'depth',r['compiled_native_depth'],'ZERO QPU')
+          assert d['summary']['strictly_certified_widths']==counted
+          assert d['summary']['all_conditional_phase_semantics_certified']==(counted==3)
+          assert d['summary']['no_real_qpu_job_or_fidelity_claims']
+          assert d['summary']['all_hardware_resource_gates_failed']
+          print('SUCCESS: independently audited all 3 native conditional operator attempts per base, certified',counted,'NO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-native-feedback-operator-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_native_feedback_operator_base*.log
+            results/ibm_shor35_true_recycled_dynamic_feedback_audit/qrr_n35_native_dynamic_feedback_phase_base*.json
