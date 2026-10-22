@@ -1,0 +1,138 @@
+name: Independently preserve true N35 compiled conditional feedback operator matrix proof originals
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-native-feedback-phase-audit-original.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-native-feedback-operator-original-preservation
+  cancel-in-progress: false
+
+jobs:
+  audited-original-conditional-operator-matrices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download untouched source-produced six-arm proof outputs, NO new compiler runs
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39729974663
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-native-feedback-operator-base*-original
+          merge-multiple: true
+          path: _original_feedback_phase_operator_artifacts
+      - name: Copy only exact two original full branch-matrix JSON outputs
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_true_recycled_dynamic_feedback_audit
+          for base in 2 8; do
+            file="qrr_n35_native_dynamic_feedback_phase_base${base}.json"
+            count="$(find _original_feedback_phase_operator_artifacts -type f -name "$file" | wc -l)"
+            test "$count" -eq 1 || { echo "Expected one original $file, got $count"; exit 1; }
+            find _original_feedback_phase_operator_artifacts -type f -name "$file" -exec cp -t results/ibm_shor35_true_recycled_dynamic_feedback_audit/ '{}' +
+          done
+      - name: Independent pure Python original conditional operator proof, source ISA anchors and scientific limits audit
+        run: |
+          python - <<'PY'
+          import json,math
+          from pathlib import Path
+          expected={2:{4:(29813,69008),6:(43613,99325),8:(59446,138604)},
+                    8:{4:(14499,34259),6:(14499,34259),8:(14499,34259)}}
+          total_good=0
+          for base in (2,8):
+              d=json.loads(Path(f'results/ibm_shor35_true_recycled_dynamic_feedback_audit/qrr_n35_native_dynamic_feedback_phase_base{base}.json').read_text())
+              old=json.loads(Path(f'results/ibm_shor35_true_recycled_dynamic_fez_isa/qrr_n35_dynamic_isa_base{base}.json').read_text())
+              assert d['revision']=='qrr-n35-fez-compiled-classical-feedback-phase-operator-v1-20261021'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistration']=='docs/QRR_N35_TRUE_RECYCLED_DYNAMIC_FEEDBACK_PHASE_PREREG.md'
+              assert d['public_N']==35 and d['public_base']==base and d['phase_widths']==[4,6,8]
+              assert d['source_one_recycled_phase_qubit'] and d['source_quantum_qubits']==32
+              assert d['private_factors_used'] is False and d['true_order_injected'] is False
+              assert d['observed_real_quantum_jobs']==0
+              assert d['zero_ibm_free_or_paid_qpu_runtime'] and d['no_runtime_job_submissions']
+              assert d['compiler_target_backend']=='ibm_fez' and d['compiler_opt']==1 and d['compiler_seed']==8776
+              assert d['physical_preflight_max_native_cz']==800 and d['physical_preflight_max_native_depth']==2000
+              assert d['status']=='NATIVE_CONDITIONAL_PHASE_SOURCE_COMPARISON_COMPLETE'
+              assert d['success'] and d['study_completed']
+              source=d['source_integrity_from_unchanged_original']
+              assert source['original_archived_reference_valid'] and source['source_gate_structures_exact']
+              assert source['six_distinct_stage_phase_proof_cases_from_original_receipt']==768
+              assert source['original_ideal_adaptive_outcomes_from_archived_source']==336
+              assert d['actual_target_read_only_capabilities']['if_else_declared']
+              assert d['actual_target_read_only_capabilities']['reset_declared']
+              assert d['actual_target_read_only_capabilities']['measure_declared']
+              assert set(d['compiled_feedback_proofs'])=={'4','6','8'}
+              unitary_certified=0
+              for b in (4,6,8):
+                  x=d['compiled_feedback_proofs'][str(b)]
+                  y=old['per_precision'][str(b)]
+                  assert x['bits']==b and x['source_quantum_qubits']==32 and x['source_classical_result_bits']==b
+                  assert x['status']=='NATIVE_DYNAMIC_FEEDBACK_PHASE_NOT_CERTIFIED'
+                  assert x['compiler_acceptance'] and x['no_hardware_run']
+                  assert (x['compiled_native_cz'],x['compiled_native_depth'])==expected[base][b]
+                  assert x['compiled_native_cz']==y['native_cz'] and x['compiled_native_depth']==y['native_depth']
+                  assert x['native_ops']==y['native_operation_counts']
+                  assert x['historical_native_counts_reproduced'] is True
+                  assert x['compiled_qubit_width']==156 and x['compiled_classical_width']==b
+                  assert x['device_cz_depth_feasibility'] is False
+                  assert x['native_phase_branch_operators_certified'] is False
+                  p=x['actual_native_conditional_operators']
+                  assert p['all_native_condition_body_operators_proved'] is True
+                  assert p['original_classical_feedback_count']==b*(b-1)//2
+                  assert p['emitted_compiled_if_else_count']==b*(b-1)//2
+                  assert p['dynamic_operation_counts']['measure']==b
+                  assert p['dynamic_operation_counts']['reset']==b-1
+                  assert p['dynamic_operation_counts']['if_else']==b*(b-1)//2
+                  assert p['recycled_phase_single_compiled_physical_wire'] is False
+                  assert len(p['unique_compiled_phase_locations'])>1
+                  assert p['pass_all'] is False
+                  assert p['problems']==['compiled phase operations map to multiple physical wires; reuse not independently certified']
+                  assert p['branch_global_phase_equivalence_is_not_physical_noise_validation'] is True
+                  assert p['native_device_fidelity_or_feedback_latency_not_measured'] is True
+                  assert len(p['conditional_phase_unitaries'])==b*(b-1)//2
+                  for i,z in enumerate(p['conditional_phase_unitaries']):
+                      assert z['equivalent_to_source_phasegate_up_to_global_phase'] is True,(base,b,i,z)
+                      assert z['phase_unitary_max_error_after_global_alignment']<1e-9
+                      assert abs(z['unitary_trace_overlap_magnitude']-1)<1e-9
+                      assert z['body_qubits']==1 and z['condition_literal']==1
+                      assert z['classical_bit']==z['expected_classical_bit']
+                      assert abs(z['expected_phase_angle']+
+                                 2*math.pi/(2**(z['earlier_stage_t']-z['stage_j']+1)))<1e-12
+                      total_good+=1
+                  unitary_certified+=b*(b-1)//2
+                  print('ORIGINAL RESULT VERIFIED base',base,'b',b,
+                    'native conditional operators',b*(b-1)//2,'ALL up-to-global-phase correct',
+                    'physical phase locations',p['unique_compiled_phase_locations'],
+                    'phase wire mapping NOT independently certified',
+                    'CZ',x['compiled_native_cz'],'depth',x['compiled_native_depth'],
+                    'NO QPU')
+              assert unitary_certified==49
+              s=d['summary']
+              assert s['all_three_precision_widths_tested']
+              assert s['all_original_native_costs_unchanged']
+              assert s['strictly_certified_widths']==0
+              assert s['all_conditional_phase_semantics_certified'] is False
+              assert s['all_hardware_resource_gates_failed']
+              assert s['no_real_qpu_job_or_fidelity_claims']
+          assert total_good==98,total_good
+          print('SUCCESS: exact 98 native conditional unitary comparisons verified (up to classical branch global), all original 6 dynamic circuits and 0 hardware runs; mapping caveat retained')
+          PY
+      - name: Commit ONLY byte-preserved raw original JSONs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_true_recycled_dynamic_feedback_audit/qrr_n35_native_dynamic_feedback_phase_base2.json
+          git add results/ibm_shor35_true_recycled_dynamic_feedback_audit/qrr_n35_native_dynamic_feedback_phase_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently audit/preserve all 98 native Fez conditional P-to-RZ branch operators and unresolved phase-wire mapping, zero QPU'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
