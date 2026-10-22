@@ -1,0 +1,1112 @@
+{
+  "revision": "qrr-n35-dynamic-fez-readonly-native-lowerability-v1-20261021",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "date_utc": "2026-10-22T05:39:07.754912+00:00",
+  "preregistration": "docs/QRR_N35_TRUE_RECYCLED_PHASE_DYNAMIC_FEZ_ISA_PREREG.md",
+  "N": 35,
+  "public_base": 8,
+  "phase_precisions": [
+    4,
+    6,
+    8
+  ],
+  "source_true_recycled_phase_qubits": 1,
+  "source_logical_qubits": 32,
+  "n35_public_cube_has_trivial_classical_gcd": true,
+  "original_arithmetic_order_not_injected": true,
+  "private_factors_not_used": true,
+  "hardware_target_name": "ibm_fez",
+  "transpile_optimization_level": 1,
+  "transpile_seed": 8776,
+  "physical_feasibility_native_cz_limit": 800,
+  "physical_feasibility_native_depth_limit": 2000,
+  "qpu_jobs_submitted": 0,
+  "hardware_shots": 0,
+  "no_ibm_runtime_primitives": true,
+  "read_only_backend_metadata_only": true,
+  "free_or_paid_qpu_runtime_used": false,
+  "per_precision": {
+    "4": {
+      "bits": 4,
+      "source_quantum_qubits": 32,
+      "source_classical_bits": 4,
+      "original_source_operation_counts": {
+        "x": 3053,
+        "rccx": 1094,
+        "cx": 575,
+        "ccx": 309,
+        "h": 8,
+        "if_else": 6,
+        "measure": 4,
+        "reset": 3
+      },
+      "original_dynamic_structure_preserved_before_compile": true,
+      "compiler_acceptance": true,
+      "native_costs_available": true,
+      "classical_feedback_structurally_preserved": true,
+      "classical_feedback_semantics_certified": false,
+      "native_hardware_gate_pass": false,
+      "runtime_submissions": 0,
+      "status": "COMPILED_UNCERTIFIED_DYNAMIC_SEMANTICS",
+      "native_cz": 14499,
+      "native_depth": 34259,
+      "compiled_isa_width": 156,
+      "compiled_total_gate_count": 56983,
+      "native_operation_counts": {
+        "sx": 27405,
+        "rz": 14941,
+        "cz": 14499,
+        "x": 125,
+        "if_else": 6,
+        "measure": 4,
+        "reset": 3
+      },
+      "full_compiled_dynamic_semantics_inspection": {
+        "compiled_qubits": 156,
+        "compiled_classical_bits": 4,
+        "compiled_depth": 34259,
+        "native_operations": {
+          "sx": 27405,
+          "rz": 14941,
+          "cz": 14499,
+          "x": 125,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "compiler_preserved_source_feedback": true,
+        "compiled_exact_conditional_phase_body": false,
+        "classical_feedforward_semantics_certified": false,
+        "physical_feedback_latency_verified": false,
+        "physical_device_execution_supported_not_proven": true,
+        "problems": [
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "conditional block 0 phase body not certified",
+          "conditional block 1 phase body not certified",
+          "conditional block 2 phase body not certified",
+          "conditional block 3 phase body not certified",
+          "conditional block 4 phase body not certified",
+          "conditional block 5 phase body not certified"
+        ],
+        "observed_certifiable_feedback": [
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          }
+        ],
+        "expected_source_feedback": [
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.39269908169872414
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          }
+        ]
+      },
+      "compiler_elapsed_seconds": 0.30052985300000046
+    },
+    "6": {
+      "bits": 6,
+      "source_quantum_qubits": 32,
+      "source_classical_bits": 6,
+      "original_source_operation_counts": {
+        "x": 3053,
+        "rccx": 1094,
+        "cx": 575,
+        "ccx": 309,
+        "if_else": 15,
+        "h": 12,
+        "measure": 6,
+        "reset": 5
+      },
+      "original_dynamic_structure_preserved_before_compile": true,
+      "compiler_acceptance": true,
+      "native_costs_available": true,
+      "classical_feedback_structurally_preserved": true,
+      "classical_feedback_semantics_certified": false,
+      "native_hardware_gate_pass": false,
+      "runtime_submissions": 0,
+      "status": "COMPILED_UNCERTIFIED_DYNAMIC_SEMANTICS",
+      "native_cz": 14499,
+      "native_depth": 34259,
+      "compiled_isa_width": 156,
+      "compiled_total_gate_count": 57008,
+      "native_operation_counts": {
+        "sx": 27409,
+        "rz": 14949,
+        "cz": 14499,
+        "x": 125,
+        "if_else": 15,
+        "measure": 6,
+        "reset": 5
+      },
+      "full_compiled_dynamic_semantics_inspection": {
+        "compiled_qubits": 156,
+        "compiled_classical_bits": 6,
+        "compiled_depth": 34259,
+        "native_operations": {
+          "sx": 27409,
+          "rz": 14949,
+          "cz": 14499,
+          "x": 125,
+          "if_else": 15,
+          "measure": 6,
+          "reset": 5
+        },
+        "compiler_preserved_source_feedback": true,
+        "compiled_exact_conditional_phase_body": false,
+        "classical_feedforward_semantics_certified": false,
+        "physical_feedback_latency_verified": false,
+        "physical_device_execution_supported_not_proven": true,
+        "problems": [
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "conditional block 0 phase body not certified",
+          "conditional block 1 phase body not certified",
+          "conditional block 2 phase body not certified",
+          "conditional block 3 phase body not certified",
+          "conditional block 4 phase body not certified",
+          "conditional block 5 phase body not certified",
+          "conditional block 6 phase body not certified",
+          "conditional block 7 phase body not certified",
+          "conditional block 8 phase body not certified",
+          "conditional block 9 phase body not certified",
+          "conditional block 10 phase body not certified",
+          "conditional block 11 phase body not certified",
+          "conditional block 12 phase body not certified",
+          "conditional block 13 phase body not certified",
+          "conditional block 14 phase body not certified"
+        ],
+        "observed_certifiable_feedback": [
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 4,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          }
+        ],
+        "expected_source_feedback": [
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.39269908169872414
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.19634954084936207
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.39269908169872414
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.09817477042468103
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.19634954084936207
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.39269908169872414
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 4,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          }
+        ]
+      },
+      "compiler_elapsed_seconds": 0.32717364599999854
+    },
+    "8": {
+      "bits": 8,
+      "source_quantum_qubits": 32,
+      "source_classical_bits": 8,
+      "original_source_operation_counts": {
+        "x": 3053,
+        "rccx": 1094,
+        "cx": 575,
+        "ccx": 309,
+        "if_else": 28,
+        "h": 16,
+        "measure": 8,
+        "reset": 7
+      },
+      "original_dynamic_structure_preserved_before_compile": true,
+      "compiler_acceptance": true,
+      "native_costs_available": true,
+      "classical_feedback_structurally_preserved": true,
+      "classical_feedback_semantics_certified": false,
+      "native_hardware_gate_pass": false,
+      "runtime_submissions": 0,
+      "status": "COMPILED_UNCERTIFIED_DYNAMIC_SEMANTICS",
+      "native_cz": 14499,
+      "native_depth": 34259,
+      "compiled_isa_width": 156,
+      "compiled_total_gate_count": 57037,
+      "native_operation_counts": {
+        "sx": 27413,
+        "rz": 14957,
+        "cz": 14499,
+        "x": 125,
+        "if_else": 28,
+        "measure": 8,
+        "reset": 7
+      },
+      "full_compiled_dynamic_semantics_inspection": {
+        "compiled_qubits": 156,
+        "compiled_classical_bits": 8,
+        "compiled_depth": 34259,
+        "native_operations": {
+          "sx": 27413,
+          "rz": 14957,
+          "cz": 14499,
+          "x": 125,
+          "if_else": 28,
+          "measure": 8,
+          "reset": 7
+        },
+        "compiler_preserved_source_feedback": true,
+        "compiled_exact_conditional_phase_body": false,
+        "classical_feedforward_semantics_certified": false,
+        "physical_feedback_latency_verified": false,
+        "physical_device_execution_supported_not_proven": true,
+        "problems": [
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "compiler decomposed/rewrote conditional P without independent phase proof",
+          "conditional block 0 phase body not certified",
+          "conditional block 1 phase body not certified",
+          "conditional block 2 phase body not certified",
+          "conditional block 3 phase body not certified",
+          "conditional block 4 phase body not certified",
+          "conditional block 5 phase body not certified",
+          "conditional block 6 phase body not certified",
+          "conditional block 7 phase body not certified",
+          "conditional block 8 phase body not certified",
+          "conditional block 9 phase body not certified",
+          "conditional block 10 phase body not certified",
+          "conditional block 11 phase body not certified",
+          "conditional block 12 phase body not certified",
+          "conditional block 13 phase body not certified",
+          "conditional block 14 phase body not certified",
+          "conditional block 15 phase body not certified",
+          "conditional block 16 phase body not certified",
+          "conditional block 17 phase body not certified",
+          "conditional block 18 phase body not certified",
+          "conditional block 19 phase body not certified",
+          "conditional block 20 phase body not certified",
+          "conditional block 21 phase body not certified",
+          "conditional block 22 phase body not certified",
+          "conditional block 23 phase body not certified",
+          "conditional block 24 phase body not certified",
+          "conditional block 25 phase body not certified",
+          "conditional block 26 phase body not certified",
+          "conditional block 27 phase body not certified"
+        ],
+        "observed_certifiable_feedback": [
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 4,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 4,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 5,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 4,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 5,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          },
+          {
+            "classical_bit_index": 6,
+            "body_ops": [
+              "rz"
+            ],
+            "phase_angle": null
+          }
+        ],
+        "expected_source_feedback": [
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.39269908169872414
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.19634954084936207
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.39269908169872414
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.09817477042468103
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.19634954084936207
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.39269908169872414
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 4,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.04908738521234052
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.09817477042468103
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.19634954084936207
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.39269908169872414
+          },
+          {
+            "classical_bit_index": 4,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 5,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          },
+          {
+            "classical_bit_index": 0,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.02454369260617026
+          },
+          {
+            "classical_bit_index": 1,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.04908738521234052
+          },
+          {
+            "classical_bit_index": 2,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.09817477042468103
+          },
+          {
+            "classical_bit_index": 3,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.19634954084936207
+          },
+          {
+            "classical_bit_index": 4,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.39269908169872414
+          },
+          {
+            "classical_bit_index": 5,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -0.7853981633974483
+          },
+          {
+            "classical_bit_index": 6,
+            "body_ops": [
+              "p"
+            ],
+            "phase_angle": -1.5707963267948966
+          }
+        ]
+      },
+      "compiler_elapsed_seconds": 0.33930788800000045
+    }
+  },
+  "study_completed": true,
+  "success": true,
+  "status": "SOURCE_AND_CPU_TARGET_SUPPORT_STUDY_COMPLETE",
+  "before_backend_source_validation": {
+    "original_archived_reference_valid": true,
+    "original_unmodified_public_source_selection": true,
+    "six_distinct_stage_phase_proof_cases_from_original_receipt": 768,
+    "original_ideal_adaptive_outcomes_from_archived_source": 336,
+    "source_gate_structures_exact": {
+      "4": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 4,
+        "source_gate_count": 5052,
+        "source_operation_counts": {
+          "x": 3053,
+          "rccx": 1094,
+          "cx": 575,
+          "ccx": 309,
+          "h": 8,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 16,
+        "existing_stage_source_phase_proofs_true": 768
+      },
+      "6": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 6,
+        "source_gate_count": 5069,
+        "source_operation_counts": {
+          "x": 3053,
+          "rccx": 1094,
+          "cx": 575,
+          "ccx": 309,
+          "if_else": 15,
+          "h": 12,
+          "measure": 6,
+          "reset": 5
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 64,
+        "existing_stage_source_phase_proofs_true": 768
+      },
+      "8": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 8,
+        "source_gate_count": 5090,
+        "source_operation_counts": {
+          "x": 3053,
+          "rccx": 1094,
+          "cx": 575,
+          "ccx": 309,
+          "if_else": 28,
+          "h": 16,
+          "measure": 8,
+          "reset": 7
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 256,
+        "existing_stage_source_phase_proofs_true": 768
+      }
+    },
+    "no_new_source_stage_proof_reexecution_claimed": true
+  },
+  "backend_target_read_only_snapshot": {
+    "reported_qubits": 156,
+    "supported_target_instruction_names": [
+      "cz",
+      "delay",
+      "id",
+      "if_else",
+      "measure",
+      "measure_2",
+      "measure_reset",
+      "measure_reset_2",
+      "reset",
+      "reset_2",
+      "rz",
+      "sx",
+      "x",
+      "xslow"
+    ],
+    "dynamic_capability_names_present": {
+      "if_else": true,
+      "measure": true,
+      "reset": true,
+      "p": false,
+      "h": false,
+      "cz": true,
+      "rz": true,
+      "sx": true
+    },
+    "source_control_flow_isa_support_declared": true,
+    "source_measurement_isa_support_declared": true,
+    "source_reset_isa_support_declared": true,
+    "target_metadata_only_no_hardware_job": true
+  },
+  "summary": {
+    "all_three_widths_tested": true,
+    "accepted_native_compiles": 3,
+    "rejected_native_compiles": 0,
+    "structurally_certified_dynamic_compiles": 0,
+    "full_dynamic_lowerability_per_base_certified": false,
+    "backend_declares_required_dynamic_isa_instructions": true,
+    "target_supports_declared_if_else": true,
+    "target_supports_declared_measure": true,
+    "target_supports_declared_reset": true,
+    "no_hardware_compatibility_guarantee_even_if_cpu_compiled": true,
+    "no_hardware_submission_under_any_condition": true
+  }
+}
