@@ -291,8 +291,14 @@ def main(base):
                 print("DYNAMIC FEZ CPU COMPILE REJECTION",base,bits,
                       type(exc).__name__,str(exc)[:750],"ZERO QPU",flush=True)
             save()
-        full=all(data["per_precision"][str(bits)]["status"]=="COMPILED_STRUCTURALLY_CERTIFIED"
-                 for bits in BITS)
+        # Compiler acceptance does NOT override the actual target's declared
+        # dynamic instruction support. Fez hardware support is a separate
+        # read-only metadata requirement (and still not a hardware run).
+        declared_support=bool(
+            support["if_else"] and support["measure"] and support["reset"])
+        full=declared_support and all(
+            data["per_precision"][str(bits)]["status"]=="COMPILED_STRUCTURALLY_CERTIFIED"
+            for bits in BITS)
         data["summary"]=dict(
            all_three_widths_tested=True,
            accepted_native_compiles=sum(
@@ -302,6 +308,7 @@ def main(base):
            structurally_certified_dynamic_compiles=sum(
              data["per_precision"][str(b)]["classical_feedback_semantics_certified"] for b in BITS),
            full_dynamic_lowerability_per_base_certified=full,
+           backend_declares_required_dynamic_isa_instructions=declared_support,
            target_supports_declared_if_else=support["if_else"],
            target_supports_declared_measure=support["measure"],
            target_supports_declared_reset=support["reset"],
