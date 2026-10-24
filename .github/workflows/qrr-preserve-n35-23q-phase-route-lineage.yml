@@ -1,0 +1,170 @@
+name: Independently audit and preserve original TRUE N35 23q routed phase SWAP lineage
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-23q-phase-route-lineage.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-true23q-n35-phase-route-original-preserve-v1
+  cancel-in-progress: false
+
+jobs:
+  original-source-receipt-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch immutable original phase route logs and JSONs without new compilation
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 40144331011
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-23q-phase-route-base*-original
+          merge-multiple: true
+          path: _source_artifacts
+      - name: Preserve precisely 2 original source-run JSONs, byte unchanged
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_true_recycled_phase_route_lineage
+          for base in 2 8; do
+            filename="qrr_n35_23q_routed_phase_lineage_base${base}.json"
+            n="$(find _source_artifacts -type f -name "$filename" | wc -l)"
+            test "$n" -eq 1 || { echo "Original source JSON missing/duplicated $filename n=$n"; exit 1; }
+            find _source_artifacts -type f -name "$filename" -exec cp -t results/ibm_shor35_true_recycled_phase_route_lineage/ '{}' +
+          done
+      - name: Independently reconstruct routed phase SWAP token lineage from original emitted event receipts
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          seeds=[509,8776]
+          precisions=[4,6,8]
+          observed={
+             2:{
+                (4,509):(29353,65641,6864,39,[83,85,88,89,90]),
+                (4,8776):(29223,68106,6800,28,[144,146,147]),
+                (6,509):(44038,101597,10293,49,[118,128,129,130]),
+                (6,8776):(44313,102275,10336,136,[103,105,116,122,126]),
+                (8,509):(59690,137015,13945,48,[106,117,125,127]),
+                (8,8776):(59730,138953,13973,74,[102,104,116,121,122,123,124])},
+             8:{
+                (4,509):(14857,34038,3422,8,[85,86]),
+                (4,8776):(15036,34595,3471,34,[85,87,91,93]),
+                (6,509):(14857,34038,3422,8,[85,86]),
+                (6,8776):(15036,34597,3471,34,[85,87,91,93]),
+                (8,509):(14857,34038,3422,8,[85,86]),
+                (8,8776):(15036,34599,3471,34,[85,87,91,93])}
+          }
+          checked_branch_ops=0
+          checked_cases=0
+          for base in (2,8):
+              old=json.loads(Path(f'results/ibm_shor35_true_recycled_idle_scratch_pruning/qrr_n35_prune_idle_scratch_base{base}.json').read_text())
+              d=json.loads(Path(f'results/ibm_shor35_true_recycled_phase_route_lineage/qrr_n35_23q_routed_phase_lineage_base{base}.json').read_text())
+              assert d['revision']=='qrr-n35-true-23q-phase-routed-swap-lineage-v1-20261024'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistration']=='docs/QRR_N35_23Q_ROUTED_PHASE_LINEAGE_PREREG.md'
+              assert d['N']==35 and d['public_base']==base and d['bits_list']==precisions and d['seed_list']==seeds
+              assert d['qiskit_optimization_level']==1 and d['backend_target']=='ibm_fez'
+              assert d['source_phase_qubits']==1 and d['source_quantum_width']==23
+              assert d['actual_qpu_jobs']==0 and d['IBM_free_or_paid_quantum_runtime_used'] is False
+              assert d['backend_run_never_invoked'] is True
+              assert d['source_proofs'].keys()=={'4','6','8'}
+              assert all(x['scratch_all_nine_actually_unused'] and x['reduced_source_width']==23 and
+                         x['unchanged_original_instruction_order_and_operands'] and
+                         x['unchanged_conditional_body_and_previous_classical_control']
+                         for x in d['source_proofs'].values())
+              assert d['previous_immutable_source_integrity']['original_archived_reference_valid']
+              assert d['status']=='COMPLETE_ROUTE_AUDITS' and d['success']
+              rows=d['results']
+              assert len(rows)==6
+              assert [(x['bits'],x['seed']) for x in rows]==[(b,s) for b in precisions for s in seeds]
+              for x in rows:
+                  bits=x['bits'];seed=x['seed']
+                  cz,depth,total_swaps,phase_swaps,physical=observed[base][(bits,seed)]
+                  assert x['status']=='STAGED_ROUTING_AND_FEZ_NATIVE_CPU_COMPLETE'
+                  assert x['native_cz']==cz and x['native_depth']==depth
+                  assert x['native_count_ops']['cz']==cz
+                  assert x['native_count_ops']['measure']==bits
+                  assert x['native_count_ops']['reset']==bits-1
+                  assert x['native_count_ops']['if_else']==bits*(bits-1)//2
+                  assert x['quantum_hardware_gate_pass'] is False
+                  assert x['conditional_operator_equivalence_pass']
+                  assert x['native_conditional_comparison_count']==bits*(bits-1)//2
+                  assert x['native_compiled_qubit_width']==d['target_device_qubits']==156
+                  routed=x['staged_routing']
+                  native=x['native_lineage_comparison']
+                  assert routed['total_explicit_routed_swap_ops']==total_swaps
+                  assert routed['phase_token_swap_ops']==phase_swaps
+                  assert len(routed['phase_swaps'])==phase_swaps
+                  assert routed['phase_token_trace_certified'] is True
+                  assert routed['status']=='ROUTED_SWAP_TOKEN_PASS'
+                  assert not routed['problems']
+                  assert native['native_phase_event_unique_physical_addresses']==physical
+                  assert native['source_phase_lineage_to_native_certified'] is True
+                  assert native['native_event_order_and_physical_match_routed'] is True
+                  assert native['physically_fixed_single_phase_site_proven'] is False
+                  assert not native['problems']
+                  assert x['routed_swap_lineage_pass'] and x['routed_to_native_lineage_pass']
+                  assert not x['fixed_single_physical_phase_site_proven']
+                  events=routed['routed_phase_events']
+                  assert len(events)==bits+(bits-1)+bits*(bits-1)//2
+                  assert [e['name'] for e in events]==[e['name'] for e in native['final_native_phase_events']]
+                  assert all(e['phase_token_matches'] for e in events)
+                  # Independent walk through every recorded phase-moving SWAP and
+                  # every recorded dynamic event in original global source order.
+                  token=routed['initial_phase_physical_address']
+                  timeline=[(e['instruction'],'swap',e) for e in routed['phase_swaps']]
+                  timeline += [(e['index'],'event',e) for e in events]
+                  for _,kind,item in sorted(timeline,key=lambda tup:tup[0]):
+                      if kind=='swap':
+                          assert item['from_physical']==token
+                          token=item['to_physical']
+                      else:
+                          assert item['token_physical_address']==token
+                          assert item['observed_physical_addresses']==[token]
+                  assert token==routed['final_tracked_phase_address']
+                  for r,n in zip(events,native['final_native_phase_events']):
+                      assert r['name']==n['name'] and r['observed_physical_addresses']==n['physical']
+                      if r['name']=='measure':assert r['classical']==n['classical']
+                      if r['name']=='if_else':
+                          assert r['condition_bit']==n['condition_bit'] and r['condition_value']==n['condition_value']==1
+                  if seed==8776:
+                      archived=next(y for y in old['pairs'] if y['seed']==8776 and y['bits']==bits)['pruned_23q']
+                      assert (cz,depth)==(archived['compiled_native_cz'],archived['compiled_native_depth'])
+                      assert x['archived_23q_seed8776_cost_anchor_reproduced'] is True
+                  checked_branch_ops+=x['native_conditional_comparison_count']
+                  checked_cases+=1
+                  print('ORIGINAL 23q phase swap-token event-level audit',base,bits,seed,
+                        'all phase SWAPs',phase_swaps,'dynamic events',len(events),
+                        'native addresses',physical,'CZ/depth',cz,depth,
+                        'fixed physical phase site NOT proven, no QPU')
+              s=d['summary']
+              assert s['experiments']==6 and s['complete_native_audits']==6
+              assert s['stage_phase_token_pass']==6 and s['source_phase_lineage_to_native_certified']==6
+              assert s['single_fixed_physical_phase_site_proven']==0
+              assert s['native_feedback_phase_operator_checks']==98
+              assert s['all_original_pruned_seed8776_anchors_reproduced'] is True
+              assert s['hardware_feasible_count']==0 and s['no_quantum_processor_execution']
+              assert s['real_device_feedback_latency_NOT_TESTED']
+              assert s['physical_qubit_lineage_fully_certified_for_all_cases'] is True
+          assert checked_cases==12 and checked_branch_ops==196
+          print('ALL 12 archived routed SWAP-phase-token and native physical event sequences independently verified, 196 actual conditional operators; zero QPU submissions')
+          PY
+      - name: Commit exact original numeric and SWAP lineage JSONs without recompiling
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_true_recycled_phase_route_lineage/qrr_n35_23q_routed_phase_lineage_base2.json
+          git add results/ibm_shor35_true_recycled_phase_route_lineage/qrr_n35_23q_routed_phase_lineage_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: preserve original 12 true 23q N35 staged SWAP token and final Fez phase operation lineage CPU proofs'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
