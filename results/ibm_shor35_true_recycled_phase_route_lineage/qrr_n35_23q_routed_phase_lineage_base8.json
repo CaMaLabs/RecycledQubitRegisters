@@ -1,0 +1,6103 @@
+{
+  "revision": "qrr-n35-true-23q-phase-routed-swap-lineage-v1-20261024",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "utc": "2026-10-24T23:50:32.132206+00:00",
+  "preregistration": "docs/QRR_N35_23Q_ROUTED_PHASE_LINEAGE_PREREG.md",
+  "public_base": 8,
+  "N": 35,
+  "bits_list": [
+    4,
+    6,
+    8
+  ],
+  "seed_list": [
+    509,
+    8776
+  ],
+  "qiskit_optimization_level": 1,
+  "backend_target": "ibm_fez",
+  "source_phase_qubits": 1,
+  "source_quantum_width": 23,
+  "old_original_32q_historical_anchors": {
+    "4": [
+      14499,
+      34259
+    ],
+    "6": [
+      14499,
+      34259
+    ],
+    "8": [
+      14499,
+      34259
+    ]
+  },
+  "old_pruned_23q_seed8776_anchors": {
+    "4": [
+      15036,
+      34595
+    ],
+    "6": [
+      15036,
+      34597
+    ],
+    "8": [
+      15036,
+      34599
+    ]
+  },
+  "frozen_hardware_CZ_limit": 800,
+  "frozen_hardware_depth_limit": 2000,
+  "actual_qpu_jobs": 0,
+  "IBM_free_or_paid_quantum_runtime_used": false,
+  "backend_run_never_invoked": true,
+  "results": [
+    {
+      "bits": 4,
+      "seed": 509,
+      "status": "STAGED_ROUTING_AND_FEZ_NATIVE_CPU_COMPLETE",
+      "staged_routing": {
+        "status": "ROUTED_SWAP_TOKEN_PASS",
+        "source_one_phase_wire": true,
+        "routed_qubit_width": 156,
+        "routed_instruction_count": 55572,
+        "routed_operation_counts": {
+          "rz": 32695,
+          "sx": 13078,
+          "cz": 5136,
+          "swap": 3422,
+          "x": 933,
+          "cx": 289,
+          "h": 6,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "raw_routed_phase_events": [
+          {
+            "index": 498,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 499,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 501,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 503,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 504,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 28582,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28583,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28761,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 28762,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 55189,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55190,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55191,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55571,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              3
+            ]
+          }
+        ],
+        "provenance": "Qiskit CPU preset init+layout+routing stages ONLY",
+        "physically_fixed_single_phase_site_proven": false,
+        "phase_token_trace_certified": true,
+        "problems": [],
+        "phase_swaps": [
+          {
+            "instruction": 506,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 539,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 554,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 23545,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 28803,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 53022,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 55173,
+            "from_physical": 85,
+            "to_physical": 86
+          },
+          {
+            "instruction": 55193,
+            "from_physical": 86,
+            "to_physical": 85
+          }
+        ],
+        "routed_phase_events": [
+          {
+            "index": 498,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 499,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 501,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 503,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 504,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 28582,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28583,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28761,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 28762,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 55189,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55190,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55191,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55571,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              3
+            ]
+          }
+        ],
+        "original_source_phase_index": 0,
+        "initial_phase_physical_address": 85,
+        "initial_layout_virtual_size": 156,
+        "total_explicit_routed_swap_ops": 3422,
+        "phase_token_swap_ops": 8,
+        "final_tracked_phase_address": 85,
+        "expected_dynamic_counts": {
+          "measure": 4,
+          "reset": 3,
+          "if_else": 6
+        },
+        "routed_dynamic_counts": {
+          "measure": 4,
+          "reset": 3,
+          "if_else": 6
+        }
+      },
+      "native_lineage_comparison": {
+        "final_native_phase_events": [
+          {
+            "index": 717,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 718,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 722,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 726,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 727,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 29286,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 29287,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 29496,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 29497,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 57395,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 57396,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 57397,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 57908,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              3
+            ]
+          }
+        ],
+        "final_native_event_counts": {
+          "measure": 4,
+          "reset": 3,
+          "if_else": 6
+        },
+        "native_event_order_and_physical_match_routed": true,
+        "source_phase_lineage_to_native_certified": true,
+        "physically_fixed_single_phase_site_proven": false,
+        "problems": [],
+        "native_phase_event_unique_physical_addresses": [
+          85,
+          86
+        ]
+      },
+      "native_cz": 14857,
+      "native_depth": 34038,
+      "native_count_ops": {
+        "sx": 28064,
+        "cz": 14857,
+        "rz": 14850,
+        "x": 125,
+        "if_else": 6,
+        "measure": 4,
+        "reset": 3
+      },
+      "native_compiled_qubit_width": 156,
+      "compiler_routed_seconds": 0.09913356100000215,
+      "compiler_native_seconds": 0.32749940800002264,
+      "conditional_operator_equivalence_pass": true,
+      "native_conditional_comparison_count": 6,
+      "archived_23q_seed8776_cost_anchor_reproduced": null,
+      "original_archived_8776_23q_costs": [
+        15036,
+        34595
+      ],
+      "quantum_hardware_gate_pass": false,
+      "fixed_single_physical_phase_site_proven": false,
+      "routed_swap_lineage_pass": true,
+      "routed_to_native_lineage_pass": true
+    },
+    {
+      "bits": 4,
+      "seed": 8776,
+      "status": "STAGED_ROUTING_AND_FEZ_NATIVE_CPU_COMPLETE",
+      "staged_routing": {
+        "status": "ROUTED_SWAP_TOKEN_PASS",
+        "source_one_phase_wire": true,
+        "routed_qubit_width": 156,
+        "routed_instruction_count": 55621,
+        "routed_operation_counts": {
+          "rz": 32695,
+          "sx": 13078,
+          "cz": 5136,
+          "swap": 3471,
+          "x": 933,
+          "cx": 289,
+          "h": 6,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "raw_routed_phase_events": [
+          {
+            "index": 466,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 467,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 469,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 471,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 472,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 28493,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28494,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28852,
+            "name": "measure",
+            "physical": [
+              87
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 28853,
+            "name": "reset",
+            "physical": [
+              87
+            ]
+          },
+          {
+            "index": 55209,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55210,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55211,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55620,
+            "name": "measure",
+            "physical": [
+              93
+            ],
+            "classical": [
+              3
+            ]
+          }
+        ],
+        "provenance": "Qiskit CPU preset init+layout+routing stages ONLY",
+        "physically_fixed_single_phase_site_proven": false,
+        "phase_token_trace_certified": true,
+        "problems": [],
+        "phase_swaps": [
+          {
+            "instruction": 474,
+            "from_physical": 85,
+            "to_physical": 86
+          },
+          {
+            "instruction": 476,
+            "from_physical": 86,
+            "to_physical": 87
+          },
+          {
+            "instruction": 477,
+            "from_physical": 87,
+            "to_physical": 88
+          },
+          {
+            "instruction": 506,
+            "from_physical": 88,
+            "to_physical": 89
+          },
+          {
+            "instruction": 2685,
+            "from_physical": 89,
+            "to_physical": 88
+          },
+          {
+            "instruction": 3027,
+            "from_physical": 88,
+            "to_physical": 87
+          },
+          {
+            "instruction": 3065,
+            "from_physical": 87,
+            "to_physical": 88
+          },
+          {
+            "instruction": 4784,
+            "from_physical": 88,
+            "to_physical": 87
+          },
+          {
+            "instruction": 6654,
+            "from_physical": 87,
+            "to_physical": 97
+          },
+          {
+            "instruction": 6768,
+            "from_physical": 97,
+            "to_physical": 87
+          },
+          {
+            "instruction": 9182,
+            "from_physical": 87,
+            "to_physical": 97
+          },
+          {
+            "instruction": 9277,
+            "from_physical": 97,
+            "to_physical": 87
+          },
+          {
+            "instruction": 9278,
+            "from_physical": 87,
+            "to_physical": 86
+          },
+          {
+            "instruction": 11645,
+            "from_physical": 86,
+            "to_physical": 87
+          },
+          {
+            "instruction": 11668,
+            "from_physical": 87,
+            "to_physical": 97
+          },
+          {
+            "instruction": 11713,
+            "from_physical": 97,
+            "to_physical": 87
+          },
+          {
+            "instruction": 11714,
+            "from_physical": 87,
+            "to_physical": 86
+          },
+          {
+            "instruction": 11715,
+            "from_physical": 86,
+            "to_physical": 85
+          },
+          {
+            "instruction": 11716,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 21133,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 28407,
+            "from_physical": 85,
+            "to_physical": 86
+          },
+          {
+            "instruction": 28437,
+            "from_physical": 86,
+            "to_physical": 87
+          },
+          {
+            "instruction": 28879,
+            "from_physical": 87,
+            "to_physical": 88
+          },
+          {
+            "instruction": 28899,
+            "from_physical": 88,
+            "to_physical": 89
+          },
+          {
+            "instruction": 32651,
+            "from_physical": 89,
+            "to_physical": 88
+          },
+          {
+            "instruction": 33831,
+            "from_physical": 88,
+            "to_physical": 89
+          },
+          {
+            "instruction": 33901,
+            "from_physical": 89,
+            "to_physical": 90
+          },
+          {
+            "instruction": 33904,
+            "from_physical": 90,
+            "to_physical": 91
+          },
+          {
+            "instruction": 33906,
+            "from_physical": 91,
+            "to_physical": 92
+          },
+          {
+            "instruction": 33907,
+            "from_physical": 92,
+            "to_physical": 93
+          },
+          {
+            "instruction": 47998,
+            "from_physical": 93,
+            "to_physical": 92
+          },
+          {
+            "instruction": 50559,
+            "from_physical": 92,
+            "to_physical": 91
+          },
+          {
+            "instruction": 55213,
+            "from_physical": 91,
+            "to_physical": 92
+          },
+          {
+            "instruction": 55214,
+            "from_physical": 92,
+            "to_physical": 93
+          }
+        ],
+        "routed_phase_events": [
+          {
+            "index": 466,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 467,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 469,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 471,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 472,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 28493,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28494,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28852,
+            "name": "measure",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 28853,
+            "name": "reset",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 55209,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55210,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55211,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55620,
+            "name": "measure",
+            "token_physical_address": 93,
+            "observed_physical_addresses": [
+              93
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              3
+            ]
+          }
+        ],
+        "original_source_phase_index": 0,
+        "initial_phase_physical_address": 85,
+        "initial_layout_virtual_size": 156,
+        "total_explicit_routed_swap_ops": 3471,
+        "phase_token_swap_ops": 34,
+        "final_tracked_phase_address": 93,
+        "expected_dynamic_counts": {
+          "measure": 4,
+          "reset": 3,
+          "if_else": 6
+        },
+        "routed_dynamic_counts": {
+          "measure": 4,
+          "reset": 3,
+          "if_else": 6
+        }
+      },
+      "native_lineage_comparison": {
+        "final_native_phase_events": [
+          {
+            "index": 532,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 533,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 537,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 541,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 542,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 29750,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 29751,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 30156,
+            "name": "measure",
+            "physical": [
+              87
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 30157,
+            "name": "reset",
+            "physical": [
+              87
+            ]
+          },
+          {
+            "index": 57954,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 57955,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 57956,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 58665,
+            "name": "measure",
+            "physical": [
+              93
+            ],
+            "classical": [
+              3
+            ]
+          }
+        ],
+        "final_native_event_counts": {
+          "measure": 4,
+          "reset": 3,
+          "if_else": 6
+        },
+        "native_event_order_and_physical_match_routed": true,
+        "source_phase_lineage_to_native_certified": true,
+        "physically_fixed_single_phase_site_proven": false,
+        "problems": [],
+        "native_phase_event_unique_physical_addresses": [
+          85,
+          87,
+          91,
+          93
+        ]
+      },
+      "native_cz": 15036,
+      "native_depth": 34595,
+      "native_count_ops": {
+        "sx": 28396,
+        "rz": 15125,
+        "cz": 15036,
+        "x": 96,
+        "if_else": 6,
+        "measure": 4,
+        "reset": 3
+      },
+      "native_compiled_qubit_width": 156,
+      "compiler_routed_seconds": 0.1057028670000193,
+      "compiler_native_seconds": 0.30461772499998574,
+      "conditional_operator_equivalence_pass": true,
+      "native_conditional_comparison_count": 6,
+      "archived_23q_seed8776_cost_anchor_reproduced": true,
+      "original_archived_8776_23q_costs": [
+        15036,
+        34595
+      ],
+      "quantum_hardware_gate_pass": false,
+      "fixed_single_physical_phase_site_proven": false,
+      "routed_swap_lineage_pass": true,
+      "routed_to_native_lineage_pass": true
+    },
+    {
+      "bits": 6,
+      "seed": 509,
+      "status": "STAGED_ROUTING_AND_FEZ_NATIVE_CPU_COMPLETE",
+      "staged_routing": {
+        "status": "ROUTED_SWAP_TOKEN_PASS",
+        "source_one_phase_wire": true,
+        "routed_qubit_width": 156,
+        "routed_instruction_count": 55589,
+        "routed_operation_counts": {
+          "rz": 32695,
+          "sx": 13078,
+          "cz": 5136,
+          "swap": 3422,
+          "x": 933,
+          "cx": 289,
+          "if_else": 15,
+          "h": 10,
+          "measure": 6,
+          "reset": 5
+        },
+        "raw_routed_phase_events": [
+          {
+            "index": 498,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 499,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 501,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 503,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 504,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 506,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 507,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 509,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 510,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 512,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 513,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 514,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 516,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 517,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 28595,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28596,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28597,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 28598,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 28776,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 28777,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 55204,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55205,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55206,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55207,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 55208,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 55588,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              5
+            ]
+          }
+        ],
+        "provenance": "Qiskit CPU preset init+layout+routing stages ONLY",
+        "physically_fixed_single_phase_site_proven": false,
+        "phase_token_trace_certified": true,
+        "problems": [],
+        "phase_swaps": [
+          {
+            "instruction": 519,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 552,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 567,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 23558,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 28818,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 53037,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 55188,
+            "from_physical": 85,
+            "to_physical": 86
+          },
+          {
+            "instruction": 55210,
+            "from_physical": 86,
+            "to_physical": 85
+          }
+        ],
+        "routed_phase_events": [
+          {
+            "index": 498,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 499,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 501,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 503,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 504,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 506,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 507,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 509,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 510,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 512,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 513,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 514,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 516,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 517,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 28595,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28596,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28597,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 28598,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 28776,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 28777,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 55204,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55205,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55206,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55207,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 55208,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 55588,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              5
+            ]
+          }
+        ],
+        "original_source_phase_index": 0,
+        "initial_phase_physical_address": 85,
+        "initial_layout_virtual_size": 156,
+        "total_explicit_routed_swap_ops": 3422,
+        "phase_token_swap_ops": 8,
+        "final_tracked_phase_address": 85,
+        "expected_dynamic_counts": {
+          "measure": 6,
+          "reset": 5,
+          "if_else": 15
+        },
+        "routed_dynamic_counts": {
+          "measure": 6,
+          "reset": 5,
+          "if_else": 15
+        }
+      },
+      "native_lineage_comparison": {
+        "final_native_phase_events": [
+          {
+            "index": 717,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 718,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 722,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 726,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 727,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 731,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 732,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 736,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 737,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 741,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 742,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 743,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 747,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 748,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 29307,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 29308,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 29309,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 29310,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 29519,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 29520,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 57418,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 57419,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 57420,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 57421,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 57422,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 57933,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              5
+            ]
+          }
+        ],
+        "final_native_event_counts": {
+          "measure": 6,
+          "reset": 5,
+          "if_else": 15
+        },
+        "native_event_order_and_physical_match_routed": true,
+        "source_phase_lineage_to_native_certified": true,
+        "physically_fixed_single_phase_site_proven": false,
+        "problems": [],
+        "native_phase_event_unique_physical_addresses": [
+          85,
+          86
+        ]
+      },
+      "native_cz": 14857,
+      "native_depth": 34038,
+      "native_count_ops": {
+        "sx": 28068,
+        "rz": 14858,
+        "cz": 14857,
+        "x": 125,
+        "if_else": 15,
+        "measure": 6,
+        "reset": 5
+      },
+      "native_compiled_qubit_width": 156,
+      "compiler_routed_seconds": 0.11157433799999694,
+      "compiler_native_seconds": 0.358889419999997,
+      "conditional_operator_equivalence_pass": true,
+      "native_conditional_comparison_count": 15,
+      "archived_23q_seed8776_cost_anchor_reproduced": null,
+      "original_archived_8776_23q_costs": [
+        15036,
+        34597
+      ],
+      "quantum_hardware_gate_pass": false,
+      "fixed_single_physical_phase_site_proven": false,
+      "routed_swap_lineage_pass": true,
+      "routed_to_native_lineage_pass": true
+    },
+    {
+      "bits": 6,
+      "seed": 8776,
+      "status": "STAGED_ROUTING_AND_FEZ_NATIVE_CPU_COMPLETE",
+      "staged_routing": {
+        "status": "ROUTED_SWAP_TOKEN_PASS",
+        "source_one_phase_wire": true,
+        "routed_qubit_width": 156,
+        "routed_instruction_count": 55638,
+        "routed_operation_counts": {
+          "rz": 32695,
+          "sx": 13078,
+          "cz": 5136,
+          "swap": 3471,
+          "x": 933,
+          "cx": 289,
+          "if_else": 15,
+          "h": 10,
+          "measure": 6,
+          "reset": 5
+        },
+        "raw_routed_phase_events": [
+          {
+            "index": 466,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 467,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 469,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 471,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 472,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 474,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 475,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 477,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 478,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 480,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 481,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 482,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 484,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 485,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 28506,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28507,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28508,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 28509,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 28867,
+            "name": "measure",
+            "physical": [
+              87
+            ],
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 28868,
+            "name": "reset",
+            "physical": [
+              87
+            ]
+          },
+          {
+            "index": 55224,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55225,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55226,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55227,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 55228,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 55637,
+            "name": "measure",
+            "physical": [
+              93
+            ],
+            "classical": [
+              5
+            ]
+          }
+        ],
+        "provenance": "Qiskit CPU preset init+layout+routing stages ONLY",
+        "physically_fixed_single_phase_site_proven": false,
+        "phase_token_trace_certified": true,
+        "problems": [],
+        "phase_swaps": [
+          {
+            "instruction": 487,
+            "from_physical": 85,
+            "to_physical": 86
+          },
+          {
+            "instruction": 489,
+            "from_physical": 86,
+            "to_physical": 87
+          },
+          {
+            "instruction": 490,
+            "from_physical": 87,
+            "to_physical": 88
+          },
+          {
+            "instruction": 519,
+            "from_physical": 88,
+            "to_physical": 89
+          },
+          {
+            "instruction": 2698,
+            "from_physical": 89,
+            "to_physical": 88
+          },
+          {
+            "instruction": 3040,
+            "from_physical": 88,
+            "to_physical": 87
+          },
+          {
+            "instruction": 3078,
+            "from_physical": 87,
+            "to_physical": 88
+          },
+          {
+            "instruction": 4797,
+            "from_physical": 88,
+            "to_physical": 87
+          },
+          {
+            "instruction": 6667,
+            "from_physical": 87,
+            "to_physical": 97
+          },
+          {
+            "instruction": 6781,
+            "from_physical": 97,
+            "to_physical": 87
+          },
+          {
+            "instruction": 9195,
+            "from_physical": 87,
+            "to_physical": 97
+          },
+          {
+            "instruction": 9290,
+            "from_physical": 97,
+            "to_physical": 87
+          },
+          {
+            "instruction": 9291,
+            "from_physical": 87,
+            "to_physical": 86
+          },
+          {
+            "instruction": 11658,
+            "from_physical": 86,
+            "to_physical": 87
+          },
+          {
+            "instruction": 11681,
+            "from_physical": 87,
+            "to_physical": 97
+          },
+          {
+            "instruction": 11726,
+            "from_physical": 97,
+            "to_physical": 87
+          },
+          {
+            "instruction": 11727,
+            "from_physical": 87,
+            "to_physical": 86
+          },
+          {
+            "instruction": 11728,
+            "from_physical": 86,
+            "to_physical": 85
+          },
+          {
+            "instruction": 11729,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 21146,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 28420,
+            "from_physical": 85,
+            "to_physical": 86
+          },
+          {
+            "instruction": 28450,
+            "from_physical": 86,
+            "to_physical": 87
+          },
+          {
+            "instruction": 28894,
+            "from_physical": 87,
+            "to_physical": 88
+          },
+          {
+            "instruction": 28914,
+            "from_physical": 88,
+            "to_physical": 89
+          },
+          {
+            "instruction": 32666,
+            "from_physical": 89,
+            "to_physical": 88
+          },
+          {
+            "instruction": 33846,
+            "from_physical": 88,
+            "to_physical": 89
+          },
+          {
+            "instruction": 33916,
+            "from_physical": 89,
+            "to_physical": 90
+          },
+          {
+            "instruction": 33919,
+            "from_physical": 90,
+            "to_physical": 91
+          },
+          {
+            "instruction": 33921,
+            "from_physical": 91,
+            "to_physical": 92
+          },
+          {
+            "instruction": 33922,
+            "from_physical": 92,
+            "to_physical": 93
+          },
+          {
+            "instruction": 48013,
+            "from_physical": 93,
+            "to_physical": 92
+          },
+          {
+            "instruction": 50574,
+            "from_physical": 92,
+            "to_physical": 91
+          },
+          {
+            "instruction": 55230,
+            "from_physical": 91,
+            "to_physical": 92
+          },
+          {
+            "instruction": 55231,
+            "from_physical": 92,
+            "to_physical": 93
+          }
+        ],
+        "routed_phase_events": [
+          {
+            "index": 466,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 467,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 469,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 471,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 472,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 474,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 475,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 477,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 478,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 480,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 481,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 482,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 484,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 485,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 28506,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28507,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28508,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 28509,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 28867,
+            "name": "measure",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 28868,
+            "name": "reset",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 55224,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55225,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55226,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55227,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 55228,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 55637,
+            "name": "measure",
+            "token_physical_address": 93,
+            "observed_physical_addresses": [
+              93
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              5
+            ]
+          }
+        ],
+        "original_source_phase_index": 0,
+        "initial_phase_physical_address": 85,
+        "initial_layout_virtual_size": 156,
+        "total_explicit_routed_swap_ops": 3471,
+        "phase_token_swap_ops": 34,
+        "final_tracked_phase_address": 93,
+        "expected_dynamic_counts": {
+          "measure": 6,
+          "reset": 5,
+          "if_else": 15
+        },
+        "routed_dynamic_counts": {
+          "measure": 6,
+          "reset": 5,
+          "if_else": 15
+        }
+      },
+      "native_lineage_comparison": {
+        "final_native_phase_events": [
+          {
+            "index": 532,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 533,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 537,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 541,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 542,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 546,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 547,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 551,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 552,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 556,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 557,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 558,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 562,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 563,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 29771,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 29772,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 29773,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 29774,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 30179,
+            "name": "measure",
+            "physical": [
+              87
+            ],
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 30180,
+            "name": "reset",
+            "physical": [
+              87
+            ]
+          },
+          {
+            "index": 57977,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 57978,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 57979,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 57980,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 57981,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 58690,
+            "name": "measure",
+            "physical": [
+              93
+            ],
+            "classical": [
+              5
+            ]
+          }
+        ],
+        "final_native_event_counts": {
+          "measure": 6,
+          "reset": 5,
+          "if_else": 15
+        },
+        "native_event_order_and_physical_match_routed": true,
+        "source_phase_lineage_to_native_certified": true,
+        "physically_fixed_single_phase_site_proven": false,
+        "problems": [],
+        "native_phase_event_unique_physical_addresses": [
+          85,
+          87,
+          91,
+          93
+        ]
+      },
+      "native_cz": 15036,
+      "native_depth": 34597,
+      "native_count_ops": {
+        "sx": 28400,
+        "rz": 15133,
+        "cz": 15036,
+        "x": 96,
+        "if_else": 15,
+        "measure": 6,
+        "reset": 5
+      },
+      "native_compiled_qubit_width": 156,
+      "compiler_routed_seconds": 0.1116984539999919,
+      "compiler_native_seconds": 0.3136935670000014,
+      "conditional_operator_equivalence_pass": true,
+      "native_conditional_comparison_count": 15,
+      "archived_23q_seed8776_cost_anchor_reproduced": true,
+      "original_archived_8776_23q_costs": [
+        15036,
+        34597
+      ],
+      "quantum_hardware_gate_pass": false,
+      "fixed_single_physical_phase_site_proven": false,
+      "routed_swap_lineage_pass": true,
+      "routed_to_native_lineage_pass": true
+    },
+    {
+      "bits": 8,
+      "seed": 509,
+      "status": "STAGED_ROUTING_AND_FEZ_NATIVE_CPU_COMPLETE",
+      "staged_routing": {
+        "status": "ROUTED_SWAP_TOKEN_PASS",
+        "source_one_phase_wire": true,
+        "routed_qubit_width": 156,
+        "routed_instruction_count": 55610,
+        "routed_operation_counts": {
+          "rz": 32695,
+          "sx": 13078,
+          "cz": 5136,
+          "swap": 3422,
+          "x": 933,
+          "cx": 289,
+          "if_else": 28,
+          "h": 14,
+          "measure": 8,
+          "reset": 7
+        },
+        "raw_routed_phase_events": [
+          {
+            "index": 498,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 499,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 501,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 503,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 504,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 506,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 507,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 509,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 510,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 512,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 513,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 514,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 516,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 517,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 519,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 520,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 521,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 522,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 524,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 525,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 527,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 528,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 529,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 530,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 531,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 533,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              5
+            ]
+          },
+          {
+            "index": 534,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 28612,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28613,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28614,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 28615,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 28616,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 28617,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 28795,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              6
+            ]
+          },
+          {
+            "index": 28796,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 55223,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55224,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55225,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55226,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 55227,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 55228,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 55229,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 6,
+            "condition_value": 1
+          },
+          {
+            "index": 55609,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              7
+            ]
+          }
+        ],
+        "provenance": "Qiskit CPU preset init+layout+routing stages ONLY",
+        "physically_fixed_single_phase_site_proven": false,
+        "phase_token_trace_certified": true,
+        "problems": [],
+        "phase_swaps": [
+          {
+            "instruction": 536,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 569,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 584,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 23575,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 28837,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 53056,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 55207,
+            "from_physical": 85,
+            "to_physical": 86
+          },
+          {
+            "instruction": 55231,
+            "from_physical": 86,
+            "to_physical": 85
+          }
+        ],
+        "routed_phase_events": [
+          {
+            "index": 498,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 499,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 501,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 503,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 504,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 506,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 507,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 509,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 510,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 512,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 513,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 514,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 516,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 517,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 519,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 520,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 521,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 522,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 524,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 525,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 527,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 528,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 529,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 530,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 531,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 533,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              5
+            ]
+          },
+          {
+            "index": 534,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 28612,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28613,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28614,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 28615,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 28616,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 28617,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 28795,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              6
+            ]
+          },
+          {
+            "index": 28796,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 55223,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55224,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55225,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55226,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 55227,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 55228,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 55229,
+            "name": "if_else",
+            "token_physical_address": 86,
+            "observed_physical_addresses": [
+              86
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 6,
+            "condition_value": 1
+          },
+          {
+            "index": 55609,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              7
+            ]
+          }
+        ],
+        "original_source_phase_index": 0,
+        "initial_phase_physical_address": 85,
+        "initial_layout_virtual_size": 156,
+        "total_explicit_routed_swap_ops": 3422,
+        "phase_token_swap_ops": 8,
+        "final_tracked_phase_address": 85,
+        "expected_dynamic_counts": {
+          "measure": 8,
+          "reset": 7,
+          "if_else": 28
+        },
+        "routed_dynamic_counts": {
+          "measure": 8,
+          "reset": 7,
+          "if_else": 28
+        }
+      },
+      "native_lineage_comparison": {
+        "final_native_phase_events": [
+          {
+            "index": 717,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 718,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 722,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 726,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 727,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 731,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 732,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 736,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 737,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 741,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 742,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 743,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 747,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 748,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 752,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 753,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 754,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 755,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 759,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 760,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 764,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 765,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 766,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 767,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 768,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 772,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              5
+            ]
+          },
+          {
+            "index": 773,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 29332,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 29333,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 29334,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 29335,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 29336,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 29337,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 29546,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              6
+            ]
+          },
+          {
+            "index": 29547,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 57445,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 57446,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 57447,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 57448,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 57449,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 57450,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 57451,
+            "name": "if_else",
+            "physical": [
+              86
+            ],
+            "condition_bit": 6,
+            "condition_value": 1
+          },
+          {
+            "index": 57962,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              7
+            ]
+          }
+        ],
+        "final_native_event_counts": {
+          "measure": 8,
+          "reset": 7,
+          "if_else": 28
+        },
+        "native_event_order_and_physical_match_routed": true,
+        "source_phase_lineage_to_native_certified": true,
+        "physically_fixed_single_phase_site_proven": false,
+        "problems": [],
+        "native_phase_event_unique_physical_addresses": [
+          85,
+          86
+        ]
+      },
+      "native_cz": 14857,
+      "native_depth": 34038,
+      "native_count_ops": {
+        "sx": 28072,
+        "rz": 14866,
+        "cz": 14857,
+        "x": 125,
+        "if_else": 28,
+        "measure": 8,
+        "reset": 7
+      },
+      "native_compiled_qubit_width": 156,
+      "compiler_routed_seconds": 0.11777985700001636,
+      "compiler_native_seconds": 0.37501284500001475,
+      "conditional_operator_equivalence_pass": true,
+      "native_conditional_comparison_count": 28,
+      "archived_23q_seed8776_cost_anchor_reproduced": null,
+      "original_archived_8776_23q_costs": [
+        15036,
+        34599
+      ],
+      "quantum_hardware_gate_pass": false,
+      "fixed_single_physical_phase_site_proven": false,
+      "routed_swap_lineage_pass": true,
+      "routed_to_native_lineage_pass": true
+    },
+    {
+      "bits": 8,
+      "seed": 8776,
+      "status": "STAGED_ROUTING_AND_FEZ_NATIVE_CPU_COMPLETE",
+      "staged_routing": {
+        "status": "ROUTED_SWAP_TOKEN_PASS",
+        "source_one_phase_wire": true,
+        "routed_qubit_width": 156,
+        "routed_instruction_count": 55659,
+        "routed_operation_counts": {
+          "rz": 32695,
+          "sx": 13078,
+          "cz": 5136,
+          "swap": 3471,
+          "x": 933,
+          "cx": 289,
+          "if_else": 28,
+          "h": 14,
+          "measure": 8,
+          "reset": 7
+        },
+        "raw_routed_phase_events": [
+          {
+            "index": 466,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 467,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 469,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 471,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 472,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 474,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 475,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 477,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 478,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 480,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 481,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 482,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 484,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 485,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 487,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 488,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 489,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 490,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 492,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 493,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 495,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 496,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 497,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 498,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 499,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 501,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              5
+            ]
+          },
+          {
+            "index": 502,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 28523,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28524,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28525,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 28526,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 28527,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 28528,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 28886,
+            "name": "measure",
+            "physical": [
+              87
+            ],
+            "classical": [
+              6
+            ]
+          },
+          {
+            "index": 28887,
+            "name": "reset",
+            "physical": [
+              87
+            ]
+          },
+          {
+            "index": 55243,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55244,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55245,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55246,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 55247,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 55248,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 55249,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 6,
+            "condition_value": 1
+          },
+          {
+            "index": 55658,
+            "name": "measure",
+            "physical": [
+              93
+            ],
+            "classical": [
+              7
+            ]
+          }
+        ],
+        "provenance": "Qiskit CPU preset init+layout+routing stages ONLY",
+        "physically_fixed_single_phase_site_proven": false,
+        "phase_token_trace_certified": true,
+        "problems": [],
+        "phase_swaps": [
+          {
+            "instruction": 504,
+            "from_physical": 85,
+            "to_physical": 86
+          },
+          {
+            "instruction": 506,
+            "from_physical": 86,
+            "to_physical": 87
+          },
+          {
+            "instruction": 507,
+            "from_physical": 87,
+            "to_physical": 88
+          },
+          {
+            "instruction": 536,
+            "from_physical": 88,
+            "to_physical": 89
+          },
+          {
+            "instruction": 2715,
+            "from_physical": 89,
+            "to_physical": 88
+          },
+          {
+            "instruction": 3057,
+            "from_physical": 88,
+            "to_physical": 87
+          },
+          {
+            "instruction": 3095,
+            "from_physical": 87,
+            "to_physical": 88
+          },
+          {
+            "instruction": 4814,
+            "from_physical": 88,
+            "to_physical": 87
+          },
+          {
+            "instruction": 6684,
+            "from_physical": 87,
+            "to_physical": 97
+          },
+          {
+            "instruction": 6798,
+            "from_physical": 97,
+            "to_physical": 87
+          },
+          {
+            "instruction": 9212,
+            "from_physical": 87,
+            "to_physical": 97
+          },
+          {
+            "instruction": 9307,
+            "from_physical": 97,
+            "to_physical": 87
+          },
+          {
+            "instruction": 9308,
+            "from_physical": 87,
+            "to_physical": 86
+          },
+          {
+            "instruction": 11675,
+            "from_physical": 86,
+            "to_physical": 87
+          },
+          {
+            "instruction": 11698,
+            "from_physical": 87,
+            "to_physical": 97
+          },
+          {
+            "instruction": 11743,
+            "from_physical": 97,
+            "to_physical": 87
+          },
+          {
+            "instruction": 11744,
+            "from_physical": 87,
+            "to_physical": 86
+          },
+          {
+            "instruction": 11745,
+            "from_physical": 86,
+            "to_physical": 85
+          },
+          {
+            "instruction": 11746,
+            "from_physical": 85,
+            "to_physical": 84
+          },
+          {
+            "instruction": 21163,
+            "from_physical": 84,
+            "to_physical": 85
+          },
+          {
+            "instruction": 28437,
+            "from_physical": 85,
+            "to_physical": 86
+          },
+          {
+            "instruction": 28467,
+            "from_physical": 86,
+            "to_physical": 87
+          },
+          {
+            "instruction": 28913,
+            "from_physical": 87,
+            "to_physical": 88
+          },
+          {
+            "instruction": 28933,
+            "from_physical": 88,
+            "to_physical": 89
+          },
+          {
+            "instruction": 32685,
+            "from_physical": 89,
+            "to_physical": 88
+          },
+          {
+            "instruction": 33865,
+            "from_physical": 88,
+            "to_physical": 89
+          },
+          {
+            "instruction": 33935,
+            "from_physical": 89,
+            "to_physical": 90
+          },
+          {
+            "instruction": 33938,
+            "from_physical": 90,
+            "to_physical": 91
+          },
+          {
+            "instruction": 33940,
+            "from_physical": 91,
+            "to_physical": 92
+          },
+          {
+            "instruction": 33941,
+            "from_physical": 92,
+            "to_physical": 93
+          },
+          {
+            "instruction": 48032,
+            "from_physical": 93,
+            "to_physical": 92
+          },
+          {
+            "instruction": 50593,
+            "from_physical": 92,
+            "to_physical": 91
+          },
+          {
+            "instruction": 55251,
+            "from_physical": 91,
+            "to_physical": 92
+          },
+          {
+            "instruction": 55252,
+            "from_physical": 92,
+            "to_physical": 93
+          }
+        ],
+        "routed_phase_events": [
+          {
+            "index": 466,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 467,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 469,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 471,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 472,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 474,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 475,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 477,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 478,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 480,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 481,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 482,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 484,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 485,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 487,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 488,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 489,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 490,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 492,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 493,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 495,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 496,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 497,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 498,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 499,
+            "name": "if_else",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 501,
+            "name": "measure",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              5
+            ]
+          },
+          {
+            "index": 502,
+            "name": "reset",
+            "token_physical_address": 85,
+            "observed_physical_addresses": [
+              85
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 28523,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 28524,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 28525,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 28526,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 28527,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 28528,
+            "name": "if_else",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 28886,
+            "name": "measure",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              6
+            ]
+          },
+          {
+            "index": 28887,
+            "name": "reset",
+            "token_physical_address": 87,
+            "observed_physical_addresses": [
+              87
+            ],
+            "phase_token_matches": true
+          },
+          {
+            "index": 55243,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 55244,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 55245,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 55246,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 55247,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 55248,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 55249,
+            "name": "if_else",
+            "token_physical_address": 91,
+            "observed_physical_addresses": [
+              91
+            ],
+            "phase_token_matches": true,
+            "condition_bit": 6,
+            "condition_value": 1
+          },
+          {
+            "index": 55658,
+            "name": "measure",
+            "token_physical_address": 93,
+            "observed_physical_addresses": [
+              93
+            ],
+            "phase_token_matches": true,
+            "classical": [
+              7
+            ]
+          }
+        ],
+        "original_source_phase_index": 0,
+        "initial_phase_physical_address": 85,
+        "initial_layout_virtual_size": 156,
+        "total_explicit_routed_swap_ops": 3471,
+        "phase_token_swap_ops": 34,
+        "final_tracked_phase_address": 93,
+        "expected_dynamic_counts": {
+          "measure": 8,
+          "reset": 7,
+          "if_else": 28
+        },
+        "routed_dynamic_counts": {
+          "measure": 8,
+          "reset": 7,
+          "if_else": 28
+        }
+      },
+      "native_lineage_comparison": {
+        "final_native_phase_events": [
+          {
+            "index": 532,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              0
+            ]
+          },
+          {
+            "index": 533,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 537,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 541,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              1
+            ]
+          },
+          {
+            "index": 542,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 546,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 547,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 551,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              2
+            ]
+          },
+          {
+            "index": 552,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 556,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 557,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 558,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 562,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              3
+            ]
+          },
+          {
+            "index": 563,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 567,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 568,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 569,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 570,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 574,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              4
+            ]
+          },
+          {
+            "index": 575,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 579,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 580,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 581,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 582,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 583,
+            "name": "if_else",
+            "physical": [
+              85
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 587,
+            "name": "measure",
+            "physical": [
+              85
+            ],
+            "classical": [
+              5
+            ]
+          },
+          {
+            "index": 588,
+            "name": "reset",
+            "physical": [
+              85
+            ]
+          },
+          {
+            "index": 29796,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 29797,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 29798,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 29799,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 29800,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 29801,
+            "name": "if_else",
+            "physical": [
+              87
+            ],
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 30206,
+            "name": "measure",
+            "physical": [
+              87
+            ],
+            "classical": [
+              6
+            ]
+          },
+          {
+            "index": 30207,
+            "name": "reset",
+            "physical": [
+              87
+            ]
+          },
+          {
+            "index": 58004,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 0,
+            "condition_value": 1
+          },
+          {
+            "index": 58005,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 1,
+            "condition_value": 1
+          },
+          {
+            "index": 58006,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 2,
+            "condition_value": 1
+          },
+          {
+            "index": 58007,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 3,
+            "condition_value": 1
+          },
+          {
+            "index": 58008,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 4,
+            "condition_value": 1
+          },
+          {
+            "index": 58009,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 5,
+            "condition_value": 1
+          },
+          {
+            "index": 58010,
+            "name": "if_else",
+            "physical": [
+              91
+            ],
+            "condition_bit": 6,
+            "condition_value": 1
+          },
+          {
+            "index": 58719,
+            "name": "measure",
+            "physical": [
+              93
+            ],
+            "classical": [
+              7
+            ]
+          }
+        ],
+        "final_native_event_counts": {
+          "measure": 8,
+          "reset": 7,
+          "if_else": 28
+        },
+        "native_event_order_and_physical_match_routed": true,
+        "source_phase_lineage_to_native_certified": true,
+        "physically_fixed_single_phase_site_proven": false,
+        "problems": [],
+        "native_phase_event_unique_physical_addresses": [
+          85,
+          87,
+          91,
+          93
+        ]
+      },
+      "native_cz": 15036,
+      "native_depth": 34599,
+      "native_count_ops": {
+        "sx": 28404,
+        "rz": 15141,
+        "cz": 15036,
+        "x": 96,
+        "if_else": 28,
+        "measure": 8,
+        "reset": 7
+      },
+      "native_compiled_qubit_width": 156,
+      "compiler_routed_seconds": 0.12083377700000142,
+      "compiler_native_seconds": 0.32947947900001395,
+      "conditional_operator_equivalence_pass": true,
+      "native_conditional_comparison_count": 28,
+      "archived_23q_seed8776_cost_anchor_reproduced": true,
+      "original_archived_8776_23q_costs": [
+        15036,
+        34599
+      ],
+      "quantum_hardware_gate_pass": false,
+      "fixed_single_physical_phase_site_proven": false,
+      "routed_swap_lineage_pass": true,
+      "routed_to_native_lineage_pass": true
+    }
+  ],
+  "status": "COMPLETE_ROUTE_AUDITS",
+  "success": true,
+  "previous_immutable_source_integrity": {
+    "original_archived_reference_valid": true,
+    "original_unmodified_public_source_selection": true,
+    "six_distinct_stage_phase_proof_cases_from_original_receipt": 768,
+    "original_ideal_adaptive_outcomes_from_archived_source": 336,
+    "source_gate_structures_exact": {
+      "4": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 4,
+        "source_gate_count": 5052,
+        "source_operation_counts": {
+          "x": 3053,
+          "rccx": 1094,
+          "cx": 575,
+          "ccx": 309,
+          "h": 8,
+          "if_else": 6,
+          "measure": 4,
+          "reset": 3
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 16,
+        "existing_stage_source_phase_proofs_true": 768
+      },
+      "6": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 6,
+        "source_gate_count": 5069,
+        "source_operation_counts": {
+          "x": 3053,
+          "rccx": 1094,
+          "cx": 575,
+          "ccx": 309,
+          "if_else": 15,
+          "h": 12,
+          "measure": 6,
+          "reset": 5
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 64,
+        "existing_stage_source_phase_proofs_true": 768
+      },
+      "8": {
+        "source_quantum_qubits": 32,
+        "source_classical_bits": 8,
+        "source_gate_count": 5090,
+        "source_operation_counts": {
+          "x": 3053,
+          "rccx": 1094,
+          "cx": 575,
+          "ccx": 309,
+          "if_else": 28,
+          "h": 16,
+          "measure": 8,
+          "reset": 7
+        },
+        "source_structure_matches_immutable_original": true,
+        "archived_independent_ideal_outcomes_matched": 256,
+        "existing_stage_source_phase_proofs_true": 768
+      }
+    },
+    "no_new_source_stage_proof_reexecution_claimed": true
+  },
+  "source_proofs": {
+    "4": {
+      "original_source_width": 32,
+      "original_classical_width": 4,
+      "scratch_qubits_checked": 9,
+      "scratch_live_instruction_count": 0,
+      "scratch_all_nine_actually_unused": true,
+      "source_instruction_count": 5052,
+      "source_gate_count": 5052,
+      "original_source_gate_counts": {
+        "x": 3053,
+        "rccx": 1094,
+        "cx": 575,
+        "ccx": 309,
+        "h": 8,
+        "if_else": 6,
+        "measure": 4,
+        "reset": 3
+      },
+      "source_phase_reused_qubit_count": 1,
+      "all_conditionals_one_phase_wire": true,
+      "original_measurement_count": 4,
+      "original_reset_count": 3,
+      "original_conditional_count": 6,
+      "reduced_source_width": 23,
+      "removed_idle_source_qubits": 9,
+      "unchanged_original_instruction_order_and_operands": true,
+      "unchanged_original_gate_operations_and_params": true,
+      "unchanged_conditional_body_and_previous_classical_control": true,
+      "unchanged_original_native_gate_source_histogram": true,
+      "dynamic_measure_reset_and_feedback_preserved": true,
+      "mathematically_identical_reduced_source_instrument_on_live_registers": true,
+      "not_newly_rerunning_archived_768_stage_or_672_outcome_ideal_proofs": true
+    },
+    "6": {
+      "original_source_width": 32,
+      "original_classical_width": 6,
+      "scratch_qubits_checked": 9,
+      "scratch_live_instruction_count": 0,
+      "scratch_all_nine_actually_unused": true,
+      "source_instruction_count": 5069,
+      "source_gate_count": 5069,
+      "original_source_gate_counts": {
+        "x": 3053,
+        "rccx": 1094,
+        "cx": 575,
+        "ccx": 309,
+        "if_else": 15,
+        "h": 12,
+        "measure": 6,
+        "reset": 5
+      },
+      "source_phase_reused_qubit_count": 1,
+      "all_conditionals_one_phase_wire": true,
+      "original_measurement_count": 6,
+      "original_reset_count": 5,
+      "original_conditional_count": 15,
+      "reduced_source_width": 23,
+      "removed_idle_source_qubits": 9,
+      "unchanged_original_instruction_order_and_operands": true,
+      "unchanged_original_gate_operations_and_params": true,
+      "unchanged_conditional_body_and_previous_classical_control": true,
+      "unchanged_original_native_gate_source_histogram": true,
+      "dynamic_measure_reset_and_feedback_preserved": true,
+      "mathematically_identical_reduced_source_instrument_on_live_registers": true,
+      "not_newly_rerunning_archived_768_stage_or_672_outcome_ideal_proofs": true
+    },
+    "8": {
+      "original_source_width": 32,
+      "original_classical_width": 8,
+      "scratch_qubits_checked": 9,
+      "scratch_live_instruction_count": 0,
+      "scratch_all_nine_actually_unused": true,
+      "source_instruction_count": 5090,
+      "source_gate_count": 5090,
+      "original_source_gate_counts": {
+        "x": 3053,
+        "rccx": 1094,
+        "cx": 575,
+        "ccx": 309,
+        "if_else": 28,
+        "h": 16,
+        "measure": 8,
+        "reset": 7
+      },
+      "source_phase_reused_qubit_count": 1,
+      "all_conditionals_one_phase_wire": true,
+      "original_measurement_count": 8,
+      "original_reset_count": 7,
+      "original_conditional_count": 28,
+      "reduced_source_width": 23,
+      "removed_idle_source_qubits": 9,
+      "unchanged_original_instruction_order_and_operands": true,
+      "unchanged_original_gate_operations_and_params": true,
+      "unchanged_conditional_body_and_previous_classical_control": true,
+      "unchanged_original_native_gate_source_histogram": true,
+      "dynamic_measure_reset_and_feedback_preserved": true,
+      "mathematically_identical_reduced_source_instrument_on_live_registers": true,
+      "not_newly_rerunning_archived_768_stage_or_672_outcome_ideal_proofs": true
+    }
+  },
+  "target_device_qubits": 156,
+  "summary": {
+    "experiments": 6,
+    "complete_native_audits": 6,
+    "stage_phase_token_pass": 6,
+    "source_phase_lineage_to_native_certified": 6,
+    "single_fixed_physical_phase_site_proven": 0,
+    "all_original_pruned_seed8776_anchors_reproduced": true,
+    "native_feedback_phase_operator_checks": 98,
+    "hardware_feasible_count": 0,
+    "no_quantum_processor_execution": true,
+    "one_source_phase_qubit_not_a_claim_of_one_fixed_hardware_site": true,
+    "real_device_feedback_latency_NOT_TESTED": true,
+    "physical_qubit_lineage_fully_certified_for_all_cases": true
+  }
+}
