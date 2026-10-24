@@ -1,0 +1,123 @@
+name: QRR true N35 23q routed SWAP phase lineage vs native ISA zero QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-23q-routed-phase-lineage-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-23q-routed-swap-phase-lineage-v1
+  cancel-in-progress: false
+
+jobs:
+  two-base-phase-lineage:
+    name: true dynamic 23q public base ${{ matrix.base }} 3 precisions x 2 fixed seeds, routed vs native CPU
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fixed trusted quantum compiler toolchain only
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Check immutable source heritage/prereg and no-QPU policy
+        run: |
+          test -s docs/QRR_N35_23Q_ROUTED_PHASE_LINEAGE_PREREG.md
+          python -m py_compile hardware/qrr_n35_23q_routed_phase_lineage.py
+          python - <<'PY'
+          from pathlib import Path
+          source=Path('hardware/qrr_n35_23q_routed_phase_lineage.py').read_text()
+          assert all(x not in source for x in ('SamplerV2','EstimatorV2','sampler.run','job.submit','job.run','job.result','backend.run'))
+          assert 'BITS=(4,6,8)' in source and 'SEEDS=(509,8776)' in source
+          assert 'StagedPassManager' in source
+          assert 'phase_swaps' in source and 'initial_phase_physical_address' in source
+          assert 'prune.reduction_with_exact_instruction_identity' in source
+          assert 'feedback.certify_branch_operators' in source
+          for b in (2,8):
+            for name in (
+              f'results/ibm_shor35_true_recycled_idle_scratch_pruning/qrr_n35_prune_idle_scratch_base{b}.json',
+              f'results/ibm_shor35_true_recycled_dynamic_fez_isa/qrr_n35_dynamic_isa_base{b}.json',
+              f'results/n35_true_recycled_phase_feedforward/qrr_n35_recycled_phase_feedforward_base{b}.json'):
+              assert Path(name).exists(),name
+          print('FROZEN full source/feedback and 23q native priors, read-only phase routing CPU only')
+          PY
+      - name: Rebuild source-exact 23q dynamic circuits, track routed SWAP phase tokens, compare Fez ISA events and branch operator
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 680s python -u hardware/qrr_n35_23q_routed_phase_lineage.py --base "$BASE" | tee "qrr_n35_23q_phase_route_base${BASE}.log"
+      - name: Independent original-result contract audit, all failures and unclear mappings retained
+        shell: bash
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          b=int(os.environ['BASE'])
+          d=json.loads(Path(f'results/ibm_shor35_true_recycled_phase_route_lineage/qrr_n35_23q_routed_phase_lineage_base{b}.json').read_text())
+          prior=json.loads(Path(f'results/ibm_shor35_true_recycled_idle_scratch_pruning/qrr_n35_prune_idle_scratch_base{b}.json').read_text())
+          assert d['revision']=='qrr-n35-true-23q-phase-routed-swap-lineage-v1-20261024'
+          assert d['public_base']==b and d['N']==35 and d['source_quantum_width']==23
+          assert d['source_phase_qubits']==1
+          assert d['preregistration']=='docs/QRR_N35_23Q_ROUTED_PHASE_LINEAGE_PREREG.md'
+          assert d['bits_list']==[4,6,8] and d['seed_list']==[509,8776]
+          assert d['backend_target']=='ibm_fez' and d['qiskit_optimization_level']==1
+          assert d['frozen_hardware_CZ_limit']==800 and d['frozen_hardware_depth_limit']==2000
+          assert d['actual_qpu_jobs']==0 and not d['IBM_free_or_paid_quantum_runtime_used']
+          assert d['backend_run_never_invoked']
+          assert d['previous_immutable_source_integrity']['original_archived_reference_valid']
+          assert all(x['scratch_all_nine_actually_unused'] and x['reduced_source_width']==23 for x in d['source_proofs'].values())
+          assert d['success'] and d['status']=='COMPLETE_ROUTE_AUDITS'
+          rows=d['results']
+          assert len(rows)==6 and [(x['bits'],x['seed']) for x in rows]==[(bits,seed) for bits in (4,6,8) for seed in (509,8776)]
+          for x in rows:
+            assert x['status']=='STAGED_ROUTING_AND_FEZ_NATIVE_CPU_COMPLETE'
+            assert x['native_cz']>0 and x['native_depth']>0
+            assert x['native_count_ops']['cz']==x['native_cz']
+            assert x['native_count_ops']['if_else']==x['bits']*(x['bits']-1)//2
+            assert x['native_count_ops']['measure']==x['bits']
+            assert x['native_count_ops']['reset']==x['bits']-1
+            assert x['conditional_operator_equivalence_pass']
+            assert x['native_conditional_comparison_count']==x['bits']*(x['bits']-1)//2
+            assert x['quantum_hardware_gate_pass']==(x['native_cz']<=800 and x['native_depth']<=2000)
+            assert x['routed_swap_lineage_pass']==x['staged_routing']['phase_token_trace_certified']
+            assert x['routed_to_native_lineage_pass']==x['native_lineage_comparison']['source_phase_lineage_to_native_certified']
+            assert x['fixed_single_physical_phase_site_proven']==x['native_lineage_comparison']['physically_fixed_single_phase_site_proven']
+            if x['seed']==8776:
+              saved=next(z for z in prior['pairs'] if z['bits']==x['bits'] and z['seed']==8776)['pruned_23q']
+              assert (x['native_cz'],x['native_depth'])==(saved['compiled_native_cz'],saved['compiled_native_depth']) or x['archived_23q_seed8776_cost_anchor_reproduced'] is False
+          summary=d['summary']
+          assert summary['experiments']==6 and summary['complete_native_audits']==6
+          assert summary['stage_phase_token_pass']==sum(x['routed_swap_lineage_pass'] for x in rows)
+          assert summary['source_phase_lineage_to_native_certified']==sum(x['routed_to_native_lineage_pass'] for x in rows)
+          assert summary['single_fixed_physical_phase_site_proven']==sum(x['fixed_single_physical_phase_site_proven'] for x in rows)
+          assert summary['native_feedback_phase_operator_checks']==sum(x['native_conditional_comparison_count'] for x in rows)
+          assert summary['hardware_feasible_count']==0 and summary['no_quantum_processor_execution']
+          assert summary['real_device_feedback_latency_NOT_TESTED']
+          print('GROUNDED PHASE LINEAGE SOURCE/ISA AUDIT PASS public base',b,
+                'routed source phase token',summary['stage_phase_token_pass'],'/6',
+                'through native',summary['source_phase_lineage_to_native_certified'],'/6',
+                'single fixed physical phase',summary['single_fixed_physical_phase_site_proven'],'/6',
+                'native branch operators',summary['native_feedback_phase_operator_checks'],
+                'real QPU jobs ZERO')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-23q-phase-route-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_23q_phase_route_base*.log
+            results/ibm_shor35_true_recycled_phase_route_lineage/qrr_n35_23q_routed_phase_lineage_base*.json
