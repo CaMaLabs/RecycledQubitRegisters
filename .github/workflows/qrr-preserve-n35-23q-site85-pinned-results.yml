@@ -1,0 +1,195 @@
+name: Independently preserve N35 23q site85 pinned-phase physical negative and original native receipts
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n35-23q-site85-pinned-results.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n35-23q-pinned85-independent-original-receipts
+  cancel-in-progress: false
+
+jobs:
+  strict-original-receipt-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download unchanged ORIGINAL 12 pinned experiment receipts; no compiler, no QPU
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 40145166136
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: qrr-n35-23q-start-site85-base*-original
+          merge-multiple: true
+          path: _original_site85_pinned
+      - name: Preserve two original result JSONs without byte modifications
+        run: |
+          set -euo pipefail
+          mkdir -p results/ibm_shor35_23q_initial_phase_site85
+          for base in 2 8; do
+            fn="qrr_n35_site85_pinned_base${base}.json"
+            hit="$(find _original_site85_pinned -type f -name "$fn" | wc -l)"
+            test "$hit" -eq 1 || { echo "Expected exactly one original $fn; found $hit"; exit 1; }
+            find _original_site85_pinned -type f -name "$fn" -exec cp -t results/ibm_shor35_23q_initial_phase_site85/ '{}' +
+          done
+      - name: Independent original target/phase SWAP+native site reconstruction and strict fixed-site negative audit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          frozen={
+            2:{
+             (4,509):(29375,67210,30,[67,69,78]),
+             (4,8776):(29477,67531,17,[10,29,38,49]),
+             (6,509):(44229,102970,19,[98,106,109,110,111]),
+             (6,8776):(45075,103270,77,[69,78,86,88]),
+             (8,509):(61539,141149,89,[47,58,65,67,70,71,86,89]),
+             (8,8776):(60645,138584,77,[65,66,84,89])},
+            8:{
+             (4,509):(14907,34385,8,[85,97,107]),
+             (4,8776):(15816,35767,33,[20,22,85]),
+             (6,509):(14907,34385,8,[85,97,107]),
+             (6,8776):(15816,35767,33,[20,22,85]),
+             (8,509):(14907,34386,8,[85,97,107]),
+             (8,8776):(15816,35767,33,[20,22,85])}}
+          total_branch=0
+          total_complete=0
+          for base in (2,8):
+            source=Path(f'results/ibm_shor35_23q_initial_phase_site85/qrr_n35_site85_pinned_base{base}.json')
+            d=json.loads(source.read_text())
+            old=json.loads(Path(f'results/ibm_shor35_true_recycled_phase_route_lineage/qrr_n35_23q_routed_phase_lineage_base{base}.json').read_text())
+            assert d['revision']=='qrr-n35-23q-initial-phase-pin-site85-v1-20261024'
+            assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+            assert d['preregistration']=='docs/QRR_N35_23Q_PINNED_PHASE_SITE_PREREG.md'
+            assert d['public_base']==base and d['N']==35
+            assert d['source_one_recycled_phase_bit'] and d['unchanged_source_qubits']==23
+            assert d['phase_precisions']==[4,6,8] and d['seeds']==[509,8776]
+            assert d['pinned_start_site']==85 and d['initial_layout_pin_NOT_a_no_swap_routing_constraint']
+            assert d['backend_target']=='ibm_fez' and d['optimization_level']==1
+            assert d['source_original_lineage_anchors_pass_before_backend']
+            assert d['old_exact_source_run_id']==40144331011 and d['old_audit_run_id']==40144473764
+            assert d['status']=='ALL_PINNED_LAYOUT_CPU_CASES_COMPLETE' and d['success']
+            assert d['quantum_processor_jobs_submitted']==0
+            assert d['backend_run_never_invoked'] and not d['free_or_paid_quantum_runtime_used']
+            assert d['hardware_native_cz_limit']==800 and d['hardware_native_depth_limit']==2000
+            proof=d['prior_unchanged_source_and_ideal_proofs']
+            assert proof['both_conditions_original_source_mathematically_unchanged']
+            for bits in (4,6,8):
+              item=proof['dynamic_23q_exact_instruction_identity'][str(bits)]
+              assert item['reduced_source_width']==23 and item['removed_idle_source_qubits']==9
+              assert item['scratch_all_nine_actually_unused']
+              assert item['unchanged_original_instruction_order_and_operands']
+              assert item['unchanged_conditional_body_and_previous_classical_control']
+            old_by={(x['bits'],x['seed']):x for x in old['results']}
+            assert len(d['results'])==6
+            assert [(x['bits'],x['seed']) for x in d['results']]==[
+                   (b,s) for b in (4,6,8) for s in (509,8776)]
+            for row in d['results']:
+              bits,seed=row['bits'],row['seed']
+              oldrow=old_by[(bits,seed)]
+              assert row['status']=='COMPLETE_PINNED_NATIVE_CPU'
+              assert row['qpu_jobs']==0 and not row['source_changed']
+              assert row['initial_pin_site85_requested'] and row['phase_pin_respected']
+              expected=frozen[base][bits,seed]
+              assert (row['pinned_native_cz'],row['pinned_native_depth'],
+                row['staged_routed_phase_trace']['phase_token_swap_ops'],
+                row['native_routed_phase_comparison']['native_phase_event_unique_physical_addresses'])==expected,(base,bits,seed)
+              assert row['archived_unpinned_native_cz']==oldrow['native_cz']
+              assert row['archived_unpinned_native_depth']==oldrow['native_depth']
+              assert row['archived_unpinned_start_address']==oldrow['staged_routing']['initial_phase_physical_address']
+              assert row['archived_unpinned_phase_event_sites']==oldrow['native_lineage_comparison']['native_phase_event_unique_physical_addresses']
+              assert row['paired_cz_change_vs_archived']==row['pinned_native_cz']-oldrow['native_cz']
+              assert row['paired_depth_change_vs_archived']==row['pinned_native_depth']-oldrow['native_depth']
+              assert row['paired_cz_change_vs_archived']>0
+              assert row['both_compiler_cost_metrics_improve'] is False
+              assert not row['pinned_candidate_physical_gate_pass']
+              start=row['baseline_complete_source_layout']
+              pinned=row['new_pinned_complete_source_layout']
+              assert len(start)==len(pinned)==23
+              assert len(set(start))==len(set(pinned))==23
+              assert pinned[0]==85 and row['baseline_qiskit_phase_initial_site']==start[0]
+              assert row['number_source_wire_placement_changes']==sum(a!=b for a,b in zip(start,pinned))
+              assert row['number_source_wire_placement_changes']<=2
+              assert all(a==b for i,(a,b) in enumerate(zip(start,pinned)) if i!=0 and i!=row['other_source_physical85_occupant_index'])
+              assert row['pinned_layout_initial_phase_physical']==85
+              route=row['staged_routed_phase_trace']
+              compare=row['native_routed_phase_comparison']
+              assert route['phase_token_trace_certified'] and not route['problems']
+              assert compare['source_phase_lineage_to_native_certified'] and not compare['problems']
+              assert row['staged_routed_token_lineage_and_native_pass']
+              assert route['initial_phase_physical_address']==85
+              assert route['phase_token_swap_ops']==len(route['phase_swaps'])
+              # Independent SWAP-token reconstruction interleaved with ALL
+              # actual routed phase dynamic events; no rerunning Qiskit.
+              timeline=[('swap',v['instruction'],v) for v in route['phase_swaps']]
+              timeline += [('phase',v['index'],v) for v in route['routed_phase_events']]
+              token=85
+              for typ,idx,item in sorted(timeline,key=lambda x:x[1]):
+                if typ=='swap':
+                  assert token==item['from_physical'],(base,bits,seed,idx)
+                  token=item['to_physical']
+                else:
+                  assert item['token_physical_address']==token
+                  assert item['observed_physical_addresses']==[token]
+                  assert item['phase_token_matches'] is True
+              assert token==route['final_tracked_phase_address']
+              routed_events=route['routed_phase_events']
+              native_events=compare['final_native_phase_events']
+              assert len(routed_events)==len(native_events)
+              for r0,n0 in zip(routed_events,native_events):
+                assert r0['name']==n0['name']
+                assert r0['observed_physical_addresses']==n0['physical']
+                if r0['name']=='measure':
+                  assert r0['classical']==n0['classical']
+                if r0['name']=='if_else':
+                  assert r0['condition_bit']==n0['condition_bit']
+                  assert r0['condition_value']==n0['condition_value']==1
+              ops=row['native_ops']
+              assert ops['measure']==bits and ops['reset']==bits-1
+              assert ops['if_else']==bits*(bits-1)//2
+              assert ops['cz']==row['pinned_native_cz']
+              assert row['native_compiled_target_width']==156
+              assert row['native_conditional_phase_quantum_operator_equivalence_pass']
+              assert row['native_conditional_phase_operator_count']==ops['if_else']
+              total_branch+=row['native_conditional_phase_operator_count']
+              total_complete+=1
+              assert not row['all_dynamic_events_at_pinned_site85']
+              assert not row['strict_no_phase_swap_fixed_85_site']
+              print('ORIGINAL RECEIPT AUDITED base',base,'bits',bits,'seed',seed,
+                'source 23, actual phase starting site85, phase moving SWAPs',
+                len(route['phase_swaps']),'dynamic events on',compare['native_phase_event_unique_physical_addresses'],
+                'CZ',row['pinned_native_cz'],'depth',row['pinned_native_depth'],
+                'classical feedback operator checks',row['native_conditional_phase_operator_count'],
+                'fixed-site FAIL; NO QPU')
+            sm=d['summary']
+            assert sm['requested_cases']==6 and sm['native_completes']==6
+            assert sm['initial_site85_respected']==6
+            assert sm['true_logical_phase_routed_native_lineage_pass']==6
+            assert sm['pinned_phase_site85_strict_no_swap_success']==0
+            assert sm['pinned_site85_all_dynamic_events']==0
+            assert sm['native_compiler_both_CZ_and_depth_better_than_archived_count']==0
+            assert sm['hardware_feasible_count']==0 and not sm['strict_site85_global_gate_pass']
+            assert sm['native_conditional_source_phase_operators_verified']==98
+          assert total_complete==12 and total_branch==196
+          print('SUCCESS: independently validated/unchanged original 12 pinned CPU layouts;',
+            '12 start at 85, 12 phase token route passes, 196 actual phase operator receipts,',
+            '0 physical fixed site, 0 hardware feasible, no QPU and NO new compilation')
+          PY
+      - name: Commit only original unchanged CPU experiment JSON artifacts
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/ibm_shor35_23q_initial_phase_site85/qrr_n35_site85_pinned_base2.json
+          git add results/ibm_shor35_23q_initial_phase_site85/qrr_n35_site85_pinned_base8.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently verify and preserve exact 12 genuine N35 23q site85 pin false fixed-site CPU layouts and 196 native feedback quantum operators'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
