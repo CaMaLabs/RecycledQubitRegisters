@@ -84,9 +84,9 @@ def inverse_ratio(interval):
 def policy_comparisons(row):
     cube_cmp = row["cube_vs_plain"]
     selections = {
-        "P1_mod3_1": bool(row["P1_mod3_1_predict_positive"]),
+        "P1_mod3_1": bool(row["public_features"]["P1_mod3_1_predict_positive"]),
         "P2_bitweight": bool(
-            row["P2_public_bitweight_proxy"]["P2_source_proxy_predict_positive"]
+            row["public_features"]["P2_public_bitweight_proxy"]["P2_source_proxy_predict_positive"]
         ),
     }
     out = {}
