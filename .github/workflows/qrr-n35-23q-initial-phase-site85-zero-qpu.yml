@@ -1,0 +1,139 @@
+name: N35 genuine 23q recycled phase initial layout pin 85, FEZ CPU no QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n35-23q-initial-phase-site85-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n35-23q-phase-site85-pinned-start-20261024
+  cancel-in-progress: false
+
+jobs:
+  fixed-site-pinning-study:
+    name: public base ${{ matrix.base }} b4/b6/b8 seeds509/8776 original dynamic source site85 pin and routed token proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    strategy:
+      fail-fast: false
+      matrix:
+        base: [2,8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fixed Qiskit compiler and read-only IBM Fez target SDK
+        run: python -m pip install "qiskit~=2.5.2" "qiskit-ibm-runtime~=0.47.0"
+      - name: Prereg immutable source and STATIC no-QPU policy
+        run: |
+          test -s docs/QRR_N35_23Q_PINNED_PHASE_SITE_PREREG.md
+          python -m py_compile hardware/qrr_n35_23q_pinned_phase_site.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('hardware/qrr_n35_23q_pinned_phase_site.py').read_text()
+          assert all(x not in s for x in (
+            'SamplerV2','EstimatorV2','backend.run','sampler.run','job.submit','job.run','job.result'))
+          assert 'PRECISIONS=(4,6,8)' in s
+          assert 'SEEDS=(509,8776)' in s
+          assert 'PIN_SITE=85' in s
+          assert 'initial_layout=pinned_layout' in s
+          assert 'lineage.track_routed_stage' in s
+          assert 'lineage.compare_routed_and_native' in s
+          assert 'feedback.certify_branch_operators' in s
+          assert 'prune.reduction_with_exact_instruction_identity' in s
+          for b in (2,8):
+              p=Path(f'results/ibm_shor35_true_recycled_phase_route_lineage/qrr_n35_23q_routed_phase_lineage_base{b}.json')
+              assert p.exists(),p
+          print('FROZEN 12 phase-initial-pin layouts, genuine 23q source, original archived dynamic proof; zero QPU')
+          PY
+      - name: CPU-only staged SWAP trace and target-native dynamic phase/physical site audit
+        env:
+          BASE: ${{ matrix.base }}
+          IBM_QUANTUM_API_KEY: ${{ secrets.IBM_QUANTUM_API_KEY }}
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=25s 630s python -u hardware/qrr_n35_23q_pinned_phase_site.py --base "$BASE" \
+            | tee "qrr_n35_23q_site85_pinned_base${BASE}.log"
+      - name: Independent built original source-run receipt and failure-friendly 6-row audit
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          b=int(os.environ['BASE'])
+          d=json.loads(Path(f'results/ibm_shor35_23q_initial_phase_site85/qrr_n35_site85_pinned_base{b}.json').read_text())
+          old=json.loads(Path(f'results/ibm_shor35_true_recycled_phase_route_lineage/qrr_n35_23q_routed_phase_lineage_base{b}.json').read_text())
+          assert d['revision']=='qrr-n35-23q-initial-phase-pin-site85-v1-20261024'
+          assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert d['preregistration']=='docs/QRR_N35_23Q_PINNED_PHASE_SITE_PREREG.md'
+          assert d['N']==35 and d['public_base']==b and d['phase_precisions']==[4,6,8]
+          assert d['seeds']==[509,8776] and d['pinned_start_site']==85
+          assert d['backend_target']=='ibm_fez' and d['optimization_level']==1
+          assert d['unchanged_source_qubits']==23 and d['source_one_recycled_phase_bit']
+          assert not d['free_or_paid_quantum_runtime_used'] and d['quantum_processor_jobs_submitted']==0
+          assert d['backend_run_never_invoked'] and d['source_original_lineage_anchors_pass_before_backend']
+          proof=d['prior_unchanged_source_and_ideal_proofs']['dynamic_23q_exact_instruction_identity']
+          assert all(proof[str(k)]['removed_idle_source_qubits']==9 and
+              proof[str(k)]['unchanged_original_gate_operations_and_params'] for k in (4,6,8))
+          rows=d['results']
+          assert len(rows)==6 and [(r['bits'],r['seed']) for r in rows]==[(k,s) for k in (4,6,8) for s in (509,8776)]
+          orig={(x['bits'],x['seed']):x for x in old['results']}
+          for row in rows:
+              oldrow=orig[row['bits'],row['seed']]
+              assert row['archived_unpinned_native_cz']==oldrow['native_cz']
+              assert row['archived_unpinned_native_depth']==oldrow['native_depth']
+              assert row['archived_unpinned_phase_event_sites']==oldrow['native_lineage_comparison']['native_phase_event_unique_physical_addresses']
+              assert row['qpu_jobs']==0 and row['initial_pin_site85_requested'] and not row['source_changed']
+              if row['status']=='COMPLETE_PINNED_NATIVE_CPU':
+                  route=row['staged_routed_phase_trace']
+                  compare=row['native_routed_phase_comparison']
+                  ops=row['native_ops']
+                  assert route['phase_token_trace_certified']
+                  assert compare['source_phase_lineage_to_native_certified']
+                  assert row['staged_routed_token_lineage_and_native_pass']
+                  assert row['pinned_layout_initial_phase_physical']==85 and row['phase_pin_respected']
+                  assert ops['measure']==row['bits'] and ops['reset']==row['bits']-1
+                  assert ops['if_else']==row['bits']*(row['bits']-1)//2
+                  assert row['native_conditional_phase_quantum_operator_equivalence_pass']
+                  assert row['native_conditional_phase_operator_count']==ops['if_else']
+                  assert row['pinned_native_cz']==ops['cz'] and row['pinned_native_depth']>0
+                  assert row['paired_cz_change_vs_archived']==row['pinned_native_cz']-row['archived_unpinned_native_cz']
+                  assert row['paired_depth_change_vs_archived']==row['pinned_native_depth']-row['archived_unpinned_native_depth']
+                  assert row['strict_no_phase_swap_fixed_85_site']==(
+                      row['all_dynamic_events_at_pinned_site85'] and route['phase_token_swap_ops']==0)
+                  assert row['pinned_candidate_physical_gate_pass']==(
+                      row['pinned_native_cz']<=800 and row['pinned_native_depth']<=2000)
+              else:
+                  assert row['status']=='INCONCLUSIVE_COMPILER_OR_PIN'
+                  assert row['failure_type'] and row['failure_message']
+                  assert not row['strict_no_phase_swap_fixed_85_site']
+          sm=d['summary']
+          full=[r for r in rows if r['status']=='COMPLETE_PINNED_NATIVE_CPU']
+          assert sm['requested_cases']==6 and sm['native_completes']==len(full)
+          assert sm['initial_site85_respected']==sum(r['phase_pin_respected'] for r in full)
+          assert sm['pinned_phase_site85_strict_no_swap_success']==sum(r['strict_no_phase_swap_fixed_85_site'] for r in full)
+          assert sm['hardware_feasible_count']==sum(r['pinned_candidate_physical_gate_pass'] for r in full)
+          assert sm['native_conditional_source_phase_operators_verified']==sum(r['native_conditional_phase_operator_count'] for r in full)
+          assert sm['strict_site85_global_gate_pass']==(
+              len(full)==6 and all(r['strict_no_phase_swap_fixed_85_site'] for r in full))
+          assert sm['actual_QPU_jobs']==0
+          print('INDEPENDENT PIN EVIDENCE',b,'complete',len(full),'pin honored',
+              sm['initial_site85_respected'],'native phase operators',
+              sm['native_conditional_source_phase_operators_verified'],
+              'strict no-swap fixed',sm['pinned_phase_site85_strict_no_swap_success'],
+              'hardware',sm['hardware_feasible_count'],'QPU0')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n35-23q-start-site85-base${{ matrix.base }}-original
+          path: |
+            qrr_n35_23q_site85_pinned_base*.log
+            results/ibm_shor35_23q_initial_phase_site85/qrr_n35_site85_pinned_base*.json
