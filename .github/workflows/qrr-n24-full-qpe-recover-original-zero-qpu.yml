@@ -1,0 +1,78 @@
+name: Dark Star N24 original sixteen artifact recovery and verification ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n24-full-qpe-recover-original-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n24-recover-original-run-40245560960
+  cancel-in-progress: false
+
+jobs:
+  recover-original-results:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install missing original merge dependencies, no quantum SDK
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - name: Download sixteen ORIGINAL scoring artifacts from completed prior run, do NOT rescore
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 40245560960
+          github-token: ${{ github.token }}
+          path: n24-shards
+          pattern: n24-row-*
+          merge-multiple: false
+      - name: Independently verify exactly sixteen previously frozen cases
+        run: |
+          set -euo pipefail
+          python3 -u hardware/dark_star_n24_full_qpe_followup.py --merge --shards n24-shards
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('results/dark_star_ptp')
+          original=json.loads((p/'dark_star_n24_full_qpe_followup_all_16.json').read_text())
+          assert original['complete'] and original['summary']['complete_rows']==16
+          assert original['source_manifest_sha256']=='d20a59ede42509cb3fd85ce5c6e1a61bd5edb70621964ebbd3ddea5d6ea2b889'
+          assert original['zero_QPU'] and original['qpu_jobs_submitted']==0
+          assert original['already_labeled_population_not_blind']
+          for i in range(16):
+              src=Path(f'n24-shards/n24-row-{i}/n24_{i:02d}.json')
+              saved=p/f'dark_star_n24_full_qpe_followup_index{i:02d}.json'
+              assert hashlib.sha256(src.read_bytes()).digest()==hashlib.sha256(saved.read_bytes()).digest()
+          print('PRESERVATION VERIFIED: ALL 16 EXACT UNCHANGED ORIGINAL SCIENCE RECEIPTS')
+          PY
+      - name: Commit archived outcomes without force push; preserve conflicting work
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n24_full_qpe_followup_*.json
+          git commit -m "results: preserve original 16 N24 bounded QPE artifacts without rescoring, free CPU only"
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'All original N24 artifacts committed, without rerunning science'; exit 0
+            fi
+            sleep 2
+          done
+          echo 'Preservation push failed; original GitHub artifacts remain'
+          exit 1
