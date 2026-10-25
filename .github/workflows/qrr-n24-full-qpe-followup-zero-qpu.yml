@@ -1,0 +1,113 @@
+name: Dark Star N24 frozen exploratory full QPE CPU only ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n24-full-qpe-followup-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n24-full-qpe-followup-zero-qpu
+  cancel-in-progress: false
+
+jobs:
+  score:
+    name: Frozen N24 ideal QPE row ${{ matrix.index }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fixed CPU scientific packages only
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - name: Verify no IBM hardware SDK, all 16 cases frozen, and source compiles
+        run: |
+          set -euo pipefail
+          python3 -m py_compile hardware/dark_star_n24_full_qpe_followup.py
+          if grep -nE '^[[:space:]]*(from|import)[[:space:]].*(qiskit_ibm_runtime|ibm_runtime_guard)|SamplerV2|EstimatorV2|QiskitRuntimeService|backend.run|job.submit' hardware/dark_star_n24_full_qpe_followup.py; then
+            echo 'Unexpected IBM hardware use'; exit 1
+          fi
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          path=Path('results/dark_star_ptp/dark_star_n24_public_predictor_manifest.json')
+          old=Path('results/dark_star_ptp/dark_star_n24_public_predictor_validation.json')
+          j=json.loads(path.read_text()); d=json.loads(old.read_text())
+          rows=j['selected_public_rows']
+          sha=hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert sha==j['selected_sha256']==d['source_public_manifest_sha256']=='d20a59ede42509cb3fd85ce5c6e1a61bd5edb70621964ebbd3ddea5d6ea2b889'
+          assert len(rows)==len(d['rows'])==16
+          assert d['QPE_not_scored'] and d['no_QPU'] and j['no_QPU']
+          assert Path('docs/DARK_STAR_N24_FULL_QPE_FOLLOWUP_PREREG.md').is_file()
+          print('FROZEN previously studied N24 manifest SHA validated; no QPU')
+          PY
+      - name: Simulate one prespecified index with bounded full-outcome ideal QPE
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=20s 6900s python3 -u hardware/dark_star_n24_full_qpe_followup.py --index ${{ matrix.index }} | tee n24_${{ matrix.index }}.log
+      - name: Upload untouched result and log even if other shards fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: n24-row-${{ matrix.index }}
+          path: |
+            n24_*.json
+            n24_*.log
+          retention-days: 90
+          if-no-files-found: warn
+
+  merge-and-verify:
+    name: Preserve all sixteen source receipts after strict complete audit
+    needs: score
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          path: n24-shards
+          pattern: n24-row-*
+          merge-multiple: false
+      - name: Verify all fixed pairs, cost ratios, uncertainty family and public-policy decisions
+        run: |
+          set -euo pipefail
+          python3 -u hardware/dark_star_n24_full_qpe_followup.py --merge --shards n24-shards
+      - name: Archive ALL original shards and merged outcome; never force push
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n24_full_qpe_followup_*.json
+          git commit -m "results: audit and preserve 16 frozen N24 bounded ideal-QPE model cases, wins and failures, zero QPU"
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'All original 16 N24 frozen exploratory model receipts preserved'; exit 0
+            fi
+            sleep 2
+          done
+          echo 'Commit push failed; Actions artifacts retained without replacement'
+          exit 1
