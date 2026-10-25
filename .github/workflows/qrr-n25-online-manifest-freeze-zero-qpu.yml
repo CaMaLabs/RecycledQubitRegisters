@@ -1,0 +1,69 @@
+name: Dark Star N25 NEW public-only survivor freeze ZERO QPU
+
+on:
+  push:
+    paths: [.github/workflows/qrr-n25-online-manifest-freeze-zero-qpu.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n25-independent-public-freeze
+  cancel-in-progress: false
+
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Freeze fresh N25 public-only B31 cases (no QPE or private order)
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N25_ONLINE_VERIFIER_ARITHMETIC_PREREG.md
+          python3 -u hardware/dark_star_n25_online_public_manifest.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib,math
+          x=json.loads(Path('results/dark_star_ptp/dark_star_n25_online_public_manifest.json').read_text())
+          r=x['selected_public_rows']
+          assert len(r)==8 and len({z['N'] for z in r})==8
+          assert x['zero_QPU'] and x['factor_order_and_qpe_not_inspected_for_selection']
+          assert x['selected_sha256']==hashlib.sha256(json.dumps(r,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          for group in ('G1_mod3_1','G2_mod3_2'):
+              picked=[z for z in r if z['group']==group]
+              assert len(picked)==4
+              for z in picked:
+                  assert (1<<24)<=z['N']<(1<<25)
+                  assert z['N']%3==(1 if group=='G1_mod3_1' else 2)
+                  assert math.gcd(z['N'],z['base'])==1
+                  assert z['cube']==pow(z['base'],3,z['N'])
+                  assert not next(k for k in x['public_screenings'][group] if k['N']==z['N'])['B31_factored']
+          print('SHA FROZEN VALIDATED',x['selected_sha256'])
+          PY
+      - name: Save public selection to main BEFORE private order or model computations
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n25_online_public_manifest.json
+          git commit -m "results: freeze truly fresh eight N25 public B31 survivors BEFORE QPE scoring"
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo "PUBLIC 25-bit sample immutably recorded"; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
