@@ -1,0 +1,252 @@
+{
+  "experiment": "n25_online_public_manifest_only",
+  "preregistration": "docs/DARK_STAR_N25_ONLINE_VERIFIER_ARITHMETIC_PREREG.md",
+  "selected_public_rows": [
+    {
+      "N": 20508127,
+      "base": 3,
+      "group": "G1_mod3_1",
+      "rank": 1,
+      "plain": 3,
+      "cube": 27,
+      "B31_unfactored": true
+    },
+    {
+      "N": 20088463,
+      "base": 29,
+      "group": "G1_mod3_1",
+      "rank": 2,
+      "plain": 29,
+      "cube": 24389,
+      "B31_unfactored": true
+    },
+    {
+      "N": 28811323,
+      "base": 31,
+      "group": "G1_mod3_1",
+      "rank": 3,
+      "plain": 31,
+      "cube": 29791,
+      "B31_unfactored": true
+    },
+    {
+      "N": 32295103,
+      "base": 17,
+      "group": "G1_mod3_1",
+      "rank": 5,
+      "plain": 17,
+      "cube": 4913,
+      "B31_unfactored": true
+    },
+    {
+      "N": 24467873,
+      "base": 3,
+      "group": "G2_mod3_2",
+      "rank": 1,
+      "plain": 3,
+      "cube": 27,
+      "B31_unfactored": true
+    },
+    {
+      "N": 29256449,
+      "base": 5,
+      "group": "G2_mod3_2",
+      "rank": 2,
+      "plain": 5,
+      "cube": 125,
+      "B31_unfactored": true
+    },
+    {
+      "N": 28064303,
+      "base": 13,
+      "group": "G2_mod3_2",
+      "rank": 4,
+      "plain": 13,
+      "cube": 2197,
+      "B31_unfactored": true
+    },
+    {
+      "N": 28787333,
+      "base": 11,
+      "group": "G2_mod3_2",
+      "rank": 5,
+      "plain": 11,
+      "cube": 1331,
+      "B31_unfactored": true
+    }
+  ],
+  "selected_sha256": "66b3cdb1ac58c1dffac3838c4113ffddb6fa9e6a1cc863890d55d997dc97fae7",
+  "public_screenings": {
+    "G1_mod3_1": [
+      {
+        "N": 20508127,
+        "base": 3,
+        "rank": 1,
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operations": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 20088463,
+        "base": 29,
+        "rank": 2,
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operations": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 28811323,
+        "base": 31,
+        "rank": 3,
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operations": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 21901807,
+        "base": 13,
+        "rank": 4,
+        "B31_factored": true,
+        "B31_factor": 5521,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operations": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 32295103,
+        "base": 17,
+        "rank": 5,
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operations": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      }
+    ],
+    "G2_mod3_2": [
+      {
+        "N": 24467873,
+        "base": 3,
+        "rank": 1,
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operations": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 29256449,
+        "base": 5,
+        "rank": 2,
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operations": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 27741089,
+        "base": 23,
+        "rank": 3,
+        "B31_factored": true,
+        "B31_factor": 4751,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operations": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 28064303,
+        "base": 13,
+        "rank": 4,
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operations": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      },
+      {
+        "N": 28787333,
+        "base": 11,
+        "rank": 5,
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operations": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        }
+      }
+    ]
+  },
+  "n_in_frame": 80200,
+  "range_N": [
+    16777216,
+    33554432
+  ],
+  "prime_construction_range": [
+    3500,
+    11000
+  ],
+  "salt_population": "QRR-N25-ONLINE-ARITH-POP-20261025",
+  "salt_base": "QRR-N25-ONLINE-ARITH-BASE-20261025",
+  "pool": [
+    2,
+    3,
+    5,
+    7,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31
+  ],
+  "factor_order_and_qpe_not_inspected_for_selection": true,
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0
+}
