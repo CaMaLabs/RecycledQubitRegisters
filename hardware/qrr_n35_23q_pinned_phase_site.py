@@ -155,10 +155,57 @@ def main(base):
                     qc=circuits[bits]
                     phase=next(reg[0] for reg in qc.qregs if reg.name=="recycled_phase")
                     assert phase==qc.qubits[0]
-                    # Qiskit initial_layout dict pins exact VIRTUAL source
-                    # qubit to native physical address85. All other placement
-                    # decisions and SWAP routing remain the normal pass manager.
-                    pinned_layout={phase:PIN_SITE}
+                    # First run exact ORIGINAL Qiskit init+layout stage at
+                    # frozen seed to derive a COMPLETE source-qubit layout.
+                    # Qiskit 2.5.2 routing rejects a partial dict with only
+                    # recycled_phase mapped; first CI recorded that failure
+                    # before any scored native compiled circuit.
+                    original_pm=generate_preset_pass_manager(
+                        backend=backend,optimization_level=1,
+                        seed_transpiler=seed)
+                    prepare=StagedPassManager(stages=["init","layout"],
+                        init=original_pm.init,layout=original_pm.layout)
+                    original_laid_out=prepare.run(qc)
+                    layout_obj=getattr(original_laid_out.layout,"initial_layout",None)
+                    virtual_to_phys=(
+                        layout_obj.get_virtual_bits() if layout_obj is not None else {})
+                    if not all(q in virtual_to_phys for q in qc.qubits):
+                        raise AssertionError(
+                           "Original Qiskit layout does not map ALL 23 source qubits; cannot safely pin only source phase")
+                    baseline_assign={
+                       q:int(virtual_to_phys[q]) for q in qc.qubits}
+                    if len(set(baseline_assign.values()))!=23:
+                        raise AssertionError("Original full source mapping is noninjective")
+                    baseline_phase_site=baseline_assign[phase]
+                    occupying=next(
+                        (q for q in qc.qubits
+                         if q!=phase and baseline_assign[q]==PIN_SITE),
+                         None)
+                    pinned_assign=dict(baseline_assign)
+                    if occupying is not None:
+                        pinned_assign[occupying]=baseline_phase_site
+                    pinned_assign[phase]=PIN_SITE
+                    pinned_layout=[pinned_assign[q] for q in qc.qubits]
+                    if len(set(pinned_layout))!=23 or pinned_layout[qc.find_bit(phase).index]!=PIN_SITE:
+                        raise AssertionError("Full source pin site85 mapping invalid")
+                    # Only phase and maybe one SOURCE occupant assignment
+                    # changed; every other source qubit was left untouched.
+                    differences=[
+                        qc.find_bit(q).index for q in qc.qubits
+                        if pinned_assign[q]!=baseline_assign[q]]
+                    if len(differences)>2 or (
+                            occupying is not None and len(differences)!=2 and baseline_phase_site!=PIN_SITE):
+                        raise AssertionError("Original source layout modified beyond a phase/occupant swap")
+                    row["baseline_complete_source_layout"]=[
+                        baseline_assign[q] for q in qc.qubits]
+                    row["new_pinned_complete_source_layout"]=pinned_layout
+                    row["baseline_qiskit_phase_initial_site"]=baseline_phase_site
+                    row["other_source_physical85_occupant_index"]=(
+                        qc.find_bit(occupying).index if occupying is not None else None)
+                    row["number_source_wire_placement_changes"]=len(differences)
+                    save()
+                    # Fixed complete initial layout; normal Qiskit routing
+                    # may still SWAP phase state off site85 (tracked below).
                     pm=generate_preset_pass_manager(backend=backend,
                         optimization_level=1,seed_transpiler=seed,
                         initial_layout=pinned_layout)
