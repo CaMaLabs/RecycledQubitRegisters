@@ -1,4 +1,5 @@
 name: N35 genuine 23q recycled phase initial layout pin 85, FEZ CPU no QPU
+# Pre-native interface correction after Qiskit rejected incomplete initial_layout: fill original complete placement then swap phase with site85 occupant.
 
 on:
   push:
@@ -42,6 +43,9 @@ jobs:
           assert 'SEEDS=(509,8776)' in s
           assert 'PIN_SITE=85' in s
           assert 'initial_layout=pinned_layout' in s
+          assert 'baseline_complete_source_layout' in s
+          assert 'other_source_physical85_occupant_index' in s
+          assert 'StagedPassManager(stages=["init","layout"]' in s
           assert 'lineage.track_routed_stage' in s
           assert 'lineage.compare_routed_and_native' in s
           assert 'feedback.certify_branch_operators' in s
@@ -99,6 +103,10 @@ jobs:
                   assert compare['source_phase_lineage_to_native_certified']
                   assert row['staged_routed_token_lineage_and_native_pass']
                   assert row['pinned_layout_initial_phase_physical']==85 and row['phase_pin_respected']
+                  assert len(row['baseline_complete_source_layout'])==23
+                  assert len(row['new_pinned_complete_source_layout'])==23
+                  assert len(set(row['new_pinned_complete_source_layout']))==23
+                  assert row['number_source_wire_placement_changes']<=2
                   assert ops['measure']==row['bits'] and ops['reset']==row['bits']-1
                   assert ops['if_else']==row['bits']*(row['bits']-1)//2
                   assert row['native_conditional_phase_quantum_operator_equivalence_pass']
