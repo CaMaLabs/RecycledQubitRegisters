@@ -2,7 +2,9 @@ name: Dark Star N25 fresh ONLINE CF QPE and arithmetic audit ZERO QPU
 
 on:
   push:
-    paths: [.github/workflows/qrr-n25-online-qpe-arithmetic-zero-qpu.yml]
+    paths:
+      - .github/workflows/qrr-n25-online-qpe-arithmetic-zero-qpu.yml
+      - hardware/dark_star_n25_online_qpe_arithmetic.py
   workflow_dispatch:
 
 permissions:
