@@ -1,0 +1,79 @@
+name: Dark Star N25 exact 96-shot source-CCX prefix test ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n25-prefix-dominance-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n25-96-prefix-dominance
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify frozen proof and that CPU source uses no QPU SDK
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N25_SHOT_PREFIX_DOMINANCE_PROTOCOL.md
+          python3 -m py_compile hardware/dark_star_n25_prefix_dominance.py
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' hardware/dark_star_n25_prefix_dominance.py; then
+            echo 'Disallowed QPU client reference'; exit 1
+          fi
+      - name: Audit all 96 source CCX stopping prefixes for each same-order row
+        run: |
+          set -euo pipefail
+          timeout 300s python3 -u hardware/dark_star_n25_prefix_dominance.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('results/dark_star_ptp/dark_star_n25_prefix_dominance.json').read_text())
+          assert x['zero_QPU'] and not x['paid_runtime_used'] and x['qpu_jobs_submitted']==0
+          assert x['summary']['total']==len(x['cases'])==8
+          assert all(z['shot_prefixes_evaluated']==96 for z in x['cases'] if z['same_order'])
+          assert all(z['shot_prefixes_evaluated']==0 for z in x['cases'] if not z['same_order'])
+          assert x['original_preregistered_gate_unchanged']['bounded_win']==0
+          assert x['original_preregistered_gate_unchanged']['bounded_loss']==0
+          print('Verified immutable original prereg gate, complete eight rows, 96 prefixes, ZERO QPU')
+          PY
+      - name: Preserve receipt even if commit conflicts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: n25-source-ccx-96-shot-proof
+          path: results/dark_star_ptp/dark_star_n25_prefix_dominance.json
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit exact result
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n25_prefix_dominance.json
+          git commit -m 'results: preserve N25 exact 96-shot source CCX stopping-time dominance test'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Stored proof and all original eight cases'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
