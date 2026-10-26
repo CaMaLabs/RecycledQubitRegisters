@@ -1,0 +1,75 @@
+name: Dark Star N25 recover eight original online-CF results WITHOUT rescoring ZERO QPU
+
+on:
+  push:
+    paths: [.github/workflows/qrr-n25-recover-original-online-arithmetic-zero-qpu.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n25-original-eight-40247709920-recovery
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: CPU-only analysis dependencies for independent artifact check
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - name: Download ORIGINAL eight completed score receipts from run 40247709920
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 40247709920
+          github-token: ${{ github.token }}
+          path: n25-shards
+          pattern: n25-row-*
+          merge-multiple: false
+      - name: Independently confirm all eight exactly frozen public cases without scientific rerun
+        run: |
+          set -euo pipefail
+          python3 -u hardware/dark_star_n25_online_qpe_arithmetic.py --merge --shards n25-shards
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path('results/dark_star_ptp')
+          x=json.loads((root/'dark_star_n25_online_model_all_8.json').read_text())
+          assert x['complete'] and x['summary']['total']==8
+          assert x['source_manifest_sha256']=='66b3cdb1ac58c1dffac3838c4113ffddb6fa9e6a1cc863890d55d997dc97fae7'
+          assert x['zero_QPU'] and x['qpu_jobs_submitted']==0
+          for i in range(8):
+            a=Path(f'n25-shards/n25-row-{i}/n25_{i:02d}.json')
+            b=root/f'dark_star_n25_online_model_index{i:02d}.json'
+            assert hashlib.sha256(a.read_bytes()).digest()==hashlib.sha256(b.read_bytes()).digest()
+          print('EXACT EIGHT ORIGINAL BYTES PRESERVED, NO SCIENCE RECOMPUTED')
+          PY
+      - name: Commit all exact shard receipts and original merged summary safely
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n25_online_model_*.json
+          git commit -m "results: preserve original fresh N25 online verifier QPE and structural arithmetic receipts"
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo "Original eight N25 exact source artifact receipts preserved"; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
