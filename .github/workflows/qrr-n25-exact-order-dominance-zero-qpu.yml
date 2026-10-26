@@ -1,0 +1,79 @@
+name: Dark Star N25 exact order and CCX structural null ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n25-exact-order-dominance-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n25-exact-order-dominance
+  cancel-in-progress: false
+
+jobs:
+  prove-and-archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Assert frozen plan and ban QPU client imports
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N25_EXACT_ORDER_DOMINANCE_PROTOCOL.md
+          python3 -m py_compile hardware/dark_star_n25_exact_order_dominance.py
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' hardware/dark_star_n25_exact_order_dominance.py; then
+            echo 'QPU client reference in CPU-only test'; exit 1
+          fi
+      - name: Exact order proof checks on eight original rows and exhaustive small CF null
+        run: |
+          set -euo pipefail
+          timeout 420s python3 -u hardware/dark_star_n25_exact_order_dominance.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('results/dark_star_ptp/dark_star_n25_exact_order_dominance.json')
+          z=json.loads(p.read_text())
+          assert z['zero_QPU'] and z['qpu_jobs_submitted']==0 and not z['paid_runtime_used']
+          assert z['result_count']==8 and len({x['N'] for x in z['cases']})==8
+          assert z['small_exhaustive_test']['exhaustive_measurement_comparisons']>=4000
+          assert z['original_primary_gate_unmodified']['bounded_win']==0
+          assert all(x['per_stage_ccx_cube_over_plain']['cube_smaller']==0 for x in z['cases'] if x['exact_conditional_verdict']=='exact_cube_strictly_worse_source_CCX')
+          print('PASS: all source rows preserved; original prereg gate immutable; no QPU')
+          PY
+      - name: Archive deterministic eight-row receipt regardless of later write conflict
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: n25-exact-order-dominance-receipt
+          path: results/dark_star_ptp/dark_star_n25_exact_order_dominance.json
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit exact independent audit to main
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n25_exact_order_dominance.json
+          git commit -m 'results: preserve deterministic N25 same-order CCX falsification, no QPU'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'PASS exact original eight-row audit committed'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
