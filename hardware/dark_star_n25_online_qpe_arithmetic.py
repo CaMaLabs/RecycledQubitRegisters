@@ -325,7 +325,7 @@ def score(index):
         validation_only=dict(prime_factors=[p,q],order_plain=ra,
             order_cube=rb,odd_cube_identity=True,half_witness_invariant=True,
             factor_capable=wa["factor_success"]),
-        plain=plain,cube=cube,cube_vs_plain=compare,
+        model_plain=plain,model_cube=cube,cube_vs_plain=compare,
         model_eval_CPU_seconds=round(time.process_time()-start,5),
         zero_QPU=True)
     out=dict(experiment="dark_star_n25_online_verifier_real_arithmetic_source_model",
@@ -362,9 +362,9 @@ def merge(folder):
         assert all(row[k]==v for k,v in spec.items())
         assert row["validation_only"]["odd_cube_identity"]
         assert row["validation_only"]["half_witness_invariant"]
-        assert row["cube_vs_plain"]==tail.classify(row["plain"],row["cube"])
-        assert all(z["precomputed_factor_producing_denominators"]==0 for z in (row["plain"],row["cube"]))
-        assert all(len(z["stages"])==24 for z in (row["plain"],row["cube"]))
+        assert row["cube_vs_plain"]==tail.classify(row["model_plain"],row["model_cube"])
+        assert all(z["precomputed_factor_producing_denominators"]==0 for z in (row["model_plain"],row["model_cube"]))
+        assert all(len(z["stages"])==24 for z in (row["model_plain"],row["model_cube"]))
         rows.append(row)
         print("AUDITED",index,row["N"],row["cube_vs_plain"]["status"],flush=True)
     classes=Counter(r["cube_vs_plain"]["status"] for r in rows)
