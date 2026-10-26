@@ -1,0 +1,109 @@
+name: Dark Star N25 fresh ONLINE CF QPE and arithmetic audit ZERO QPU
+
+on:
+  push:
+    paths: [.github/workflows/qrr-n25-online-qpe-arithmetic-zero-qpu.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-n25-online-first-independent-8
+  cancel-in-progress: false
+
+jobs:
+  score:
+    name: Fresh N25 public row ${{ matrix.index }} CPU only
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        index: [0, 1, 2, 3, 4, 5, 6, 7]
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fixed CPU scientific environment
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - name: Verify original frozen public manifest and ban quantum hardware use
+        run: |
+          set -euo pipefail
+          python3 -m py_compile hardware/dark_star_n25_online_qpe_arithmetic.py
+          test -s docs/DARK_STAR_N25_ONLINE_VERIFIER_ARITHMETIC_PREREG.md
+          if grep -nE '^[[:space:]]*(from|import)[[:space:]].*(qiskit_ibm_runtime|ibm_runtime_guard)|SamplerV2|EstimatorV2|QiskitRuntimeService|backend.run|job.submit' hardware/dark_star_n25_online_qpe_arithmetic.py; then
+            echo "Forbidden IBM QPU SDK reference"; exit 1
+          fi
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          x=json.loads(Path('results/dark_star_ptp/dark_star_n25_online_public_manifest.json').read_text())
+          assert x['selected_sha256']=='66b3cdb1ac58c1dffac3838c4113ffddb6fa9e6a1cc863890d55d997dc97fae7'
+          assert hashlib.sha256(json.dumps(x['selected_public_rows'],sort_keys=True,separators=(',',':')).encode()).hexdigest()==x['selected_sha256']
+          assert x['factor_order_and_qpe_not_inspected_for_selection'] and x['zero_QPU']
+          assert len(x['selected_public_rows'])==8
+          print('PUBLIC-ONLY POPULATION ALREADY FROZEN BEFORE QPE SCORING')
+          PY
+      - name: Independently score one frozen 25-bit case, no certificate precomputation
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=20s 4800s python3 -u hardware/dark_star_n25_online_qpe_arithmetic.py --index ${{ matrix.index }} | tee n25_${{ matrix.index }}.log
+      - name: Preserve originally generated shard whether other shards fail or succeed
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n25-row-${{ matrix.index }}
+          path: |
+            n25_*.json
+            n25_*.log
+          retention-days: 90
+          if-no-files-found: warn
+
+  verify-and-preserve:
+    name: Independently verify all eight original model outcomes before archive
+    needs: score
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU analysis dependencies also in merge job
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - uses: actions/download-artifact@v4
+        with:
+          path: n25-shards
+          pattern: n25-row-*
+          merge-multiple: false
+      - name: Verify all eight original outputs and precommitted SHA, never recompute outcomes
+        run: |
+          set -euo pipefail
+          python3 -u hardware/dark_star_n25_online_qpe_arithmetic.py --merge --shards n25-shards
+      - name: Commit original exact shard artifacts and merged summary with safe rebase
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n25_online_model_*.json
+          git commit -m "results: preserve N25 public-only-frozen on-demand CF source arithmetic originals, no QPU"
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo "All eight original CPU receipts safely archived"; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
