@@ -368,8 +368,8 @@ def merge(folder):
         rows.append(row)
         print("AUDITED",index,row["N"],row["cube_vs_plain"]["status"],flush=True)
     classes=Counter(r["cube_vs_plain"]["status"] for r in rows)
-    usable_plain=sum(r["plain"]["factor_probability_by_cap_interval"][0]>0 for r in rows)
-    usable_cube=sum(r["cube"]["factor_probability_by_cap_interval"][0]>0 for r in rows)
+    usable_plain=sum(r["model_plain"]["factor_probability_by_cap_interval"][0]>0 for r in rows)
+    usable_cube=sum(r["model_cube"]["factor_probability_by_cap_interval"][0]>0 for r in rows)
     classical_solved=sum(r["public_classical_after_B31"]["classically_solved"] for r in rows)
     pass_model=(classes["cube_model_win"]>=3 and classes["cube_model_loss"]<=1 and usable_cube>=usable_plain)
     summary=dict(total=8,model_statuses=dict(classes),
