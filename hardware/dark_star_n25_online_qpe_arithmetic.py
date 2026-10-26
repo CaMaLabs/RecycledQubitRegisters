@@ -99,7 +99,12 @@ def sample_head(centers,residuals,ubins,r,Q,base,n):
         mass=0.
         picked=False
         good=False
-        for j in range(-W,W+1):
+        # For small Q the 65-bin head would visit the same modular y
+        # multiple times. Q distinct representatives at most; for larger
+        # Q retain the preregistered centered +/-32 window.
+        j_start=-W if Q>2*W+1 else -(Q//2)
+        j_stop=W+1 if Q>2*W+1 else (Q//2)
+        for j in range(j_start,j_stop):
             t=residuals[i]-r*j
             if t==0:
                 p=1.
@@ -281,6 +286,13 @@ def selftest():
                 expected=bool(tail.old.explicit_cf_proper_factor(n,a,y,m,{}))
                 assert actual==expected,(n,a,m,y,actual,expected)
                 checked+=1
+    # For Q=16 and Q=64 every measurement bin must appear exactly once,
+    # unlike a naive repeated centered 65-bin head modulo Q.
+    for bits in (4,6,8):
+        Q=1<<bits
+        offsets=range(-(Q//2),Q//2) if Q<=2*W+1 else range(-W,W+1)
+        assert len(set(j%Q for j in offsets))==len(offsets)
+        assert len(offsets)==min(2*W+1,Q)
     # No upfront O(N) factor certificate scan is called anywhere in this file.
     return dict(online_CF_matches_legacy_direct_public_factor_extractor=checked,
                 bigint_phase_center=True,native_runtime_disabled=True)
