@@ -1,0 +1,507 @@
+{
+  "experiment": "dark_star_n25_exact_same_order_structural_falsification",
+  "analysis": "post_hoc_secondary_mechanistic_not_blinded_n25_population",
+  "protocol": "docs/DARK_STAR_N25_EXACT_ORDER_DOMINANCE_PROTOCOL.md",
+  "original_results": "results/dark_star_ptp/dark_star_n25_online_model_all_8.json",
+  "original_manifest_sha256": "66b3cdb1ac58c1dffac3838c4113ffddb6fa9e6a1cc863890d55d997dc97fae7",
+  "original_primary_gate_unmodified": {
+    "total": 8,
+    "model_statuses": {
+      "inconclusive": 6,
+      "factor_incapable_or_uncertified": 2
+    },
+    "bounded_win": 0,
+    "bounded_loss": 0,
+    "model_success_lower_positive_plain": 6,
+    "model_success_lower_positive_cube": 6,
+    "primary_model_gate_pass": false,
+    "solved_by_B47_rho64_small_trial": 7,
+    "quantum_work_remaining_after_public_fixed_filter": 1,
+    "end_to_end_quantum_demand_gate_pass": true,
+    "source_arithmetic_only_no_native_hardware": true
+  },
+  "theorem": "When gcd(3,ord(a))=1, QPE output and online CF/GCD acceptance are identical for a and a^3. Stage-wise CCX dominance implies pathwise staged attempted-run cost dominance.",
+  "result_count": 8,
+  "verdict_counts": {
+    "exact_cube_strictly_worse_source_CCX": 2,
+    "exact_factor_incapable_for_both_bases": 2,
+    "order_reduction_no_exact_cost_verdict": 3,
+    "same_order_but_stage_costs_cross_not_certified": 1
+  },
+  "small_exhaustive_test": {
+    "cases": 20,
+    "nontrivial_cubes": 13,
+    "exhaustive_measurement_comparisons": 6720
+  },
+  "cases": [
+    {
+      "index": 0,
+      "N": 20508127,
+      "base": 3,
+      "cube": 27,
+      "exact_orders": {
+        "plain": 854124,
+        "cube": 284708,
+        "equal": false
+      },
+      "arithmetic_source_only": true,
+      "factor_incapable_for_both_exact": false,
+      "factor_incapability_reason": null,
+      "per_stage_ccx_cube_over_plain": {
+        "min": 1.0065248560174602,
+        "max": 1.0857164390300735,
+        "cube_larger": 24,
+        "tied": 0,
+        "cube_smaller": 0,
+        "all_24_ratios": [
+          1.0857164390300735,
+          1.0360476203295161,
+          1.0296990231299994,
+          1.0260180143099582,
+          1.022326791808432,
+          1.0166068115715734,
+          1.0202232948699783,
+          1.019388592433706,
+          1.0185896504805503,
+          1.0177080356183992,
+          1.016158964442341,
+          1.0148970350474003,
+          1.0154972233129425,
+          1.0173593088100206,
+          1.0141378857826129,
+          1.0133493033223093,
+          1.0102363498165114,
+          1.007968434726484,
+          1.0065248560174602,
+          1.0083157609334055,
+          1.008348168148263,
+          1.0083778575190523,
+          1.0090468189821176,
+          1.0099868159990149
+        ]
+      },
+      "coupled_attempted_run_cost_ratio_certified_lower_bound": null,
+      "exact_conditional_verdict": "order_reduction_no_exact_cost_verdict",
+      "original_model_status": "inconclusive",
+      "original_model_ratio_interval": [
+        0.397686949430615,
+        1.8256557043512587
+      ],
+      "classically_solved_under_frozen_B47_rho64": true,
+      "numerical_null_checks": null
+    },
+    {
+      "index": 1,
+      "N": 20088463,
+      "base": 29,
+      "cube": 24389,
+      "exact_orders": {
+        "plain": 2007928,
+        "cube": 2007928,
+        "equal": true
+      },
+      "arithmetic_source_only": true,
+      "factor_incapable_for_both_exact": false,
+      "factor_incapability_reason": null,
+      "per_stage_ccx_cube_over_plain": {
+        "min": 1.0053044999269887,
+        "max": 1.0240102646302198,
+        "cube_larger": 24,
+        "tied": 0,
+        "cube_smaller": 0,
+        "all_24_ratios": [
+          1.0240102646302198,
+          1.014018611264883,
+          1.014012900555047,
+          1.0157661254547068,
+          1.0115736615546638,
+          1.0068221139595708,
+          1.009418852344958,
+          1.00851738563237,
+          1.011028210286473,
+          1.0155435537744686,
+          1.0122811086220298,
+          1.0120407850098292,
+          1.0098634462144518,
+          1.0103045689150854,
+          1.0104033570288584,
+          1.0106650872603435,
+          1.009129172607309,
+          1.0107594244774802,
+          1.0074728054458562,
+          1.0076554456402953,
+          1.0063082157047154,
+          1.005702058068162,
+          1.0058760136593528,
+          1.0053044999269887
+        ]
+      },
+      "coupled_attempted_run_cost_ratio_certified_lower_bound": 1.0053044999269887,
+      "exact_conditional_verdict": "exact_cube_strictly_worse_source_CCX",
+      "original_model_status": "inconclusive",
+      "original_model_ratio_interval": [
+        0.44268971806680824,
+        2.3086362775813916
+      ],
+      "classically_solved_under_frozen_B47_rho64": true,
+      "numerical_null_checks": {
+        "public_denominators_checked": 142,
+        "sampled_measurements_checked": 176,
+        "producing_denominator_controls": 2
+      }
+    },
+    {
+      "index": 2,
+      "N": 28811323,
+      "base": 31,
+      "cube": 29791,
+      "exact_orders": {
+        "plain": 7200100,
+        "cube": 7200100,
+        "equal": true
+      },
+      "arithmetic_source_only": true,
+      "factor_incapable_for_both_exact": false,
+      "factor_incapability_reason": null,
+      "per_stage_ccx_cube_over_plain": {
+        "min": 0.9994496412245933,
+        "max": 1.0637291970298572,
+        "cube_larger": 23,
+        "tied": 0,
+        "cube_smaller": 1,
+        "all_24_ratios": [
+          1.0637291970298572,
+          1.0263565820369827,
+          1.0189510920923819,
+          1.0100187074556795,
+          1.0192330179424467,
+          1.0142600806384638,
+          1.012994272794686,
+          1.0085428903142566,
+          1.0068039505780841,
+          1.0069984340030524,
+          1.0038866118333345,
+          1.004124327178113,
+          1.0038080866554357,
+          1.0024926057952124,
+          0.9994496412245933,
+          1.000966671244384,
+          1.003113444712031,
+          1.0039990324715158,
+          1.00525501733469,
+          1.0042531010870392,
+          1.005177274022839,
+          1.003812410907038,
+          1.0033391634901236,
+          1.0027467275552593
+        ]
+      },
+      "coupled_attempted_run_cost_ratio_certified_lower_bound": null,
+      "exact_conditional_verdict": "same_order_but_stage_costs_cross_not_certified",
+      "original_model_status": "inconclusive",
+      "original_model_ratio_interval": [
+        0.40611144406713706,
+        2.496865950618361
+      ],
+      "classically_solved_under_frozen_B47_rho64": true,
+      "numerical_null_checks": {
+        "public_denominators_checked": 142,
+        "sampled_measurements_checked": 176,
+        "producing_denominator_controls": 2
+      }
+    },
+    {
+      "index": 3,
+      "N": 32295103,
+      "base": 17,
+      "cube": 4913,
+      "exact_orders": {
+        "plain": 1008860,
+        "cube": 1008860,
+        "equal": true
+      },
+      "arithmetic_source_only": true,
+      "factor_incapable_for_both_exact": false,
+      "factor_incapability_reason": null,
+      "per_stage_ccx_cube_over_plain": {
+        "min": 1.002769084412368,
+        "max": 1.074306359526164,
+        "cube_larger": 24,
+        "tied": 0,
+        "cube_smaller": 0,
+        "all_24_ratios": [
+          1.074306359526164,
+          1.0638997053201504,
+          1.052041550115822,
+          1.0335551870805648,
+          1.025406975764313,
+          1.015821250952968,
+          1.0123102249862814,
+          1.0118676431489135,
+          1.0123250110941244,
+          1.013247354357249,
+          1.0136008781199701,
+          1.0128102703472457,
+          1.0103527517213917,
+          1.007353350684464,
+          1.0058885951609327,
+          1.0054176329567404,
+          1.003010230053437,
+          1.003781911030728,
+          1.0031091855396854,
+          1.0031826936041988,
+          1.0038748420002168,
+          1.0032072072337783,
+          1.002769084412368,
+          1.003336295206288
+        ]
+      },
+      "coupled_attempted_run_cost_ratio_certified_lower_bound": 1.002769084412368,
+      "exact_conditional_verdict": "exact_cube_strictly_worse_source_CCX",
+      "original_model_status": "inconclusive",
+      "original_model_ratio_interval": [
+        0.45662018083103845,
+        2.252448876447287
+      ],
+      "classically_solved_under_frozen_B47_rho64": false,
+      "numerical_null_checks": {
+        "public_denominators_checked": 142,
+        "sampled_measurements_checked": 176,
+        "producing_denominator_controls": 2
+      }
+    },
+    {
+      "index": 4,
+      "N": 24467873,
+      "base": 3,
+      "cube": 27,
+      "exact_orders": {
+        "plain": 12228930,
+        "cube": 4076310,
+        "equal": false
+      },
+      "arithmetic_source_only": true,
+      "factor_incapable_for_both_exact": false,
+      "factor_incapability_reason": null,
+      "per_stage_ccx_cube_over_plain": {
+        "min": 1.0052597315629874,
+        "max": 1.0787601096879447,
+        "cube_larger": 24,
+        "tied": 0,
+        "cube_smaller": 0,
+        "all_24_ratios": [
+          1.0787601096879447,
+          1.0443815993823837,
+          1.0353903228250863,
+          1.0301664917493965,
+          1.0269162576455169,
+          1.0223328983849633,
+          1.0160593495943184,
+          1.0146664363378377,
+          1.0142280413445313,
+          1.0114659046424648,
+          1.014323426096346,
+          1.0130999779999499,
+          1.0132052807908853,
+          1.013100472368537,
+          1.0113438352107746,
+          1.0098016546056194,
+          1.009165910751249,
+          1.006831108883028,
+          1.0071804844011878,
+          1.0068849172915326,
+          1.00635128282063,
+          1.0066307465488913,
+          1.005698368857692,
+          1.0052597315629874
+        ]
+      },
+      "coupled_attempted_run_cost_ratio_certified_lower_bound": null,
+      "exact_conditional_verdict": "order_reduction_no_exact_cost_verdict",
+      "original_model_status": "inconclusive",
+      "original_model_ratio_interval": [
+        0.30608470273551724,
+        2.428233927844292
+      ],
+      "classically_solved_under_frozen_B47_rho64": true,
+      "numerical_null_checks": null
+    },
+    {
+      "index": 5,
+      "N": 29256449,
+      "base": 5,
+      "cube": 125,
+      "exact_orders": {
+        "plain": 114240,
+        "cube": 38080,
+        "equal": false
+      },
+      "arithmetic_source_only": true,
+      "factor_incapable_for_both_exact": true,
+      "factor_incapability_reason": "trivial_square_root_for_all_even_order_multiples",
+      "per_stage_ccx_cube_over_plain": {
+        "min": 0.9983448430416104,
+        "max": 1.0549536795585945,
+        "cube_larger": 19,
+        "tied": 0,
+        "cube_smaller": 5,
+        "all_24_ratios": [
+          1.0549536795585945,
+          1.033782661846518,
+          1.017919092490489,
+          1.0108935782562187,
+          1.0118763560383877,
+          1.0063829154062633,
+          1.005796048265742,
+          1.0050179753419872,
+          1.001435340970829,
+          1.0051671127193609,
+          1.0051146864198814,
+          1.0038200341171513,
+          1.0039535595405433,
+          1.0029742668706398,
+          1.0011387107695402,
+          1.000128615968551,
+          1.001045585628164,
+          0.9996376358772542,
+          0.9997477470445042,
+          0.9997091582466563,
+          0.9983448430416104,
+          1.0002421501396463,
+          1.0004224722104953,
+          0.9999456909999253
+        ]
+      },
+      "coupled_attempted_run_cost_ratio_certified_lower_bound": null,
+      "exact_conditional_verdict": "exact_factor_incapable_for_both_bases",
+      "original_model_status": "factor_incapable_or_uncertified",
+      "original_model_ratio_interval": [
+        null,
+        null
+      ],
+      "classically_solved_under_frozen_B47_rho64": true,
+      "numerical_null_checks": null
+    },
+    {
+      "index": 6,
+      "N": 28064303,
+      "base": 13,
+      "cube": 2197,
+      "exact_orders": {
+        "plain": 1753308,
+        "cube": 584436,
+        "equal": false
+      },
+      "arithmetic_source_only": true,
+      "factor_incapable_for_both_exact": false,
+      "factor_incapability_reason": null,
+      "per_stage_ccx_cube_over_plain": {
+        "min": 0.9998781743437599,
+        "max": 1.0938424737783607,
+        "cube_larger": 22,
+        "tied": 0,
+        "cube_smaller": 2,
+        "all_24_ratios": [
+          1.0938424737783607,
+          1.0527963397490143,
+          1.0311415906868158,
+          1.0253509894781878,
+          1.0228499850616624,
+          1.019601240226763,
+          1.0157955079006127,
+          1.0145938474947567,
+          1.0134040760235115,
+          1.0153124343058053,
+          1.0130998499480302,
+          1.0080619262260815,
+          1.0091615450407716,
+          1.0076903413842973,
+          1.0078819495652427,
+          1.0060833672147833,
+          1.0041951676681662,
+          1.0006913108615456,
+          1.000395828255637,
+          0.9999646270197118,
+          0.9998781743437599,
+          1.002859649108876,
+          1.0024822312845538,
+          1.0028770201677681
+        ]
+      },
+      "coupled_attempted_run_cost_ratio_certified_lower_bound": null,
+      "exact_conditional_verdict": "order_reduction_no_exact_cost_verdict",
+      "original_model_status": "inconclusive",
+      "original_model_ratio_interval": [
+        0.3968712326139441,
+        2.0109802809112396
+      ],
+      "classically_solved_under_frozen_B47_rho64": true,
+      "numerical_null_checks": null
+    },
+    {
+      "index": 7,
+      "N": 28787333,
+      "base": 11,
+      "cube": 1331,
+      "exact_orders": {
+        "plain": 4796098,
+        "cube": 4796098,
+        "equal": true
+      },
+      "arithmetic_source_only": true,
+      "factor_incapable_for_both_exact": true,
+      "factor_incapability_reason": "trivial_square_root_for_all_even_order_multiples",
+      "per_stage_ccx_cube_over_plain": {
+        "min": 1.0088675174710255,
+        "max": 1.0649890778698647,
+        "cube_larger": 24,
+        "tied": 0,
+        "cube_smaller": 0,
+        "all_24_ratios": [
+          1.0649890778698647,
+          1.0417617303906779,
+          1.038490055272498,
+          1.0283096079932714,
+          1.0215987936766648,
+          1.01878979066422,
+          1.0191937449527606,
+          1.0186851150127378,
+          1.0158496602890075,
+          1.0171956539760485,
+          1.0147000824620311,
+          1.0150813274575503,
+          1.0120009710959936,
+          1.011770246905745,
+          1.0115699290622249,
+          1.0124362624128662,
+          1.0136617622451072,
+          1.0122310246013555,
+          1.0112976186407463,
+          1.0104874396078298,
+          1.0091396716694656,
+          1.0088675174710255,
+          1.0108086277704063,
+          1.0104239495755547
+        ]
+      },
+      "coupled_attempted_run_cost_ratio_certified_lower_bound": 1.0088675174710255,
+      "exact_conditional_verdict": "exact_factor_incapable_for_both_bases",
+      "original_model_status": "factor_incapable_or_uncertified",
+      "original_model_ratio_interval": [
+        null,
+        null
+      ],
+      "classically_solved_under_frozen_B47_rho64": true,
+      "numerical_null_checks": {
+        "public_denominators_checked": 142,
+        "sampled_measurements_checked": 176,
+        "producing_denominator_controls": 0
+      }
+    }
+  ],
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "paid_runtime_used": false,
+  "caveat": "Exact only within ideal QPE + archived source modular arithmetic structural CCX model; no compiled native device circuit, no actual factoring advantage. A source-CCX attempted-session lower bound is not a hardware runtime or statistical confidence interval.",
+  "analyzed_utc": "2026-10-26T04:44:49.488434+00:00"
+}
