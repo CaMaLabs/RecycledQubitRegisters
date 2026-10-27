@@ -1,0 +1,121 @@
+name: Audit and preserve original N25 changed-order break-even eight-case results ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/dark-star-n25-preserve-changed-order-break-even-original.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: dark-star-n25-changed-order-cost-break-even-original-preservation
+  cancel-in-progress: false
+
+jobs:
+  preserve-original:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch ORIGINAL source-run JSON without rescoring or new QPU work
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 40467868224
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: dark-star-n25-changed-order-break-even-original
+          path: _source_original
+      - name: Strictly preserve single original machine receipt
+        run: |
+          set -euo pipefail
+          test -s _source_original/dark_star_n25_changed_order_break_even.json || test -s _source_original/results/dark_star_ptp/dark_star_n25_changed_order_break_even.json
+          mkdir -p results/dark_star_ptp
+          found="$(find _source_original -type f -name dark_star_n25_changed_order_break_even.json | wc -l)"
+          test "$found" -eq 1 || { echo "Expected ONE original JSON, found $found"; exit 1; }
+          find _source_original -type f -name dark_star_n25_changed_order_break_even.json -exec cp -t results/dark_star_ptp/ '{}' +
+      - name: Independent reproduce exact cost ratios from untouched old source receipt and classify all eight
+        run: |
+          python - <<'PY'
+          import json,math
+          from fractions import Fraction
+          from collections import Counter
+          from pathlib import Path
+          old=json.loads(Path('results/dark_star_ptp/dark_star_n25_online_model_all_8.json').read_text())
+          d=json.loads(Path('results/dark_star_ptp/dark_star_n25_changed_order_break_even.json').read_text())
+          assert d['experiment']=='dark_star_n25_fixed_cost_break_even_secondary'
+          assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert d['preregistration']=='docs/DARK_STAR_N25_CHANGED_ORDER_BREAK_EVEN_PROTOCOL.md'
+          assert d['source_manifest_sha256']==old['source_manifest_sha256']
+          assert d['analysis_scope']=='post_hoc_same_N25_cohort_eight_cases'
+          assert d['independent_cohort_replication'] is False
+          assert d['original_scientific_receipts_unchanged'] is True
+          assert d['original_primary_status']==old['summary']
+          assert d['source_level_CCX_only'] and not d['native_IBM_transpilation']
+          assert not d['quantum_hardware_executed']
+          assert d['zero_QPU'] and d['qpu_jobs_submitted']==0 and not d['paid_runtime_used']
+          cases=d['all_cases']
+          assert len(cases)==len(old['rows'])==8
+          cats=Counter()
+          ratios={}
+          for i,(original,row) in enumerate(zip(old['rows'],cases)):
+              assert row['index']==i
+              assert (row['N'],row['base'],row['cube'])==(
+                 original['N'],original['base'],original['cube'])
+              assert row['stage_width_count']==24 and row['fixed_prefix_shots']==96
+              assert row['original_primary_status']==original['cube_vs_plain']['status']
+              assert row['observed_success_probability_ratio'] is None
+              assert row['inferred_cube_factor_success_win'] is None
+              p=original['model_plain']['structural_modular_arithmetic_per_stage']
+              c=original['model_cube']['structural_modular_arithmetic_per_stage']
+              assert len(p)==len(c)==24
+              cp=cc=0
+              for k,z in enumerate(row['fixed_workload_stopping_prefixes']):
+                  j=k//4
+                  cp+=p[j]['ccx'];cc+=c[j]['ccx']
+                  assert z['cumulative_plain_CCX']==cp and z['cumulative_cube_CCX']==cc
+                  ratio=Fraction(cc,cp)
+                  assert [ratio.numerator,ratio.denominator]==[
+                   z['fixed_prefix_cost_ratio']['numerator'],
+                   z['fixed_prefix_cost_ratio']['denominator']]
+                  assert z['IMPORTANT_not_early_stopping_per_success_ratio']
+              assert row['final_96_shot_cost_ratio']==row['fixed_workload_stopping_prefixes'][-1]['fixed_prefix_cost_ratio']
+              ratios[(row['N'],row['base'])]=float(Fraction(cc,cp))
+              cats[row['analysis_category']]+=1
+              if row['analysis_category']=='changed_order_factor_capable_break_even_only':
+                  assert row['validation_only_factor_capable'] and row['order_reduces']
+                  assert row['factor_success_cost_ratio_defined_for_this_base_pair']
+              elif row['analysis_category']=='changed_order_factor_incapable_undefined':
+                  assert row['order_reduces'] and not row['validation_only_factor_capable']
+                  assert not row['factor_success_cost_ratio_defined_for_this_base_pair']
+              else:
+                  assert row['analysis_category']=='same_order_control_only'
+                  assert not row['order_reduces']
+              print('ORIGINAL CASE',i,'N',row['N'],'category',row['analysis_category'],
+                    'fixed workload final cost ratio',ratios[(row['N'],row['base'])])
+          assert dict(cats)==d['summary']['categories']
+          assert dict(cats)=={
+              'changed_order_factor_capable_break_even_only':3,
+              'changed_order_factor_incapable_undefined':1,
+              'same_order_control_only':4}
+          expected={(20508127,3):1.0131532357969621,
+                    (24467873,3):1.0111317204387487,
+                    (28064303,13):1.0074703383477157}
+          for k,z in expected.items():
+              assert math.isclose(ratios[k],z,rel_tol=0,abs_tol=1e-13),(k,ratios[k],z)
+          assert d['summary']['extra_positive_success_claims']==0
+          print('INDEPENDENT ORIGINAL SOURCE ARTIFACT AUDIT PASS — all 8, exact 96 ratios, three conditional break-even targets, no QPU')
+          PY
+      - name: Commit exactly the ORIGINAL JSON source-produced receipt
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n25_changed_order_break_even.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'results: independently verify/preserve original eight N25 changed-order conditional CCX break-even receipts ZERO QPU'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
