@@ -1,0 +1,104 @@
+name: Dark Star N25 changed-order fixed-cost break-even proof ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/dark-star-n25-changed-order-break-even-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dark-star-n25-original-changed-order-break-even-v1
+  cancel-in-progress: false
+
+jobs:
+  all-eight-original-cases:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect unmodified source, all three predecessor receipts and no-QPU constraints
+        run: |
+          test -s docs/DARK_STAR_N25_CHANGED_ORDER_BREAK_EVEN_PROTOCOL.md
+          python -m py_compile hardware/dark_star_n25_changed_order_break_even.py
+          python - <<'PY'
+          from pathlib import Path
+          src=Path('hardware/dark_star_n25_changed_order_break_even.py').read_text()
+          assert not any(x in src for x in (
+           'QiskitRuntimeService', 'SamplerV2','EstimatorV2','backend.run','job.submit',
+           'requests.post','ibm_quantum_platform'))
+          assert 'Fraction' in src and 'FACTOR_CAPABLE_REDUCED' in src
+          for path in ('results/dark_star_ptp/dark_star_n25_online_model_all_8.json',
+                       'results/dark_star_ptp/dark_star_n25_exact_order_dominance.json',
+                       'results/dark_star_ptp/dark_star_n25_prefix_dominance.json'):
+              assert Path(path).exists(),path
+          print('Original SHA-frozen N25 cohort, original verdicts and zero-QPU protocol verified')
+          PY
+      - name: Compute all 8 rows, every fixed phase-width and all 96 source CCX prefixes, conditional thresholds ONLY
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u hardware/dark_star_n25_changed_order_break_even.py | tee dark_star_n25_break_even_source.log
+      - name: Independent arithmetic cross-check of output and unchanged original cohort
+        run: |
+          python - <<'PY'
+          import json,math
+          from fractions import Fraction
+          from pathlib import Path
+          source=json.loads(Path('results/dark_star_ptp/dark_star_n25_online_model_all_8.json').read_text())
+          result=json.loads(Path('results/dark_star_ptp/dark_star_n25_changed_order_break_even.json').read_text())
+          assert result['source_manifest_sha256']==source['source_manifest_sha256']
+          assert result['summary']['total']==len(result['all_cases'])==len(source['rows'])==8
+          assert result['original_primary_status']==source['summary']
+          assert result['zero_QPU'] and result['qpu_jobs_submitted']==0 and not result['paid_runtime_used']
+          assert not result['quantum_hardware_executed'] and not result['native_IBM_transpilation']
+          assert result['summary']['order_reducing_factor_capable']==3
+          assert result['summary']['extra_positive_success_claims']==0
+          for old,z in zip(source['rows'],result['all_cases']):
+              assert old['N']==z['N'] and old['base']==z['base']
+              assert z['stage_width_count']==24 and z['fixed_prefix_shots']==96
+              assert z['observed_success_probability_ratio'] is None
+              assert z['inferred_cube_factor_success_win'] is None
+              assert z['original_primary_status']==old['cube_vs_plain']['status']
+              for p,c,stage in zip(
+                 old['model_plain']['structural_modular_arithmetic_per_stage'],
+                 old['model_cube']['structural_modular_arithmetic_per_stage'],
+                 z['fixed_width_independent_shot_break_even_thresholds']):
+                  assert p['m']==c['m']==stage['phase_bits']
+                  assert stage['ccx_plain_per_shot']==p['ccx']
+                  assert stage['ccx_cube_per_shot']==c['ccx']
+                  rat=Fraction(c['ccx'],p['ccx'])
+                  assert stage['fixed_width_per_shot_cube_over_plain']['numerator']==rat.numerator
+                  assert stage['fixed_width_per_shot_cube_over_plain']['denominator']==rat.denominator
+              cp=cc=0
+              for k,prefix in enumerate(z['fixed_workload_stopping_prefixes'],1):
+                  width=(k-1)//4
+                  cp+=old['model_plain']['structural_modular_arithmetic_per_stage'][width]['ccx']
+                  cc+=old['model_cube']['structural_modular_arithmetic_per_stage'][width]['ccx']
+                  assert prefix['fixed_workload_shots']==k
+                  assert prefix['cumulative_plain_CCX']==cp and prefix['cumulative_cube_CCX']==cc
+                  rat=Fraction(cc,cp)
+                  assert prefix['fixed_prefix_cost_ratio']['numerator']==rat.numerator
+                  assert prefix['fixed_prefix_cost_ratio']['denominator']==rat.denominator
+                  assert prefix['IMPORTANT_not_early_stopping_per_success_ratio']
+              print('VERIFIED',z['N'],z['base'],z['analysis_category'],
+                'stage cheaper',z['cube_strictly_cheaper_at_stage_count'],
+                '96-shot ratio',z['final_96_shot_cost_ratio']['decimal'])
+          assert result['summary']['categories']=={
+            'changed_order_factor_capable_break_even_only':3,
+            'same_order_control_only':4,
+            'changed_order_factor_incapable_undefined':1}
+          print('SUCCESS exact original 8 case deterministic conditional SOURCE-COST targets, no empirical success claim and NO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dark-star-n25-changed-order-break-even-original
+          path: |
+            dark_star_n25_break_even_source.log
+            results/dark_star_ptp/dark_star_n25_changed_order_break_even.json
