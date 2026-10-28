@@ -1,0 +1,214 @@
+name: Independently audit and preserve original 4 FRESH N25 m50 ideal online CF receipts ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-preserve-n25-fresh-cf50-original-four.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: qrr-n25-fresh-cf50-original-four-audit-20261028
+  cancel-in-progress: false
+
+jobs:
+  audit-four-original-no-resimulation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Download four ORIGINAL source-run output artifacts, NO QPE or order recomputation
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 40657959490
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: n25-fresh-cf50-original-index*
+          merge-multiple: true
+          path: _original_fresh_n25_cf50_artifacts
+      - name: Preserve precisely one unmodified ORIGINAL JSON per public cohort index
+        run: |
+          set -euo pipefail
+          mkdir -p results/dark_star_ptp/n25_fresh_cf50
+          for i in 0 1 2 3; do
+            printf -v index '%02d' "$i"
+            f="n25_fresh_cf50_index${index}.json"
+            num="$(find _original_fresh_n25_cf50_artifacts -type f -name "$f" | wc -l)"
+            test "$num" -eq 1 || { echo "Required exactly one original JSON $f; observed $num"; exit 1; }
+            find _original_fresh_n25_cf50_artifacts -type f -name "$f" -exec cp -t results/dark_star_ptp/n25_fresh_cf50/ '{}' +
+          done
+      - name: Independent probability-bound arithmetic, original source costs, zero hardware and frozen SHA audit; write aggregate
+        run: |
+          python3 - <<'PY'
+          import json,math,hashlib
+          from pathlib import Path
+          from fractions import Fraction
+          root=Path('results/dark_star_ptp/n25_fresh_cf50')
+          public=json.loads(Path('results/dark_star_ptp/dark_star_n25_fresh_cf50_manifest.json').read_text())
+          old=json.loads(Path('results/dark_star_ptp/dark_star_n25_online_public_manifest.json').read_text())
+          selected=public['selected_public_rows']
+          assert len(selected)==4
+          assert public['selected_sha256']=='a136789dcdcbb32730f293973805f8edacf5d684d8350c2e51c665db0099d629'
+          assert public['original_eight_selected_sha256']==old['selected_sha256']
+          assert public['no_QPE_or_factor_witness_scored_during_selection']
+          assert not set(z['N'] for z in old['selected_public_rows']).intersection(z['N'] for z in selected)
+          expected=[
+             dict(N=19774537,base=29,cube=24389,plain_count=7325,cube_count=7325,
+                  cost_plain=40939341,cost_cube=41169698,r=9882818,rc=9882818,status='inconclusive'),
+             dict(N=28467259,base=31,cube=29791,plain_count=7631,cube_count=7631,
+                  cost_plain=40900461,cost_cube=41053362,r=7114126,rc=7114126,status='inconclusive'),
+             dict(N=29915783,base=29,cube=24389,plain_count=4139,cube_count=6335,
+                  cost_plain=40925171,cost_cube=41236298,r=14952360,rc=4984120,status='bounded_cube_win'),
+             dict(N=24556361,base=23,cube=12167,plain_count=5356,cube_count=8190,
+                  cost_plain=41095307,cost_cube=41343785,r=3068304,rc=1022768,status='bounded_cube_win')]
+          eps=math.sqrt(math.log(2*8/.01)/(2*16384))
+          complete=[]
+          classes={}
+          for i,z in enumerate(expected):
+              p=root/f'n25_fresh_cf50_index{i:02d}.json'
+              d=json.loads(p.read_text())
+              assert d['revision']=='dark-star-n25-fresh-frozen-online-cf50-v1-20261028'
+              assert d['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert d['preregistration']=='docs/DARK_STAR_N25_FRESH_PUBLIC_SURVIVOR_CF50_PROTOCOL.md'
+              assert d['manifest_sha256']==public['selected_sha256']
+              assert d['selected_index']==i
+              assert d['fixed_public_n25_cohort'] and d['fixed_phase_bits']==50
+              assert d['head_samples_per_base']==16384 and d['family_size']==8
+              assert d['sampling_salt']=='QRR-N25-CF50-FRESH-PHASE-20261028'
+              assert d['simultaneous_nominal_alpha']==.01
+              assert math.isclose(d['minimum_model_tail_worst_bound'],1/63)
+              assert d['phase_sampler_uses_validation_only_order']
+              assert d['measured_outcome_verifier_is_public_only'] and d['source_CCX_not_native_CZ']
+              assert d['qpu_jobs_submitted']==0 and d['zero_QPU'] and not d['paid_runtime_used']
+              assert d['result_complete'] and d['status']=='SUCCESS'
+              assert d['selftests']['online_CF_matches_legacy_direct_public_factor_extractor']==1680
+              row=d['row']
+              assert row['selected_index']==i
+              assert all(row[k]==v for k,v in selected[i].items())
+              assert row['original_manifest_sha256']==public['selected_sha256']
+              assert row['N']==z['N'] and row['base']==z['base'] and row['cube']==z['cube']
+              val=row['validation_only']
+              pp,qq=val['prime_factors']
+              assert pp*qq==row['N'] and 1<pp<qq
+              assert val['order_plain']==z['r'] and val['order_cube']==z['rc']
+              assert z['rc']==z['r']//math.gcd(z['r'],3)
+              assert val['order_cube_div3_identity'] and val['half_power_witness_invariant']
+              assert val['witness_plain']['factor_success'] and val['witness_cube']['factor_success']
+              assert val['witness_plain']['factors']==val['witness_cube']['factors']
+              screen=row['frozen_public_classical_budget_ledger']
+              assert not screen['B31_factored'] and not screen['additional_B47_rho64_trial97']['classically_solved']
+              for arm,base,expected_count,expected_cost in (
+                  (row['plain'],z['base'],z['plain_count'],z['cost_plain']),
+                  (row['cube_arm'],z['cube'],z['cube_count'],z['cost_cube'])):
+                  assert arm['base']==base
+                  assert arm['head_sample_count']==16384
+                  assert arm['head_factor_success_count']==expected_count
+                  h=expected_count/16384
+                  assert math.isclose(arm['head_success_probability_empirical'],h,abs_tol=1e-14)
+                  lo=max(0,h-eps)
+                  hi=min(1,h+eps+1/63)
+                  assert math.isclose(arm['overall_ideal_success_interval_with_omitted_tail'][0],lo,abs_tol=1e-13)
+                  assert math.isclose(arm['overall_ideal_success_interval_with_omitted_tail'][1],hi,abs_tol=1e-13)
+                  assert math.isclose(arm['nominal_simultaneous_hoeffding_eps'],eps,abs_tol=1e-13)
+                  assert arm['source_arithmetic']['ccx']==expected_cost
+                  assert arm['source_arithmetic']['cx']>=0 and arm['source_arithmetic']['controlled_swaps']>=0
+                  assert arm['no_precomputed_denominator_producing_table']
+                  assert arm['true_order_used_only_by_ideal_phase_sampler']
+                  assert arm['on_demand_public_verifier_ops']['denominator_checks']>=0
+                  assert arm['on_demand_public_verifier_ops']['modular_exponentiation_calls']>=0
+                  assert arm['on_demand_public_verifier_ops']['gcd_calls']>=0
+              p0=row['plain'];c0=row['cube_arm'];comp=row['comparison']
+              frac=Fraction(z['cost_cube'],z['cost_plain'])
+              assert comp['source_ccx_cube_over_plain_break_even_ratio']==dict(
+                  numerator=frac.numerator,denominator=frac.denominator,decimal=float(frac))
+              assert comp['source_ccx_delta_cube_minus_plain']==z['cost_cube']-z['cost_plain']
+              pl,ph=p0['overall_ideal_success_interval_with_omitted_tail']
+              cl,ch=c0['overall_ideal_success_interval_with_omitted_tail']
+              low=cl/ph if ph>0 else None
+              high=ch/pl if pl>0 else None
+              assert comp['factor_capable_validated_after_public_freeze']
+              assert math.isclose(comp['direct_fixed_width_head_success_ratio_cube_over_plain'],
+                                  z['cube_count']/z['plain_count'],rel_tol=1e-12)
+              origlo,orighi=comp['conservative_ideal_success_ratio_interval_cube_over_plain']
+              assert math.isclose(origlo,low,rel_tol=1e-12)
+              assert math.isclose(orighi,high,rel_tol=1e-12)
+              status='bounded_cube_win' if low>float(frac) else (
+                 'bounded_cube_loss' if high<float(frac) else 'inconclusive')
+              assert comp['status']==status==z['status']
+              assert comp['fixed_width_only_no_adaptive_cost_claim']
+              bounds=comp['expected_source_CCX_per_success_intervals']
+              assert math.isclose(bounds['plain'][0],z['cost_plain']/ph,rel_tol=1e-12)
+              assert math.isclose(bounds['plain'][1],z['cost_plain']/pl,rel_tol=1e-12)
+              assert math.isclose(bounds['cube'][0],z['cost_cube']/ch,rel_tol=1e-12)
+              assert math.isclose(bounds['cube'][1],z['cost_cube']/cl,rel_tol=1e-12)
+              assert not row['quantum_runtime_used'] and not row['paid_runtime_used']
+              classes[status]=classes.get(status,0)+1
+              complete.append(row)
+              print('INDEPENDENT ORIGINAL N25 CF50 AUDIT',i,'N',z['N'],'a',z['base'],
+                    'order',z['r'],'->',z['rc'],
+                    'heads',z['plain_count'],z['cube_count'],
+                    'CCX',z['cost_plain'],z['cost_cube'],
+                    'nominal_ratio_interval',low,high,
+                    'cost_ratio',float(frac),
+                    'status',status,'ZERO QPU',flush=True)
+          assert len(complete)==4
+          assert classes==dict(inconclusive=2,bounded_cube_win=2)
+          factorcap=sum(bool(r['validation_only']['witness_plain']['factor_success']) for r in complete)
+          assert factorcap==4
+          original_signal=(classes.get('bounded_cube_win',0)>=2 and
+                           classes.get('bounded_cube_loss',0)<=1 and factorcap>=2)
+          assert original_signal
+          summary=dict(
+             original_source_run_id=40657959490,
+             fresh_public_manifest_sha256=public['selected_sha256'],
+             frozen_original_cohort_sha256=public['original_eight_selected_sha256'],
+             original_four_receipts_verified_without_resimulation=True,
+             public_cases=4,base_arms=8,actual_ideal_head_measurements=4*2*16384,
+             fixed_phase_bits=50,nominal_simultaneous_coverage=.99,
+             success_classes=classes,changed_order_cases=sum(
+                 r['validation_only']['order_plain']!=r['validation_only']['order_cube'] for r in complete),
+             same_order_cases=sum(
+                 r['validation_only']['order_plain']==r['validation_only']['order_cube'] for r in complete),
+             factor_capable_cases=factorcap,
+             frozen_two_of_four_directional_model_gate_pass=original_signal,
+             source_logical_CCX_only_no_native_circuit=True,
+             quantum_runtime_used=False,qpu_jobs_submitted=0,paid_runtime_used=False,
+             conclusion='Two newly frozen public N25 cubic order-reducing cases have bounded ideal fixed-m50 source-cost-per-success model wins; no hardware/native/genuine adaptive factoring result.')
+          out=dict(experiment='dark_star_fresh_n25_cf50_original_4_receipts_preserved',
+             preregistration='docs/DARK_STAR_N25_FRESH_PUBLIC_SURVIVOR_CF50_PROTOCOL.md',
+             complete=True,summary=summary,rows=complete,
+             caution='Sampling uses validation-only true orders to construct ideal QPE phase distributions AFTER public freeze, source structural CCX not native CZ, m50 fixed independent repetitions not full QPE or early stopping. CPU-only model.')
+          outpath=Path('results/dark_star_ptp/dark_star_n25_fresh_cf50_all_4.json')
+          outpath.write_text(json.dumps(out,indent=2)+'\n')
+          print('FRESH 4/4 ORIGINAL SHA-FROZEN N25 CASES: 2 bounded model wins, 2 inconclusive; all source receipts audited; ZERO IBM QPU')
+          PY
+      - name: Commit unaltered four original source JSONs and independently derived aggregate with safe rebase
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/n25_fresh_cf50/n25_fresh_cf50_index00.json
+          git add results/dark_star_ptp/n25_fresh_cf50/n25_fresh_cf50_index01.json
+          git add results/dark_star_ptp/n25_fresh_cf50/n25_fresh_cf50_index02.json
+          git add results/dark_star_ptp/n25_fresh_cf50/n25_fresh_cf50_index03.json
+          git add results/dark_star_ptp/dark_star_n25_fresh_cf50_all_4.json
+          git commit -m 'results: independently audit/preserve four FRESH N25 m50 on-demand CF source-cost samples with 2 bounded cubic model wins, zero QPU'
+          for attempt in 1 2 3 4 5 6; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'FRESH N25 m50 original 4/4 receipts archived and independently verified'
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
