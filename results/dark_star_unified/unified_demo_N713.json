@@ -1,0 +1,610 @@
+{
+  "experiment": "unified_dark_star_end_to_end_CPU_prototype",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "N": 713,
+  "simulator_only_private_factors": [
+    23,
+    31
+  ],
+  "public_base": 19,
+  "public_PTPTables": {
+    "M": 210,
+    "wheel_prime_factor": null,
+    "kernel_root": 83,
+    "candidate_kernel_pairs": 24,
+    "kernel_pairs": [
+      [
+        11,
+        103
+      ],
+      [
+        13,
+        71
+      ],
+      [
+        17,
+        79
+      ],
+      [
+        19,
+        137
+      ],
+      [
+        23,
+        31
+      ],
+      [
+        29,
+        97
+      ],
+      [
+        37,
+        59
+      ],
+      [
+        41,
+        43
+      ],
+      [
+        47,
+        109
+      ],
+      [
+        53,
+        61
+      ],
+      [
+        67,
+        89
+      ],
+      [
+        73,
+        191
+      ],
+      [
+        83,
+        211
+      ],
+      [
+        101,
+        163
+      ],
+      [
+        107,
+        199
+      ],
+      [
+        113,
+        181
+      ],
+      [
+        121,
+        143
+      ],
+      [
+        127,
+        209
+      ],
+      [
+        131,
+        193
+      ],
+      [
+        139,
+        197
+      ],
+      [
+        149,
+        157
+      ],
+      [
+        151,
+        173
+      ],
+      [
+        167,
+        169
+      ],
+      [
+        179,
+        187
+      ]
+    ],
+    "diagonal_symmetry_root_pairs": 12,
+    "naive_diagonal_symmetry_pruning_enabled": false
+  },
+  "public_conditional_odd_exponent": 3,
+  "public_classical_preflight": {
+    "factors": [
+      23,
+      31
+    ],
+    "method": "ordinary_fermat",
+    "stages": [
+      {
+        "name": "base_gcd",
+        "factors": null,
+        "detail": null
+      },
+      {
+        "name": "wheel_small_factor",
+        "factors": null,
+        "detail": {
+          "factors": null
+        }
+      },
+      {
+        "name": "public_power2_gcd",
+        "factors": null,
+        "detail": null
+      },
+      {
+        "name": "ordinary_fermat",
+        "factors": [
+          23,
+          31
+        ],
+        "square_tests": 1,
+        "midpoint_modulus": null,
+        "setup_seconds": 0.0,
+        "search_seconds": 2.114000000830174e-06
+      }
+    ],
+    "classically_solved": true
+  },
+  "classical_full_reference_baselines": {
+    "trial": {
+      "method": "trial_division",
+      "n": 713,
+      "factors": [
+        23,
+        31
+      ],
+      "candidate_pairs": 0,
+      "pair_checks": 0,
+      "integer_search_steps": 0,
+      "divisibility_tests": 22,
+      "elapsed_seconds": 3.657000000600874e-06
+    },
+    "conventional_wheel210": {
+      "method": "wheel210",
+      "n": 713,
+      "factors": [
+        23,
+        31
+      ],
+      "candidate_pairs": 0,
+      "pair_checks": 0,
+      "integer_search_steps": 0,
+      "divisibility_tests": 9,
+      "elapsed_seconds": 2.6910999999074647e-05
+    },
+    "ptp_LFK_kernel": {
+      "method": "lfk210",
+      "n": 713,
+      "factors": [
+        23,
+        31
+      ],
+      "candidate_pairs": 24,
+      "pair_checks": 5,
+      "integer_search_steps": 17,
+      "divisibility_tests": 21,
+      "elapsed_seconds": 1.6972000000947673e-05
+    },
+    "note": "full classical references; if solved, no practical quantum need exists"
+  },
+  "actual_classical_first_outcome": {
+    "factors": [
+      23,
+      31
+    ],
+    "success": true,
+    "method": "classical:ordinary_fermat",
+    "truly_requires_quantum_after_public_preflight": false,
+    "note": "Quantum branch was counterfactual; classical preflight already solved N."
+  },
+  "all_fixed_exponent_ablation_arms": {
+    "L1": {
+      "label": "L1",
+      "exponent": 1,
+      "base": 19,
+      "classically_shortcut": false,
+      "shortcut_factors": null,
+      "validation_only_order": 330,
+      "validation_only_original_order": 330,
+      "model_attempted": true,
+      "success": true,
+      "factors": [
+        23,
+        31
+      ],
+      "verified_denominator": 330,
+      "shots": 27,
+      "stop_phase_bits": 16,
+      "counterfactual_source_counts": {
+        "shots": 27,
+        "phase_rounds": 264,
+        "source_CCX": 7366012,
+        "source_CX": 0,
+        "source_CSWAP": 2640,
+        "sampled_bin_evaluations": 1555,
+        "public_CF_convergents_considered": 138,
+        "public_CF_even_denominators_checked": 42,
+        "public_CF_modular_pow_calls": 43,
+        "public_CF_gcd_calls": 1
+      },
+      "logical_architectures": {
+        "wide_peak_logical": 49,
+        "recycled_peak_logical": 34,
+        "arithmetic_workspace_logical": 33,
+        "logical_phase_bits_wide": 16,
+        "logical_phase_bits_recycled": 1,
+        "physical_hardware_metrics_measured": false
+      },
+      "stage_receipts": [
+        {
+          "m": 4,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 108734
+        },
+        {
+          "m": 6,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 163981
+        },
+        {
+          "m": 8,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 220190
+        },
+        {
+          "m": 10,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 279005
+        },
+        {
+          "m": 12,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 335350
+        },
+        {
+          "m": 14,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 395036
+        },
+        {
+          "m": 16,
+          "shots_attempted": 3,
+          "successful": true,
+          "source_CCX_per_shot": 452276
+        }
+      ],
+      "head_only_success_lower_bound_method": true,
+      "tail_outcomes_not_falsely_credited": true
+    },
+    "L3": {
+      "label": "L3",
+      "exponent": 3,
+      "base": 442,
+      "classically_shortcut": false,
+      "shortcut_factors": null,
+      "validation_only_order": 110,
+      "validation_only_original_order": 330,
+      "model_attempted": true,
+      "success": true,
+      "factors": [
+        23,
+        31
+      ],
+      "verified_denominator": 110,
+      "shots": 18,
+      "stop_phase_bits": 12,
+      "counterfactual_source_counts": {
+        "shots": 18,
+        "phase_rounds": 136,
+        "source_CCX": 3778140,
+        "source_CX": 0,
+        "source_CSWAP": 1360,
+        "sampled_bin_evaluations": 970,
+        "public_CF_convergents_considered": 92,
+        "public_CF_even_denominators_checked": 33,
+        "public_CF_modular_pow_calls": 34,
+        "public_CF_gcd_calls": 1
+      },
+      "logical_architectures": {
+        "wide_peak_logical": 45,
+        "recycled_peak_logical": 34,
+        "arithmetic_workspace_logical": 33,
+        "logical_phase_bits_wide": 12,
+        "logical_phase_bits_recycled": 1,
+        "physical_hardware_metrics_measured": false
+      },
+      "stage_receipts": [
+        {
+          "m": 4,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 105005
+        },
+        {
+          "m": 6,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 164463
+        },
+        {
+          "m": 8,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 222492
+        },
+        {
+          "m": 10,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 282026
+        },
+        {
+          "m": 12,
+          "shots_attempted": 2,
+          "successful": true,
+          "source_CCX_per_shot": 341098
+        }
+      ],
+      "head_only_success_lower_bound_method": true,
+      "tail_outcomes_not_falsely_credited": true
+    },
+    "L5": {
+      "label": "L5",
+      "exponent": 5,
+      "base": 563,
+      "classically_shortcut": false,
+      "shortcut_factors": null,
+      "validation_only_order": 66,
+      "validation_only_original_order": 330,
+      "model_attempted": true,
+      "success": true,
+      "factors": [
+        23,
+        31
+      ],
+      "verified_denominator": 66,
+      "shots": 13,
+      "stop_phase_bits": 10,
+      "counterfactual_source_counts": {
+        "shots": 13,
+        "phase_rounds": 82,
+        "source_CCX": 2311033,
+        "source_CX": 0,
+        "source_CSWAP": 820,
+        "sampled_bin_evaluations": 645,
+        "public_CF_convergents_considered": 59,
+        "public_CF_even_denominators_checked": 23,
+        "public_CF_modular_pow_calls": 24,
+        "public_CF_gcd_calls": 1
+      },
+      "logical_architectures": {
+        "wide_peak_logical": 43,
+        "recycled_peak_logical": 34,
+        "arithmetic_workspace_logical": 33,
+        "logical_phase_bits_wide": 10,
+        "logical_phase_bits_recycled": 1,
+        "physical_hardware_metrics_measured": false
+      },
+      "stage_receipts": [
+        {
+          "m": 4,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 112771
+        },
+        {
+          "m": 6,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 169252
+        },
+        {
+          "m": 8,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 224811
+        },
+        {
+          "m": 10,
+          "shots_attempted": 1,
+          "successful": true,
+          "source_CCX_per_shot": 283697
+        }
+      ],
+      "head_only_success_lower_bound_method": true,
+      "tail_outcomes_not_falsely_credited": true
+    },
+    "L7": {
+      "label": "L7",
+      "exponent": 7,
+      "base": 38,
+      "classically_shortcut": false,
+      "shortcut_factors": null,
+      "validation_only_order": 330,
+      "validation_only_original_order": 330,
+      "model_attempted": true,
+      "success": true,
+      "factors": [
+        23,
+        31
+      ],
+      "verified_denominator": 330,
+      "shots": 27,
+      "stop_phase_bits": 16,
+      "counterfactual_source_counts": {
+        "shots": 27,
+        "phase_rounds": 264,
+        "source_CCX": 7495684,
+        "source_CX": 0,
+        "source_CSWAP": 2640,
+        "sampled_bin_evaluations": 1555,
+        "public_CF_convergents_considered": 138,
+        "public_CF_even_denominators_checked": 42,
+        "public_CF_modular_pow_calls": 43,
+        "public_CF_gcd_calls": 1
+      },
+      "logical_architectures": {
+        "wide_peak_logical": 49,
+        "recycled_peak_logical": 34,
+        "arithmetic_workspace_logical": 33,
+        "logical_phase_bits_wide": 16,
+        "logical_phase_bits_recycled": 1,
+        "physical_hardware_metrics_measured": false
+      },
+      "stage_receipts": [
+        {
+          "m": 4,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 110793
+        },
+        {
+          "m": 6,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 168354
+        },
+        {
+          "m": 8,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 226456
+        },
+        {
+          "m": 10,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 284965
+        },
+        {
+          "m": 12,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 340202
+        },
+        {
+          "m": 14,
+          "shots_attempted": 4,
+          "successful": false,
+          "source_CCX_per_shot": 400572
+        },
+        {
+          "m": 16,
+          "shots_attempted": 3,
+          "successful": true,
+          "source_CCX_per_shot": 456772
+        }
+      ],
+      "head_only_success_lower_bound_method": true,
+      "tail_outcomes_not_falsely_credited": true
+    },
+    "L105": {
+      "label": "L105",
+      "exponent": 105,
+      "base": 435,
+      "classically_shortcut": true,
+      "shortcut_factors": [
+        23,
+        31
+      ],
+      "model_attempted": false,
+      "success": false,
+      "factors": null,
+      "shots": 0,
+      "note": "public classical gcd/power2 shortcut; no quantum evidence"
+    },
+    "L1155": {
+      "label": "L1155",
+      "exponent": 1155,
+      "base": 528,
+      "classically_shortcut": true,
+      "shortcut_factors": [
+        23,
+        31
+      ],
+      "model_attempted": false,
+      "success": false,
+      "factors": null,
+      "shots": 0,
+      "note": "public classical gcd/power2 shortcut; no quantum evidence"
+    },
+    "L15015": {
+      "label": "L15015",
+      "exponent": 15015,
+      "base": 528,
+      "classically_shortcut": true,
+      "shortcut_factors": [
+        23,
+        31
+      ],
+      "model_attempted": false,
+      "success": false,
+      "factors": null,
+      "shots": 0,
+      "note": "public classical gcd/power2 shortcut; no quantum evidence"
+    }
+  },
+  "four_way_comparison": {
+    "standard_plain_wide": {
+      "architecture": "wide",
+      "success_in_simulator": true,
+      "source_CCX": 7366012,
+      "shots": 27,
+      "stop_phase_bits": 16,
+      "peak_logical_qubits": 49,
+      "note": "Same ideal QPE shots; wide vs recycled changes modeled logical width not source modular arithmetic CCX"
+    },
+    "standard_plain_recycled": {
+      "architecture": "recycled",
+      "success_in_simulator": true,
+      "source_CCX": 7366012,
+      "shots": 27,
+      "stop_phase_bits": 16,
+      "peak_logical_qubits": 34,
+      "note": "Same ideal QPE shots; wide vs recycled changes modeled logical width not source modular arithmetic CCX"
+    },
+    "PTP_conditional_wide": {
+      "architecture": "wide",
+      "success_in_simulator": true,
+      "source_CCX": 3778140,
+      "shots": 18,
+      "stop_phase_bits": 12,
+      "peak_logical_qubits": 45,
+      "note": "Same ideal QPE shots; wide vs recycled changes modeled logical width not source modular arithmetic CCX"
+    },
+    "PTP_conditional_recycled": {
+      "architecture": "recycled",
+      "success_in_simulator": true,
+      "source_CCX": 3778140,
+      "shots": 18,
+      "stop_phase_bits": 12,
+      "peak_logical_qubits": 34,
+      "note": "Same ideal QPE shots; wide vs recycled changes modeled logical width not source modular arithmetic CCX"
+    }
+  },
+  "validated_PTProot_pair_after_real_factors": true,
+  "safety": {
+    "is_synthetic_toy": true,
+    "is_ideal_counterfactual": true,
+    "uses_QPU": false,
+    "IBM_runtime_jobs": 0,
+    "paid_runtime": false,
+    "did_not_use_hidden_factors_for_public_decisions": true,
+    "did_not_enable_naive_symmetry_pruning": true,
+    "no_full_CF_factor_certificate_precomputation": true
+  },
+  "limitations": "No native transpiled/routed two-qubit gates, no hardware-fidelity prediction; classical benchmarks full-solve tiny N; head-only QPE misses unmodeled tails. No asymptotic/practical factoring advantage."
+}
