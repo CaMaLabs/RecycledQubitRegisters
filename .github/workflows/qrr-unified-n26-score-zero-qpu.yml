@@ -1,0 +1,121 @@
+name: Dark Star UNIFIED FRESH N26 12 x 7 powers x 8 seeds ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-unified-n26-score-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: qrr-unified-n26-12-original-science
+  cancel-in-progress: false
+
+jobs:
+  score:
+    name: Frozen 26-bit unified row ${{ matrix.index }} CPU only
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify 12 PUBLIC cases frozen BEFORE factor/order/QPE analysis
+        run: |
+          set -euo pipefail
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_unified_n26_holdout.py integrations/darkstar_hybrid/darkstar_unified.py
+          test -s docs/DARK_STAR_UNIFIED_N26_FRESH_POPULATION_PREREG.md
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_unified_n26_holdout.py; then
+            echo 'QPU submission not permitted'; exit 1
+          fi
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          m=json.loads(Path('results/dark_star_unified/unified_n26_public_manifest.json').read_text())
+          rows=m['selected_public_rows']
+          assert len(rows)==12 and m['selected_sha256']=='0c25e448b646a5ade7d919ca78597c8c2883fd8fd450181dd4504c18252fb939'
+          assert m['selected_sha256']==hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert m['no_prime_factors_or_orders_used_for_selection'] and m['no_QPU'] and m['IBM_runtime_jobs']==0
+          print('VALID PRECOMMITTED PUBLIC-ONLY COHORT SHA')
+          PY
+      - name: Score one original frozen N26 row x all 8 seeds x 7 fixed odd powers
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=20s 5000s python3 -u -m integrations.darkstar_hybrid.darkstar_unified_n26_holdout --index ${{ matrix.index }} | tee unified_n26_row_${{ matrix.index }}.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n26-row-${{ matrix.index }}
+          path: |
+            unified_n26_row_*.json
+            unified_n26_row_*.log
+          if-no-files-found: warn
+          retention-days: 90
+
+  validate-and-archive:
+    name: Strict original twelve SHA audit and preserve every seed/arm
+    needs: score
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          path: n26-shards
+          pattern: n26-row-*
+          merge-multiple: false
+      - name: Independently verify all 12 original 8-seed 7-arm receipts
+        run: |
+          set -euo pipefail
+          python3 -u -m integrations.darkstar_hybrid.darkstar_unified_n26_holdout --merge --shards n26-shards
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          root=Path('results/dark_star_unified')
+          x=json.loads((root/'unified_n26_all_12_summary.json').read_text())
+          assert x['complete'] and x['zero_QPU'] and not x['paid_runtime_used']
+          assert x['frozen_public_sha256']=='0c25e448b646a5ade7d919ca78597c8c2883fd8fd450181dd4504c18252fb939'
+          assert x['summary']['total_frozen_rows']==x['original_science_shards_preserved']==12
+          assert len(x['summary']['per_arm'])==7
+          for i in range(12):
+              src=Path(f'n26-shards/n26-row-{i}/unified_n26_row_{i:02d}.json')
+              dst=root/f'unified_n26_original_{i:02d}.json'
+              assert hashlib.sha256(src.read_bytes()).digest()==hashlib.sha256(dst.read_bytes()).digest()
+          print('PASS exactly original 12 x 8 seeds x 7 arms, zero QPU, byte identical source receipts')
+          PY
+      - name: Preserve original shard bytes and merged summary in main, never force push
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/unified_n26_original_*.json results/dark_star_unified/unified_n26_all_12_summary.json
+          git commit -m 'results: archive original twelve fresh N26 unified PTP/classical/recycled Shor 8-seed model receipts ZERO QPU'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'All source receipts and honest negative results preserved'; exit 0
+            fi
+            sleep 3
+          done
+          echo 'Push conflict: original Actions artifacts retained, no data discarded'
+          exit 1
