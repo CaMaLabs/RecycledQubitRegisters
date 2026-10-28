@@ -1,0 +1,70 @@
+name: Dark Star UNIFIED fresh N26 PUBLIC-only freeze ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-unified-n26-public-freeze-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-unified-n26-public-only-freeze
+  cancel-in-progress: false
+
+jobs:
+  freeze-original-twelve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Freeze fixed public population, before ANY factor/oracle or source costs
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_UNIFIED_N26_FRESH_POPULATION_PREREG.md
+          python3 -m integrations.darkstar_hybrid.darkstar_unified_n26_public_manifest
+          python3 - <<'PY'
+          import json,hashlib,math
+          from pathlib import Path
+          m=json.loads(Path('results/dark_star_unified/unified_n26_public_manifest.json').read_text())
+          rr=m['selected_public_rows']
+          assert len(rr)==len({r['N'] for r in rr})==12
+          assert m['no_prime_factors_or_orders_used_for_selection'] and m['no_prime_factors_published_in_manifest']
+          assert m['no_classical_budget_or_model_score_used_for_selection']
+          assert m['no_QPU'] and m['IBM_runtime_jobs']==0
+          assert m['selected_sha256']==hashlib.sha256(json.dumps(rr,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          for g in ('G1_mod3_1','G2_mod3_2'):
+              z=[x for x in rr if x['group']==g]
+              assert len(z)==6 and [x['rank'] for x in z]==list(range(1,7))
+              for x in z:
+                  assert (1<<25)<=x['N']<(1<<26) and math.gcd(x['N'],210)==1
+                  assert x['public_cube']==pow(x['base'],3,x['N'])
+          print('PRE-FROZEN SHA',m['selected_sha256'],'all 12 rows VALID, QPU=0')
+          PY
+      - name: Persist public N/base SHA in GitHub main BEFORE model scoring
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/unified_n26_public_manifest.json
+          git commit -m 'results: prefreeze 12 fresh N26 public unified PTP/quantum experimental inputs'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'FROZEN PUBLIC SELECTION PUSHED; now scoring may start'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
