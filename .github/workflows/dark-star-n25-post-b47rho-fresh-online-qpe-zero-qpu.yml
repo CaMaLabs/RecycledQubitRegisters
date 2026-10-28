@@ -1,0 +1,138 @@
+name: Dark Star NEW N25 post-B47rho fresh 8-case online CF ideal QPE ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/dark-star-n25-post-b47rho-fresh-online-qpe-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: dark-star-n25-new-b47rho-eight-shards-source-originals
+  cancel-in-progress: false
+
+jobs:
+  score:
+    name: NEW SHA-frozen N25 unsolved public case ${{ matrix.index }} ideal phase+on-demand CF CPU only
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        index: [0,1,2,3,4,5,6,7]
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original exact CPU-only numerical scoring environment
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - name: Enforce original prospectively archived public SHA and forbid hardware APIs
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N25_POST_B47RHO_FRESH_COHORT_PREREG.md
+          test -s results/dark_star_ptp/dark_star_n25_post_b47rho_fresh_manifest.json
+          python3 -m py_compile hardware/dark_star_n25_post_b47rho_fresh_score.py
+          if grep -nE '^ *(from|import) +.*(qiskit_ibm_runtime|ibm_runtime_guard)|SamplerV2|EstimatorV2|QiskitRuntimeService|backend.run|job.submit' hardware/dark_star_n25_post_b47rho_fresh_score.py; then
+            echo "Hardware API forbidden in fresh model"; exit 1
+          fi
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('results/dark_star_ptp/dark_star_n25_post_b47rho_fresh_manifest.json')
+          x=json.loads(p.read_text())
+          rows=x['selected_public_rows']
+          sha='e46425355e422ff32d167920d7ddc80ada0ed8733c73048912133db6f79526d2'
+          assert x['selected_sha256']==sha
+          assert hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()==sha
+          assert len(rows)==8 and all(x['B31_unfactored'] and x['B47rho64_unsolved'] for x in rows)
+          assert x['factor_order_and_qpe_not_inspected_for_selection']
+          assert x['selection_public_only_B31_and_B47rho64']
+          assert x['zero_QPU'] and x['qpu_jobs_submitted']==0
+          print('FROZEN PUBLIC NEW N25 EIGHT, no source SHA substitution / NO QPU',sha)
+          PY
+      - name: Run original on-demand CF QPE sampling+source CCX on precisely one frozen NEW case
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=20s 4800s python3 -u hardware/dark_star_n25_post_b47rho_fresh_score.py --index ${{ matrix.index }} | tee "fresh_n25_${{ matrix.index }}.log"
+      - name: Preserve ORIGINAL row data even if other shards error
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fresh-n25-row-${{ matrix.index }}
+          path: |
+            fresh_n25_*.json
+            fresh_n25_*.log
+          retention-days: 90
+          if-no-files-found: warn
+
+  merge-originals:
+    name: Independently check all eight originally scored public N25 rows BEFORE archival
+    needs: score
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Same original CPU scientific parser/score assertion dependencies
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - uses: actions/download-artifact@v4
+        with:
+          path: fresh-n25-shards
+          pattern: fresh-n25-row-*
+          merge-multiple: false
+      - name: Audit SHA, exact original frozen public N/base and all eight original per-shard phase outputs WITHOUT RESCORING
+        run: |
+          set -euo pipefail
+          python3 -u hardware/dark_star_n25_post_b47rho_fresh_score.py --merge --shards fresh-n25-shards
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path('results/dark_star_ptp/dark_star_n25_post_b47rho_fresh_all8.json')
+          j=json.loads(p.read_text())
+          assert j['complete'] and j['zero_QPU']
+          assert j['source_manifest_sha256']=='e46425355e422ff32d167920d7ddc80ada0ed8733c73048912133db6f79526d2'
+          assert j['qpu_jobs_submitted']==0 and not j['paid_runtime_used']
+          assert len(j['rows'])==j['summary']['total']==8
+          assert j['summary']['all_eight_unsolved_after_public_B31_B47rho64']
+          assert j['summary']['quantum_work_remaining_after_public_fixed_filter']==8
+          assert not j['summary']['real_quantum_speedup_claim_supported']
+          for index in range(8):
+              x=Path(f'results/dark_star_ptp/dark_star_n25_post_b47rho_fresh_index{index:02d}.json')
+              original=Path(f'fresh-n25-shards/fresh-n25-row-{index}/fresh_n25_{index:02d}.json')
+              assert x.read_bytes()==original.read_bytes()
+          print('8/8 authentic ORIGINAL result SHA and byte identity verified')
+          PY
+      - name: Commit exact ORIGINAL eight per-row result JSON bytes plus independently merged status
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n25_post_b47rho_fresh_index*.json
+          git add results/dark_star_ptp/dark_star_n25_post_b47rho_fresh_all8.json
+          git commit -m 'results: preserve original eight NEW N25 post-B47rho survivor ideal online CF/source CCX QPE models, zero QPU'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'ALL EIGHT EXACT ORIGINAL PROSPECTIVE N25 SCIENCE RECEIPTS PRESERVED'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
