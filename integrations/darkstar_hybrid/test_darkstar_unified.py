@@ -101,6 +101,22 @@ class UnifiedDarkStarTests(unittest.TestCase):
                     self.assertLess(four[second]["peak_logical_qubits"],
                                     four[first]["peak_logical_qubits"])
 
+    def test_public_order_multi_exponent_fallback_on_classical_miss(self):
+        # Deliberately disable classical preflight for a CPU simulator regression.
+        # This does NOT make N=209 truly quantum-hard; it tests routing only.
+        from unittest.mock import patch
+        with patch.object(u,"public_classical_preflight",return_value=dict(
+            factors=None,method="synthetically_disabled_for_router_test",
+            stages=[],classically_solved=False)):
+            r=u.run_synthetic_case(11,19,3,seed=8776)
+        actual=r["actual_classical_first_outcome"]
+        self.assertTrue(actual["truly_requires_quantum_after_public_preflight"])
+        self.assertEqual(actual["publicly_fixed_odd_power_fallback_priority"][0],3)
+        self.assertEqual(actual["method"],"simulated_ideal_QPE_ell3")
+        self.assertEqual(actual["factors"],[11,19])
+        self.assertEqual(actual["routed_quantum_or_classical_fallback_trace"][0]["exponent"],3)
+        self.assertFalse(r["safety"]["uses_QPU"])
+
     def test_exponent_selector_public_only(self):
         self.assertEqual(u.public_base(209,3),3)
         self.assertEqual(u.public_base(713,19),19)
