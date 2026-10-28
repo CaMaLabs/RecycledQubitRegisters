@@ -1,0 +1,115 @@
+name: Dark Star N25 FRESH FOUR fixed-public-classical survivor MANIFEST FREEZE ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n25-fresh-cf50-public-freeze-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n25-fresh-four-public-cf50-manifest-freeze-20261028
+  cancel-in-progress: false
+
+jobs:
+  freeze-before-any-order-or-qpe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU only reference source libraries; no quantum SDK
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - name: Verify fixed method before ANY case selection
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N25_FRESH_PUBLIC_SURVIVOR_CF50_PROTOCOL.md
+          test -s results/dark_star_ptp/dark_star_n25_online_public_manifest.json
+          python3 -m py_compile hardware/dark_star_n25_fresh_cf50_public_manifest.py
+          python3 - <<'PY'
+          from pathlib import Path
+          src=Path('hardware/dark_star_n25_fresh_cf50_public_manifest.py').read_text()
+          for forbidden in ('QiskitRuntimeService','SamplerV2','EstimatorV2','backend.run','job.submit','validation_factors(','multiplicative_order_from_lambda(','stage(n,'):
+              assert forbidden not in src,forbidden
+          assert 'TARGET=2' in src and 'MAX_RANK=200' in src
+          assert 'QRR-N25-CF50-FRESH-POP-20261028' in src
+          assert 'classical.classical_cascade(n,base)' in src
+          assert 'previous.classical_budget(n)' in src
+          print('PUBLIC-only selection. Original already tested eight IDs EXCLUDED; no QPE/validation-order/quantum SDK')
+          PY
+      - name: Freeze new ranked N25 B31+B47/rho64 classical survivors without looking at orders
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=30s 900s python3 -u hardware/dark_star_n25_fresh_cf50_public_manifest.py
+      - name: Validate full screening ledger and SHA before ARCHIVING in main
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,math
+          from pathlib import Path
+          p=Path('results/dark_star_ptp/dark_star_n25_fresh_cf50_manifest.json')
+          o=json.loads(p.read_text())
+          assert o['revision']=='dark-star-n25-fresh-public-b47-rho64-survivors-v1-20261028'
+          assert o['preregistration']=='docs/DARK_STAR_N25_FRESH_PUBLIC_SURVIVOR_CF50_PROTOCOL.md'
+          assert o['original_eight_selected_sha256']=='66b3cdb1ac58c1dffac3838c4113ffddb6fa9e6a1cc863890d55d997dc97fae7'
+          assert o['public_only_B31_and_B47_rho64_trial97_screening'] and o['secret_factor_or_validation_order_not_used_in_public_selection']
+          assert o['no_QPE_or_factor_witness_scored_during_selection']
+          assert o['selected_per_group']==2 and o['candidate_cap_per_group']==200
+          assert o['zero_QPU'] and o['qpu_jobs_submitted']==0 and not o['paid_runtime_used']
+          r=o['selected_public_rows']
+          assert len(r)==4 and len({z['N'] for z in r})==4
+          assert not set(o['original_eight_N_excluded']).intersection(z['N'] for z in r)
+          assert o['selected_sha256']==hashlib.sha256(json.dumps(r,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          for group,mod in (('G1_mod3_1',1),('G2_mod3_2',2)):
+              picked=[z for z in r if z['group']==group]
+              assert len(picked)==2
+              ledger=o['public_screenings'][group]
+              assert len(ledger)<=200 and all(row['public_rank']==i+1 for i,row in enumerate(ledger))
+              assert sum(row['survived_both_fixed_public_classical_budgets'] for row in ledger)==2
+              assert [z['N'] for z in picked]==[x['N'] for x in ledger if x['survived_both_fixed_public_classical_budgets']]
+              for z in picked:
+                  assert z['N']%3==mod and (1<<24)<=z['N']<(1<<25)
+                  assert z['cube']==pow(z['base'],3,z['N'])
+                  assert math.gcd(z['N'],z['base'])==1
+                  record=next(v for v in ledger if v['N']==z['N'])
+                  assert not record['B31_factored']
+                  extra=record['additional_B47_rho64_trial97']
+                  assert extra is not None and not extra['classically_solved']
+                  assert extra['rho']['iterations']>=0 and extra['rho']['gcd_calls']>=0
+                  assert 'elapsed_CPU_ms' in extra
+          print('PUBLIC FREEZE independent SHA/ledger audit PASS',o['selected_sha256'],'4 new unsolved-by-fixed-budget N25, zero QPU')
+          PY
+      - name: Commit fresh original manifest to GitHub BEFORE separate scoring starts
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n25_fresh_cf50_manifest.json
+          git commit -m 'results: freeze four FRESH N25 B31+B47 rho64 public survivors and full classical screening ledger BEFORE QPE'
+          for attempt in 1 2 3 4 5 6; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'FRESH N25 MANIFEST PERSISTED BEFORE ANY MODEL SCORING'
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+      - name: Preserve public selection logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n25-fresh-cf50-public-only-original
+          path: results/dark_star_ptp/dark_star_n25_fresh_cf50_manifest.json
+          if-no-files-found: warn
