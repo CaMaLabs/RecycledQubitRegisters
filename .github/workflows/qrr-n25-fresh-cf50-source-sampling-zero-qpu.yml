@@ -1,0 +1,138 @@
+name: Dark Star FRESH N25 4 public survivors m50 16384 online CF source-cost ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n25-fresh-cf50-source-sampling-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qrr-n25-fresh-four-cf50-sampler-zero-qpu
+  cancel-in-progress: false
+
+jobs:
+  four-independent-fresh-cf50-rows:
+    name: frozen new N25 public index ${{ matrix.index }} m50 ideal phase + ON-DEMAND CF ZERO QPU
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        index: [0,1,2,3]
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned pure CPU numerical libraries
+        run: python3 -m pip install -q numpy==2.2.6 numba==0.61.2
+      - name: Verify original immutable public manifest already committed BEFORE model scoring and absolutely no QPU methods
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N25_FRESH_PUBLIC_SURVIVOR_CF50_PROTOCOL.md
+          test -s results/dark_star_ptp/dark_star_n25_fresh_cf50_manifest.json
+          python3 -m py_compile hardware/dark_star_n25_fresh_cf50_success.py
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          src=Path('hardware/dark_star_n25_fresh_cf50_success.py').read_text()
+          for forbidden in ('QiskitRuntimeService','qiskit_ibm_runtime','SamplerV2','EstimatorV2','backend.run','job.submit','job.result'):
+              assert forbidden not in src,forbidden
+          assert 'SAMPLE_COUNT=16384' in src and 'M=50' in src
+          assert 'old.online_factor_cf' not in src or 'old.stage' in src
+          assert 'old.stage(n,base,order,M,uniforms)' in src
+          assert 'gates.stage_arithmetic_count' in src
+          assert 'compare(plain,cube,bool(witness_a["factor_success"]))' in src
+          m=json.loads(Path('results/dark_star_ptp/dark_star_n25_fresh_cf50_manifest.json').read_text())
+          assert m['selected_sha256']=='a136789dcdcbb32730f293973805f8edacf5d684d8350c2e51c665db0099d629'
+          rows=m['selected_public_rows']
+          assert len(rows)==4 and len({z['N'] for z in rows})==4
+          assert m['secret_factor_or_validation_order_not_used_in_public_selection']
+          assert m['no_QPE_or_factor_witness_scored_during_selection']
+          assert m['zero_QPU'] and m['qpu_jobs_submitted']==0
+          assert hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()==m['selected_sha256']
+          print('FRESH FIXED PUBLIC SHA frozen from earlier separate workflow: PASSED; NO IBM QPU')
+          PY
+      - name: Independently score one frozen new N25 public row, ideal 16384 paired heads per base + exact source CCX, CPU ONLY
+        shell: bash
+        env:
+          INDEX: ${{ matrix.index }}
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=40s 1440s python3 -u hardware/dark_star_n25_fresh_cf50_success.py --index "$INDEX" | tee "n25_fresh_cf50_index$(printf '%02d' "$INDEX").log"
+      - name: Audit row on CPU independently from frozen public manifest and exact interval formulas
+        env:
+          INDEX: ${{ matrix.index }}
+        run: |
+          python3 - <<'PY'
+          import os,json,math,hashlib
+          from pathlib import Path
+          index=int(os.environ['INDEX'])
+          d=json.loads(Path(f'n25_fresh_cf50_index{index:02d}.json').read_text())
+          manifest=json.loads(Path('results/dark_star_ptp/dark_star_n25_fresh_cf50_manifest.json').read_text())
+          assert d['revision']=='dark-star-n25-fresh-frozen-online-cf50-v1-20261028'
+          assert d['preregistration']=='docs/DARK_STAR_N25_FRESH_PUBLIC_SURVIVOR_CF50_PROTOCOL.md'
+          assert d['manifest_sha256']==manifest['selected_sha256']
+          assert d['result_complete'] and d['status']=='SUCCESS'
+          assert d['selected_index']==index and d['fixed_phase_bits']==50 and d['head_samples_per_base']==16384
+          assert d['family_size']==8 and d['simultaneous_nominal_alpha']==.01
+          assert d['qpu_jobs_submitted']==0 and d['zero_QPU'] and not d['paid_runtime_used']
+          assert d['phase_sampler_uses_validation_only_order'] and d['measured_outcome_verifier_is_public_only']
+          assert d['source_CCX_not_native_CZ']
+          assert d['selftests']['online_CF_matches_legacy_direct_public_factor_extractor']==1680
+          row=d['row']
+          selected=manifest['selected_public_rows'][index]
+          assert all(row[k]==v for k,v in selected.items())
+          assert row['original_manifest_sha256']==manifest['selected_sha256']
+          assert not row['frozen_public_classical_budget_ledger']['B31_factored']
+          assert not row['frozen_public_classical_budget_ledger']['additional_B47_rho64_trial97']['classically_solved']
+          n=row['N'];a=row['base'];b=row['cube']
+          factors=row['validation_only']['prime_factors']
+          assert math.prod(factors)==n
+          assert row['validation_only']['order_cube']==row['validation_only']['order_plain']//math.gcd(row['validation_only']['order_plain'],3)
+          assert row['validation_only']['half_power_witness_invariant']
+          w=row['validation_only']['witness_plain']['factor_success']
+          assert w==row['validation_only']['witness_cube']['factor_success']
+          assert row['comparison']['factor_capable_validated_after_public_freeze']==w
+          eps=math.sqrt(math.log(2*8/.01)/(2*16384))
+          for name,arm in (('plain',row['plain']),('cube',row['cube_arm'])):
+              assert arm['base']==(a if name=='plain' else b)
+              assert arm['head_sample_count']==16384
+              count=arm['head_factor_success_count']
+              assert 0<=count<=16384
+              h=count/16384
+              assert math.isclose(arm['head_success_probability_empirical'],h,abs_tol=1e-12)
+              assert arm['overall_ideal_success_interval_with_omitted_tail']==[max(0,h-eps),min(1,h+eps+1/63)]
+              assert arm['source_arithmetic']['ccx']>0 and arm['source_arithmetic']['controlled_swaps']>=0
+              assert arm['on_demand_public_verifier_ops']['gcd_calls']>=0
+              assert arm['no_precomputed_denominator_producing_table']
+              assert arm['true_order_used_only_by_ideal_phase_sampler']
+          cp=row['plain']['source_arithmetic']['ccx']
+          cc=row['cube_arm']['source_arithmetic']['ccx']
+          import fractions
+          frac=fractions.Fraction(cc,cp)
+          assert row['comparison']['source_ccx_cube_over_plain_break_even_ratio']==dict(numerator=frac.numerator,denominator=frac.denominator,decimal=float(frac))
+          assert row['comparison']['source_ccx_delta_cube_minus_plain']==cc-cp
+          assert row['comparison']['status'] in ('bounded_cube_win','bounded_cube_loss','inconclusive','factor_incapable_undefined')
+          assert row['comparison']['fixed_width_only_no_adaptive_cost_claim']
+          print('INDEPENDENT ROW RECEIPT AUDIT',index,'N',n,'a',a,'head counts',
+              row['plain']['head_factor_success_count'],row['cube_arm']['head_factor_success_count'],
+              'sourceCCX',cp,cc,'status',row['comparison']['status'],'NO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n25-fresh-cf50-original-index${{ matrix.index }}
+          path: |
+            n25_fresh_cf50_index*.json
+            n25_fresh_cf50_index*.log
+          retention-days: 90
+          if-no-files-found: warn
