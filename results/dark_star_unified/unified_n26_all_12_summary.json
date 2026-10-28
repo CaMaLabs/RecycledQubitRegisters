@@ -1,0 +1,154 @@
+{
+  "experiment": "dark_star_unified_fresh_n26_original_12_verified",
+  "source_preregistration": "docs/DARK_STAR_UNIFIED_N26_FRESH_POPULATION_PREREG.md",
+  "frozen_public_sha256": "0c25e448b646a5ade7d919ca78597c8c2883fd8fd450181dd4504c18252fb939",
+  "complete": true,
+  "zero_QPU": true,
+  "paid_runtime_used": false,
+  "original_science_shards_preserved": 12,
+  "actual_claim": "12 synthetic 26-bit semiprimes, 8 model seeds x 7 fixed arms, actual classical-first or explicit ideal-model counterfactual",
+  "limitations": "No physical quantum advantage, no native ISA, unknown keys not attacked, small classical factoring is easy. CCX and integer divisions are incomparable resource currencies.",
+  "summary": {
+    "total_frozen_rows": 12,
+    "semiprime_bitlength": 26,
+    "classically_solved_by_unified_preflight": 11,
+    "not_solved_by_unified_preflight": 1,
+    "standalone_conventional_wheel_solved": 12,
+    "standalone_PTP_LFK_solved": 12,
+    "primary_practical_end_to_end_advantage_demonstrated": false,
+    "simulated_fixed_policy_ell3_for_mod3_2": 6,
+    "simulated_fixed_policy_ell1_for_mod3_1": 6,
+    "per_arm": {
+      "L1": {
+        "publicly_classically_factored_rows": 0,
+        "simulator_rows": 12,
+        "simulator_attempts": 96,
+        "simulator_successes": 88,
+        "aggregate_source_CCX": 160257888003,
+        "empirical_source_CCX_per_success": 1821112363.6704545
+      },
+      "L3": {
+        "publicly_classically_factored_rows": 0,
+        "simulator_rows": 12,
+        "simulator_attempts": 96,
+        "simulator_successes": 88,
+        "aggregate_source_CCX": 142998156168,
+        "empirical_source_CCX_per_success": 1624979047.3636363
+      },
+      "L5": {
+        "publicly_classically_factored_rows": 0,
+        "simulator_rows": 12,
+        "simulator_attempts": 96,
+        "simulator_successes": 88,
+        "aggregate_source_CCX": 156040908596,
+        "empirical_source_CCX_per_success": 1773192143.1363637
+      },
+      "L7": {
+        "publicly_classically_factored_rows": 0,
+        "simulator_rows": 12,
+        "simulator_attempts": 96,
+        "simulator_successes": 88,
+        "aggregate_source_CCX": 151629757981,
+        "empirical_source_CCX_per_success": 1723065431.6022727
+      },
+      "L105": {
+        "publicly_classically_factored_rows": 0,
+        "simulator_rows": 12,
+        "simulator_attempts": 96,
+        "simulator_successes": 88,
+        "aggregate_source_CCX": 125249934336,
+        "empirical_source_CCX_per_success": 1423294708.3636363
+      },
+      "L1155": {
+        "publicly_classically_factored_rows": 1,
+        "simulator_rows": 11,
+        "simulator_attempts": 88,
+        "simulator_successes": 80,
+        "aggregate_source_CCX": 113271495839,
+        "empirical_source_CCX_per_success": 1415893697.9875
+      },
+      "L15015": {
+        "publicly_classically_factored_rows": 1,
+        "simulator_rows": 11,
+        "simulator_attempts": 88,
+        "simulator_successes": 80,
+        "aggregate_source_CCX": 113363016736,
+        "empirical_source_CCX_per_success": 1417037709.2
+      }
+    }
+  },
+  "original_case_keys": [
+    {
+      "index": 0,
+      "N": 46105429,
+      "base": 5,
+      "group": "G1_mod3_1"
+    },
+    {
+      "index": 1,
+      "N": 51283357,
+      "base": 11,
+      "group": "G1_mod3_1"
+    },
+    {
+      "index": 2,
+      "N": 61588231,
+      "base": 3,
+      "group": "G1_mod3_1"
+    },
+    {
+      "index": 3,
+      "N": 66042979,
+      "base": 7,
+      "group": "G1_mod3_1"
+    },
+    {
+      "index": 4,
+      "N": 60072931,
+      "base": 7,
+      "group": "G1_mod3_1"
+    },
+    {
+      "index": 5,
+      "N": 41484283,
+      "base": 7,
+      "group": "G1_mod3_1"
+    },
+    {
+      "index": 6,
+      "N": 60030401,
+      "base": 17,
+      "group": "G2_mod3_2"
+    },
+    {
+      "index": 7,
+      "N": 49069961,
+      "base": 13,
+      "group": "G2_mod3_2"
+    },
+    {
+      "index": 8,
+      "N": 61435931,
+      "base": 7,
+      "group": "G2_mod3_2"
+    },
+    {
+      "index": 9,
+      "N": 49273331,
+      "base": 17,
+      "group": "G2_mod3_2"
+    },
+    {
+      "index": 10,
+      "N": 43863401,
+      "base": 3,
+      "group": "G2_mod3_2"
+    },
+    {
+      "index": 11,
+      "N": 43565573,
+      "base": 23,
+      "group": "G2_mod3_2"
+    }
+  ]
+}
