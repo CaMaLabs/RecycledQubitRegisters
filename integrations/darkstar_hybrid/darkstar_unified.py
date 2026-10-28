@@ -24,7 +24,7 @@ from hardware import dark_star_recycled_scalable_arithmetic_audit as gates
 
 ODD_EXPONENTS = (1, 3, 5, 7, 105, 1155, 15015)
 PUBLIC_POOL = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31)
-PREVIEW_MAX_BITS = 16
+PREVIEW_MAX_BITS = 26
 W = 32
 
 
@@ -288,7 +288,7 @@ def sim_order_from_private_validation(p, q, base):
     return gates.multiplicative_order_from_lambda(base, N, lam)
 
 
-def run_quantum_counterfactual(n, p, q, a, exponent, seed, shots_per_stage=4):
+def run_quantum_counterfactual(n, p, q, a, exponent, seed, shots_per_stage=4, gate_cache=None):
     """A full public reconstruction from ideal simulated measurements.
     p/q never enter preconditioning, online CF, gate construction or factor checks.
     """
@@ -310,7 +310,7 @@ def run_quantum_counterfactual(n, p, q, a, exponent, seed, shots_per_stage=4):
     # Same seeded random stream on each arm, but not a proof of paired QPE outcomes.
     stages = gates.stage_schedule(n, 4, 2)
     counters = Counter()
-    gate_cache = {}
+    gate_cache = {} if gate_cache is None else gate_cache
     per_stage=[]
     outcome = None
     for m in stages:
@@ -367,7 +367,7 @@ def run_synthetic_case(p, q, base=None, seed=8776, fermat_tests=12):
         raise ValueError("Use two distinct synthetic primes")
     n=p*q
     if n.bit_length()>PREVIEW_MAX_BITS:
-        raise ValueError("CPU prototype intentionally restricted to <=16-bit toy semiprimes")
+        raise ValueError("CPU prototype intentionally restricted to <=26-bit synthetic semiprimes")
     a=public_base(n,base)
     public_ptp=ptp_public_metadata(n)
     classical=public_classical_preflight(n,a,fermat_tests)
@@ -378,8 +378,9 @@ def run_synthetic_case(p, q, base=None, seed=8776, fermat_tests=12):
         if isinstance(row,dict) and row.get("factors"):
             assert row["factors"]==[min(p,q),max(p,q)]
     arms = {}
+    shared_arithmetic_cache = {}
     for exp in ODD_EXPONENTS:
-        z=run_quantum_counterfactual(n,p,q,a,exp,seed)
+        z=run_quantum_counterfactual(n,p,q,a,exp,seed,gate_cache=shared_arithmetic_cache)
         arms[z["label"]]=z
         if z["factors"]:
             assert z["factors"] == [min(p,q),max(p,q)]
