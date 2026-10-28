@@ -387,11 +387,36 @@ def run_synthetic_case(p, q, base=None, seed=8776, fermat_tests=12):
     choice=arms[f"L{chosen_ell}"]
     baseline=arms["L1"]
     classical_factor=classical["factors"]
-    actual_result=dict(factors=classical_factor if classical_factor else choice["factors"],
-        success=bool(classical_factor or choice["factors"]),
-        method=("classical:"+classical["method"]) if classical_factor else
-               ("simulated_ideal_QPE_public_ell"+str(chosen_ell) if choice["success"]
-                else "no_factor_within_cpu_model_budgets"),
+
+    # PUBLIC-ORDER FALLBACK ROUTER: the choice and search priority are
+    # determined entirely by N (not validation orders or observed successes).
+    # A real hybrid would execute one arm at a time and retry only on failure.
+    # Here the science harness independently scores all arms as counterfactuals;
+    # the router reads only public shortcut or CF/GCD-recovered factor events.
+    public_priority=[chosen_ell]+[e for e in ODD_EXPONENTS if e!=chosen_ell]
+    fallback_trace=[]
+    routed_factors=classical_factor
+    routed_method="classical:"+classical["method"] if classical_factor else None
+    if not classical_factor:
+        for ell in public_priority:
+            arm=arms[f"L{ell}"]
+            if arm["classically_shortcut"]:
+                routed_factors=arm["shortcut_factors"]
+                routed_method=f"classical:public_odd_power_{ell}_gcd"
+                fallback_trace.append(dict(exponent=ell,kind="classical_shortcut",
+                                           factors=routed_factors))
+                break
+            fallback_trace.append(dict(exponent=ell,kind="ideal_QPE_simulation",
+                                       factors=arm["factors"],shots=arm["shots"]))
+            if arm["success"]:
+                routed_factors=arm["factors"]
+                routed_method=f"simulated_ideal_QPE_ell{ell}"
+                break
+    actual_result=dict(factors=routed_factors,
+        success=bool(routed_factors),
+        method=routed_method or "no_factor_within_cpu_model_budgets",
+        publicly_fixed_odd_power_fallback_priority=public_priority,
+        routed_quantum_or_classical_fallback_trace=fallback_trace,
         truly_requires_quantum_after_public_preflight=not bool(classical_factor),
         note=("Quantum branch was counterfactual; classical preflight already solved N."
               if classical_factor else "Remaining branch is IDEAL simulator, not a physical QPU."))
