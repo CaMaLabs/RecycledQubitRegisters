@@ -1,0 +1,209 @@
+{
+  "revision": "dark-star-n25-fresh-frozen-online-cf50-v1-20261028",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "preregistration": "docs/DARK_STAR_N25_FRESH_PUBLIC_SURVIVOR_CF50_PROTOCOL.md",
+  "manifest_sha256": "a136789dcdcbb32730f293973805f8edacf5d684d8350c2e51c665db0099d629",
+  "selected_index": 1,
+  "fixed_public_n25_cohort": true,
+  "fixed_phase_bits": 50,
+  "head_samples_per_base": 16384,
+  "sampling_salt": "QRR-N25-CF50-FRESH-PHASE-20261028",
+  "simultaneous_nominal_alpha": 0.01,
+  "family_size": 8,
+  "minimum_model_tail_worst_bound": 0.015873015873015872,
+  "phase_sampler_uses_validation_only_order": true,
+  "measured_outcome_verifier_is_public_only": true,
+  "source_CCX_not_native_CZ": true,
+  "qpu_jobs_submitted": 0,
+  "zero_QPU": true,
+  "paid_runtime_used": false,
+  "result_complete": true,
+  "status": "SUCCESS",
+  "selftests": {
+    "online_CF_matches_legacy_direct_public_factor_extractor": 1680,
+    "bigint_phase_center": true,
+    "native_runtime_disabled": true
+  },
+  "row": {
+    "selected_index": 1,
+    "N": 28467259,
+    "base": 31,
+    "cube": 29791,
+    "group": "G1_mod3_1",
+    "public_rank": 25,
+    "unsolved_by_fixed_public_B31_B47_rho64_trial97": true,
+    "original_manifest_sha256": "a136789dcdcbb32730f293973805f8edacf5d684d8350c2e51c665db0099d629",
+    "frozen_public_classical_budget_ledger": {
+      "N": 28467259,
+      "public_base": 31,
+      "public_rank": 25,
+      "group": "G1_mod3_1",
+      "B31_factored": false,
+      "B31_factor": null,
+      "B31_source": null,
+      "B31_operation_counts": {
+        "gcd_calls": 109,
+        "modular_square_calls": 53,
+        "pminusone_modular_pow_calls": 11,
+        "executed_pminusone": true
+      },
+      "additional_B47_rho64_trial97": {
+        "classically_solved": false,
+        "factor": null,
+        "source": null,
+        "B47": {
+          "found": false,
+          "factor": null,
+          "bound": 47,
+          "modular_pow_calls": 15,
+          "gcd_calls": 2,
+          "prime_power_exponents": [
+            32,
+            27,
+            25,
+            7,
+            11,
+            13,
+            17,
+            19,
+            23,
+            29,
+            31,
+            37,
+            41,
+            43,
+            47
+          ]
+        },
+        "rho": {
+          "attempts": 2,
+          "iterations": 128,
+          "gcd_calls": 128,
+          "modular_squares": 384,
+          "factor": null
+        },
+        "trial97": {
+          "checks": 25,
+          "factor": null
+        },
+        "elapsed_CPU_ms": 0.08652,
+        "quantum_needed_after_fixed_public_filter": true
+      },
+      "survived_both_fixed_public_classical_budgets": true,
+      "public_screen_CPU_ms": 0.13336
+    },
+    "validation_only": {
+      "prime_factors": [
+        4703,
+        6053
+      ],
+      "order_plain": 7114126,
+      "order_cube": 7114126,
+      "order_cube_div3_identity": true,
+      "witness_plain": {
+        "factor_success": true,
+        "x": 24587285,
+        "factors": [
+          [
+            4703,
+            6053
+          ]
+        ]
+      },
+      "witness_cube": {
+        "factor_success": true,
+        "x": 24587285,
+        "factors": [
+          [
+            4703,
+            6053
+          ]
+        ]
+      },
+      "half_power_witness_invariant": true
+    },
+    "plain": {
+      "base": 31,
+      "head_sample_count": 16384,
+      "head_factor_success_count": 7631,
+      "head_success_probability_empirical": 0.46575927734375,
+      "overall_ideal_success_interval_with_omitted_tail": [
+        0.45075423372937623,
+        0.49663733683113964
+      ],
+      "nominal_simultaneous_hoeffding_eps": 0.015005043614373761,
+      "omitted_tail_conservative_upper_bound": 0.015873015873015872,
+      "observed_mean_omitted_mass": 0.003120529871236984,
+      "observed_sampler_tail_events": 47,
+      "on_demand_public_verifier_ops": {
+        "denominator_checks": 77158,
+        "modular_exponentiation_calls": 84789,
+        "gcd_calls": 15262
+      },
+      "source_arithmetic": {
+        "ccx": 40900461,
+        "cx": 0,
+        "controlled_swaps": 1250
+      },
+      "true_order_used_only_by_ideal_phase_sampler": true,
+      "no_precomputed_denominator_producing_table": true
+    },
+    "cube_arm": {
+      "base": 29791,
+      "head_sample_count": 16384,
+      "head_factor_success_count": 7631,
+      "head_success_probability_empirical": 0.46575927734375,
+      "overall_ideal_success_interval_with_omitted_tail": [
+        0.45075423372937623,
+        0.49663733683113964
+      ],
+      "nominal_simultaneous_hoeffding_eps": 0.015005043614373761,
+      "omitted_tail_conservative_upper_bound": 0.015873015873015872,
+      "observed_mean_omitted_mass": 0.003120529871236984,
+      "observed_sampler_tail_events": 47,
+      "on_demand_public_verifier_ops": {
+        "denominator_checks": 77158,
+        "modular_exponentiation_calls": 84789,
+        "gcd_calls": 15262
+      },
+      "source_arithmetic": {
+        "ccx": 41053362,
+        "cx": 0,
+        "controlled_swaps": 1250
+      },
+      "true_order_used_only_by_ideal_phase_sampler": true,
+      "no_precomputed_denominator_producing_table": true
+    },
+    "comparison": {
+      "status": "inconclusive",
+      "source_ccx_cube_over_plain_break_even_ratio": {
+        "numerator": 1954922,
+        "denominator": 1947641,
+        "decimal": 1.003738368621322
+      },
+      "direct_fixed_width_head_success_ratio_cube_over_plain": 1.0,
+      "conservative_ideal_success_ratio_interval_cube_over_plain": [
+        0.9076124574231035,
+        1.1017918405827125
+      ],
+      "expected_source_CCX_per_success_intervals": {
+        "plain": [
+          82354784.80327478,
+          90737829.92919333
+        ],
+        "cube": [
+          82662657.34659907,
+          91077041.38536747
+        ]
+      },
+      "source_ccx_delta_cube_minus_plain": 152901,
+      "factor_capable_validated_after_public_freeze": true,
+      "realized_probabilities_not_claimed_to_be_actual_quantum_hardware": true,
+      "fixed_width_only_no_adaptive_cost_claim": true
+    },
+    "cpu_process_seconds": 8.10374,
+    "quantum_runtime_used": false,
+    "paid_runtime_used": false
+  },
+  "completed_utc": "2026-10-28T08:36:28.077525+00:00"
+}
