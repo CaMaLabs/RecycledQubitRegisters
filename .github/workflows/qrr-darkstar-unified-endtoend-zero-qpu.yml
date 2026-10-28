@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - .github/workflows/qrr-darkstar-unified-endtoend-zero-qpu.yml
+      - integrations/darkstar_hybrid/darkstar_unified.py
+      - integrations/darkstar_hybrid/test_darkstar_unified.py
   workflow_dispatch:
 
 permissions:
