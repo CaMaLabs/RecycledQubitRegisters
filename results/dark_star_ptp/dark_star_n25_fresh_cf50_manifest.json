@@ -1,0 +1,1279 @@
+{
+  "revision": "dark-star-n25-fresh-public-b47-rho64-survivors-v1-20261028",
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "experiment": "public_only_fresh_N25_fixed_classical_survivors_BEFORE_model",
+  "preregistration": "docs/DARK_STAR_N25_FRESH_PUBLIC_SURVIVOR_CF50_PROTOCOL.md",
+  "original_eight_selected_sha256": "66b3cdb1ac58c1dffac3838c4113ffddb6fa9e6a1cc863890d55d997dc97fae7",
+  "original_eight_N_excluded": [
+    20088463,
+    20508127,
+    24467873,
+    28064303,
+    28787333,
+    28811323,
+    29256449,
+    32295103
+  ],
+  "population_range": [
+    16777216,
+    33554432
+  ],
+  "prime_construction_range": [
+    3500,
+    11000
+  ],
+  "original_public_frame_size": 80200,
+  "public_ranking_salt": "QRR-N25-CF50-FRESH-POP-20261028",
+  "public_base_salt": "QRR-N25-CF50-FRESH-BASE-20261028",
+  "public_base_pool": [
+    2,
+    3,
+    5,
+    7,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31
+  ],
+  "group_rules": {
+    "G1_mod3_1": 1,
+    "G2_mod3_2": 2
+  },
+  "selected_per_group": 2,
+  "candidate_cap_per_group": 200,
+  "public_screenings": {
+    "G1_mod3_1": [
+      {
+        "N": 24324019,
+        "public_base": 17,
+        "public_rank": 1,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 4231,
+          "source": "Pollard_p_minus_1_B47",
+          "B47": {
+            "found": true,
+            "factor": 4231,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 0,
+            "iterations": 0,
+            "gcd_calls": 0,
+            "modular_squares": 0,
+            "factor": null
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.02055,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.13324
+      },
+      {
+        "N": 22508797,
+        "public_base": 5,
+        "public_rank": 2,
+        "group": "G1_mod3_1",
+        "B31_factored": true,
+        "B31_factor": 5851,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": null,
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.04992
+      },
+      {
+        "N": 20166313,
+        "public_base": 31,
+        "public_rank": 3,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 4637,
+          "source": "Floyd_rho_64",
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 1,
+            "iterations": 36,
+            "gcd_calls": 36,
+            "modular_squares": 108,
+            "factor": 4637
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.04106,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.08985
+      },
+      {
+        "N": 18694777,
+        "public_base": 31,
+        "public_rank": 4,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 4817,
+          "source": "Pollard_p_minus_1_B47",
+          "B47": {
+            "found": true,
+            "factor": 4817,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 0,
+            "iterations": 0,
+            "gcd_calls": 0,
+            "modular_squares": 0,
+            "factor": null
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.0146,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.06482
+      },
+      {
+        "N": 25085527,
+        "public_base": 31,
+        "public_rank": 5,
+        "group": "G1_mod3_1",
+        "B31_factored": true,
+        "B31_factor": 4447,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": null,
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.04551
+      },
+      {
+        "N": 32864803,
+        "public_base": 23,
+        "public_rank": 6,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 8837,
+          "source": "Floyd_rho_64",
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 1,
+            "iterations": 44,
+            "gcd_calls": 44,
+            "modular_squares": 132,
+            "factor": 8837
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.03654,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.08319
+      },
+      {
+        "N": 19727971,
+        "public_base": 31,
+        "public_rank": 7,
+        "group": "G1_mod3_1",
+        "B31_factored": true,
+        "B31_factor": 4177,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": null,
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.04563
+      },
+      {
+        "N": 18303847,
+        "public_base": 19,
+        "public_rank": 8,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 4951,
+          "source": "Floyd_rho_64",
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 1,
+            "iterations": 20,
+            "gcd_calls": 20,
+            "modular_squares": 60,
+            "factor": 4951
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.02437,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.0726
+      },
+      {
+        "N": 31450651,
+        "public_base": 7,
+        "public_rank": 9,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 8231,
+          "source": "Floyd_rho_64",
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 2,
+            "iterations": 128,
+            "gcd_calls": 128,
+            "modular_squares": 384,
+            "factor": 8231
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.09334,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.14145
+      },
+      {
+        "N": 27860629,
+        "public_base": 3,
+        "public_rank": 10,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 3677,
+          "source": "Floyd_rho_64",
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 1,
+            "iterations": 47,
+            "gcd_calls": 47,
+            "modular_squares": 141,
+            "factor": 3677
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.0374,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.08505
+      },
+      {
+        "N": 20915347,
+        "public_base": 31,
+        "public_rank": 11,
+        "group": "G1_mod3_1",
+        "B31_factored": true,
+        "B31_factor": 3571,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": null,
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.04376
+      },
+      {
+        "N": 32545729,
+        "public_base": 31,
+        "public_rank": 12,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 5741,
+          "source": "Pollard_p_minus_1_B47",
+          "B47": {
+            "found": true,
+            "factor": 5741,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 0,
+            "iterations": 0,
+            "gcd_calls": 0,
+            "modular_squares": 0,
+            "factor": null
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.01282,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.05798
+      },
+      {
+        "N": 28192387,
+        "public_base": 11,
+        "public_rank": 13,
+        "group": "G1_mod3_1",
+        "B31_factored": true,
+        "B31_factor": 5743,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": null,
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.04335
+      },
+      {
+        "N": 22437901,
+        "public_base": 3,
+        "public_rank": 14,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 3907,
+          "source": "Floyd_rho_64",
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 2,
+            "iterations": 96,
+            "gcd_calls": 96,
+            "modular_squares": 288,
+            "factor": 3907
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.06078,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.10546
+      },
+      {
+        "N": 32380429,
+        "public_base": 17,
+        "public_rank": 15,
+        "group": "G1_mod3_1",
+        "B31_factored": true,
+        "B31_factor": 6449,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": null,
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.04361
+      },
+      {
+        "N": 22273327,
+        "public_base": 29,
+        "public_rank": 16,
+        "group": "G1_mod3_1",
+        "B31_factored": true,
+        "B31_factor": 4931,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": null,
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.04356
+      },
+      {
+        "N": 26234827,
+        "public_base": 5,
+        "public_rank": 17,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 4157,
+          "source": "Floyd_rho_64",
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 1,
+            "iterations": 54,
+            "gcd_calls": 54,
+            "modular_squares": 162,
+            "factor": 4157
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.04123,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.08597
+      },
+      {
+        "N": 22175719,
+        "public_base": 23,
+        "public_rank": 18,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 4877,
+          "source": "Floyd_rho_64",
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 1,
+            "iterations": 50,
+            "gcd_calls": 50,
+            "modular_squares": 150,
+            "factor": 4877
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.0379,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.08345
+      },
+      {
+        "N": 19774537,
+        "public_base": 29,
+        "public_rank": 19,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": false,
+          "factor": null,
+          "source": null,
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 2,
+            "iterations": 128,
+            "gcd_calls": 128,
+            "modular_squares": 384,
+            "factor": null
+          },
+          "trial97": {
+            "checks": 25,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.08595,
+          "quantum_needed_after_fixed_public_filter": true
+        },
+        "survived_both_fixed_public_classical_budgets": true,
+        "public_screen_CPU_ms": 0.13153
+      },
+      {
+        "N": 23770561,
+        "public_base": 29,
+        "public_rank": 20,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 3559,
+          "source": "Floyd_rho_64",
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 1,
+            "iterations": 34,
+            "gcd_calls": 34,
+            "modular_squares": 102,
+            "factor": 3559
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.03044,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.07683
+      },
+      {
+        "N": 24917701,
+        "public_base": 11,
+        "public_rank": 21,
+        "group": "G1_mod3_1",
+        "B31_factored": true,
+        "B31_factor": 4051,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": null,
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.04335
+      },
+      {
+        "N": 32801557,
+        "public_base": 29,
+        "public_rank": 22,
+        "group": "G1_mod3_1",
+        "B31_factored": true,
+        "B31_factor": 3911,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": null,
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.05591
+      },
+      {
+        "N": 26939383,
+        "public_base": 19,
+        "public_rank": 23,
+        "group": "G1_mod3_1",
+        "B31_factored": true,
+        "B31_factor": 6553,
+        "B31_source": "Pollard_p1_B31",
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": null,
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.04312
+      },
+      {
+        "N": 19719961,
+        "public_base": 5,
+        "public_rank": 24,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": true,
+          "factor": 3631,
+          "source": "Floyd_rho_64",
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 1,
+            "iterations": 33,
+            "gcd_calls": 33,
+            "modular_squares": 99,
+            "factor": 3631
+          },
+          "trial97": {
+            "checks": 0,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.03067,
+          "quantum_needed_after_fixed_public_filter": false
+        },
+        "survived_both_fixed_public_classical_budgets": false,
+        "public_screen_CPU_ms": 0.07537
+      },
+      {
+        "N": 28467259,
+        "public_base": 31,
+        "public_rank": 25,
+        "group": "G1_mod3_1",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": false,
+          "factor": null,
+          "source": null,
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 2,
+            "iterations": 128,
+            "gcd_calls": 128,
+            "modular_squares": 384,
+            "factor": null
+          },
+          "trial97": {
+            "checks": 25,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.08652,
+          "quantum_needed_after_fixed_public_filter": true
+        },
+        "survived_both_fixed_public_classical_budgets": true,
+        "public_screen_CPU_ms": 0.13336
+      }
+    ],
+    "G2_mod3_2": [
+      {
+        "N": 29915783,
+        "public_base": 29,
+        "public_rank": 1,
+        "group": "G2_mod3_2",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": false,
+          "factor": null,
+          "source": null,
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 2,
+            "iterations": 128,
+            "gcd_calls": 128,
+            "modular_squares": 384,
+            "factor": null
+          },
+          "trial97": {
+            "checks": 25,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.08919,
+          "quantum_needed_after_fixed_public_filter": true
+        },
+        "survived_both_fixed_public_classical_budgets": true,
+        "public_screen_CPU_ms": 0.1539
+      },
+      {
+        "N": 24556361,
+        "public_base": 23,
+        "public_rank": 2,
+        "group": "G2_mod3_2",
+        "B31_factored": false,
+        "B31_factor": null,
+        "B31_source": null,
+        "B31_operation_counts": {
+          "gcd_calls": 109,
+          "modular_square_calls": 53,
+          "pminusone_modular_pow_calls": 11,
+          "executed_pminusone": true
+        },
+        "additional_B47_rho64_trial97": {
+          "classically_solved": false,
+          "factor": null,
+          "source": null,
+          "B47": {
+            "found": false,
+            "factor": null,
+            "bound": 47,
+            "modular_pow_calls": 15,
+            "gcd_calls": 2,
+            "prime_power_exponents": [
+              32,
+              27,
+              25,
+              7,
+              11,
+              13,
+              17,
+              19,
+              23,
+              29,
+              31,
+              37,
+              41,
+              43,
+              47
+            ]
+          },
+          "rho": {
+            "attempts": 2,
+            "iterations": 128,
+            "gcd_calls": 128,
+            "modular_squares": 384,
+            "factor": null
+          },
+          "trial97": {
+            "checks": 25,
+            "factor": null
+          },
+          "elapsed_CPU_ms": 0.08883,
+          "quantum_needed_after_fixed_public_filter": true
+        },
+        "survived_both_fixed_public_classical_budgets": true,
+        "public_screen_CPU_ms": 0.14013
+      }
+    ]
+  },
+  "selected_public_rows": [
+    {
+      "N": 19774537,
+      "base": 29,
+      "cube": 24389,
+      "group": "G1_mod3_1",
+      "public_rank": 19,
+      "unsolved_by_fixed_public_B31_B47_rho64_trial97": true
+    },
+    {
+      "N": 28467259,
+      "base": 31,
+      "cube": 29791,
+      "group": "G1_mod3_1",
+      "public_rank": 25,
+      "unsolved_by_fixed_public_B31_B47_rho64_trial97": true
+    },
+    {
+      "N": 29915783,
+      "base": 29,
+      "cube": 24389,
+      "group": "G2_mod3_2",
+      "public_rank": 1,
+      "unsolved_by_fixed_public_B31_B47_rho64_trial97": true
+    },
+    {
+      "N": 24556361,
+      "base": 23,
+      "cube": 12167,
+      "group": "G2_mod3_2",
+      "public_rank": 2,
+      "unsolved_by_fixed_public_B31_B47_rho64_trial97": true
+    }
+  ],
+  "selected_sha256": "a136789dcdcbb32730f293973805f8edacf5d684d8350c2e51c665db0099d629",
+  "public_only_B31_and_B47_rho64_trial97_screening": true,
+  "secret_factor_or_validation_order_not_used_in_public_selection": true,
+  "no_QPE_or_factor_witness_scored_during_selection": true,
+  "manifest_elapsed_CPU_seconds": 0.17644,
+  "zero_QPU": true,
+  "qpu_jobs_submitted": 0,
+  "paid_runtime_used": false,
+  "completed_utc": "2026-10-28T08:33:49.903626+00:00"
+}
