@@ -1,0 +1,182 @@
+name: Independent original eight-case new N25 post-B47rho QPE source proof ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/dark-star-n25-post-b47rho-fresh-independent-source-audit.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: dark-star-n25-eight-fresh-original-audit-v1
+  cancel-in-progress: false
+
+jobs:
+  independent-original-sha-science-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Download all EIGHT original source-run shards; NEVER run QPE sampling again
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 40658075317
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: fresh-n25-row-*
+          merge-multiple: false
+          path: _fresh_n25_original_shards
+      - name: Independent STD-LIB audit of archived original scientific input, probabilities, native-use prohibitions and source bytes
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json,math,collections
+          from pathlib import Path
+          ROOT=Path('results/dark_star_ptp')
+          frozen='e46425355e422ff32d167920d7ddc80ada0ed8733c73048912133db6f79526d2'
+          original_sha='66b3cdb1ac58c1dffac3838c4113ffddb6fa9e6a1cc863890d55d997dc97fae7'
+          manifest=json.loads((ROOT/'dark_star_n25_post_b47rho_fresh_manifest.json').read_text())
+          old=json.loads((ROOT/'dark_star_n25_online_public_manifest.json').read_text())
+          summary=json.loads((ROOT/'dark_star_n25_post_b47rho_fresh_all8.json').read_text())
+          rows=manifest['selected_public_rows']
+          assert manifest['selected_sha256']==frozen
+          assert hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()==frozen
+          assert manifest['original_n25_manifest_sha256']==old['selected_sha256']==original_sha
+          assert len(rows)==8 and len(set(x['N'] for x in rows))==8
+          assert {x['N'] for x in rows}.isdisjoint({x['N'] for x in old['selected_public_rows']})
+          assert manifest['factor_order_and_qpe_not_inspected_for_selection']
+          assert manifest['selection_public_only_B31_and_B47rho64']
+          assert manifest['zero_QPU'] and manifest['qpu_jobs_submitted']==0
+          assert summary['complete'] and summary['source_manifest_sha256']==frozen
+          assert summary['zero_QPU'] and summary['qpu_jobs_submitted']==0 and not summary['paid_runtime_used']
+          assert summary['summary']['total']==8
+          assert summary['summary']['all_eight_unsolved_after_public_B31_B47rho64']
+          assert summary['summary']['quantum_work_remaining_after_public_fixed_filter']==8
+          assert not summary['summary']['preregistered_model_gate_pass']
+          assert summary['summary']['bounded_cube_win']==summary['summary']['bounded_cube_loss']==0
+          assert summary['summary']['statuses']=={'inconclusive':4,'factor_incapable_or_uncertified':4}
+          all_classes=collections.Counter()
+          sha_rows=[]
+          exact_checks=0
+          base_distribution=collections.Counter()
+          other_manifest=ROOT/'dark_star_n25_fresh_cf50_manifest.json'
+          others=json.loads(other_manifest.read_text()) if other_manifest.exists() else {}
+          otherNs={x['N'] for x in others.get('selected_public_rows',[])}
+          otherOverlap=0
+          for index,r in enumerate(rows):
+              original_file=Path(f'_fresh_n25_original_shards/fresh-n25-row-{index}/fresh_n25_{index:02d}.json')
+              archived_file=ROOT/f'dark_star_n25_post_b47rho_fresh_index{index:02d}.json'
+              original_bytes=original_file.read_bytes()
+              assert original_bytes==archived_file.read_bytes()
+              sh=hashlib.sha256(original_bytes).hexdigest()
+              j=json.loads(original_bytes)
+              assert j['experiment']=='dark_star_n25_post_b47rho_fresh_public_survivor_model'
+              assert j['revision']=='dark-star-n25-post-b47rho64-fresh-8-24stage-v1-20261028'
+              assert j['research_lead']=='Chase Lunsford / CaMaLabs'
+              assert j['preregistration']=='docs/DARK_STAR_N25_POST_B47RHO_FRESH_COHORT_PREREG.md'
+              assert j['manifest_sha256']==j['newly_frozen_selected_SHA']==frozen
+              assert j['selected_index']==index and j['result_complete']
+              assert j['sampling']['samples_per_stage']==4096
+              assert j['sampling']['stages']==list(range(4,51,2))
+              assert j['sampling']['union_family']==1536
+              assert j['sampling']['head_bins']==65
+              assert j['sampling']['alpha']==.01
+              assert j['sampling']['phase_salt']=='QRR-N25-B47RHO64-FRESH-PHASE-20261028'
+              assert j['selftests']['online_CF_matches_legacy_direct_public_factor_extractor']==1680
+              assert j['zero_QPU'] and j['qpu_jobs_submitted']==0 and not j['paid_runtime_used']
+              assert len(j['rows'])==1 and j['rows'][0]==summary['rows'][index]
+              row=j['rows'][0]
+              assert all(row[k]==v for k,v in r.items())
+              assert row['N']%3==(1 if row['group']=='G1_mod3_1' else 2)
+              assert row['cube']==pow(row['base'],3,row['N'])
+              assert not row['public_classical_after_B31']['classically_solved']
+              assert row['public_classical_after_B31']['quantum_needed_after_fixed_public_filter']
+              assert row['validation_only']['odd_cube_identity'] and row['validation_only']['half_witness_invariant']
+              ra=row['validation_only']['order_plain'];rb=row['validation_only']['order_cube']
+              assert rb==ra//math.gcd(ra,3)
+              # This Python checker RECONSTRUCTS the earlier frozen classifier
+              # from public intervals instead of importing/re-running QPE.
+              plain=row['model_plain'];cube=row['model_cube']
+              a=plain['modeled_CCX_per_factor_success_interval']
+              b=cube['modeled_CCX_per_factor_success_interval']
+              if None in a or None in b:
+                  status='factor_incapable_or_uncertified';ratio=[None,None]
+              else:
+                  lo=b[0]/a[1] if a[1]>0 else None
+                  hi=b[1]/a[0] if a[0]>0 else None
+                  if lo is None or hi is None:status='ratio_unbounded'
+                  else:status='cube_model_win' if hi<1 else ('cube_model_loss' if lo>1 else 'inconclusive')
+                  ratio=[lo,hi]
+              assert row['cube_vs_plain']==dict(status=status,ratio=ratio)
+              for arm in (plain,cube):
+                  assert arm['precomputed_factor_producing_denominators']==0
+                  stages=arm['stages'];costs=arm['structural_modular_arithmetic_per_stage']
+                  assert len(stages)==len(costs)==24
+                  assert [s['m'] for s in stages]==list(range(4,51,2))
+                  assert [s['m'] for s in costs]==list(range(4,51,2))
+                  assert all(x['sample_count']==4096 for x in stages)
+                  assert all(0<=x['lower']<=x['upper']<=1 for x in stages)
+                  assert all(x['ccx']>=0 and x['cswap']>=0 for x in costs)
+                  for field,stage_key in [
+                     ('denominators_checked','online_CF_denominators_checked'),
+                     ('modpow_calls','online_modpow_calls'),
+                     ('gcd_calls','online_gcd_calls')]:
+                      assert arm['online_CF_evaluation_only_operations'][field]==sum(s[stage_key] for s in stages)
+                  exact_checks+=len(stages)
+              base_distribution[row['base']]+=1
+              otherOverlap+=int(row['N'] in otherNs)
+              all_classes[status]+=1
+              sha_rows.append(dict(index=index,N=row['N'],base=row['base'],
+                 source_original_sha256=sh,status=status,
+                 validation_only_factor_capable=row['validation_only']['factor_capable']))
+              print('ORIGINAL-SOURCE INDEPENDENT AUDIT',index,row['N'],
+                   'status',status,'SHA256',sh,'zero QPU',flush=True)
+          assert dict(all_classes)=={'inconclusive':4,'factor_incapable_or_uncertified':4}
+          assert exact_checks==8*2*24
+          assert otherOverlap==0
+          audit=dict(experiment='n25_post_b47rho_fresh_original_artifact_independent_recheck',
+             research_lead='Chase Lunsford / CaMaLabs',
+             independent_original_source_run=40658075317,
+             source_manifest_sha256=frozen,
+             independent_public_SALT_before_validation=True,
+             unchanged_original_shard_source_sha256=sha_rows,
+             original_two_arm_stages_audited=exact_checks,
+             original_eight_cases=8,
+             original_code_selftests_per_row=1680,
+             status_counts=dict(all_classes),
+             original_group_base_concentration=dict(base_distribution),
+             independent_new_four_case_N_overlap=otherOverlap,
+             all_8_public_fixed_B31_B47rho64_unsolved=True,
+             no_bounded_cube_win=True,preregistered_model_win_gate_pass=False,
+             source_CCX_is_NOT_native_hardware_CZ=True,
+             zero_QPU=True,qpu_jobs_submitted=0,paid_runtime_used=False,
+             original_source_job_overall_success=True,
+             findings='Original fresh eight N25 public B47rho64 survivor source-QPE results independently audited: 0 bounded wins, 0 losses, 4 inconclusive, 4 factor-incapable/uncertified; no real QPU.')
+          output=ROOT/'dark_star_n25_post_b47rho_fresh_original_audit.json'
+          output.write_text(json.dumps(audit,indent=2)+'\n')
+          print('ALL ORIGINAL EIGHT ROWS INDEPENDENTLY AUDITED; 0 BOUNDED CUBIC MODEL WINS / ZERO QPU')
+          PY
+      - name: Commit ONLY the independent source-byte checksum/audit manifest, no rescoring original data
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n25_post_b47rho_fresh_original_audit.json
+          git commit -m 'audit: independently verify original eight fresh N25 post-B47rho SHA artifacts, 384 stage envelopes, four inconclusive/four incapable, ZERO QPU'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'INDEPENDENT ORIGINAL N25 FRESH PROSPECTIVE SOURCE AUDIT COMMITTED'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
