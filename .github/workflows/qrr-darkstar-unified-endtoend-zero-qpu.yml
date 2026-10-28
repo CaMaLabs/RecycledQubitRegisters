@@ -1,0 +1,96 @@
+name: Dark Star UNIFIED PTP/classical/odd-power/recycled Shor end-to-end CPU only
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-darkstar-unified-endtoend-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-darkstar-unified-endtoend-zero-qpu
+  cancel-in-progress: false
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify frozen protocol, source and absolutely no QPU imports
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_UNIFIED_END_TO_END_PROTOCOL.md
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_unified.py integrations/darkstar_hybrid/test_darkstar_unified.py
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_unified.py; then
+            echo 'IBM hardware client in CPU-only research pipeline'; exit 1
+          fi
+      - name: Exhaustive regression checks for PTP, CF and integrated outcomes
+        run: |
+          set -euo pipefail
+          timeout 600s python3 -m unittest integrations.darkstar_hybrid.test_darkstar_unified -v
+      - name: Run full classical-first and seven odd-power QPE counterfactual arms
+        run: |
+          set -euo pipefail
+          timeout 360s python3 -m integrations.darkstar_hybrid.darkstar_unified --p 11 --q 19 --base 3 --output results/dark_star_unified/unified_demo_N209.json
+          timeout 360s python3 -m integrations.darkstar_hybrid.darkstar_unified --p 23 --q 31 --base 19 --output results/dark_star_unified/unified_demo_N713.json
+          timeout 360s python3 -m integrations.darkstar_hybrid.darkstar_unified --p 11 --q 71 --base 29 --output results/dark_star_unified/unified_demo_N781.json
+      - name: Independent receipt validation before preservation
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          for n in (209,713,781):
+              p=Path(f'results/dark_star_unified/unified_demo_N{n}.json')
+              x=json.loads(p.read_text())
+              assert x['N']==n and x['actual_classical_first_outcome']['success']
+              assert math.prod(x['actual_classical_first_outcome']['factors'])==n
+              assert x['safety']['is_synthetic_toy'] and not x['safety']['uses_QPU']
+              assert x['safety']['IBM_runtime_jobs']==0 and not x['safety']['paid_runtime']
+              assert len(x['all_fixed_exponent_ablation_arms'])==7
+              assert x['validated_PTProot_pair_after_real_factors']
+              assert not x['public_PTPTables']['naive_diagonal_symmetry_pruning_enabled']
+              for arm in x['all_fixed_exponent_ablation_arms'].values():
+                  if arm.get('factors'):
+                      assert math.prod(arm['factors'])==n
+                  if arm['model_attempted']:
+                      assert arm['tail_outcomes_not_falsely_credited']
+              print('PASS FULL END-TO-END synthetic',n,'classical-first and 7 counterfactual odd-power arms')
+          PY
+      - name: Upload original full receipts regardless of later archival push
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unified-dark-star-first-three-synthetic-cases
+          path: results/dark_star_unified/unified_demo_N*.json
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Preserve verified original toy-research results on main
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/unified_demo_N*.json
+          git commit -m 'results: preserve unified PTP + classical + seven odd-power + wide/recycled toy factoring receipts ZERO QPU'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'UNIFIED COMPLETE; exact original receipts and classical costs archived'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
