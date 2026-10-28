@@ -1,0 +1,113 @@
+name: Dark Star FRESH N25 public B31 B47 rho64 survivor SHA freeze ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/dark-star-n25-post-b47rho-public-freeze-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dark-star-post-b47rho-fresh-n25-original-manifest
+  cancel-in-progress: false
+
+jobs:
+  freeze-public-only:
+    name: Select and independently verify fresh 8 post-B47rho64 public N25 cases BEFORE any orders
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      IBM_QUANTUM_API_KEY: ''
+      QISKIT_IBM_TOKEN: ''
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Freeze preregistration and public-only no-QPU source
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N25_POST_B47RHO_FRESH_COHORT_PREREG.md
+          python -m py_compile hardware/dark_star_n25_post_b47rho_public_manifest.py
+          if grep -nE '(qiskit_ibm_runtime|SamplerV2|EstimatorV2|QiskitRuntimeService|backend.run|job.submit|validation_factors|multiplicative_order_from_lambda|order_plain)' hardware/dark_star_n25_post_b47rho_public_manifest.py; then
+            echo "Disallowed order/factor/QPU API reference BEFORE population freeze"; exit 1
+          fi
+      - name: Run PUBLIC N25 candidate rank, B31 then B47 rho64 97 screening only
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=15s 600s python3 -u hardware/dark_star_n25_post_b47rho_public_manifest.py
+      - name: Independent SHA and full fixed-public-budget survivor audit
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math,hashlib
+          from pathlib import Path
+          x=json.loads(Path('results/dark_star_ptp/dark_star_n25_post_b47rho_fresh_manifest.json').read_text())
+          old=json.loads(Path('results/dark_star_ptp/dark_star_n25_online_public_manifest.json').read_text())
+          pick=x['selected_public_rows']; screened=x['public_screenings']
+          assert x['research_lead']=='Chase Lunsford / CaMaLabs'
+          assert x['preregistration']=='docs/DARK_STAR_N25_POST_B47RHO_FRESH_COHORT_PREREG.md'
+          assert len(pick)==8 and len(set(z['N'] for z in pick))==8
+          assert x['selected_sha256']==hashlib.sha256(json.dumps(pick,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert x['original_n25_manifest_sha256']==old['selected_sha256']
+          prev={z['N'] for z in old['selected_public_rows']}
+          assert prev==set(x['previous_original_public_Ns_excluded'])
+          assert not any(z['N'] in prev for z in pick) and x['original_cohort_sample_overlap']==0
+          assert x['candidate_frame_unique_N']==80200
+          assert x['range_N']==[1<<24,1<<25]
+          assert x['population_salt']=='QRR-N25-B47RHO64-FRESH-POP-20261028'
+          assert x['base_salt']=='QRR-N25-B47RHO64-FRESH-BASE-20261028'
+          assert x['base_pool']==[2,3,5,7,11,13,17,19,23,29,31]
+          assert x['screening_cap_per_group']==1200 and x['selected_per_group']==4
+          assert x['selection_public_only_B31_and_B47rho64']
+          assert x['factor_order_and_qpe_not_inspected_for_selection']
+          assert x['zero_QPU'] and x['qpu_jobs_submitted']==0 and not x['paid_runtime_used']
+          for group,mod in [('G1_mod3_1',1),('G2_mod3_2',2)]:
+              group_picks=[z for z in pick if z['group']==group]
+              assert len(group_picks)==4
+              observed=screened[group]
+              assert len(observed)<=1200 and len(observed)>=4
+              assert [s['rank'] for s in observed]==list(range(1,len(observed)+1))
+              for z in group_picks:
+                  assert 1<<24 <=z['N']<1<<25 and z['N']%3==mod
+                  assert math.gcd(z['N'],z['base'])==1
+                  assert z['cube']==pow(z['base'],3,z['N'])
+                  assert z['B31_unfactored'] and z['B47rho64_unsolved']
+                  matches=[a for a in observed if a['N']==z['N']]
+                  assert len(matches)==1
+                  r=matches[0]
+                  assert r['rank']==z['rank'] and r['base']==z['base']
+                  assert r['B31_factored'] is False
+                  assert r['B47rho64_executed'] and r['B47rho64_public_budget'] is not None
+                  assert not r['B47rho64_public_budget']['classically_solved']
+                  assert r['B47rho64_public_budget']['quantum_needed_after_fixed_public_filter']
+              for z in observed:
+                  if z['B31_factored']:
+                      assert not z['B47rho64_executed']
+                  else:
+                      assert z['B47rho64_executed']
+                      assert z['B47rho64_public_budget']['rho']['attempts']>=0
+          print('PUBLIC-ONLY N25 cohort independently SHA audited',x['selected_sha256'],
+                'group counts',[(g,len(screened[g])) for g in screened])
+          PY
+      - name: Commit and freeze public SHA manifest in MAIN before any downstream model scoring
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_ptp/dark_star_n25_post_b47rho_fresh_manifest.json
+          git commit -m 'results: freeze eight NEW B31+B47/rho64 PUBLIC N25 survivors, SHA BEFORE QPE/hidden validation, no QPU'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo "FROZEN PUBLIC SELECTED MANIFEST PERMANENTLY ON MAIN"; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
