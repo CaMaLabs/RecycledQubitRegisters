@@ -147,7 +147,7 @@
         "square_tests": 1,
         "midpoint_modulus": null,
         "setup_seconds": 0.0,
-        "search_seconds": 1.9139999984929545e-06
+        "search_seconds": 1.6530000266357092e-06
       }
     ],
     "classically_solved": true
@@ -164,7 +164,7 @@
       "pair_checks": 0,
       "integer_search_steps": 0,
       "divisibility_tests": 10,
-      "elapsed_seconds": 3.1960000015374135e-06
+      "elapsed_seconds": 2.72400001222195e-06
     },
     "conventional_wheel210": {
       "method": "wheel210",
@@ -177,7 +177,7 @@
       "pair_checks": 0,
       "integer_search_steps": 0,
       "divisibility_tests": 5,
-      "elapsed_seconds": 2.1360000001635626e-05
+      "elapsed_seconds": 1.6393999999309017e-05
     },
     "ptp_LFK_kernel": {
       "method": "lfk210",
@@ -190,7 +190,7 @@
       "pair_checks": 1,
       "integer_search_steps": 1,
       "divisibility_tests": 5,
-      "elapsed_seconds": 7.112999998781788e-06
+      "elapsed_seconds": 5.428000008578238e-06
     },
     "note": "full classical references; if solved, no practical quantum need exists"
   },
@@ -201,6 +201,16 @@
     ],
     "success": true,
     "method": "classical:ordinary_fermat",
+    "publicly_fixed_odd_power_fallback_priority": [
+      3,
+      1,
+      5,
+      7,
+      105,
+      1155,
+      15015
+    ],
+    "routed_quantum_or_classical_fallback_trace": [],
     "truly_requires_quantum_after_public_preflight": false,
     "note": "Quantum branch was counterfactual; classical preflight already solved N."
   },
