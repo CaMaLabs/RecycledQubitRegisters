@@ -1,0 +1,93 @@
+name: Dark Star N26 post-hoc restored-pruning classical-only REPLAY ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n26-restored-classical-replay-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n26-after-pruner-restore-classical-only
+  cancel-in-progress: false
+
+jobs:
+  classical-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Original N26 and pruning protocol freeze controls; zero hardware SDK
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N26_RESTORED_MIDPOINT_PRUNING_PROTOCOL.md
+          test -s results/dark_star_unified/unified_n26_midpoint_pruning_reaudit.json
+          python3 -m py_compile integrations/darkstar_hybrid/midpoint_qr_pruner.py integrations/darkstar_hybrid/darkstar_n26_restored_classical_replay.py
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_n26_restored_classical_replay.py; then
+            echo 'Hardware code forbidden'; exit 1
+          fi
+      - name: Regression tests old and restored Dark Star classic and Shor simulator
+        run: |
+          set -euo pipefail
+          timeout 240s python3 -m unittest integrations.darkstar_hybrid.test_darkstar_unified -v
+      - name: Replay original twelve fixed public cases with newly restored bounded M255255 gate
+        run: |
+          set -euo pipefail
+          timeout 240s python3 -u -m integrations.darkstar_hybrid.darkstar_n26_restored_classical_replay
+      - name: Independently verify original-versus-replay receipts
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          root=Path('results/dark_star_unified')
+          j=json.loads((root/'unified_n26_midpoint_restoration_classical_replay.json').read_text())
+          old=json.loads((root/'unified_n26_all_12_summary.json').read_text())
+          assert j['complete'] and j['zero_QPU'] and not j['paid_runtime_used']
+          assert len(j['rows'])==12 and j['source_N26_public_sha256']==old['frozen_public_sha256']
+          assert old['summary']['classically_solved_by_unified_preflight']==11
+          assert j['summary']['secondary_replay_after_QR_255255_classical_first_solved']==12
+          assert j['summary']['delta_newly_classically_solved_under_same_old_12_root_cap']==1
+          assert not j['summary']['no_practical_speedup_claim'] is False
+          for r in j['rows']:
+              assert math.prod(r['restored_classical_factors'])==r['public_frozen']['N']
+              assert r['original_populated_ideal_QPE_counterfactual_unmodified']
+          assert len([r for r in j['rows'] if not r['original_classical_first_solved']])==1
+          print('PASS: only original weak-filter survivor newly classically factored; ORIGINAL model unchanged; ZERO QPU')
+          PY
+      - name: Preserve secondary result even if GitHub update conflicts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: n26-restored-pruning-classical-only-replay
+          path: results/dark_star_unified/unified_n26_midpoint_restoration_classical_replay.json
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Safely commit secondary results, do not rewrite original experiments
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/unified_n26_midpoint_restoration_classical_replay.json
+          git commit -m 'results: restored exact Dark Star midpoint sieve leaves zero N26 classical-only survivors; original 11/12 preserved'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Secondary classical re-evaluation preserved alongside unchanged old scientific outcomes'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
