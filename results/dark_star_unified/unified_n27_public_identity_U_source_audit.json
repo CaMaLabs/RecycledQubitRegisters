@@ -1,0 +1,7549 @@
+{
+  "experiment": "Dark_Star_N27_public_multiplier_identity_U_pruning",
+  "preregistration": "docs/DARK_STAR_N27_RESTORED_PLUS_IDENTITY_PRUNING_PREREG.md",
+  "original_public_n27_sha": "12f169a7edabe5d548dba4c8bd07d348a2bd174378ad2faf934dcfe8b5828b10",
+  "complete": true,
+  "formula": "skip only U_(a^(2^k) mod N) when publicly equal 1; controlled I is identity; other U unchanged",
+  "reference_case_N35_cube_identity_rounds": [
+    2,
+    3
+  ],
+  "exhaustive_small_semantic_controls": 714,
+  "group_summary": {
+    "frozen_small_anchor": {
+      "rows": 32,
+      "rows_with_nonzero_source_savings": 12,
+      "all_public_identity_rounds": 82,
+      "baseline_source_CCX": 3231563,
+      "exact_identity_source_CCX_saved": 237918,
+      "identity_source_CCX_fraction": 0.07362319719590799
+    },
+    "new_N27_cube": {
+      "rows": 60,
+      "rows_with_nonzero_source_savings": 0,
+      "all_public_identity_rounds": 0,
+      "baseline_source_CCX": 1506725153,
+      "exact_identity_source_CCX_saved": 0,
+      "identity_source_CCX_fraction": 0.0
+    },
+    "new_N27_plain": {
+      "rows": 60,
+      "rows_with_nonzero_source_savings": 0,
+      "all_public_identity_rounds": 0,
+      "baseline_source_CCX": 1491733696,
+      "exact_identity_source_CCX_saved": 0,
+      "identity_source_CCX_fraction": 0.0
+    }
+  },
+  "all_raw_cases": [
+    {
+      "tag": "frozen_small_anchor",
+      "N": 35,
+      "base": 2,
+      "phase_bits": 4,
+      "public_multipliers": [
+        2,
+        4,
+        16,
+        11
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 20200,
+        "cx": 0,
+        "cswap": 24
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 20200,
+        "cx": 0,
+        "cswap": 24
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 22,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 35,
+      "base": 2,
+      "phase_bits": 6,
+      "public_multipliers": [
+        2,
+        4,
+        16,
+        11,
+        16,
+        11
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 30476,
+        "cx": 0,
+        "cswap": 36
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 30476,
+        "cx": 0,
+        "cswap": 36
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 22,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 35,
+      "base": 2,
+      "phase_bits": 8,
+      "public_multipliers": [
+        2,
+        4,
+        16,
+        11,
+        16,
+        11,
+        16,
+        11
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 40752,
+        "cx": 0,
+        "cswap": 48
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 40752,
+        "cx": 0,
+        "cswap": 48
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 22,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 35,
+      "base": 2,
+      "phase_bits": 12,
+      "public_multipliers": [
+        2,
+        4,
+        16,
+        11,
+        16,
+        11,
+        16,
+        11,
+        16,
+        11,
+        16,
+        11
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 61304,
+        "cx": 0,
+        "cswap": 72
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 61304,
+        "cx": 0,
+        "cswap": 72
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 22,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 35,
+      "base": 8,
+      "phase_bits": 4,
+      "public_multipliers": [
+        8,
+        29,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        2,
+        3
+      ],
+      "identity_round_count": 2,
+      "unpruned_source_counts": {
+        "ccx": 20295,
+        "cx": 0,
+        "cswap": 24
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 10467,
+        "cx": 0,
+        "cswap": 12
+      },
+      "exact_saved_counts": {
+        "ccx": 9828,
+        "cx": 0,
+        "cswap": 12
+      },
+      "source_CCX_relative_saving": 0.4842572062084257,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 22,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 35,
+      "base": 8,
+      "phase_bits": 6,
+      "public_multipliers": [
+        8,
+        29,
+        1,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "identity_round_count": 4,
+      "unpruned_source_counts": {
+        "ccx": 30123,
+        "cx": 0,
+        "cswap": 36
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 10467,
+        "cx": 0,
+        "cswap": 12
+      },
+      "exact_saved_counts": {
+        "ccx": 19656,
+        "cx": 0,
+        "cswap": 24
+      },
+      "source_CCX_relative_saving": 0.6525246489393487,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 22,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 35,
+      "base": 8,
+      "phase_bits": 8,
+      "public_multipliers": [
+        8,
+        29,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "identity_round_count": 6,
+      "unpruned_source_counts": {
+        "ccx": 39951,
+        "cx": 0,
+        "cswap": 48
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 10467,
+        "cx": 0,
+        "cswap": 12
+      },
+      "exact_saved_counts": {
+        "ccx": 29484,
+        "cx": 0,
+        "cswap": 36
+      },
+      "source_CCX_relative_saving": 0.738004054967335,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 22,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 35,
+      "base": 8,
+      "phase_bits": 12,
+      "public_multipliers": [
+        8,
+        29,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "identity_round_count": 10,
+      "unpruned_source_counts": {
+        "ccx": 59607,
+        "cx": 0,
+        "cswap": 72
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 10467,
+        "cx": 0,
+        "cswap": 12
+      },
+      "exact_saved_counts": {
+        "ccx": 49140,
+        "cx": 0,
+        "cswap": 60
+      },
+      "source_CCX_relative_saving": 0.8243998188132267,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 22,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 209,
+      "base": 3,
+      "phase_bits": 4,
+      "public_multipliers": [
+        3,
+        9,
+        81,
+        82
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 52528,
+        "cx": 0,
+        "cswap": 32
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 52528,
+        "cx": 0,
+        "cswap": 32
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 28,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 209,
+      "base": 3,
+      "phase_bits": 6,
+      "public_multipliers": [
+        3,
+        9,
+        81,
+        82,
+        36,
+        42
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 78909,
+        "cx": 0,
+        "cswap": 48
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 78909,
+        "cx": 0,
+        "cswap": 48
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 28,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 209,
+      "base": 3,
+      "phase_bits": 8,
+      "public_multipliers": [
+        3,
+        9,
+        81,
+        82,
+        36,
+        42,
+        92,
+        104
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 102731,
+        "cx": 0,
+        "cswap": 64
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 102731,
+        "cx": 0,
+        "cswap": 64
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 28,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 209,
+      "base": 3,
+      "phase_bits": 16,
+      "public_multipliers": [
+        3,
+        9,
+        81,
+        82,
+        36,
+        42,
+        92,
+        104,
+        157,
+        196,
+        169,
+        137,
+        168,
+        9,
+        81,
+        82
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 210722,
+        "cx": 0,
+        "cswap": 128
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 210722,
+        "cx": 0,
+        "cswap": 128
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 28,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 209,
+      "base": 27,
+      "phase_bits": 4,
+      "public_multipliers": [
+        27,
+        102,
+        163,
+        26
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 51848,
+        "cx": 0,
+        "cswap": 32
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 51848,
+        "cx": 0,
+        "cswap": 32
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 28,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 209,
+      "base": 27,
+      "phase_bits": 6,
+      "public_multipliers": [
+        27,
+        102,
+        163,
+        26,
+        49,
+        102
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 78910,
+        "cx": 0,
+        "cswap": 48
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 78910,
+        "cx": 0,
+        "cswap": 48
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 28,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 209,
+      "base": 27,
+      "phase_bits": 8,
+      "public_multipliers": [
+        27,
+        102,
+        163,
+        26,
+        49,
+        102,
+        163,
+        26
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 103781,
+        "cx": 0,
+        "cswap": 64
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 103781,
+        "cx": 0,
+        "cswap": 64
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 28,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 209,
+      "base": 27,
+      "phase_bits": 16,
+      "public_multipliers": [
+        27,
+        102,
+        163,
+        26,
+        49,
+        102,
+        163,
+        26,
+        49,
+        102,
+        163,
+        26,
+        49,
+        102,
+        163,
+        26
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 207647,
+        "cx": 0,
+        "cswap": 128
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 207647,
+        "cx": 0,
+        "cswap": 128
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 28,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 713,
+      "base": 19,
+      "phase_bits": 4,
+      "public_multipliers": [
+        19,
+        361,
+        555,
+        9
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 108734,
+        "cx": 0,
+        "cswap": 40
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 108734,
+        "cx": 0,
+        "cswap": 40
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 34,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 713,
+      "base": 19,
+      "phase_bits": 6,
+      "public_multipliers": [
+        19,
+        361,
+        555,
+        9,
+        81,
+        144
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 163981,
+        "cx": 0,
+        "cswap": 60
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 163981,
+        "cx": 0,
+        "cswap": 60
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 34,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 713,
+      "base": 19,
+      "phase_bits": 8,
+      "public_multipliers": [
+        19,
+        361,
+        555,
+        9,
+        81,
+        144,
+        59,
+        629
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 220190,
+        "cx": 0,
+        "cswap": 80
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 220190,
+        "cx": 0,
+        "cswap": 80
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 34,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 713,
+      "base": 19,
+      "phase_bits": 16,
+      "public_multipliers": [
+        19,
+        361,
+        555,
+        9,
+        81,
+        144,
+        59,
+        629,
+        639,
+        485,
+        648,
+        660,
+        670,
+        423,
+        679,
+        443
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 452276,
+        "cx": 0,
+        "cswap": 160
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 452276,
+        "cx": 0,
+        "cswap": 160
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 34,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 713,
+      "base": 442,
+      "phase_bits": 4,
+      "public_multipliers": [
+        442,
+        2,
+        4,
+        16
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 105005,
+        "cx": 0,
+        "cswap": 40
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 105005,
+        "cx": 0,
+        "cswap": 40
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 34,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 713,
+      "base": 442,
+      "phase_bits": 6,
+      "public_multipliers": [
+        442,
+        2,
+        4,
+        16,
+        256,
+        653
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 164463,
+        "cx": 0,
+        "cswap": 60
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 164463,
+        "cx": 0,
+        "cswap": 60
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 34,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 713,
+      "base": 442,
+      "phase_bits": 8,
+      "public_multipliers": [
+        442,
+        2,
+        4,
+        16,
+        256,
+        653,
+        35,
+        512
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 222492,
+        "cx": 0,
+        "cswap": 80
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 222492,
+        "cx": 0,
+        "cswap": 80
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 34,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 713,
+      "base": 442,
+      "phase_bits": 16,
+      "public_multipliers": [
+        442,
+        2,
+        4,
+        16,
+        256,
+        653,
+        35,
+        512,
+        473,
+        560,
+        593,
+        140,
+        349,
+        591,
+        624,
+        78
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 457192,
+        "cx": 0,
+        "cswap": 160
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 457192,
+        "cx": 0,
+        "cswap": 160
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 34,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 15,
+      "base": 4,
+      "phase_bits": 4,
+      "public_multipliers": [
+        4,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        1,
+        2,
+        3
+      ],
+      "identity_round_count": 3,
+      "unpruned_source_counts": {
+        "ccx": 6320,
+        "cx": 0,
+        "cswap": 16
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 1580,
+        "cx": 0,
+        "cswap": 4
+      },
+      "exact_saved_counts": {
+        "ccx": 4740,
+        "cx": 0,
+        "cswap": 12
+      },
+      "source_CCX_relative_saving": 0.75,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 16,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 15,
+      "base": 4,
+      "phase_bits": 6,
+      "public_multipliers": [
+        4,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "identity_round_count": 5,
+      "unpruned_source_counts": {
+        "ccx": 9480,
+        "cx": 0,
+        "cswap": 24
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 1580,
+        "cx": 0,
+        "cswap": 4
+      },
+      "exact_saved_counts": {
+        "ccx": 7900,
+        "cx": 0,
+        "cswap": 20
+      },
+      "source_CCX_relative_saving": 0.8333333333333334,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 16,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 15,
+      "base": 4,
+      "phase_bits": 8,
+      "public_multipliers": [
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "identity_round_count": 7,
+      "unpruned_source_counts": {
+        "ccx": 12640,
+        "cx": 0,
+        "cswap": 32
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 1580,
+        "cx": 0,
+        "cswap": 4
+      },
+      "exact_saved_counts": {
+        "ccx": 11060,
+        "cx": 0,
+        "cswap": 28
+      },
+      "source_CCX_relative_saving": 0.875,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 16,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 15,
+      "base": 4,
+      "phase_bits": 16,
+      "public_multipliers": [
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "identity_round_count": 15,
+      "unpruned_source_counts": {
+        "ccx": 25280,
+        "cx": 0,
+        "cswap": 64
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 1580,
+        "cx": 0,
+        "cswap": 4
+      },
+      "exact_saved_counts": {
+        "ccx": 23700,
+        "cx": 0,
+        "cswap": 60
+      },
+      "source_CCX_relative_saving": 0.9375,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 16,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 21,
+      "base": 8,
+      "phase_bits": 4,
+      "public_multipliers": [
+        8,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        1,
+        2,
+        3
+      ],
+      "identity_round_count": 3,
+      "unpruned_source_counts": {
+        "ccx": 11070,
+        "cx": 0,
+        "cswap": 20
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 2829,
+        "cx": 0,
+        "cswap": 5
+      },
+      "exact_saved_counts": {
+        "ccx": 8241,
+        "cx": 0,
+        "cswap": 15
+      },
+      "source_CCX_relative_saving": 0.7444444444444445,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 19,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 21,
+      "base": 8,
+      "phase_bits": 6,
+      "public_multipliers": [
+        8,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "identity_round_count": 5,
+      "unpruned_source_counts": {
+        "ccx": 16564,
+        "cx": 0,
+        "cswap": 30
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 2829,
+        "cx": 0,
+        "cswap": 5
+      },
+      "exact_saved_counts": {
+        "ccx": 13735,
+        "cx": 0,
+        "cswap": 25
+      },
+      "source_CCX_relative_saving": 0.8292079207920792,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 19,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 21,
+      "base": 8,
+      "phase_bits": 8,
+      "public_multipliers": [
+        8,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "identity_round_count": 7,
+      "unpruned_source_counts": {
+        "ccx": 22058,
+        "cx": 0,
+        "cswap": 40
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 2829,
+        "cx": 0,
+        "cswap": 5
+      },
+      "exact_saved_counts": {
+        "ccx": 19229,
+        "cx": 0,
+        "cswap": 35
+      },
+      "source_CCX_relative_saving": 0.8717472118959108,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 19,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "frozen_small_anchor",
+      "N": 21,
+      "base": 8,
+      "phase_bits": 16,
+      "public_multipliers": [
+        8,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "public_identity_rounds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "identity_round_count": 15,
+      "unpruned_source_counts": {
+        "ccx": 44034,
+        "cx": 0,
+        "cswap": 80
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 2829,
+        "cx": 0,
+        "cswap": 5
+      },
+      "exact_saved_counts": {
+        "ccx": 41205,
+        "cx": 0,
+        "cswap": 75
+      },
+      "source_CCX_relative_saving": 0.9357541899441341,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 19,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 119983771,
+      "base": 23,
+      "phase_bits": 4,
+      "public_multipliers": [
+        23,
+        529,
+        279841,
+        81566589
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4083154,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4083154,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 119983771,
+      "base": 23,
+      "phase_bits": 8,
+      "public_multipliers": [
+        23,
+        529,
+        279841,
+        81566589,
+        60264722,
+        79813655,
+        93572,
+        116887672
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8415033,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8415033,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 119983771,
+      "base": 23,
+      "phase_bits": 16,
+      "public_multipliers": [
+        23,
+        529,
+        279841,
+        81566589,
+        60264722,
+        79813655,
+        93572,
+        116887672,
+        85585069,
+        108416942,
+        29748561,
+        103493837,
+        22928537,
+        37524815,
+        81910104,
+        32216861
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17388197,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17388197,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 119983771,
+      "base": 23,
+      "phase_bits": 32,
+      "public_multipliers": [
+        23,
+        529,
+        279841,
+        81566589,
+        60264722,
+        79813655,
+        93572,
+        116887672,
+        85585069,
+        108416942,
+        29748561,
+        103493837,
+        22928537,
+        37524815,
+        81910104,
+        32216861,
+        42534187,
+        10260661,
+        84471490,
+        41141749,
+        57663831,
+        80831072,
+        63544905,
+        5081329,
+        116789667,
+        80314686,
+        74709886,
+        28664146,
+        119975317,
+        71470116,
+        65871500,
+        52580262
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35228584,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35228584,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 119983771,
+      "base": 23,
+      "phase_bits": 54,
+      "public_multipliers": [
+        23,
+        529,
+        279841,
+        81566589,
+        60264722,
+        79813655,
+        93572,
+        116887672,
+        85585069,
+        108416942,
+        29748561,
+        103493837,
+        22928537,
+        37524815,
+        81910104,
+        32216861,
+        42534187,
+        10260661,
+        84471490,
+        41141749,
+        57663831,
+        80831072,
+        63544905,
+        5081329,
+        116789667,
+        80314686,
+        74709886,
+        28664146,
+        119975317,
+        71470116,
+        65871500,
+        52580262,
+        23024765,
+        29989466,
+        79443219,
+        101111956,
+        93594116,
+        7932611,
+        108673745,
+        70117240,
+        60972701,
+        119148876,
+        63935286,
+        60842659,
+        103437573,
+        99262824,
+        39469065,
+        80887374,
+        47045491,
+        111338772,
+        36494437,
+        77092769,
+        81921314,
+        110813715
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59619105,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59619105,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 119983771,
+      "base": 12167,
+      "phase_bits": 4,
+      "public_multipliers": [
+        12167,
+        28052118,
+        83221080,
+        52774046
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4367755,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4367755,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 119983771,
+      "base": 12167,
+      "phase_bits": 8,
+      "public_multipliers": [
+        12167,
+        28052118,
+        83221080,
+        52774046,
+        43707961,
+        53483536,
+        52631337,
+        112275684
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8832921,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8832921,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 119983771,
+      "base": 12167,
+      "phase_bits": 16,
+      "public_multipliers": [
+        12167,
+        28052118,
+        83221080,
+        52774046,
+        43707961,
+        53483536,
+        52631337,
+        112275684,
+        81605621,
+        19433220,
+        40491961,
+        37701909,
+        5340946,
+        42554750,
+        90723470,
+        19480176
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17607879,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17607879,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 119983771,
+      "base": 12167,
+      "phase_bits": 32,
+      "public_multipliers": [
+        12167,
+        28052118,
+        83221080,
+        52774046,
+        43707961,
+        53483536,
+        52631337,
+        112275684,
+        81605621,
+        19433220,
+        40491961,
+        37701909,
+        5340946,
+        42554750,
+        90723470,
+        19480176,
+        25065978,
+        77358556,
+        108812920,
+        110857132,
+        45981388,
+        20918594,
+        43008660,
+        31402725,
+        1483084,
+        115644855,
+        18482530,
+        40527136,
+        29910092,
+        88836173,
+        46705147,
+        48405101
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35376494,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35376494,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 119983771,
+      "base": 12167,
+      "phase_bits": 54,
+      "public_multipliers": [
+        12167,
+        28052118,
+        83221080,
+        52774046,
+        43707961,
+        53483536,
+        52631337,
+        112275684,
+        81605621,
+        19433220,
+        40491961,
+        37701909,
+        5340946,
+        42554750,
+        90723470,
+        19480176,
+        25065978,
+        77358556,
+        108812920,
+        110857132,
+        45981388,
+        20918594,
+        43008660,
+        31402725,
+        1483084,
+        115644855,
+        18482530,
+        40527136,
+        29910092,
+        88836173,
+        46705147,
+        48405101,
+        44176582,
+        46529218,
+        41187113,
+        89319682,
+        57286312,
+        68074906,
+        7641649,
+        17914982,
+        71272088,
+        89307678,
+        44428413,
+        29148422,
+        106063403,
+        95463691,
+        86124927,
+        21914223,
+        46006565,
+        74863433,
+        109518216,
+        56181820,
+        32624485,
+        66393814
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59900824,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59900824,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 76376821,
+      "base": 11,
+      "phase_bits": 4,
+      "public_multipliers": [
+        11,
+        121,
+        14641,
+        61605239
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4051399,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4051399,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 76376821,
+      "base": 11,
+      "phase_bits": 8,
+      "public_multipliers": [
+        11,
+        121,
+        14641,
+        61605239,
+        69650602,
+        59362969,
+        29591885,
+        5375691
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8524299,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8524299,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 76376821,
+      "base": 11,
+      "phase_bits": 16,
+      "public_multipliers": [
+        11,
+        121,
+        14641,
+        61605239,
+        69650602,
+        59362969,
+        29591885,
+        5375691,
+        43357100,
+        18473362,
+        25034548,
+        29281301,
+        4983393,
+        53313836,
+        35229834,
+        66618263
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17420611,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17420611,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 76376821,
+      "base": 11,
+      "phase_bits": 32,
+      "public_multipliers": [
+        11,
+        121,
+        14641,
+        61605239,
+        69650602,
+        59362969,
+        29591885,
+        5375691,
+        43357100,
+        18473362,
+        25034548,
+        29281301,
+        4983393,
+        53313836,
+        35229834,
+        66618263,
+        7874187,
+        41246348,
+        72087850,
+        67654633,
+        56167516,
+        47127224,
+        69013038,
+        48465719,
+        17612647,
+        35710078,
+        41695173,
+        8564812,
+        39619536,
+        56647430,
+        52889135,
+        11638355
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35117706,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35117706,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 76376821,
+      "base": 11,
+      "phase_bits": 54,
+      "public_multipliers": [
+        11,
+        121,
+        14641,
+        61605239,
+        69650602,
+        59362969,
+        29591885,
+        5375691,
+        43357100,
+        18473362,
+        25034548,
+        29281301,
+        4983393,
+        53313836,
+        35229834,
+        66618263,
+        7874187,
+        41246348,
+        72087850,
+        67654633,
+        56167516,
+        47127224,
+        69013038,
+        48465719,
+        17612647,
+        35710078,
+        41695173,
+        8564812,
+        39619536,
+        56647430,
+        52889135,
+        11638355,
+        70135365,
+        4579349,
+        35405936,
+        56034638,
+        63028138,
+        61687847,
+        63064898,
+        8801538,
+        47422490,
+        52878221,
+        25987565,
+        49140677,
+        33707687,
+        70937082,
+        12251270,
+        26534688,
+        13882114,
+        10883648,
+        65577152,
+        22088270,
+        52378666,
+        44219730
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59606177,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59606177,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 76376821,
+      "base": 1331,
+      "phase_bits": 4,
+      "public_multipliers": [
+        1331,
+        1771561,
+        28425010,
+        45736441
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4343203,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4343203,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 76376821,
+      "base": 1331,
+      "phase_bits": 8,
+      "public_multipliers": [
+        1331,
+        1771561,
+        28425010,
+        45736441,
+        66724343,
+        4269467,
+        27233766,
+        39350123
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8730112,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8730112,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 76376821,
+      "base": 1331,
+      "phase_bits": 16,
+      "public_multipliers": [
+        1331,
+        1771561,
+        28425010,
+        45736441,
+        66724343,
+        4269467,
+        27233766,
+        39350123,
+        54788202,
+        177257,
+        29170618,
+        22609163,
+        74986337,
+        42907462,
+        9136014,
+        23268408
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17565504,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17565504,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 76376821,
+      "base": 1331,
+      "phase_bits": 32,
+      "public_multipliers": [
+        1331,
+        1771561,
+        28425010,
+        45736441,
+        66724343,
+        4269467,
+        27233766,
+        39350123,
+        54788202,
+        177257,
+        29170618,
+        22609163,
+        74986337,
+        42907462,
+        9136014,
+        23268408,
+        24178800,
+        60633218,
+        73593211,
+        56141650,
+        50626203,
+        9055265,
+        51078730,
+        23197282,
+        6933351,
+        14082264,
+        34943826,
+        63114542,
+        15946583,
+        15306050,
+        37316761,
+        33518158
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35318097,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35318097,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 76376821,
+      "base": 1331,
+      "phase_bits": 54,
+      "public_multipliers": [
+        1331,
+        1771561,
+        28425010,
+        45736441,
+        66724343,
+        4269467,
+        27233766,
+        39350123,
+        54788202,
+        177257,
+        29170618,
+        22609163,
+        74986337,
+        42907462,
+        9136014,
+        23268408,
+        24178800,
+        60633218,
+        73593211,
+        56141650,
+        50626203,
+        9055265,
+        51078730,
+        23197282,
+        6933351,
+        14082264,
+        34943826,
+        63114542,
+        15946583,
+        15306050,
+        37316761,
+        33518158,
+        5039297,
+        61416740,
+        3646280,
+        62722825,
+        63808992,
+        4872401,
+        7856550,
+        75228572,
+        59081899,
+        12034247,
+        46065544,
+        72687649,
+        22427489,
+        29597335,
+        47309608,
+        22899995,
+        25984240,
+        7258154,
+        39956608,
+        18137166,
+        65797673,
+        56014480
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59658132,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59658132,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 105065509,
+      "base": 5,
+      "phase_bits": 4,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 3874394,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 3874394,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 105065509,
+      "base": 5,
+      "phase_bits": 8,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        32771557,
+        43154154,
+        8640657,
+        36844632
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8269443,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8269443,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 105065509,
+      "base": 5,
+      "phase_bits": 16,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        32771557,
+        43154154,
+        8640657,
+        36844632,
+        50755530,
+        21325465,
+        32152779,
+        85983567,
+        19094496,
+        82310599,
+        91409629,
+        80274611
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17057151,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17057151,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 105065509,
+      "base": 5,
+      "phase_bits": 32,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        32771557,
+        43154154,
+        8640657,
+        36844632,
+        50755530,
+        21325465,
+        32152779,
+        85983567,
+        19094496,
+        82310599,
+        91409629,
+        80274611,
+        48837729,
+        29350232,
+        17673482,
+        87660499,
+        41655490,
+        61724138,
+        9638939,
+        30633548,
+        25939950,
+        90555954,
+        71329095,
+        73728389,
+        32382663,
+        81399459,
+        73076917,
+        42932296
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 34728732,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 34728732,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 105065509,
+      "base": 5,
+      "phase_bits": 54,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        32771557,
+        43154154,
+        8640657,
+        36844632,
+        50755530,
+        21325465,
+        32152779,
+        85983567,
+        19094496,
+        82310599,
+        91409629,
+        80274611,
+        48837729,
+        29350232,
+        17673482,
+        87660499,
+        41655490,
+        61724138,
+        9638939,
+        30633548,
+        25939950,
+        90555954,
+        71329095,
+        73728389,
+        32382663,
+        81399459,
+        73076917,
+        42932296,
+        59373595,
+        54247391,
+        8987917,
+        93569987,
+        41583662,
+        17769436,
+        6887941,
+        34778914,
+        92857374,
+        88761964,
+        33151398,
+        21544339,
+        32221212,
+        99582809,
+        21706537,
+        13770730,
+        57407782,
+        48723579,
+        34799505,
+        3736770,
+        33755782,
+        37517539
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 58935228,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 58935228,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 105065509,
+      "base": 125,
+      "phase_bits": 4,
+      "public_multipliers": [
+        125,
+        15625,
+        34009607,
+        102771056
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4238169,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4238169,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 105065509,
+      "base": 125,
+      "phase_bits": 8,
+      "public_multipliers": [
+        125,
+        15625,
+        34009607,
+        102771056,
+        102175255,
+        19694944,
+        96879090,
+        55276294
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8656234,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8656234,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 105065509,
+      "base": 125,
+      "phase_bits": 16,
+      "public_multipliers": [
+        125,
+        15625,
+        34009607,
+        102771056,
+        102175255,
+        19694944,
+        96879090,
+        55276294,
+        89656923,
+        6853412,
+        35439821,
+        80631665,
+        41480726,
+        38114197,
+        75473494,
+        60273614
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17534859,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17534859,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 105065509,
+      "base": 125,
+      "phase_bits": 32,
+      "public_multipliers": [
+        125,
+        15625,
+        34009607,
+        102771056,
+        102175255,
+        19694944,
+        96879090,
+        55276294,
+        89656923,
+        6853412,
+        35439821,
+        80631665,
+        41480726,
+        38114197,
+        75473494,
+        60273614,
+        23504992,
+        86350271,
+        94078074,
+        95941937,
+        50682317,
+        7736719,
+        54818080,
+        90053201,
+        92323540,
+        42939261,
+        16825363,
+        24946300,
+        59646231,
+        81336113,
+        33014049,
+        9830800
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35095272,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35095272,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 105065509,
+      "base": 125,
+      "phase_bits": 54,
+      "public_multipliers": [
+        125,
+        15625,
+        34009607,
+        102771056,
+        102175255,
+        19694944,
+        96879090,
+        55276294,
+        89656923,
+        6853412,
+        35439821,
+        80631665,
+        41480726,
+        38114197,
+        75473494,
+        60273614,
+        23504992,
+        86350271,
+        94078074,
+        95941937,
+        50682317,
+        7736719,
+        54818080,
+        90053201,
+        92323540,
+        42939261,
+        16825363,
+        24946300,
+        59646231,
+        81336113,
+        33014049,
+        9830800,
+        15120841,
+        54219805,
+        98615381,
+        100831546,
+        60474280,
+        22847834,
+        73618588,
+        14560978,
+        93285502,
+        36877520,
+        28139313,
+        85874428,
+        9110380,
+        3337634,
+        19995213,
+        29814435,
+        99405265,
+        1021603,
+        56988712,
+        40953591,
+        68289712,
+        13220912
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59196657,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59196657,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 131883727,
+      "base": 19,
+      "phase_bits": 4,
+      "public_multipliers": [
+        19,
+        361,
+        130321,
+        102445985
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4096101,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4096101,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 131883727,
+      "base": 19,
+      "phase_bits": 8,
+      "public_multipliers": [
+        19,
+        361,
+        130321,
+        102445985,
+        115756780,
+        17152453,
+        30074428,
+        90807119
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8503830,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8503830,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 131883727,
+      "base": 19,
+      "phase_bits": 16,
+      "public_multipliers": [
+        19,
+        361,
+        130321,
+        102445985,
+        115756780,
+        17152453,
+        30074428,
+        90807119,
+        28711960,
+        88333359,
+        35854727,
+        25171353,
+        23643666,
+        2795944,
+        26816938,
+        48156179
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17339747,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17339747,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 131883727,
+      "base": 19,
+      "phase_bits": 32,
+      "public_multipliers": [
+        19,
+        361,
+        130321,
+        102445985,
+        115756780,
+        17152453,
+        30074428,
+        90807119,
+        28711960,
+        88333359,
+        35854727,
+        25171353,
+        23643666,
+        2795944,
+        26816938,
+        48156179,
+        101406260,
+        46102128,
+        109542045,
+        126081518,
+        65939572,
+        38221904,
+        50776567,
+        22272532,
+        77325402,
+        119997251,
+        88009933,
+        71223574,
+        57190521,
+        93184522,
+        121682481,
+        59372353
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35271053,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35271053,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 131883727,
+      "base": 19,
+      "phase_bits": 54,
+      "public_multipliers": [
+        19,
+        361,
+        130321,
+        102445985,
+        115756780,
+        17152453,
+        30074428,
+        90807119,
+        28711960,
+        88333359,
+        35854727,
+        25171353,
+        23643666,
+        2795944,
+        26816938,
+        48156179,
+        101406260,
+        46102128,
+        109542045,
+        126081518,
+        65939572,
+        38221904,
+        50776567,
+        22272532,
+        77325402,
+        119997251,
+        88009933,
+        71223574,
+        57190521,
+        93184522,
+        121682481,
+        59372353,
+        79054700,
+        71644693,
+        33966256,
+        99931874,
+        11333173,
+        39824991,
+        31876164,
+        97241924,
+        38301810,
+        97548823,
+        76688441,
+        95688989,
+        101641491,
+        29163562,
+        72802743,
+        24411066,
+        8272731,
+        51397432,
+        77590940,
+        46679496,
+        58576182,
+        24386930
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59652068,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59652068,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 131883727,
+      "base": 6859,
+      "phase_bits": 4,
+      "public_multipliers": [
+        6859,
+        47045881,
+        9759521,
+        108021590
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4344178,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4344178,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 131883727,
+      "base": 6859,
+      "phase_bits": 8,
+      "public_multipliers": [
+        6859,
+        47045881,
+        9759521,
+        108021590,
+        53186892,
+        71100357,
+        40447411,
+        85424870
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8764735,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8764735,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 131883727,
+      "base": 6859,
+      "phase_bits": 16,
+      "public_multipliers": [
+        6859,
+        47045881,
+        9759521,
+        108021590,
+        53186892,
+        71100357,
+        40447411,
+        85424870,
+        95966028,
+        23057135,
+        125963878,
+        72593180,
+        43583135,
+        120425432,
+        32055166,
+        118415340
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17637839,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17637839,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 131883727,
+      "base": 6859,
+      "phase_bits": 32,
+      "public_multipliers": [
+        6859,
+        47045881,
+        9759521,
+        108021590,
+        53186892,
+        71100357,
+        40447411,
+        85424870,
+        95966028,
+        23057135,
+        125963878,
+        72593180,
+        43583135,
+        120425432,
+        32055166,
+        118415340,
+        86219251,
+        31849185,
+        87316425,
+        41447360,
+        117185439,
+        13746155,
+        103657321,
+        90775878,
+        40935861,
+        11059565,
+        129871526,
+        122445501,
+        37927288,
+        21226265,
+        81183852,
+        49712938
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35474278,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35474278,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 131883727,
+      "base": 6859,
+      "phase_bits": 54,
+      "public_multipliers": [
+        6859,
+        47045881,
+        9759521,
+        108021590,
+        53186892,
+        71100357,
+        40447411,
+        85424870,
+        95966028,
+        23057135,
+        125963878,
+        72593180,
+        43583135,
+        120425432,
+        32055166,
+        118415340,
+        86219251,
+        31849185,
+        87316425,
+        41447360,
+        117185439,
+        13746155,
+        103657321,
+        90775878,
+        40935861,
+        11059565,
+        129871526,
+        122445501,
+        37927288,
+        21226265,
+        81183852,
+        49712938,
+        54501313,
+        70225010,
+        86718240,
+        41062598,
+        75837702,
+        28779704,
+        13393611,
+        42619013,
+        33218693,
+        2004816,
+        130613531,
+        64246025,
+        44638052,
+        24487275,
+        127235615,
+        16774858,
+        36666982,
+        15483144,
+        59882296,
+        115289010,
+        68333567,
+        85711673
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59917775,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59917775,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 118684129,
+      "base": 17,
+      "phase_bits": 4,
+      "public_multipliers": [
+        17,
+        289,
+        83521,
+        92077959
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4086729,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4086729,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 118684129,
+      "base": 17,
+      "phase_bits": 8,
+      "public_multipliers": [
+        17,
+        289,
+        83521,
+        92077959,
+        117804012,
+        73307835,
+        66808134,
+        26608626
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8462506,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8462506,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 118684129,
+      "base": 17,
+      "phase_bits": 16,
+      "public_multipliers": [
+        17,
+        289,
+        83521,
+        92077959,
+        117804012,
+        73307835,
+        66808134,
+        26608626,
+        23432830,
+        58204595,
+        31502169,
+        49708999,
+        5262641,
+        92740344,
+        90635102,
+        81867791
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17350233,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17350233,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 118684129,
+      "base": 17,
+      "phase_bits": 32,
+      "public_multipliers": [
+        17,
+        289,
+        83521,
+        92077959,
+        117804012,
+        73307835,
+        66808134,
+        26608626,
+        23432830,
+        58204595,
+        31502169,
+        49708999,
+        5262641,
+        92740344,
+        90635102,
+        81867791,
+        85598263,
+        10395744,
+        99128716,
+        27919476,
+        75828635,
+        26784379,
+        6212952,
+        65122473,
+        68602599,
+        115831386,
+        90582648,
+        16585030,
+        51941597,
+        98220474,
+        11771682,
+        112560207
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35016250,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35016250,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 118684129,
+      "base": 17,
+      "phase_bits": 54,
+      "public_multipliers": [
+        17,
+        289,
+        83521,
+        92077959,
+        117804012,
+        73307835,
+        66808134,
+        26608626,
+        23432830,
+        58204595,
+        31502169,
+        49708999,
+        5262641,
+        92740344,
+        90635102,
+        81867791,
+        85598263,
+        10395744,
+        99128716,
+        27919476,
+        75828635,
+        26784379,
+        6212952,
+        65122473,
+        68602599,
+        115831386,
+        90582648,
+        16585030,
+        51941597,
+        98220474,
+        11771682,
+        112560207,
+        16160019,
+        65571727,
+        23167035,
+        41473489,
+        17946304,
+        29548728,
+        115395685,
+        78211430,
+        62965042,
+        65047719,
+        438283,
+        61067367,
+        41090154,
+        99221458,
+        91866358,
+        13856303,
+        37082574,
+        12216778,
+        99855140,
+        88980030,
+        77177101,
+        77365046
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59412767,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59412767,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 118684129,
+      "base": 4913,
+      "phase_bits": 4,
+      "public_multipliers": [
+        4913,
+        24137569,
+        67706826,
+        45186061
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4353582,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4353582,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 118684129,
+      "base": 4913,
+      "phase_bits": 8,
+      "public_multipliers": [
+        4913,
+        24137569,
+        67706826,
+        45186061,
+        69126801,
+        94732777,
+        48006277,
+        30001050
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8755973,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8755973,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 118684129,
+      "base": 4913,
+      "phase_bits": 16,
+      "public_multipliers": [
+        4913,
+        24137569,
+        67706826,
+        45186061,
+        69126801,
+        94732777,
+        48006277,
+        30001050,
+        70951264,
+        59096012,
+        101940063,
+        26167784,
+        89839996,
+        75026788,
+        41379027,
+        109782688
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17655771,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17655771,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 118684129,
+      "base": 4913,
+      "phase_bits": 32,
+      "public_multipliers": [
+        4913,
+        24137569,
+        67706826,
+        45186061,
+        69126801,
+        94732777,
+        48006277,
+        30001050,
+        70951264,
+        59096012,
+        101940063,
+        26167784,
+        89839996,
+        75026788,
+        41379027,
+        109782688,
+        109725888,
+        27728796,
+        17876920,
+        72688359,
+        32723918,
+        76702683,
+        57852008,
+        14700957,
+        34645041,
+        40122172,
+        5212153,
+        97819696,
+        80549164,
+        113204042,
+        114946054,
+        47461939
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35463702,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35463702,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 118684129,
+      "base": 4913,
+      "phase_bits": 54,
+      "public_multipliers": [
+        4913,
+        24137569,
+        67706826,
+        45186061,
+        69126801,
+        94732777,
+        48006277,
+        30001050,
+        70951264,
+        59096012,
+        101940063,
+        26167784,
+        89839996,
+        75026788,
+        41379027,
+        109782688,
+        109725888,
+        27728796,
+        17876920,
+        72688359,
+        32723918,
+        76702683,
+        57852008,
+        14700957,
+        34645041,
+        40122172,
+        5212153,
+        97819696,
+        80549164,
+        113204042,
+        114946054,
+        47461939,
+        84963982,
+        550527,
+        79396392,
+        15173599,
+        35030734,
+        88848035,
+        59298014,
+        11829454,
+        35431118,
+        76115258,
+        93511813,
+        66750789,
+        14381819,
+        70618140,
+        99773227,
+        111163450,
+        29368285,
+        83674101,
+        26202314,
+        39250363,
+        28102627,
+        99694880
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59971599,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59971599,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 91414819,
+      "base": 23,
+      "phase_bits": 4,
+      "public_multipliers": [
+        23,
+        529,
+        279841,
+        59900217
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4058080,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4058080,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 91414819,
+      "base": 23,
+      "phase_bits": 8,
+      "public_multipliers": [
+        23,
+        529,
+        279841,
+        59900217,
+        54400596,
+        71902834,
+        67995269,
+        29010531
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8507839,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8507839,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 91414819,
+      "base": 23,
+      "phase_bits": 16,
+      "public_multipliers": [
+        23,
+        529,
+        279841,
+        59900217,
+        54400596,
+        71902834,
+        67995269,
+        29010531,
+        12119185,
+        9428848,
+        69173948,
+        61695818,
+        28883642,
+        64671047,
+        71176441,
+        77281769
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17322944,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17322944,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 91414819,
+      "base": 23,
+      "phase_bits": 32,
+      "public_multipliers": [
+        23,
+        529,
+        279841,
+        59900217,
+        54400596,
+        71902834,
+        67995269,
+        29010531,
+        12119185,
+        9428848,
+        69173948,
+        61695818,
+        28883642,
+        64671047,
+        71176441,
+        77281769,
+        77320758,
+        73495920,
+        68479497,
+        62368251,
+        4833395,
+        10326842,
+        51995754,
+        82564374,
+        34985952,
+        18211642,
+        62640703,
+        68179678,
+        81202916,
+        45470055,
+        48483871,
+        23872874
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35106645,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35106645,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 91414819,
+      "base": 23,
+      "phase_bits": 54,
+      "public_multipliers": [
+        23,
+        529,
+        279841,
+        59900217,
+        54400596,
+        71902834,
+        67995269,
+        29010531,
+        12119185,
+        9428848,
+        69173948,
+        61695818,
+        28883642,
+        64671047,
+        71176441,
+        77281769,
+        77320758,
+        73495920,
+        68479497,
+        62368251,
+        4833395,
+        10326842,
+        51995754,
+        82564374,
+        34985952,
+        18211642,
+        62640703,
+        68179678,
+        81202916,
+        45470055,
+        48483871,
+        23872874,
+        33646389,
+        19710063,
+        21596660,
+        39216809,
+        38271888,
+        51618019,
+        57456517,
+        53980397,
+        70043561,
+        18977547,
+        53478452,
+        37885016,
+        74017431,
+        36987865,
+        42860333,
+        24035008,
+        13016147,
+        84524719,
+        25621739,
+        17707000,
+        11860316,
+        74683493
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59337232,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59337232,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 91414819,
+      "base": 12167,
+      "phase_bits": 4,
+      "public_multipliers": [
+        12167,
+        56621070,
+        75509924,
+        38209293
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4381049,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4381049,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 91414819,
+      "base": 12167,
+      "phase_bits": 8,
+      "public_multipliers": [
+        12167,
+        56621070,
+        75509924,
+        38209293,
+        14749535,
+        70704482,
+        2150026,
+        38648303
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8676187,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8676187,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 91414819,
+      "base": 12167,
+      "phase_bits": 16,
+      "public_multipliers": [
+        12167,
+        56621070,
+        75509924,
+        38209293,
+        14749535,
+        70704482,
+        2150026,
+        38648303,
+        58276595,
+        76983849,
+        64658448,
+        26602792,
+        61157670,
+        61079874,
+        78482963,
+        948421
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17434199,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17434199,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 91414819,
+      "base": 12167,
+      "phase_bits": 32,
+      "public_multipliers": [
+        12167,
+        56621070,
+        75509924,
+        38209293,
+        14749535,
+        70704482,
+        2150026,
+        38648303,
+        58276595,
+        76983849,
+        64658448,
+        26602792,
+        61157670,
+        61079874,
+        78482963,
+        948421,
+        71989100,
+        14131341,
+        40500971,
+        62674374,
+        26921943,
+        29460763,
+        20183773,
+        36531169,
+        34393998,
+        32191834,
+        44905327,
+        73109208,
+        22912238,
+        26652774,
+        64157840,
+        43822401
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35137769,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35137769,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 91414819,
+      "base": 12167,
+      "phase_bits": 54,
+      "public_multipliers": [
+        12167,
+        56621070,
+        75509924,
+        38209293,
+        14749535,
+        70704482,
+        2150026,
+        38648303,
+        58276595,
+        76983849,
+        64658448,
+        26602792,
+        61157670,
+        61079874,
+        78482963,
+        948421,
+        71989100,
+        14131341,
+        40500971,
+        62674374,
+        26921943,
+        29460763,
+        20183773,
+        36531169,
+        34393998,
+        32191834,
+        44905327,
+        73109208,
+        22912238,
+        26652774,
+        64157840,
+        43822401,
+        77299066,
+        69982822,
+        8430632,
+        77072829,
+        10098562,
+        45028548,
+        53687308,
+        62741978,
+        40935120,
+        47579131,
+        74118730,
+        65177697,
+        74438044,
+        76353805,
+        61871347,
+        21344073,
+        45150069,
+        23731683,
+        64620796,
+        60789816,
+        87714872,
+        55827921
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59462852,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59462852,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 112071551,
+      "base": 31,
+      "phase_bits": 4,
+      "public_multipliers": [
+        31,
+        961,
+        923521,
+        26534331
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4152985,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4152985,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 112071551,
+      "base": 31,
+      "phase_bits": 8,
+      "public_multipliers": [
+        31,
+        961,
+        923521,
+        26534331,
+        30480629,
+        69307681,
+        86554363,
+        25769873
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8620794,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8620794,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 112071551,
+      "base": 31,
+      "phase_bits": 16,
+      "public_multipliers": [
+        31,
+        961,
+        923521,
+        26534331,
+        30480629,
+        69307681,
+        86554363,
+        25769873,
+        102978773,
+        66438054,
+        102087930,
+        61244975,
+        14876609,
+        87930080,
+        4230297,
+        51587631
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17672707,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17672707,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 112071551,
+      "base": 31,
+      "phase_bits": 32,
+      "public_multipliers": [
+        31,
+        961,
+        923521,
+        26534331,
+        30480629,
+        69307681,
+        86554363,
+        25769873,
+        102978773,
+        66438054,
+        102087930,
+        61244975,
+        14876609,
+        87930080,
+        4230297,
+        51587631,
+        9324820,
+        98258887,
+        86998455,
+        45053613,
+        104297726,
+        12684895,
+        55955877,
+        23709783,
+        108302314,
+        61185001,
+        103374403,
+        43489025,
+        8229641,
+        23360112,
+        71099180,
+        69130154
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35432667,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35432667,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 112071551,
+      "base": 31,
+      "phase_bits": 54,
+      "public_multipliers": [
+        31,
+        961,
+        923521,
+        26534331,
+        30480629,
+        69307681,
+        86554363,
+        25769873,
+        102978773,
+        66438054,
+        102087930,
+        61244975,
+        14876609,
+        87930080,
+        4230297,
+        51587631,
+        9324820,
+        98258887,
+        86998455,
+        45053613,
+        104297726,
+        12684895,
+        55955877,
+        23709783,
+        108302314,
+        61185001,
+        103374403,
+        43489025,
+        8229641,
+        23360112,
+        71099180,
+        69130154,
+        27582210,
+        84970474,
+        68359063,
+        103142137,
+        8708936,
+        23397336,
+        99156502,
+        47816530,
+        78165215,
+        12633510,
+        108350511,
+        34770203,
+        91396953,
+        12163971,
+        61495744,
+        27329778,
+        111801093,
+        76878512,
+        101831550,
+        3146320,
+        49442570,
+        73581238
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59884523,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59884523,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 112071551,
+      "base": 29791,
+      "phase_bits": 4,
+      "public_multipliers": [
+        29791,
+        103002824,
+        6915546,
+        35233682
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4498201,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4498201,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 112071551,
+      "base": 29791,
+      "phase_bits": 8,
+      "public_multipliers": [
+        29791,
+        103002824,
+        6915546,
+        35233682,
+        35569062,
+        27554351,
+        88195581,
+        24911361
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 9000352,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 9000352,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 112071551,
+      "base": 29791,
+      "phase_bits": 16,
+      "public_multipliers": [
+        29791,
+        103002824,
+        6915546,
+        35233682,
+        35569062,
+        27554351,
+        88195581,
+        24911361,
+        90232103,
+        97548089,
+        73684385,
+        44114791,
+        34795700,
+        56788067,
+        9186310,
+        94586365
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17979954,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17979954,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 112071551,
+      "base": 29791,
+      "phase_bits": 32,
+      "public_multipliers": [
+        29791,
+        103002824,
+        6915546,
+        35233682,
+        35569062,
+        27554351,
+        88195581,
+        24911361,
+        90232103,
+        97548089,
+        73684385,
+        44114791,
+        34795700,
+        56788067,
+        9186310,
+        94586365,
+        90040392,
+        53870320,
+        39774977,
+        47597762,
+        34849811,
+        14988311,
+        25365303,
+        80709747,
+        68033563,
+        103449175,
+        14812302,
+        22001688,
+        38325412,
+        33749,
+        18279491,
+        30914295
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35764571,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35764571,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 112071551,
+      "base": 29791,
+      "phase_bits": 54,
+      "public_multipliers": [
+        29791,
+        103002824,
+        6915546,
+        35233682,
+        35569062,
+        27554351,
+        88195581,
+        24911361,
+        90232103,
+        97548089,
+        73684385,
+        44114791,
+        34795700,
+        56788067,
+        9186310,
+        94586365,
+        90040392,
+        53870320,
+        39774977,
+        47597762,
+        34849811,
+        14988311,
+        25365303,
+        80709747,
+        68033563,
+        103449175,
+        14812302,
+        22001688,
+        38325412,
+        33749,
+        18279491,
+        30914295,
+        9976444,
+        35300648,
+        69923396,
+        81766090,
+        97483520,
+        109622530,
+        82735125,
+        96222073,
+        36880106,
+        72946713,
+        22095483,
+        19818151,
+        99860363,
+        8549477,
+        43125125,
+        9976330,
+        2115432,
+        35515194,
+        9535160,
+        109761340,
+        3462799,
+        105458258
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 60198414,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 60198414,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 123535619,
+      "base": 29,
+      "phase_bits": 4,
+      "public_multipliers": [
+        29,
+        841,
+        707281,
+        50691630
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4116359,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4116359,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 123535619,
+      "base": 29,
+      "phase_bits": 8,
+      "public_multipliers": [
+        29,
+        841,
+        707281,
+        50691630,
+        42398653,
+        44884868,
+        10857627,
+        122964952
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8409784,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8409784,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 123535619,
+      "base": 29,
+      "phase_bits": 16,
+      "public_multipliers": [
+        29,
+        841,
+        707281,
+        50691630,
+        42398653,
+        44884868,
+        10857627,
+        122964952,
+        20933205,
+        71243032,
+        114128923,
+        83530334,
+        106372137,
+        100727020,
+        101430572,
+        68408371
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17222148,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17222148,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 123535619,
+      "base": 29,
+      "phase_bits": 32,
+      "public_multipliers": [
+        29,
+        841,
+        707281,
+        50691630,
+        42398653,
+        44884868,
+        10857627,
+        122964952,
+        20933205,
+        71243032,
+        114128923,
+        83530334,
+        106372137,
+        100727020,
+        101430572,
+        68408371,
+        60432185,
+        69350545,
+        107717600,
+        64683666,
+        34570441,
+        64074398,
+        72888764,
+        75018648,
+        117554955,
+        85826874,
+        119112665,
+        39139371,
+        13641755,
+        87556712,
+        52769440,
+        4282599
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 34848010,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 34848010,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 123535619,
+      "base": 29,
+      "phase_bits": 54,
+      "public_multipliers": [
+        29,
+        841,
+        707281,
+        50691630,
+        42398653,
+        44884868,
+        10857627,
+        122964952,
+        20933205,
+        71243032,
+        114128923,
+        83530334,
+        106372137,
+        100727020,
+        101430572,
+        68408371,
+        60432185,
+        69350545,
+        107717600,
+        64683666,
+        34570441,
+        64074398,
+        72888764,
+        75018648,
+        117554955,
+        85826874,
+        119112665,
+        39139371,
+        13641755,
+        87556712,
+        52769440,
+        4282599,
+        62055585,
+        76757575,
+        92939507,
+        32639294,
+        19311370,
+        55246557,
+        122354387,
+        97756838,
+        17567265,
+        22474041,
+        99057898,
+        78533750,
+        14656656,
+        118331427,
+        35870161,
+        11315605,
+        100456810,
+        67867222,
+        112067211,
+        85180591,
+        66578516,
+        12120825
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 58842106,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 58842106,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 123535619,
+      "base": 24389,
+      "phase_bits": 4,
+      "public_multipliers": [
+        24389,
+        100680845,
+        101733755,
+        67107241
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4353079,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4353079,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 123535619,
+      "base": 24389,
+      "phase_bits": 8,
+      "public_multipliers": [
+        24389,
+        100680845,
+        101733755,
+        67107241,
+        9474277,
+        79157996,
+        86614974,
+        5059565
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8728329,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8728329,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 123535619,
+      "base": 24389,
+      "phase_bits": 16,
+      "public_multipliers": [
+        24389,
+        100680845,
+        101733755,
+        67107241,
+        9474277,
+        79157996,
+        86614974,
+        5059565,
+        23484426,
+        40911783,
+        16328847,
+        117650663,
+        114013381,
+        95823786,
+        101624479,
+        97552472
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17460014,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17460014,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 123535619,
+      "base": 24389,
+      "phase_bits": 32,
+      "public_multipliers": [
+        24389,
+        100680845,
+        101733755,
+        67107241,
+        9474277,
+        79157996,
+        86614974,
+        5059565,
+        23484426,
+        40911783,
+        16328847,
+        117650663,
+        114013381,
+        95823786,
+        101624479,
+        97552472,
+        40689943,
+        28434410,
+        123423757,
+        36009525,
+        72066218,
+        66570992,
+        69092723,
+        28015450,
+        43121993,
+        87748258,
+        60738956,
+        117224775,
+        103782926,
+        34947980,
+        95750053,
+        97501190
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 34911420,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 34911420,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 123535619,
+      "base": 24389,
+      "phase_bits": 54,
+      "public_multipliers": [
+        24389,
+        100680845,
+        101733755,
+        67107241,
+        9474277,
+        79157996,
+        86614974,
+        5059565,
+        23484426,
+        40911783,
+        16328847,
+        117650663,
+        114013381,
+        95823786,
+        101624479,
+        97552472,
+        40689943,
+        28434410,
+        123423757,
+        36009525,
+        72066218,
+        66570992,
+        69092723,
+        28015450,
+        43121993,
+        87748258,
+        60738956,
+        117224775,
+        103782926,
+        34947980,
+        95750053,
+        97501190,
+        101401308,
+        35693763,
+        12548606,
+        118001268,
+        113758817,
+        48610335,
+        55704025,
+        1100328,
+        72641384,
+        71237864,
+        45147635,
+        16392452,
+        27764646,
+        86634083,
+        113771816,
+        29518604,
+        117555550,
+        10721022,
+        55023266,
+        118136641,
+        116463339,
+        42977680
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59064284,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59064284,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 79185149,
+      "base": 5,
+      "phase_bits": 4,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 3896367,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 3896367,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 79185149,
+      "base": 5,
+      "phase_bits": 8,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        77293651,
+        21281886,
+        49205438,
+        35619070
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8377931,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8377931,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 79185149,
+      "base": 5,
+      "phase_bits": 16,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        77293651,
+        21281886,
+        49205438,
+        35619070,
+        70541272,
+        36919497,
+        51604704,
+        56820683,
+        67508659,
+        62653092,
+        20730216,
+        13341057
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17236387,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17236387,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 79185149,
+      "base": 5,
+      "phase_bits": 32,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        77293651,
+        21281886,
+        49205438,
+        35619070,
+        70541272,
+        36919497,
+        51604704,
+        56820683,
+        67508659,
+        62653092,
+        20730216,
+        13341057,
+        55136290,
+        37414919,
+        2662230,
+        1811655,
+        27783273,
+        43850348,
+        46554104,
+        57477252,
+        70020033,
+        61974852,
+        55809537,
+        56886170,
+        54334557,
+        11249049,
+        67896441,
+        50839392
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 34885740,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 34885740,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 79185149,
+      "base": 5,
+      "phase_bits": 54,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        77293651,
+        21281886,
+        49205438,
+        35619070,
+        70541272,
+        36919497,
+        51604704,
+        56820683,
+        67508659,
+        62653092,
+        20730216,
+        13341057,
+        55136290,
+        37414919,
+        2662230,
+        1811655,
+        27783273,
+        43850348,
+        46554104,
+        57477252,
+        70020033,
+        61974852,
+        55809537,
+        56886170,
+        54334557,
+        11249049,
+        67896441,
+        50839392,
+        51958525,
+        53554091,
+        18331807,
+        27081765,
+        39185090,
+        51749149,
+        69606000,
+        28162405,
+        69075257,
+        22291785,
+        47416940,
+        23879486,
+        14572118,
+        5745521,
+        69090874,
+        46634511,
+        21349134,
+        1718853,
+        57726419,
+        10673845,
+        8184017,
+        9455831
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59273677,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59273677,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 79185149,
+      "base": 125,
+      "phase_bits": 4,
+      "public_multipliers": [
+        125,
+        15625,
+        6585178,
+        10219069
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4180862,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4180862,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 79185149,
+      "base": 125,
+      "phase_bits": 8,
+      "public_multipliers": [
+        125,
+        15625,
+        6585178,
+        10219069,
+        75910710,
+        44034674,
+        1707154,
+        44555920
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8594409,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8594409,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 79185149,
+      "base": 125,
+      "phase_bits": 16,
+      "public_multipliers": [
+        125,
+        15625,
+        6585178,
+        10219069,
+        75910710,
+        44034674,
+        1707154,
+        44555920,
+        41346736,
+        7066804,
+        20854586,
+        16344011,
+        29784965,
+        53967390,
+        70844273,
+        40979552
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17448810,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17448810,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 79185149,
+      "base": 125,
+      "phase_bits": 32,
+      "public_multipliers": [
+        125,
+        15625,
+        6585178,
+        10219069,
+        75910710,
+        44034674,
+        1707154,
+        44555920,
+        41346736,
+        7066804,
+        20854586,
+        16344011,
+        29784965,
+        53967390,
+        70844273,
+        40979552,
+        41964562,
+        41697121,
+        33235358,
+        61410710,
+        70653842,
+        11054601,
+        59186822,
+        14963486,
+        6331071,
+        46175327,
+        42407550,
+        9408883,
+        62354414,
+        14383883,
+        24258403,
+        59171330
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35244238,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35244238,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 79185149,
+      "base": 125,
+      "phase_bits": 54,
+      "public_multipliers": [
+        125,
+        15625,
+        6585178,
+        10219069,
+        75910710,
+        44034674,
+        1707154,
+        44555920,
+        41346736,
+        7066804,
+        20854586,
+        16344011,
+        29784965,
+        53967390,
+        70844273,
+        40979552,
+        41964562,
+        41697121,
+        33235358,
+        61410710,
+        70653842,
+        11054601,
+        59186822,
+        14963486,
+        6331071,
+        46175327,
+        42407550,
+        9408883,
+        62354414,
+        14383883,
+        24258403,
+        59171330,
+        21782946,
+        2454560,
+        62731935,
+        40857370,
+        68665584,
+        2061725,
+        51177305,
+        40585630,
+        46769296,
+        44191566,
+        32982289,
+        64044341,
+        51502202,
+        76208603,
+        37323953,
+        64139869,
+        41273722,
+        39967510,
+        3193398,
+        10557588,
+        64942364,
+        13922280
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59581975,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59581975,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 91385783,
+      "base": 5,
+      "phase_bits": 4,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 3922999,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 3922999,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 91385783,
+      "base": 5,
+      "phase_bits": 8,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        65018798,
+        5503027,
+        68163755,
+        13782066
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8448428,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8448428,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 91385783,
+      "base": 5,
+      "phase_bits": 16,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        65018798,
+        5503027,
+        68163755,
+        13782066,
+        84648639,
+        75505211,
+        65148583,
+        20429166,
+        85829243,
+        84441918,
+        20154416,
+        215922
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17404697,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17404697,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 91385783,
+      "base": 5,
+      "phase_bits": 32,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        65018798,
+        5503027,
+        68163755,
+        13782066,
+        84648639,
+        75505211,
+        65148583,
+        20429166,
+        85829243,
+        84441918,
+        20154416,
+        215922,
+        15560754,
+        15010754,
+        29982273,
+        60737420,
+        41689951,
+        63687549,
+        19555937,
+        65975598,
+        24982893,
+        58245926,
+        90504727,
+        28834334,
+        10682073,
+        18893171,
+        47280854,
+        39837533
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35237865,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35237865,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 91385783,
+      "base": 5,
+      "phase_bits": 54,
+      "public_multipliers": [
+        5,
+        25,
+        625,
+        390625,
+        65018798,
+        5503027,
+        68163755,
+        13782066,
+        84648639,
+        75505211,
+        65148583,
+        20429166,
+        85829243,
+        84441918,
+        20154416,
+        215922,
+        15560754,
+        15010754,
+        29982273,
+        60737420,
+        41689951,
+        63687549,
+        19555937,
+        65975598,
+        24982893,
+        58245926,
+        90504727,
+        28834334,
+        10682073,
+        18893171,
+        47280854,
+        39837533,
+        41801858,
+        7717609,
+        73520367,
+        17005086,
+        2862666,
+        19308597,
+        91264025,
+        20513718,
+        12325605,
+        81870561,
+        81831430,
+        37066777,
+        5649419,
+        90025292,
+        8112199,
+        47805254,
+        4551311,
+        16386111,
+        43697569,
+        21703274,
+        76357601,
+        90793857
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59843385,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59843385,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 91385783,
+      "base": 125,
+      "phase_bits": 4,
+      "public_multipliers": [
+        125,
+        15625,
+        61369059,
+        31157390
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4255387,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4255387,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 91385783,
+      "base": 125,
+      "phase_bits": 8,
+      "public_multipliers": [
+        125,
+        15625,
+        61369059,
+        31157390,
+        3523570,
+        55838086,
+        19855649,
+        30471382
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8675930,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8675930,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 91385783,
+      "base": 125,
+      "phase_bits": 16,
+      "public_multipliers": [
+        125,
+        15625,
+        61369059,
+        31157390,
+        3523570,
+        55838086,
+        19855649,
+        30471382,
+        69076467,
+        54855907,
+        4996870,
+        12008291,
+        54958236,
+        15015105,
+        82210875,
+        19427410
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17486627,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17486627,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 91385783,
+      "base": 125,
+      "phase_bits": 32,
+      "public_multipliers": [
+        125,
+        15625,
+        61369059,
+        31157390,
+        3523570,
+        55838086,
+        19855649,
+        30471382,
+        69076467,
+        54855907,
+        4996870,
+        12008291,
+        54958236,
+        15015105,
+        82210875,
+        19427410,
+        61660270,
+        3017008,
+        39127915,
+        33242453,
+        33117629,
+        998964,
+        87708719,
+        90293680,
+        13108676,
+        38023143,
+        36382598,
+        70854079,
+        40930623,
+        14345428,
+        25308616,
+        75057617
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35261147,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35261147,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 91385783,
+      "base": 125,
+      "phase_bits": 54,
+      "public_multipliers": [
+        125,
+        15625,
+        61369059,
+        31157390,
+        3523570,
+        55838086,
+        19855649,
+        30471382,
+        69076467,
+        54855907,
+        4996870,
+        12008291,
+        54958236,
+        15015105,
+        82210875,
+        19427410,
+        61660270,
+        3017008,
+        39127915,
+        33242453,
+        33117629,
+        998964,
+        87708719,
+        90293680,
+        13108676,
+        38023143,
+        36382598,
+        70854079,
+        40930623,
+        14345428,
+        25308616,
+        75057617,
+        30213573,
+        4790906,
+        52885207,
+        45701921,
+        12992533,
+        14499932,
+        46944712,
+        85389565,
+        81997353,
+        24917787,
+        80545279,
+        75954562,
+        17574486,
+        87283201,
+        19711133,
+        5846180,
+        86065098,
+        18239919,
+        41440128,
+        42691414,
+        79541312,
+        60182693
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59665136,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59665136,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 107941919,
+      "base": 13,
+      "phase_bits": 4,
+      "public_multipliers": [
+        13,
+        169,
+        28561,
+        60137288
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4028892,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4028892,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 107941919,
+      "base": 13,
+      "phase_bits": 8,
+      "public_multipliers": [
+        13,
+        169,
+        28561,
+        60137288,
+        13768452,
+        81722448,
+        57850722,
+        83437336
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8374058,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8374058,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 107941919,
+      "base": 13,
+      "phase_bits": 16,
+      "public_multipliers": [
+        13,
+        169,
+        28561,
+        60137288,
+        13768452,
+        81722448,
+        57850722,
+        83437336,
+        61180110,
+        2757010,
+        50087958,
+        76562805,
+        19700940,
+        62851462,
+        14139315,
+        29012054
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17265958,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17265958,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 107941919,
+      "base": 13,
+      "phase_bits": 32,
+      "public_multipliers": [
+        13,
+        169,
+        28561,
+        60137288,
+        13768452,
+        81722448,
+        57850722,
+        83437336,
+        61180110,
+        2757010,
+        50087958,
+        76562805,
+        19700940,
+        62851462,
+        14139315,
+        29012054,
+        35803021,
+        41343947,
+        31338060,
+        75375370,
+        26892471,
+        75991386,
+        39031445,
+        97229027,
+        47884484,
+        84106375,
+        80781018,
+        69885366,
+        26948181,
+        48669134,
+        9607302,
+        88259575
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35119725,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35119725,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 107941919,
+      "base": 13,
+      "phase_bits": 54,
+      "public_multipliers": [
+        13,
+        169,
+        28561,
+        60137288,
+        13768452,
+        81722448,
+        57850722,
+        83437336,
+        61180110,
+        2757010,
+        50087958,
+        76562805,
+        19700940,
+        62851462,
+        14139315,
+        29012054,
+        35803021,
+        41343947,
+        31338060,
+        75375370,
+        26892471,
+        75991386,
+        39031445,
+        97229027,
+        47884484,
+        84106375,
+        80781018,
+        69885366,
+        26948181,
+        48669134,
+        9607302,
+        88259575,
+        77222613,
+        10779276,
+        7679654,
+        103682253,
+        41673413,
+        26012410,
+        4971267,
+        85288320,
+        88640995,
+        78484303,
+        8814992,
+        42671453,
+        99065629,
+        98357215,
+        97938529,
+        39599312,
+        7449292,
+        90162554,
+        68850105,
+        13984731,
+        78156753,
+        47396624
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59243298,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59243298,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 107941919,
+      "base": 2197,
+      "phase_bits": 4,
+      "public_multipliers": [
+        2197,
+        4826809,
+        9267440,
+        53056303
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4359860,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4359860,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 107941919,
+      "base": 2197,
+      "phase_bits": 8,
+      "public_multipliers": [
+        2197,
+        4826809,
+        9267440,
+        53056303,
+        73626222,
+        61616274,
+        95767052,
+        32110023
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8708908,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8708908,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 107941919,
+      "base": 2197,
+      "phase_bits": 16,
+      "public_multipliers": [
+        2197,
+        4826809,
+        9267440,
+        53056303,
+        73626222,
+        61616274,
+        95767052,
+        32110023,
+        30648778,
+        97618986,
+        92679633,
+        8046824,
+        41652608,
+        83306564,
+        82888419,
+        28883679
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17459429,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17459429,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 107941919,
+      "base": 2197,
+      "phase_bits": 32,
+      "public_multipliers": [
+        2197,
+        4826809,
+        9267440,
+        53056303,
+        73626222,
+        61616274,
+        95767052,
+        32110023,
+        30648778,
+        97618986,
+        92679633,
+        8046824,
+        41652608,
+        83306564,
+        82888419,
+        28883679,
+        11911891,
+        40528973,
+        27463830,
+        96781684,
+        11120614,
+        78557886,
+        30011553,
+        35275249,
+        83681496,
+        22748526,
+        71219038,
+        106577798,
+        15361000,
+        41659433,
+        49957097,
+        32150203
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35182520,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35182520,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 107941919,
+      "base": 2197,
+      "phase_bits": 54,
+      "public_multipliers": [
+        2197,
+        4826809,
+        9267440,
+        53056303,
+        73626222,
+        61616274,
+        95767052,
+        32110023,
+        30648778,
+        97618986,
+        92679633,
+        8046824,
+        41652608,
+        83306564,
+        82888419,
+        28883679,
+        11911891,
+        40528973,
+        27463830,
+        96781684,
+        11120614,
+        78557886,
+        30011553,
+        35275249,
+        83681496,
+        22748526,
+        71219038,
+        106577798,
+        15361000,
+        41659433,
+        49957097,
+        32150203,
+        35826978,
+        20601728,
+        8994657,
+        90954121,
+        77778167,
+        577632,
+        10255795,
+        26660450,
+        83887973,
+        100992574,
+        73426506,
+        8370627,
+        29969930,
+        14652891,
+        51516900,
+        31528253,
+        81676149,
+        83543253,
+        76680911,
+        76638349,
+        23065455,
+        43169102
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59517087,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59517087,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 111684569,
+      "base": 7,
+      "phase_bits": 4,
+      "public_multipliers": [
+        7,
+        49,
+        2401,
+        5764801
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4012352,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4012352,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 111684569,
+      "base": 7,
+      "phase_bits": 8,
+      "public_multipliers": [
+        7,
+        49,
+        2401,
+        5764801,
+        70217961,
+        37279600,
+        86686683,
+        42852697
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8418212,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8418212,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 111684569,
+      "base": 7,
+      "phase_bits": 16,
+      "public_multipliers": [
+        7,
+        49,
+        2401,
+        5764801,
+        70217961,
+        37279600,
+        86686683,
+        42852697,
+        105929160,
+        94753002,
+        90084132,
+        62277257,
+        2244760,
+        74758027,
+        92485036,
+        111305742
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17288541,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17288541,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 111684569,
+      "base": 7,
+      "phase_bits": 32,
+      "public_multipliers": [
+        7,
+        49,
+        2401,
+        5764801,
+        70217961,
+        37279600,
+        86686683,
+        42852697,
+        105929160,
+        94753002,
+        90084132,
+        62277257,
+        2244760,
+        74758027,
+        92485036,
+        111305742,
+        106909333,
+        17033828,
+        35246327,
+        31888142,
+        109998985,
+        49670265,
+        88939011,
+        70792749,
+        22582676,
+        49185244,
+        58372005,
+        43767847,
+        93493354,
+        42074915,
+        106240212,
+        50215418
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35032290,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35032290,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_plain",
+      "N": 111684569,
+      "base": 7,
+      "phase_bits": 54,
+      "public_multipliers": [
+        7,
+        49,
+        2401,
+        5764801,
+        70217961,
+        37279600,
+        86686683,
+        42852697,
+        105929160,
+        94753002,
+        90084132,
+        62277257,
+        2244760,
+        74758027,
+        92485036,
+        111305742,
+        106909333,
+        17033828,
+        35246327,
+        31888142,
+        109998985,
+        49670265,
+        88939011,
+        70792749,
+        22582676,
+        49185244,
+        58372005,
+        43767847,
+        93493354,
+        42074915,
+        106240212,
+        50215418,
+        28537301,
+        28774885,
+        16205598,
+        56655140,
+        91917103,
+        11863183,
+        45279761,
+        21302636,
+        87243815,
+        66248135,
+        44840069,
+        67984062,
+        107019485,
+        41927147,
+        24225825,
+        25399939,
+        43287459,
+        56016676,
+        6271362,
+        36992556,
+        65631660,
+        6851856
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59377574,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59377574,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 111684569,
+      "base": 343,
+      "phase_bits": 4,
+      "public_multipliers": [
+        343,
+        117649,
+        104085214,
+        4423798
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 4225589,
+        "cx": 0,
+        "cswap": 108
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 4225589,
+        "cx": 0,
+        "cswap": 108
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 111684569,
+      "base": 343,
+      "phase_bits": 8,
+      "public_multipliers": [
+        343,
+        117649,
+        104085214,
+        4423798,
+        60141779,
+        41911784,
+        64863149,
+        22687731
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 8640449,
+        "cx": 0,
+        "cswap": 216
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 8640449,
+        "cx": 0,
+        "cswap": 216
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 111684569,
+      "base": 343,
+      "phase_bits": 16,
+      "public_multipliers": [
+        343,
+        117649,
+        104085214,
+        4423798,
+        60141779,
+        41911784,
+        64863149,
+        22687731,
+        67790902,
+        32204101,
+        96638511,
+        21768347,
+        57530759,
+        57907714,
+        67300804,
+        33364079
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 17553128,
+        "cx": 0,
+        "cswap": 432
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 17553128,
+        "cx": 0,
+        "cswap": 432
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 111684569,
+      "base": 343,
+      "phase_bits": 32,
+      "public_multipliers": [
+        343,
+        117649,
+        104085214,
+        4423798,
+        60141779,
+        41911784,
+        64863149,
+        22687731,
+        67790902,
+        32204101,
+        96638511,
+        21768347,
+        57530759,
+        57907714,
+        67300804,
+        33364079,
+        104711275,
+        37975250,
+        98216123,
+        67208564,
+        39714538,
+        87865347,
+        71541233,
+        48927123,
+        7164055,
+        45520196,
+        79523225,
+        42771375,
+        71284850,
+        611933,
+        95321201,
+        78770408
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 35297688,
+        "cx": 0,
+        "cswap": 864
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 35297688,
+        "cx": 0,
+        "cswap": 864
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    },
+    {
+      "tag": "new_N27_cube",
+      "N": 111684569,
+      "base": 343,
+      "phase_bits": 54,
+      "public_multipliers": [
+        343,
+        117649,
+        104085214,
+        4423798,
+        60141779,
+        41911784,
+        64863149,
+        22687731,
+        67790902,
+        32204101,
+        96638511,
+        21768347,
+        57530759,
+        57907714,
+        67300804,
+        33364079,
+        104711275,
+        37975250,
+        98216123,
+        67208564,
+        39714538,
+        87865347,
+        71541233,
+        48927123,
+        7164055,
+        45520196,
+        79523225,
+        42771375,
+        71284850,
+        611933,
+        95321201,
+        78770408,
+        111449955,
+        94921048,
+        61289815,
+        77167436,
+        28086143,
+        78916948,
+        79272095,
+        89636053,
+        39765264,
+        79045268,
+        46716836,
+        92490075,
+        81477197,
+        57502584,
+        79661069,
+        87006650,
+        37360635,
+        56926575,
+        66193954,
+        45258779,
+        96175046,
+        84136450
+      ],
+      "public_identity_rounds": [],
+      "identity_round_count": 0,
+      "unpruned_source_counts": {
+        "ccx": 59573756,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "source_counts_after_safe_public_identity_elision": {
+        "ccx": 59573756,
+        "cx": 0,
+        "cswap": 1458
+      },
+      "exact_saved_counts": {
+        "ccx": 0,
+        "cx": 0,
+        "cswap": 0
+      },
+      "source_CCX_relative_saving": 0.0,
+      "no_secret_order_or_factors_in_source_construction": true,
+      "arithmetic_logical_peak_width_unchanged": 85,
+      "no_native_device_gate_or_depth_benchmark": true
+    }
+  ],
+  "physical_native_CZ_or_depth_measured": false,
+  "no_private_order_or_factors_used_for_gate_selection": true,
+  "zero_QPU": true,
+  "IBM_runtime_jobs": 0,
+  "paid_runtime_used": false,
+  "conclusion_caveat": "structural CCX/CX/CSWAP only; no compiled native CZ/depth/fidelity or device runtime savings asserted. N35 scratch 32->23 separate failed robust native benefit.",
+  "analyzed_utc": "2026-10-29T03:21:55.507535+00:00"
+}
