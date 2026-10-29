@@ -1,0 +1,69 @@
+name: Dark Star N27 restored-pruner fresh PUBLIC-only freeze ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n27-restored-public-freeze-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n27-restored-population-independent-freeze
+  cancel-in-progress: false
+
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Select N27 only from predeclared public SHA, no factor/order/oracle
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N27_RESTORED_PLUS_IDENTITY_PRUNING_PREREG.md
+          python3 -m integrations.darkstar_hybrid.darkstar_unified_n27_public_manifest
+          python3 - <<'PY'
+          import hashlib,json,math
+          from pathlib import Path
+          x=json.loads(Path('results/dark_star_unified/unified_n27_restored_public_manifest.json').read_text())
+          rows=x['selected_public_rows']
+          assert len(rows)==len(set(z['N'] for z in rows))==12
+          assert x['selected_sha256']==hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert x['no_private_pq_or_order_in_ranking_or_base_selection']
+          assert x['no_classical_filter_or_quantum_outcome_used_to_select']
+          assert x['zero_QPU'] and x['IBM_runtime_jobs']==0
+          assert sum(z['group']=='G1_mod3_1' for z in rows)==6
+          assert sum(z['group']=='G2_mod3_2' for z in rows)==6
+          for z in rows:
+              assert (1<<26)<=z['N']<(1<<27) and math.gcd(z['N'],210)==1
+              assert z['public_cube']==pow(z['base'],3,z['N'])
+          print('PASS: PRE-FROZEN PUBLIC',x['selected_sha256'])
+          PY
+      - name: Commit public N/base manifest to main before any scoring
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/unified_n27_restored_public_manifest.json
+          git commit -m 'results: freeze public N27 new original cases before restored-PPT factoring or controlled-U scoring'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'PUBLIC N27 SELECTION PERMANENTLY FROZEN'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
