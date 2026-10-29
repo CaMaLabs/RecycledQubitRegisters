@@ -1,0 +1,119 @@
+name: Dark Star N28 FRESH classical cost-router 16-case full benchmark ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-router-n28-score-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-router-n28-original-public-benchmark
+  cancel-in-progress: false
+
+jobs:
+  prereg-original-sixteen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Assert frozen public SHA and originally precommitted router source
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_PUBLIC_COST_ROUTER_N28_PREREG.md
+          test -s results/dark_star_unified/darkstar_public_router_n28_frozen_manifest.json
+          test "$(git hash-object integrations/darkstar_hybrid/darkstar_public_cost_router.py)" = "4420a5d5d83869ccc41ab2396cde15d84f98a4c1"
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_public_cost_router.py integrations/darkstar_hybrid/darkstar_public_cost_router_n28_holdout.py
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          j=json.loads(Path('results/dark_star_unified/darkstar_public_router_n28_frozen_manifest.json').read_text())
+          rows=j['selected_public_rows']
+          assert len(rows)==16 and j['row_canonical_sha256']=='9f8cd1d83b3bcfdfce9c41ceda05621b52c9e9076d7cdc2dec36bc24598b7a51'
+          assert j['row_canonical_sha256']==hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert j['no_hidden_prime_factor_or_order_used_to_rank']
+          assert j['no_classical_or_quantum_outcomes_inspected_before_freeze']
+          assert j['zero_QPU'] and j['IBM_runtime_jobs']==0
+          print('PASS prospective public N28 source and input SHA; no QPU')
+          PY
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_public_cost_router.py integrations/darkstar_hybrid/darkstar_public_cost_router_n28_holdout.py; then
+            echo 'No IBM QPU submissions permitted'; exit 1
+          fi
+      - name: Verify mathematical safety and absolute bounds with independent toy cases
+        run: |
+          set -euo pipefail
+          timeout 240s python3 -m unittest integrations.darkstar_hybrid.test_darkstar_public_cost_router -v
+      - name: ORIGINAL 16 cases x 8 interleaved public-only end-to-end repeats and all baselines
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=20s 1500s python3 -u -m integrations.darkstar_hybrid.darkstar_public_cost_router_n28_holdout
+      - name: Independent original-cohort completeness, real factors and timing-source audit
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          base=Path('results/dark_star_unified')
+          m=json.loads((base/'darkstar_public_router_n28_frozen_manifest.json').read_text())
+          r=json.loads((base/'darkstar_public_router_n28_original_16_holdout.json').read_text())
+          assert r['complete'] and r['zero_QPU'] and not r['paid_runtime_used']
+          assert r['source_manifest_sha256']==m['row_canonical_sha256']=='9f8cd1d83b3bcfdfce9c41ceda05621b52c9e9076d7cdc2dec36bc24598b7a51'
+          assert r['policy_source_git_blob']=='4420a5d5d83869ccc41ab2396cde15d84f98a4c1'
+          assert r['original_case_count']==len(r['original_cases'])==16
+          assert r['original_repeats_per_method']==8
+          for i,(fr,z) in enumerate(zip(m['selected_public_rows'],r['original_cases'])):
+              assert z['index']==i and z['frozen_public_N']==fr['N']
+              truth=z['validation_only_synthetic_pq']
+              assert math.prod(truth)==fr['N']
+              assert z['public_routing_receipt']['factors']==truth
+              assert z['router_audit']['operation_totals'].get('rho_modular_squarings',0)<=384
+              for name in ('wheel210','PTP_LFK'):
+                  assert z['original_classical_method_full_receipts'][name]['factors']==truth
+              assert len(z['original_all_eight_interleaved_method_orders'])==8
+              for name,x in z['per_method_timing'].items():
+                  assert len(x['all_original_elapsed_seconds'])==8
+                  assert all(t>=0 for t in x['all_original_elapsed_seconds'])
+              assert z['true_factor_secrecy_guardrail'].startswith('all timed public')
+          s=r['summary']
+          assert s['router_successful_factors']==s['independent_complete_wheel210_success']==s['independent_PTP_LFK_success']==16
+          assert s['original_primary_win_threshold_each']==9
+          assert s['primary_end_to_end_two_baseline_speed_gate_pass']==(
+              s['router_faster_than_wheel210_in_cases']>=9 and s['router_faster_than_PTP_LFK_in_cases']>=9)
+          print('PASS: sixteen SHA-frozen cases, all 8 raw timing samples, fixed heuristic and honest primary gate')
+          PY
+      - name: Upload original full evidence even if later archival push conflicts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: darkstar-28bit-cost-router-16-original-cases-full-raw
+          path: results/dark_star_unified/darkstar_public_router_n28_original_16_holdout.json
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Archive exact original evidence to main; never rerun for archival conflicts
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/darkstar_public_router_n28_original_16_holdout.json
+          git commit -m 'results: preserve all 16 original N28 public classical-router end-to-end outcome and eight repeated timing receipts'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Original frozen 16-case science archived, including all losses'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
