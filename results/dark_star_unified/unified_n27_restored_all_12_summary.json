@@ -1,0 +1,61 @@
+{
+  "experiment": "DarkStar_fresh_N27_restored_public_classical_and_ideal_QPE",
+  "protocol": "docs/DARK_STAR_N27_RESTORED_PLUS_IDENTITY_PRUNING_PREREG.md",
+  "source_public_SHA": "12f169a7edabe5d548dba4c8bd07d348a2bd174378ad2faf934dcfe8b5828b10",
+  "complete": true,
+  "original_rows_archived": 12,
+  "original_source_receipt_filenames": [
+    "unified_n27_restored_original_00.json",
+    "unified_n27_restored_original_01.json",
+    "unified_n27_restored_original_02.json",
+    "unified_n27_restored_original_03.json",
+    "unified_n27_restored_original_04.json",
+    "unified_n27_restored_original_05.json",
+    "unified_n27_restored_original_06.json",
+    "unified_n27_restored_original_07.json",
+    "unified_n27_restored_original_08.json",
+    "unified_n27_restored_original_09.json",
+    "unified_n27_restored_original_10.json",
+    "unified_n27_restored_original_11.json"
+  ],
+  "summary": {
+    "frozen_public_rows": 12,
+    "sha": "12f169a7edabe5d548dba4c8bd07d348a2bd174378ad2faf934dcfe8b5828b10",
+    "restored_classically_solved": 12,
+    "public_budget_remaining": 0,
+    "public_classical_methods": {
+      "ptp_midpoint_15015": 4,
+      "ptp_midpoint_105": 4,
+      "Pollard_p_minus_one_B31": 1,
+      "Floyd_rho_64": 3
+    },
+    "all_conventional_wheel210_factorable": 12,
+    "all_original_PTP_LFK_factorable": 12,
+    "original_plain_model": {
+      "model_sessions": 36,
+      "ideal_factor_successes": 24,
+      "public_classical_shortcuts": 0,
+      "original_total_source_CCX": 99925111990,
+      "public_identity_pruned_total_source_CCX": 99925111990,
+      "exact_identity_CCX_saved": 0,
+      "model_cost_per_factor_success": 4163546332.9166665,
+      "model_pruned_cost_per_factor_success": 4163546332.9166665
+    },
+    "original_cube_model": {
+      "model_sessions": 36,
+      "ideal_factor_successes": 24,
+      "public_classical_shortcuts": 0,
+      "original_total_source_CCX": 94622162391,
+      "public_identity_pruned_total_source_CCX": 94622162391,
+      "exact_identity_CCX_saved": 0,
+      "model_cost_per_factor_success": 3942590099.625,
+      "model_pruned_cost_per_factor_success": 3942590099.625
+    },
+    "practical_factor_speedup_or_quantum_advantage_demonstrated": false
+  },
+  "zero_QPU": true,
+  "IBM_runtime_jobs": 0,
+  "paid_runtime_used": false,
+  "limitations": "tiny synthetically generated semiprimes; wheel and PTP LFK solve all; ideal head-limited QPE sampled on secret factor-generated orders only for evaluation; CCX source-level not native device, 3 seeds descriptive only; latency and comparable classical overhead not exchanged with QPU CCX.",
+  "analyzed_utc": "2026-10-29T03:22:06.094515+00:00"
+}

@@ -1,0 +1,1401 @@
+{
+  "index": 1,
+  "frozen_public_row": {
+    "N": 76376821,
+    "base": 11,
+    "group": "G1_mod3_1",
+    "rank": 2,
+    "public_N_mod3": 1,
+    "public_N_mod210": 31,
+    "public_cube": 1331
+  },
+  "source_public_SHA": "12f169a7edabe5d548dba4c8bd07d348a2bd174378ad2faf934dcfe8b5828b10",
+  "actual_classical_first_receipt": {
+    "factors": [
+      7283,
+      10487
+    ],
+    "method": "ptp_midpoint_15015",
+    "stages": [
+      {
+        "name": "base_gcd",
+        "factors": null,
+        "detail": null
+      },
+      {
+        "name": "wheel_small_factor",
+        "factors": null,
+        "detail": {
+          "factors": null
+        }
+      },
+      {
+        "name": "public_power2_gcd",
+        "factors": null,
+        "detail": null
+      },
+      {
+        "name": "ordinary_fermat",
+        "factors": null,
+        "square_tests_budget_exhausted": 12,
+        "midpoint_modulus": null
+      },
+      {
+        "name": "ptp_midpoint_105",
+        "factors": null,
+        "square_tests_budget_exhausted": 12,
+        "midpoint_modulus": 105
+      },
+      {
+        "name": "ptp_midpoint_15015",
+        "factors": [
+          7283,
+          10487
+        ],
+        "square_tests": 8,
+        "midpoint_modulus": 15015,
+        "setup_seconds": 0.0022582140000011464,
+        "search_seconds": 3.816999999628479e-06
+      }
+    ],
+    "classically_solved": true
+  },
+  "actual_classical_first_timing": {
+    "repeats": 5,
+    "median_wall_seconds": 0.001926717999999994,
+    "min_wall_seconds": 0.001881173000001013,
+    "max_wall_seconds": 0.0023613359999998806
+  },
+  "actual_classically_solved": true,
+  "actual_classical_method": "ptp_midpoint_15015",
+  "independent_classical_baselines": {
+    "trial": {
+      "observations": {
+        "method": "trial_division",
+        "n": 76376821,
+        "factors": [
+          7283,
+          10487
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 7282,
+        "elapsed_seconds": 0.00037401000000159
+      },
+      "timing": {
+        "repeats": 5,
+        "median_wall_seconds": 0.0003577950000064334,
+        "min_wall_seconds": 0.00035474699999582526,
+        "max_wall_seconds": 0.00040949899999986883
+      }
+    },
+    "wheel210": {
+      "observations": {
+        "method": "wheel210",
+        "n": 76376821,
+        "factors": [
+          7283,
+          10487
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 1668,
+        "elapsed_seconds": 0.00013277200000061384
+      },
+      "timing": {
+        "repeats": 5,
+        "median_wall_seconds": 0.0001412770000044361,
+        "min_wall_seconds": 0.00013643299999444025,
+        "max_wall_seconds": 0.00014733500000119193
+      }
+    },
+    "PTP_LFK": {
+      "observations": {
+        "method": "lfk210",
+        "n": 76376821,
+        "factors": [
+          7283,
+          10487
+        ],
+        "candidate_pairs": 24,
+        "pair_checks": 20,
+        "integer_search_steps": 1712,
+        "divisibility_tests": 1716,
+        "elapsed_seconds": 0.0002879769999992732
+      },
+      "timing": {
+        "repeats": 5,
+        "median_wall_seconds": 0.00029055299999924955,
+        "min_wall_seconds": 0.0002867310000027601,
+        "max_wall_seconds": 0.0003011999999955606
+      }
+    }
+  },
+  "synthetic_validation_only_pq": [
+    7283,
+    10487
+  ],
+  "quantum_needed_under_fixed_prereg_public_gate": false,
+  "public_conditional_odd_power_model_choice": "L1",
+  "ideal_model_even_if_classically_solved": true,
+  "all_three_seed_ideal_QPE_model_arms": {
+    "L1": {
+      "base": 11,
+      "seeds": [
+        20261028,
+        20262037,
+        20263046
+      ],
+      "receipts": [
+        {
+          "seed": 20261028,
+          "source_original_arm": {
+            "label": "L1",
+            "exponent": 1,
+            "base": 11,
+            "classically_shortcut": false,
+            "shortcut_factors": null,
+            "validation_only_order": 38179526,
+            "validation_only_original_order": 38179526,
+            "model_attempted": true,
+            "success": false,
+            "factors": null,
+            "verified_denominator": null,
+            "shots": 104,
+            "stop_phase_bits": 54,
+            "counterfactual_source_counts": {
+              "shots": 104,
+              "phase_rounds": 3016,
+              "source_CCX": 3311485372,
+              "source_CX": 0,
+              "source_CSWAP": 81432,
+              "sampled_bin_evaluations": 6560,
+              "public_CF_convergents_considered": 1376,
+              "public_CF_even_denominators_checked": 461,
+              "public_CF_modular_pow_calls": 466,
+              "public_CF_gcd_calls": 10
+            },
+            "logical_architectures": {
+              "wide_peak_logical": 138,
+              "recycled_peak_logical": 85,
+              "arithmetic_workspace_logical": 84,
+              "logical_phase_bits_wide": 54,
+              "logical_phase_bits_recycled": 1,
+              "physical_hardware_metrics_measured": false
+            },
+            "stage_receipts": [
+              {
+                "m": 4,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 4051399
+              },
+              {
+                "m": 6,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 6279521
+              },
+              {
+                "m": 8,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 8524299
+              },
+              {
+                "m": 10,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 10724733
+              },
+              {
+                "m": 12,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 12970672
+              },
+              {
+                "m": 14,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 15175993
+              },
+              {
+                "m": 16,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 17420611
+              },
+              {
+                "m": 18,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 19623332
+              },
+              {
+                "m": 20,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 21872573
+              },
+              {
+                "m": 22,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 24110686
+              },
+              {
+                "m": 24,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 26331837
+              },
+              {
+                "m": 26,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 28575488
+              },
+              {
+                "m": 28,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 30710298
+              },
+              {
+                "m": 30,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 32980281
+              },
+              {
+                "m": 32,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 35117706
+              },
+              {
+                "m": 34,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 37363387
+              },
+              {
+                "m": 36,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 39604884
+              },
+              {
+                "m": 38,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 41819319
+              },
+              {
+                "m": 40,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 44014155
+              },
+              {
+                "m": 42,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 46260142
+              },
+              {
+                "m": 44,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 48509335
+              },
+              {
+                "m": 46,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 50760649
+              },
+              {
+                "m": 48,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 52954338
+              },
+              {
+                "m": 50,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 55148454
+              },
+              {
+                "m": 52,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 57361074
+              },
+              {
+                "m": 54,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 59606177
+              }
+            ],
+            "head_only_success_lower_bound_method": true,
+            "tail_outcomes_not_falsely_credited": true
+          },
+          "exact_public_identity_source_gate_savings": {
+            "ccx": 0,
+            "cx": 0,
+            "cswap": 0
+          }
+        },
+        {
+          "seed": 20262037,
+          "source_original_arm": {
+            "label": "L1",
+            "exponent": 1,
+            "base": 11,
+            "classically_shortcut": false,
+            "shortcut_factors": null,
+            "validation_only_order": 38179526,
+            "validation_only_original_order": 38179526,
+            "model_attempted": true,
+            "success": false,
+            "factors": null,
+            "verified_denominator": null,
+            "shots": 104,
+            "stop_phase_bits": 54,
+            "counterfactual_source_counts": {
+              "shots": 104,
+              "phase_rounds": 3016,
+              "source_CCX": 3311485372,
+              "source_CX": 0,
+              "source_CSWAP": 81432,
+              "sampled_bin_evaluations": 6560,
+              "public_CF_convergents_considered": 1328,
+              "public_CF_even_denominators_checked": 430,
+              "public_CF_modular_pow_calls": 433,
+              "public_CF_gcd_calls": 6
+            },
+            "logical_architectures": {
+              "wide_peak_logical": 138,
+              "recycled_peak_logical": 85,
+              "arithmetic_workspace_logical": 84,
+              "logical_phase_bits_wide": 54,
+              "logical_phase_bits_recycled": 1,
+              "physical_hardware_metrics_measured": false
+            },
+            "stage_receipts": [
+              {
+                "m": 4,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 4051399
+              },
+              {
+                "m": 6,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 6279521
+              },
+              {
+                "m": 8,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 8524299
+              },
+              {
+                "m": 10,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 10724733
+              },
+              {
+                "m": 12,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 12970672
+              },
+              {
+                "m": 14,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 15175993
+              },
+              {
+                "m": 16,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 17420611
+              },
+              {
+                "m": 18,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 19623332
+              },
+              {
+                "m": 20,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 21872573
+              },
+              {
+                "m": 22,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 24110686
+              },
+              {
+                "m": 24,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 26331837
+              },
+              {
+                "m": 26,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 28575488
+              },
+              {
+                "m": 28,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 30710298
+              },
+              {
+                "m": 30,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 32980281
+              },
+              {
+                "m": 32,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 35117706
+              },
+              {
+                "m": 34,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 37363387
+              },
+              {
+                "m": 36,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 39604884
+              },
+              {
+                "m": 38,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 41819319
+              },
+              {
+                "m": 40,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 44014155
+              },
+              {
+                "m": 42,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 46260142
+              },
+              {
+                "m": 44,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 48509335
+              },
+              {
+                "m": 46,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 50760649
+              },
+              {
+                "m": 48,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 52954338
+              },
+              {
+                "m": 50,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 55148454
+              },
+              {
+                "m": 52,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 57361074
+              },
+              {
+                "m": 54,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 59606177
+              }
+            ],
+            "head_only_success_lower_bound_method": true,
+            "tail_outcomes_not_falsely_credited": true
+          },
+          "exact_public_identity_source_gate_savings": {
+            "ccx": 0,
+            "cx": 0,
+            "cswap": 0
+          }
+        },
+        {
+          "seed": 20263046,
+          "source_original_arm": {
+            "label": "L1",
+            "exponent": 1,
+            "base": 11,
+            "classically_shortcut": false,
+            "shortcut_factors": null,
+            "validation_only_order": 38179526,
+            "validation_only_original_order": 38179526,
+            "model_attempted": true,
+            "success": false,
+            "factors": null,
+            "verified_denominator": null,
+            "shots": 104,
+            "stop_phase_bits": 54,
+            "counterfactual_source_counts": {
+              "shots": 104,
+              "phase_rounds": 3016,
+              "source_CCX": 3311485372,
+              "source_CX": 0,
+              "source_CSWAP": 81432,
+              "sampled_bin_evaluations": 6560,
+              "public_CF_convergents_considered": 1358,
+              "public_CF_even_denominators_checked": 453,
+              "public_CF_modular_pow_calls": 457,
+              "public_CF_gcd_calls": 8
+            },
+            "logical_architectures": {
+              "wide_peak_logical": 138,
+              "recycled_peak_logical": 85,
+              "arithmetic_workspace_logical": 84,
+              "logical_phase_bits_wide": 54,
+              "logical_phase_bits_recycled": 1,
+              "physical_hardware_metrics_measured": false
+            },
+            "stage_receipts": [
+              {
+                "m": 4,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 4051399
+              },
+              {
+                "m": 6,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 6279521
+              },
+              {
+                "m": 8,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 8524299
+              },
+              {
+                "m": 10,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 10724733
+              },
+              {
+                "m": 12,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 12970672
+              },
+              {
+                "m": 14,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 15175993
+              },
+              {
+                "m": 16,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 17420611
+              },
+              {
+                "m": 18,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 19623332
+              },
+              {
+                "m": 20,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 21872573
+              },
+              {
+                "m": 22,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 24110686
+              },
+              {
+                "m": 24,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 26331837
+              },
+              {
+                "m": 26,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 28575488
+              },
+              {
+                "m": 28,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 30710298
+              },
+              {
+                "m": 30,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 32980281
+              },
+              {
+                "m": 32,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 35117706
+              },
+              {
+                "m": 34,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 37363387
+              },
+              {
+                "m": 36,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 39604884
+              },
+              {
+                "m": 38,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 41819319
+              },
+              {
+                "m": 40,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 44014155
+              },
+              {
+                "m": 42,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 46260142
+              },
+              {
+                "m": 44,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 48509335
+              },
+              {
+                "m": 46,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 50760649
+              },
+              {
+                "m": 48,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 52954338
+              },
+              {
+                "m": 50,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 55148454
+              },
+              {
+                "m": 52,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 57361074
+              },
+              {
+                "m": 54,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 59606177
+              }
+            ],
+            "head_only_success_lower_bound_method": true,
+            "tail_outcomes_not_falsely_credited": true
+          },
+          "exact_public_identity_source_gate_savings": {
+            "ccx": 0,
+            "cx": 0,
+            "cswap": 0
+          }
+        }
+      ],
+      "model_attempts": 3,
+      "model_factor_successes": 0,
+      "public_classical_shortcuts": 0,
+      "original_source_CCX": 9934456116,
+      "public_identity_pruned_source_CCX": 9934456116,
+      "source_cost_per_model_factor_success": null,
+      "ratio_defined": false,
+      "no_QPU": true
+    },
+    "L3": {
+      "base": 1331,
+      "seeds": [
+        20261028,
+        20262037,
+        20263046
+      ],
+      "receipts": [
+        {
+          "seed": 20261028,
+          "source_original_arm": {
+            "label": "L3",
+            "exponent": 3,
+            "base": 1331,
+            "classically_shortcut": false,
+            "shortcut_factors": null,
+            "validation_only_order": 38179526,
+            "validation_only_original_order": 38179526,
+            "model_attempted": true,
+            "success": false,
+            "factors": null,
+            "verified_denominator": null,
+            "shots": 104,
+            "stop_phase_bits": 54,
+            "counterfactual_source_counts": {
+              "shots": 104,
+              "phase_rounds": 3016,
+              "source_CCX": 3325258892,
+              "source_CX": 0,
+              "source_CSWAP": 81432,
+              "sampled_bin_evaluations": 6560,
+              "public_CF_convergents_considered": 1376,
+              "public_CF_even_denominators_checked": 461,
+              "public_CF_modular_pow_calls": 466,
+              "public_CF_gcd_calls": 10
+            },
+            "logical_architectures": {
+              "wide_peak_logical": 138,
+              "recycled_peak_logical": 85,
+              "arithmetic_workspace_logical": 84,
+              "logical_phase_bits_wide": 54,
+              "logical_phase_bits_recycled": 1,
+              "physical_hardware_metrics_measured": false
+            },
+            "stage_receipts": [
+              {
+                "m": 4,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 4343203
+              },
+              {
+                "m": 6,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 6553259
+              },
+              {
+                "m": 8,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 8730112
+              },
+              {
+                "m": 10,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 10912848
+              },
+              {
+                "m": 12,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 13096807
+              },
+              {
+                "m": 14,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 15325727
+              },
+              {
+                "m": 16,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 17565504
+              },
+              {
+                "m": 18,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 19763321
+              },
+              {
+                "m": 20,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 22030912
+              },
+              {
+                "m": 22,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 24224659
+              },
+              {
+                "m": 24,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 26410139
+              },
+              {
+                "m": 26,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 28674824
+              },
+              {
+                "m": 28,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 30902648
+              },
+              {
+                "m": 30,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 33090278
+              },
+              {
+                "m": 32,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 35318097
+              },
+              {
+                "m": 34,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 37542662
+              },
+              {
+                "m": 36,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 39742194
+              },
+              {
+                "m": 38,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 41899688
+              },
+              {
+                "m": 40,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 44131777
+              },
+              {
+                "m": 42,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 46327729
+              },
+              {
+                "m": 44,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 48578018
+              },
+              {
+                "m": 46,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 50834304
+              },
+              {
+                "m": 48,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 53034708
+              },
+              {
+                "m": 50,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 55213671
+              },
+              {
+                "m": 52,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 57409502
+              },
+              {
+                "m": 54,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 59658132
+              }
+            ],
+            "head_only_success_lower_bound_method": true,
+            "tail_outcomes_not_falsely_credited": true
+          },
+          "exact_public_identity_source_gate_savings": {
+            "ccx": 0,
+            "cx": 0,
+            "cswap": 0
+          }
+        },
+        {
+          "seed": 20262037,
+          "source_original_arm": {
+            "label": "L3",
+            "exponent": 3,
+            "base": 1331,
+            "classically_shortcut": false,
+            "shortcut_factors": null,
+            "validation_only_order": 38179526,
+            "validation_only_original_order": 38179526,
+            "model_attempted": true,
+            "success": false,
+            "factors": null,
+            "verified_denominator": null,
+            "shots": 104,
+            "stop_phase_bits": 54,
+            "counterfactual_source_counts": {
+              "shots": 104,
+              "phase_rounds": 3016,
+              "source_CCX": 3325258892,
+              "source_CX": 0,
+              "source_CSWAP": 81432,
+              "sampled_bin_evaluations": 6560,
+              "public_CF_convergents_considered": 1328,
+              "public_CF_even_denominators_checked": 430,
+              "public_CF_modular_pow_calls": 433,
+              "public_CF_gcd_calls": 6
+            },
+            "logical_architectures": {
+              "wide_peak_logical": 138,
+              "recycled_peak_logical": 85,
+              "arithmetic_workspace_logical": 84,
+              "logical_phase_bits_wide": 54,
+              "logical_phase_bits_recycled": 1,
+              "physical_hardware_metrics_measured": false
+            },
+            "stage_receipts": [
+              {
+                "m": 4,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 4343203
+              },
+              {
+                "m": 6,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 6553259
+              },
+              {
+                "m": 8,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 8730112
+              },
+              {
+                "m": 10,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 10912848
+              },
+              {
+                "m": 12,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 13096807
+              },
+              {
+                "m": 14,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 15325727
+              },
+              {
+                "m": 16,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 17565504
+              },
+              {
+                "m": 18,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 19763321
+              },
+              {
+                "m": 20,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 22030912
+              },
+              {
+                "m": 22,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 24224659
+              },
+              {
+                "m": 24,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 26410139
+              },
+              {
+                "m": 26,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 28674824
+              },
+              {
+                "m": 28,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 30902648
+              },
+              {
+                "m": 30,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 33090278
+              },
+              {
+                "m": 32,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 35318097
+              },
+              {
+                "m": 34,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 37542662
+              },
+              {
+                "m": 36,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 39742194
+              },
+              {
+                "m": 38,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 41899688
+              },
+              {
+                "m": 40,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 44131777
+              },
+              {
+                "m": 42,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 46327729
+              },
+              {
+                "m": 44,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 48578018
+              },
+              {
+                "m": 46,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 50834304
+              },
+              {
+                "m": 48,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 53034708
+              },
+              {
+                "m": 50,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 55213671
+              },
+              {
+                "m": 52,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 57409502
+              },
+              {
+                "m": 54,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 59658132
+              }
+            ],
+            "head_only_success_lower_bound_method": true,
+            "tail_outcomes_not_falsely_credited": true
+          },
+          "exact_public_identity_source_gate_savings": {
+            "ccx": 0,
+            "cx": 0,
+            "cswap": 0
+          }
+        },
+        {
+          "seed": 20263046,
+          "source_original_arm": {
+            "label": "L3",
+            "exponent": 3,
+            "base": 1331,
+            "classically_shortcut": false,
+            "shortcut_factors": null,
+            "validation_only_order": 38179526,
+            "validation_only_original_order": 38179526,
+            "model_attempted": true,
+            "success": false,
+            "factors": null,
+            "verified_denominator": null,
+            "shots": 104,
+            "stop_phase_bits": 54,
+            "counterfactual_source_counts": {
+              "shots": 104,
+              "phase_rounds": 3016,
+              "source_CCX": 3325258892,
+              "source_CX": 0,
+              "source_CSWAP": 81432,
+              "sampled_bin_evaluations": 6560,
+              "public_CF_convergents_considered": 1358,
+              "public_CF_even_denominators_checked": 453,
+              "public_CF_modular_pow_calls": 457,
+              "public_CF_gcd_calls": 8
+            },
+            "logical_architectures": {
+              "wide_peak_logical": 138,
+              "recycled_peak_logical": 85,
+              "arithmetic_workspace_logical": 84,
+              "logical_phase_bits_wide": 54,
+              "logical_phase_bits_recycled": 1,
+              "physical_hardware_metrics_measured": false
+            },
+            "stage_receipts": [
+              {
+                "m": 4,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 4343203
+              },
+              {
+                "m": 6,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 6553259
+              },
+              {
+                "m": 8,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 8730112
+              },
+              {
+                "m": 10,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 10912848
+              },
+              {
+                "m": 12,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 13096807
+              },
+              {
+                "m": 14,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 15325727
+              },
+              {
+                "m": 16,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 17565504
+              },
+              {
+                "m": 18,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 19763321
+              },
+              {
+                "m": 20,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 22030912
+              },
+              {
+                "m": 22,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 24224659
+              },
+              {
+                "m": 24,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 26410139
+              },
+              {
+                "m": 26,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 28674824
+              },
+              {
+                "m": 28,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 30902648
+              },
+              {
+                "m": 30,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 33090278
+              },
+              {
+                "m": 32,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 35318097
+              },
+              {
+                "m": 34,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 37542662
+              },
+              {
+                "m": 36,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 39742194
+              },
+              {
+                "m": 38,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 41899688
+              },
+              {
+                "m": 40,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 44131777
+              },
+              {
+                "m": 42,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 46327729
+              },
+              {
+                "m": 44,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 48578018
+              },
+              {
+                "m": 46,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 50834304
+              },
+              {
+                "m": 48,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 53034708
+              },
+              {
+                "m": 50,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 55213671
+              },
+              {
+                "m": 52,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 57409502
+              },
+              {
+                "m": 54,
+                "shots_attempted": 4,
+                "successful": false,
+                "source_CCX_per_shot": 59658132
+              }
+            ],
+            "head_only_success_lower_bound_method": true,
+            "tail_outcomes_not_falsely_credited": true
+          },
+          "exact_public_identity_source_gate_savings": {
+            "ccx": 0,
+            "cx": 0,
+            "cswap": 0
+          }
+        }
+      ],
+      "model_attempts": 3,
+      "model_factor_successes": 0,
+      "public_classical_shortcuts": 0,
+      "original_source_CCX": 9975776676,
+      "public_identity_pruned_source_CCX": 9975776676,
+      "source_cost_per_model_factor_success": null,
+      "ratio_defined": false,
+      "no_QPU": true
+    }
+  },
+  "zero_QPU": true,
+  "paid_runtime_used": false
+}
