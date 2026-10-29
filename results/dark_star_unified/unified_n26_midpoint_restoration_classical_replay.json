@@ -1,0 +1,932 @@
+{
+  "experiment": "unified_N26_post_hoc_classical_pruner_restored_replay",
+  "source_N26_public_sha256": "0c25e448b646a5ade7d919ca78597c8c2883fd8fd450181dd4504c18252fb939",
+  "scope": "post_hoc_algorithm_change_not_new_independent_holdout",
+  "original_summary_immutable": "results/dark_star_unified/unified_n26_all_12_summary.json",
+  "restored_pruning_audit_immutable": "results/dark_star_unified/unified_n26_midpoint_pruning_reaudit.json",
+  "whole_pipeline_original_QPE_results_not_recalculated": true,
+  "summary": {
+    "original_N26_classical_first_solved": 11,
+    "secondary_replay_after_QR_255255_classical_first_solved": 12,
+    "delta_newly_classically_solved_under_same_old_12_root_cap": 1,
+    "only_original_quantum_fallback_N49273331_now_classically_solved": true,
+    "original_unmodified_ideal_QPE_counterfactual_cases": 12,
+    "no_practical_speedup_claim": true,
+    "no_QPU": true
+  },
+  "complete": true,
+  "rows": [
+    {
+      "index": 0,
+      "public_frozen": {
+        "N": 46105429,
+        "base": 5,
+        "group": "G1_mod3_1",
+        "rank": 1,
+        "public_N_mod3": 1,
+        "public_N_mod210": 139,
+        "public_cube": 125
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "ptp_midpoint_15015",
+      "restored_classical_factors": [
+        5573,
+        8273
+      ],
+      "restored_classical_method": "ptp_midpoint_15015",
+      "restored_public_classical_receipt": {
+        "factors": [
+          5573,
+          8273
+        ],
+        "method": "ptp_midpoint_15015",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 105
+          },
+          {
+            "name": "ptp_midpoint_15015",
+            "factors": [
+              5573,
+              8273
+            ],
+            "square_tests": 6,
+            "midpoint_modulus": 15015,
+            "setup_seconds": 0.007471502000001351,
+            "search_seconds": 4.608000001127266e-06
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 1,
+      "public_frozen": {
+        "N": 51283357,
+        "base": 11,
+        "group": "G1_mod3_1",
+        "rank": 2,
+        "public_N_mod3": 1,
+        "public_N_mod210": 97,
+        "public_cube": 1331
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "ptp_midpoint_105",
+      "restored_classical_factors": [
+        6229,
+        8233
+      ],
+      "restored_classical_method": "ptp_midpoint_105",
+      "restored_public_classical_receipt": {
+        "factors": [
+          6229,
+          8233
+        ],
+        "method": "ptp_midpoint_105",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": [
+              6229,
+              8233
+            ],
+            "square_tests": 9,
+            "midpoint_modulus": 105,
+            "setup_seconds": 2.631899999983034e-05,
+            "search_seconds": 4.94999999745005e-06
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 2,
+      "public_frozen": {
+        "N": 61588231,
+        "base": 3,
+        "group": "G1_mod3_1",
+        "rank": 3,
+        "public_N_mod3": 1,
+        "public_N_mod210": 61,
+        "public_cube": 27
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "Floyd_rho_64",
+      "restored_classical_factors": [
+        5557,
+        11083
+      ],
+      "restored_classical_method": "Floyd_rho_64",
+      "restored_public_classical_receipt": {
+        "factors": [
+          5557,
+          11083
+        ],
+        "method": "Floyd_rho_64",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 105
+          },
+          {
+            "name": "ptp_midpoint_15015",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 15015
+          },
+          {
+            "name": "Pollard_p_minus_one_B31",
+            "factors": null,
+            "details": {
+              "factors": null,
+              "B": 31,
+              "pow_calls": 11,
+              "gcd_calls": 1
+            }
+          },
+          {
+            "name": "Floyd_rho_64",
+            "factors": [
+              5557,
+              11083
+            ],
+            "details": {
+              "factors": [
+                5557,
+                11083
+              ],
+              "modular_squares": 114,
+              "gcd_calls": 38,
+              "seed": 2
+            }
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 3,
+      "public_frozen": {
+        "N": 66042979,
+        "base": 7,
+        "group": "G1_mod3_1",
+        "rank": 4,
+        "public_N_mod3": 1,
+        "public_N_mod210": 79,
+        "public_cube": 343
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "Pollard_p_minus_one_B31",
+      "restored_classical_factors": [
+        4969,
+        13291
+      ],
+      "restored_classical_method": "Pollard_p_minus_one_B31",
+      "restored_public_classical_receipt": {
+        "factors": [
+          4969,
+          13291
+        ],
+        "method": "Pollard_p_minus_one_B31",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 105
+          },
+          {
+            "name": "ptp_midpoint_15015",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 15015
+          },
+          {
+            "name": "Pollard_p_minus_one_B31",
+            "factors": [
+              4969,
+              13291
+            ],
+            "details": {
+              "factors": [
+                4969,
+                13291
+              ],
+              "B": 31,
+              "pow_calls": 11,
+              "gcd_calls": 1
+            }
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 4,
+      "public_frozen": {
+        "N": 60072931,
+        "base": 7,
+        "group": "G1_mod3_1",
+        "rank": 5,
+        "public_N_mod3": 1,
+        "public_N_mod210": 121,
+        "public_cube": 343
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "Pollard_p_minus_one_B31",
+      "restored_classical_factors": [
+        4561,
+        13171
+      ],
+      "restored_classical_method": "Pollard_p_minus_one_B31",
+      "restored_public_classical_receipt": {
+        "factors": [
+          4561,
+          13171
+        ],
+        "method": "Pollard_p_minus_one_B31",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 105
+          },
+          {
+            "name": "ptp_midpoint_15015",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 15015
+          },
+          {
+            "name": "Pollard_p_minus_one_B31",
+            "factors": [
+              4561,
+              13171
+            ],
+            "details": {
+              "factors": [
+                4561,
+                13171
+              ],
+              "B": 31,
+              "pow_calls": 11,
+              "gcd_calls": 1
+            }
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 5,
+      "public_frozen": {
+        "N": 41484283,
+        "base": 7,
+        "group": "G1_mod3_1",
+        "rank": 6,
+        "public_N_mod3": 1,
+        "public_N_mod210": 43,
+        "public_cube": 343
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "ptp_midpoint_15015",
+      "restored_classical_factors": [
+        4903,
+        8461
+      ],
+      "restored_classical_method": "ptp_midpoint_15015",
+      "restored_public_classical_receipt": {
+        "factors": [
+          4903,
+          8461
+        ],
+        "method": "ptp_midpoint_15015",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 105
+          },
+          {
+            "name": "ptp_midpoint_15015",
+            "factors": [
+              4903,
+              8461
+            ],
+            "square_tests": 11,
+            "midpoint_modulus": 15015,
+            "setup_seconds": 0.0020120040000009,
+            "search_seconds": 5.3100000023675875e-06
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 6,
+      "public_frozen": {
+        "N": 60030401,
+        "base": 17,
+        "group": "G2_mod3_2",
+        "rank": 1,
+        "public_N_mod3": 2,
+        "public_N_mod210": 11,
+        "public_cube": 4913
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "ptp_midpoint_15015",
+      "restored_classical_factors": [
+        6337,
+        9473
+      ],
+      "restored_classical_method": "ptp_midpoint_15015",
+      "restored_public_classical_receipt": {
+        "factors": [
+          6337,
+          9473
+        ],
+        "method": "ptp_midpoint_15015",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 105
+          },
+          {
+            "name": "ptp_midpoint_15015",
+            "factors": [
+              6337,
+              9473
+            ],
+            "square_tests": 4,
+            "midpoint_modulus": 15015,
+            "setup_seconds": 0.0019767480000005833,
+            "search_seconds": 2.896000001584298e-06
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 7,
+      "public_frozen": {
+        "N": 49069961,
+        "base": 13,
+        "group": "G2_mod3_2",
+        "rank": 2,
+        "public_N_mod3": 2,
+        "public_N_mod210": 101,
+        "public_cube": 2197
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "ordinary_fermat",
+      "restored_classical_factors": [
+        6997,
+        7013
+      ],
+      "restored_classical_method": "ordinary_fermat",
+      "restored_public_classical_receipt": {
+        "factors": [
+          6997,
+          7013
+        ],
+        "method": "ordinary_fermat",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": [
+              6997,
+              7013
+            ],
+            "square_tests": 1,
+            "midpoint_modulus": null,
+            "setup_seconds": 0.0,
+            "search_seconds": 2.41500000086603e-06
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 8,
+      "public_frozen": {
+        "N": 61435931,
+        "base": 7,
+        "group": "G2_mod3_2",
+        "rank": 3,
+        "public_N_mod3": 2,
+        "public_N_mod210": 11,
+        "public_cube": 343
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "Floyd_rho_64",
+      "restored_classical_factors": [
+        4673,
+        13147
+      ],
+      "restored_classical_method": "Floyd_rho_64",
+      "restored_public_classical_receipt": {
+        "factors": [
+          4673,
+          13147
+        ],
+        "method": "Floyd_rho_64",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 105
+          },
+          {
+            "name": "ptp_midpoint_15015",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 15015
+          },
+          {
+            "name": "Pollard_p_minus_one_B31",
+            "factors": null,
+            "details": {
+              "factors": null,
+              "B": 31,
+              "pow_calls": 11,
+              "gcd_calls": 1
+            }
+          },
+          {
+            "name": "Floyd_rho_64",
+            "factors": [
+              4673,
+              13147
+            ],
+            "details": {
+              "factors": [
+                4673,
+                13147
+              ],
+              "modular_squares": 156,
+              "gcd_calls": 52,
+              "seed": 2
+            }
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 9,
+      "public_frozen": {
+        "N": 49273331,
+        "base": 17,
+        "group": "G2_mod3_2",
+        "rank": 4,
+        "public_N_mod3": 2,
+        "public_N_mod210": 191,
+        "public_cube": 4913
+      },
+      "original_classical_first_solved": false,
+      "original_classical_method": "public_budgets_exhausted",
+      "restored_classical_factors": [
+        4703,
+        10477
+      ],
+      "restored_classical_method": "restored_midpoint_QR_255255",
+      "restored_public_classical_receipt": {
+        "factors": [
+          4703,
+          10477
+        ],
+        "method": "restored_midpoint_QR_255255",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 105
+          },
+          {
+            "name": "ptp_midpoint_15015",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": 15015
+          },
+          {
+            "name": "Pollard_p_minus_one_B31",
+            "factors": null,
+            "details": {
+              "factors": null,
+              "B": 31,
+              "pow_calls": 11,
+              "gcd_calls": 1
+            }
+          },
+          {
+            "name": "Floyd_rho_64",
+            "factors": null,
+            "details": {
+              "factors": null,
+              "modular_squares": 384,
+              "gcd_calls": 128
+            }
+          },
+          {
+            "name": "trial_prime_97",
+            "factors": null,
+            "details": {
+              "factors": null,
+              "divisibility_tests": 25
+            }
+          },
+          {
+            "name": "restored_midpoint_QR_255255",
+            "factors": [
+              4703,
+              10477
+            ],
+            "quadratic_residue_modular_work": 985,
+            "scanned_midpoint_positions": 571,
+            "exact_square_root_tests": 8,
+            "QR_setup_seconds": 4.1726999999269765e-05,
+            "QR_total_seconds": 0.00037257299999637894
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 10,
+      "public_frozen": {
+        "N": 43863401,
+        "base": 3,
+        "group": "G2_mod3_2",
+        "rank": 5,
+        "public_N_mod3": 2,
+        "public_N_mod210": 71,
+        "public_cube": 27
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "ptp_midpoint_105",
+      "restored_classical_factors": [
+        5843,
+        7507
+      ],
+      "restored_classical_method": "ptp_midpoint_105",
+      "restored_public_classical_receipt": {
+        "factors": [
+          5843,
+          7507
+        ],
+        "method": "ptp_midpoint_105",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": [
+              5843,
+              7507
+            ],
+            "square_tests": 6,
+            "midpoint_modulus": 105,
+            "setup_seconds": 2.537700000004861e-05,
+            "search_seconds": 3.125999999298301e-06
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    },
+    {
+      "index": 11,
+      "public_frozen": {
+        "N": 43565573,
+        "base": 23,
+        "group": "G2_mod3_2",
+        "rank": 6,
+        "public_N_mod3": 2,
+        "public_N_mod210": 23,
+        "public_cube": 12167
+      },
+      "original_classical_first_solved": true,
+      "original_classical_method": "ptp_midpoint_105",
+      "restored_classical_factors": [
+        5471,
+        7963
+      ],
+      "restored_classical_method": "ptp_midpoint_105",
+      "restored_public_classical_receipt": {
+        "factors": [
+          5471,
+          7963
+        ],
+        "method": "ptp_midpoint_105",
+        "stages": [
+          {
+            "name": "base_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "wheel_small_factor",
+            "factors": null,
+            "detail": {
+              "factors": null
+            }
+          },
+          {
+            "name": "public_power2_gcd",
+            "factors": null,
+            "detail": null
+          },
+          {
+            "name": "ordinary_fermat",
+            "factors": null,
+            "square_tests_budget_exhausted": 12,
+            "midpoint_modulus": null
+          },
+          {
+            "name": "ptp_midpoint_105",
+            "factors": [
+              5471,
+              7963
+            ],
+            "square_tests": 10,
+            "midpoint_modulus": 105,
+            "setup_seconds": 2.506699999926809e-05,
+            "search_seconds": 3.7870000006989812e-06
+          }
+        ],
+        "classically_solved": true
+      },
+      "original_populated_ideal_QPE_counterfactual_unmodified": true
+    }
+  ],
+  "zero_QPU": true,
+  "IBM_runtime_jobs": 0,
+  "paid_runtime_used": false,
+  "date_utc": "2026-10-29T01:40:37.949899+00:00"
+}
