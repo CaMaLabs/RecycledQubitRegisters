@@ -1,0 +1,70 @@
+name: Dark Star N28 classical cost router PUBLIC population freeze ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-router-n28-public-freeze-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+concurrency:
+  group: qrr-router-n28-public-sha-freeze
+  cancel-in-progress: false
+
+jobs:
+  freeze-public-inputs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Public only SHA freeze; no factors, orders or factorization outcomes
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_PUBLIC_COST_ROUTER_N28_PREREG.md
+          test "$(git hash-object integrations/darkstar_hybrid/darkstar_public_cost_router.py)" = "4420a5d5d83869ccc41ab2396cde15d84f98a4c1"
+          python3 -m integrations.darkstar_hybrid.darkstar_public_router_n28_manifest
+          python3 - <<'PY'
+          import hashlib,json,math
+          from pathlib import Path
+          m=json.loads(Path('results/dark_star_unified/darkstar_public_router_n28_frozen_manifest.json').read_text())
+          rows=m['selected_public_rows']
+          assert len(rows)==len({z['N'] for z in rows})==16
+          assert m['row_canonical_sha256']==hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert m['no_hidden_prime_factor_or_order_used_to_rank']
+          assert m['no_classical_or_quantum_outcomes_inspected_before_freeze']
+          assert m['zero_QPU'] and m['IBM_runtime_jobs']==0
+          assert m['router_source_git_blob_SHA']=='4420a5d5d83869ccc41ab2396cde15d84f98a4c1'
+          for group in ('G1_mod3_1','G2_mod3_2'):
+              z=[x for x in rows if x['group']==group]
+              assert len(z)==8 and [x['rank'] for x in z]==list(range(1,9))
+          for z in rows:
+              assert (1<<27)<=z['N']<(1<<28) and math.gcd(z['N'],210)==1
+          print('PASS frozen 16 new public N28 rows',m['row_canonical_sha256'])
+          PY
+      - name: Preserve exact original public-N manifest on main BEFORE score
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/darkstar_public_router_n28_frozen_manifest.json
+          git commit -m 'results: freeze 16 original N28 router public inputs before any classical factoring cost benchmarking'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'FROZEN SHA ARCHIVED ON MAIN; scoring may begin now'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
