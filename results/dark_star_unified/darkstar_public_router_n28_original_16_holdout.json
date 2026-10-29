@@ -1,0 +1,6413 @@
+{
+  "experiment": "DarkStar_fresh_N28_public_cost_router_full_16_original_holdout",
+  "source_manifest_sha256": "9f8cd1d83b3bcfdfce9c41ceda05621b52c9e9076d7cdc2dec36bc24598b7a51",
+  "policy": "darkstar_public_router_v1_20261029",
+  "protocol": "docs/DARK_STAR_PUBLIC_COST_ROUTER_N28_PREREG.md",
+  "policy_source_git_blob": "4420a5d5d83869ccc41ab2396cde15d84f98a4c1",
+  "original_case_count": 16,
+  "original_repeats_per_method": 8,
+  "complete": true,
+  "original_cases": [
+    {
+      "index": 0,
+      "frozen_public_N": 252793039,
+      "validation_only_synthetic_pq": [
+        9539,
+        26501
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 252793039,
+        "factors": [
+          9539,
+          26501
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              9539,
+              26501
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 0.0001213259999985894,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              9539,
+              26501
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 252793039,
+          "factors": [
+            9539,
+            26501
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                9539,
+                26501
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 206,
+            "rho_modular_products": 79,
+            "rho_gcd_calls": 8
+          },
+          "elapsed_seconds": 0.0001213259999985894,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 252793039,
+          "factors": [
+            9539,
+            26501
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2184,
+          "elapsed_seconds": 0.00021708399999909034
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 252793039,
+          "factors": [
+            9539,
+            26501
+          ],
+          "candidate_pairs": 28,
+          "pair_checks": 9,
+          "integer_search_steps": 1278,
+          "divisibility_tests": 1282,
+          "elapsed_seconds": 0.004282580000001701
+        },
+        "old_fixed_pipeline": {
+          "factors": null,
+          "method": "public_budgets_exhausted",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 105
+            },
+            {
+              "name": "ptp_midpoint_15015",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 15015
+            },
+            {
+              "name": "Pollard_p_minus_one_B31",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "B": 31,
+                "pow_calls": 11,
+                "gcd_calls": 1
+              }
+            },
+            {
+              "name": "Floyd_rho_64",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "modular_squares": 384,
+                "gcd_calls": 128
+              }
+            },
+            {
+              "name": "trial_prime_97",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "divisibility_tests": 25
+              }
+            },
+            {
+              "name": "restored_midpoint_QR_255255",
+              "factors": null,
+              "quadratic_residue_modular_work": 997,
+              "scanned_midpoint_positions": 401,
+              "exact_square_root_tests": 12,
+              "QR_setup_seconds": 2.6228999999489133e-05,
+              "QR_total_seconds": 0.00018456400000133044
+            }
+          ],
+          "classically_solved": false
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            9539,
+            26501
+          ],
+          "found": true,
+          "exact_square_root_tests": 2121,
+          "scanned_midpoint_positions": 2121,
+          "found_at_offset": 2120,
+          "total_seconds": 0.0002483919999960449,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 0.00010591249999691854,
+          "min_seconds": 9.860400000150094e-05,
+          "max_seconds": 0.00012455200000260902,
+          "all_original_elapsed_seconds": [
+            0.00012455200000260902,
+            0.00010896200000587442,
+            0.00010272200000116527,
+            0.00010517599999815275,
+            9.860400000150094e-05,
+            0.00010664899999568433,
+            0.00010234100000161561,
+            0.00010741999999908103
+          ],
+          "outcome_factor": [
+            9539,
+            26501
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.0002159120000015946,
+          "min_seconds": 0.0002100620000007325,
+          "max_seconds": 0.00025678900000514204,
+          "all_original_elapsed_seconds": [
+            0.00025678900000514204,
+            0.0002118749999979741,
+            0.00021100200000034874,
+            0.00021343800000295232,
+            0.0002100620000007325,
+            0.00022835499999729336,
+            0.0002183860000002369,
+            0.00023045900000084885
+          ],
+          "outcome_factor": [
+            9539,
+            26501
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.000286914000000138,
+          "min_seconds": 0.0002751620000012167,
+          "max_seconds": 0.004307546999996248,
+          "all_original_elapsed_seconds": [
+            0.004307546999996248,
+            0.00028484999999989213,
+            0.0002751620000012167,
+            0.0002846099999942453,
+            0.00028897800000038387,
+            0.0003053490000013426,
+            0.000279118999998218,
+            0.00029172300000368523
+          ],
+          "outcome_factor": [
+            9539,
+            26501
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 0.0026055595000009646,
+          "min_seconds": 0.002542552000001308,
+          "max_seconds": 0.007983568000000218,
+          "all_original_elapsed_seconds": [
+            0.007983568000000218,
+            0.0026638869999970893,
+            0.002599749000005147,
+            0.0025630009999986214,
+            0.002611369999996782,
+            0.002798058000003323,
+            0.0025633110000029546,
+            0.002542552000001308
+          ],
+          "outcome_factor": null,
+          "method_name": "public_budgets_exhausted",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 0.000261982499996094,
+          "min_seconds": 0.0002501849999987371,
+          "max_seconds": 0.000285040999997932,
+          "all_original_elapsed_seconds": [
+            0.00025068700000474564,
+            0.000285040999997932,
+            0.0002501849999987371,
+            0.00026213799999652565,
+            0.00026583500000043614,
+            0.00026622499999717775,
+            0.00026058499999948026,
+            0.0002618269999956624
+          ],
+          "outcome_factor": [
+            9539,
+            26501
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.49053549592489687,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.36914371552753644,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 1,
+      "frozen_public_N": 227916187,
+      "validation_only_synthetic_pq": [
+        12889,
+        17683
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 227916187,
+        "factors": [
+          12889,
+          17683
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              12889,
+              17683
+            ],
+            "ops": {
+              "modular_squarings": 110,
+              "modular_products": 47,
+              "gcd_calls": 6
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 110,
+          "rho_modular_products": 47,
+          "rho_gcd_calls": 6
+        },
+        "elapsed_seconds": 9.767099999891116e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              12889,
+              17683
+            ],
+            "ops": {
+              "modular_squarings": 110,
+              "modular_products": 47,
+              "gcd_calls": 6
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 110,
+          "rho_modular_products": 47,
+          "rho_gcd_calls": 6
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 227916187,
+          "factors": [
+            12889,
+            17683
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                12889,
+                17683
+              ],
+              "ops": {
+                "modular_squarings": 110,
+                "modular_products": 47,
+                "gcd_calls": 6
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 110,
+            "rho_modular_products": 47,
+            "rho_gcd_calls": 6
+          },
+          "elapsed_seconds": 9.767099999891116e-05,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 227916187,
+          "factors": [
+            12889,
+            17683
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2950,
+          "elapsed_seconds": 0.0004147020000004886
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 227916187,
+          "factors": [
+            12889,
+            17683
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 8,
+          "integer_search_steps": 1084,
+          "divisibility_tests": 1088,
+          "elapsed_seconds": 0.00036766499999885127
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            12889,
+            17683
+          ],
+          "method": "ptp_midpoint_15015",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 105
+            },
+            {
+              "name": "ptp_midpoint_15015",
+              "factors": [
+                12889,
+                17683
+              ],
+              "square_tests": 6,
+              "midpoint_modulus": 15015,
+              "setup_seconds": 0.0022805440000013277,
+              "search_seconds": 4.498999999213993e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            12889,
+            17683
+          ],
+          "found": true,
+          "exact_square_root_tests": 190,
+          "scanned_midpoint_positions": 190,
+          "found_at_offset": 189,
+          "total_seconds": 2.2893000000578922e-05,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 6.825200000193377e-05,
+          "min_seconds": 6.671399999902405e-05,
+          "max_seconds": 0.00010051600000338112,
+          "all_original_elapsed_seconds": [
+            0.00010051600000338112,
+            6.92690000008156e-05,
+            6.723500000305194e-05,
+            6.723500000305194e-05,
+            8.487800000267498e-05,
+            6.721500000139713e-05,
+            6.945900000232541e-05,
+            6.671399999902405e-05
+          ],
+          "outcome_factor": [
+            12889,
+            17683
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00027479100000249446,
+          "min_seconds": 0.0002678780000024972,
+          "max_seconds": 0.0004469519999972249,
+          "all_original_elapsed_seconds": [
+            0.0004469519999972249,
+            0.0002712440000038896,
+            0.0002947989999952938,
+            0.0002711550000000784,
+            0.0002678780000024972,
+            0.00029414800000182595,
+            0.0002783380000010993,
+            0.0002706430000003479
+          ],
+          "outcome_factor": [
+            12889,
+            17683
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.0002269024999996816,
+          "min_seconds": 0.00022443699999996625,
+          "max_seconds": 0.0003966979999958653,
+          "all_original_elapsed_seconds": [
+            0.0003966979999958653,
+            0.00022499899999672834,
+            0.00022972800000076177,
+            0.00022621200000116914,
+            0.0002248579999957201,
+            0.00022759299999819405,
+            0.00022443699999996625,
+            0.00023362499999990405
+          ],
+          "outcome_factor": [
+            12889,
+            17683
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 0.0022877124999993725,
+          "min_seconds": 0.0022579920000040943,
+          "max_seconds": 0.0023850390000035304,
+          "all_original_elapsed_seconds": [
+            0.0023850390000035304,
+            0.0023031970000033652,
+            0.0022996100000014508,
+            0.0022895110000007435,
+            0.0022790820000011536,
+            0.0022781300000005444,
+            0.0022579920000040943,
+            0.0022859139999980016
+          ],
+          "outcome_factor": [
+            12889,
+            17683
+          ],
+          "method_name": "ptp_midpoint_15015",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 2.5031499998107165e-05,
+          "min_seconds": 2.4526000004243542e-05,
+          "max_seconds": 2.5727999997116058e-05,
+          "all_original_elapsed_seconds": [
+            2.4526000004243542e-05,
+            2.4595999995824513e-05,
+            2.5567000001558426e-05,
+            2.5727999997116058e-05,
+            2.4584999998467083e-05,
+            2.5186999998538795e-05,
+            2.529700000053481e-05,
+            2.4875999997675535e-05
+          ],
+          "outcome_factor": [
+            12889,
+            17683
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.24837785808601517,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.3007988012561763,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 2,
+      "frozen_public_N": 170840119,
+      "validation_only_synthetic_pq": [
+        12413,
+        13763
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 170840119,
+        "factors": [
+          12413,
+          13763
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              12413,
+              13763
+            ],
+            "ops": {
+              "modular_squarings": 126,
+              "modular_products": 63,
+              "gcd_calls": 7
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        },
+        "elapsed_seconds": 0.00012949199999923167,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              12413,
+              13763
+            ],
+            "ops": {
+              "modular_squarings": 126,
+              "modular_products": 63,
+              "gcd_calls": 7
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 170840119,
+          "factors": [
+            12413,
+            13763
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                12413,
+                13763
+              ],
+              "ops": {
+                "modular_squarings": 126,
+                "modular_products": 63,
+                "gcd_calls": 7
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 126,
+            "rho_modular_products": 63,
+            "rho_gcd_calls": 7
+          },
+          "elapsed_seconds": 0.00012949199999923167,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 170840119,
+          "factors": [
+            12413,
+            13763
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2841,
+          "elapsed_seconds": 0.00037872499999735965
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 170840119,
+          "factors": [
+            12413,
+            13763
+          ],
+          "candidate_pairs": 28,
+          "pair_checks": 5,
+          "integer_search_steps": 636,
+          "divisibility_tests": 640,
+          "elapsed_seconds": 0.00020546200000381987
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            12413,
+            13763
+          ],
+          "method": "ptp_midpoint_105",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": [
+                12413,
+                13763
+              ],
+              "square_tests": 6,
+              "midpoint_modulus": 105,
+              "setup_seconds": 5.9000000000253294e-05,
+              "search_seconds": 3.886999998314877e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            12413,
+            13763
+          ],
+          "found": true,
+          "exact_square_root_tests": 18,
+          "scanned_midpoint_positions": 18,
+          "found_at_offset": 17,
+          "total_seconds": 5.780999998705738e-06,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 7.114199999946891e-05,
+          "min_seconds": 6.853800000072852e-05,
+          "max_seconds": 0.00013231700000204683,
+          "all_original_elapsed_seconds": [
+            0.00013231700000204683,
+            7.555100000189441e-05,
+            7.211399999818013e-05,
+            7.170299999614826e-05,
+            6.898899999896457e-05,
+            7.058100000278955e-05,
+            7.014100000191092e-05,
+            6.853800000072852e-05
+          ],
+          "outcome_factor": [
+            12413,
+            13763
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00027451649999932215,
+          "min_seconds": 0.00025444300000287967,
+          "max_seconds": 0.0004087710000035827,
+          "all_original_elapsed_seconds": [
+            0.0004087710000035827,
+            0.0003405830000033916,
+            0.00030611999999763384,
+            0.0002563669999986473,
+            0.0002758939999978338,
+            0.00026289899999909494,
+            0.0002731390000008105,
+            0.00025444300000287967
+          ],
+          "outcome_factor": [
+            12413,
+            13763
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.00013929400000378678,
+          "min_seconds": 0.0001380869999962897,
+          "max_seconds": 0.00023183199999721182,
+          "all_original_elapsed_seconds": [
+            0.00023183199999721182,
+            0.0001380869999962897,
+            0.00014228499999546784,
+            0.00013905900000565907,
+            0.00013952900000191448,
+            0.00013978099999434335,
+            0.00013843800000046258,
+            0.00013842799999963518
+          ],
+          "outcome_factor": [
+            12413,
+            13763
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 5.431599999994319e-05,
+          "min_seconds": 4.8911000000373406e-05,
+          "max_seconds": 0.00011034599999959482,
+          "all_original_elapsed_seconds": [
+            0.00011034599999959482,
+            5.6675000003281184e-05,
+            5.5944000003194105e-05,
+            5.570399999754727e-05,
+            5.2928000002339104e-05,
+            5.006300000331976e-05,
+            5.1094999996337265e-05,
+            4.8911000000373406e-05
+          ],
+          "outcome_factor": [
+            12413,
+            13763
+          ],
+          "method_name": "ptp_midpoint_105",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 5.039000001261229e-06,
+          "min_seconds": 4.699000001551212e-06,
+          "max_seconds": 7.715000002406214e-06,
+          "all_original_elapsed_seconds": [
+            7.715000002406214e-06,
+            5.309999998814874e-06,
+            5.279999996332663e-06,
+            5.178999998634026e-06,
+            4.699000001551212e-06,
+            4.899000003888432e-06,
+            4.809000003547226e-06,
+            4.788999994786991e-06
+          ],
+          "outcome_factor": [
+            12413,
+            13763
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": false,
+      "router_over_wheel210_median_runtime_ratio": 0.2591538213537058,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.5107326948578896,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 3,
+      "frozen_public_N": 223499083,
+      "validation_only_synthetic_pq": [
+        10529,
+        21227
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 223499083,
+        "factors": [
+          10529,
+          21227
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10529,
+              21227
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 0.00016813299999540732,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10529,
+              21227
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 223499083,
+          "factors": [
+            10529,
+            21227
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                10529,
+                21227
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 206,
+            "rho_modular_products": 79,
+            "rho_gcd_calls": 8
+          },
+          "elapsed_seconds": 0.00016813299999540732,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 223499083,
+          "factors": [
+            10529,
+            21227
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2410,
+          "elapsed_seconds": 0.00034940000000460714
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 223499083,
+          "factors": [
+            10529,
+            21227
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 3,
+          "integer_search_steps": 343,
+          "divisibility_tests": 347,
+          "elapsed_seconds": 0.0001118480000030786
+        },
+        "old_fixed_pipeline": {
+          "factors": null,
+          "method": "public_budgets_exhausted",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 105
+            },
+            {
+              "name": "ptp_midpoint_15015",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 15015
+            },
+            {
+              "name": "Pollard_p_minus_one_B31",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "B": 31,
+                "pow_calls": 11,
+                "gcd_calls": 1
+              }
+            },
+            {
+              "name": "Floyd_rho_64",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "modular_squares": 384,
+                "gcd_calls": 128
+              }
+            },
+            {
+              "name": "trial_prime_97",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "divisibility_tests": 25
+              }
+            },
+            {
+              "name": "restored_midpoint_QR_255255",
+              "factors": null,
+              "quadratic_residue_modular_work": 1567,
+              "scanned_midpoint_positions": 733,
+              "exact_square_root_tests": 12,
+              "QR_setup_seconds": 1.5498999999863372e-05,
+              "QR_total_seconds": 0.0002790790000020138
+            }
+          ],
+          "classically_solved": false
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            10529,
+            21227
+          ],
+          "found": true,
+          "exact_square_root_tests": 929,
+          "scanned_midpoint_positions": 929,
+          "found_at_offset": 928,
+          "total_seconds": 0.0001110769999996819,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 0.00010165449999988141,
+          "min_seconds": 9.588900000068179e-05,
+          "max_seconds": 0.00017080800000002228,
+          "all_original_elapsed_seconds": [
+            0.00017080800000002228,
+            0.00010185000000006994,
+            0.00010054699999528793,
+            9.991499999983944e-05,
+            9.588900000068179e-05,
+            0.00010515599999649794,
+            0.00010395299999998997,
+            0.00010145899999969288
+          ],
+          "outcome_factor": [
+            10529,
+            21227
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00023020350000280132,
+          "min_seconds": 0.00022743299999916644,
+          "max_seconds": 0.00038082900000091513,
+          "all_original_elapsed_seconds": [
+            0.00038082900000091513,
+            0.00022820499999909316,
+            0.00022743299999916644,
+            0.00023013799999915818,
+            0.0002411689999988198,
+            0.0002632099999999582,
+            0.00022841499999515236,
+            0.00023026900000644446
+          ],
+          "outcome_factor": [
+            10529,
+            21227
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 8.628000000143743e-05,
+          "min_seconds": 8.229299999840123e-05,
+          "max_seconds": 0.0001355919999994626,
+          "all_original_elapsed_seconds": [
+            0.0001355919999994626,
+            8.676099999860298e-05,
+            9.098900000026333e-05,
+            8.42170000012743e-05,
+            8.229299999840123e-05,
+            8.579900000427187e-05,
+            8.316499999949656e-05,
+            8.850400000426362e-05
+          ],
+          "outcome_factor": [
+            10529,
+            21227
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 0.002637333500000949,
+          "min_seconds": 0.0026172710000054167,
+          "max_seconds": 0.0035358909999985144,
+          "all_original_elapsed_seconds": [
+            0.0028221230000013975,
+            0.002751830999997651,
+            0.0026441110000021695,
+            0.002622311000003208,
+            0.0035358909999985144,
+            0.0026305559999997286,
+            0.0026216090000019676,
+            0.0026172710000054167
+          ],
+          "outcome_factor": null,
+          "method_name": "public_budgets_exhausted",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 0.00011388700000125596,
+          "min_seconds": 0.00011244899999951485,
+          "max_seconds": 0.00013560200000029,
+          "all_original_elapsed_seconds": [
+            0.00011264900000185207,
+            0.00011384200000463807,
+            0.00011244899999951485,
+            0.00011393199999787385,
+            0.00011268000000086431,
+            0.00013560200000029,
+            0.00011636699999684197,
+            0.0001331180000008203
+          ],
+          "outcome_factor": [
+            10529,
+            21227
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": false,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.44158537988625013,
+      "router_over_PTP_LFK_median_runtime_ratio": 1.1781930922367623,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 4,
+      "frozen_public_N": 266626483,
+      "validation_only_synthetic_pq": [
+        10651,
+        25033
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 266626483,
+        "factors": [
+          10651,
+          25033
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10651,
+              25033
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 0.00016915399999817282,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10651,
+              25033
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 266626483,
+          "factors": [
+            10651,
+            25033
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                10651,
+                25033
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 206,
+            "rho_modular_products": 79,
+            "rho_gcd_calls": 8
+          },
+          "elapsed_seconds": 0.00016915399999817282,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 266626483,
+          "factors": [
+            10651,
+            25033
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2438,
+          "elapsed_seconds": 0.0003377279999980942
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 266626483,
+          "factors": [
+            10651,
+            25033
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 9,
+          "integer_search_steps": 1315,
+          "divisibility_tests": 1319,
+          "elapsed_seconds": 0.0003578659999945444
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            10651,
+            25033
+          ],
+          "method": "Floyd_rho_64",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 105
+            },
+            {
+              "name": "ptp_midpoint_15015",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 15015
+            },
+            {
+              "name": "Pollard_p_minus_one_B31",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "B": 31,
+                "pow_calls": 11,
+                "gcd_calls": 1
+              }
+            },
+            {
+              "name": "Floyd_rho_64",
+              "factors": [
+                10651,
+                25033
+              ],
+              "details": {
+                "factors": [
+                  10651,
+                  25033
+                ],
+                "modular_squares": 300,
+                "gcd_calls": 100,
+                "seed": 3
+              }
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            10651,
+            25033
+          ],
+          "found": true,
+          "exact_square_root_tests": 1514,
+          "scanned_midpoint_positions": 1514,
+          "found_at_offset": 1513,
+          "total_seconds": 0.0001827000000034218,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 0.00010033650000096372,
+          "min_seconds": 9.808200000094303e-05,
+          "max_seconds": 0.00017186000000180002,
+          "all_original_elapsed_seconds": [
+            0.00017186000000180002,
+            0.0001006680000017468,
+            0.00010006600000167509,
+            9.833299999684186e-05,
+            9.808200000094303e-05,
+            0.00010393300000544059,
+            0.00010060700000025236,
+            9.815300000326488e-05
+          ],
+          "outcome_factor": [
+            10651,
+            25033
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00022952750000015953,
+          "min_seconds": 0.00022391599999593836,
+          "max_seconds": 0.00037371599999858063,
+          "all_original_elapsed_seconds": [
+            0.00037371599999858063,
+            0.00022563999999647422,
+            0.00023030900000264865,
+            0.00022613999999521184,
+            0.00022391599999593836,
+            0.00022874599999767042,
+            0.00024627899999529745,
+            0.000239266000001237
+          ],
+          "outcome_factor": [
+            10651,
+            25033
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.0002900095000022418,
+          "min_seconds": 0.0002658649999958129,
+          "max_seconds": 0.000405493999998896,
+          "all_original_elapsed_seconds": [
+            0.000405493999998896,
+            0.0002854710000050886,
+            0.00029454799999939496,
+            0.000280541999998718,
+            0.0002658649999958129,
+            0.00030150099999559643,
+            0.00026898099999783653,
+            0.0002954899999991767
+          ],
+          "outcome_factor": [
+            10651,
+            25033
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 0.0023614094999970803,
+          "min_seconds": 0.002340185000001327,
+          "max_seconds": 0.0027360630000003994,
+          "all_original_elapsed_seconds": [
+            0.0023784659999961377,
+            0.0023689480000044227,
+            0.002354812000000095,
+            0.0023497930000004885,
+            0.0027360630000003994,
+            0.0023419689999997217,
+            0.002340185000001327,
+            0.0023680069999940656
+          ],
+          "outcome_factor": [
+            10651,
+            25033
+          ],
+          "method_name": "Floyd_rho_64",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 0.00018547499999854722,
+          "min_seconds": 0.00018330099999985805,
+          "max_seconds": 0.00018777000000369526,
+          "all_original_elapsed_seconds": [
+            0.00018451399999719342,
+            0.0001845330000023182,
+            0.00018777000000369526,
+            0.00018719799999900033,
+            0.00018641699999477623,
+            0.00018431199999469072,
+            0.00018330099999985805,
+            0.00018717900000098098
+          ],
+          "outcome_factor": [
+            10651,
+            25033
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.43714369738220465,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.34597659731901237,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 5,
+      "frozen_public_N": 218565877,
+      "validation_only_synthetic_pq": [
+        11909,
+        18353
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 218565877,
+        "factors": [
+          11909,
+          18353
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              11909,
+              18353
+            ],
+            "ops": {
+              "modular_squarings": 30,
+              "modular_products": 15,
+              "gcd_calls": 4
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 30,
+          "rho_modular_products": 15,
+          "rho_gcd_calls": 4
+        },
+        "elapsed_seconds": 5.4730999998753305e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              11909,
+              18353
+            ],
+            "ops": {
+              "modular_squarings": 30,
+              "modular_products": 15,
+              "gcd_calls": 4
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 30,
+          "rho_modular_products": 15,
+          "rho_gcd_calls": 4
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 218565877,
+          "factors": [
+            11909,
+            18353
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                11909,
+                18353
+              ],
+              "ops": {
+                "modular_squarings": 30,
+                "modular_products": 15,
+                "gcd_calls": 4
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 30,
+            "rho_modular_products": 15,
+            "rho_gcd_calls": 4
+          },
+          "elapsed_seconds": 5.4730999998753305e-05,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 218565877,
+          "factors": [
+            11909,
+            18353
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2725,
+          "elapsed_seconds": 0.0003940430000000106
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 218565877,
+          "factors": [
+            11909,
+            18353
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 13,
+          "integer_search_steps": 1785,
+          "divisibility_tests": 1789,
+          "elapsed_seconds": 0.0004976569999968206
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            11909,
+            18353
+          ],
+          "method": "ptp_midpoint_15015",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 105
+            },
+            {
+              "name": "ptp_midpoint_15015",
+              "factors": [
+                11909,
+                18353
+              ],
+              "square_tests": 11,
+              "midpoint_modulus": 15015,
+              "setup_seconds": 0.0022229670000015744,
+              "search_seconds": 4.678999999896405e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            11909,
+            18353
+          ],
+          "found": true,
+          "exact_square_root_tests": 348,
+          "scanned_midpoint_positions": 348,
+          "found_at_offset": 347,
+          "total_seconds": 4.147699999634824e-05,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 3.843149999838147e-05,
+          "min_seconds": 3.440400000442878e-05,
+          "max_seconds": 5.769799999910674e-05,
+          "all_original_elapsed_seconds": [
+            5.769799999910674e-05,
+            3.988400000309866e-05,
+            4.4111999997653584e-05,
+            3.817099999992024e-05,
+            3.440400000442878e-05,
+            3.8691999996842696e-05,
+            3.7980999998410425e-05,
+            3.607699999719216e-05
+          ],
+          "outcome_factor": [
+            11909,
+            18353
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00025237999999916383,
+          "min_seconds": 0.00024294199999985722,
+          "max_seconds": 0.00042820599999515707,
+          "all_original_elapsed_seconds": [
+            0.00042820599999515707,
+            0.0002445849999972438,
+            0.0002922549999979651,
+            0.0002521199999989676,
+            0.00024294199999985722,
+            0.00025263999999936004,
+            0.0002449759999976209,
+            0.000263230000001613
+          ],
+          "outcome_factor": [
+            11909,
+            18353
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.0003627100000009875,
+          "min_seconds": 0.0003500609999989024,
+          "max_seconds": 0.0005175830000041515,
+          "all_original_elapsed_seconds": [
+            0.0005175830000041515,
+            0.0003522360000047797,
+            0.0003688160000052676,
+            0.00038250200000078394,
+            0.00036018100000489994,
+            0.0003571849999985943,
+            0.0003500609999989024,
+            0.0003652389999970751
+          ],
+          "outcome_factor": [
+            11909,
+            18353
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 0.002276392000002403,
+          "min_seconds": 0.002239588000001902,
+          "max_seconds": 0.002336057999997365,
+          "all_original_elapsed_seconds": [
+            0.0023010629999973276,
+            0.00225863400000037,
+            0.002277818999999681,
+            0.002336057999997365,
+            0.002275375000003521,
+            0.0022774090000012848,
+            0.002239588000001902,
+            0.0022602269999936198
+          ],
+          "outcome_factor": [
+            11909,
+            18353
+          ],
+          "method_name": "ptp_midpoint_15015",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 4.3811499999435455e-05,
+          "min_seconds": 4.3060999999511296e-05,
+          "max_seconds": 6.988999999890666e-05,
+          "all_original_elapsed_seconds": [
+            4.311000000001286e-05,
+            6.33269999994468e-05,
+            4.392099999961374e-05,
+            4.370199999925717e-05,
+            4.31409999990251e-05,
+            4.3060999999511296e-05,
+            6.988999999890666e-05,
+            4.531500000126698e-05
+          ],
+          "outcome_factor": [
+            11909,
+            18353
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.15227632933873048,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.1059565493046148,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 6,
+      "frozen_public_N": 188446273,
+      "validation_only_synthetic_pq": [
+        10709,
+        17597
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 188446273,
+        "factors": [
+          10709,
+          17597
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10709,
+              17597
+            ],
+            "ops": {
+              "modular_squarings": 222,
+              "modular_products": 95,
+              "gcd_calls": 9
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 222,
+          "rho_modular_products": 95,
+          "rho_gcd_calls": 9
+        },
+        "elapsed_seconds": 0.00017926399999623754,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10709,
+              17597
+            ],
+            "ops": {
+              "modular_squarings": 222,
+              "modular_products": 95,
+              "gcd_calls": 9
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 222,
+          "rho_modular_products": 95,
+          "rho_gcd_calls": 9
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 188446273,
+          "factors": [
+            10709,
+            17597
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                10709,
+                17597
+              ],
+              "ops": {
+                "modular_squarings": 222,
+                "modular_products": 95,
+                "gcd_calls": 9
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 222,
+            "rho_modular_products": 95,
+            "rho_gcd_calls": 9
+          },
+          "elapsed_seconds": 0.00017926399999623754,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 188446273,
+          "factors": [
+            10709,
+            17597
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2451,
+          "elapsed_seconds": 0.00035643400000395786
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 188446273,
+          "factors": [
+            10709,
+            17597
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 23,
+          "integer_search_steps": 2999,
+          "divisibility_tests": 3003,
+          "elapsed_seconds": 0.0006696260000040866
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            10709,
+            17597
+          ],
+          "method": "Floyd_rho_64",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 105
+            },
+            {
+              "name": "ptp_midpoint_15015",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 15015
+            },
+            {
+              "name": "Pollard_p_minus_one_B31",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "B": 31,
+                "pow_calls": 11,
+                "gcd_calls": 1
+              }
+            },
+            {
+              "name": "Floyd_rho_64",
+              "factors": [
+                10709,
+                17597
+              ],
+              "details": {
+                "factors": [
+                  10709,
+                  17597
+                ],
+                "modular_squares": 354,
+                "gcd_calls": 118,
+                "seed": 3
+              }
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            10709,
+            17597
+          ],
+          "found": true,
+          "exact_square_root_tests": 426,
+          "scanned_midpoint_positions": 426,
+          "found_at_offset": 425,
+          "total_seconds": 5.1094999996337265e-05,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 0.00010824099999950931,
+          "min_seconds": 0.00010439399999739862,
+          "max_seconds": 0.00018211900000153491,
+          "all_original_elapsed_seconds": [
+            0.00018211900000153491,
+            0.00010598699999775363,
+            0.00010589699999741242,
+            0.00010810100000213652,
+            0.00010439399999739862,
+            0.00010860200000450959,
+            0.00010842200000382718,
+            0.00010838099999688211
+          ],
+          "outcome_factor": [
+            10709,
+            17597
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00022910099999862155,
+          "min_seconds": 0.00022359600000498858,
+          "max_seconds": 0.0003886530000016819,
+          "all_original_elapsed_seconds": [
+            0.0003886530000016819,
+            0.00022529900000023417,
+            0.0002489830000058646,
+            0.0002282839999949715,
+            0.00022359600000498858,
+            0.00025080700000046363,
+            0.00022513899999410114,
+            0.00022991800000227158
+          ],
+          "outcome_factor": [
+            10709,
+            17597
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.000608928500000161,
+          "min_seconds": 0.0005912099999960674,
+          "max_seconds": 0.000688711999998759,
+          "all_original_elapsed_seconds": [
+            0.000688711999998759,
+            0.0006033529999953657,
+            0.0006143940000029602,
+            0.0006130109999986644,
+            0.0006048460000016576,
+            0.0005912099999960674,
+            0.0006002370000004476,
+            0.000614474000002474
+          ],
+          "outcome_factor": [
+            10709,
+            17597
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 0.0023483705000018062,
+          "min_seconds": 0.0023288249999993127,
+          "max_seconds": 0.002416125999999963,
+          "all_original_elapsed_seconds": [
+            0.002416125999999963,
+            0.002358970000003069,
+            0.0023312780000068756,
+            0.002352759000004312,
+            0.002359671999997204,
+            0.002342668999993691,
+            0.0023288249999993127,
+            0.0023439819999993006
+          ],
+          "outcome_factor": [
+            10709,
+            17597
+          ],
+          "method_name": "Floyd_rho_64",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 5.3299500002879086e-05,
+          "min_seconds": 5.281800000034309e-05,
+          "max_seconds": 5.4622000000392745e-05,
+          "all_original_elapsed_seconds": [
+            5.281899999687312e-05,
+            5.281800000034309e-05,
+            5.333900000437097e-05,
+            5.3600000001097214e-05,
+            5.3258999997751744e-05,
+            5.4622000000392745e-05,
+            5.32600000013872e-05,
+            5.4530999996416085e-05
+          ],
+          "outcome_factor": [
+            10709,
+            17597
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.4724597448294009,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.17775650178876617,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 7,
+      "frozen_public_N": 204445411,
+      "validation_only_synthetic_pq": [
+        13841,
+        14771
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 204445411,
+        "factors": [
+          13841,
+          14771
+        ],
+        "method": "early_fermat_8",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": [
+              13841,
+              14771
+            ],
+            "exact_square_tests": 8,
+            "first_offset": 7
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8
+        },
+        "elapsed_seconds": 1.136099999854423e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "early_fermat_8",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": [
+              13841,
+              14771
+            ],
+            "exact_square_tests": 8,
+            "first_offset": 7
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 204445411,
+          "factors": [
+            13841,
+            14771
+          ],
+          "method": "early_fermat_8",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": [
+                13841,
+                14771
+              ],
+              "exact_square_tests": 8,
+              "first_offset": 7
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8
+          },
+          "elapsed_seconds": 1.136099999854423e-05,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 204445411,
+          "factors": [
+            13841,
+            14771
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 3167,
+          "elapsed_seconds": 0.0004135200000021655
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 204445411,
+          "factors": [
+            13841,
+            14771
+          ],
+          "candidate_pairs": 28,
+          "pair_checks": 15,
+          "integer_search_steps": 2026,
+          "divisibility_tests": 2030,
+          "elapsed_seconds": 0.00041295799999829796
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            13841,
+            14771
+          ],
+          "method": "ordinary_fermat",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": [
+                13841,
+                14771
+              ],
+              "square_tests": 8,
+              "midpoint_modulus": null,
+              "setup_seconds": 0.0,
+              "search_seconds": 4.539000002523608e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            13841,
+            14771
+          ],
+          "found": true,
+          "exact_square_root_tests": 8,
+          "scanned_midpoint_positions": 8,
+          "found_at_offset": 7,
+          "total_seconds": 2.545000000964137e-06,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 9.427000001949182e-06,
+          "min_seconds": 8.495999999524884e-06,
+          "max_seconds": 1.4295999996249975e-05,
+          "all_original_elapsed_seconds": [
+            1.4295999996249975e-05,
+            1.2272999995843747e-05,
+            9.687999998675423e-06,
+            8.495999999524884e-06,
+            9.086999995133738e-06,
+            9.617000003458998e-06,
+            9.237000000439366e-06,
+            8.69699999839213e-06
+          ],
+          "outcome_factor": [
+            13841,
+            14771
+          ],
+          "method_name": "early_fermat_8",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.0002765649999965092,
+          "min_seconds": 0.0002751520000003893,
+          "max_seconds": 0.00043885599999526903,
+          "all_original_elapsed_seconds": [
+            0.00043885599999526903,
+            0.00027685599999927035,
+            0.0002802309999978547,
+            0.0002956200000028275,
+            0.0002760829999957082,
+            0.0002762650000036615,
+            0.000276273999993748,
+            0.0002751520000003893
+          ],
+          "outcome_factor": [
+            13841,
+            14771
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.0004139304999988269,
+          "min_seconds": 0.00040316999999845393,
+          "max_seconds": 0.0004318240000031892,
+          "all_original_elapsed_seconds": [
+            0.0004318240000031892,
+            0.0004131689999979926,
+            0.000405213999997045,
+            0.00040316999999845393,
+            0.0004146919999996612,
+            0.00041672500000089485,
+            0.00040320099999746617,
+            0.00041513200000053985
+          ],
+          "outcome_factor": [
+            13841,
+            14771
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 2.5512499998825433e-05,
+          "min_seconds": 2.291300000223373e-05,
+          "max_seconds": 3.09569999998871e-05,
+          "all_original_elapsed_seconds": [
+            3.09569999998871e-05,
+            2.657999999655658e-05,
+            2.570799999546125e-05,
+            2.3503999997842584e-05,
+            2.5317000002189616e-05,
+            2.4375000002407887e-05,
+            2.291300000223373e-05,
+            2.859300000324083e-05
+          ],
+          "outcome_factor": [
+            13841,
+            14771
+          ],
+          "method_name": "ordinary_fermat",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 3.3860000030472293e-06,
+          "min_seconds": 3.1659999990552024e-06,
+          "max_seconds": 3.867000003765497e-06,
+          "all_original_elapsed_seconds": [
+            3.867000003765497e-06,
+            3.837999997813313e-06,
+            3.5870000019144754e-06,
+            3.3760000022198255e-06,
+            3.3760000022198255e-06,
+            3.396000003874633e-06,
+            3.1659999990552024e-06,
+            3.206000002364817e-06
+          ],
+          "outcome_factor": [
+            13841,
+            14771
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.03408601956888316,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.022774354636770903,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 8,
+      "frozen_public_N": 231191621,
+      "validation_only_synthetic_pq": [
+        11287,
+        20483
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 231191621,
+        "factors": [
+          11287,
+          20483
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              11287,
+              20483
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 0.00017075799999588526,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              11287,
+              20483
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 231191621,
+          "factors": [
+            11287,
+            20483
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                11287,
+                20483
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 206,
+            "rho_modular_products": 79,
+            "rho_gcd_calls": 8
+          },
+          "elapsed_seconds": 0.00017075799999588526,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 231191621,
+          "factors": [
+            11287,
+            20483
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2583,
+          "elapsed_seconds": 0.0003154770000008966
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 231191621,
+          "factors": [
+            11287,
+            20483
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 20,
+          "integer_search_steps": 2866,
+          "divisibility_tests": 2870,
+          "elapsed_seconds": 0.0005880339999961848
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            11287,
+            20483
+          ],
+          "method": "restored_midpoint_QR_255255",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 105
+            },
+            {
+              "name": "ptp_midpoint_15015",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 15015
+            },
+            {
+              "name": "Pollard_p_minus_one_B31",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "B": 31,
+                "pow_calls": 11,
+                "gcd_calls": 1
+              }
+            },
+            {
+              "name": "Floyd_rho_64",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "modular_squares": 384,
+                "gcd_calls": 128
+              }
+            },
+            {
+              "name": "trial_prime_97",
+              "factors": null,
+              "details": {
+                "factors": null,
+                "divisibility_tests": 25
+              }
+            },
+            {
+              "name": "restored_midpoint_QR_255255",
+              "factors": [
+                11287,
+                20483
+              ],
+              "quadratic_residue_modular_work": 1150,
+              "scanned_midpoint_positions": 681,
+              "exact_square_root_tests": 6,
+              "QR_setup_seconds": 1.4636999999595446e-05,
+              "QR_total_seconds": 0.00022221400000432823
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            11287,
+            20483
+          ],
+          "found": true,
+          "exact_square_root_tests": 681,
+          "scanned_midpoint_positions": 681,
+          "found_at_offset": 680,
+          "total_seconds": 8.053900000248859e-05,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 0.00010429449999804774,
+          "min_seconds": 9.75020000026916e-05,
+          "max_seconds": 0.00017370300000152383,
+          "all_original_elapsed_seconds": [
+            0.00017370300000152383,
+            0.00010026700000054234,
+            0.00011680800000135605,
+            0.00011484400000227879,
+            0.00010832199999555314,
+            9.973600000279248e-05,
+            9.951500000227043e-05,
+            9.75020000026916e-05
+          ],
+          "outcome_factor": [
+            11287,
+            20483
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00024256150000212529,
+          "min_seconds": 0.00023553799999831426,
+          "max_seconds": 0.00033913100000404484,
+          "all_original_elapsed_seconds": [
+            0.00033913100000404484,
+            0.00023616000000004078,
+            0.0002441450000034706,
+            0.00024048699999923429,
+            0.00024097800000077996,
+            0.00023553799999831426,
+            0.0002714549999964788,
+            0.00025872200000520706
+          ],
+          "outcome_factor": [
+            11287,
+            20483
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.0005719695000010461,
+          "min_seconds": 0.0005482199999988779,
+          "max_seconds": 0.0006077310000023317,
+          "all_original_elapsed_seconds": [
+            0.0006077310000023317,
+            0.0005482199999988779,
+            0.0005905690000034269,
+            0.0005626870000057238,
+            0.0005656630000032692,
+            0.0005826639999995109,
+            0.0005548329999953694,
+            0.000578275999998823
+          ],
+          "outcome_factor": [
+            11287,
+            20483
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 0.0025787889999975278,
+          "min_seconds": 0.00255088699999817,
+          "max_seconds": 0.002670829999999569,
+          "all_original_elapsed_seconds": [
+            0.002670829999999569,
+            0.00258092299999646,
+            0.002555475999997725,
+            0.00255088699999817,
+            0.002571494999997981,
+            0.0025766549999985955,
+            0.0025929549999972323,
+            0.0025994679999996606
+          ],
+          "outcome_factor": [
+            11287,
+            20483
+          ],
+          "method_name": "restored_midpoint_QR_255255",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 8.312499999973966e-05,
+          "min_seconds": 8.190199999802417e-05,
+          "max_seconds": 8.669099999991658e-05,
+          "all_original_elapsed_seconds": [
+            8.201200000002018e-05,
+            8.300500000046895e-05,
+            8.669099999991658e-05,
+            8.453699999932951e-05,
+            8.525899999511921e-05,
+            8.242300000205205e-05,
+            8.190199999802417e-05,
+            8.324499999901036e-05
+          ],
+          "outcome_factor": [
+            11287,
+            20483
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.42997136807421593,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.18234276477654315,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 9,
+      "frozen_public_N": 143733203,
+      "validation_only_synthetic_pq": [
+        9949,
+        14447
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 143733203,
+        "factors": [
+          9949,
+          14447
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              9949,
+              14447
+            ],
+            "ops": {
+              "modular_squarings": 14,
+              "modular_products": 7,
+              "gcd_calls": 3
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 14,
+          "rho_modular_products": 7,
+          "rho_gcd_calls": 3
+        },
+        "elapsed_seconds": 4.460300000630468e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              9949,
+              14447
+            ],
+            "ops": {
+              "modular_squarings": 14,
+              "modular_products": 7,
+              "gcd_calls": 3
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 14,
+          "rho_modular_products": 7,
+          "rho_gcd_calls": 3
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 143733203,
+          "factors": [
+            9949,
+            14447
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                9949,
+                14447
+              ],
+              "ops": {
+                "modular_squarings": 14,
+                "modular_products": 7,
+                "gcd_calls": 3
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 14,
+            "rho_modular_products": 7,
+            "rho_gcd_calls": 3
+          },
+          "elapsed_seconds": 4.460300000630468e-05,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 143733203,
+          "factors": [
+            9949,
+            14447
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2278,
+          "elapsed_seconds": 0.0003287420000006591
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 143733203,
+          "factors": [
+            9949,
+            14447
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 15,
+          "integer_search_steps": 1759,
+          "divisibility_tests": 1763,
+          "elapsed_seconds": 0.00033394100000094795
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            9949,
+            14447
+          ],
+          "method": "ptp_midpoint_105",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": [
+                9949,
+                14447
+              ],
+              "square_tests": 12,
+              "midpoint_modulus": 105,
+              "setup_seconds": 2.4084000003199435e-05,
+              "search_seconds": 3.797999994503698e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            9949,
+            14447
+          ],
+          "found": true,
+          "exact_square_root_tests": 210,
+          "scanned_midpoint_positions": 210,
+          "found_at_offset": 209,
+          "total_seconds": 2.8252999996425388e-05,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 2.667450000259919e-05,
+          "min_seconds": 2.402400000534044e-05,
+          "max_seconds": 4.7408999996889634e-05,
+          "all_original_elapsed_seconds": [
+            4.7408999996889634e-05,
+            2.8703999994661444e-05,
+            2.5417000003358226e-05,
+            3.4864999996386814e-05,
+            2.402400000534044e-05,
+            2.5998000005245103e-05,
+            2.5487000002044624e-05,
+            2.7350999999953274e-05
+          ],
+          "outcome_factor": [
+            9949,
+            14447
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00021062700000129553,
+          "min_seconds": 0.0002071360000002187,
+          "max_seconds": 0.00036171299999665507,
+          "all_original_elapsed_seconds": [
+            0.00036171299999665507,
+            0.00020829800000399246,
+            0.00023056899999573943,
+            0.00020829799999688703,
+            0.0002403570000026889,
+            0.00021107199999903514,
+            0.0002071360000002187,
+            0.0002101820000035559
+          ],
+          "outcome_factor": [
+            9949,
+            14447
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.0003565029999990088,
+          "min_seconds": 0.0003505029999999465,
+          "max_seconds": 0.0003901660000025231,
+          "all_original_elapsed_seconds": [
+            0.0003505029999999465,
+            0.0003901660000025231,
+            0.00035756500000161395,
+            0.0003543500000020572,
+            0.00035544099999640366,
+            0.0003726339999943207,
+            0.00035365799999453884,
+            0.0003737350000037054
+          ],
+          "outcome_factor": [
+            9949,
+            14447
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 5.248800000146048e-05,
+          "min_seconds": 4.8249999998972726e-05,
+          "max_seconds": 6.090400000147156e-05,
+          "all_original_elapsed_seconds": [
+            6.090400000147156e-05,
+            5.722699999921588e-05,
+            5.256800000097428e-05,
+            5.2408000001946675e-05,
+            5.291799999440627e-05,
+            5.21369999972876e-05,
+            4.8249999998972726e-05,
+            5.188599999428334e-05
+          ],
+          "outcome_factor": [
+            9949,
+            14447
+          ],
+          "method_name": "ptp_midpoint_105",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 2.6755000000378004e-05,
+          "min_seconds": 2.6388999998516738e-05,
+          "max_seconds": 2.96460000015486e-05,
+          "all_original_elapsed_seconds": [
+            2.96460000015486e-05,
+            2.6458999997203136e-05,
+            2.6558999998371746e-05,
+            2.691000000254462e-05,
+            2.6388999998516738e-05,
+            2.734099999912587e-05,
+            2.6750000003517016e-05,
+            2.6759999997238992e-05
+          ],
+          "outcome_factor": [
+            9949,
+            14447
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.12664330784958774,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.07482265227129464,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 10,
+      "frozen_public_N": 236375369,
+      "validation_only_synthetic_pq": [
+        14767,
+        16007
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 236375369,
+        "factors": [
+          14767,
+          16007
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              14767,
+              16007
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 0.00016491699999932052,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              14767,
+              16007
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 236375369,
+          "factors": [
+            14767,
+            16007
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                14767,
+                16007
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 206,
+            "rho_modular_products": 79,
+            "rho_gcd_calls": 8
+          },
+          "elapsed_seconds": 0.00016491699999932052,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 236375369,
+          "factors": [
+            14767,
+            16007
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 3379,
+          "elapsed_seconds": 0.00035278600000054894
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 236375369,
+          "factors": [
+            14767,
+            16007
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 9,
+          "integer_search_steps": 1271,
+          "divisibility_tests": 1275,
+          "elapsed_seconds": 0.0002481920000008131
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            14767,
+            16007
+          ],
+          "method": "ptp_midpoint_105",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": [
+                14767,
+                16007
+              ],
+              "square_tests": 2,
+              "midpoint_modulus": 105,
+              "setup_seconds": 2.3183000003257348e-05,
+              "search_seconds": 1.6740000035042613e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            14767,
+            16007
+          ],
+          "found": true,
+          "exact_square_root_tests": 13,
+          "scanned_midpoint_positions": 13,
+          "found_at_offset": 12,
+          "total_seconds": 2.995999999200194e-06,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 9.583350000141877e-05,
+          "min_seconds": 9.311300000547362e-05,
+          "max_seconds": 0.00016766199999551645,
+          "all_original_elapsed_seconds": [
+            0.00016766199999551645,
+            9.773099999677015e-05,
+            9.538700000177869e-05,
+            9.311300000547362e-05,
+            9.628000000105885e-05,
+            9.468599999706839e-05,
+            0.00010006600000167509,
+            9.419500000262815e-05
+          ],
+          "outcome_factor": [
+            14767,
+            16007
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00029758850000050074,
+          "min_seconds": 0.00029358699999448845,
+          "max_seconds": 0.0003759399999978541,
+          "all_original_elapsed_seconds": [
+            0.0003759399999978541,
+            0.00032631699999541297,
+            0.00029859500000384287,
+            0.0002965819999971586,
+            0.00029358699999448845,
+            0.0002952000000036037,
+            0.0002938869999979943,
+            0.00030894399999681355
+          ],
+          "outcome_factor": [
+            14767,
+            16007
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.0002632049999995445,
+          "min_seconds": 0.00025702900000368345,
+          "max_seconds": 0.0002804320000038274,
+          "all_original_elapsed_seconds": [
+            0.0002640410000012139,
+            0.0002586109999995756,
+            0.0002802320000014902,
+            0.00027561299999945277,
+            0.00025702900000368345,
+            0.00025949300000149833,
+            0.0002804320000038274,
+            0.0002623689999978751
+          ],
+          "outcome_factor": [
+            14767,
+            16007
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 5.123999999767648e-05,
+          "min_seconds": 4.665699999861772e-05,
+          "max_seconds": 5.6686000000638614e-05,
+          "all_original_elapsed_seconds": [
+            5.6686000000638614e-05,
+            5.3139000002033754e-05,
+            5.240799999484125e-05,
+            4.7839000004046284e-05,
+            5.2166999999769814e-05,
+            4.95320000055699e-05,
+            5.031299999558314e-05,
+            4.665699999861772e-05
+          ],
+          "outcome_factor": [
+            14767,
+            16007
+          ],
+          "method_name": "ptp_midpoint_105",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 4.263000004556261e-06,
+          "min_seconds": 4.117999999664335e-06,
+          "max_seconds": 4.638000000056763e-06,
+          "all_original_elapsed_seconds": [
+            4.187999998350733e-06,
+            4.638000000056763e-06,
+            4.567999994264937e-06,
+            4.146999998511092e-06,
+            4.278000005797367e-06,
+            4.30800000117415e-06,
+            4.2480000033151555e-06,
+            4.117999999664335e-06
+          ],
+          "outcome_factor": [
+            14767,
+            16007
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": false,
+      "router_over_wheel210_median_runtime_ratio": 0.3220336135343184,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.3641021257255167,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 11,
+      "frozen_public_N": 267736919,
+      "validation_only_synthetic_pq": [
+        13033,
+        20543
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 267736919,
+        "factors": [
+          13033,
+          20543
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              13033,
+              20543
+            ],
+            "ops": {
+              "modular_squarings": 126,
+              "modular_products": 63,
+              "gcd_calls": 7
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        },
+        "elapsed_seconds": 0.00011739900000407033,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              13033,
+              20543
+            ],
+            "ops": {
+              "modular_squarings": 126,
+              "modular_products": 63,
+              "gcd_calls": 7
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 267736919,
+          "factors": [
+            13033,
+            20543
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                13033,
+                20543
+              ],
+              "ops": {
+                "modular_squarings": 126,
+                "modular_products": 63,
+                "gcd_calls": 7
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 126,
+            "rho_modular_products": 63,
+            "rho_gcd_calls": 7
+          },
+          "elapsed_seconds": 0.00011739900000407033,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 267736919,
+          "factors": [
+            13033,
+            20543
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2982,
+          "elapsed_seconds": 0.00035976000000204067
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 267736919,
+          "factors": [
+            13033,
+            20543
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 2,
+          "integer_search_steps": 300,
+          "divisibility_tests": 304,
+          "elapsed_seconds": 6.13740000048324e-05
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            13033,
+            20543
+          ],
+          "method": "ptp_midpoint_15015",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 105
+            },
+            {
+              "name": "ptp_midpoint_15015",
+              "factors": [
+                13033,
+                20543
+              ],
+              "square_tests": 10,
+              "midpoint_modulus": 15015,
+              "setup_seconds": 0.0022884900000050834,
+              "search_seconds": 3.776999996318864e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            13033,
+            20543
+          ],
+          "found": true,
+          "exact_square_root_tests": 426,
+          "scanned_midpoint_positions": 426,
+          "found_at_offset": 425,
+          "total_seconds": 4.96020000042563e-05,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 8.42470000002038e-05,
+          "min_seconds": 7.532999999426693e-05,
+          "max_seconds": 0.00012011399999778405,
+          "all_original_elapsed_seconds": [
+            0.00012011399999778405,
+            7.643200000018169e-05,
+            7.842600000174116e-05,
+            9.228199999711251e-05,
+            0.00010614799999331126,
+            7.71139999997672e-05,
+            7.532999999426693e-05,
+            9.006799999866644e-05
+          ],
+          "outcome_factor": [
+            13033,
+            20543
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.0002727824999979589,
+          "min_seconds": 0.0002651430000000232,
+          "max_seconds": 0.00038433499999968035,
+          "all_original_elapsed_seconds": [
+            0.00038433499999968035,
+            0.00026983200000074703,
+            0.0003119710000021314,
+            0.00027242699999874276,
+            0.0002651430000000232,
+            0.00027313799999717503,
+            0.00028434899999751906,
+            0.00026696800000536314
+          ],
+          "outcome_factor": [
+            13033,
+            20543
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 7.746400000030462e-05,
+          "min_seconds": 7.503999999869393e-05,
+          "max_seconds": 8.230299999922863e-05,
+          "all_original_elapsed_seconds": [
+            7.770500000248148e-05,
+            7.757400000230064e-05,
+            8.230299999922863e-05,
+            7.735399999830861e-05,
+            7.503999999869393e-05,
+            7.602099999814982e-05,
+            7.610200000129907e-05,
+            8.117099999793709e-05
+          ],
+          "outcome_factor": [
+            13033,
+            20543
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 0.0022506284999970205,
+          "min_seconds": 0.002205714999995223,
+          "max_seconds": 0.0026069019999965803,
+          "all_original_elapsed_seconds": [
+            0.0023598610000021836,
+            0.0022731609999979696,
+            0.0026069019999965803,
+            0.0022405599999970605,
+            0.002237253999993527,
+            0.0022099019999970437,
+            0.0022606969999969806,
+            0.002205714999995223
+          ],
+          "outcome_factor": [
+            13033,
+            20543
+          ],
+          "method_name": "ptp_midpoint_15015",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 5.486700000290057e-05,
+          "min_seconds": 5.1244999994537466e-05,
+          "max_seconds": 5.538299999585661e-05,
+          "all_original_elapsed_seconds": [
+            5.1244999994537466e-05,
+            5.394999999452921e-05,
+            5.468199999825174e-05,
+            5.538299999585661e-05,
+            5.517299999979741e-05,
+            5.4982999998287596e-05,
+            5.4852000005212176e-05,
+            5.488200000058896e-05
+          ],
+          "outcome_factor": [
+            13033,
+            20543
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": false,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.30884312593672314,
+      "router_over_PTP_LFK_median_runtime_ratio": 1.0875632551878616,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 12,
+      "frozen_public_N": 173544809,
+      "validation_only_synthetic_pq": [
+        12323,
+        14083
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 173544809,
+        "factors": [
+          12323,
+          14083
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": null,
+            "ops": {
+              "modular_squarings": 256,
+              "modular_products": 127,
+              "gcd_calls": 11
+            },
+            "exhausted": true
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 3,
+            "seed": 3,
+            "max_modular_squarings": 128,
+            "factors": [
+              12323,
+              14083
+            ],
+            "ops": {
+              "modular_squarings": 62,
+              "modular_products": 31,
+              "gcd_calls": 5
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 318,
+          "rho_modular_products": 158,
+          "rho_gcd_calls": 16
+        },
+        "elapsed_seconds": 0.00028818599999880234,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": null,
+            "ops": {
+              "modular_squarings": 256,
+              "modular_products": 127,
+              "gcd_calls": 11
+            },
+            "exhausted": true
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 3,
+            "seed": 3,
+            "max_modular_squarings": 128,
+            "factors": [
+              12323,
+              14083
+            ],
+            "ops": {
+              "modular_squarings": 62,
+              "modular_products": 31,
+              "gcd_calls": 5
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 318,
+          "rho_modular_products": 158,
+          "rho_gcd_calls": 16
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 173544809,
+          "factors": [
+            12323,
+            14083
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": null,
+              "ops": {
+                "modular_squarings": 256,
+                "modular_products": 127,
+                "gcd_calls": 11
+              },
+              "exhausted": true
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 3,
+              "seed": 3,
+              "max_modular_squarings": 128,
+              "factors": [
+                12323,
+                14083
+              ],
+              "ops": {
+                "modular_squarings": 62,
+                "modular_products": 31,
+                "gcd_calls": 5
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 318,
+            "rho_modular_products": 158,
+            "rho_gcd_calls": 16
+          },
+          "elapsed_seconds": 0.00028818599999880234,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 173544809,
+          "factors": [
+            12323,
+            14083
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2820,
+          "elapsed_seconds": 0.0002587509999969484
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 173544809,
+          "factors": [
+            12323,
+            14083
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 2,
+          "integer_search_steps": 187,
+          "divisibility_tests": 191,
+          "elapsed_seconds": 3.9764000000275246e-05
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            12323,
+            14083
+          ],
+          "method": "ptp_midpoint_105",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": [
+                12323,
+                14083
+              ],
+              "square_tests": 4,
+              "midpoint_modulus": 105,
+              "setup_seconds": 2.3665000000505643e-05,
+              "search_seconds": 2.2140000055514975e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            12323,
+            14083
+          ],
+          "found": true,
+          "exact_square_root_tests": 30,
+          "scanned_midpoint_positions": 30,
+          "found_at_offset": 29,
+          "total_seconds": 5.2499999938504516e-06,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 0.0001576384999992797,
+          "min_seconds": 0.00015379700000295315,
+          "max_seconds": 0.00029109199999766133,
+          "all_original_elapsed_seconds": [
+            0.00029109199999766133,
+            0.0001583450000026687,
+            0.00015472799999827203,
+            0.0001775699999981839,
+            0.0001569319999958907,
+            0.00017051799999734385,
+            0.00015379700000295315,
+            0.00015578000000004977
+          ],
+          "outcome_factor": [
+            12323,
+            14083
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00025261549999555655,
+          "min_seconds": 0.0002490739999956304,
+          "max_seconds": 0.00028087300000123605,
+          "all_original_elapsed_seconds": [
+            0.00028087300000123605,
+            0.00025347199999714576,
+            0.00026760800000147356,
+            0.00025175899999396734,
+            0.0002490739999956304,
+            0.00025569600000352466,
+            0.0002501649999970823,
+            0.00025097700000031864
+          ],
+          "outcome_factor": [
+            12323,
+            14083
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 5.377549999963094e-05,
+          "min_seconds": 5.162600000119255e-05,
+          "max_seconds": 5.811800000543599e-05,
+          "all_original_elapsed_seconds": [
+            5.529300000262083e-05,
+            5.383100000244667e-05,
+            5.811800000543599e-05,
+            5.390999999832502e-05,
+            5.1786000000220156e-05,
+            5.342899999760675e-05,
+            5.162600000119255e-05,
+            5.3719999996815204e-05
+          ],
+          "outcome_factor": [
+            12323,
+            14083
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 5.12354999990805e-05,
+          "min_seconds": 4.7739000002877674e-05,
+          "max_seconds": 8.718299999799228e-05,
+          "all_original_elapsed_seconds": [
+            5.8238999997684004e-05,
+            8.718299999799228e-05,
+            5.106500000096048e-05,
+            4.925199999661345e-05,
+            5.1405999997200524e-05,
+            5.0294000004669215e-05,
+            4.7739000002877674e-05,
+            6.441000000023678e-05
+          ],
+          "outcome_factor": [
+            12323,
+            14083
+          ],
+          "method_name": "ptp_midpoint_105",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 6.472500000853643e-06,
+          "min_seconds": 6.1909999971021534e-06,
+          "max_seconds": 7.142999997711286e-06,
+          "all_original_elapsed_seconds": [
+            6.532000000447624e-06,
+            7.142999997711286e-06,
+            6.591999998306619e-06,
+            6.48299999994606e-06,
+            6.261000002893979e-06,
+            6.4620000017612256e-06,
+            6.1909999971021534e-06,
+            6.4319999992790144e-06
+          ],
+          "outcome_factor": [
+            12323,
+            14083
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": false,
+      "router_faster_than_prior_fixed_pipeline": false,
+      "router_over_wheel210_median_runtime_ratio": 0.6240254457943101,
+      "router_over_PTP_LFK_median_runtime_ratio": 2.931418582818599,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 13,
+      "frozen_public_N": 155277383,
+      "validation_only_synthetic_pq": [
+        9901,
+        15683
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 155277383,
+        "factors": [
+          9901,
+          15683
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              9901,
+              15683
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 0.00017549700000074608,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              9901,
+              15683
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 155277383,
+          "factors": [
+            9901,
+            15683
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                9901,
+                15683
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 206,
+            "rho_modular_products": 79,
+            "rho_gcd_calls": 8
+          },
+          "elapsed_seconds": 0.00017549700000074608,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 155277383,
+          "factors": [
+            9901,
+            15683
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2267,
+          "elapsed_seconds": 0.00026114599999971233
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 155277383,
+          "factors": [
+            9901,
+            15683
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 7,
+          "integer_search_steps": 841,
+          "divisibility_tests": 845,
+          "elapsed_seconds": 0.0001669310000025348
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            9901,
+            15683
+          ],
+          "method": "ptp_midpoint_15015",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": 105
+            },
+            {
+              "name": "ptp_midpoint_15015",
+              "factors": [
+                9901,
+                15683
+              ],
+              "square_tests": 6,
+              "midpoint_modulus": 15015,
+              "setup_seconds": 0.002188712999995346,
+              "search_seconds": 2.936000001341199e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            9901,
+            15683
+          ],
+          "found": true,
+          "exact_square_root_tests": 331,
+          "scanned_midpoint_positions": 331,
+          "found_at_offset": 330,
+          "total_seconds": 5.4972000000930166e-05,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 9.959999999864522e-05,
+          "min_seconds": 9.700100000031853e-05,
+          "max_seconds": 0.00017834199999811062,
+          "all_original_elapsed_seconds": [
+            0.00017834199999811062,
+            0.00010083700000507179,
+            0.00010004600000002029,
+            0.00010009599999705188,
+            9.700100000031853e-05,
+            9.915399999727015e-05,
+            9.909399999941115e-05,
+            9.841299999635567e-05
+          ],
+          "outcome_factor": [
+            9901,
+            15683
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00021807599999945637,
+          "min_seconds": 0.00021308700000588487,
+          "max_seconds": 0.00028416899999683665,
+          "all_original_elapsed_seconds": [
+            0.00028416899999683665,
+            0.0002137679999947295,
+            0.00021662300000002688,
+            0.00023425599999882252,
+            0.00021308700000588487,
+            0.00021952899999888587,
+            0.00023160099999586237,
+            0.00021657300000299529
+          ],
+          "outcome_factor": [
+            9901,
+            15683
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.00018136800000334574,
+          "min_seconds": 0.00017798100000021577,
+          "max_seconds": 0.00021106299999473777,
+          "all_original_elapsed_seconds": [
+            0.00018236900000090372,
+            0.0001819590000025073,
+            0.00021106299999473777,
+            0.00017929399999871976,
+            0.00017798100000021577,
+            0.00017920300000184852,
+            0.00018077700000418417,
+            0.0001837619999989215
+          ],
+          "outcome_factor": [
+            9901,
+            15683
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 0.002216185000001758,
+          "min_seconds": 0.002195365999995147,
+          "max_seconds": 0.002261509000000217,
+          "all_original_elapsed_seconds": [
+            0.0022611490000059575,
+            0.002261509000000217,
+            0.0022088209999964192,
+            0.0022157440000043493,
+            0.0022166259999991667,
+            0.0022134089999994444,
+            0.002195365999995147,
+            0.002261449000002358
+          ],
+          "outcome_factor": [
+            9901,
+            15683
+          ],
+          "method_name": "ptp_midpoint_15015",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 4.3234999999697266e-05,
+          "min_seconds": 4.2589000003090405e-05,
+          "max_seconds": 5.671499999948537e-05,
+          "all_original_elapsed_seconds": [
+            5.671499999948537e-05,
+            4.3419999997240666e-05,
+            4.3050000002153865e-05,
+            4.3480999998735115e-05,
+            4.2589000003090405e-05,
+            4.304000000132646e-05,
+            4.3580999999903725e-05,
+            4.3030999997029085e-05
+          ],
+          "outcome_factor": [
+            9901,
+            15683
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.45672150992724325,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.5491597194477961,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 14,
+      "frozen_public_N": 139248881,
+      "validation_only_synthetic_pq": [
+        10861,
+        12821
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 139248881,
+        "factors": [
+          10861,
+          12821
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10861,
+              12821
+            ],
+            "ops": {
+              "modular_squarings": 14,
+              "modular_products": 7,
+              "gcd_calls": 3
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 14,
+          "rho_modular_products": 7,
+          "rho_gcd_calls": 3
+        },
+        "elapsed_seconds": 4.994299999339091e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10861,
+              12821
+            ],
+            "ops": {
+              "modular_squarings": 14,
+              "modular_products": 7,
+              "gcd_calls": 3
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 14,
+          "rho_modular_products": 7,
+          "rho_gcd_calls": 3
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 139248881,
+          "factors": [
+            10861,
+            12821
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                10861,
+                12821
+              ],
+              "ops": {
+                "modular_squarings": 14,
+                "modular_products": 7,
+                "gcd_calls": 3
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 14,
+            "rho_modular_products": 7,
+            "rho_gcd_calls": 3
+          },
+          "elapsed_seconds": 4.994299999339091e-05,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 139248881,
+          "factors": [
+            10861,
+            12821
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2486,
+          "elapsed_seconds": 0.0003255059999958121
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 139248881,
+          "factors": [
+            10861,
+            12821
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 1,
+          "integer_search_steps": 52,
+          "divisibility_tests": 56,
+          "elapsed_seconds": 1.618000000291886e-05
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            10861,
+            12821
+          ],
+          "method": "ptp_midpoint_105",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": [
+                10861,
+                12821
+              ],
+              "square_tests": 7,
+              "midpoint_modulus": 105,
+              "setup_seconds": 2.4134999996761053e-05,
+              "search_seconds": 3.0960000003688037e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            10861,
+            12821
+          ],
+          "found": true,
+          "exact_square_root_tests": 41,
+          "scanned_midpoint_positions": 41,
+          "found_at_offset": 40,
+          "total_seconds": 6.492000004243437e-06,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 2.7095499998353034e-05,
+          "min_seconds": 2.3983999994925398e-05,
+          "max_seconds": 6.254699999885815e-05,
+          "all_original_elapsed_seconds": [
+            5.29980000010255e-05,
+            2.8011999994248526e-05,
+            6.254699999885815e-05,
+            2.6179000002457542e-05,
+            2.4615000000949294e-05,
+            5.020399999722258e-05,
+            2.5528000001884266e-05,
+            2.3983999994925398e-05
+          ],
+          "outcome_factor": [
+            10861,
+            12821
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.0002310295000000906,
+          "min_seconds": 0.00022724299999765663,
+          "max_seconds": 0.00034869899999989684,
+          "all_original_elapsed_seconds": [
+            0.00034869899999989684,
+            0.0002290770000001885,
+            0.00023190199999589822,
+            0.00023021799999867198,
+            0.00022724299999765663,
+            0.0002318410000015092,
+            0.00022975799999613855,
+            0.00024814100000014605
+          ],
+          "outcome_factor": [
+            10861,
+            12821
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 2.8126999996658242e-05,
+          "min_seconds": 2.6859999998407602e-05,
+          "max_seconds": 3.536599999875989e-05,
+          "all_original_elapsed_seconds": [
+            3.258100000635977e-05,
+            2.8111999995417136e-05,
+            3.536599999875989e-05,
+            2.8101999994589733e-05,
+            2.6859999998407602e-05,
+            2.8141999997899347e-05,
+            2.7250999998784664e-05,
+            2.919399999967709e-05
+          ],
+          "outcome_factor": [
+            10861,
+            12821
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 5.0984999997893965e-05,
+          "min_seconds": 4.728800000464162e-05,
+          "max_seconds": 6.031200000222725e-05,
+          "all_original_elapsed_seconds": [
+            6.031200000222725e-05,
+            5.212599999993017e-05,
+            5.055399999776e-05,
+            5.408100000181548e-05,
+            4.977300000064133e-05,
+            5.141599999802793e-05,
+            4.8069999998290314e-05,
+            4.728800000464162e-05
+          ],
+          "outcome_factor": [
+            10861,
+            12821
+          ],
+          "method_name": "ptp_midpoint_105",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 7.849499997547582e-06,
+          "min_seconds": 7.553999999743155e-06,
+          "max_seconds": 8.254999997348023e-06,
+          "all_original_elapsed_seconds": [
+            7.823999993661346e-06,
+            7.945000000120217e-06,
+            7.92499999846541e-06,
+            8.254999997348023e-06,
+            7.553999999743155e-06,
+            7.875000001433818e-06,
+            7.654000000911765e-06,
+            7.574999997927989e-06
+          ],
+          "outcome_factor": [
+            10861,
+            12821
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": true,
+      "router_over_wheel210_median_runtime_ratio": 0.11728155927421567,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.9633270523544011,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    },
+    {
+      "index": 15,
+      "frozen_public_N": 201779057,
+      "validation_only_synthetic_pq": [
+        12899,
+        15643
+      ],
+      "public_routing_receipt": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 201779057,
+        "factors": [
+          12899,
+          15643
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              12899,
+              15643
+            ],
+            "ops": {
+              "modular_squarings": 126,
+              "modular_products": 63,
+              "gcd_calls": 7
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        },
+        "elapsed_seconds": 0.00012748700000031477,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "router_audit": {
+        "successful_method": "brent_public_rho",
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              12899,
+              15643
+            ],
+            "ops": {
+              "modular_squarings": 126,
+              "modular_products": 63,
+              "gcd_calls": 7
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        }
+      },
+      "original_classical_method_full_receipts": {
+        "public_router": {
+          "policy": "darkstar_public_router_v1_20261029",
+          "N": 201779057,
+          "factors": [
+            12899,
+            15643
+          ],
+          "method": "brent_public_rho",
+          "success": true,
+          "stages": [
+            {
+              "stage": "early_fermat_8",
+              "factors": null,
+              "exact_square_tests": 8,
+              "first_offset": null
+            },
+            {
+              "stage": "brent_public_rho",
+              "c": 1,
+              "seed": 2,
+              "max_modular_squarings": 256,
+              "factors": [
+                12899,
+                15643
+              ],
+              "ops": {
+                "modular_squarings": 126,
+                "modular_products": 63,
+                "gcd_calls": 7
+              },
+              "exhausted": false
+            }
+          ],
+          "operation_totals": {
+            "divisibility_tests": 4,
+            "exact_square_root_tests": 8,
+            "rho_modular_squarings": 126,
+            "rho_modular_products": 63,
+            "rho_gcd_calls": 7
+          },
+          "elapsed_seconds": 0.00012748700000031477,
+          "order_or_factors_used_for_routing": false,
+          "uses_quantum_hardware": false,
+          "paid_runtime": false
+        },
+        "wheel210": {
+          "method": "wheel210",
+          "n": 201779057,
+          "factors": [
+            12899,
+            15643
+          ],
+          "candidate_pairs": 0,
+          "pair_checks": 0,
+          "integer_search_steps": 0,
+          "divisibility_tests": 2952,
+          "elapsed_seconds": 0.00036391700000137917
+        },
+        "PTP_LFK": {
+          "method": "lfk210",
+          "n": 201779057,
+          "factors": [
+            12899,
+            15643
+          ],
+          "candidate_pairs": 24,
+          "pair_checks": 16,
+          "integer_search_steps": 2201,
+          "divisibility_tests": 2205,
+          "elapsed_seconds": 0.0004225260000012554
+        },
+        "old_fixed_pipeline": {
+          "factors": [
+            12899,
+            15643
+          ],
+          "method": "ptp_midpoint_105",
+          "stages": [
+            {
+              "name": "base_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "wheel_small_factor",
+              "factors": null,
+              "detail": {
+                "factors": null
+              }
+            },
+            {
+              "name": "public_power2_gcd",
+              "factors": null,
+              "detail": null
+            },
+            {
+              "name": "ordinary_fermat",
+              "factors": null,
+              "square_tests_budget_exhausted": 12,
+              "midpoint_modulus": null
+            },
+            {
+              "name": "ptp_midpoint_105",
+              "factors": [
+                12899,
+                15643
+              ],
+              "square_tests": 5,
+              "midpoint_modulus": 105,
+              "setup_seconds": 2.3734000002662015e-05,
+              "search_seconds": 2.5040000011244956e-06
+            }
+          ],
+          "classically_solved": true
+        },
+        "fermat_4096_bounded": {
+          "factors": [
+            12899,
+            15643
+          ],
+          "found": true,
+          "exact_square_root_tests": 67,
+          "scanned_midpoint_positions": 67,
+          "found_at_offset": 66,
+          "total_seconds": 9.687000002145396e-06,
+          "max_midpoint_offset": 4095
+        }
+      },
+      "original_all_eight_interleaved_method_orders": [
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ],
+        [
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK"
+        ],
+        [
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline"
+        ],
+        [
+          "public_router",
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded"
+        ],
+        [
+          "wheel210",
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router"
+        ],
+        [
+          "PTP_LFK",
+          "old_fixed_pipeline",
+          "fermat_4096_bounded",
+          "public_router",
+          "wheel210"
+        ]
+      ],
+      "per_method_timing": {
+        "public_router": {
+          "median_seconds": 7.280100000173206e-05,
+          "min_seconds": 7.067100000313076e-05,
+          "max_seconds": 0.00013031200000312992,
+          "all_original_elapsed_seconds": [
+            0.00013031200000312992,
+            7.440899999977546e-05,
+            8.624100000531598e-05,
+            7.067100000313076e-05,
+            7.494000000463075e-05,
+            7.082199999786098e-05,
+            7.08020000033116e-05,
+            7.119300000368867e-05
+          ],
+          "outcome_factor": [
+            12899,
+            15643
+          ],
+          "method_name": "brent_public_rho",
+          "complete": true
+        },
+        "wheel210": {
+          "median_seconds": 0.00026813450000062744,
+          "min_seconds": 0.0002646129999988034,
+          "max_seconds": 0.00038817299999749366,
+          "all_original_elapsed_seconds": [
+            0.00038817299999749366,
+            0.0002647929999994858,
+            0.0002717160000003105,
+            0.00026504300000596004,
+            0.0002646129999988034,
+            0.0002684500000000867,
+            0.0002814639999968449,
+            0.0002678190000011682
+          ],
+          "outcome_factor": [
+            12899,
+            15643
+          ],
+          "method_name": "wheel210",
+          "complete": true
+        },
+        "PTP_LFK": {
+          "median_seconds": 0.00043964299999998957,
+          "min_seconds": 0.0004325949999994805,
+          "max_seconds": 0.0004536850000036452,
+          "all_original_elapsed_seconds": [
+            0.00043864599999920983,
+            0.0004501179999962801,
+            0.0004406400000007693,
+            0.00045085000000000264,
+            0.00043460900000269476,
+            0.0004325949999994805,
+            0.00043844600000397804,
+            0.0004536850000036452
+          ],
+          "outcome_factor": [
+            12899,
+            15643
+          ],
+          "method_name": "lfk210",
+          "complete": true
+        },
+        "old_fixed_pipeline": {
+          "median_seconds": 5.0784500000844446e-05,
+          "min_seconds": 4.9330999999597225e-05,
+          "max_seconds": 6.558199999773251e-05,
+          "all_original_elapsed_seconds": [
+            5.90100000010807e-05,
+            5.3028000003507714e-05,
+            5.0383999997904994e-05,
+            5.11850000037839e-05,
+            6.558199999773251e-05,
+            4.9341999996954655e-05,
+            4.937099999580141e-05,
+            4.9330999999597225e-05
+          ],
+          "outcome_factor": [
+            12899,
+            15643
+          ],
+          "method_name": "ptp_midpoint_105",
+          "complete": false
+        },
+        "fermat_4096_bounded": {
+          "median_seconds": 1.084550000030049e-05,
+          "min_seconds": 1.0509999995633734e-05,
+          "max_seconds": 1.1180999997861818e-05,
+          "all_original_elapsed_seconds": [
+            1.1001000004284833e-05,
+            1.1180999997861818e-05,
+            1.0709999997970954e-05,
+            1.089100000228882e-05,
+            1.0759999995002545e-05,
+            1.079999999831216e-05,
+            1.0509999995633734e-05,
+            1.0929999994857553e-05
+          ],
+          "outcome_factor": [
+            12899,
+            15643
+          ],
+          "method_name": "fermat_4096_bounded",
+          "complete": false
+        }
+      },
+      "router_faster_than_complete_wheel210": true,
+      "router_faster_than_complete_PTP_LFK": true,
+      "router_faster_than_prior_fixed_pipeline": false,
+      "router_over_wheel210_median_runtime_ratio": 0.27150926121614977,
+      "router_over_PTP_LFK_median_runtime_ratio": 0.16559117284190533,
+      "true_factor_secrecy_guardrail": "all timed public algorithms executed before validation-only p/q extraction",
+      "real_QPU_jobs": 0
+    }
+  ],
+  "summary": {
+    "total_new_frozen_28_bit_cases": 16,
+    "all_correct_factors_verified": true,
+    "router_successful_factors": 16,
+    "independent_complete_wheel210_success": 16,
+    "independent_PTP_LFK_success": 16,
+    "public_router_branch_outcomes": {
+      "brent_public_rho": 15,
+      "early_fermat_8": 1
+    },
+    "router_faster_than_wheel210_in_cases": 16,
+    "router_faster_than_PTP_LFK_in_cases": 13,
+    "router_faster_than_previous_full_fixed_preflight_in_cases": 12,
+    "median_casewise_router_to_wheel210_runtime_ratio": 0.31543836973552075,
+    "median_casewise_router_to_PTP_LFK_runtime_ratio": 0.35503936152226456,
+    "original_primary_win_threshold_each": 9,
+    "primary_end_to_end_two_baseline_speed_gate_pass": true,
+    "all_methods_timed_interleaved_eight_times": true,
+    "no_hidden_factors_used_for_routing": true,
+    "real_QPU_jobs": 0,
+    "paid_runtime": false,
+    "no_quantum_advantage_or_asymptotic_claim": true
+  },
+  "limitations": "small synthetic semiprimes, each classical baseline factors all N; Python microsecond timings noisy; heuristic is not a theorem for factor proximity; no QPU, no cryptographic-scale complexity benefit",
+  "zero_QPU": true,
+  "IBM_runtime_jobs": 0,
+  "paid_runtime_used": false,
+  "analyzed_utc": "2026-10-29T14:35:11.801697+00:00"
+}
