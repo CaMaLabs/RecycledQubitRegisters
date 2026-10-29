@@ -117,6 +117,32 @@ class UnifiedDarkStarTests(unittest.TestCase):
         self.assertEqual(actual["routed_quantum_or_classical_fallback_trace"][0]["exponent"],3)
         self.assertFalse(r["safety"]["uses_QPU"])
 
+    def test_restored_midpoint_pruning_is_safe_and_factors_old_classical_survivor(self):
+        from integrations.darkstar_hybrid import midpoint_qr_pruner as qr
+        n=49273331
+        truth=[4703,10477]
+        root=qr.ordinary_fermat_window(n,4095)
+        self.assertEqual(root["factors"],truth)
+        self.assertEqual(root["exact_square_root_tests"],571)
+        m105=qr.fast_public_midpoint_factor(n,qr.WHEELS[105],4095)
+        m15=qr.fast_public_midpoint_factor(n,qr.WHEELS[15015],4095)
+        m255=qr.fast_public_midpoint_factor(n,qr.WHEELS[255255],4095)
+        self.assertEqual(m105["exact_square_root_tests"],64)
+        self.assertEqual(m15["exact_square_root_tests"],14)
+        self.assertEqual(m255["exact_square_root_tests"],8)
+        self.assertEqual(m255["factors"],truth)
+        old_cap=qr.fast_public_midpoint_factor(n,qr.WHEELS[15015],4095,12)
+        self.assertFalse(old_cap["found"])
+        bounded=qr.fast_public_midpoint_factor(n,qr.WHEELS[255255],4095,12)
+        self.assertEqual(bounded["factors"],truth)
+        restored=u.public_classical_preflight(n,17)
+        self.assertTrue(restored["classically_solved"])
+        self.assertEqual(restored["method"],"restored_midpoint_QR_255255")
+        self.assertEqual(restored["factors"],truth)
+        stage=restored["stages"][-1]
+        self.assertLessEqual(stage["exact_square_root_tests"],12)
+        self.assertLessEqual(stage["scanned_midpoint_positions"],4096)
+
     def test_exponent_selector_public_only(self):
         self.assertEqual(u.public_base(209,3),3)
         self.assertEqual(u.public_base(713,19),19)
