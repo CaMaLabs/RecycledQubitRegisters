@@ -1,0 +1,97 @@
+name: Dark Star N26 restore old midpoint pruning + quantum gate pruning audit ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n26-restored-midpoint-pruning-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n26-original-midpoint-pruning-falsification
+  cancel-in-progress: false
+
+jobs:
+  exact-pruner-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Assert archived original input manifest, prereg and ZERO IBM runtime code
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N26_RESTORED_MIDPOINT_PRUNING_PROTOCOL.md
+          python3 -m py_compile integrations/darkstar_hybrid/midpoint_qr_pruner.py integrations/darkstar_hybrid/darkstar_midpoint_pruning_reaudit.py
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' integrations/darkstar_hybrid/midpoint_qr_pruner.py integrations/darkstar_hybrid/darkstar_midpoint_pruning_reaudit.py; then
+            echo 'IBM QPU code forbidden'; exit 1
+          fi
+      - name: All 12 original N26 rows, exact CRT mask versus old tables, full costs
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=20s 1200s python3 -u -m integrations.darkstar_hybrid.darkstar_midpoint_pruning_reaudit
+      - name: Independently audit original public input, 12 verified factors and exact residue equivalence
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib,math
+          from pathlib import Path
+          root=Path('results/dark_star_unified')
+          j=json.loads((root/'unified_n26_midpoint_pruning_reaudit.json').read_text())
+          m=json.loads((root/'unified_n26_public_manifest.json').read_text())
+          assert j['complete'] and j['zero_QPU'] and not j['paid_runtime_used']
+          assert j['original_frozen_public_manifest_sha256']==m['selected_sha256']=='0c25e448b646a5ade7d919ca78597c8c2883fd8fd450181dd4504c18252fb939'
+          assert len(j['cases'])==j['summary']['total_frozen_cases']==12
+          assert j['summary']['no_false_pruning_or_valid_factor_loss']
+          assert j['summary']['exhaustively_identical_old_table_vs_new_QR_mask_residues']==12*(105+15015)
+          assert j['summary']['N49273331_ordinary_fermat_exact_square_tests']==571
+          assert j['summary']['N49273331_original_M15015_full_square_tests']==14
+          assert j['summary']['N49273331_new_M255255_full_square_tests']==8
+          for i,(r,fr) in enumerate(zip(j['cases'],m['selected_public_rows'])):
+              assert r['original_index']==i and r['N']==fr['N']
+              assert math.prod(r['verified_factors'])==fr['N']
+              assert r['full_fermat']['first_original']['factors']==r['verified_factors']
+              for M in (105,15015,255255):
+                  p=r['restored_public_QR_midpoint_sieve'][str(M)]['first_original']
+                  assert p['factors']==r['verified_factors']
+                  assert p['no_private_prime_factors_or_order_used']
+                  if M in (105,15015):
+                      assert r['previous_v2_midpoint_jump'][str(M)]['first_original']['factors']==r['verified_factors']
+                      assert p['exact_square_root_tests']==r['previous_v2_midpoint_jump'][str(M)]['first_original']['exact_square_root_tests']
+          print('PASS: 181440 exact modulus-equivalence checks, twelve unlost factors, fully paid classical setup, ZERO QPU')
+          PY
+      - name: Preserve full evidence before git update
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: darkstar-n26-original-midpoint-pruning-full-audit
+          path: results/dark_star_unified/unified_n26_midpoint_pruning_reaudit.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit scientific receipt on GitHub main; no force push
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/unified_n26_midpoint_pruning_reaudit.json
+          git commit -m 'results: exact safe restored Dark Star midpoint pruning costs on original frozen N26 cohort'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo '12 verified original cases and negative results archived'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
