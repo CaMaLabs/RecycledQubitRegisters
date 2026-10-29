@@ -1,0 +1,94 @@
+name: Dark Star N28 SECONDARY router vs exact SAME Brent budget ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-router-n28-brent-secondary-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-router-n28-standalone-brent-posthoc
+  cancel-in-progress: false
+
+jobs:
+  exact-standalone-ablation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reverify original N28 prospective results archived BEFORE secondary methods
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N28_ROUTER_VS_STANDALONE_BRENT_SECONDARY_PROTOCOL.md
+          test -s docs/DARK_STAR_PUBLIC_COST_ROUTER_N28_RESULT.md
+          test -s results/dark_star_unified/darkstar_public_router_n28_original_16_holdout.json
+          test "$(git hash-object integrations/darkstar_hybrid/darkstar_public_cost_router.py)" = "4420a5d5d83869ccc41ab2396cde15d84f98a4c1"
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_n28_router_vs_brent_secondary.py
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_n28_router_vs_brent_secondary.py; then
+            echo 'QPU calls not allowed'; exit 1
+          fi
+      - name: Honest secondary head-to-head eight repeats 16 same original public cases
+        run: |
+          set -euo pipefail
+          timeout 660s python3 -u -m integrations.darkstar_hybrid.darkstar_n28_router_vs_brent_secondary
+      - name: Independent source SHA, all original factors, fair fixed 384-step audits
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          root=Path('results/dark_star_unified')
+          o=json.loads((root/'darkstar_public_router_n28_original_16_holdout.json').read_text())
+          j=json.loads((root/'darkstar_n28_posthoc_router_vs_brent_control.json').read_text())
+          assert j['complete'] and j['zero_QPU'] and not j['paid_runtime_used']
+          assert j['original_N28_public_SHA']==o['source_manifest_sha256']
+          assert j['original_original_gate_preserved'] and j['separate_post_hoc_mechanism_audit']
+          assert o['summary']['primary_end_to_end_two_baseline_speed_gate_pass']
+          assert len(j['original_cases'])==j['summary']['original_case_count']==16
+          for i,z in enumerate(j['original_cases']):
+              truth=z['original_correct_factors']
+              assert math.prod(truth)==z['N']==o['original_cases'][i]['frozen_public_N']
+              assert all(z[k]['factors']==truth for k in ('standalone_Brent_factorization','public_router_factorization','complete_wheel210'))
+              assert z['standalone_Brent_factorization']['ops'].get('rho_modular_squarings',0)<=384
+              assert len(z['original_method_invocation_orders'])==8
+              assert all(len(z['all_source_timings'][name]['all_original_seconds'])==8 for name in ('standalone_same_Brent','router','wheel210'))
+          a=j['summary']
+          assert a['incremental_router_speed_gate_pass']==(a['router_faster_than_standalone_Brent_in_cases']>=9)
+          print('PASS full 16 same public cases x8 raw timing repeats, exact identical Brent source and honest secondary gate')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: darkstar-n28-same-budget-brent-mechanism-ablation
+          path: results/dark_star_unified/darkstar_n28_posthoc_router_vs_brent_control.json
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Archive original secondary result separately without rerunning original prospective science
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/darkstar_n28_posthoc_router_vs_brent_control.json
+          git commit -m 'results: preserve posthoc same-budget Brent classical control and all negative/positive head-to-heads separate from N28 primary PASS'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'SECONDARY control original receipts archived'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
