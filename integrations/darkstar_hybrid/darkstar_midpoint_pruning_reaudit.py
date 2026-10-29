@@ -121,10 +121,6 @@ def record(n,truth):
     q=kernel.wheel210_factor(n)
     l=kernel.lfk_factor(n)
     assert list(q.factors)==expected and list(l.factors)==expected
-    wheel_time=time_runs(lambda:dict(factors=list(kernel.wheel210_factor(n).factors),
-                                     total_seconds=kernel.wheel210_factor(n).elapsed_seconds))
-    # The timing above invokes wheel twice per repeat; replace with a single
-    # actual call per repeat in the production timing below.
     wheel_time=time_runs(lambda:single_baseline(kernel.wheel210_factor,n))
     lfk_time=time_runs(lambda:single_baseline(kernel.lfk_factor,n))
     assert wheel_time["first_original"]["factors"]==expected
