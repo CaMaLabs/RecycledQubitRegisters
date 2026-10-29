@@ -19,6 +19,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from integrations.darkstar_hybrid import darkstar_v2 as ds
+from integrations.darkstar_hybrid import midpoint_qr_pruner as qr
 from simulation.ptp_hybrid import core, kernel, symmetry
 from hardware import dark_star_recycled_scalable_arithmetic_audit as gates
 
@@ -128,7 +129,7 @@ def limited_prime_trial(n, bound=97):
     return dict(factors=None, divisibility_tests=tested)
 
 
-def public_classical_preflight(n, a, fermat_tests=12):
+def public_classical_preflight(n, a, fermat_tests=12, restored_prune_max_offset=4095, restored_prune_square_tests=12):
     """Fixed public-only priority stages, stop on first proper factor."""
     stages = []
     def done(name, result, **kw):
@@ -177,6 +178,26 @@ def public_classical_preflight(n, a, fermat_tests=12):
         f = done(name, z, details=z)
         if f:
             return dict(factors=f, method=name, stages=stages, classically_solved=True)
+    # Restored Dark Star v2 midpoint pruning, but WITHOUT constructing a
+    # large per-N inverse factor-pair table. We use exact public quadratic-
+    # residue masks modulo 3*5*7*11*13*17. A true Fermat midpoint can never
+    # be filtered out because x*x-N=y*y must be a quadratic residue mod ell.
+    # Bounded by BOTH x coordinate travel and costly integer square tests.
+    # 2026-10-28 SECONDARY RESTORATION: prior N26 original receipts are frozen
+    # and MUST NOT be relabeled as outcomes of this revised classical preflight.
+    if restored_prune_max_offset is not None and restored_prune_max_offset>=0:
+        candidate=qr.fast_public_midpoint_factor(n,qr.WHEELS[255255],
+            max_offset=restored_prune_max_offset,
+            max_square_tests=restored_prune_square_tests)
+        f=done("restored_midpoint_QR_255255",candidate,
+            quadratic_residue_modular_work=candidate["modular_membership_checks"],
+            scanned_midpoint_positions=candidate["scanned_midpoint_positions"],
+            exact_square_root_tests=candidate["exact_square_root_tests"],
+            QR_setup_seconds=candidate["one_time_public_mask_setup_seconds"],
+            QR_total_seconds=candidate["total_seconds"])
+        if f:
+            return dict(factors=f, method="restored_midpoint_QR_255255",
+                stages=stages, classically_solved=True)
     return dict(factors=None, method="public_budgets_exhausted",
                 stages=stages, classically_solved=False)
 
