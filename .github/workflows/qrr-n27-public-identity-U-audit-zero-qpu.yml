@@ -41,7 +41,7 @@ jobs:
       - name: Check all N35 anchors and all fresh N27 plain and cube at 5 widths
         run: |
           set -euo pipefail
-          timeout 900s python3 -u hardware/dark_star_n27_public_identity_source_audit.py
+          timeout 900s python3 -u -m hardware.dark_star_n27_public_identity_source_audit
       - name: Verify original public N27 row SHA and strict identity-only gate deltas
         run: |
           set -euo pipefail
