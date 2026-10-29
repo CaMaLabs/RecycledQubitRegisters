@@ -1,0 +1,107 @@
+name: Dark Star fresh N27 restored end-to-end CPU holdout 12 x 3 seeds ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n27-restored-score-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n27-restored-original-twelve-endtoend
+  cancel-in-progress: false
+
+jobs:
+  score-audit-and-archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify N27 public manifest separate original success before any scoring
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N27_RESTORED_PLUS_IDENTITY_PRUNING_PREREG.md
+          test -s results/dark_star_unified/unified_n27_restored_public_manifest.json
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_n27_restored_holdout.py
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          x=json.loads(Path('results/dark_star_unified/unified_n27_restored_public_manifest.json').read_text())
+          z=x['selected_public_rows']
+          assert len(z)==12 and x['selected_sha256']=='12f169a7edabe5d548dba4c8bd07d348a2bd174378ad2faf934dcfe8b5828b10'
+          assert hashlib.sha256(json.dumps(z,sort_keys=True,separators=(',',':')).encode()).hexdigest()==x['selected_sha256']
+          assert x['no_private_pq_or_order_in_ranking_or_base_selection']
+          assert x['no_classical_filter_or_quantum_outcome_used_to_select']
+          assert x['zero_QPU'] and x['IBM_runtime_jobs']==0
+          print('PASS: frozen before factor/order/classical model scoring')
+          PY
+      - name: Execute original 12 N27 cases, restored classical preprocessing and ideal QPE counterfactual
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=20s 2100s python3 -u -m integrations.darkstar_hybrid.darkstar_n27_restored_holdout
+      - name: Strict independent SHA/completeness/true factor verification
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          root=Path('results/dark_star_unified')
+          s=json.loads((root/'unified_n27_restored_all_12_summary.json').read_text())
+          m=json.loads((root/'unified_n27_restored_public_manifest.json').read_text())
+          assert s['complete'] and s['zero_QPU'] and not s['paid_runtime_used']
+          assert s['source_public_SHA']==m['selected_sha256']
+          assert s['original_rows_archived']==12 and s['summary']['frozen_public_rows']==12
+          assert not s['summary']['practical_factor_speedup_or_quantum_advantage_demonstrated']
+          for i,fr in enumerate(m['selected_public_rows']):
+              x=json.loads((root/f'unified_n27_restored_original_{i:02d}.json').read_text())
+              assert x['frozen_public_row']==fr and x['source_public_SHA']==s['source_public_SHA']
+              assert math.prod(x['synthetic_validation_only_pq'])==fr['N']
+              assert x['actual_classical_first_receipt']['factors'] in (None,x['synthetic_validation_only_pq'])
+              assert all(x['independent_classical_baselines'][k]['observations']['factors']==x['synthetic_validation_only_pq']
+                         for k in ('trial','wheel210','PTP_LFK'))
+              for label in ('L1','L3'):
+                  arm=x['all_three_seed_ideal_QPE_model_arms'][label]
+                  assert len(arm['receipts'])==3 and arm['seeds']==[20261028,20262037,20263046]
+                  assert arm['original_source_CCX']>=arm['public_identity_pruned_source_CCX']>=0
+                  for rec in arm['receipts']:
+                      assert rec['source_original_arm']['classically_shortcut'] or not rec['source_original_arm']['factors'] or rec['source_original_arm']['factors']==x['synthetic_validation_only_pq']
+          print('PASS: 12/12 frozen original rows, all cheap baseline factors, 3 seeds x 2 unique models, ZERO QPU')
+          PY
+      - name: Preserve all original 12 results before any git push
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: darkstar-N27-restored-original-12-raw-and-summary
+          path: |
+            results/dark_star_unified/unified_n27_restored_original_*.json
+            results/dark_star_unified/unified_n27_restored_all_12_summary.json
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit original 12 raw and summary on main without force push
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/unified_n27_restored_original_*.json results/dark_star_unified/unified_n27_restored_all_12_summary.json
+          git commit -m 'results: preserve independently frozen N27 unified restored PTP classical and 3-seed ideal QPE whole-path receipts ZERO QPU'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Original N27 whole-path receipts preserved'; exit 0
+            fi
+            sleep 3
+          done
+          exit 1
