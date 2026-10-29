@@ -1,0 +1,88 @@
+name: Dark Star N27 PUBLIC identity-U exact source gate pruning ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-n27-public-identity-U-audit-zero-qpu.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-n27-identity-source-pruning
+  cancel-in-progress: false
+
+jobs:
+  verify-and-archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Keep exact original N27 public freeze and prohibit QPU use
+        run: |
+          set -euo pipefail
+          python3 -m py_compile hardware/dark_star_n27_public_identity_source_audit.py hardware/dark_star_recycled_scalable_arithmetic_audit.py
+          test -s results/dark_star_unified/unified_n27_restored_public_manifest.json
+          test -s docs/DARK_STAR_N27_RESTORED_PLUS_IDENTITY_PRUNING_PREREG.md
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' hardware/dark_star_n27_public_identity_source_audit.py; then
+            echo 'Hardware calls forbidden'; exit 1
+          fi
+      - name: Check all N35 anchors and all fresh N27 plain and cube at 5 widths
+        run: |
+          set -euo pipefail
+          timeout 900s python3 -u hardware/dark_star_n27_public_identity_source_audit.py
+      - name: Verify original public N27 row SHA and strict identity-only gate deltas
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path('results/dark_star_unified')
+          m=json.loads((root/'unified_n27_restored_public_manifest.json').read_text())
+          r=json.loads((root/'unified_n27_public_identity_U_source_audit.json').read_text())
+          assert r['complete'] and r['zero_QPU'] and not r['paid_runtime_used']
+          assert r['original_public_n27_sha']==m['selected_sha256']=='12f169a7edabe5d548dba4c8bd07d348a2bd174378ad2faf934dcfe8b5828b10'
+          assert len(r['all_raw_cases'])==152
+          assert r['exhaustive_small_semantic_controls']>600
+          assert not r['physical_native_CZ_or_depth_measured']
+          for row in r['all_raw_cases']:
+              assert [k for k,v in enumerate(row['public_multipliers']) if v==1]==row['public_identity_rounds']
+              for gate in ('ccx','cx','cswap'):
+                  assert row['unpruned_source_counts'][gate]-row['source_counts_after_safe_public_identity_elision'][gate]==row['exact_saved_counts'][gate]>=0
+              assert row['no_secret_order_or_factors_in_source_construction']
+          print('PASS 152 full source-model paired cases, exact identity proof, no runtime')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-n27-public-identity-U-full-source-raw
+          path: results/dark_star_unified/unified_n27_public_identity_U_source_audit.json
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit exact independent source-only audit without rewriting original model
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/unified_n27_public_identity_U_source_audit.json
+          git commit -m 'results: independent original N27 public identity-U controlled arithmetic source-gate exact savings and nulls'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'All identity source-GATE receipts stored, zero QPU'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
