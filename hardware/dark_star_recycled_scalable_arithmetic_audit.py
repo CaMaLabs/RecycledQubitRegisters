@@ -328,6 +328,50 @@ def stage_arithmetic_count(n: int, base: int, phase_bits: int, cache: dict) -> C
     return total
 
 
+
+def stage_arithmetic_count_public_identity_pruned(
+    n: int, base: int, phase_bits: int, cache: dict
+) -> Counter:
+    """Opt-in PUBLIC-ONLY exact identity controlled-U elimination.
+
+    Separate from original stage_arithmetic_count for historical science
+    reproducibility. The public modular multiplier b^(2^k) == 1 (mod N)
+    makes the entire controlled modular multiplication U_1=I; no private
+    order, factors, eigenphase, outcome, or oracle is consulted.
+    This is a structural CCX/CX/CSWAP count only; not a native device
+    CZ/depth, or a 9-wire scratch elimination.
+    """
+    if n <= 2 or not (1 < base < n) or math.gcd(base, n) != 1:
+        raise ValueError("require public coprime base 1<a<N")
+    if phase_bits < 0:
+        raise ValueError("phase_bits must be nonnegative")
+    total = Counter()
+    multiplier = base % n
+    for _ in range(phase_bits):
+        if multiplier != 1:
+            key = (n, multiplier)
+            if key not in cache:
+                cache[key] = controlled_modmul_count(n, multiplier)
+            total += cache[key]
+        multiplier = (multiplier * multiplier) % n
+    return total
+
+
+def public_identity_rounds(n: int, base: int, phase_bits: int) -> list[int]:
+    """List ONLY the public multiplier=1 rounds, independent of true order."""
+    if n <= 2 or not (1 < base < n) or math.gcd(base, n) != 1:
+        raise ValueError("require public coprime base 1<a<N")
+    if phase_bits < 0:
+        raise ValueError("phase_bits must be nonnegative")
+    multiplier = base % n
+    positions = []
+    for k in range(phase_bits):
+        if multiplier == 1:
+            positions.append(k)
+        multiplier = (multiplier * multiplier) % n
+    return positions
+
+
 def architecture_overhead(kind: str, phase_bits: int) -> Counter:
     m = int(phase_bits)
     c = Counter()
