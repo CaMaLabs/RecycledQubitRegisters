@@ -1,0 +1,3269 @@
+{
+  "experiment": "N28_post_hoc_same_cohort_router_vs_exact_same_Brent_baseline",
+  "protocol": "docs/DARK_STAR_N28_ROUTER_VS_STANDALONE_BRENT_SECONDARY_PROTOCOL.md",
+  "original_N28_public_SHA": "9f8cd1d83b3bcfdfce9c41ceda05621b52c9e9076d7cdc2dec36bc24598b7a51",
+  "original_original_gate_preserved": true,
+  "separate_post_hoc_mechanism_audit": true,
+  "complete": true,
+  "original_cases": [
+    {
+      "index": 0,
+      "N": 252793039,
+      "original_public_selection": {
+        "N": 252793039,
+        "group": "G1_mod3_1",
+        "rank": 1,
+        "public_mod3": 1,
+        "public_mod210": 79,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        9539,
+        26501
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          9539,
+          26501
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                9539,
+                26501
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 6.618900000177064e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 252793039,
+        "factors": [
+          9539,
+          26501
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              9539,
+              26501
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 9.965799999989144e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 252793039,
+        "factors": [
+          9539,
+          26501
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2184,
+        "elapsed_seconds": 0.00017385900000022048
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            0.00010316300000212664,
+            8.195200000216118e-05,
+            6.735000000190894e-05,
+            6.689900000012017e-05,
+            6.489700000145149e-05,
+            6.671899999943776e-05,
+            6.449500000016428e-05,
+            6.420600000112131e-05
+          ],
+          "median_seconds": 6.680899999977896e-05,
+          "min_seconds": 6.420600000112131e-05,
+          "max_seconds": 0.00010316300000212664
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            6.758099999970568e-05,
+            6.654899999958275e-05,
+            6.429600000146252e-05,
+            6.250299999877029e-05,
+            6.0589999996807364e-05,
+            6.319399999910047e-05,
+            6.178200000306333e-05,
+            6.54569999980481e-05
+          ],
+          "median_seconds": 6.374500000028149e-05,
+          "min_seconds": 6.0589999996807364e-05,
+          "max_seconds": 6.758099999970568e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.0002048439999988716,
+            0.0001767830000005688,
+            0.00017372800000003963,
+            0.00017225599999903807,
+            0.00016972199999898407,
+            0.00017691299999711418,
+            0.00016846000000114714,
+            0.00016929199999893285
+          ],
+          "median_seconds": 0.00017299199999953885,
+          "min_seconds": 0.00016846000000114714,
+          "max_seconds": 0.0002048439999988716
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.0480665150126902,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 1,
+      "N": 227916187,
+      "original_public_selection": {
+        "N": 227916187,
+        "group": "G1_mod3_1",
+        "rank": 2,
+        "public_mod3": 1,
+        "public_mod210": 37,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        12889,
+        17683
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          12889,
+          17683
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 110,
+          "rho_modular_products": 47,
+          "rho_gcd_calls": 6
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                12889,
+                17683
+              ],
+              "ops": {
+                "modular_squarings": 110,
+                "modular_products": 47,
+                "gcd_calls": 6
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 4.536800000209951e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 227916187,
+        "factors": [
+          12889,
+          17683
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              12889,
+              17683
+            ],
+            "ops": {
+              "modular_squarings": 110,
+              "modular_products": 47,
+              "gcd_calls": 6
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 110,
+          "rho_modular_products": 47,
+          "rho_gcd_calls": 6
+        },
+        "elapsed_seconds": 6.994399999982193e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 227916187,
+        "factors": [
+          12889,
+          17683
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2950,
+        "elapsed_seconds": 0.00021029300000208195
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            7.232800000167572e-05,
+            4.174200000051087e-05,
+            3.999899999840295e-05,
+            3.834700000027169e-05,
+            4.1092000000020334e-05,
+            3.911800000011567e-05,
+            3.950800000040999e-05,
+            4.0109000000398964e-05
+          ],
+          "median_seconds": 4.005399999940096e-05,
+          "min_seconds": 3.834700000027169e-05,
+          "max_seconds": 7.232800000167572e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            4.615799999996284e-05,
+            3.7967000000804774e-05,
+            3.7165000001948556e-05,
+            3.560300000060579e-05,
+            3.808599999999274e-05,
+            3.616400000083786e-05,
+            3.564300000036269e-05,
+            3.753600000067081e-05
+          ],
+          "median_seconds": 3.735050000130968e-05,
+          "min_seconds": 3.560300000060579e-05,
+          "max_seconds": 4.615799999996284e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00022935099999799036,
+            0.00022145899999870267,
+            0.00021771300000139604,
+            0.00023574999999809165,
+            0.00021568100000024515,
+            0.00021688299999667038,
+            0.0002288700000008248,
+            0.00021952599999863764
+          ],
+          "median_seconds": 0.00022049249999867016,
+          "min_seconds": 0.00021568100000024515,
+          "max_seconds": 0.00023574999999809165
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.0723818957710467,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 2,
+      "N": 170840119,
+      "original_public_selection": {
+        "N": 170840119,
+        "group": "G1_mod3_1",
+        "rank": 3,
+        "public_mod3": 1,
+        "public_mod210": 79,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        12413,
+        13763
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          12413,
+          13763
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                12413,
+                13763
+              ],
+              "ops": {
+                "modular_squarings": 126,
+                "modular_products": 63,
+                "gcd_calls": 7
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 4.233299999967244e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 170840119,
+        "factors": [
+          12413,
+          13763
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              12413,
+              13763
+            ],
+            "ops": {
+              "modular_squarings": 126,
+              "modular_products": 63,
+              "gcd_calls": 7
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        },
+        "elapsed_seconds": 7.038400000070055e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 170840119,
+        "factors": [
+          12413,
+          13763
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2841,
+        "elapsed_seconds": 0.00019973699999908945
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            7.261800000080143e-05,
+            4.8281999998067704e-05,
+            4.497699999816973e-05,
+            4.5117000002647956e-05,
+            5.3039000000865144e-05,
+            4.426599999973746e-05,
+            4.447600000290208e-05,
+            4.53779999993742e-05
+          ],
+          "median_seconds": 4.5247500001011076e-05,
+          "min_seconds": 4.426599999973746e-05,
+          "max_seconds": 7.261800000080143e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            4.296399999859091e-05,
+            4.577800000049592e-05,
+            4.12909999987221e-05,
+            4.201200000153449e-05,
+            4.203199999963658e-05,
+            4.4205000001795725e-05,
+            4.139199999997345e-05,
+            5.148599999671433e-05
+          ],
+          "median_seconds": 4.2497999999113745e-05,
+          "min_seconds": 4.12909999987221e-05,
+          "max_seconds": 5.148599999671433e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00021785399999885158,
+            0.00023644199999850457,
+            0.0002099420000014618,
+            0.00021206499999948392,
+            0.00020891000000133886,
+            0.00020870000000172695,
+            0.000220907999999298,
+            0.00021091400000017302
+          ],
+          "median_seconds": 0.00021148949999982847,
+          "min_seconds": 0.00020870000000172695,
+          "max_seconds": 0.00023644199999850457
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.064697162265393,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 3,
+      "N": 223499083,
+      "original_public_selection": {
+        "N": 223499083,
+        "group": "G1_mod3_1",
+        "rank": 4,
+        "public_mod3": 1,
+        "public_mod210": 73,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        10529,
+        21227
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          10529,
+          21227
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                10529,
+                21227
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 5.946799999989594e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 223499083,
+        "factors": [
+          10529,
+          21227
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10529,
+              21227
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 9.54420000027767e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 223499083,
+        "factors": [
+          10529,
+          21227
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2410,
+        "elapsed_seconds": 0.00017390799999716933
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            9.752500000104192e-05,
+            6.514600000073756e-05,
+            7.75859999997408e-05,
+            6.542699999911861e-05,
+            6.41059999999527e-05,
+            6.354499999972063e-05,
+            7.500099999901977e-05,
+            6.366499999899133e-05
+          ],
+          "median_seconds": 6.528649999992808e-05,
+          "min_seconds": 6.354499999972063e-05,
+          "max_seconds": 9.752500000104192e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            6.0019999999383344e-05,
+            6.105099999942354e-05,
+            8.688900000208832e-05,
+            5.9428000000139036e-05,
+            5.973899999744958e-05,
+            5.943899999749647e-05,
+            5.9599000000076785e-05,
+            6.0300000001234366e-05
+          ],
+          "median_seconds": 5.987949999841646e-05,
+          "min_seconds": 5.9428000000139036e-05,
+          "max_seconds": 8.688900000208832e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00018847000000121739,
+            0.00018660699999983876,
+            0.0001824210000016535,
+            0.0001877889999981619,
+            0.00018248199999959525,
+            0.000182281000000728,
+            0.0001841439999985539,
+            0.00018088899999924024
+          ],
+          "median_seconds": 0.00018331299999907458,
+          "min_seconds": 0.00018088899999924024,
+          "max_seconds": 0.00018847000000121739
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.0902980152081199,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 4,
+      "N": 266626483,
+      "original_public_selection": {
+        "N": 266626483,
+        "group": "G1_mod3_1",
+        "rank": 5,
+        "public_mod3": 1,
+        "public_mod210": 193,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        10651,
+        25033
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          10651,
+          25033
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                10651,
+                25033
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 5.869700000005196e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 266626483,
+        "factors": [
+          10651,
+          25033
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10651,
+              25033
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 7.647300000002133e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 266626483,
+        "factors": [
+          10651,
+          25033
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2438,
+        "elapsed_seconds": 0.0001741989999999305
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            7.832600000057255e-05,
+            6.548799999706034e-05,
+            6.227199999742083e-05,
+            6.324399999968477e-05,
+            6.206199999780893e-05,
+            6.266300000135061e-05,
+            6.524700000198891e-05,
+            6.380499999991684e-05
+          ],
+          "median_seconds": 6.352449999980081e-05,
+          "min_seconds": 6.206199999780893e-05,
+          "max_seconds": 7.832600000057255e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            5.9247999999456624e-05,
+            8.184100000008243e-05,
+            5.919800000242503e-05,
+            5.8796999997667854e-05,
+            5.9397999997656825e-05,
+            5.9599000000076785e-05,
+            5.884699999825216e-05,
+            6.066999999987388e-05
+          ],
+          "median_seconds": 5.9322999998556725e-05,
+          "min_seconds": 5.8796999997667854e-05,
+          "max_seconds": 8.184100000008243e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00018710899999874187,
+            0.0001840340000001106,
+            0.00018531499999951961,
+            0.00018410299999871427,
+            0.00019561999999950785,
+            0.00018284200000096007,
+            0.0001851650000013194,
+            0.00019641200000108938
+          ],
+          "median_seconds": 0.0001852400000004195,
+          "min_seconds": 0.00018284200000096007,
+          "max_seconds": 0.00019641200000108938
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.070824132315397,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 5,
+      "N": 218565877,
+      "original_public_selection": {
+        "N": 218565877,
+        "group": "G1_mod3_1",
+        "rank": 6,
+        "public_mod3": 1,
+        "public_mod210": 187,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        11909,
+        18353
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          11909,
+          18353
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 30,
+          "rho_modular_products": 15,
+          "rho_gcd_calls": 4
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                11909,
+                18353
+              ],
+              "ops": {
+                "modular_squarings": 30,
+                "modular_products": 15,
+                "gcd_calls": 4
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 1.5682999997324032e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 218565877,
+        "factors": [
+          11909,
+          18353
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              11909,
+              18353
+            ],
+            "ops": {
+              "modular_squarings": 30,
+              "modular_products": 15,
+              "gcd_calls": 4
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 30,
+          "rho_modular_products": 15,
+          "rho_gcd_calls": 4
+        },
+        "elapsed_seconds": 3.3769999998156663e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 218565877,
+        "factors": [
+          11909,
+          18353
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2725,
+        "elapsed_seconds": 0.0001915339999989385
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            3.536299999851167e-05,
+            1.913899999905766e-05,
+            1.8557000000640755e-05,
+            1.759599999928696e-05,
+            1.927799999990043e-05,
+            1.86779999999942e-05,
+            1.8057000001903134e-05,
+            1.887800000233142e-05
+          ],
+          "median_seconds": 1.877800000116281e-05,
+          "min_seconds": 1.759599999928696e-05,
+          "max_seconds": 3.536299999851167e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            1.6314999999877955e-05,
+            1.6814999998615576e-05,
+            1.5212000000985881e-05,
+            1.4903000000288102e-05,
+            1.6595000001728977e-05,
+            1.5202000000158478e-05,
+            1.4881999998550555e-05,
+            1.5042000001130873e-05
+          ],
+          "median_seconds": 1.520700000057218e-05,
+          "min_seconds": 1.4881999998550555e-05,
+          "max_seconds": 1.6814999998615576e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00020435400000096138,
+            0.0002038030000015567,
+            0.00020147900000111463,
+            0.00021938599999771213,
+            0.00020288199999995982,
+            0.0002008889999984831,
+            0.00020091899999741258,
+            0.00020960199999819906
+          ],
+          "median_seconds": 0.00020334250000075826,
+          "min_seconds": 0.0002008889999984831,
+          "max_seconds": 0.00021938599999771213
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.234826066972859,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 6,
+      "N": 188446273,
+      "original_public_selection": {
+        "N": 188446273,
+        "group": "G1_mod3_1",
+        "rank": 7,
+        "public_mod3": 1,
+        "public_mod210": 43,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        10709,
+        17597
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          10709,
+          17597
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 222,
+          "rho_modular_products": 95,
+          "rho_gcd_calls": 9
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                10709,
+                17597
+              ],
+              "ops": {
+                "modular_squarings": 222,
+                "modular_products": 95,
+                "gcd_calls": 9
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 6.51870000005772e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 188446273,
+        "factors": [
+          10709,
+          17597
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10709,
+              17597
+            ],
+            "ops": {
+              "modular_squarings": 222,
+              "modular_products": 95,
+              "gcd_calls": 9
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 222,
+          "rho_modular_products": 95,
+          "rho_gcd_calls": 9
+        },
+        "elapsed_seconds": 8.226299999947173e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 188446273,
+        "factors": [
+          10709,
+          17597
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2451,
+        "elapsed_seconds": 0.00017666200000121535
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            8.401399999868886e-05,
+            6.908299999963674e-05,
+            6.995400000064933e-05,
+            6.79010000013136e-05,
+            6.887199999994209e-05,
+            7.04350000013676e-05,
+            8.158099999988622e-05,
+            7.052499999815609e-05
+          ],
+          "median_seconds": 7.019450000100846e-05,
+          "min_seconds": 6.79010000013136e-05,
+          "max_seconds": 8.401399999868886e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            6.571799999832706e-05,
+            6.965400000069621e-05,
+            6.80109999997569e-05,
+            6.425500000162288e-05,
+            6.5267000000091e-05,
+            6.739000000166584e-05,
+            6.629900000021394e-05,
+            6.611899999953152e-05
+          ],
+          "median_seconds": 6.620899999987273e-05,
+          "min_seconds": 6.425500000162288e-05,
+          "max_seconds": 6.965400000069621e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00019061400000097706,
+            0.00018837000000004878,
+            0.00020979199999970888,
+            0.00018517599999867684,
+            0.00018546500000127253,
+            0.00020978100000235145,
+            0.00019101400000209878,
+            0.00019858599999977855
+          ],
+          "median_seconds": 0.00019081400000153792,
+          "min_seconds": 0.00018517599999867684,
+          "max_seconds": 0.00020979199999970888
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.0601957437983265,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 7,
+      "N": 204445411,
+      "original_public_selection": {
+        "N": 204445411,
+        "group": "G1_mod3_1",
+        "rank": 8,
+        "public_mod3": 1,
+        "public_mod210": 121,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        13841,
+        14771
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          13841,
+          14771
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 222,
+          "rho_modular_products": 95,
+          "rho_gcd_calls": 9
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                13841,
+                14771
+              ],
+              "ops": {
+                "modular_squarings": 222,
+                "modular_products": 95,
+                "gcd_calls": 9
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 0.00010007900000275072
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 204445411,
+        "factors": [
+          13841,
+          14771
+        ],
+        "method": "early_fermat_8",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": [
+              13841,
+              14771
+            ],
+            "exact_square_tests": 8,
+            "first_offset": 7
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8
+        },
+        "elapsed_seconds": 9.152999997041888e-06,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 204445411,
+        "factors": [
+          13841,
+          14771
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 3167,
+        "elapsed_seconds": 0.00022556600000100957
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            1.1137000001326669e-05,
+            6.1389999999050815e-06,
+            5.257999998065088e-06,
+            4.101100000042379e-05,
+            5.898999997810961e-06,
+            5.2379999999629945e-06,
+            5.087000001680053e-06,
+            5.698999999026455e-06
+          ],
+          "median_seconds": 5.798999998418708e-06,
+          "min_seconds": 5.087000001680053e-06,
+          "max_seconds": 4.101100000042379e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            0.00010076999999952818,
+            6.707899999724987e-05,
+            6.637899999972774e-05,
+            0.000119777999998405,
+            6.589800000256218e-05,
+            6.600799999745277e-05,
+            8.328400000223724e-05,
+            6.551700000301253e-05
+          ],
+          "median_seconds": 6.67289999984888e-05,
+          "min_seconds": 6.551700000301253e-05,
+          "max_seconds": 0.000119777999998405
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00023988599999924531,
+            0.00023459899999878076,
+            0.00023366699999982643,
+            0.0002396259999990491,
+            0.00023797399999736513,
+            0.00023488900000145918,
+            0.00023788400000057663,
+            0.00023524000000207934
+          ],
+          "median_seconds": 0.000236562000001328,
+          "min_seconds": 0.00023366699999982643,
+          "max_seconds": 0.00023988599999924531
+        }
+      },
+      "router_faster_than_same_Brent": true,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 0.08690374497669734,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 8,
+      "N": 231191621,
+      "original_public_selection": {
+        "N": 231191621,
+        "group": "G2_mod3_2",
+        "rank": 1,
+        "public_mod3": 2,
+        "public_mod210": 101,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        11287,
+        20483
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          11287,
+          20483
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                11287,
+                20483
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 5.972800000009215e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 231191621,
+        "factors": [
+          11287,
+          20483
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              11287,
+              20483
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 7.551199999866753e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 231191621,
+        "factors": [
+          11287,
+          20483
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2583,
+        "elapsed_seconds": 0.00018520500000107631
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            7.720500000019115e-05,
+            6.594899999967652e-05,
+            6.25330000012525e-05,
+            6.352500000161854e-05,
+            6.41859999994665e-05,
+            6.326399999778687e-05,
+            6.24830000006682e-05,
+            6.404499999845825e-05
+          ],
+          "median_seconds": 6.37850000000384e-05,
+          "min_seconds": 6.24830000006682e-05,
+          "max_seconds": 7.720500000019115e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            6.0260000001477465e-05,
+            8.023000000179081e-05,
+            5.8757000001463666e-05,
+            5.9047999997119405e-05,
+            6.89220000005264e-05,
+            5.8577000000781254e-05,
+            5.838699999927144e-05,
+            5.919799999887232e-05
+          ],
+          "median_seconds": 5.912299999799586e-05,
+          "min_seconds": 5.838699999927144e-05,
+          "max_seconds": 8.023000000179081e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.0001985150000010094,
+            0.0002020700000002762,
+            0.00019517999999862923,
+            0.00019687300000015284,
+            0.00019441899999961265,
+            0.00019344700000090143,
+            0.00019290599999877145,
+            0.00020340200000035225
+          ],
+          "median_seconds": 0.00019602649999939104,
+          "min_seconds": 0.00019290599999877145,
+          "max_seconds": 0.00020340200000035225
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.0788525616460694,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 9,
+      "N": 143733203,
+      "original_public_selection": {
+        "N": 143733203,
+        "group": "G2_mod3_2",
+        "rank": 2,
+        "public_mod3": 2,
+        "public_mod210": 173,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        9949,
+        14447
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          9949,
+          14447
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 14,
+          "rho_modular_products": 7,
+          "rho_gcd_calls": 3
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                9949,
+                14447
+              ],
+              "ops": {
+                "modular_squarings": 14,
+                "modular_products": 7,
+                "gcd_calls": 3
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 1.0474999999843249e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 143733203,
+        "factors": [
+          9949,
+          14447
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              9949,
+              14447
+            ],
+            "ops": {
+              "modular_squarings": 14,
+              "modular_products": 7,
+              "gcd_calls": 3
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 14,
+          "rho_modular_products": 7,
+          "rho_gcd_calls": 3
+        },
+        "elapsed_seconds": 2.6129000001873237e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 143733203,
+        "factors": [
+          9949,
+          14447
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2278,
+        "elapsed_seconds": 0.000163752999998934
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            2.8201999999311056e-05,
+            1.3830000000325526e-05,
+            1.3330000001587905e-05,
+            1.3400000000274304e-05,
+            1.363999999881571e-05,
+            1.2849000000869637e-05,
+            1.317999999983499e-05,
+            1.2899999997983969e-05
+          ],
+          "median_seconds": 1.3365000000931104e-05,
+          "min_seconds": 1.2849000000869637e-05,
+          "max_seconds": 2.8201999999311056e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            1.0976000002216324e-05,
+            1.06160000008515e-05,
+            1.051599999968289e-05,
+            1.2839000000042233e-05,
+            1.148700000186409e-05,
+            1.0326000001725788e-05,
+            1.0416000002066994e-05,
+            1.0044999999792026e-05
+          ],
+          "median_seconds": 1.0566000000267195e-05,
+          "min_seconds": 1.0044999999792026e-05,
+          "max_seconds": 1.2839000000042233e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00017544100000321805,
+            0.00017215599999786946,
+            0.00017302700000243476,
+            0.00019407899999990263,
+            0.0001744889999990562,
+            0.000172576000000646,
+            0.00017282700000009754,
+            0.0001715450000006058
+          ],
+          "median_seconds": 0.00017292700000126615,
+          "min_seconds": 0.0001715450000006058,
+          "max_seconds": 0.00019407899999990263
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.2649063032929329,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 10,
+      "N": 236375369,
+      "original_public_selection": {
+        "N": 236375369,
+        "group": "G2_mod3_2",
+        "rank": 3,
+        "public_mod3": 2,
+        "public_mod210": 209,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        14767,
+        16007
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          14767,
+          16007
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                14767,
+                16007
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 5.910800000208383e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 236375369,
+        "factors": [
+          14767,
+          16007
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              14767,
+              16007
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 8.152099999847451e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 236375369,
+        "factors": [
+          14767,
+          16007
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 3379,
+        "elapsed_seconds": 0.0002397260000002177
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            8.316399999941382e-05,
+            6.41259999980548e-05,
+            6.307299999974703e-05,
+            6.25929999991115e-05,
+            6.26130000007663e-05,
+            6.314400000206888e-05,
+            6.25929999991115e-05,
+            7.034399999739094e-05
+          ],
+          "median_seconds": 6.310850000090795e-05,
+          "min_seconds": 6.25929999991115e-05,
+          "max_seconds": 8.316399999941382e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            5.958799999916664e-05,
+            6.532699999795e-05,
+            5.8476999999612644e-05,
+            5.949800000237815e-05,
+            5.9037999999844715e-05,
+            5.9349000000707974e-05,
+            5.951900000056298e-05,
+            5.936799999872733e-05
+          ],
+          "median_seconds": 5.943300000055274e-05,
+          "min_seconds": 5.8476999999612644e-05,
+          "max_seconds": 6.532699999795e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00025179400000041596,
+            0.0002528860000019506,
+            0.00026508399999869425,
+            0.0002482390000011492,
+            0.00024727699999971264,
+            0.00025984599999873126,
+            0.00025175400000065906,
+            0.00024663599999996677
+          ],
+          "median_seconds": 0.0002517740000005375,
+          "min_seconds": 0.00024663599999996677,
+          "max_seconds": 0.00026508399999869425
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.0618427473006753,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 11,
+      "N": 267736919,
+      "original_public_selection": {
+        "N": 267736919,
+        "group": "G2_mod3_2",
+        "rank": 4,
+        "public_mod3": 2,
+        "public_mod210": 149,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        13033,
+        20543
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          13033,
+          20543
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                13033,
+                20543
+              ],
+              "ops": {
+                "modular_squarings": 126,
+                "modular_products": 63,
+                "gcd_calls": 7
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 4.2462999999770545e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 267736919,
+        "factors": [
+          13033,
+          20543
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              13033,
+              20543
+            ],
+            "ops": {
+              "modular_squarings": 126,
+              "modular_products": 63,
+              "gcd_calls": 7
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        },
+        "elapsed_seconds": 5.908800000042902e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 267736919,
+        "factors": [
+          13033,
+          20543
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2982,
+        "elapsed_seconds": 0.00021578100000141376
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            6.0610000002014885e-05,
+            4.9213000000492e-05,
+            6.535700000043221e-05,
+            4.490699999948333e-05,
+            4.5587999998986106e-05,
+            4.5197999998691785e-05,
+            4.4837000000796934e-05,
+            4.48460000015416e-05
+          ],
+          "median_seconds": 4.5392999998838945e-05,
+          "min_seconds": 4.4837000000796934e-05,
+          "max_seconds": 6.535700000043221e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            4.297399999941831e-05,
+            4.3614999999164183e-05,
+            4.449600000100418e-05,
+            4.192200000119328e-05,
+            4.2152999998990026e-05,
+            5.0564999998670146e-05,
+            4.147099999940451e-05,
+            4.216199999973469e-05
+          ],
+          "median_seconds": 4.25679999995765e-05,
+          "min_seconds": 4.147099999940451e-05,
+          "max_seconds": 5.0564999998670146e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00022882100000032324,
+            0.00022295200000144177,
+            0.00022217000000068765,
+            0.0002232920000011518,
+            0.0002224210000001392,
+            0.00022381299999807425,
+            0.00022312199999774407,
+            0.0002206979999996861
+          ],
+          "median_seconds": 0.00022303699999959292,
+          "min_seconds": 0.0002206979999996861,
+          "max_seconds": 0.00022882100000032324
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.0663644051703287,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 12,
+      "N": 173544809,
+      "original_public_selection": {
+        "N": 173544809,
+        "group": "G2_mod3_2",
+        "rank": 5,
+        "public_mod3": 2,
+        "public_mod210": 179,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        12323,
+        14083
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          12323,
+          14083
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 318,
+          "rho_modular_products": 158,
+          "rho_gcd_calls": 16
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": null,
+              "ops": {
+                "modular_squarings": 256,
+                "modular_products": 127,
+                "gcd_calls": 11
+              },
+              "exhausted": true
+            }
+          },
+          {
+            "stage": "same_public_Brent",
+            "c": 3,
+            "seed": 3,
+            "cap": 128,
+            "details": {
+              "factors": [
+                12323,
+                14083
+              ],
+              "ops": {
+                "modular_squarings": 62,
+                "modular_products": 31,
+                "gcd_calls": 5
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 0.0001009400000029359
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 173544809,
+        "factors": [
+          12323,
+          14083
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": null,
+            "ops": {
+              "modular_squarings": 256,
+              "modular_products": 127,
+              "gcd_calls": 11
+            },
+            "exhausted": true
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 3,
+            "seed": 3,
+            "max_modular_squarings": 128,
+            "factors": [
+              12323,
+              14083
+            ],
+            "ops": {
+              "modular_squarings": 62,
+              "modular_products": 31,
+              "gcd_calls": 5
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 318,
+          "rho_modular_products": 158,
+          "rho_gcd_calls": 16
+        },
+        "elapsed_seconds": 0.00011558199999939234,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 173544809,
+        "factors": [
+          12323,
+          14083
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2820,
+        "elapsed_seconds": 0.00022260999999801356
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            0.0001171339999999077,
+            0.00010559700000101202,
+            0.00010292300000003252,
+            0.00011742500000266887,
+            0.00010453599999848961,
+            0.00010320299999833082,
+            0.0001127670000009573,
+            0.00010457499999816378
+          ],
+          "median_seconds": 0.0001050859999995879,
+          "min_seconds": 0.00010292300000003252,
+          "max_seconds": 0.00011742500000266887
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            0.00010146099999985836,
+            0.00010261200000272197,
+            9.960799999930714e-05,
+            0.00010111099999932094,
+            9.926699999951438e-05,
+            9.919699999727527e-05,
+            9.949800000086384e-05,
+            0.00010011800000242488
+          ],
+          "median_seconds": 9.986300000086601e-05,
+          "min_seconds": 9.919699999727527e-05,
+          "max_seconds": 0.00010261200000272197
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00023565999999775045,
+            0.00021597099999937086,
+            0.00021247600000151579,
+            0.00021385799999862343,
+            0.00021111399999895752,
+            0.00022101900000137675,
+            0.00021355700000214028,
+            0.0002341480000005447
+          ],
+          "median_seconds": 0.00021491449999899714,
+          "min_seconds": 0.00021111399999895752,
+          "max_seconds": 0.00023565999999775045
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.0523016532517209,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 13,
+      "N": 155277383,
+      "original_public_selection": {
+        "N": 155277383,
+        "group": "G2_mod3_2",
+        "rank": 6,
+        "public_mod3": 2,
+        "public_mod210": 23,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        9901,
+        15683
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          9901,
+          15683
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                9901,
+                15683
+              ],
+              "ops": {
+                "modular_squarings": 206,
+                "modular_products": 79,
+                "gcd_calls": 8
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 5.9178000000770226e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 155277383,
+        "factors": [
+          9901,
+          15683
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              9901,
+              15683
+            ],
+            "ops": {
+              "modular_squarings": 206,
+              "modular_products": 79,
+              "gcd_calls": 8
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 206,
+          "rho_modular_products": 79,
+          "rho_gcd_calls": 8
+        },
+        "elapsed_seconds": 7.787599999886652e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 155277383,
+        "factors": [
+          9901,
+          15683
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2267,
+        "elapsed_seconds": 0.00016490500000188035
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            7.982900000058635e-05,
+            6.622900000152754e-05,
+            8.442500000072073e-05,
+            6.307399999982977e-05,
+            6.314400000206888e-05,
+            6.337399999978288e-05,
+            6.167099999743186e-05,
+            6.605800000158979e-05
+          ],
+          "median_seconds": 6.471600000068634e-05,
+          "min_seconds": 6.167099999743186e-05,
+          "max_seconds": 8.442500000072073e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            5.967799999950785e-05,
+            5.9708999998520085e-05,
+            5.8726999998981455e-05,
+            5.97190000029002e-05,
+            5.982899999779079e-05,
+            6.640899999865724e-05,
+            5.8726999998981455e-05,
+            5.9909000000857304e-05
+          ],
+          "median_seconds": 5.9714000000710143e-05,
+          "min_seconds": 5.8726999998981455e-05,
+          "max_seconds": 6.640899999865724e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00017762400000265188,
+            0.0001735679999974593,
+            0.00017547099999859483,
+            0.00017428899999671899,
+            0.00017510999999714727,
+            0.00017285699999902704,
+            0.00017306699999863895,
+            0.00017339699999752156
+          ],
+          "median_seconds": 0.00017392849999708915,
+          "min_seconds": 0.00017285699999902704,
+          "max_seconds": 0.00017762400000265188
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.0837659510318636,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 14,
+      "N": 139248881,
+      "original_public_selection": {
+        "N": 139248881,
+        "group": "G2_mod3_2",
+        "rank": 7,
+        "public_mod3": 2,
+        "public_mod210": 191,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        10861,
+        12821
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          10861,
+          12821
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 14,
+          "rho_modular_products": 7,
+          "rho_gcd_calls": 3
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                10861,
+                12821
+              ],
+              "ops": {
+                "modular_squarings": 14,
+                "modular_products": 7,
+                "gcd_calls": 3
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 1.0685999999537898e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 139248881,
+        "factors": [
+          10861,
+          12821
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              10861,
+              12821
+            ],
+            "ops": {
+              "modular_squarings": 14,
+              "modular_products": 7,
+              "gcd_calls": 3
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 14,
+          "rho_modular_products": 7,
+          "rho_gcd_calls": 3
+        },
+        "elapsed_seconds": 2.4076000002537512e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 139248881,
+        "factors": [
+          10861,
+          12821
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2486,
+        "elapsed_seconds": 0.00018061799999813388
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            2.620900000138704e-05,
+            1.7366000001572957e-05,
+            1.4230999997977278e-05,
+            1.35399999976471e-05,
+            1.4711999998695546e-05,
+            2.8201999999311056e-05,
+            1.3239999997693985e-05,
+            1.3469999998960702e-05
+          ],
+          "median_seconds": 1.4471499998336412e-05,
+          "min_seconds": 1.3239999997693985e-05,
+          "max_seconds": 2.8201999999311056e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            1.1196999999185664e-05,
+            1.1397000001522883e-05,
+            1.1235999998859825e-05,
+            1.0656000000608401e-05,
+            1.0926000001632019e-05,
+            1.0486000000753393e-05,
+            1.0135000000133232e-05,
+            1.0576000001094599e-05
+          ],
+          "median_seconds": 1.079100000112021e-05,
+          "min_seconds": 1.0135000000133232e-05,
+          "max_seconds": 1.1397000001522883e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.0001930570000006071,
+            0.00021299699999843824,
+            0.00019012299999943139,
+            0.00018829000000053497,
+            0.00019004199999983484,
+            0.0001887200000005862,
+            0.00018730799999744363,
+            0.00018707799999972963
+          ],
+          "median_seconds": 0.00018938100000021052,
+          "min_seconds": 0.00018707799999972963,
+          "max_seconds": 0.00021299699999843824
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.3410712627962311,
+      "no_private_factors_in_public_method": true
+    },
+    {
+      "index": 15,
+      "N": 201779057,
+      "original_public_selection": {
+        "N": 201779057,
+        "group": "G2_mod3_2",
+        "rank": 8,
+        "public_mod3": 2,
+        "public_mod210": 137,
+        "fixed_router_policy": "darkstar_public_router_v1_20261029"
+      },
+      "original_prereg_report_preserved_unchanged": true,
+      "original_correct_factors": [
+        12899,
+        15643
+      ],
+      "standalone_Brent_factorization": {
+        "factors": [
+          12899,
+          15643
+        ],
+        "method": "same_public_Brent",
+        "ops": {
+          "divisibility_tests": 4,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        },
+        "stages": [
+          {
+            "stage": "same_public_Brent",
+            "c": 1,
+            "seed": 2,
+            "cap": 256,
+            "details": {
+              "factors": [
+                12899,
+                15643
+              ],
+              "ops": {
+                "modular_squarings": 126,
+                "modular_products": 63,
+                "gcd_calls": 7
+              },
+              "exhausted": false
+            }
+          }
+        ],
+        "internal_seconds": 4.2102000001875695e-05
+      },
+      "public_router_factorization": {
+        "policy": "darkstar_public_router_v1_20261029",
+        "N": 201779057,
+        "factors": [
+          12899,
+          15643
+        ],
+        "method": "brent_public_rho",
+        "success": true,
+        "stages": [
+          {
+            "stage": "early_fermat_8",
+            "factors": null,
+            "exact_square_tests": 8,
+            "first_offset": null
+          },
+          {
+            "stage": "brent_public_rho",
+            "c": 1,
+            "seed": 2,
+            "max_modular_squarings": 256,
+            "factors": [
+              12899,
+              15643
+            ],
+            "ops": {
+              "modular_squarings": 126,
+              "modular_products": 63,
+              "gcd_calls": 7
+            },
+            "exhausted": false
+          }
+        ],
+        "operation_totals": {
+          "divisibility_tests": 4,
+          "exact_square_root_tests": 8,
+          "rho_modular_squarings": 126,
+          "rho_modular_products": 63,
+          "rho_gcd_calls": 7
+        },
+        "elapsed_seconds": 5.659400000013193e-05,
+        "order_or_factors_used_for_routing": false,
+        "uses_quantum_hardware": false,
+        "paid_runtime": false
+      },
+      "complete_wheel210": {
+        "method": "wheel210",
+        "n": 201779057,
+        "factors": [
+          12899,
+          15643
+        ],
+        "candidate_pairs": 0,
+        "pair_checks": 0,
+        "integer_search_steps": 0,
+        "divisibility_tests": 2952,
+        "elapsed_seconds": 0.00021148400000114975
+      },
+      "original_method_invocation_orders": [
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ],
+        [
+          "wheel210",
+          "router",
+          "standalone_same_Brent"
+        ],
+        [
+          "router",
+          "standalone_same_Brent",
+          "wheel210"
+        ],
+        [
+          "standalone_same_Brent",
+          "wheel210",
+          "router"
+        ]
+      ],
+      "all_source_timings": {
+        "router": {
+          "all_original_seconds": [
+            5.836699999761663e-05,
+            4.7290000001254384e-05,
+            4.524699999919335e-05,
+            5.263799999966068e-05,
+            5.126699999991047e-05,
+            4.839099999998098e-05,
+            4.862299999786046e-05,
+            5.0445000002952156e-05
+          ],
+          "median_seconds": 4.953400000040631e-05,
+          "min_seconds": 4.524699999919335e-05,
+          "max_seconds": 5.836699999761663e-05
+        },
+        "standalone_same_Brent": {
+          "all_original_seconds": [
+            4.26840000002926e-05,
+            4.245299999894314e-05,
+            4.213300000088793e-05,
+            4.227299999826073e-05,
+            4.320400000068503e-05,
+            4.3435000002034485e-05,
+            4.6139000001943486e-05,
+            4.200299999723711e-05
+          ],
+          "median_seconds": 4.256849999961787e-05,
+          "min_seconds": 4.200299999723711e-05,
+          "max_seconds": 4.6139000001943486e-05
+        },
+        "wheel210": {
+          "all_original_seconds": [
+            0.00022381300000162696,
+            0.0002396260000026018,
+            0.00021951699999789298,
+            0.00023032200000017156,
+            0.00024239099999689984,
+            0.0002497409999975275,
+            0.0002221810000015978,
+            0.00023087299999957622
+          ],
+          "median_seconds": 0.0002305974999998739,
+          "min_seconds": 0.00021951699999789298,
+          "max_seconds": 0.0002497409999975275
+        }
+      },
+      "router_faster_than_same_Brent": false,
+      "standalone_rho_reached_factor": true,
+      "ratio_router_over_same_Brent": 1.1636303839893576,
+      "no_private_factors_in_public_method": true
+    }
+  ],
+  "summary": {
+    "original_case_count": 16,
+    "same_budget_standalone_brent_successful_factors": 16,
+    "original_public_router_successful_factors": 16,
+    "standalone_Brent_found_factor_before_wheel": 16,
+    "router_faster_than_standalone_Brent_in_cases": 1,
+    "prereg_secondary_required_minimum": 9,
+    "incremental_router_speed_gate_pass": false,
+    "median_router_to_same_Brent_runtime_ratio": 1.0716030140432218,
+    "cannot_claim_any_quantum_or_asymptotic_advantage": true
+  },
+  "zero_QPU": true,
+  "paid_runtime_used": false,
+  "result_caveat": "post-hoc same cohort, not fresh independent 16-case holdout; Python timing cannot establish implementation-independent improvement; original primary wheel/LFK PASS remains unaffected",
+  "timestamp_utc": "2026-10-29T14:38:24.590598+00:00"
+}
