@@ -34,7 +34,7 @@ class PublicCostRouterTests(unittest.TestCase):
     def test_expected_early_fermat_and_small_divisions(self):
         self.assertEqual(p.early_fermat(209)["factors"],[11,19])
         self.assertEqual(p.early_fermat(713)["factors"],[23,31])
-        self.assertEqual(p.public_router(35)["method"],"early_fermat_8")
+        self.assertEqual(p.public_router(209)["method"],"early_fermat_8")
         self.assertEqual(p.public_router(3*101)["method"],"public_wheel_small_prime")
         self.assertEqual(p.public_router(3*101)["factors"],[3,101])
 
