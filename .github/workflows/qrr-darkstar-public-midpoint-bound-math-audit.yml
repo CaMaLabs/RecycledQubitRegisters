@@ -1,0 +1,95 @@
+name: Dark Star exact PTP public midpoint-bound proof and same-residue counterexample ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-darkstar-public-midpoint-bound-math-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qrr-darkstar-exact-public-midpoint-math-proof
+  cancel-in-progress: false
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prior protocol and audit source must be present
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_PUBLIC_MIDPOINT_BOUND_MATH_PROTOCOL.md
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_public_midpoint_bound_math_audit.py
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_public_midpoint_bound_math_audit.py; then
+            echo 'QPU code forbidden'; exit 1
+          fi
+      - name: Run exact proof, synthetic counterexample and lower-factor-bound regression
+        run: |
+          set -euo pipefail
+          timeout 180s python3 -u -m integrations.darkstar_hybrid.darkstar_public_midpoint_bound_math_audit
+      - name: Independently inspect mathematical JSON proof, no new speed claim
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          from integrations.darkstar_hybrid.midpoint_qr_pruner import allowed_mask,ceil_sqrt
+          z=json.loads(Path('results/dark_star_unified/darkstar_public_midpoint_bounds_mathematical_audit.json').read_text())
+          assert z['M']==3*5*7*11*13*17==255255
+          assert z['proof_public_trivial_midpoint_infinite_congruence_progression']
+          r=z['constructed_same_residue_counterexample']
+          assert len(r)==2 and all(x['public_bitlength']==30 for x in r)
+          assert r[0]['public_N_mod_full_W']==r[1]['public_N_mod_full_W']==60037
+          assert [x['true_midpoint_offset_D_posthoc'] for x in r]==[2,11985]
+          for x in r:
+              n,p,q=x['N'],x['synthetic_construction_only_p'],x['synthetic_construction_only_q']
+              assert p*q==n and p<q
+              assert (p+q)//2-ceil_sqrt(n)==x['true_midpoint_offset_D_posthoc']
+              assert x['true_Fermat_x_posthoc']<=x['certified_generic_midpoint_upper_bound']
+              assert all(allowed_mask(k,n%k)[x['true_Fermat_x_posthoc']%k] for k in (3,5,7,11,13,17))
+          for x in z['finite_instances_of_universal_algebra']:
+              n=x['N'];xt=(n+1)//2
+              for k in (-2,-1,0,1,2,3,17,101):
+                  assert ((xt+k*255255)**2-n-(n-1)**2//4)%255255==0
+          assert z['no_reliable_public_proximity_prediction_from_QR_masks_alone']
+          assert z['no_claim_no_public_predictor_of_any_kind_exists']
+          assert z['zero_QPU'] and z['IBM_runtime_jobs']==0
+          print('PASS exact CRT identities, two same-bitlength same-wheel-residue distinct-D semiprimes and certified upper bound')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: darkstar-PTP-exact-midpoint-public-bound-math-proof
+          path: results/dark_star_unified/darkstar_public_midpoint_bounds_mathematical_audit.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit original deterministic proof JSON on main without force push
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/darkstar_public_midpoint_bounds_mathematical_audit.json
+          git commit -m 'results: exact public PTP mask periodicity and no-private-proximity-bound mathematical certificate with constructed counterexamples'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Original mathematical proof certificate archived'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
