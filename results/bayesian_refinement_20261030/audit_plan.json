@@ -1,0 +1,18 @@
+{
+  "cohorts": {
+    "replication": 20261031,
+    "holdout": 20271031
+  },
+  "trials_per_cohort_by_n": {
+    "4": 256,
+    "64": 64,
+    "2048": 4
+  },
+  "hypothesis": "Full-transcript refinement reduces false certification without >5% mean probe increase.",
+  "primary_gate": "On holdout pooled across n: one-sided exact paired sign test p<=0.05 on false certifications and mean probe ratio<=1.05.",
+  "upstream": "https://github.com/katherinevankirk/streaming-regev",
+  "upstream_commit": "b4fee3bf08373bf759beec539d5a3ec78b63416f",
+  "upstream_sha256": "1baf81d1e8ff0c822ac5656f608e018ed4f6c2be50e9f1eecafc5e6397292306",
+  "measured_quantity": "synthetic scalar phase estimation, not factoring",
+  "qpu_jobs": 0
+}
