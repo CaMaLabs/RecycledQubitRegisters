@@ -1,0 +1,82 @@
+name: Dark Star N32 separation PUBLIC SHA freeze before Brent/PTP benchmarks
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-darkstar-n32-separation-public-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: darkstar-n32-separation-public-freeze
+  cancel-in-progress: false
+
+jobs:
+  public-only-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Frozen prereg and source exist, no QPU
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N32_SEPARATION_VS_BRENT_PREREG.md
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_n32_separation_manifest.py integrations/darkstar_hybrid/darkstar_n32_separation_vs_brent.py
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_n32_separation_manifest.py integrations/darkstar_hybrid/darkstar_n32_separation_vs_brent.py; then
+            echo 'QPU submission prohibited'; exit 1
+          fi
+      - name: Construct only original selected public N, prereg synthetic separation strata
+        run: |
+          set -euo pipefail
+          timeout 1100s python3 -u -m integrations.darkstar_hybrid.darkstar_n32_separation_manifest
+      - name: Prove all 24 N-only rows, exact SHA and NO factors in public input
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib,math
+          from pathlib import Path
+          path=Path('results/dark_star_unified/darkstar_n32_separation_frozen_manifest.json')
+          m=json.loads(path.read_text()); rows=m['selected_public_rows']
+          assert len(rows)==len({x['N'] for x in rows})==24
+          assert m['sha256_canonical_rows']==hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert m['public_manifest_contains_prime_factors'] is False
+          assert m['no_factors_or_order_in_public_manifest']
+          assert m['no_routing_algorithm_receives_construction_stratum']
+          assert m['no_factorization_results_scored_before_freeze']
+          assert m['zero_QPU'] and m['IBM_runtime_jobs']==0
+          for group in ('near_0_8','middle_64_640','far_4096_16384'):
+              selected=[r for r in rows if r['group']==group]
+              assert len(selected)==8 and [r['rank'] for r in selected]==list(range(1,9))
+          for r in rows:
+              assert (1<<31)<=r['N']<(1<<32) and math.gcd(r['N'],210)==1
+              assert not any(k in r for k in ('p','q','prime_factors','order','D'))
+          print('FROZEN public SHA',m['sha256_canonical_rows'],m['candidate_counts'],flush=True)
+          PY
+      - name: Commit original public-only manifest before scientific scoring
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/darkstar_n32_separation_frozen_manifest.json
+          git commit -m 'results: freeze 24 original N32 public-only near/middle/far factor-separation inputs before performance tests'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'SUCCESS: original N32 public selection permanently frozen'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
