@@ -120,7 +120,7 @@ def audited_manifest():
     assert m["no_routing_algorithm_receives_construction_stratum"]
     assert m["zero_QPU"]
     for i,r in enumerate(rows):
-        assert r["stratum"]==STRATA[i//8]
+        assert r["group"]==STRATA[i//8]
         assert r["rank"]==i%8+1 and (1<<31)<=r["N"]<(1<<32)
     return m
 
@@ -150,7 +150,7 @@ def single_case(i,row):
     truth=synthetic_truth_after_all_timing(n)
     p,q=truth
     D=(p+q)//2 - qr.ceil_sqrt(n)
-    assert population.stratum_for(D)==row["stratum"],(i,n,D,row["stratum"])
+    assert population.stratum_for(D)==row["group"],(i,n,D,row["group"])
     for method in ("B","F","Q","FQ","wheel210","PTP_LFK"):
         assert receipts[method]["factors"]==truth,(i,method,receipts[method]["factors"],truth)
     assert receipts["fermat2048"]["factors"] in (None,truth)
@@ -179,14 +179,14 @@ def single_case(i,row):
                    ratio_to_B=summary[k]["median_elapsed_seconds"]/B)
             for k in ("F","Q","FQ")}
     counts["Q"]["faster_than_F"]=Q<F
-    result=dict(index=i,public_N=n,construction_stratum_post_validation=row["stratum"],
+    result=dict(index=i,public_N=n,construction_stratum_post_validation=row["group"],
         validation_only_prime_factors=truth,validation_only_true_Fermat_midpoint_offset=D,
         public_methods_called_with_only_N=True,
         complete_method_receipts=receipts,full_timing_by_method=summary,
         invocation_orders=order,
         paired_vs_strong_B=counts,
         actual_QPU_jobs=0)
-    print("RESULT",i,row["stratum"],"N",n,"offset",D,
+    print("RESULT",i,row["group"],"N",n,"offset",D,
           "route B",receipts["B"].get("successful_stage"),
           "QR",receipts["Q"].get("successful_stage"),
           "B_us",round(B*1e6,2),"Q/B",round(Q/B,3),
