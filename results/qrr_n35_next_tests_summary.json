@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "scope": "local CPU classical exact tables; no quantum circuit",
+  "fibonacci_samples": [
+    {
+      "n": 3,
+      "exact": "1/2",
+      "hits": 50032,
+      "trials": 100000
+    },
+    {
+      "n": 4,
+      "exact": "1/6",
+      "hits": 16676,
+      "trials": 100000
+    },
+    {
+      "n": 5,
+      "exact": "1/30",
+      "hits": 3496,
+      "trials": 100000
+    },
+    {
+      "n": 6,
+      "exact": "1/240",
+      "hits": 382,
+      "trials": 100000
+    }
+  ],
+  "ge35_factored_all_64": true,
+  "wrap_k_cases": 2176,
+  "controlled_modadd_cases": 4352,
+  "clean_or_dirty_ancilla_quantum_proof": false,
+  "source_gate_count_change_verified": false,
+  "native_fez_compiles": 0,
+  "qpu_jobs": 0,
+  "fibonacci_RSA_pruning_proven": false
+}
