@@ -14,7 +14,7 @@ from integrations.darkstar_hybrid import midpoint_qr_pruner as qr
 
 ROOT=Path("results/dark_star_unified")
 OUT=ROOT/"darkstar_n34_anytime_public_frozen_manifest.json"
-SALT="DARKSTAR-N34-ADAPTIVE-20261029"
+SALT="DARKSTAR-N34-ANYTIME-20261029"
 POLICY_SHA="afdc1e69a94ebfdd7d73fd2b6d5ada6d8c589753"
 P_MIN=55000
 P_MAX=260000
