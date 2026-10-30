@@ -1,0 +1,29 @@
+{
+  "research_lead": "Chase Lunsford / CaMaLabs",
+  "test": "standalone geq35 comparator A/B",
+  "basis": {
+    "factored": {
+      "pass": true,
+      "basis_cases": 128,
+      "qubits": 11,
+      "clean_scratch": 4,
+      "cx": 12,
+      "ccx": 9,
+      "exact_phase_plus_one": true
+    },
+    "ripple": {
+      "pass": true,
+      "basis_cases": 128,
+      "qubits": 13,
+      "clean_scratch": 6,
+      "cx": 15,
+      "ccx": 10,
+      "exact_phase_plus_one": true
+    }
+  },
+  "qiskit_executed": false,
+  "native_fez_compiled": false,
+  "qpu_jobs": 0,
+  "integration_into_N35_modadd": false,
+  "limitations": "Local CPU-only exact gate-level comparison, no native Fez/Qiskit benchmark"
+}
