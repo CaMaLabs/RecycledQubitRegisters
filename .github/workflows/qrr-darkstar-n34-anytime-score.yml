@@ -1,0 +1,134 @@
+name: Dark Star N34 NEW anytime resumable Brent+PTP versus strong controls ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-darkstar-n34-anytime-score.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: darkstar-n34-anytime-preregistered-original-scoring
+  cancel-in-progress: false
+
+jobs:
+  original-scientific-benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prove earlier independent original public freeze and unchanged fixed algorithm
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N34_ANYTIME_INTERLEAVED_PREREG.md
+          test -s results/dark_star_unified/darkstar_n34_anytime_public_frozen_manifest.json
+          test "$(git hash-object integrations/darkstar_hybrid/darkstar_n34_anytime_scheduler.py)" = "afdc1e69a94ebfdd7d73fd2b6d5ada6d8c589753"
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_n34_anytime_scheduler.py integrations/darkstar_hybrid/darkstar_n34_anytime_holdout.py
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          m=json.loads(Path('results/dark_star_unified/darkstar_n34_anytime_public_frozen_manifest.json').read_text())
+          rr=m['original_public_rows']
+          assert len(rr)==24 and len({z['N'] for z in rr})==24
+          assert m['row_SHA256']=='b0ff1c6cc46e5db8d3e5ff8c841c9b01b40e027646e4734d43cb7665afa68bd2'
+          assert m['row_SHA256']==hashlib.sha256(json.dumps(rr,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert m['immutable_policy_source_sha']=='afdc1e69a94ebfdd7d73fd2b6d5ada6d8c589753'
+          assert m['hidden_factors_not_in_manifest'] and m['group_labels_are_population_metadata_not_factor_algorithm_inputs']
+          assert m['factorization_not_performed_before_manifest_freeze']
+          assert m['zero_QPU'] and m['IBM_runtime_jobs']==0
+          print('PASS original N34 public-only SHA and pre-registered algorithm',flush=True)
+          PY
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_n34_anytime_scheduler.py integrations/darkstar_hybrid/darkstar_n34_anytime_holdout.py; then
+            echo 'Real QPU code forbidden'; exit 1
+          fi
+      - name: Before scoring verify pause-resume exact state equivalence and six complete factor methods
+        run: |
+          set -euo pipefail
+          timeout 240s python3 -m unittest integrations.darkstar_hybrid.test_darkstar_n34_anytime_scheduler -v
+      - name: Execute all original N34 24 cases with 7 arms x 9 timed interleaved comparisons
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=20s 2250s python3 -u -m integrations.darkstar_hybrid.darkstar_n34_anytime_holdout
+      - name: Independently verify frozen original N, 24 true factors, 9 raw timings and both preregistered gates
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          root=Path('results/dark_star_unified')
+          m=json.loads((root/'darkstar_n34_anytime_public_frozen_manifest.json').read_text())
+          r=json.loads((root/'darkstar_n34_anytime_original_24_result.json').read_text())
+          assert r['complete'] and r['zero_QPU'] and r['IBM_runtime_jobs']==0 and not r['paid_runtime_used']
+          assert r['frozen_public_selection_SHA']==m['row_SHA256']
+          assert r['source_frozen_policy_git_blob']=='afdc1e69a94ebfdd7d73fd2b6d5ada6d8c589753'
+          cases=r['original_cases']
+          assert len(cases)==len(m['original_public_rows'])==24
+          for i,(x,fr) in enumerate(zip(cases,m['original_public_rows'])):
+              assert x['index']==i and x['original_public_N']==fr['N']
+              assert x['construction_stratum_for_post_analysis_only']==fr['group']
+              assert math.prod(x['synthetic_validation_only_pq'])==fr['N']
+              assert x['all_algorithms_received_only_public_N'] and x['no_real_QPU']
+              assert len(x['original_interleaved_method_orders'])==9
+              assert len(x['uninterrupted_vs_segmented_rho_proof'])==2
+              for p in x['uninterrupted_vs_segmented_rho_proof']:
+                  assert p['exact_uninterrupted_vs_paused_factor_equality']
+                  assert p['exact_uninterrupted_vs_paused_operation_equality']
+              for arm in ('A','B','F','Q','W','L'):
+                  a=x['complete_original_arm_receipts'][arm]
+                  assert a['factors']==x['synthetic_validation_only_pq']
+                  assert a['complete']
+                  assert a['no_factor_or_stratum_or_order_input']
+                  assert len(x['original_nine_timing_repeats'][arm]['original_nine_seconds'])==9
+                  assert a['operation_counts'].get('Brent_c1_modular_squarings',0)<=1024
+                  assert a['operation_counts'].get('Brent_c3_modular_squarings',0)<=512
+                  assert a['operation_counts'].get('QR_exact_square_root_tests',0)<=64
+              assert x['complete_original_arm_receipts']['M']['factors'] in (None,x['synthetic_validation_only_pq'])
+          s=r['original_summary']
+          assert s['total_original_34_bit_cases']==24 and s['all_six_complete_arms_factor_correctly']
+          assert s['exact_24_case_paused_vs_uninterrupted_rho_state_equivalence']
+          assert s['original_primary_anytime_gate_PASS']==(
+              s['anytime_win_count_vs_Brent_B']>=15 and
+              s['anytime_win_count_vs_full_PTP_Q']>=15 and
+              s['anytime_win_count_vs_Fermat_Brent_F']>=13)
+          mid=s['group_breakdown']['middle_64_640']
+          far=s['group_breakdown']['far_4096_16384']
+          assert s['original_secondary_far_overhead_gate_PASS']==(
+              mid['A_faster_than_B']>=6 and far['A_faster_than_Q']>=6 and
+              far['median_casewise_A_to_B']<=1.25)
+          print('PASS: exact 24 frozen N34 factor certificates, full original methods, no stratum leakage, prereg gates audited')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: darkstar-N34-anytime-full-original-24-seven-arm-nine-repeat-evidence
+          path: results/dark_star_unified/darkstar_n34_anytime_original_24_result.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit original full raw scientific receipts to GitHub main, never force push or rerun for push conflict
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/darkstar_n34_anytime_original_24_result.json
+          git commit -m 'results: preserve original N34 24-case anytime resumed Brent/PTP full evidence and prereg positives/negatives'
+          for i in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Original N34 24-case full scientific outcome archived'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
