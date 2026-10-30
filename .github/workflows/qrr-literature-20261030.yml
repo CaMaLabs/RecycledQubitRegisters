@@ -1,0 +1,36 @@
+name: Literature mechanisms and whole-circuit CPU comparison
+on:
+  push:
+    paths:
+      - 'hardware/qrr_masked_fibonacci_reference.py'
+      - 'hardware/qrr_ladder_adder_literature_ab.py'
+      - 'integrations/darkstar_hybrid/literature_continuation_gate.py'
+      - 'requirements-literature-20261030.txt'
+      - '.github/workflows/qrr-literature-20261030.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qrr-literature-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-literature-20261030.txt
+      - run: python hardware/qrr_masked_fibonacci_reference.py --output artifacts/masked_fibonacci.json
+      - run: python -m integrations.darkstar_hybrid.literature_continuation_gate --self-test --output artifacts/darkstar_gate.json
+      - run: python hardware/qrr_ladder_adder_literature_ab.py --compile --bits 4,6,8 --output artifacts/ladder_adder.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qrr-literature-${{ github.sha }}
+          path: artifacts/
+          if-no-files-found: error
