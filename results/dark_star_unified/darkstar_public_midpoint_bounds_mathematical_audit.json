@@ -1,0 +1,647 @@
+{
+  "experiment": "DarkStar_PTP_public_QR_no_proximity_bound_exact_math",
+  "preregistration": "docs/DARK_STAR_PUBLIC_MIDPOINT_BOUND_MATH_PROTOCOL.md",
+  "scope": "deterministic mathematical counterexample and proof; not prospective factoring speed holdout",
+  "M": 255255,
+  "sieve_primes": [
+    3,
+    5,
+    7,
+    11,
+    13,
+    17
+  ],
+  "proof_public_trivial_midpoint_infinite_congruence_progression": true,
+  "proof_global_factor_lower_bound_formula": "x <= floor((L*L+N)/(2*L)) given certified L<=p<=sqrt(N)",
+  "constructed_same_residue_counterexample": [
+    {
+      "N": 922551607,
+      "synthetic_construction_only_p": 29989,
+      "synthetic_construction_only_q": 30763,
+      "public_bitlength": 30,
+      "public_N_mod_full_W": 60037,
+      "true_Fermat_x_posthoc": 30376,
+      "true_midpoint_offset_D_posthoc": 2,
+      "true_y_posthoc": 387,
+      "all_actual_midpoint_sieve_masks_pass": true,
+      "lower_factor_bound_L": 19,
+      "certified_generic_midpoint_upper_bound": 24277683,
+      "generic_upper_bound_offset": 24247309,
+      "useful_upper_bound_at_2048_bit_RSA": false
+    },
+    {
+      "N": 537116557,
+      "synthetic_construction_only_p": 8719,
+      "synthetic_construction_only_q": 61603,
+      "public_bitlength": 30,
+      "public_N_mod_full_W": 60037,
+      "true_Fermat_x_posthoc": 35161,
+      "true_midpoint_offset_D_posthoc": 11985,
+      "true_y_posthoc": 26442,
+      "all_actual_midpoint_sieve_masks_pass": true,
+      "lower_factor_bound_L": 19,
+      "certified_generic_midpoint_upper_bound": 14134655,
+      "generic_upper_bound_offset": 14111479,
+      "useful_upper_bound_at_2048_bit_RSA": false
+    }
+  ],
+  "actual_synthetic_distance_comparison": {
+    "first_D": 2,
+    "second_D": 11985,
+    "same_public_bitlength": true,
+    "same_public_wheel_residue": true,
+    "first_N_mod_W": 60037,
+    "second_N_mod_W": 60037
+  },
+  "finite_instances_of_universal_algebra": [
+    {
+      "N": 922551607,
+      "x_trivial": 461275804,
+      "y_trivial": 461275803,
+      "wheel": 255255,
+      "symbolic_identity": "(x_trivial+k*M)^2-N=(N-1)^2/4 +2*k*M*x_trivial+k^2*M^2",
+      "universal_residue_class_x_mod_M": 30019,
+      "check_k": [
+        {
+          "k": -2,
+          "midpoint_x": 460765294,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": -1,
+          "midpoint_x": 461020549,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 0,
+          "midpoint_x": 461275804,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 1,
+          "midpoint_x": 461531059,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 2,
+          "midpoint_x": 461786314,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 3,
+          "midpoint_x": 462041569,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 17,
+          "midpoint_x": 465615139,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 101,
+          "midpoint_x": 487056559,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        }
+      ]
+    },
+    {
+      "N": 537116557,
+      "x_trivial": 268558279,
+      "y_trivial": 268558278,
+      "wheel": 255255,
+      "symbolic_identity": "(x_trivial+k*M)^2-N=(N-1)^2/4 +2*k*M*x_trivial+k^2*M^2",
+      "universal_residue_class_x_mod_M": 30019,
+      "check_k": [
+        {
+          "k": -2,
+          "midpoint_x": 268047769,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": -1,
+          "midpoint_x": 268303024,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 0,
+          "midpoint_x": 268558279,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 1,
+          "midpoint_x": 268813534,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 2,
+          "midpoint_x": 269068789,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 3,
+          "midpoint_x": 269324044,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 17,
+          "midpoint_x": 272897614,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 101,
+          "midpoint_x": 294339034,
+          "residue_difference_square_mod_W": 30174,
+          "all_QR_masks_pass": true
+        }
+      ]
+    },
+    {
+      "N": 15,
+      "x_trivial": 8,
+      "y_trivial": 7,
+      "wheel": 255255,
+      "symbolic_identity": "(x_trivial+k*M)^2-N=(N-1)^2/4 +2*k*M*x_trivial+k^2*M^2",
+      "universal_residue_class_x_mod_M": 8,
+      "check_k": [
+        {
+          "k": -2,
+          "midpoint_x": -510502,
+          "residue_difference_square_mod_W": 49,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": -1,
+          "midpoint_x": -255247,
+          "residue_difference_square_mod_W": 49,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 0,
+          "midpoint_x": 8,
+          "residue_difference_square_mod_W": 49,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 1,
+          "midpoint_x": 255263,
+          "residue_difference_square_mod_W": 49,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 2,
+          "midpoint_x": 510518,
+          "residue_difference_square_mod_W": 49,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 3,
+          "midpoint_x": 765773,
+          "residue_difference_square_mod_W": 49,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 17,
+          "midpoint_x": 4339343,
+          "residue_difference_square_mod_W": 49,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 101,
+          "midpoint_x": 25780763,
+          "residue_difference_square_mod_W": 49,
+          "all_QR_masks_pass": true
+        }
+      ]
+    },
+    {
+      "N": 21,
+      "x_trivial": 11,
+      "y_trivial": 10,
+      "wheel": 255255,
+      "symbolic_identity": "(x_trivial+k*M)^2-N=(N-1)^2/4 +2*k*M*x_trivial+k^2*M^2",
+      "universal_residue_class_x_mod_M": 11,
+      "check_k": [
+        {
+          "k": -2,
+          "midpoint_x": -510499,
+          "residue_difference_square_mod_W": 100,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": -1,
+          "midpoint_x": -255244,
+          "residue_difference_square_mod_W": 100,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 0,
+          "midpoint_x": 11,
+          "residue_difference_square_mod_W": 100,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 1,
+          "midpoint_x": 255266,
+          "residue_difference_square_mod_W": 100,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 2,
+          "midpoint_x": 510521,
+          "residue_difference_square_mod_W": 100,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 3,
+          "midpoint_x": 765776,
+          "residue_difference_square_mod_W": 100,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 17,
+          "midpoint_x": 4339346,
+          "residue_difference_square_mod_W": 100,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 101,
+          "midpoint_x": 25780766,
+          "residue_difference_square_mod_W": 100,
+          "all_QR_masks_pass": true
+        }
+      ]
+    },
+    {
+      "N": 35,
+      "x_trivial": 18,
+      "y_trivial": 17,
+      "wheel": 255255,
+      "symbolic_identity": "(x_trivial+k*M)^2-N=(N-1)^2/4 +2*k*M*x_trivial+k^2*M^2",
+      "universal_residue_class_x_mod_M": 18,
+      "check_k": [
+        {
+          "k": -2,
+          "midpoint_x": -510492,
+          "residue_difference_square_mod_W": 289,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": -1,
+          "midpoint_x": -255237,
+          "residue_difference_square_mod_W": 289,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 0,
+          "midpoint_x": 18,
+          "residue_difference_square_mod_W": 289,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 1,
+          "midpoint_x": 255273,
+          "residue_difference_square_mod_W": 289,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 2,
+          "midpoint_x": 510528,
+          "residue_difference_square_mod_W": 289,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 3,
+          "midpoint_x": 765783,
+          "residue_difference_square_mod_W": 289,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 17,
+          "midpoint_x": 4339353,
+          "residue_difference_square_mod_W": 289,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 101,
+          "midpoint_x": 25780773,
+          "residue_difference_square_mod_W": 289,
+          "all_QR_masks_pass": true
+        }
+      ]
+    },
+    {
+      "N": 209,
+      "x_trivial": 105,
+      "y_trivial": 104,
+      "wheel": 255255,
+      "symbolic_identity": "(x_trivial+k*M)^2-N=(N-1)^2/4 +2*k*M*x_trivial+k^2*M^2",
+      "universal_residue_class_x_mod_M": 105,
+      "check_k": [
+        {
+          "k": -2,
+          "midpoint_x": -510405,
+          "residue_difference_square_mod_W": 10816,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": -1,
+          "midpoint_x": -255150,
+          "residue_difference_square_mod_W": 10816,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 0,
+          "midpoint_x": 105,
+          "residue_difference_square_mod_W": 10816,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 1,
+          "midpoint_x": 255360,
+          "residue_difference_square_mod_W": 10816,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 2,
+          "midpoint_x": 510615,
+          "residue_difference_square_mod_W": 10816,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 3,
+          "midpoint_x": 765870,
+          "residue_difference_square_mod_W": 10816,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 17,
+          "midpoint_x": 4339440,
+          "residue_difference_square_mod_W": 10816,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 101,
+          "midpoint_x": 25780860,
+          "residue_difference_square_mod_W": 10816,
+          "all_QR_masks_pass": true
+        }
+      ]
+    },
+    {
+      "N": 713,
+      "x_trivial": 357,
+      "y_trivial": 356,
+      "wheel": 255255,
+      "symbolic_identity": "(x_trivial+k*M)^2-N=(N-1)^2/4 +2*k*M*x_trivial+k^2*M^2",
+      "universal_residue_class_x_mod_M": 357,
+      "check_k": [
+        {
+          "k": -2,
+          "midpoint_x": -510153,
+          "residue_difference_square_mod_W": 126736,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": -1,
+          "midpoint_x": -254898,
+          "residue_difference_square_mod_W": 126736,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 0,
+          "midpoint_x": 357,
+          "residue_difference_square_mod_W": 126736,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 1,
+          "midpoint_x": 255612,
+          "residue_difference_square_mod_W": 126736,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 2,
+          "midpoint_x": 510867,
+          "residue_difference_square_mod_W": 126736,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 3,
+          "midpoint_x": 766122,
+          "residue_difference_square_mod_W": 126736,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 17,
+          "midpoint_x": 4339692,
+          "residue_difference_square_mod_W": 126736,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 101,
+          "midpoint_x": 25781112,
+          "residue_difference_square_mod_W": 126736,
+          "all_QR_masks_pass": true
+        }
+      ]
+    },
+    {
+      "N": 49273331,
+      "x_trivial": 24636666,
+      "y_trivial": 24636665,
+      "wheel": 255255,
+      "symbolic_identity": "(x_trivial+k*M)^2-N=(N-1)^2/4 +2*k*M*x_trivial+k^2*M^2",
+      "universal_residue_class_x_mod_M": 132186,
+      "check_k": [
+        {
+          "k": -2,
+          "midpoint_x": 24126156,
+          "residue_difference_square_mod_W": 158965,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": -1,
+          "midpoint_x": 24381411,
+          "residue_difference_square_mod_W": 158965,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 0,
+          "midpoint_x": 24636666,
+          "residue_difference_square_mod_W": 158965,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 1,
+          "midpoint_x": 24891921,
+          "residue_difference_square_mod_W": 158965,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 2,
+          "midpoint_x": 25147176,
+          "residue_difference_square_mod_W": 158965,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 3,
+          "midpoint_x": 25402431,
+          "residue_difference_square_mod_W": 158965,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 17,
+          "midpoint_x": 28976001,
+          "residue_difference_square_mod_W": 158965,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 101,
+          "midpoint_x": 50417421,
+          "residue_difference_square_mod_W": 158965,
+          "all_QR_masks_pass": true
+        }
+      ]
+    },
+    {
+      "N": 119983771,
+      "x_trivial": 59991886,
+      "y_trivial": 59991885,
+      "wheel": 255255,
+      "symbolic_identity": "(x_trivial+k*M)^2-N=(N-1)^2/4 +2*k*M*x_trivial+k^2*M^2",
+      "universal_residue_class_x_mod_M": 6961,
+      "check_k": [
+        {
+          "k": -2,
+          "midpoint_x": 59481376,
+          "residue_difference_square_mod_W": 198405,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": -1,
+          "midpoint_x": 59736631,
+          "residue_difference_square_mod_W": 198405,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 0,
+          "midpoint_x": 59991886,
+          "residue_difference_square_mod_W": 198405,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 1,
+          "midpoint_x": 60247141,
+          "residue_difference_square_mod_W": 198405,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 2,
+          "midpoint_x": 60502396,
+          "residue_difference_square_mod_W": 198405,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 3,
+          "midpoint_x": 60757651,
+          "residue_difference_square_mod_W": 198405,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 17,
+          "midpoint_x": 64331221,
+          "residue_difference_square_mod_W": 198405,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 101,
+          "midpoint_x": 85772641,
+          "residue_difference_square_mod_W": 198405,
+          "all_QR_masks_pass": true
+        }
+      ]
+    },
+    {
+      "N": 34359738367,
+      "x_trivial": 17179869184,
+      "y_trivial": 17179869183,
+      "wheel": 255255,
+      "symbolic_identity": "(x_trivial+k*M)^2-N=(N-1)^2/4 +2*k*M*x_trivial+k^2*M^2",
+      "universal_residue_class_x_mod_M": 186664,
+      "check_k": [
+        {
+          "k": -2,
+          "midpoint_x": 17179358674,
+          "residue_difference_square_mod_W": 2304,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": -1,
+          "midpoint_x": 17179613929,
+          "residue_difference_square_mod_W": 2304,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 0,
+          "midpoint_x": 17179869184,
+          "residue_difference_square_mod_W": 2304,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 1,
+          "midpoint_x": 17180124439,
+          "residue_difference_square_mod_W": 2304,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 2,
+          "midpoint_x": 17180379694,
+          "residue_difference_square_mod_W": 2304,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 3,
+          "midpoint_x": 17180634949,
+          "residue_difference_square_mod_W": 2304,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 17,
+          "midpoint_x": 17184208519,
+          "residue_difference_square_mod_W": 2304,
+          "all_QR_masks_pass": true
+        },
+        {
+          "k": 101,
+          "midpoint_x": 17205649939,
+          "residue_difference_square_mod_W": 2304,
+          "all_QR_masks_pass": true
+        }
+      ]
+    }
+  ],
+  "RSA2048_balanced_factor_ratio_at_most_2": true,
+  "RSA2048_conditional_midpoint_bound": "D/sqrt(N) <= 3/(2*sqrt(2))-1 ~= 0.0606601718, order 2^1020 midpoints for 2048-bit moduli",
+  "no_reliable_public_proximity_prediction_from_QR_masks_alone": true,
+  "no_claim_no_public_predictor_of_any_kind_exists": true,
+  "no_new_factoring_speed_or_asymptotic_attack_claim": true,
+  "quantum_simulator_used": false,
+  "zero_QPU": true,
+  "IBM_runtime_jobs": 0,
+  "generated_utc": "2026-10-30T07:24:59.193463+00:00"
+}
