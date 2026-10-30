@@ -1,0 +1,82 @@
+name: Dark Star N33 PUBLIC adaptive QR cohort freeze ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-darkstar-n33-public-adaptive-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+concurrency:
+  group: darkstar-n33-public-adaptive-original-cohort
+  cancel-in-progress: false
+
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check frozen rules and public-only policy source SHA before input selection
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N33_PUBLIC_ADAPTIVE_QR_PREREG.md
+          test "$(git hash-object integrations/darkstar_hybrid/darkstar_n33_public_adaptive_qr.py)" = "431d1e8d8e3120c78415dcae226cb521be652732"
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_n33_public_adaptive_qr.py integrations/darkstar_hybrid/darkstar_n33_public_manifest.py
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_n33_public_manifest.py integrations/darkstar_hybrid/darkstar_n33_public_adaptive_qr.py; then
+            echo 'QPU forbidden'; exit 1
+          fi
+      - name: Select precisely 24 ORIGINAL synthetic-separation public N33 samples without factor scoring
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=10s 1250s python3 -u -m integrations.darkstar_hybrid.darkstar_n33_public_manifest
+      - name: Verify canonical N-only cohort, SHA, fixed 8+8+8, zero secrets in manifest
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json,math
+          from pathlib import Path
+          from integrations.darkstar_hybrid import darkstar_n33_public_manifest as spec
+          z=json.loads(Path('results/dark_star_unified/darkstar_n33_adaptive_qr_public_frozen_manifest.json').read_text())
+          rr=z['original_public_rows']
+          assert len(rr)==len({r['N'] for r in rr})==24
+          assert z['row_SHA256']==hashlib.sha256(json.dumps(rr,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert z['immutable_policy_source_sha']=='431d1e8d8e3120c78415dcae226cb521be652732'
+          assert z['hidden_factors_not_in_manifest'] and z['factorization_not_performed_before_manifest_freeze']
+          assert z['group_labels_are_population_metadata_not_factor_algorithm_inputs']
+          assert z['zero_QPU'] and z['IBM_runtime_jobs']==0 and not z['paid_runtime_used']
+          for group in ('near_0_8','middle_64_640','far_4096_16384'):
+              matches=[r for r in rr if r['group']==group]
+              assert len(matches)==8 and [r['rank'] for r in matches]==list(range(1,9))
+          for row in rr:
+              assert (1<<32)<=row['N']<(1<<33) and math.gcd(row['N'],210)==1
+              assert not any(key in row for key in ('p','q','D','factor','factor_D','order','performance'))
+          print('SHA-FROZEN 24 ORIGINAL PUBLIC N ONLY',z['row_SHA256'],flush=True)
+          PY
+      - name: Commit original 24 N-only public inputs BEFORE any method scoring
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/darkstar_n33_adaptive_qr_public_frozen_manifest.json
+          git commit -m 'results: freeze original N33 adaptive PTP public-only 24 case cohort before factoring'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'ORIGINAL PUBLIC N33 INPUT MANIFEST COMMITTED ON MAIN; scoring now permitted'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
