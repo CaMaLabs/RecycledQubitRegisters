@@ -8,7 +8,7 @@ def emit(qc,x,flag,carry,chain,controls=(),geq=True):
     qc.ccx(x[0],x[1],t[0])
     for a,b,d in ((x[2],t[0],t[1]),(x[3],t[1],t[2]),(x[4],t[2],t[3])):
         qc.cx(a,d);qc.cx(b,d);qc.ccx(a,b,d)
-    if not geq:qc.x(flag)
+    if not geq:primitive.multi_x(qc,list(controls),flag,chain)
     primitive.multi_x(qc,list(controls)+[x[5],t[3]],flag,chain)
     for a,b,d in ((x[4],t[2],t[3]),(x[3],t[1],t[2]),(x[2],t[0],t[1])):
         qc.ccx(a,b,d);qc.cx(b,d);qc.cx(a,d)
