@@ -1,0 +1,121 @@
+name: Dark Star N32 fresh factor separation PTP vs strong Brent ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-darkstar-n32-separation-score.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: darkstar-n32-separation-full-preregistered-original
+  cancel-in-progress: false
+
+jobs:
+  full-original-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify public cohort frozen in earlier successful Actions run
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N32_SEPARATION_VS_BRENT_PREREG.md
+          test -s results/dark_star_unified/darkstar_n32_separation_frozen_manifest.json
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_n32_separation_manifest.py integrations/darkstar_hybrid/darkstar_n32_separation_vs_brent.py
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          m=json.loads(Path('results/dark_star_unified/darkstar_n32_separation_frozen_manifest.json').read_text())
+          r=m['selected_public_rows']
+          assert len(r)==len(set(x['N'] for x in r))==24
+          assert m['sha256_canonical_rows']=='82ae5b25791967188418bcf7ab6fb3be24b6d43209bc18dbb6da392de86e5c0b'
+          assert m['sha256_canonical_rows']==hashlib.sha256(json.dumps(r,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert m['no_factors_or_order_in_public_manifest'] and m['no_routing_algorithm_receives_construction_stratum']
+          assert m['no_factorization_results_scored_before_freeze']
+          assert m['zero_QPU'] and m['IBM_runtime_jobs']==0
+          print('PASS ORIGINAL N32 SHA BEFORE ANY FACTORING',m['sha256_canonical_rows'],flush=True)
+          PY
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_n32_separation_vs_brent.py; then
+            echo 'QPU runtime forbidden'; exit 1
+          fi
+      - name: Independent fixed-budget public-only small-case unit tests
+        run: |
+          set -euo pipefail
+          timeout 240s python3 -m unittest integrations.darkstar_hybrid.test_darkstar_n32_separation_vs_brent -v
+      - name: Run full 24 case N32 separation-controlled fresh comparison, 9 interleaved repeats
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=20s 2100s python3 -u -m integrations.darkstar_hybrid.darkstar_n32_separation_vs_brent
+      - name: Strict independently audited original cohort, exact factors, timings, and primary gate
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math,statistics
+          from pathlib import Path
+          root=Path('results/dark_star_unified')
+          m=json.loads((root/'darkstar_n32_separation_frozen_manifest.json').read_text())
+          a=json.loads((root/'darkstar_n32_separation_vs_brent_original_24_results.json').read_text())
+          assert a['complete'] and a['real_QPU_jobs']==0 and not a['paid_runtime_used']
+          assert a['public_manifest_row_SHA256']==m['sha256_canonical_rows']
+          assert len(a['original_cases'])==len(m['selected_public_rows'])==24
+          for index,(case,fr) in enumerate(zip(a['original_cases'],m['selected_public_rows'])):
+              assert case['index']==index and case['public_N']==fr['N']
+              assert case['construction_stratum_post_validation']==fr['group']
+              assert math.prod(case['validation_only_prime_factors'])==fr['N']
+              assert case['public_methods_called_with_only_N']
+              assert len(case['invocation_orders'])==9
+              for name in ('B','F','Q','FQ','wheel210','PTP_LFK'):
+                  assert case['complete_method_receipts'][name]['factors']==case['validation_only_prime_factors']
+                  assert len(case['full_timing_by_method'][name]['raw_nine_elapsed_seconds'])==9
+              assert case['complete_method_receipts']['B']['operations'].get('rho_modular_squarings',0)<=1536
+              assert case['complete_method_receipts']['fermat2048']['factors'] in (None,case['validation_only_prime_factors'])
+              for name in ('Q','FQ'):
+                  for z in case['complete_method_receipts'][name]['stages']:
+                      if z['stage']=='QR_255255':
+                          assert z['scanned_midpoint_positions']<=2048
+                          assert z['exact_square_root_tests']<=96
+          s=a['summary']
+          mid=s['strata']['middle_64_640']
+          assert s['total_original_frozen_N32_cases']==24
+          assert s['prereg_PTP_specific_middle_win']==(mid['Q_faster_than_B']>=6 and mid['Q_faster_than_F']>=6)
+          assert s['prereg_broad_FQ_router_win']==(s['secondary_FQ_wins_vs_B_all_strata']>=13)
+          assert s['zero_QPU'] and s['all_six_complete_methods_verify_exact_factors']
+          print('PASS ALL 24 ORIGINAL cases, exact factors, 9 raw repeats, honest original primary + secondary gates')
+          PY
+      - name: Preserve raw original science even if GitHub archival push conflicts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: darkstar-N32-separation-24-original-PTP-vs-Brent-full-evidence
+          path: results/dark_star_unified/darkstar_n32_separation_vs_brent_original_24_results.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit exact original 24 case result on main, no reruns or force push
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/darkstar_n32_separation_vs_brent_original_24_results.json
+          git commit -m 'results: archive original N32 24-case PTP QR versus strong Brent controls with nine raw timings and nulls'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'ARCHIVED original complete results; primary outcome frozen'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
