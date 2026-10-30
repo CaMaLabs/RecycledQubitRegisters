@@ -1,0 +1,273 @@
+{
+  "plan": {
+    "cohorts": {
+      "replication": 20261031,
+      "holdout": 20271031
+    },
+    "trials_per_cohort_by_n": {
+      "4": 256,
+      "64": 64,
+      "2048": 4
+    },
+    "hypothesis": "Full-transcript refinement reduces false certification without >5% mean probe increase.",
+    "primary_gate": "On holdout pooled across n: one-sided exact paired sign test p<=0.05 on false certifications and mean probe ratio<=1.05.",
+    "upstream": "https://github.com/katherinevankirk/streaming-regev",
+    "upstream_commit": "b4fee3bf08373bf759beec539d5a3ec78b63416f",
+    "upstream_sha256": "1baf81d1e8ff0c822ac5656f608e018ed4f6c2be50e9f1eecafc5e6397292306",
+    "measured_quantity": "synthetic scalar phase estimation, not factoring",
+    "qpu_jobs": 0
+  },
+  "utc": "2026-10-30T23:49:22.934389+00:00",
+  "cassini": {
+    "status": "EXACT_ALGEBRA_PASS",
+    "scope": "fixed cheap linear combinations of the two current accumulator phases",
+    "rows": [
+      {
+        "k": 8,
+        "F_k": "21",
+        "F_previous": "13",
+        "exact_right_phase_difference_mod_one": "0",
+        "companion_difference_numerator": 1,
+        "denominator": "21",
+        "independent_probe_transcript_TV_upper_bound_48_probes": 1.0
+      },
+      {
+        "k": 20,
+        "F_k": "6765",
+        "F_previous": "4181",
+        "exact_right_phase_difference_mod_one": "0",
+        "companion_difference_numerator": 1,
+        "denominator": "6765",
+        "independent_probe_transcript_TV_upper_bound_48_probes": 0.022290679582011835
+      },
+      {
+        "k": 197,
+        "F_k": "66233869353085486281758142155705206899077",
+        "F_previous": "40934782466626840596168752972961528246147",
+        "exact_right_phase_difference_mod_one": "0",
+        "companion_difference_numerator": 1,
+        "denominator": "66233869353085486281758142155705206899077",
+        "independent_probe_transcript_TV_upper_bound_48_probes": 2.2767271313779173e-39
+      }
+    ],
+    "general_factoring_lower_bound": false,
+    "consequence": "Adjacent-accumulator checks cannot universally remove all global aliases at constant probe cost."
+  },
+  "status": "COMPLETE",
+  "external_compute_spend": 0,
+  "summary": [
+    {
+      "cohort": "holdout",
+      "n": 4,
+      "arm": "upstream",
+      "trials": 256,
+      "false_certifications": 0,
+      "successful": 255,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 255,
+      "mean_probes": 62.42578125,
+      "mean_seconds": 0.11701468275781579,
+      "median_midpoint_discrepancy": 0.03968875883750518
+    },
+    {
+      "cohort": "holdout",
+      "n": 4,
+      "arm": "global_splits",
+      "trials": 256,
+      "false_certifications": 0,
+      "successful": 256,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 256,
+      "mean_probes": 54.66015625,
+      "mean_seconds": 0.10363710482031507,
+      "median_midpoint_discrepancy": 1.931723326840207e-15
+    },
+    {
+      "cohort": "holdout",
+      "n": 64,
+      "arm": "upstream",
+      "trials": 64,
+      "false_certifications": 0,
+      "successful": 63,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 64,
+      "mean_probes": 239.09375,
+      "mean_seconds": 0.12801667160939445,
+      "median_midpoint_discrepancy": 0.0405303168203847
+    },
+    {
+      "cohort": "holdout",
+      "n": 64,
+      "arm": "global_splits",
+      "trials": 64,
+      "false_certifications": 0,
+      "successful": 64,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 64,
+      "mean_probes": 209.703125,
+      "mean_seconds": 0.12081991700001993,
+      "median_midpoint_discrepancy": 7.104304686475584e-15
+    },
+    {
+      "cohort": "holdout",
+      "n": 2048,
+      "arm": "upstream",
+      "trials": 4,
+      "false_certifications": 0,
+      "successful": 4,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 4,
+      "mean_probes": 1162.0,
+      "mean_seconds": 2.6628545144999407,
+      "median_midpoint_discrepancy": 0.04323190603290261
+    },
+    {
+      "cohort": "holdout",
+      "n": 2048,
+      "arm": "global_splits",
+      "trials": 4,
+      "false_certifications": 0,
+      "successful": 4,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 4,
+      "mean_probes": 1162.25,
+      "mean_seconds": 3.252789019250031,
+      "median_midpoint_discrepancy": 3.3057133735319747e-14
+    },
+    {
+      "cohort": "replication",
+      "n": 4,
+      "arm": "upstream",
+      "trials": 256,
+      "false_certifications": 0,
+      "successful": 256,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 256,
+      "mean_probes": 54.65234375,
+      "mean_seconds": 0.10880706005859153,
+      "median_midpoint_discrepancy": 0.038339896802505186
+    },
+    {
+      "cohort": "replication",
+      "n": 4,
+      "arm": "global_splits",
+      "trials": 256,
+      "false_certifications": 0,
+      "successful": 256,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 256,
+      "mean_probes": 54.57421875,
+      "mean_seconds": 0.10898469109376663,
+      "median_midpoint_discrepancy": 1.9415950715653193e-15
+    },
+    {
+      "cohort": "replication",
+      "n": 64,
+      "arm": "upstream",
+      "trials": 64,
+      "false_certifications": 0,
+      "successful": 64,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 64,
+      "mean_probes": 209.5,
+      "mean_seconds": 0.11396346100003285,
+      "median_midpoint_discrepancy": 0.040810606387344815
+    },
+    {
+      "cohort": "replication",
+      "n": 64,
+      "arm": "global_splits",
+      "trials": 64,
+      "false_certifications": 0,
+      "successful": 64,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 64,
+      "mean_probes": 209.53125,
+      "mean_seconds": 0.13283491473438858,
+      "median_midpoint_discrepancy": 7.809684555626046e-15
+    },
+    {
+      "cohort": "replication",
+      "n": 2048,
+      "arm": "upstream",
+      "trials": 4,
+      "false_certifications": 0,
+      "successful": 4,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 4,
+      "mean_probes": 1162.0,
+      "mean_seconds": 2.845510147750133,
+      "median_midpoint_discrepancy": 0.06170286259956061
+    },
+    {
+      "cohort": "replication",
+      "n": 2048,
+      "arm": "global_splits",
+      "trials": 4,
+      "false_certifications": 0,
+      "successful": 4,
+      "posthoc_false_certifications": 0,
+      "posthoc_successful": 4,
+      "mean_probes": 1161.25,
+      "mean_seconds": 3.6035273144998428,
+      "median_midpoint_discrepancy": 2.5992540543987053e-14
+    }
+  ],
+  "primary_gate": {
+    "wins": 0,
+    "losses": 0,
+    "one_sided_p": 1.0,
+    "mean_probe_ratio": 0.8923492249032868,
+    "passed": false
+  },
+  "RSA_break": false,
+  "case_counts": {
+    "independent_phase_cases": 648,
+    "paired_arm_executions": 1296
+  },
+  "dense_reference": [
+    {
+      "cohort": "replication",
+      "cases": 256,
+      "median_original_tv": 0.04015767118290717,
+      "median_reweighted_tv": 0.0038907187759652196,
+      "improved_cases": 256,
+      "points": 65536
+    },
+    {
+      "cohort": "holdout",
+      "cases": 256,
+      "median_original_tv": 0.041720606819748755,
+      "median_reweighted_tv": 0.003817771621755406,
+      "improved_cases": 256,
+      "points": 65536
+    }
+  ],
+  "paired_probe_diagnostics": [
+    {
+      "cohort": "replication",
+      "median_global_minus_upstream": 0.0,
+      "upstream_uncertified_cases": []
+    },
+    {
+      "cohort": "holdout",
+      "median_global_minus_upstream": 0.0,
+      "upstream_uncertified_cases": [
+        {
+          "n": 4,
+          "case": 41,
+          "stop_reason": "final_cap",
+          "upstream_probes": 2061,
+          "global_probes": 52
+        },
+        {
+          "n": 64,
+          "case": 27,
+          "stop_reason": "final_cap",
+          "upstream_probes": 2189,
+          "global_probes": 207
+        }
+      ]
+    }
+  ]
+}
