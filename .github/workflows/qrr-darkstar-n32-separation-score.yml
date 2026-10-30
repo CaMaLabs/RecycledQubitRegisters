@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - .github/workflows/qrr-darkstar-n32-separation-score.yml
+      - integrations/darkstar_hybrid/darkstar_n32_separation_vs_brent.py
+      - integrations/darkstar_hybrid/test_darkstar_n32_separation_vs_brent.py
   workflow_dispatch:
 
 permissions:
