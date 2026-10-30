@@ -10,6 +10,8 @@ from qiskit import QuantumCircuit,QuantumRegister
 import qrr_n35_true_recycled_phase_feedforward as source
 import qrr_n35_single_modmul_ripple_toffoli as primitive
 from qrr_n35_static_gate_cost_sign_selector import source_gate_cost
+# Capture original ripple implementation BEFORE configure_original_public_arithmetic mutates primitive.modadd.
+ORIGINAL_RIPPLE_MODADD = primitive.modadd
 OUT=Path("results/qrr_n35_modadd_ripple_screen")
 SEEDS=(509,1223,4093,8776)
 def build(k,variant):
@@ -20,7 +22,7 @@ def build(k,variant):
  if variant=="selected":
   source.oldsel.structural_selected_modadd(qc,t,k,35,[en[0]],flag[0],carry,scratch)
  else:
-  primitive.modadd(qc,t,k,35,[en[0]],flag[0],carry,scratch)
+  ORIGINAL_RIPPLE_MODADD(qc,t,k,35,[en[0]],flag[0],carry,scratch)
  return qc,dict(enable=list(en),target=list(t),wrap=list(flag),carry=list(carry),scratch=list(scratch))
 def verify(qc,r,k):
  # Actual emitted gates, exact complex amplitudes (+1), not only truth-table integers.
@@ -63,6 +65,8 @@ def main():
    row["source_proxy_delta_ripple_minus_selected"]=(row["ripple"]["source_proxy"]-row["selected"]["source_proxy"])
    result["rows"].append(row);save()
    print(f"K={k} EXACT 198/198 selected/ripple; PROXY DELTA {row['source_proxy_delta_ripple_minus_selected']}",flush=True)
+  # Prevent accidental self-comparison due to module-level function rebinding.
+  assert any(r["selected"]["gates"] != r["ripple"]["gates"] for r in result["rows"]), "Identical source histograms across every k: inspect comparison wiring"
   result["status"]="SOURCE_EXACT_PASS";save()
   if a.native:
    from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
