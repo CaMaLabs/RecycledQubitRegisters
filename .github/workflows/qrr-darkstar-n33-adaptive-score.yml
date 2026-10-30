@@ -1,0 +1,122 @@
+name: Dark Star N33 FRESH public-only QR adaptive versus Brent and Fermat ZERO QPU
+
+on:
+  push:
+    paths:
+      - .github/workflows/qrr-darkstar-n33-adaptive-score.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+concurrency:
+  group: darkstar-n33-adaptive-original-24-score
+  cancel-in-progress: false
+
+jobs:
+  original-24-case-holdout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      QISKIT_IBM_TOKEN: ''
+      IBM_QUANTUM_API_KEY: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify successful earlier N33 freeze and unchanged preregistered public policy
+        run: |
+          set -euo pipefail
+          test -s docs/DARK_STAR_N33_PUBLIC_ADAPTIVE_QR_PREREG.md
+          test -s results/dark_star_unified/darkstar_n33_adaptive_qr_public_frozen_manifest.json
+          test "$(git hash-object integrations/darkstar_hybrid/darkstar_n33_public_adaptive_qr.py)" = "431d1e8d8e3120c78415dcae226cb521be652732"
+          python3 -m py_compile integrations/darkstar_hybrid/darkstar_n33_public_adaptive_qr.py integrations/darkstar_hybrid/darkstar_n33_public_adaptive_holdout.py integrations/darkstar_hybrid/darkstar_n33_public_manifest.py
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          m=json.loads(Path('results/dark_star_unified/darkstar_n33_adaptive_qr_public_frozen_manifest.json').read_text())
+          rows=m['original_public_rows']
+          assert len(rows)==24 and len({r['N'] for r in rows})==24
+          assert m['row_SHA256']=='6ad065cef19f01bd44da35dec101cc45432f398ce4b404362fcd7e87f801859c'
+          assert m['row_SHA256']==hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert m['hidden_factors_not_in_manifest'] and m['factorization_not_performed_before_manifest_freeze']
+          assert m['group_labels_are_population_metadata_not_factor_algorithm_inputs']
+          assert m['immutable_policy_source_sha']=='431d1e8d8e3120c78415dcae226cb521be652732'
+          assert m['zero_QPU'] and m['IBM_runtime_jobs']==0
+          print('PASS ORIGINAL PRE-FROZEN N33 SHA AND PREDECLARED PUBLIC ROUTER SOURCE',flush=True)
+          PY
+          if grep -nE 'qiskit_ibm_runtime|QiskitRuntimeService|SamplerV2|EstimatorV2|backend.run|job.submit' integrations/darkstar_hybrid/darkstar_n33_public_adaptive_qr.py integrations/darkstar_hybrid/darkstar_n33_public_adaptive_holdout.py; then
+            echo 'IBM submission forbidden'; exit 1
+          fi
+      - name: Run independent router semantic/unit controls on classic test cases
+        run: |
+          set -euo pipefail
+          timeout 240s python3 -m unittest integrations.darkstar_hybrid.test_darkstar_n33_public_adaptive_qr -v
+      - name: Original full 24 synthetic N33 cases x 7 arms x 9 interleaved runs, strong Brent baseline
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=20s 1750s python3 -u -m integrations.darkstar_hybrid.darkstar_n33_public_adaptive_holdout
+      - name: Independent original SHA, hidden-factor boundary, full costs and primary and secondary gates
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          r=Path('results/dark_star_unified')
+          m=json.loads((r/'darkstar_n33_adaptive_qr_public_frozen_manifest.json').read_text())
+          x=json.loads((r/'darkstar_n33_adaptive_qr_original_24_result.json').read_text())
+          assert x['complete'] and x['zero_QPU'] and x['IBM_runtime_jobs']==0 and not x['paid_runtime_used']
+          assert x['frozen_public_manifest_SHA']==m['row_SHA256']
+          assert x['frozen_policy_source_git_blob']==m['immutable_policy_source_sha']
+          assert len(x['original_cases'])==24
+          for i,(z,spec) in enumerate(zip(x['original_cases'],m['original_public_rows'])):
+              assert z['index']==i and z['public_frozen_N']==spec['N']
+              assert z['original_synthetic_stratum_post_validation']==spec['group']
+              assert math.prod(z['validation_only_prime_factors'])==spec['N']
+              assert len(z['raw_interleaved_arm_orders'])==9
+              for arm in ('A','B','F','Q','W','L'):
+                  val=z['original_method_receipts'][arm]
+                  assert val['factors']==z['validation_only_prime_factors']
+                  assert val['public_N_only'] and not val['has_private_factor_or_stratum_input']
+                  assert len(z['full_comparison_timing'][arm]['all_nine_original_times_seconds'])==9
+                  assert val['operations'].get('rho_modular_squarings',0)<=1536
+              assert z['original_method_receipts']['M']['factors'] in (None,z['validation_only_prime_factors'])
+          s=x['summary']
+          mid=s['strata']['middle_64_640']
+          far=s['strata']['far_4096_16384']
+          assert s['total_original_cases']==24 and s['all_six_complete_algorithms_correct']
+          assert s['prereg_primary_adaptive_policy_gate_pass']==(
+              s['adaptive_beats_B_total']>=15 and s['adaptive_beats_nonadaptive_Q_total']>=15)
+          assert s['prereg_secondary_middle_and_far_selectivity_gate_pass']==(
+              mid['A_beats_B']>=6 and mid['extended_QR_selected']>=4 and
+              (8-far['extended_QR_selected']>=6))
+          assert s['qpu_jobs']==0 and s['uses_no_hidden_factors_to_route']
+          print('PASS ALL 24 ORIGINAL CASES, ALL 9 RAW TIMINGS, HONEST PUBLIC ROUTER PRIMARY/SECONDARY GATES',flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: darkstar-N33-public-adaptive-24-original-separation-control-receipts
+          path: results/dark_star_unified/darkstar_n33_adaptive_qr_original_24_result.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Archive complete unmodified original positive and negative evidence, no force push
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/dark_star_unified/darkstar_n33_adaptive_qr_original_24_result.json
+          git commit -m 'results: preserve all original N33 24-case public QR density adaptive factoring vs Brent complete time and failure receipts'
+          for attempt in 1 2 3 4 5 6 7; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'ORIGINAL 24-CASE N33 SCIENCE ARCHIVED'; exit 0
+            fi
+            sleep 2
+          done
+          exit 1
