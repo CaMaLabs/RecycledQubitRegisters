@@ -162,8 +162,9 @@ def main():
     p1=all_b>=15 and all_q>=15
     gmid=groups["middle_64_640"]
     gfar=groups["far_4096_16384"]
-    p2=gmid["A_beats_B"]>=6 and gmid["extended_QR_selected"]>=4 and
-        (8-gfar["extended_QR_selected"]>=6)
+    p2=(gmid["A_beats_B"]>=6 and
+        gmid["extended_QR_selected"]>=4 and
+        (8-gfar["extended_QR_selected"]>=6))
     summary=dict(
         total_original_cases=24,all_six_complete_algorithms_correct=True,
         public_only_policy_inputs_verified=True,
