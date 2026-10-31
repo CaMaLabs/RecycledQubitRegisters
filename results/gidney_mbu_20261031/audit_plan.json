@@ -1,0 +1,117 @@
+{
+  "frozen_before_scores": true,
+  "external_spend": 0,
+  "qpu_jobs": 0,
+  "hosted_ci_requested": false,
+  "upstream_commit": "52618a2dac958af834519a4c88fb8c1ac0dfb9c6",
+  "branch_proof": {
+    "clean3": {
+      "widths_all_constants": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "dirty2": {
+      "widths_all_constants": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "width6_constants": [
+        1,
+        2,
+        3,
+        5,
+        17,
+        23,
+        29,
+        35,
+        43,
+        63
+      ]
+    },
+    "all_data_control_dirty_inputs": true,
+    "all_measurement_transcripts": true,
+    "mutation": "delete ZIF phase corrections must fail"
+  },
+  "coherent_emitted_qiskit": {
+    "width": 6,
+    "constants": [
+      1,
+      2,
+      3,
+      5,
+      17,
+      23,
+      29,
+      35,
+      43,
+      63
+    ],
+    "input": "all target/control values with deterministic complex amplitudes",
+    "all_transcripts": true
+  },
+  "scaling": {
+    "widths": [
+      6,
+      16,
+      64,
+      256,
+      1024,
+      2048
+    ],
+    "patterns": [
+      "one",
+      "alternating",
+      "all_ones"
+    ],
+    "variants": [
+      "clean3",
+      "dirty2"
+    ],
+    "control": [
+      false,
+      true
+    ],
+    "not_RSA_circuit": true
+  },
+  "whole_circuit": {
+    "N": 35,
+    "bases": [
+      2,
+      8
+    ],
+    "phase_bits": [
+      4
+    ],
+    "arms": [
+      "baseline",
+      "mbu"
+    ],
+    "seeds": [
+      509,
+      1223,
+      4093,
+      8776
+    ],
+    "target": "synthetic_bidirectional_line_23",
+    "basis": [
+      "x",
+      "sx",
+      "rz",
+      "cz",
+      "id"
+    ],
+    "optimization_level": 1,
+    "initial_layout": "identity",
+    "primary_gate": "strictly fewer worst-branch CZ and recursive structural depth in all 8 pairs; no width increase",
+    "timing_latency_assumed": false,
+    "extrapolation_to_RSA2048_forbidden": true
+  },
+  "rsa_break_sufficient": false
+}
