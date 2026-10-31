@@ -2,8 +2,8 @@
 """A44: generic exact reversible controlled modular multiplication for wider N.
 
 Uses cycle transpositions and Gray-path neighbor swaps; X-frame reduction,
-clean-ancilla V-chain. Full computational-basis simulator validates ALL
-2^(work_bits+1) inputs on actual source gate semantics (before decomposition).
+clean-ancilla V-chain. Permutation-level checks cover 2^work_bits values; a full compiled-gate
+semantic audit is REQUIRED before A44 can feed an actual QPE experiment.
 Does not claim full QPE or quantum speedup.
 """
 import argparse,json,math,time
