@@ -13,7 +13,7 @@ import time
 
 def dft(vec, inverse=False):
     size = len(vec)
-    sign = -1 if inverse else 1
+    sign = 1 if inverse else -1
     return [sum(vec[x] * cmath.exp(sign * 2j * math.pi * x * k / size)
                 for x in range(size)) / math.sqrt(size)
             for k in range(size)]
