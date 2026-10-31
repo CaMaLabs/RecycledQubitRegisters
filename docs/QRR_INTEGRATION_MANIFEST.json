@@ -98,6 +98,18 @@
       "source": "hardware/qrr_a42_n143_repeated_aer_quaspy.py",
       "status": "PASS_16_INDEPENDENT_AER_SHOTS_USER_REPORTED",
       "next": "Audit native decomposition including 6432 residual CCX; compare a larger independent seed cohort and readout/gate noise before hardware claims."
+    },
+    {
+      "id": "n143_complete_native_and_readout_sensitivity",
+      "source": "hardware/qrr_a43_n143_native_cost_readout_noise.py",
+      "status": "committed_pending_run",
+      "next": "Audit u/cx decomposition including residual CCX; replay measured A42 frequency memory under independent synthetic bit flips; gate noise separate"
+    },
+    {
+      "id": "larger_semiprime_generic_modular_source",
+      "source": "hardware/qrr_a44_generic_modular_multiplier.py",
+      "status": "committed_pending_source_build",
+      "next": "N221 and N323 source construction; independently verify full gate semantics, then generalize A41 dynamic QPE"
     }
   ],
   "reliability_gates": [
@@ -118,6 +130,8 @@
     "A39": "User Ubuntu: base2 CX 217536->34608, base8 CX 218064->34692, both 84.09% reduction; base8 depth 348348->80948. Six additional clean ancillas. Qiskit v-chain deprecated API warning. Full v-chain semantic and ancilla cleanliness verification pending.",
     "A40": "User reports local V-chain 512/512 phase checks max error 0; full circuit spots not run",
     "A41": "User Ubuntu A41 15q 9-bit base8 one Aer shot produced readout 010110101 frequency181; strict Quaspy candidate exponent20 verified factors [11,13]; CF no verified order. One successful noiseless simulated shot only; no QPU.",
-    "A42": "User Ubuntu: 16/16 Quaspy factor recoveries, CF 6/16, 13 distinct frequencies, mean 19.936s/shot; 15q 9bit Aer dynamic circuit; transpiled CX 231552 plus 6432 undecomposed CCX, depth 572460; zero QPU."
+    "A42": "User Ubuntu: 16/16 Quaspy factor recoveries, CF 6/16, 13 distinct frequencies, mean 19.936s/shot; 15q 9bit Aer dynamic circuit; transpiled CX 231552 plus 6432 undecomposed CCX, depth 572460; zero QPU.",
+    "A43": "committed; actual noise and basis cost run pending",
+    "A44": "generic controlled modular source committed for 221,323; no whole-gate semantic test or QPE yet. Scaling gates docs/QRR_A44_LARGER_SEMIPRIME_SCALING_GATES.json."
   }
 }
