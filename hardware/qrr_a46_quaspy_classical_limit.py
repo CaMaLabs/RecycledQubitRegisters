@@ -47,7 +47,7 @@ def main():
  p.add_argument("--random-samples",type=int,default=12)
  p.add_argument("--informed-samples",type=int,default=6)
  p.add_argument("--budgets",nargs="+",type=int,default=[1000,100000])
- p.add_argument("--timeout",type=float,default=2.0)
+ p.add_argument("--timeout",type=int,default=2)
  p.add_argument("--wall-timeout",type=float,default=4.0)
  p.add_argument("--seed",type=int,default=20261031)
  p.add_argument("--upstream",default="/tmp/qrr-indie-quaspy")
@@ -88,6 +88,8 @@ def main():
       params=[n,a.base,bits,freq,method,budget,a.timeout,a.upstream]
       res=invoke_worker(params,a.wall_timeout)
       if res.get("factors") is not None:assert math.prod(res["factors"])==n
+      if res["status"]=="ERROR":
+       raise RuntimeError("A46 worker error n=%s method=%s: %s" % (n,method,res.get("error","")))
       row[method]=res
      cases.append(row)
     summary={"n":n,"base":a.base,"bits":bits,"budget_proxy":budget,
