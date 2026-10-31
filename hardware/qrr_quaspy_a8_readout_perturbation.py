@@ -13,7 +13,7 @@ def main():
     p.add_argument("--audit",default="results/indie_diamond_20261030/audit.json.gz")
     p.add_argument("--output",default="results/quaspy_a8_noise_sweep.json")
     p.add_argument("--max-pairs",type=int,default=128,help="0 for all held-out paired readouts")
-    p.add_argument("--timeout",type=float,default=2.)
+    p.add_argument("--timeout",type=int,default=2)
     a=p.parse_args()
     if a.max_pairs<0:raise ValueError("max-pairs must be nonnegative")
     post.load_upstream(a.upstream)
