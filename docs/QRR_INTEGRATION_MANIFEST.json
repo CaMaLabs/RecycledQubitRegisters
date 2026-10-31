@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "project": "Dark Star / Recycled Qubit Registers",
+  "policy": "Never replace original algorithms with proxies without identifying substitutions; keep both positive and negative results and their cohort limitations.",
+  "components": [
+    {"id":"ptp_original","source":"simulation/ptp_hybrid/core.py","status":"direct_import_A30","next":"compare on nontrivial public-first unresolved cohorts"},
+    {"id":"kernel_original","source":"simulation/ptp_hybrid/kernel.py","status":"direct_import_A30","next":"benchmark against Brent rho and wheel with total runtime"},
+    {"id":"midpoint_original","source":"hardware/dark_star_ptp_shor_audit.py","status":"direct_import_A30","next":"unbalanced semiprimes, quadratic-residue savings vs cost"},
+    {"id":"quaspy_original_adapter","source":"integrations/darkstar_hybrid/quaspy_public_postprocess.py","status":"restored_PR14_A23_A34","next":"same-shot recovery and cost"},
+    {"id":"recycled_dynamic_source","source":"hardware/qrr_n35_true_recycled_phase_feedforward.py","status":"Aer_gate_level_one_shot_A34","next":"A35 repeated shots and larger modulus circuit"},
+    {"id":"phase_precision_ablation","source":"hardware/qrr_a35_gate_level_phase_precision.py","status":"committed_not_yet_user_run","next":"6/7/8 bits, 2 bases, same-shot CF and Quaspy"},
+    {"id":"binary_fourier_comparison","source":"hardware/qrr_a27_reversible_fourier_comparison.py","status":"small_kernel_math_validated","next":"compile equivalent modular arithmetic on same topology"},
+    {"id":"original_lwe_spectral","source":"CaMaLabs/LWE_GeometryLab/experiments/ring_ntt_probe.py","status":"separate_lattice_domain_not_factor_pruner","next":"retain original provenance; derive cross-domain mapping before transfer"},
+    {"id":"quaspy_gate_level_handoff","source":"hardware/qrr_a34_gate_level_aer_to_quaspy.py","status":"one_simulated_shot_verified_N35","next":"A35 statistically validated readouts"},
+    {"id":"full_end_to_end_N143","source":null,"status":"not_implemented","next":"new reversible modular multiplication for N143; keep PTP and Quaspy"}
+  ],
+  "reliability_gates": [
+    "Reference public-only solver inputs; secret factor/order only in independent validation.",
+    "Match modulus/base/phase precision and measurement source for comparisons.",
+    "Never equate ideal model draws with gate-level simulated measurements or hardware shots.",
+    "Record classical preflight success separately from quantum-assisted factors.",
+    "Record two-qubit gates, dynamic feedback, shots, postprocessing work, failure probabilities, baseline classical algorithms.",
+    "Preserve unexecuted components in manifest rather than claiming they are integrated."
+  ],
+  "latest_confirmed": {
+    "A33": "64 of 64 model-sampled Quaspy recoveries on N35",
+    "A34": "one Aer matrix_product_state gate-level measured frequency 192 recovered factors [5,7] for N35 base8",
+    "A35": "source committed; Ubuntu run not yet observed"
+  }
+}
