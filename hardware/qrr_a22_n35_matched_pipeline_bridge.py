@@ -48,10 +48,10 @@ def main():
                 # Verify actual circuit's powers in construction order.
                 assert powers==[pow(base,1<<j,N) for j in range(bits)]
                 row={"base":base,"bits":bits,"oracle_order_not_given_to_solver":True,
-                  "public_squarings":sq,"active_powers":sorted(set(x for x in powers if x!=1)),
+                  "public_squarings":sq,"quaspy_eligible":bits>N.bit_length(),"active_powers":sorted(set(x for x in powers if x!=1)),
                   "public_powers":powers,"counts":{"head_censored":0,"cf_verified":0,
                     "quaspy_verified":0,"cf_pow_calls":0,"quaspy_pow_calls":0,
-                    "cf_work_limited":0,"quaspy_work_limited":0},
+                    "cf_work_limited":0,"quaspy_work_limited":0,"quaspy_ineligible":0},
                   "frequency_shots":[]}
                 rng=random.Random(f"A22-matched-v1:{base}:{bits}")
                 for shot in range(args.shots):
@@ -63,6 +63,10 @@ def main():
                         continue
                     record={"shot":shot,"frequency":freq,"head_mass":mass}
                     for label,method in (("cf","cf"),("quaspy","ekera")):
+                        if label=="quaspy" and bits<=N.bit_length():
+                            record[label]={"verified":None,"status":"INELIGIBLE_PRECISION","pow_calls":0}
+                            row["counts"]["quaspy_ineligible"]+=1
+                            continue
                         answer=post.recover(N,base,bits,int(freq),method,timeout=2)
                         verified=bool(answer["factors"] and math.prod(answer["factors"])==N)
                         record[label]={"verified":verified,"status":answer["status"],
