@@ -57,21 +57,19 @@ def swap_states(qc,control,work,a,b):
 def emit_controlled_multiply(qc,ctrl,work,base):
     mapping=perm(base)
     swaps=transpositions(mapping)
-    # Applying transpositions in listed cycle order produces inverse
-    # permutation; reverse application order to obtain mapping.
-    for a,b in reversed(swaps):
+    # Apply the cycle decomposition in forward order.
+    for a,b in swaps:
         swap_states(qc,ctrl,work,a,b)
     return swaps
 
 def verify_transpositions(mapping,swaps):
     vals=list(range(len(mapping)))
-    for a,b in reversed(swaps):
+    for a,b in swaps:
         vals[a],vals[b]=vals[b],vals[a]
-    # vals[x] is image for x only if composition evaluated in correct
-    # direction; simulate each input through the ordered swaps instead.
+    # Verify the sequential swaps for every input state.
     for x in range(len(mapping)):
         y=x
-        for a,b in reversed(swaps):
+        for a,b in swaps:
             if y==a:y=b
             elif y==b:y=a
         assert y==mapping[x],(x,y,mapping[x])
