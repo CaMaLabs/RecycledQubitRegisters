@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "project": "Dark Star / Recycled Qubit Registers",
+  "policy": "Never replace original algorithms with proxies without identifying substitutions; keep both positive and negative results and their cohort limitations. A45 falsified quantum-specific Quaspy success on N143: no return to quantum-advantage claims without random-frequency null control.",
+  "components": [
+    {
+      "id": "ptp_original",
+      "source": "simulation/ptp_hybrid/core.py",
+      "status": "direct_import_A30",
+      "next": "compare on nontrivial public-first unresolved cohorts"
+    },
+    {
+      "id": "kernel_original",
+      "source": "simulation/ptp_hybrid/kernel.py",
+      "status": "direct_import_A30",
+      "next": "benchmark against Brent rho and wheel with total runtime"
+    },
+    {
+      "id": "midpoint_original",
+      "source": "hardware/dark_star_ptp_shor_audit.py",
+      "status": "direct_import_A30",
+      "next": "unbalanced semiprimes, quadratic-residue savings vs cost"
+    },
+    {
+      "id": "quaspy_original_adapter",
+      "source": "integrations/darkstar_hybrid/quaspy_public_postprocess.py",
+      "status": "restored_PR14_A23_A34",
+      "next": "same-shot recovery and cost"
+    },
+    {
+      "id": "recycled_dynamic_source",
+      "source": "hardware/qrr_n35_true_recycled_phase_feedforward.py",
+      "status": "Aer_gate_level_one_shot_A34",
+      "next": "A35 repeated shots and larger modulus circuit"
+    },
+    {
+      "id": "phase_precision_ablation",
+      "source": "hardware/qrr_a35_gate_level_phase_precision.py",
+      "status": "committed_not_yet_user_run",
+      "next": "6/7/8 bits, 2 bases, same-shot CF and Quaspy"
+    },
+    {
+      "id": "binary_fourier_comparison",
+      "source": "hardware/qrr_a27_reversible_fourier_comparison.py",
+      "status": "small_kernel_math_validated",
+      "next": "compile equivalent modular arithmetic on same topology"
+    },
+    {
+      "id": "original_lwe_spectral",
+      "source": "CaMaLabs/LWE_GeometryLab/experiments/ring_ntt_probe.py",
+      "status": "separate_lattice_domain_not_factor_pruner",
+      "next": "retain original provenance; derive cross-domain mapping before transfer"
+    },
+    {
+      "id": "quaspy_gate_level_handoff",
+      "source": "hardware/qrr_a34_gate_level_aer_to_quaspy.py",
+      "status": "one_simulated_shot_verified_N35",
+      "next": "A35 statistically validated readouts"
+    },
+    {
+      "id": "full_end_to_end_N143",
+      "source": "hardware/qrr_a36_n143_reversible_multiplier.py",
+      "status": "exact_multiplier_source_committed_pending_Ubuntu_validation",
+      "next": "Compile N143 reversible multiplication, verify controlled basis states, then connect recycled QPE and Quaspy; not yet complete"
+    },
+    {
+      "id": "n143_gate_level_audit_optimized",
+      "source": "hardware/qrr_a37_n143_gate_audit_optimizer.py",
+      "status": "source_committed_awaiting_user_run",
+      "next": "exhaustively verify 512 basis states for original and optimized gates, then decompose MCX and compare native costs"
+    },
+    {
+      "id": "n143_matched_decomposed_gate_cost",
+      "source": "hardware/qrr_a38_n143_decomposed_gate_cost.py",
+      "status": "committed_not_yet_run",
+      "next": "Compare identical u/cx basis counts and depth for both A36 and A37; if meaningful, integrate winner in N143 recycled phase circuit"
+    },
+    {
+      "id": "n143_clean_ancilla_mcx_synthesis",
+      "source": "hardware/qrr_a39_n143_mcx_ancilla_synthesis.py",
+      "status": "PASS_COMPARABLE_DECOMPOSITION_RESOURCE_LEDGER_user_Ubuntu",
+      "next": "Validate v-chain on all 512 basis states including clean ancillas, then connect controlled powers to N143 recycled QPE and Quaspy"
+    },
+    {
+      "id": "n143_vchain_phase_clean_ancilla_audit",
+      "source": "hardware/qrr_a40_n143_vchain_phase_ancilla.py",
+      "status": "committed_not_executed",
+      "next": "Verify local complex amplitudes and scratch return then run optional whole-circuit Aer spot-check; only then build full recycled phase estimation"
+    },
+    {
+      "id": "n143_full_recycled_phase_quaspy_handoff",
+      "source": "hardware/qrr_a41_n143_dynamic_recycled_quaspy.py",
+      "status": "PASS_REAL_GATE_LEVEL_AER_TO_QUASPY_HANDOFF_user_reported_one_shot",
+      "next": "Repeat independently seeded shots; quantify measured recovery probability, compiled CX depth, time and noise sensitivity; verify absent classical shortcut."
+    },
+    {
+      "id": "n143_repeated_actual_Aer_recovery",
+      "source": "hardware/qrr_a42_n143_repeated_aer_quaspy.py",
+      "status": "PASS_16_INDEPENDENT_AER_SHOTS_USER_REPORTED",
+      "next": "Audit native decomposition including 6432 residual CCX; compare a larger independent seed cohort and readout/gate noise before hardware claims."
+    },
+    {
+      "id": "n143_complete_native_and_readout_sensitivity",
+      "source": "hardware/qrr_a43_n143_native_cost_readout_noise.py",
+      "status": "committed_pending_run",
+      "next": "Audit u/cx decomposition including residual CCX; replay measured A42 frequency memory under independent synthetic bit flips; gate noise separate"
+    },
+    {
+      "id": "larger_semiprime_generic_modular_source",
+      "source": "hardware/qrr_a44_generic_modular_multiplier.py",
+      "status": "committed_pending_source_build",
+      "next": "N221 and N323 source construction; independently verify full gate semantics, then generalize A41 dynamic QPE"
+    },
+    {
+      "id": "n143_null_frequency_falsification",
+      "source": "hardware/qrr_a45_n143_frequency_null_control.py",
+      "status": "FALSIFIED_QUANTUM_SPECIFIC_QUASPY_RECOVERY_USER_OBSERVED",
+      "next": "Constrain postprocessing classical search and compare actual phase frequencies vs uniform random frequencies under matched budgets; disallow factor advantage claims until discriminative."
+    },
+    {
+      "id": "classical_only_quaspy_scaling_A47",
+      "source": "hardware/qrr_a47_quaspy_classical_scaling.py",
+      "status": "committed_not_executed",
+      "next": "Sweep independent random/constant vs known-order-oracle frequencies across N143 through N2491, record hard timeouts and worker errors; do not claim quantum contribution."
+    },
+    {
+      "id": "quaspy_precision_parameter_boundary_A48",
+      "source": "hardware/qrr_a48_quaspy_precision_sweep.py",
+      "status": "PASS_PRECISION_SWEEP_USER_OBSERVED",
+      "next": "Replicate N437 bits18 and N667 bits20 with independent random seeds and 64-128 draws per cohort; compare with actual quantum phase distributions before quantum advantage claim."
+    },
+    {
+      "id": "phase_information_null_replication_A49",
+      "source": "hardware/qrr_a49_phase_frequency_replication.py",
+      "status": "committed_pending_user_Ubuntu",
+      "next": "N437 18-bit N667 20-bit two independent seeds x 64 random and oracle-informed samples each; hard timeout and confidence intervals; not quantum data"
+    }
+  ],
+  "reliability_gates": [
+    "Reference public-only solver inputs; secret factor/order only in independent validation.",
+    "Match modulus/base/phase precision and measurement source for comparisons.",
+    "Never equate ideal model draws with gate-level simulated measurements or hardware shots.",
+    "Record classical preflight success separately from quantum-assisted factors.",
+    "Record two-qubit gates, dynamic feedback, shots, postprocessing work, failure probabilities, baseline classical algorithms.",
+    "Preserve unexecuted components in manifest rather than claiming they are integrated."
+  ],
+  "latest_confirmed": {
+    "A33": "64 of 64 model-sampled Quaspy recoveries on N35",
+    "A34": "one Aer matrix_product_state gate-level measured frequency 192 recovered factors [5,7] for N35 base8",
+    "A35": "768 gate-level simulated shots; Quaspy 512/512 on N35 eligible arms",
+    "A36": "source pushed; per-base exhaustive mapping checked offline; Ubuntu compilation not yet observed",
+    "A37": "512/512 controlled basis checks each base, both implementations; X reductions base2 8944 to 948, base8 8576 to 936; MCX counts unchanged",
+    "A38": "N143 base2/8 217536/218064 CX unchanged; single-qubit u reduction 2.61%/2.49%; depth reduction ~0.46%; Ubuntu observed",
+    "A39": "User Ubuntu: base2 CX 217536->34608, base8 CX 218064->34692, both 84.09% reduction; base8 depth 348348->80948. Six additional clean ancillas. Qiskit v-chain deprecated API warning. Full v-chain semantic and ancilla cleanliness verification pending.",
+    "A40": "User reports local V-chain 512/512 phase checks max error 0; full circuit spots not run",
+    "A41": "User Ubuntu A41 15q 9-bit base8 one Aer shot produced readout 010110101 frequency181; strict Quaspy candidate exponent20 verified factors [11,13]; CF no verified order. One successful noiseless simulated shot only; no QPU.",
+    "A42": "User Ubuntu: 16/16 Quaspy factor recoveries, CF 6/16, 13 distinct frequencies, mean 19.936s/shot; 15q 9bit Aer dynamic circuit; transpiled CX 231552 plus 6432 undecomposed CCX, depth 572460; zero QPU.",
+    "A43": "User Ubuntu: full u/cx CX 270144, U 528541, depth 630348, 15q; synthetic readout-bit flips 0..5% all Quaspy recovered across repeated 16-shot cohort. Not physical gate-noise proof.",
+    "A44": "User Ubuntu: N323 source constructed work9 ancilla7 17q, 2281 MCXVChain, 512 classical permutation checks; gate semantics and actual QPE pending.",
+    "A45": "User Ubuntu: actual_Aer Quaspy16/16 CF6/16; uniform_random Quaspy128/128 CF5/128; constant_zero/one/midpoint Quaspy16/16 each CF0. Therefore Quaspy factor success not dependent on quantum measurement on N143 under existing public-postprocessing settings. Prior claims of recovery from quantum frequency are invalid as evidence of quantum-specific advantage.",
+    "A46": "Corrected integer timeout, user Ubuntu base8 moduli 143,221,323: Quaspy 8/8 uniform random, 1/1 zero, 1/1 one, 4/4 known-order positive controls at budgets 1000 and 100000 for all three; no quantum-specific recovery information demonstrated. Older A46 float-timeout runs INVALID.",
+    "A47": "A47 runner committed; execution pending",
+    "A48": "User Ubuntu: N437 18-bit Quaspy verified factors 0/8 random vs 8/8 classical known-order peak controls; N667 20-bit 2/8 vs 8/8; budgets 1000/100000 identical in these arms. Oracle peaks not quantum shots; small sample and classical order leakage prohibit quantum advantage claims.",
+    "A49": "committed; no A49 results observed"
+  }
+}
