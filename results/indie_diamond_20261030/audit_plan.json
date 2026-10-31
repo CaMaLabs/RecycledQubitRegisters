@@ -1,0 +1,54 @@
+{
+  "date_user": "2026-10-30",
+  "frozen_before_outcomes": true,
+  "upstream": "ekera/quaspy",
+  "commit": "8040affdf08814ef7d451d9797d28f7645856151",
+  "cohorts": {
+    "replication": 786431,
+    "holdout": 999983
+  },
+  "bits": [
+    32,
+    48,
+    64,
+    96
+  ],
+  "cases_per_width_per_cohort": 16,
+  "shots_per_case": 8,
+  "precision_full": "2*bit_length(N)",
+  "precision_short": "2*bit_length(N)-4",
+  "head_radius": 64,
+  "unmodeled_tail": "failure for both arms, never renormalized",
+  "arms": [
+    "cf_full",
+    "cf_short",
+    "ekera_full",
+    "ekera_short"
+  ],
+  "nulls": [
+    "zero_frequency",
+    "uniform_frequency"
+  ],
+  "postprocess": {
+    "B": 4,
+    "c": 1,
+    "Delta": 4,
+    "method": "LATTICE_BASED_ENUMERATE",
+    "timeout_seconds": 2,
+    "binary_modular_multiplication_budget": 100000
+  },
+  "primary_gate": "holdout ekera_short beats cf_full in verified factors; exact one-sided sign test across modulus/base clusters <=0.01; factor-success uplift >=0.15; lower phase-rounds/success; uniform null factor rate <=0.05",
+  "source_of_true_orders": "isolated synthetic quantum sampler and validation only",
+  "solver_arguments": [
+    "N",
+    "base",
+    "phase_bits",
+    "frequency",
+    "method"
+  ],
+  "classical_control_successes_separately_reported": true,
+  "quantum_jobs": 0,
+  "external_spend": 0,
+  "hosted_ci": false,
+  "RSA2048_break": false
+}
