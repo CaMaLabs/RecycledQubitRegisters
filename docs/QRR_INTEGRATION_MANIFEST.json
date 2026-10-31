@@ -86,6 +86,12 @@
       "source": "hardware/qrr_a40_n143_vchain_phase_ancilla.py",
       "status": "committed_not_executed",
       "next": "Verify local complex amplitudes and scratch return then run optional whole-circuit Aer spot-check; only then build full recycled phase estimation"
+    },
+    {
+      "id": "n143_full_recycled_phase_quaspy_handoff",
+      "source": "hardware/qrr_a41_n143_dynamic_recycled_quaspy.py",
+      "status": "committed_pending_source_build_and_Aer_execution",
+      "next": "Run 9-bit dynamic build first; if feasible run 1-shot Aer MPS gate-level and strict Quaspy postprocess. Never claim factoring success from build alone."
     }
   ],
   "reliability_gates": [
@@ -104,6 +110,7 @@
     "A37": "512/512 controlled basis checks each base, both implementations; X reductions base2 8944 to 948, base8 8576 to 936; MCX counts unchanged",
     "A38": "N143 base2/8 217536/218064 CX unchanged; single-qubit u reduction 2.61%/2.49%; depth reduction ~0.46%; Ubuntu observed",
     "A39": "User Ubuntu: base2 CX 217536->34608, base8 CX 218064->34692, both 84.09% reduction; base8 depth 348348->80948. Six additional clean ancillas. Qiskit v-chain deprecated API warning. Full v-chain semantic and ancilla cleanliness verification pending.",
-    "A40": "Code committed; phase and ancilla checks not yet observed"
+    "A40": "User reports local V-chain 512/512 phase checks max error 0; full circuit spots not run",
+    "A41": "source committed; not yet compiled or run on Ubuntu; no factorization claim"
   }
 }
