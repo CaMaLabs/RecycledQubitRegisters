@@ -1,0 +1,63 @@
+{
+  "file_sha256": {
+    "hardware/qrr_gidney_mbu_adder.py": "87a2532e5fe8c78a4bb05cf82ff53b5db13f2ac084463ed2fa5cd09941c8a12b",
+    "hardware/qrr_gidney_mbu_audit.py": "f09f09d4f35356b4942f9dc3359e9114cb6b8deace1d000ad49260b5fd099811",
+    "hardware/test_qrr_gidney_mbu_adder.py": "fa7c5cbd8258202df5a9fc327da5f98295d092c3640111ee1f197e20cd217d44",
+    "hardware/qrr_subexp_parameter_gate.py": "f45358deec4e727bc670ff27a6816793613c8c577b7cce65a3c7c76aa3418df1",
+    "hardware/test_qrr_subexp_parameter_gate.py": "d1b6fd7cc21bae786bb085ba14f2683082f8b4022f5de9532abe269a67a79e7a",
+    "requirements-gidney-mbu-audit.txt": "cc465af90180b71e9a516197bd3a40b3a4537e6b944dba1fcc1bc1fd07e93479",
+    "docs/FURTHER_ADVANCE_AUDIT_20261031.md": "9f86df0b80b9df21e6072745f17f505785d85740d4818c1f38c0e45b0dd40d2e",
+    "results/gidney_mbu_20261031/audit_plan.json": "6220eacbcf205c200042f86e12e9c9ada51e6509446233cf36fbe42511de3cf6",
+    "results/gidney_mbu_20261031/summary.json": "07a9e623efbb692d26a60c0fb50c9447cbc5baad556379dffafe479759162669",
+    "results/gidney_mbu_20261031/subexp_claim.json": "d54793af395075979dc45a9a162fe9593c157b9b0c9bb4d0387f956af20dd223"
+  },
+  "raw_audit_sha256": "43dd22cab3e6a7b99f8716ac1e8ce86abd91d07ce2c3d0480762db8acad44165",
+  "gzip_sha256": "41d4a924d0575b486af404c16735a5256386bad7eb30e8c7ce2c79e171806ae3",
+  "raw_bytes": 113209,
+  "gzip_bytes": 4894,
+  "tests_passed": 10,
+  "tests_skipped": 0,
+  "qpu_jobs": 0,
+  "external_spend": 0,
+  "hosted_ci_requested": false,
+  "upstream_adder": {
+    "url": "https://github.com/Strilanc/classical-quantum-adder",
+    "commit": "52618a2dac958af834519a4c88fb8c1ac0dfb9c6",
+    "source_sha256": {
+      "src/constadd/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/constadd/_add_2_clean_vented.py": "8f6cc0aee64f2c38b94b1b6c1c062478257aa2b79ace9d65d90cdc3bc2a3b475",
+      "src/constadd/_add_2_clean_vented_test.py": "fa2877a5876937487dddcedd125ea86b01fe3a68620c29e6e79513b4edfdd442",
+      "src/constadd/_add_3_clean.py": "a2d2419dd18eb1a4e57a480b226ebb22c5e4388aabfe00e66e681bb1c5243ab8",
+      "src/constadd/_add_3_clean_test.py": "b8a09b1a3eea60c71641856af4d8aa06c3c45e1b3418cc8f474760611e5647a8",
+      "src/constadd/_add_n_clean.py": "8e597421598354bd076e2a737d41b083c7758b39291b33bff6c435d8a8709f52",
+      "src/constadd/_add_n_clean_test.py": "8fa1362d658026746608697cb1879722cc00dbe74c8ea00e52c8967de6f1d49b",
+      "src/constadd/_add_n_dirty_2_clean.py": "0ec11c8286a5b9aca1a7d22a587f9162238618615fd15af90a95d8b45674d180",
+      "src/constadd/_add_n_dirty_2_clean_test.py": "c0a3f38be2fdf0d82b29ce562ae21059aa700c101ddb3296d6f84a369d2977bb",
+      "src/constadd/_carry_xor.py": "f2391d6163417eb88f4cadc6add334dccf9462fa5292cfc20ddfb79b3f2c5929",
+      "src/constadd/_carry_xor_test.py": "945ef71328141e2068a1016e0342e9b1304c8b6f7761c5275e631ccf66535979",
+      "src/constadd/_main_make_adder.py": "6372b29ad882952220b27c878c7e6d9518ca68a9e958ec6e622eaf78f064fba8",
+      "src/constadd/_main_make_adder_test.py": "27e4625d1156b7d1a66510a4db07bf4a8eb726bdb059fb11345575d151d7dd13",
+      "src/constadd/_util.py": "8869f656566079b3c76a64ccb6238c55c28762e6c4ccca00188c993e93497dce",
+      "src/constadd/_util_test.py": "92234de922da888e5d2e986a6f5487b81c2d3f28dcff81962d21fab045fad0dd",
+      "src/constadd/circuit/__init__.py": "2af655e475d44df4607ca1a330661395f39057df967b1c8aab6d4d4433d0bb80",
+      "src/constadd/circuit/_circuit.py": "0c6a51684fc626507377b7b7e2b7505c6c0a3fcb6ba00b70bf4ce54f8df4c125",
+      "src/constadd/circuit/_circuit_builder.py": "a13efb64ee805c89f85182b533d7c631d63a4f5a16b8c2a78066d88a31a31a25",
+      "src/constadd/circuit/_circuit_builder_test.py": "3b4551f3ad97ab1261260c9e87f7e811795cbaba78e38a160ed97f8ed345f7b3",
+      "src/constadd/circuit/_circuit_drawer.py": "daaf94499a3f53cfe35fa3f40fc30b8731531cc84547e38fbf69810797ce016d",
+      "src/constadd/circuit/_circuit_drawer_test.py": "7b83351c116a5368a7d21253700840386fe4ae539a3c37020c50a9a210ba7034",
+      "src/constadd/circuit/_circuit_sampler.py": "557195e05a20b9b435de455752b7ca030ebce7853c245e1d2bd0ef5976479f70",
+      "src/constadd/circuit/_op.py": "30396445e702b7fd26e661a2ef3c45b134b0d0e330298948081ce1d8418253f5",
+      "src/constadd/circuit/_op_test.py": "69b90d4eafcd8cedc7357629d838ba8f02833022a533e788a46374fff96a2085",
+      "src/constadd/circuit/_val.py": "7ab49588f6f88aef970504bb65c57b22748e357c13d606455adc85aa30f937e7"
+    }
+  },
+  "classical_claim_kernel_verification": {
+    "completed": false,
+    "toolchain": "leanprover/lean4:v4.35.0",
+    "lean_error": "error: failed to locate application",
+    "lake_cache_error": "error: could not detect the configuration of the Lake installation",
+    "theorem_refuted": false,
+    "parameter_audit_independently_executed": true
+  },
+  "tests_output": "test_actual_emitted_qiskit_preserves_coherent_input_in_every_branch (test_qrr_gidney_mbu_adder.GidneyInstrumentContracts.test_actual_emitted_qiskit_preserves_coherent_input_in_every_branch) ... ok\ntest_affine_conjunction_elimination_including_shared_control (test_qrr_gidney_mbu_adder.GidneyInstrumentContracts.test_affine_conjunction_elimination_including_shared_control) ... ok\ntest_complete_controlled_instrument_and_dirty_restoration (test_qrr_gidney_mbu_adder.GidneyInstrumentContracts.test_complete_controlled_instrument_and_dirty_restoration) ... ok\ntest_dynamic_native_metric_charges_conditional_cz (test_qrr_gidney_mbu_adder.GidneyInstrumentContracts.test_dynamic_native_metric_charges_conditional_cz) ... ok\ntest_missing_phase_correction_is_rejected (test_qrr_gidney_mbu_adder.GidneyInstrumentContracts.test_missing_phase_correction_is_rejected) ... ok\ntest_patch_covers_both_cached_arithmetic_paths_and_restores (test_qrr_gidney_mbu_adder.GidneyInstrumentContracts.test_patch_covers_both_cached_arithmetic_paths_and_restores) ... ok\ntest_reset_cannot_erase_input_data (test_qrr_gidney_mbu_adder.GidneyInstrumentContracts.test_reset_cannot_erase_input_data) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 1.752s\n\nOK\ntest_accelerated_level_search_matches_literal_iteration (test_qrr_subexp_parameter_gate.FiniteParameterContracts.test_accelerated_level_search_matches_literal_iteration) ... ok\ntest_exact_level_transition (test_qrr_subexp_parameter_gate.FiniteParameterContracts.test_exact_level_transition) ... ok\ntest_rsa2048_has_zero_speedup_levels_and_prohibitive_literal_loops (test_qrr_subexp_parameter_gate.FiniteParameterContracts.test_rsa2048_has_zero_speedup_levels_and_prohibitive_literal_loops) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.006s\n\nOK\n"
+}
