@@ -126,8 +126,8 @@
     {
       "id": "quaspy_precision_parameter_boundary_A48",
       "source": "hardware/qrr_a48_quaspy_precision_sweep.py",
-      "status": "committed_not_executed",
-      "next": "Compare uniform null to classical order peaks for N437, N667, N2491, at m+1..2m bits; record verified exponent separate from factors."
+      "status": "PASS_PRECISION_SWEEP_USER_OBSERVED",
+      "next": "Replicate N437 bits18 and N667 bits20 with independent random seeds and 64-128 draws per cohort; compare with actual quantum phase distributions before quantum advantage claim."
     }
   ],
   "reliability_gates": [
@@ -154,6 +154,6 @@
     "A45": "User Ubuntu: actual_Aer Quaspy16/16 CF6/16; uniform_random Quaspy128/128 CF5/128; constant_zero/one/midpoint Quaspy16/16 each CF0. Therefore Quaspy factor success not dependent on quantum measurement on N143 under existing public-postprocessing settings. Prior claims of recovery from quantum frequency are invalid as evidence of quantum-specific advantage.",
     "A46": "Corrected integer timeout, user Ubuntu base8 moduli 143,221,323: Quaspy 8/8 uniform random, 1/1 zero, 1/1 one, 4/4 known-order positive controls at budgets 1000 and 100000 for all three; no quantum-specific recovery information demonstrated. Older A46 float-timeout runs INVALID.",
     "A47": "A47 runner committed; execution pending",
-    "A48": "runner committed; execution pending"
+    "A48": "User Ubuntu: N437 18-bit Quaspy verified factors 0/8 random vs 8/8 classical known-order peak controls; N667 20-bit 2/8 vs 8/8; budgets 1000/100000 identical in these arms. Oracle peaks not quantum shots; small sample and classical order leakage prohibit quantum advantage claims."
   }
 }
