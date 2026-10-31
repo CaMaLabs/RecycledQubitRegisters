@@ -110,6 +110,12 @@
       "source": "hardware/qrr_a44_generic_modular_multiplier.py",
       "status": "committed_pending_source_build",
       "next": "N221 and N323 source construction; independently verify full gate semantics, then generalize A41 dynamic QPE"
+    },
+    {
+      "id": "n143_null_frequency_falsification",
+      "source": "hardware/qrr_a45_n143_frequency_null_control.py",
+      "status": "committed_pending_run",
+      "next": "Compare Quaspy actual Aer recovery vs uniform random/constant frequencies before claiming quantum-specific information advantage"
     }
   ],
   "reliability_gates": [
@@ -131,7 +137,8 @@
     "A40": "User reports local V-chain 512/512 phase checks max error 0; full circuit spots not run",
     "A41": "User Ubuntu A41 15q 9-bit base8 one Aer shot produced readout 010110101 frequency181; strict Quaspy candidate exponent20 verified factors [11,13]; CF no verified order. One successful noiseless simulated shot only; no QPU.",
     "A42": "User Ubuntu: 16/16 Quaspy factor recoveries, CF 6/16, 13 distinct frequencies, mean 19.936s/shot; 15q 9bit Aer dynamic circuit; transpiled CX 231552 plus 6432 undecomposed CCX, depth 572460; zero QPU.",
-    "A43": "committed; actual noise and basis cost run pending",
-    "A44": "generic controlled modular source committed for 221,323; no whole-gate semantic test or QPE yet. Scaling gates docs/QRR_A44_LARGER_SEMIPRIME_SCALING_GATES.json."
+    "A43": "User Ubuntu: full u/cx CX 270144, U 528541, depth 630348, 15q; synthetic readout-bit flips 0..5% all Quaspy recovered across repeated 16-shot cohort. Not physical gate-noise proof.",
+    "A44": "User Ubuntu: N323 source constructed work9 ancilla7 17q, 2281 MCXVChain, 512 classical permutation checks; gate semantics and actual QPE pending.",
+    "A45": "Null-frequency falsification control committed; not run."
   }
 }
