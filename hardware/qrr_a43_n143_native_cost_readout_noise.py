@@ -46,7 +46,7 @@ def main():
    print("A43 decomposing entire circuit to {u,cx}; may take some time",flush=True)
    t=time.perf_counter()
    qc,schedule=a41.build(base,bits)
-   native=transpile(qc,basis_gates=["u","cx","measure","reset","if_else"],
+   native=transpile(qc,basis_gates=["u","cx"],
      optimization_level=0,seed_transpiler=a.seed)
    counts={str(k):int(v) for k,v in native.count_ops().items()}
    if set(counts)-{"u","cx","measure","reset","if_else"}:
