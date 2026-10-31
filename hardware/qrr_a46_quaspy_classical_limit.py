@@ -9,6 +9,7 @@ No performance or quantum-advantage claim follows from those controls.
 from __future__ import annotations
 import argparse,json,math,random,subprocess,sys,time
 from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 
 def exact_order(a,n):
  if math.gcd(a,n)!=1:raise ValueError("nonunit base")
