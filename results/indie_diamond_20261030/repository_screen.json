@@ -1,0 +1,71 @@
+{
+  "date_user": "2026-10-30",
+  "repos": [
+    {
+      "repository": "ekera/quaspy",
+      "url": "https://github.com/ekera/quaspy",
+      "commit": "8040affdf08814ef7d451d9797d28f7645856151",
+      "decision": "Selected: tested public-only order recovery adapter; retained gain with null controls.",
+      "read_sources_sha256": {
+        "README.md": "21f91acd936dc4aa1be40990c222784c516dc3edf6d77bd522da078a7160742f",
+        "src/quaspy/orderfinding/general/postprocessing/ekera/__init__.py": "099387d98c8d9f6dc2556e62be1fcf36343052bfcaedd0bcd2eaeb17c16c86a9"
+      }
+    },
+    {
+      "repository": "doublegate/cado-nfs-modern",
+      "url": "https://github.com/doublegate/cado-nfs-modern",
+      "commit": "22e7470a0b9b3b5d0e696032e0208ae8bb2b010f",
+      "decision": "Secondary: shared core host-tested at 2048 bits. GPU launcher caps at 1022 bits; no GPU available here.",
+      "read_sources_sha256": {
+        "README.md": "ad08b45610013e30bd5dea5d7d49d74d2dd8e0275a75939142239afddac6db0a",
+        "docs/gpu-prefactor.md": "9894616e461799e0bc63fa724dac8a39802bac4a3e29fcf69e915b580994ce6e",
+        "misc/gpu_prefactor/gpu-prefactor.cu": "10a04f08ad5ddfba4acc1c9e3e9ee0c9a09f446c2741403c3c24c7e400d12106",
+        "misc/gpu_prefactor/gpu_ecm_mp.cuh": "e79b08ab67e4ea317f65ef3efaaf2e84d5e71f5c42b8eae045b479fb79567921"
+      }
+    },
+    {
+      "repository": "GregDMeyer/parallel-spooky-pebbling",
+      "url": "https://github.com/GregDMeyer/parallel-spooky-pebbling",
+      "commit": "a5803e9663219f213452f9d2bb44241cebf7de37",
+      "decision": "Retained: author implementation of parallel measurement-based pebble scheduling; Julia search not executed.",
+      "read_sources_sha256": {
+        "README.md": "286255aba1b2d83aca2ea3a04a4af3588ade8111c825482ebade558df3dd673e",
+        "PebbleGraph.jl": "6b45db1a4afa54a9a522a07a82fe3147546a37265156a095a8d984a4e1728fc4",
+        "find_pebblings.jl": "794f483591e8557c13598ca9d745db9eca9fe0b67fe96493e7b0ba37d5ebf9c0"
+      }
+    },
+    {
+      "repository": "sachncs/tensift",
+      "url": "https://github.com/sachncs/tensift",
+      "commit": "67db7e85dd16fa334cd7d1264ad48a144a65e816",
+      "decision": "Watchlist: independent Rust TNSS implementation. README and crate entry points inspected; performance not reproduced.",
+      "read_sources_sha256": {
+        "README.md": "7fb6fb07f4b04528a44f1f056e81e8d883096625e85d04b7a70a64444ece801f",
+        "Cargo.toml": "7f8eeddd877fa6a4f5a08fb177cd1d015899ceb1b4f57df747c1f6f81bcabfa6"
+      }
+    },
+    {
+      "repository": "iGentAI/factorlab",
+      "url": "https://github.com/iGentAI/factorlab",
+      "commit": "6bf5285492fe3ab96b1042e165f215b647f46620",
+      "decision": "Retained for methods/certificates: explicit model-bounded factoring and ML-KEM profile audits; whole test suite not run.",
+      "read_sources_sha256": {
+        "README.md": "f1807fdbe00518e6ac8cec8273ce23a11c06c1596a4a8c8a9ddf90f5022dd28b",
+        "REPRODUCING.md": "318d2d4cd69910c220d6fd766868b6d5a9d7a802b08b83a518496f11931e9520",
+        "requirements.txt": "53e1e9f00d9e4f2f220f90981301dd37afde9fcd4431d3c8e5932920a03c90f1"
+      }
+    },
+    {
+      "repository": "iliazintchenko/agent-factoring",
+      "url": "https://github.com/iliazintchenko/agent-factoring",
+      "commit": "d21721458db41c4d35a9998733b228a0a0655851",
+      "decision": "Survey only: catalogue of investigated ideas; no demonstrated scaling breakthrough. Universal barrier claims not accepted as proved.",
+      "read_sources_sha256": {
+        "README.md": "4f1f2f62598c32ac135e50825583e71446e8dfc149ce1e65cde308e82e4a5b6a",
+        "expert.md": "5253d824d2878f5e94ebb0c215dac7c54d72769eaea013bb5e85d013248475c9"
+      }
+    }
+  ],
+  "no_third_party_repos_modified": true,
+  "external_spend": 0
+}

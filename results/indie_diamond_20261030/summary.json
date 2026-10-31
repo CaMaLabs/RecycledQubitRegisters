@@ -1,0 +1,1876 @@
+{
+  "status": "COMPLETE",
+  "plan": {
+    "date_user": "2026-10-30",
+    "frozen_before_outcomes": true,
+    "upstream": "ekera/quaspy",
+    "commit": "8040affdf08814ef7d451d9797d28f7645856151",
+    "cohorts": {
+      "replication": 786431,
+      "holdout": 999983
+    },
+    "bits": [
+      32,
+      48,
+      64,
+      96
+    ],
+    "cases_per_width_per_cohort": 16,
+    "shots_per_case": 8,
+    "precision_full": "2*bit_length(N)",
+    "precision_short": "2*bit_length(N)-4",
+    "head_radius": 64,
+    "unmodeled_tail": "failure for both arms, never renormalized",
+    "arms": [
+      "cf_full",
+      "cf_short",
+      "ekera_full",
+      "ekera_short"
+    ],
+    "nulls": [
+      "zero_frequency",
+      "uniform_frequency"
+    ],
+    "postprocess": {
+      "B": 4,
+      "c": 1,
+      "Delta": 4,
+      "method": "LATTICE_BASED_ENUMERATE",
+      "timeout_seconds": 2,
+      "binary_modular_multiplication_budget": 100000
+    },
+    "primary_gate": "holdout ekera_short beats cf_full in verified factors; exact one-sided sign test across modulus/base clusters <=0.01; factor-success uplift >=0.15; lower phase-rounds/success; uniform null factor rate <=0.05",
+    "source_of_true_orders": "isolated synthetic quantum sampler and validation only",
+    "solver_arguments": [
+      "N",
+      "base",
+      "phase_bits",
+      "frequency",
+      "method"
+    ],
+    "classical_control_successes_separately_reported": true,
+    "quantum_jobs": 0,
+    "external_spend": 0,
+    "hosted_ci": false,
+    "RSA2048_break": false
+  },
+  "plan_sha256": "25fba09309d916ac4291927ebde6ca706735bf3bfe1186842b438e237e6cfcd4",
+  "public_cases": [
+    {
+      "case": "replication-32-0",
+      "cohort": "replication",
+      "N": "3156775379",
+      "base": "1464871903",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-1",
+      "cohort": "replication",
+      "N": "2808497231",
+      "base": "1863247419",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-2",
+      "cohort": "replication",
+      "N": "2203768949",
+      "base": "345006277",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-3",
+      "cohort": "replication",
+      "N": "4075346909",
+      "base": "1004327691",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-4",
+      "cohort": "replication",
+      "N": "2264387357",
+      "base": "155609166",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-5",
+      "cohort": "replication",
+      "N": "2609374237",
+      "base": "1462055871",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-6",
+      "cohort": "replication",
+      "N": "2304066421",
+      "base": "401580577",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-7",
+      "cohort": "replication",
+      "N": "2314708621",
+      "base": "197120018",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-8",
+      "cohort": "replication",
+      "N": "3586933067",
+      "base": "3551877086",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-9",
+      "cohort": "replication",
+      "N": "3114029537",
+      "base": "285865677",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-10",
+      "cohort": "replication",
+      "N": "2248145701",
+      "base": "841036925",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-11",
+      "cohort": "replication",
+      "N": "3465282313",
+      "base": "1104793014",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-12",
+      "cohort": "replication",
+      "N": "3834717233",
+      "base": "891922284",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-13",
+      "cohort": "replication",
+      "N": "3026417117",
+      "base": "2458906218",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-14",
+      "cohort": "replication",
+      "N": "2679197701",
+      "base": "2660638118",
+      "bits": 32
+    },
+    {
+      "case": "replication-32-15",
+      "cohort": "replication",
+      "N": "3839972999",
+      "base": "1882328150",
+      "bits": 32
+    },
+    {
+      "case": "replication-48-0",
+      "cohort": "replication",
+      "N": "159390263041013",
+      "base": "78882071691280",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-1",
+      "cohort": "replication",
+      "N": "175244690951909",
+      "base": "103476766869132",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-2",
+      "cohort": "replication",
+      "N": "206382459492113",
+      "base": "106295507099631",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-3",
+      "cohort": "replication",
+      "N": "140902391310503",
+      "base": "68043295381349",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-4",
+      "cohort": "replication",
+      "N": "192496762084729",
+      "base": "24896417065549",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-5",
+      "cohort": "replication",
+      "N": "250909743756433",
+      "base": "41638031945767",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-6",
+      "cohort": "replication",
+      "N": "158855529868583",
+      "base": "24280049797472",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-7",
+      "cohort": "replication",
+      "N": "198576658985699",
+      "base": "104012604385601",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-8",
+      "cohort": "replication",
+      "N": "162102694106933",
+      "base": "127720107740920",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-9",
+      "cohort": "replication",
+      "N": "141792306621127",
+      "base": "73659803905566",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-10",
+      "cohort": "replication",
+      "N": "181336912373569",
+      "base": "15478776008304",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-11",
+      "cohort": "replication",
+      "N": "175088301852073",
+      "base": "87813984391107",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-12",
+      "cohort": "replication",
+      "N": "243244428291233",
+      "base": "211810550263379",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-13",
+      "cohort": "replication",
+      "N": "149255120472239",
+      "base": "34374501032283",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-14",
+      "cohort": "replication",
+      "N": "195794292456799",
+      "base": "72994366950305",
+      "bits": 48
+    },
+    {
+      "case": "replication-48-15",
+      "cohort": "replication",
+      "N": "153812805090551",
+      "base": "68949190933575",
+      "bits": 48
+    },
+    {
+      "case": "replication-64-0",
+      "cohort": "replication",
+      "N": "11924220710081402101",
+      "base": "6464899494305035453",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-1",
+      "cohort": "replication",
+      "N": "10497076295987838671",
+      "base": "5213214756186107830",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-2",
+      "cohort": "replication",
+      "N": "9339629490595091249",
+      "base": "8421344381422079487",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-3",
+      "cohort": "replication",
+      "N": "10879811541764979479",
+      "base": "1032978191778369788",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-4",
+      "cohort": "replication",
+      "N": "9954177933628646713",
+      "base": "4574988939226641013",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-5",
+      "cohort": "replication",
+      "N": "14677733570575021897",
+      "base": "2532264099633901817",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-6",
+      "cohort": "replication",
+      "N": "15916416975596445551",
+      "base": "9338692741476337857",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-7",
+      "cohort": "replication",
+      "N": "9969661966942955369",
+      "base": "9071665077722485115",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-8",
+      "cohort": "replication",
+      "N": "11389523739418530103",
+      "base": "7266037245406324417",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-9",
+      "cohort": "replication",
+      "N": "10650599162174250737",
+      "base": "7490943856616187431",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-10",
+      "cohort": "replication",
+      "N": "15014795577047744273",
+      "base": "7350994522223824793",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-11",
+      "cohort": "replication",
+      "N": "10674021234179217053",
+      "base": "3077130616084002808",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-12",
+      "cohort": "replication",
+      "N": "13926225069733766861",
+      "base": "7974435135873323889",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-13",
+      "cohort": "replication",
+      "N": "16627725179033487257",
+      "base": "6339182200475718610",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-14",
+      "cohort": "replication",
+      "N": "10324188288077418113",
+      "base": "2961860220128458000",
+      "bits": 64
+    },
+    {
+      "case": "replication-64-15",
+      "cohort": "replication",
+      "N": "16719355765370324179",
+      "base": "12842261323583179708",
+      "bits": 64
+    },
+    {
+      "case": "replication-96-0",
+      "cohort": "replication",
+      "N": "50824209501364446632179674241",
+      "base": "33365438873427403409536637777",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-1",
+      "cohort": "replication",
+      "N": "46837703286538664190821076703",
+      "base": "43254073780701891016025199155",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-2",
+      "cohort": "replication",
+      "N": "57227192703709950127804324841",
+      "base": "1396611653361317278025630948",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-3",
+      "cohort": "replication",
+      "N": "40230767125548536672859671291",
+      "base": "20698882769901143623851646677",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-4",
+      "cohort": "replication",
+      "N": "56385317116779058378387767001",
+      "base": "27371428943529868669591363149",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-5",
+      "cohort": "replication",
+      "N": "41626580100920979706982692873",
+      "base": "9023387937260935798889038308",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-6",
+      "cohort": "replication",
+      "N": "55971328402388752382560969741",
+      "base": "30017854032506663545862046051",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-7",
+      "cohort": "replication",
+      "N": "42186480037409909462358551873",
+      "base": "15255549269770107160766064546",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-8",
+      "cohort": "replication",
+      "N": "49259146688274876017736368477",
+      "base": "14375368577277582427972001862",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-9",
+      "cohort": "replication",
+      "N": "49068563172194275569998264317",
+      "base": "37986381543253094579654217698",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-10",
+      "cohort": "replication",
+      "N": "73565775091708186066078019767",
+      "base": "42129629964864688393688942365",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-11",
+      "cohort": "replication",
+      "N": "66377916486692777957341205513",
+      "base": "54634692516789836717909356399",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-12",
+      "cohort": "replication",
+      "N": "59542086889501786124054660863",
+      "base": "22996585707471374952397780533",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-13",
+      "cohort": "replication",
+      "N": "44832430482411306496650771401",
+      "base": "16312195485687830655662959817",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-14",
+      "cohort": "replication",
+      "N": "51679568434970812054083125063",
+      "base": "32538809346847882687341427092",
+      "bits": 96
+    },
+    {
+      "case": "replication-96-15",
+      "cohort": "replication",
+      "N": "56039279700831125036897859227",
+      "base": "53145264448914942600550812937",
+      "bits": 96
+    },
+    {
+      "case": "holdout-32-0",
+      "cohort": "holdout",
+      "N": "3055888609",
+      "base": "507802748",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-1",
+      "cohort": "holdout",
+      "N": "2807024501",
+      "base": "2190195594",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-2",
+      "cohort": "holdout",
+      "N": "2973035693",
+      "base": "1871151422",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-3",
+      "cohort": "holdout",
+      "N": "2241907637",
+      "base": "332780647",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-4",
+      "cohort": "holdout",
+      "N": "2189668727",
+      "base": "1578253408",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-5",
+      "cohort": "holdout",
+      "N": "2770694489",
+      "base": "2096774676",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-6",
+      "cohort": "holdout",
+      "N": "3223062631",
+      "base": "1401065335",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-7",
+      "cohort": "holdout",
+      "N": "2763201541",
+      "base": "1443126252",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-8",
+      "cohort": "holdout",
+      "N": "2369067583",
+      "base": "2115194301",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-9",
+      "cohort": "holdout",
+      "N": "2297410249",
+      "base": "20208515",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-10",
+      "cohort": "holdout",
+      "N": "2209157479",
+      "base": "881985726",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-11",
+      "cohort": "holdout",
+      "N": "2923809101",
+      "base": "2324773070",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-12",
+      "cohort": "holdout",
+      "N": "2296348699",
+      "base": "238009181",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-13",
+      "cohort": "holdout",
+      "N": "2621137663",
+      "base": "297743695",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-14",
+      "cohort": "holdout",
+      "N": "2923404317",
+      "base": "2092934121",
+      "bits": 32
+    },
+    {
+      "case": "holdout-32-15",
+      "cohort": "holdout",
+      "N": "2188240163",
+      "base": "617695207",
+      "bits": 32
+    },
+    {
+      "case": "holdout-48-0",
+      "cohort": "holdout",
+      "N": "163480190332337",
+      "base": "145092315950627",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-1",
+      "cohort": "holdout",
+      "N": "179052975330023",
+      "base": "62658506400168",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-2",
+      "cohort": "holdout",
+      "N": "201851656614211",
+      "base": "47863766998305",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-3",
+      "cohort": "holdout",
+      "N": "156966107412967",
+      "base": "59398077632457",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-4",
+      "cohort": "holdout",
+      "N": "191120895245729",
+      "base": "80651459813343",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-5",
+      "cohort": "holdout",
+      "N": "200066470088711",
+      "base": "190949860209108",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-6",
+      "cohort": "holdout",
+      "N": "173565660725147",
+      "base": "155004721118552",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-7",
+      "cohort": "holdout",
+      "N": "141039961952327",
+      "base": "24331692154442",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-8",
+      "cohort": "holdout",
+      "N": "149548199076649",
+      "base": "54602371603140",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-9",
+      "cohort": "holdout",
+      "N": "210570252364427",
+      "base": "183203870679957",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-10",
+      "cohort": "holdout",
+      "N": "170186505932419",
+      "base": "78580179739914",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-11",
+      "cohort": "holdout",
+      "N": "151374100495391",
+      "base": "123797289847809",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-12",
+      "cohort": "holdout",
+      "N": "141057546239801",
+      "base": "35805447357882",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-13",
+      "cohort": "holdout",
+      "N": "204939483469489",
+      "base": "151018836118522",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-14",
+      "cohort": "holdout",
+      "N": "200694845563829",
+      "base": "85201711218647",
+      "bits": 48
+    },
+    {
+      "case": "holdout-48-15",
+      "cohort": "holdout",
+      "N": "197682850663583",
+      "base": "154187637519259",
+      "bits": 48
+    },
+    {
+      "case": "holdout-64-0",
+      "cohort": "holdout",
+      "N": "14075160640395301427",
+      "base": "7108702977271207065",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-1",
+      "cohort": "holdout",
+      "N": "10060374609766188751",
+      "base": "5936571644627879462",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-2",
+      "cohort": "holdout",
+      "N": "14233687241389343437",
+      "base": "3143163816938485689",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-3",
+      "cohort": "holdout",
+      "N": "10439648587718856973",
+      "base": "4066538939935270127",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-4",
+      "cohort": "holdout",
+      "N": "10318267580101077613",
+      "base": "2529054720728991818",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-5",
+      "cohort": "holdout",
+      "N": "11379398276053840049",
+      "base": "7226106028909360575",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-6",
+      "cohort": "holdout",
+      "N": "12982891063978966267",
+      "base": "8879217187711464049",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-7",
+      "cohort": "holdout",
+      "N": "12084413975812194767",
+      "base": "5055944246086503110",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-8",
+      "cohort": "holdout",
+      "N": "12497962810984751179",
+      "base": "7484573623618455277",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-9",
+      "cohort": "holdout",
+      "N": "12137520793194554029",
+      "base": "9118299160947345868",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-10",
+      "cohort": "holdout",
+      "N": "11436944803973889479",
+      "base": "2183789268044472265",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-11",
+      "cohort": "holdout",
+      "N": "10128970407792379279",
+      "base": "233473088353373860",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-12",
+      "cohort": "holdout",
+      "N": "10999514171126992909",
+      "base": "7130219883492309594",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-13",
+      "cohort": "holdout",
+      "N": "13260297274215449219",
+      "base": "9616841853284593808",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-14",
+      "cohort": "holdout",
+      "N": "10139997278294434373",
+      "base": "9299783033719332440",
+      "bits": 64
+    },
+    {
+      "case": "holdout-64-15",
+      "cohort": "holdout",
+      "N": "10744711174430405779",
+      "base": "6818295814256967649",
+      "bits": 64
+    },
+    {
+      "case": "holdout-96-0",
+      "cohort": "holdout",
+      "N": "44098299332420192923597900969",
+      "base": "21699930326161886033841645113",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-1",
+      "cohort": "holdout",
+      "N": "44545328341298752227586342139",
+      "base": "19062435402030476659416977477",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-2",
+      "cohort": "holdout",
+      "N": "64112735437245225707642465341",
+      "base": "46048237315855681397649065021",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-3",
+      "cohort": "holdout",
+      "N": "50757257523556472683195619501",
+      "base": "33804462620217169064906797000",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-4",
+      "cohort": "holdout",
+      "N": "65900199707242064186232135899",
+      "base": "21923441513356121151150025280",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-5",
+      "cohort": "holdout",
+      "N": "41615297795667266542934740697",
+      "base": "30467413772899296192317342136",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-6",
+      "cohort": "holdout",
+      "N": "65813431807117993928016279887",
+      "base": "7706085420195838390954065951",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-7",
+      "cohort": "holdout",
+      "N": "58082900353458851221179177971",
+      "base": "28744955048859991821312936773",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-8",
+      "cohort": "holdout",
+      "N": "41348051357620653972126571391",
+      "base": "1940095131792507119778134153",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-9",
+      "cohort": "holdout",
+      "N": "52271710091058582410230686019",
+      "base": "34566818796998394355532296176",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-10",
+      "cohort": "holdout",
+      "N": "52885052960126358491861912993",
+      "base": "23159775812187594580161484530",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-11",
+      "cohort": "holdout",
+      "N": "47759651037729067297830061507",
+      "base": "45760364071779025041854516265",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-12",
+      "cohort": "holdout",
+      "N": "50581737606655028725355033033",
+      "base": "7107989962385123632504830389",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-13",
+      "cohort": "holdout",
+      "N": "56921348726983844224384180319",
+      "base": "3465825260315602069961115007",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-14",
+      "cohort": "holdout",
+      "N": "60295093588146457184689429309",
+      "base": "51088201852452276448554535544",
+      "bits": 96
+    },
+    {
+      "case": "holdout-96-15",
+      "cohort": "holdout",
+      "N": "40866337715784017609784658559",
+      "base": "22179473688484290404099860453",
+      "bits": 96
+    }
+  ],
+  "qpu_jobs": 0,
+  "external_spend": 0,
+  "RSA2048_break": false,
+  "environment": {
+    "python": "3.12.14",
+    "gmpy2": "2.3.1",
+    "sympy": "1.14.0"
+  },
+  "elapsed_seconds": 3.7878411090000554,
+  "summary": [
+    {
+      "cohort": "replication",
+      "bits": 32,
+      "arm": "cf_full",
+      "trials": 128,
+      "verified_factors": 35,
+      "verified_exponents": 44,
+      "factor_rate": 0.2734375,
+      "tail_censored": 0,
+      "mean_head_mass": 0.998409668311401,
+      "median_seconds": 2.041599998392485e-05,
+      "mean_pow_calls": 5.828125,
+      "mean_binary_mul_estimate": 132.2265625,
+      "phase_round_proxy_per_factor": 234.05714285714285
+    },
+    {
+      "cohort": "replication",
+      "bits": 32,
+      "arm": "cf_short",
+      "trials": 128,
+      "verified_factors": 33,
+      "verified_exponents": 42,
+      "factor_rate": 0.2578125,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983983546747445,
+      "median_seconds": 1.5873999984705733e-05,
+      "mean_pow_calls": 5.7578125,
+      "mean_binary_mul_estimate": 129.375,
+      "phase_round_proxy_per_factor": 232.72727272727272
+    },
+    {
+      "cohort": "replication",
+      "bits": 32,
+      "arm": "ekera_full",
+      "trials": 128,
+      "verified_factors": 94,
+      "verified_exponents": 125,
+      "factor_rate": 0.734375,
+      "tail_censored": 0,
+      "mean_head_mass": 0.998409668311401,
+      "median_seconds": 0.0001676340000358323,
+      "mean_pow_calls": 8.484375,
+      "mean_binary_mul_estimate": 248.03125,
+      "phase_round_proxy_per_factor": 87.14893617021276
+    },
+    {
+      "cohort": "replication",
+      "bits": 32,
+      "arm": "ekera_short",
+      "trials": 128,
+      "verified_factors": 94,
+      "verified_exponents": 125,
+      "factor_rate": 0.734375,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983983546747445,
+      "median_seconds": 0.0007444725000027574,
+      "mean_pow_calls": 99.78125,
+      "mean_binary_mul_estimate": 831.03125,
+      "phase_round_proxy_per_factor": 81.70212765957447
+    },
+    {
+      "cohort": "replication",
+      "bits": 32,
+      "arm": "zero_frequency",
+      "trials": 16,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.00010828950001950943,
+      "mean_pow_calls": 2,
+      "mean_binary_mul_estimate": 70,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "replication",
+      "bits": 32,
+      "arm": "uniform_frequency",
+      "trials": 128,
+      "verified_factors": 1,
+      "verified_exponents": 1,
+      "factor_rate": 0.0078125,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.001030651000007765,
+      "mean_pow_calls": 169.3359375,
+      "mean_binary_mul_estimate": 1152.375,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "replication",
+      "bits": 48,
+      "arm": "cf_full",
+      "trials": 128,
+      "verified_factors": 27,
+      "verified_exponents": 38,
+      "factor_rate": 0.2109375,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9982096867603603,
+      "median_seconds": 3.910899999937101e-05,
+      "mean_pow_calls": 8.875,
+      "mean_binary_mul_estimate": 301.9765625,
+      "phase_round_proxy_per_factor": 455.1111111111111
+    },
+    {
+      "cohort": "replication",
+      "bits": 48,
+      "arm": "cf_short",
+      "trials": 128,
+      "verified_factors": 24,
+      "verified_exponents": 35,
+      "factor_rate": 0.1875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9984418517015728,
+      "median_seconds": 3.6023999996359635e-05,
+      "mean_pow_calls": 8.890625,
+      "mean_binary_mul_estimate": 303.109375,
+      "phase_round_proxy_per_factor": 490.6666666666667
+    },
+    {
+      "cohort": "replication",
+      "bits": 48,
+      "arm": "ekera_full",
+      "trials": 128,
+      "verified_factors": 77,
+      "verified_exponents": 125,
+      "factor_rate": 0.6015625,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9982096867603603,
+      "median_seconds": 0.00018985749994726575,
+      "mean_pow_calls": 8.1015625,
+      "mean_binary_mul_estimate": 383.34375,
+      "phase_round_proxy_per_factor": 159.58441558441558
+    },
+    {
+      "cohort": "replication",
+      "bits": 48,
+      "arm": "ekera_short",
+      "trials": 128,
+      "verified_factors": 78,
+      "verified_exponents": 126,
+      "factor_rate": 0.609375,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9984418517015728,
+      "median_seconds": 0.0009741654999970706,
+      "mean_pow_calls": 110.7890625,
+      "mean_binary_mul_estimate": 1290.796875,
+      "phase_round_proxy_per_factor": 150.97435897435898
+    },
+    {
+      "cohort": "replication",
+      "bits": 48,
+      "arm": "zero_frequency",
+      "trials": 16,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.00012657749999789303,
+      "mean_pow_calls": 2,
+      "mean_binary_mul_estimate": 109,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "replication",
+      "bits": 48,
+      "arm": "uniform_frequency",
+      "trials": 128,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0011244574999977885,
+      "mean_pow_calls": 167.0625,
+      "mean_binary_mul_estimate": 1581.78125,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "replication",
+      "bits": 64,
+      "arm": "cf_full",
+      "trials": 128,
+      "verified_factors": 22,
+      "verified_exponents": 36,
+      "factor_rate": 0.171875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983823186982865,
+      "median_seconds": 7.863399991947517e-05,
+      "mean_pow_calls": 12.109375,
+      "mean_binary_mul_estimate": 549.3046875,
+      "phase_round_proxy_per_factor": 744.7272727272727
+    },
+    {
+      "cohort": "replication",
+      "bits": 64,
+      "arm": "cf_short",
+      "trials": 128,
+      "verified_factors": 22,
+      "verified_exponents": 36,
+      "factor_rate": 0.171875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.998679206187194,
+      "median_seconds": 6.788299998561342e-05,
+      "mean_pow_calls": 12.125,
+      "mean_binary_mul_estimate": 550.6875,
+      "phase_round_proxy_per_factor": 721.4545454545455
+    },
+    {
+      "cohort": "replication",
+      "bits": 64,
+      "arm": "ekera_full",
+      "trials": 128,
+      "verified_factors": 88,
+      "verified_exponents": 127,
+      "factor_rate": 0.6875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983823186982865,
+      "median_seconds": 0.0002348099999949227,
+      "mean_pow_calls": 9.2265625,
+      "mean_binary_mul_estimate": 507.0625,
+      "phase_round_proxy_per_factor": 186.1818181818182
+    },
+    {
+      "cohort": "replication",
+      "bits": 64,
+      "arm": "ekera_short",
+      "trials": 128,
+      "verified_factors": 88,
+      "verified_exponents": 127,
+      "factor_rate": 0.6875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.998679206187194,
+      "median_seconds": 0.00033315450002646685,
+      "mean_pow_calls": 69.2578125,
+      "mean_binary_mul_estimate": 1174.6953125,
+      "phase_round_proxy_per_factor": 180.36363636363637
+    },
+    {
+      "cohort": "replication",
+      "bits": 64,
+      "arm": "zero_frequency",
+      "trials": 16,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.00012785349997557205,
+      "mean_pow_calls": 2,
+      "mean_binary_mul_estimate": 134,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "replication",
+      "bits": 64,
+      "arm": "uniform_frequency",
+      "trials": 128,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0013133789999528744,
+      "mean_pow_calls": 169.59375,
+      "mean_binary_mul_estimate": 2032.28125,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "replication",
+      "bits": 96,
+      "arm": "cf_full",
+      "trials": 128,
+      "verified_factors": 26,
+      "verified_exponents": 30,
+      "factor_rate": 0.203125,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9984008389055478,
+      "median_seconds": 0.0001936985000270397,
+      "mean_pow_calls": 18.0859375,
+      "mean_binary_mul_estimate": 1245.0859375,
+      "phase_round_proxy_per_factor": 945.2307692307693
+    },
+    {
+      "cohort": "replication",
+      "bits": 96,
+      "arm": "cf_short",
+      "trials": 128,
+      "verified_factors": 25,
+      "verified_exponents": 29,
+      "factor_rate": 0.1953125,
+      "tail_censored": 1,
+      "mean_head_mass": 0.9984396052792588,
+      "median_seconds": 0.00017957699998305543,
+      "mean_pow_calls": 17.921875,
+      "mean_binary_mul_estimate": 1234.7734375,
+      "phase_round_proxy_per_factor": 962.56
+    },
+    {
+      "cohort": "replication",
+      "bits": 96,
+      "arm": "ekera_full",
+      "trials": 128,
+      "verified_factors": 86,
+      "verified_exponents": 125,
+      "factor_rate": 0.671875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9984008389055478,
+      "median_seconds": 0.00031743599998890204,
+      "mean_pow_calls": 8.875,
+      "mean_binary_mul_estimate": 728.9140625,
+      "phase_round_proxy_per_factor": 285.7674418604651
+    },
+    {
+      "cohort": "replication",
+      "bits": 96,
+      "arm": "ekera_short",
+      "trials": 128,
+      "verified_factors": 86,
+      "verified_exponents": 125,
+      "factor_rate": 0.671875,
+      "tail_censored": 1,
+      "mean_head_mass": 0.9984396052792588,
+      "median_seconds": 0.0003349020000200653,
+      "mean_pow_calls": 52.6796875,
+      "mean_binary_mul_estimate": 1424.46875,
+      "phase_round_proxy_per_factor": 279.8139534883721
+    },
+    {
+      "cohort": "replication",
+      "bits": 96,
+      "arm": "zero_frequency",
+      "trials": 16,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0001470625000479231,
+      "mean_pow_calls": 2,
+      "mean_binary_mul_estimate": 193,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "replication",
+      "bits": 96,
+      "arm": "uniform_frequency",
+      "trials": 128,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0016971504999787612,
+      "mean_pow_calls": 169.125,
+      "mean_binary_mul_estimate": 2892.625,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "replication",
+      "bits": null,
+      "arm": "cf_full",
+      "trials": 512,
+      "verified_factors": 110,
+      "verified_exponents": 148,
+      "factor_rate": 0.21484375,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983506281688989,
+      "median_seconds": 5.901500003346882e-05,
+      "mean_pow_calls": 11.224609375,
+      "mean_binary_mul_estimate": 557.1484375,
+      "phase_round_proxy_per_factor": 558.5454545454545
+    },
+    {
+      "cohort": "replication",
+      "bits": null,
+      "arm": "cf_short",
+      "trials": 512,
+      "verified_factors": 104,
+      "verified_exponents": 142,
+      "factor_rate": 0.203125,
+      "tail_censored": 1,
+      "mean_head_mass": 0.9984897544606924,
+      "median_seconds": 5.0987500060273305e-05,
+      "mean_pow_calls": 11.173828125,
+      "mean_binary_mul_estimate": 554.486328125,
+      "phase_round_proxy_per_factor": 571.0769230769231
+    },
+    {
+      "cohort": "replication",
+      "bits": null,
+      "arm": "ekera_full",
+      "trials": 512,
+      "verified_factors": 345,
+      "verified_exponents": 502,
+      "factor_rate": 0.673828125,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983506281688989,
+      "median_seconds": 0.00022090399994567633,
+      "mean_pow_calls": 8.671875,
+      "mean_binary_mul_estimate": 466.837890625,
+      "phase_round_proxy_per_factor": 178.08695652173913
+    },
+    {
+      "cohort": "replication",
+      "bits": null,
+      "arm": "ekera_short",
+      "trials": 512,
+      "verified_factors": 346,
+      "verified_exponents": 503,
+      "factor_rate": 0.67578125,
+      "tail_censored": 1,
+      "mean_head_mass": 0.9984897544606924,
+      "median_seconds": 0.0006887125000503147,
+      "mean_pow_calls": 83.126953125,
+      "mean_binary_mul_estimate": 1180.248046875,
+      "phase_round_proxy_per_factor": 171.65317919075144
+    },
+    {
+      "cohort": "replication",
+      "bits": null,
+      "arm": "zero_frequency",
+      "trials": 64,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.00012914549995457492,
+      "mean_pow_calls": 2,
+      "mean_binary_mul_estimate": 126.5,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "replication",
+      "bits": null,
+      "arm": "uniform_frequency",
+      "trials": 512,
+      "verified_factors": 1,
+      "verified_exponents": 1,
+      "factor_rate": 0.001953125,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.001252767000039512,
+      "mean_pow_calls": 168.779296875,
+      "mean_binary_mul_estimate": 1914.765625,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "holdout",
+      "bits": 32,
+      "arm": "cf_full",
+      "trials": 128,
+      "verified_factors": 38,
+      "verified_exponents": 43,
+      "factor_rate": 0.296875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983472602431875,
+      "median_seconds": 2.0851000044785906e-05,
+      "mean_pow_calls": 5.6171875,
+      "mean_binary_mul_estimate": 125.3046875,
+      "phase_round_proxy_per_factor": 215.57894736842104
+    },
+    {
+      "cohort": "holdout",
+      "bits": 32,
+      "arm": "cf_short",
+      "trials": 128,
+      "verified_factors": 36,
+      "verified_exponents": 40,
+      "factor_rate": 0.28125,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983310946963736,
+      "median_seconds": 1.5909000012470642e-05,
+      "mean_pow_calls": 5.625,
+      "mean_binary_mul_estimate": 125.59375,
+      "phase_round_proxy_per_factor": 213.33333333333334
+    },
+    {
+      "cohort": "holdout",
+      "bits": 32,
+      "arm": "ekera_full",
+      "trials": 128,
+      "verified_factors": 94,
+      "verified_exponents": 125,
+      "factor_rate": 0.734375,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983472602431875,
+      "median_seconds": 0.0001707084999225117,
+      "mean_pow_calls": 8.4453125,
+      "mean_binary_mul_estimate": 242.75,
+      "phase_round_proxy_per_factor": 87.14893617021276
+    },
+    {
+      "cohort": "holdout",
+      "bits": 32,
+      "arm": "ekera_short",
+      "trials": 128,
+      "verified_factors": 95,
+      "verified_exponents": 126,
+      "factor_rate": 0.7421875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983310946963736,
+      "median_seconds": 0.0007327800000211937,
+      "mean_pow_calls": 92.3828125,
+      "mean_binary_mul_estimate": 780.9453125,
+      "phase_round_proxy_per_factor": 80.84210526315789
+    },
+    {
+      "cohort": "holdout",
+      "bits": 32,
+      "arm": "zero_frequency",
+      "trials": 16,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0001139075000082812,
+      "mean_pow_calls": 2,
+      "mean_binary_mul_estimate": 70,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "holdout",
+      "bits": 32,
+      "arm": "uniform_frequency",
+      "trials": 128,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.001094271999988905,
+      "mean_pow_calls": 166.2890625,
+      "mean_binary_mul_estimate": 1130.1953125,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "holdout",
+      "bits": 48,
+      "arm": "cf_full",
+      "trials": 128,
+      "verified_factors": 45,
+      "verified_exponents": 45,
+      "factor_rate": 0.3515625,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983455301431391,
+      "median_seconds": 4.087150000486872e-05,
+      "mean_pow_calls": 9.0859375,
+      "mean_binary_mul_estimate": 311.1953125,
+      "phase_round_proxy_per_factor": 273.06666666666666
+    },
+    {
+      "cohort": "holdout",
+      "bits": 48,
+      "arm": "cf_short",
+      "trials": 128,
+      "verified_factors": 45,
+      "verified_exponents": 45,
+      "factor_rate": 0.3515625,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9984120114855022,
+      "median_seconds": 3.63600000241604e-05,
+      "mean_pow_calls": 9.125,
+      "mean_binary_mul_estimate": 313.484375,
+      "phase_round_proxy_per_factor": 261.68888888888887
+    },
+    {
+      "cohort": "holdout",
+      "bits": 48,
+      "arm": "ekera_full",
+      "trials": 128,
+      "verified_factors": 118,
+      "verified_exponents": 126,
+      "factor_rate": 0.921875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983455301431391,
+      "median_seconds": 0.00021792500001538428,
+      "mean_pow_calls": 8.96875,
+      "mean_binary_mul_estimate": 385.59375,
+      "phase_round_proxy_per_factor": 104.13559322033899
+    },
+    {
+      "cohort": "holdout",
+      "bits": 48,
+      "arm": "ekera_short",
+      "trials": 128,
+      "verified_factors": 119,
+      "verified_exponents": 127,
+      "factor_rate": 0.9296875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9984120114855022,
+      "median_seconds": 0.0009085610000170163,
+      "mean_pow_calls": 99,
+      "mean_binary_mul_estimate": 1178.7890625,
+      "phase_round_proxy_per_factor": 98.95798319327731
+    },
+    {
+      "cohort": "holdout",
+      "bits": 48,
+      "arm": "zero_frequency",
+      "trials": 16,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.00012300649996177526,
+      "mean_pow_calls": 2,
+      "mean_binary_mul_estimate": 109,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "holdout",
+      "bits": 48,
+      "arm": "uniform_frequency",
+      "trials": 128,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0012428724999722363,
+      "mean_pow_calls": 164.9609375,
+      "mean_binary_mul_estimate": 1561.9296875,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "holdout",
+      "bits": 64,
+      "arm": "cf_full",
+      "trials": 128,
+      "verified_factors": 41,
+      "verified_exponents": 41,
+      "factor_rate": 0.3203125,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983247649661421,
+      "median_seconds": 7.779800000662362e-05,
+      "mean_pow_calls": 12.125,
+      "mean_binary_mul_estimate": 552.4765625,
+      "phase_round_proxy_per_factor": 399.609756097561
+    },
+    {
+      "cohort": "holdout",
+      "bits": 64,
+      "arm": "cf_short",
+      "trials": 128,
+      "verified_factors": 40,
+      "verified_exponents": 40,
+      "factor_rate": 0.3125,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9982859739580541,
+      "median_seconds": 7.172350001383165e-05,
+      "mean_pow_calls": 12.1171875,
+      "mean_binary_mul_estimate": 551.890625,
+      "phase_round_proxy_per_factor": 396.8
+    },
+    {
+      "cohort": "holdout",
+      "bits": 64,
+      "arm": "ekera_full",
+      "trials": 128,
+      "verified_factors": 111,
+      "verified_exponents": 126,
+      "factor_rate": 0.8671875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983247649661421,
+      "median_seconds": 0.00023107999999183448,
+      "mean_pow_calls": 8.5078125,
+      "mean_binary_mul_estimate": 493.453125,
+      "phase_round_proxy_per_factor": 147.6036036036036
+    },
+    {
+      "cohort": "holdout",
+      "bits": 64,
+      "arm": "ekera_short",
+      "trials": 128,
+      "verified_factors": 112,
+      "verified_exponents": 127,
+      "factor_rate": 0.875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9982859739580541,
+      "median_seconds": 0.0006719129999623874,
+      "mean_pow_calls": 86.7265625,
+      "mean_binary_mul_estimate": 1352.7421875,
+      "phase_round_proxy_per_factor": 141.71428571428572
+    },
+    {
+      "cohort": "holdout",
+      "bits": 64,
+      "arm": "zero_frequency",
+      "trials": 16,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0001312439999878734,
+      "mean_pow_calls": 2,
+      "mean_binary_mul_estimate": 134,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "holdout",
+      "bits": 64,
+      "arm": "uniform_frequency",
+      "trials": 128,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0012963730000024043,
+      "mean_pow_calls": 167.9140625,
+      "mean_binary_mul_estimate": 2019.8125,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "holdout",
+      "bits": 96,
+      "arm": "cf_full",
+      "trials": 128,
+      "verified_factors": 28,
+      "verified_exponents": 38,
+      "factor_rate": 0.21875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9984974918855886,
+      "median_seconds": 0.00019824500003551293,
+      "mean_pow_calls": 18.328125,
+      "mean_binary_mul_estimate": 1279.234375,
+      "phase_round_proxy_per_factor": 877.7142857142857
+    },
+    {
+      "cohort": "holdout",
+      "bits": 96,
+      "arm": "cf_short",
+      "trials": 128,
+      "verified_factors": 26,
+      "verified_exponents": 36,
+      "factor_rate": 0.203125,
+      "tail_censored": 0,
+      "mean_head_mass": 0.998440025772782,
+      "median_seconds": 0.00018705850004607782,
+      "mean_pow_calls": 18.3359375,
+      "mean_binary_mul_estimate": 1279.828125,
+      "phase_round_proxy_per_factor": 925.5384615384615
+    },
+    {
+      "cohort": "holdout",
+      "bits": 96,
+      "arm": "ekera_full",
+      "trials": 128,
+      "verified_factors": 72,
+      "verified_exponents": 128,
+      "factor_rate": 0.5625,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9984974918855886,
+      "median_seconds": 0.0003133100000241029,
+      "mean_pow_calls": 8.140625,
+      "mean_binary_mul_estimate": 731.8828125,
+      "phase_round_proxy_per_factor": 341.3333333333333
+    },
+    {
+      "cohort": "holdout",
+      "bits": 96,
+      "arm": "ekera_short",
+      "trials": 128,
+      "verified_factors": 72,
+      "verified_exponents": 128,
+      "factor_rate": 0.5625,
+      "tail_censored": 0,
+      "mean_head_mass": 0.998440025772782,
+      "median_seconds": 0.0009530185000699021,
+      "mean_pow_calls": 80.7421875,
+      "mean_binary_mul_estimate": 1916.765625,
+      "phase_round_proxy_per_factor": 334.22222222222223
+    },
+    {
+      "cohort": "holdout",
+      "bits": 96,
+      "arm": "zero_frequency",
+      "trials": 16,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0001464315000703209,
+      "mean_pow_calls": 2,
+      "mean_binary_mul_estimate": 193,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "holdout",
+      "bits": 96,
+      "arm": "uniform_frequency",
+      "trials": 128,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0016677610000215282,
+      "mean_pow_calls": 169.3515625,
+      "mean_binary_mul_estimate": 2908.5546875,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "holdout",
+      "bits": null,
+      "arm": "cf_full",
+      "trials": 512,
+      "verified_factors": 152,
+      "verified_exponents": 167,
+      "factor_rate": 0.296875,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983787618095143,
+      "median_seconds": 6.075199996757874e-05,
+      "mean_pow_calls": 11.2890625,
+      "mean_binary_mul_estimate": 567.052734375,
+      "phase_round_proxy_per_factor": 404.2105263157895
+    },
+    {
+      "cohort": "holdout",
+      "bits": null,
+      "arm": "cf_short",
+      "trials": 512,
+      "verified_factors": 147,
+      "verified_exponents": 161,
+      "factor_rate": 0.287109375,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983672764781779,
+      "median_seconds": 5.388700003550184e-05,
+      "mean_pow_calls": 11.30078125,
+      "mean_binary_mul_estimate": 567.69921875,
+      "phase_round_proxy_per_factor": 404.02721088435374
+    },
+    {
+      "cohort": "holdout",
+      "bits": null,
+      "arm": "ekera_full",
+      "trials": 512,
+      "verified_factors": 395,
+      "verified_exponents": 505,
+      "factor_rate": 0.771484375,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983787618095143,
+      "median_seconds": 0.00023569250004129572,
+      "mean_pow_calls": 8.515625,
+      "mean_binary_mul_estimate": 463.419921875,
+      "phase_round_proxy_per_factor": 155.54430379746836
+    },
+    {
+      "cohort": "holdout",
+      "bits": null,
+      "arm": "ekera_short",
+      "trials": 512,
+      "verified_factors": 398,
+      "verified_exponents": 508,
+      "factor_rate": 0.77734375,
+      "tail_censored": 0,
+      "mean_head_mass": 0.9983672764781779,
+      "median_seconds": 0.0008235024999976304,
+      "mean_pow_calls": 89.712890625,
+      "mean_binary_mul_estimate": 1307.310546875,
+      "phase_round_proxy_per_factor": 149.22613065326632
+    },
+    {
+      "cohort": "holdout",
+      "bits": null,
+      "arm": "zero_frequency",
+      "trials": 64,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.00013183499999058768,
+      "mean_pow_calls": 2,
+      "mean_binary_mul_estimate": 126.5,
+      "phase_round_proxy_per_factor": null
+    },
+    {
+      "cohort": "holdout",
+      "bits": null,
+      "arm": "uniform_frequency",
+      "trials": 512,
+      "verified_factors": 0,
+      "verified_exponents": 0,
+      "factor_rate": 0.0,
+      "tail_censored": 0,
+      "mean_head_mass": 1.0,
+      "median_seconds": 0.0012973400000078072,
+      "mean_pow_calls": 167.12890625,
+      "mean_binary_mul_estimate": 1905.123046875,
+      "phase_round_proxy_per_factor": null
+    }
+  ],
+  "primary_gate": {
+    "cluster_wins": 50,
+    "cluster_losses": 0,
+    "one_sided_sign_p": 8.881784197001252e-16,
+    "factor_success_uplift": 0.48046875,
+    "phase_round_proxy_ratio": 0.369179229480737,
+    "uniform_null_factor_rate": 0.0,
+    "passed": true
+  }
+}

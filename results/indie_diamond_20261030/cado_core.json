@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "upstream": "https://github.com/doublegate/cado-nfs-modern",
+  "commit": "22e7470a0b9b3b5d0e696032e0208ae8bb2b010f",
+  "header_sha256": "e79b08ab67e4ea317f65ef3efaaf2e84d5e71f5c42b8eae045b479fb79567921",
+  "bridge_sha256": "c34693a950343cacd2f14b5431a7c45029fe16072f2b621a41cc10656da84e7f",
+  "modulus_cases": 2560,
+  "primitive_comparisons": 10240,
+  "cases_2048_bits": 512,
+  "operations": [
+    "Montgomery multiply",
+    "aliased Montgomery multiply",
+    "modular add",
+    "modular subtract"
+  ],
+  "compiled_for": "CPU host path of the shared header",
+  "gpu_execution": false,
+  "upstream_launcher_max_bits": 1022,
+  "core_2048_test_limbs": 33,
+  "nvcc_available": false,
+  "nvidia_smi_available": false,
+  "factorization_attempted": false,
+  "RSA2048_break": false,
+  "external_spend": 0
+}
