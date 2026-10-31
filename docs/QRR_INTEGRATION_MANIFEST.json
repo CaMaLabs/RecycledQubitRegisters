@@ -134,6 +134,12 @@
       "source": "hardware/qrr_a49_phase_frequency_replication.py",
       "status": "PASS_USER_UBUNTU_REPLICATION",
       "next": "Test actual gate-level phase-measurement distribution and realistic source cost for N437 18 bits and N667 20 bits; control for known-order oracle and compare null frequencies."
+    },
+    {
+      "id": "n437_18bit_recycled_Aer_Quaspy_A50",
+      "source": "hardware/qrr_a50_n437_recycled_aer_quaspy.py",
+      "status": "source_committed_not_yet_user_run",
+      "next": "Build 18-bit N437 circuit and inspect size, only then opt in compile or Aer shot. No quantum advantage claim before actual measured null comparison."
     }
   ],
   "reliability_gates": [
@@ -161,6 +167,7 @@
     "A46": "Corrected integer timeout, user Ubuntu base8 moduli 143,221,323: Quaspy 8/8 uniform random, 1/1 zero, 1/1 one, 4/4 known-order positive controls at budgets 1000 and 100000 for all three; no quantum-specific recovery information demonstrated. Older A46 float-timeout runs INVALID.",
     "A47": "A47 runner committed; execution pending",
     "A48": "User Ubuntu: N437 18-bit Quaspy verified factors 0/8 random vs 8/8 classical known-order peak controls; N667 20-bit 2/8 vs 8/8; budgets 1000/100000 identical in these arms. Oracle peaks not quantum shots; small sample and classical order leakage prohibit quantum advantage claims.",
-    "A49": "User Ubuntu A49 seeds 20261101/02: N437 18-bit random 29/128, oracle-informed 117/128; N667 20-bit random 25/128, oracle-informed 114/128; zero hard timeouts. Not quantum-measured; demonstrates information-dependent Quaspy success, not speedup."
+    "A49": "User Ubuntu A49 seeds 20261101/02: N437 18-bit random 29/128, oracle-informed 117/128; N667 20-bit random 25/128, oracle-informed 114/128; zero hard timeouts. Not quantum-measured; demonstrates information-dependent Quaspy success, not speedup.",
+    "A50": "Source committed, awaiting Ubuntu build and resource check; actual Aer and Quaspy run not yet performed."
   }
 }
