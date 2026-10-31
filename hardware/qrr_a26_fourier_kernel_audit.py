@@ -24,7 +24,7 @@ def fourier_add_basis(x, a, bits):
     vec = [0j] * size
     vec[x] = 1
     freq = dft(vec)
-    rotated = [z * cmath.exp(2j * math.pi * k * a / size)
+    rotated = [z * cmath.exp(-2j * math.pi * k * a / size)
                for k, z in enumerate(freq)]
     return dft(rotated, inverse=True)
 
