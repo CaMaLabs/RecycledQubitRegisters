@@ -122,6 +122,12 @@
       "source": "hardware/qrr_a47_quaspy_classical_scaling.py",
       "status": "committed_not_executed",
       "next": "Sweep independent random/constant vs known-order-oracle frequencies across N143 through N2491, record hard timeouts and worker errors; do not claim quantum contribution."
+    },
+    {
+      "id": "quaspy_precision_parameter_boundary_A48",
+      "source": "hardware/qrr_a48_quaspy_precision_sweep.py",
+      "status": "committed_not_executed",
+      "next": "Compare uniform null to classical order peaks for N437, N667, N2491, at m+1..2m bits; record verified exponent separate from factors."
     }
   ],
   "reliability_gates": [
@@ -147,6 +153,7 @@
     "A44": "User Ubuntu: N323 source constructed work9 ancilla7 17q, 2281 MCXVChain, 512 classical permutation checks; gate semantics and actual QPE pending.",
     "A45": "User Ubuntu: actual_Aer Quaspy16/16 CF6/16; uniform_random Quaspy128/128 CF5/128; constant_zero/one/midpoint Quaspy16/16 each CF0. Therefore Quaspy factor success not dependent on quantum measurement on N143 under existing public-postprocessing settings. Prior claims of recovery from quantum frequency are invalid as evidence of quantum-specific advantage.",
     "A46": "Corrected integer timeout, user Ubuntu base8 moduli 143,221,323: Quaspy 8/8 uniform random, 1/1 zero, 1/1 one, 4/4 known-order positive controls at budgets 1000 and 100000 for all three; no quantum-specific recovery information demonstrated. Older A46 float-timeout runs INVALID.",
-    "A47": "A47 runner committed; execution pending"
+    "A47": "A47 runner committed; execution pending",
+    "A48": "runner committed; execution pending"
   }
 }
