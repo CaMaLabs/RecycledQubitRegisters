@@ -62,6 +62,12 @@
       "source": "hardware/qrr_a36_n143_reversible_multiplier.py",
       "status": "exact_multiplier_source_committed_pending_Ubuntu_validation",
       "next": "Compile N143 reversible multiplication, verify controlled basis states, then connect recycled QPE and Quaspy; not yet complete"
+    },
+    {
+      "id": "n143_gate_level_audit_optimized",
+      "source": "hardware/qrr_a37_n143_gate_audit_optimizer.py",
+      "status": "source_committed_awaiting_user_run",
+      "next": "exhaustively verify 512 basis states for original and optimized gates, then decompose MCX and compare native costs"
     }
   ],
   "reliability_gates": [
@@ -76,6 +82,7 @@
     "A33": "64 of 64 model-sampled Quaspy recoveries on N35",
     "A34": "one Aer matrix_product_state gate-level measured frequency 192 recovered factors [5,7] for N35 base8",
     "A35": "768 gate-level simulated shots; Quaspy 512/512 on N35 eligible arms",
-    "A36": "source pushed; per-base exhaustive mapping checked offline; Ubuntu compilation not yet observed"
+    "A36": "source pushed; per-base exhaustive mapping checked offline; Ubuntu compilation not yet observed",
+    "A37": "committed, not yet executed by user"
   }
 }
