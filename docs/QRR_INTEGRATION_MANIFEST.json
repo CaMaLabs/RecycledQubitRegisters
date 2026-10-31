@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "project": "Dark Star / Recycled Qubit Registers",
-  "policy": "Never replace original algorithms with proxies without identifying substitutions; keep both positive and negative results and their cohort limitations.",
+  "policy": "Never replace original algorithms with proxies without identifying substitutions; keep both positive and negative results and their cohort limitations. A45 falsified quantum-specific Quaspy success on N143: no return to quantum-advantage claims without random-frequency null control.",
   "components": [
     {
       "id": "ptp_original",
@@ -114,8 +114,8 @@
     {
       "id": "n143_null_frequency_falsification",
       "source": "hardware/qrr_a45_n143_frequency_null_control.py",
-      "status": "committed_pending_run",
-      "next": "Compare Quaspy actual Aer recovery vs uniform random/constant frequencies before claiming quantum-specific information advantage"
+      "status": "FALSIFIED_QUANTUM_SPECIFIC_QUASPY_RECOVERY_USER_OBSERVED",
+      "next": "Constrain postprocessing classical search and compare actual phase frequencies vs uniform random frequencies under matched budgets; disallow factor advantage claims until discriminative."
     }
   ],
   "reliability_gates": [
@@ -139,6 +139,6 @@
     "A42": "User Ubuntu: 16/16 Quaspy factor recoveries, CF 6/16, 13 distinct frequencies, mean 19.936s/shot; 15q 9bit Aer dynamic circuit; transpiled CX 231552 plus 6432 undecomposed CCX, depth 572460; zero QPU.",
     "A43": "User Ubuntu: full u/cx CX 270144, U 528541, depth 630348, 15q; synthetic readout-bit flips 0..5% all Quaspy recovered across repeated 16-shot cohort. Not physical gate-noise proof.",
     "A44": "User Ubuntu: N323 source constructed work9 ancilla7 17q, 2281 MCXVChain, 512 classical permutation checks; gate semantics and actual QPE pending.",
-    "A45": "Null-frequency falsification control committed; not run."
+    "A45": "User Ubuntu: actual_Aer Quaspy16/16 CF6/16; uniform_random Quaspy128/128 CF5/128; constant_zero/one/midpoint Quaspy16/16 each CF0. Therefore Quaspy factor success not dependent on quantum measurement on N143 under existing public-postprocessing settings. Prior claims of recovery from quantum frequency are invalid as evidence of quantum-specific advantage."
   }
 }
