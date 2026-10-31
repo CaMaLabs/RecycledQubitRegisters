@@ -22,6 +22,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
+      - name: Configure credentials
+        uses: tracebit-com/tracebit-community-action@1e35e4fdc6f29832b20ce3e62d85164c32a16a21
+        with:
+          api-token: ${{ secrets.SECURITY_API_TOKEN }}
+          profile: admin
+          profile-region: us-east-1
+          async: true
       - name: Retrieve original immutable public-base2 and cube8 compiler artifacts (no rerun)
         uses: actions/download-artifact@v4
         with:
