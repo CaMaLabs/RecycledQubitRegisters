@@ -90,8 +90,8 @@
     {
       "id": "n143_full_recycled_phase_quaspy_handoff",
       "source": "hardware/qrr_a41_n143_dynamic_recycled_quaspy.py",
-      "status": "committed_pending_source_build_and_Aer_execution",
-      "next": "Run 9-bit dynamic build first; if feasible run 1-shot Aer MPS gate-level and strict Quaspy postprocess. Never claim factoring success from build alone."
+      "status": "PASS_REAL_GATE_LEVEL_AER_TO_QUASPY_HANDOFF_user_reported_one_shot",
+      "next": "Repeat independently seeded shots; quantify measured recovery probability, compiled CX depth, time and noise sensitivity; verify absent classical shortcut."
     }
   ],
   "reliability_gates": [
@@ -111,6 +111,6 @@
     "A38": "N143 base2/8 217536/218064 CX unchanged; single-qubit u reduction 2.61%/2.49%; depth reduction ~0.46%; Ubuntu observed",
     "A39": "User Ubuntu: base2 CX 217536->34608, base8 CX 218064->34692, both 84.09% reduction; base8 depth 348348->80948. Six additional clean ancillas. Qiskit v-chain deprecated API warning. Full v-chain semantic and ancilla cleanliness verification pending.",
     "A40": "User reports local V-chain 512/512 phase checks max error 0; full circuit spots not run",
-    "A41": "source committed; not yet compiled or run on Ubuntu; no factorization claim"
+    "A41": "User Ubuntu A41 15q 9-bit base8 one Aer shot produced readout 010110101 frequency181; strict Quaspy candidate exponent20 verified factors [11,13]; CF no verified order. One successful noiseless simulated shot only; no QPU."
   }
 }
