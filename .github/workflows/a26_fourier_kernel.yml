@@ -7,6 +7,8 @@ on:
     paths:
       - 'hardware/qrr_a26_fourier_kernel_audit.py'
       - '.github/workflows/a26_fourier_kernel.yml'
+permissions:
+  contents: read
 jobs:
   a26-kernel:
     runs-on: ubuntu-latest
