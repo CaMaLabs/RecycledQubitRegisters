@@ -49,6 +49,7 @@ def main():
  p.add_argument("--run-aer",action="store_true")
  p.add_argument("--shots",type=int,default=1)
  p.add_argument("--threads",type=int,default=4)
+ p.add_argument("--seed",type=int,default=20261031)
  p.add_argument("--max-source-operations",type=int,default=300000)
  p.add_argument("--upstream",default="/tmp/qrr-indie-quaspy")
  p.add_argument("--output",default="results/a50_n437_recycled_handoff.json")
@@ -60,7 +61,7 @@ def main():
  dest=Path(a.output);dest.parent.mkdir(parents=True,exist_ok=True)
  report={"experiment":"A50_N437_ACTUAL_RECYCLED_SOURCE_TO_QUASPY","status":"IN_PROGRESS",
  "n":a.n,"base":a.base,"bits":a.bits,"qpu_jobs":0,
- "actual_Aer_measured_readouts":False,"known_order_oracle_used":False,"readouts":[]}
+ "actual_Aer_measured_readouts":False,"known_order_oracle_used":False,"seed":a.seed,"readouts":[]}
  def save():dest.write_text(json.dumps(report,indent=2)+"\n")
  save();t0=time.perf_counter()
  try:
@@ -84,7 +85,7 @@ def main():
    sim=AerSimulator(method="matrix_product_state",max_parallel_threads=a.threads)
    start=time.perf_counter()
    print("A50 COMPILING actual dynamic source...",flush=True)
-   compiled=transpile(circuit,sim,optimization_level=0,seed_transpiler=20261031)
+   compiled=transpile(circuit,sim,optimization_level=0,seed_transpiler=a.seed)
    report["compiled"]={"counts":dict(compiled.count_ops()),"depth":compiled.depth(),
     "seconds":round(time.perf_counter()-start,3)}
    report["status"]="PASS_COMPILED_NOT_MEASURED"
@@ -92,7 +93,7 @@ def main():
    if a.run_aer:
     start=time.perf_counter()
     print("A50 AER gate-level simulation starting",flush=True)
-    result=sim.run(compiled,shots=a.shots,seed_simulator=20261031,memory=True).result()
+    result=sim.run(compiled,shots=a.shots,seed_simulator=a.seed,memory=True).result()
     if not result.success:raise RuntimeError(str(result.status))
     memory=result.get_memory(compiled)
     assert len(memory)==a.shots
