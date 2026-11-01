@@ -150,8 +150,8 @@
     {
       "id": "a52_order66_phase_geometry",
       "source": "hardware/qrr_a52_n437_phase_distribution_audit.py",
-      "status": "committed_pending_execution",
-      "next": "Run actual A51 measured distribution geometry, compare endianness and independent uniform null. Modular-gate correctness and feedback gate-sign proof remain separate pending tests."
+      "status": "PASS_DISTRIBUTION_DIAGNOSTIC_USER_UBUNTU",
+      "next": "Independently check A44 reversible controlled multiplication semantics, scratch clean and feedback-sign endianness; replicate with independent simulator seed before declaring circuit validated."
     }
   ],
   "reliability_gates": [
@@ -182,6 +182,6 @@
     "A49": "User Ubuntu A49 seeds 20261101/02: N437 18-bit random 29/128, oracle-informed 117/128; N667 20-bit random 25/128, oracle-informed 114/128; zero hard timeouts. Not quantum-measured; demonstrates information-dependent Quaspy success, not speedup.",
     "A50": "User Ubuntu: N437 18bit 17q source build 119620 operations; compiled 2392446 CX 5697282 depth and 56963 residual CCX; one real gate-level Aer MPS shot frequency190650, candidate exponent66, verified factors19x23. One shot cannot establish statistical advantage; simulation wall time not supplied.",
     "A51": "User Ubuntu A51: 8/8 independent Aer shot readouts returned Quaspy candidate exponent66, verified 19x23 for N437, 18-bit, base8. A49 uniform null 29/128. Exploratory conditional binomial p≈7e-6; source verification and noiseless simulation limitations remain. Reproducibility across Aer seeds not yet established.",
-    "A52": "A52 independent order66 geometry auditor committed; not yet executed. Modular gate semantics and feedback proof pending."
+    "A52": "User Ubuntu A52 N437 base8 bits18 order66: 8 Aer frequencies direct mean nearest peak distance 0.7727 bins; reversed bits 403.5492; uniform null mean 992.8639; Monte Carlo empirical tail ~7.99936e-5 with 100000 sampled null frequencies (12500 batches); geometry diagnostic only, arithmetic and feedback unvalidated."
   }
 }
