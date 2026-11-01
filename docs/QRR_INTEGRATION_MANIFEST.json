@@ -156,8 +156,8 @@
     {
       "id": "a53_gate_semantics_feedback_audit",
       "source": "hardware/qrr_a53_gate_semantics_feedback_audit.py",
-      "status": "committed_pending_execution",
-      "next": "Execute actual controlled multiplier on N35 and N437 selected basis inputs; inspect scratch and feedback sign/bit mapping. Sampled semantics only, not full circuit proof."
+      "status": "PASS_SAMPLED_GATE_AND_STRUCTURAL_FEEDBACK_USER_OBSERVED",
+      "next": "Audit controlled powers at all A50 stages, exhaustive manageable N35 basis, independent dynamic semantics; run fresh simulator seeds before scaling."
     }
   ],
   "reliability_gates": [
@@ -189,6 +189,6 @@
     "A50": "User Ubuntu: N437 18bit 17q source build 119620 operations; compiled 2392446 CX 5697282 depth and 56963 residual CCX; one real gate-level Aer MPS shot frequency190650, candidate exponent66, verified factors19x23. One shot cannot establish statistical advantage; simulation wall time not supplied.",
     "A51": "User Ubuntu A51: 8/8 independent Aer shot readouts returned Quaspy candidate exponent66, verified 19x23 for N437, 18-bit, base8. A49 uniform null 29/128. Exploratory conditional binomial p≈7e-6; source verification and noiseless simulation limitations remain. Reproducibility across Aer seeds not yet established.",
     "A52": "User Ubuntu A52 N437 base8 bits18 order66: 8 Aer frequencies direct mean nearest peak distance 0.7727 bins; reversed bits 403.5492; uniform null mean 992.8639; Monte Carlo empirical tail ~7.99936e-5 with 100000 sampled null frequencies (12500 batches); geometry diagnostic only, arithmetic and feedback unvalidated.",
-    "A53": "A53 actual gate semantics and feedback auditor committed, pending Ubuntu test"
+    "A53": "User Ubuntu: A53 N35 base2 8/8 sampled actual Aer gate semantics in 1.465s; N437 base8 4/4 in 21.823s, scratch clean in all; 153 A50 conditional phase feedback structures checked; status PASS_SAMPLED_GATE_AND_STRUCTURAL_FEEDBACK_CHECKS. Not exhaustive nor independently validated dynamic feedback execution."
   }
 }
