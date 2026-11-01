@@ -21,6 +21,7 @@ def main():
  p.add_argument("--threads",type=int,default=4)
  p.add_argument("--probes",type=int,default=3)
  p.add_argument("--seed",type=int,default=20261104)
+ p.add_argument("--resume",action="store_true")
  p.add_argument("--output",default="results/a54_controlled_powers_validation.json")
  a=p.parse_args()
  if not 1<=a.probes<=16:p.error("probes must be 1..16")
@@ -29,11 +30,21 @@ def main():
  d={"experiment":"A54_ALL_UNIQUE_A50_CONTROLLED_POWERS","status":"IN_PROGRESS",
     "n":a.n,"base":a.base,"bits":a.bits,"qpu_jobs":0,"stages":[]}
  def save():out.write_text(json.dumps(d,indent=2)+"\n")
+ if a.resume and out.exists():
+  prior=json.loads(out.read_text())
+  if any(prior.get(k)!=v for k,v in {"n":a.n,"base":a.base,"bits":a.bits}.items()):
+   raise ValueError("Resume target mismatch")
+  d=prior
+  print("A54 RESUME completed",len(d.get("stages",[])),flush=True)
  save()
  try:
   rng=random.Random(a.seed)
   powers=sorted(set(pow(a.base,1<<j,a.n) for j in range(a.bits) if pow(a.base,1<<j,a.n)!=1))
+  completed={row["base"] for row in d.get("stages",[]) if row.get("status")=="PASS_SAMPLED_GATE_SEMANTICS"}
   for power in powers:
+   if power in completed:
+    print("A54 SKIP validated power",power,flush=True)
+    continue
    checked=independent_permutation_validation(a.n,power)
    inv=pow(power,-1,a.n)
    assert all((inv*(power*y%a.n))%a.n==y for y in range(a.n))
