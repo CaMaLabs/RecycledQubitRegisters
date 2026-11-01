@@ -2,7 +2,7 @@
 """A50: N437, 18-bit true recycled phase circuit with A44 modular gate source.
 
 Build and record a real Qiskit circuit (one reused phase qubit, nine work,
-seven clean ancillas), optionally compile and optionally execute Aer MPS
+seven clean ancillas), optionally compile and optionally execute Aer
 measured shots. A budget guard defaults to build-only; no oracle frequencies.
 Postprocessing is the pinned Quaspy adapter used by A49.
 """
@@ -50,6 +50,8 @@ def main():
  p.add_argument("--shots",type=int,default=1)
  p.add_argument("--threads",type=int,default=4)
  p.add_argument("--seed",type=int,default=20261031)
+ p.add_argument("--aer-method",choices=["matrix_product_state","statevector"],default="matrix_product_state")
+ p.add_argument("--max-memory-mb",type=int,default=0)
  p.add_argument("--max-source-operations",type=int,default=300000)
  p.add_argument("--upstream",default="/tmp/qrr-indie-quaspy")
  p.add_argument("--output",default="results/a50_n437_recycled_handoff.json")
@@ -58,10 +60,11 @@ def main():
  if not a.n.bit_length()<a.bits<=2*a.n.bit_length():p.error("Quaspy phase bits must be m+1..2m")
  if not 1<=a.shots<=16:p.error("shots must be 1..16")
  if a.run_aer and not a.compile:p.error("--run-aer requires --compile")
+ if a.max_memory_mb<0:p.error("memory limit must be nonnegative")
  dest=Path(a.output);dest.parent.mkdir(parents=True,exist_ok=True)
  report={"experiment":"A50_N437_ACTUAL_RECYCLED_SOURCE_TO_QUASPY","status":"IN_PROGRESS",
  "n":a.n,"base":a.base,"bits":a.bits,"qpu_jobs":0,
- "actual_Aer_measured_readouts":False,"known_order_oracle_used":False,"seed":a.seed,"readouts":[]}
+ "actual_Aer_measured_readouts":False,"known_order_oracle_used":False,"seed":a.seed,"aer_method":a.aer_method,"max_memory_mb":a.max_memory_mb,"threads":a.threads,"readouts":[]}
  def save():dest.write_text(json.dumps(report,indent=2)+"\n")
  save();t0=time.perf_counter()
  try:
@@ -82,7 +85,7 @@ def main():
    return
   if a.compile:
    from qiskit_aer import AerSimulator
-   sim=AerSimulator(method="matrix_product_state",max_parallel_threads=a.threads)
+   sim=AerSimulator(method=a.aer_method,max_parallel_threads=a.threads,**({"max_memory_mb":a.max_memory_mb} if a.max_memory_mb else {}))
    start=time.perf_counter()
    print("A50 COMPILING actual dynamic source...",flush=True)
    compiled=transpile(circuit,sim,optimization_level=0,seed_transpiler=a.seed)
