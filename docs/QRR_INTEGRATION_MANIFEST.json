@@ -273,5 +273,34 @@
       "conclusion": "Native cost comparison unavailable; source depth not comparable to native depth"
     },
     "next": "Bracket native-cost crossover at medium N using isolated timeout and available hardware resources"
+  },
+  "latest_confirmed_A66_native_crossover_20261102": {
+    "base": 8,
+    "compilation": "u/cx optimization_level=0",
+    "n127": {
+      "a44_cx": 23760,
+      "a64_cx": 21463,
+      "a44_depth": 55440,
+      "a64_depth": 44227,
+      "a44_qubits": 13,
+      "a64_qubits": 21
+    },
+    "n221": {
+      "a44_cx": 55902,
+      "a64_cx": 40283,
+      "a44_depth": 130438,
+      "a64_depth": 84386,
+      "a44_qubits": 15,
+      "a64_qubits": 23
+    },
+    "n437": {
+      "a44_cx": 155664,
+      "a64_cx": 63646,
+      "a44_depth": 363216,
+      "a64_depth": 134501,
+      "a44_qubits": 17,
+      "a64_qubits": 25
+    },
+    "caveat": "Crossover bracketed between N35 and N127 for a=8, not universal; 127 prime, vary modulus/base; full quantum order-finding not tested."
   }
 }
