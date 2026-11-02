@@ -243,5 +243,35 @@
       "depth": 298388
     },
     "limits": "A65 is reversible source instruction interpreter; full quantum native-basis simulation and quantum-phase correctness are not established."
+  },
+  "latest_confirmed_A66_user_ubuntu_20261102": {
+    "n35": {
+      "A44": {
+        "qubits": 11,
+        "cx": 3210,
+        "native_depth": 7490
+      },
+      "A64": {
+        "qubits": 19,
+        "cx": 18682,
+        "native_depth": 37009
+      },
+      "conclusion": "A44 wins at N35"
+    },
+    "n2491": {
+      "A44": {
+        "qubits": 23,
+        "source_depth": 47644,
+        "native_cost": "NOT_MEASURED"
+      },
+      "A64": {
+        "qubits": 31,
+        "source_depth": 3243,
+        "native_cx_from_A64": 136976,
+        "native_depth_from_A64": 298388
+      },
+      "conclusion": "Native cost comparison unavailable; source depth not comparable to native depth"
+    },
+    "next": "Bracket native-cost crossover at medium N using isolated timeout and available hardware resources"
   }
 }
