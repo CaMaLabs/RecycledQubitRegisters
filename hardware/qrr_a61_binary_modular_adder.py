@@ -111,9 +111,12 @@ def verify(n,k,probes,threads,exhaustive,method):
    if ctrl:test.x(0)
    for j in range(w):
     if y>>j&1:test.x(j+1)
-   test.compose(compiled,inplace=True)
+   test.compose(circ,inplace=True)
    test.measure(range(circ.num_qubits),range(circ.num_qubits))
-   counts=sim.run(test,shots=1,seed_simulator=61).result().get_counts()
+   # A62 verified that compiling the COMPLETE prepared/measured circuit
+   # to a common native basis avoids the MPS path-specific discrepancy.
+   native_test=transpile(test,basis_gates=["u","cx","measure"],optimization_level=0,seed_transpiler=62)
+   counts=sim.run(native_test,shots=1,seed_simulator=61).result().get_counts()
    if len(counts)!=1:raise AssertionError("non-deterministic output")
    got=int(next(iter(counts)),2)
    z=(y+k)%n if ctrl and y<n else y
