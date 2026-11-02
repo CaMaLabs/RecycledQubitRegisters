@@ -302,5 +302,30 @@
       "a64_qubits": 25
     },
     "caveat": "Crossover bracketed between N35 and N127 for a=8, not universal; 127 prime, vary modulus/base; full quantum order-finding not tested."
+  },
+  "latest_confirmed_A66_N2491_native_user_ubuntu_20261102": {
+    "n": 2491,
+    "a": 8,
+    "basis": [
+      "u",
+      "cx"
+    ],
+    "optimization_level": 0,
+    "A44": {
+      "qubits": 23,
+      "cx": 1629210,
+      "depth": 3801490,
+      "compile_seconds": 17.898
+    },
+    "A64": {
+      "qubits": 31,
+      "cx": 136976,
+      "depth": 298388,
+      "compile_seconds": 1.442
+    },
+    "relative_cx_reduction_pct": 91.59,
+    "relative_depth_reduction_pct": 92.15,
+    "verification": "User output confirmed A66 PASS_COST_COMPARISON exit 0; A65 separately verified A64 reversible source basis 8192/8192; native gate semantic or real QPU performance not measured.",
+    "next": "Experimental A64 insertion into small-modulus actual recycled phase-estimation with A44 holdout, resource and factor verification; avoid N2491 full simulation."
   }
 }
