@@ -17,7 +17,7 @@ def instruction_stream(qc):
   indices=tuple(qc.find_bit(q).index for q in item.qubits)
   name=op.name
   if name=="x":stream.append((0,0,1<<indices[0],0));continue
-  if name in ("cx","ccx") or name.startswith("mcx"):
+  if name in ("cx","ccx") or name.startswith(("mcx","ccx_o","cx_o")):
    n=len(indices)-1
    ctrl_mask=sum(1<<j for j in indices[:-1])
    # Qiskit ctrl_state little-endian in ordered control qubits.
