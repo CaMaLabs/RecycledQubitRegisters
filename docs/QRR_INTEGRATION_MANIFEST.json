@@ -222,5 +222,26 @@
     "A59": "User Ubuntu N2491: stage power8 A44 MCX24685 depth47644, stage power64 MCX24528 depth46790; functional shift-add mapping verified 4096/4096 for both. No quantum candidate compiled, no measured gate savings.",
     "A60": "User Ubuntu N35 k8 136 MCX depth250 actual sampled gate audit passed; N2491 addition k8 24694 MCX depth47217, k64 24694 MCX depth47000 source only. No gate saving vs A44 modular multiplier (~24500 MCX/stage).",
     "A61": "User Ubuntu: after prior N35 k1 failures, targeted staged trace for y8 passed and independent statevector reused/fresh compilation both 128/128 for N35 k1 with clean ancillas. Full original exhaustive audit k1,8,17 pending; cause of discrepancy unresolved."
+  },
+  "latest_confirmed_A65_user_ubuntu_20261102": {
+    "n35": {
+      "cases": 128,
+      "qubits": 19,
+      "source_gates": 957,
+      "seconds": 0.036,
+      "status": "PASS_EXHAUSTIVE_BASIS_WITH_CLEAN_ANCILLAS"
+    },
+    "n2491": {
+      "cases": 8192,
+      "qubits": 31,
+      "source_gates": 3420,
+      "seconds": 1.466,
+      "status": "PASS_EXHAUSTIVE_BASIS_WITH_CLEAN_ANCILLAS"
+    },
+    "n2491_native_cost_from_A64": {
+      "cx": 136976,
+      "depth": 298388
+    },
+    "limits": "A65 is reversible source instruction interpreter; full quantum native-basis simulation and quantum-phase correctness are not established."
   }
 }
