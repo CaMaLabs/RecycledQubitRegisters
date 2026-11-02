@@ -180,8 +180,8 @@
     {
       "id": "a59_n2491_arithmetic_screen",
       "source": "hardware/qrr_a59_n2491_arithmetic_screen.py",
-      "status": "committed_pending_Ubuntu_execution",
-      "next": "Run functional exhaustiveness and actual A44 source-stage gate baseline; then implement actual synthesized polynomial reversible modular adder with full ancilla cleanup and native gate comparison."
+      "status": "PASS_FUNCTIONAL_SCREEN_USER_UBUNTU",
+      "next": "A60 actual reversible modular adder circuit with uncompute and ancilla validation; compare native basis costs against A44."
     }
   ],
   "reliability_gates": [
@@ -219,6 +219,6 @@
     "A56": "N667 statevector Aer exit 137 during simulation; kernel OOM not confirmed in later 30min search; no measurement.",
     "A57": "User Ubuntu: ideal classical-orbit quantum-state simulation N437 base8 bits18 order66, 120/128 verified factors 0.152s; N667 base8 bits20 order308, 115/128 verified factors 0.132s. No full gate-level N667 Aer measurement, no quantum advantage; runtime excludes classical orbit construction resource scaling.",
     "A58": "User Ubuntu 2 seeds, 128 per arm: N899 256/256 ideal 256/256 random; N1147 same; N1763 same; N2491 ideal 221/256 vs uniform random 0/256. Classical orbit oracle, not gate-level or QPU, so no quantum advantage.",
-    "A59": "A59 arithmetic baseline/functional screen pushed, no run yet; proposed arithmetic NOT gate-synthesized."
+    "A59": "User Ubuntu N2491: stage power8 A44 MCX24685 depth47644, stage power64 MCX24528 depth46790; functional shift-add mapping verified 4096/4096 for both. No quantum candidate compiled, no measured gate savings."
   }
 }
