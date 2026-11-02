@@ -98,9 +98,9 @@ def build(n,k):
  qc.x(valid);ge(qc,work,valid,n)
  return qc
 
-def verify(n,k,probes,threads,exhaustive):
+def verify(n,k,probes,threads,exhaustive,method):
  w=n.bit_length();circ=build(n,k)
- sim=AerSimulator(method="matrix_product_state",max_parallel_threads=threads)
+ sim=AerSimulator(method=method,max_parallel_threads=threads)
  compiled=transpile(circ,sim,optimization_level=0,seed_transpiler=61)
  ys=list(range(1<<w)) if exhaustive else list(dict.fromkeys(
     [0,1,n-1,n,(1<<w)-1]+random.Random(61+n+k).sample(range(1<<w),min(probes,1<<w))))
@@ -131,10 +131,11 @@ def main():
  p.add_argument("--exhaustive",action="store_true")
  p.add_argument("--no-aer",action="store_true")
  p.add_argument("--threads",type=int,default=2)
+ p.add_argument("--aer-method",choices=["statevector","matrix_product_state"],default="statevector")
  p.add_argument("--output",default="results/a61_binary_modular_adder.json")
  a=p.parse_args();o=Path(a.output);o.parent.mkdir(parents=True,exist_ok=True)
  d={"experiment":"A61_BINARY_MODULAR_CONSTANT_ADDITION","status":"IN_PROGRESS",
-    "full_multiplier_built":False,"rows":[]}
+    "full_multiplier_built":False,"aer_method":a.aer_method,"rows":[]}
  def save():o.write_text(json.dumps(d,indent=2)+"\n")
  save()
  try:
@@ -143,7 +144,7 @@ def main():
    circ=build(a.n,k)
    row={"n":a.n,"constant":k,"qubits":circ.num_qubits,
        "counts":dict(circ.count_ops()),"depth":circ.depth()}
-   if not a.no_aer:row["audit"]=verify(a.n,k,a.probes,a.threads,a.exhaustive)
+   if not a.no_aer:row["audit"]=verify(a.n,k,a.probes,a.threads,a.exhaustive,a.aer_method)
    row["seconds"]=round(time.perf_counter()-t,3)
    d["rows"].append(row);save()
    print("A61 N",a.n,"k",k,"qubits",circ.num_qubits,
