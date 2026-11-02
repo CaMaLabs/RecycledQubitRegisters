@@ -51,10 +51,10 @@ def add_constant(qc,work,k,enable):
 def build(n,k):
  if n<3 or n%2!=1:raise ValueError("odd N >= 3 required")
  w=n.bit_length();k%=n
- qc=QuantumCircuit(w+3)
+ qc=QuantumCircuit(w+4)
  control=qc.qubits[0]
  work=list(qc.qubits[1:w+1])
- valid=qc.qubits[w+1];wrap=qc.qubits[w+2]
+ valid=qc.qubits[w+1];wrap=qc.qubits[w+2];predicate_scratch=qc.qubits[w+3]
  if k==0:return qc
  # valid = [y<N]; wrap = [N-k<=y<N].
  qc.x(valid);ge(qc,work,valid,n)
@@ -81,19 +81,12 @@ def build(n,k):
  # First clean the raw wrap predicate from ORIGINAL y (c=0) or OUTPUT y (c=1)
  # using a controlled target-XOR comparator (one extra control).
  def controlled_ge(target,threshold,condition):
-  w2=len(work);lim=1<<w2
-  if threshold<=0:qc.cx(condition,target);return
-  if threshold>=lim:return
-  for j in range(w2-1,-1,-1):
-   if threshold>>j&1:continue
-   positions=[j]+list(range(j+1,w2))
-   ctrls=[condition]+[work[b] for b in positions]
-   patt=1| (1<<1)
-   for t,b in enumerate(positions[1:],2):
-    patt|=((threshold>>b)&1)<<t
-   flip_pattern(qc,ctrls,target,patt)
-  ctrls=[condition]+work
-  flip_pattern(qc,ctrls,target,1|(threshold<<1))
+  # Compute into a clean predicate qubit, conditionally XOR the result,
+  # and uncompute. This composes the independently verified ge primitive
+  # instead of duplicating its prefix-control implementation.
+  ge(qc,work,predicate_scratch,threshold)
+  qc.ccx(condition,predicate_scratch,target)
+  ge(qc,work,predicate_scratch,threshold)
  # Control-off: reverse original comparators; control-on: use output <k.
  qc.x(control)
  controlled_ge(wrap,n-k,control);controlled_ge(wrap,n,control)
