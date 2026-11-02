@@ -100,7 +100,6 @@ def build(n,k):
 
 def verify(n,k,probes,threads,exhaustive,method):
  w=n.bit_length();circ=build(n,k)
- sim=AerSimulator(method=method,max_parallel_threads=threads)
  compiled=transpile(circ,basis_gates=["u","cx"],optimization_level=0,seed_transpiler=61)
  ys=list(range(1<<w)) if exhaustive else list(dict.fromkeys(
     [0,1,n-1,n,(1<<w)-1]+random.Random(61+n+k).sample(range(1<<w),min(probes,1<<w))))
@@ -116,7 +115,11 @@ def verify(n,k,probes,threads,exhaustive,method):
    # A62 verified that compiling the COMPLETE prepared/measured circuit
    # to a common native basis avoids the MPS path-specific discrepancy.
    native_test=transpile(test,basis_gates=["u","cx","measure"],optimization_level=0,seed_transpiler=62)
-   counts=sim.run(native_test,shots=1,seed_simulator=61).result().get_counts()
+   # Match A62: fresh Aer instance and fixed seed for each basis input.
+   sim=AerSimulator(method=method,max_parallel_threads=threads)
+   result=sim.run(native_test,shots=1,seed_simulator=62).result()
+   if not result.success:raise RuntimeError(result.status)
+   counts=result.get_counts()
    if len(counts)!=1:raise AssertionError("non-deterministic output")
    got=int(next(iter(counts)),2)
    z=(y+k)%n if ctrl and y<n else y
