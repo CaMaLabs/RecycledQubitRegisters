@@ -170,6 +170,12 @@
       "source": "hardware/qrr_a57_exact_orbit_qpe.py",
       "status": "PASS_USER_UBUNTU_N437_N667",
       "next": "Independent phase-frequency distribution crosscheck with A51, then scale ideal orbit simulation to larger semiprimes while optimizing gate-level arithmetic cost."
+    },
+    {
+      "id": "a58_ideal_orbit_scaling_matched_null",
+      "source": "hardware/qrr_a58_ideal_scaling_null.py",
+      "status": "committed_pending_execution",
+      "next": "Test N899,1147,1763,2491 at twice modulus bit count with independently seeded ideal-orbit and uniform frequency arms. No quantum advantage claim."
     }
   ],
   "reliability_gates": [
@@ -205,6 +211,7 @@
     "A54": "User Ubuntu: N437 base8 bits18, all 11 unique controlled powers passed 9 sampled Aer basis states each (99/99), structural feedback pass; N667 A54 and compilation results not yet observed.",
     "A55": "N667 one-shot Aer simulation failed before output: exit 137 SIGKILL after compilation; OOM suspected but not established; 19 qubits, 5,079,600 CX, 105,825 CCX, depth12,381,647; no measured frequency or verified factors. Need dmesg/journal OOM and memory guard then alternate simulator.",
     "A56": "N667 statevector Aer exit 137 during simulation; kernel OOM not confirmed in later 30min search; no measurement.",
-    "A57": "User Ubuntu: ideal classical-orbit quantum-state simulation N437 base8 bits18 order66, 120/128 verified factors 0.152s; N667 base8 bits20 order308, 115/128 verified factors 0.132s. No full gate-level N667 Aer measurement, no quantum advantage; runtime excludes classical orbit construction resource scaling."
+    "A57": "User Ubuntu: ideal classical-orbit quantum-state simulation N437 base8 bits18 order66, 120/128 verified factors 0.152s; N667 base8 bits20 order308, 115/128 verified factors 0.132s. No full gate-level N667 Aer measurement, no quantum advantage; runtime excludes classical orbit construction resource scaling.",
+    "A58": "A58 runner committed, awaiting Ubuntu execution."
   }
 }
