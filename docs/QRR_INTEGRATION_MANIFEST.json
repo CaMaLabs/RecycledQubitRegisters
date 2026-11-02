@@ -164,6 +164,12 @@
       "source": "hardware/qrr_a54_all_powers_audit.py",
       "status": "N437_AND_N667_PASS_SAMPLED_ALL_UNIQUE_POWERS",
       "next": "Run N667 first independently seeded Aer shot, then repeated shots and null comparison if feasible."
+    },
+    {
+      "id": "a57_exact_orbit_qpe",
+      "source": "hardware/qrr_a57_exact_orbit_qpe.py",
+      "status": "committed_pending_run",
+      "next": "Compare N437 ideal orbit phase samples vs A51 peak distribution; then N667 ideal samples and Quaspy recovery, without claiming gate-level cost or quantum speedup."
     }
   ],
   "reliability_gates": [
@@ -197,6 +203,8 @@
     "A52": "User Ubuntu A52 N437 base8 bits18 order66: 8 Aer frequencies direct mean nearest peak distance 0.7727 bins; reversed bits 403.5492; uniform null mean 992.8639; Monte Carlo empirical tail ~7.99936e-5 with 100000 sampled null frequencies (12500 batches); geometry diagnostic only, arithmetic and feedback unvalidated.",
     "A53": "User Ubuntu: A53 N35 base2 8/8 sampled actual Aer gate semantics in 1.465s; N437 base8 4/4 in 21.823s, scratch clean in all; 153 A50 conditional phase feedback structures checked; status PASS_SAMPLED_GATE_AND_STRUCTURAL_FEEDBACK_CHECKS. Not exhaustive nor independently validated dynamic feedback execution.",
     "A54": "User Ubuntu: N437 base8 bits18, all 11 unique controlled powers passed 9 sampled Aer basis states each (99/99), structural feedback pass; N667 A54 and compilation results not yet observed.",
-    "A55": "N667 one-shot Aer simulation failed before output: exit 137 SIGKILL after compilation; OOM suspected but not established; 19 qubits, 5,079,600 CX, 105,825 CCX, depth12,381,647; no measured frequency or verified factors. Need dmesg/journal OOM and memory guard then alternate simulator."
+    "A55": "N667 one-shot Aer simulation failed before output: exit 137 SIGKILL after compilation; OOM suspected but not established; 19 qubits, 5,079,600 CX, 105,825 CCX, depth12,381,647; no measured frequency or verified factors. Need dmesg/journal OOM and memory guard then alternate simulator.",
+    "A56": "N667 statevector Aer exit 137 during simulation; kernel OOM not confirmed in later 30min search; no measurement.",
+    "A57": "Classical ideal orbit simulator committed, no execution yet"
   }
 }
