@@ -101,7 +101,7 @@ def build(n,k):
 def verify(n,k,probes,threads,exhaustive,method):
  w=n.bit_length();circ=build(n,k)
  sim=AerSimulator(method=method,max_parallel_threads=threads)
- compiled=transpile(circ,sim,optimization_level=0,seed_transpiler=61)
+ compiled=transpile(circ,basis_gates=["u","cx"],optimization_level=0,seed_transpiler=61)
  ys=list(range(1<<w)) if exhaustive else list(dict.fromkeys(
     [0,1,n-1,n,(1<<w)-1]+random.Random(61+n+k).sample(range(1<<w),min(probes,1<<w))))
  count=0
