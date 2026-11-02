@@ -6,10 +6,11 @@ This first implementation compiles the *addition permutation* with Gray swaps;
 it is NOT yet an optimized ripple-carry adder or a full multiplier. Track
 honest gate cost and clean ancilla proof by sampled Aer basis execution.
 """
-import argparse,json,math,random,time,traceback
+import argparse,json,math,random,time,traceback,warnings
 from pathlib import Path
 from qiskit import QuantumCircuit,transpile
 from qiskit.circuit.library import MCXVChain
+warnings.filterwarnings("ignore", message=r".*MCXVChain.__new__.*deprecated.*",category=DeprecationWarning)
 from qiskit_aer import AerSimulator
 import qrr_a44_generic_modular_multiplier as a44
 
