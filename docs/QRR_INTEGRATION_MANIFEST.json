@@ -371,5 +371,28 @@
     ],
     "limits": "Aer simulated gate-level recycled QPE; eight paired identical-seed readouts do not establish distribution equivalence or scalability. Current postprocessing is a simple continued-fraction check, not the full Quaspy pipeline.",
     "next": "N35 A/B source compile and limited Aer shots with resource guard; investigate factor postprocessing and resource scaling."
+  },
+  "latest_confirmed_A69_N221_hybrid_20261102": {
+    "n": 221,
+    "base": 8,
+    "bits": 16,
+    "a44": {
+      "cx": 117684,
+      "depth": 291100,
+      "qubits": 15
+    },
+    "a64": {
+      "cx": 118168,
+      "depth": 253844,
+      "qubits": 23
+    },
+    "a69": {
+      "cx": 106994,
+      "depth": 239070,
+      "qubits": 23
+    },
+    "status": "PASS_HYBRID_COMPILED_NOT_SIMULATED",
+    "limits": "Source phase/QPE correctness, distribution and factoring recovery not yet verified for hybrid. All counts compilation only.",
+    "next": "Hybrid source stage-by-stage equivalence and tiny-modulus Aer tests before N221 hardware-oriented runs"
   }
 }
