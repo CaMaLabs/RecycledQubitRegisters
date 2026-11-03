@@ -502,5 +502,27 @@
     "status": "PASS_MATCHED_NATIVE_COST_NOT_QPE",
     "caveat": "Standalone controlled modular multiplication only; does not imply full QPE or hardware advantage",
     "next": "Match optimization settings on complete recycled QPE at N437 and optional hybrid stage screen with no Aer execution"
+  },
+  "latest_confirmed_A74_N437_full_level1_20261102": {
+    "n": 437,
+    "base": 8,
+    "bits": 18,
+    "level": 1,
+    "status": "PASS_OPTIMIZED_FULL_QPE_COST_ONLY",
+    "a44": {
+      "qubits": 17,
+      "cx": 1144082,
+      "depth": 2340473
+    },
+    "a64": {
+      "qubits": 25,
+      "cx": 1127748,
+      "depth": 2030965
+    },
+    "a64_cx_reduction_pct": 1.4277,
+    "a64_depth_reduction_pct": 13.224,
+    "stage_screen": "All 11 distinct powers favored A64 by native CX counts; full optimization comparison was run with --skip-stage-screen",
+    "limits": "Full dynamic recycled QPE compilation only, not gate-level simulated phase distributions/factor recovery or hardware routing at N437",
+    "next": "Investigate full-QPE overhead per stage and coupling-constrained hardware mapping; retain A44 as qubit-minimizing fallback."
   }
 }
