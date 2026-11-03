@@ -394,5 +394,46 @@
     "status": "PASS_HYBRID_COMPILED_NOT_SIMULATED",
     "limits": "Source phase/QPE correctness, distribution and factoring recovery not yet verified for hybrid. All counts compilation only.",
     "next": "Hybrid source stage-by-stage equivalence and tiny-modulus Aer tests before N221 hardware-oriented runs"
+  },
+  "latest_confirmed_A70_N15_hybrid_Aer_20261102": {
+    "n": 15,
+    "base": 2,
+    "bits": 8,
+    "shots": 8,
+    "a44": {
+      "qubits": 7,
+      "cx": 768,
+      "depth": 2155,
+      "recoveries": 6
+    },
+    "a64": {
+      "qubits": 15,
+      "cx": 8034,
+      "depth": 17092,
+      "recoveries": 6
+    },
+    "hybrid": {
+      "qubits": 15,
+      "cx": 4252,
+      "depth": 9313,
+      "recoveries": 6
+    },
+    "frequencies": [
+      64,
+      192,
+      192,
+      128,
+      128,
+      192,
+      192,
+      192
+    ],
+    "factors": [
+      3,
+      5
+    ],
+    "status": "PASS_ACTUAL_HYBRID_AER_POSTPROCESSED",
+    "caveats": "Only 8 shots same seed; no distribution equivalence or physical-QPU validation; A44 still best at N15",
+    "next": "Validate source-level hybrid per-stage arithmetic at N221 and screen alternative bases/optimization objectives before costly simulations"
   }
 }
