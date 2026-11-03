@@ -327,5 +327,49 @@
     "relative_depth_reduction_pct": 92.15,
     "verification": "User output confirmed A66 PASS_COST_COMPARISON exit 0; A65 separately verified A64 reversible source basis 8192/8192; native gate semantic or real QPU performance not measured.",
     "next": "Experimental A64 insertion into small-modulus actual recycled phase-estimation with A44 holdout, resource and factor verification; avoid N2491 full simulation."
+  },
+  "latest_confirmed_A67_N15_8shot_20261102": {
+    "n": 15,
+    "base": 2,
+    "bits": 8,
+    "shots": 8,
+    "a44": {
+      "qubits": 7,
+      "cx": 768,
+      "depth": 2155,
+      "readouts": [
+        192,
+        0,
+        192,
+        64,
+        192,
+        192,
+        128,
+        128
+      ],
+      "verified_factor_recoveries": 5
+    },
+    "a64": {
+      "qubits": 15,
+      "cx": 8034,
+      "depth": 17092,
+      "readouts": [
+        192,
+        0,
+        192,
+        64,
+        192,
+        192,
+        128,
+        128
+      ],
+      "verified_factor_recoveries": 5
+    },
+    "factors": [
+      3,
+      5
+    ],
+    "limits": "Aer simulated gate-level recycled QPE; eight paired identical-seed readouts do not establish distribution equivalence or scalability. Current postprocessing is a simple continued-fraction check, not the full Quaspy pipeline.",
+    "next": "N35 A/B source compile and limited Aer shots with resource guard; investigate factor postprocessing and resource scaling."
   }
 }
