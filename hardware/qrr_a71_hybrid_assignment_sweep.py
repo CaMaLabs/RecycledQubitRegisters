@@ -8,6 +8,7 @@ refines the top candidates at level 1. No Aer execution or factoring claim.
 import argparse,itertools,json,sys,time,traceback
 from pathlib import Path
 from qiskit import transpile
+from qiskit_aer import AerSimulator
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"hardware"))
 from qrr_a69_hybrid_recycled_qpe import build
@@ -37,12 +38,12 @@ def main():
   if set(powers)!={int(r["power"]) for r in screen["rows"]}:
    raise ValueError("Screen power list does not match phase circuit")
   if a.refine_top<0 or a.refine_top>8:p.error("--refine-top 0..8")
+  sim=AerSimulator(method="matrix_product_state")
   for choices in itertools.product(("a44","a64"),repeat=len(powers)):
    assign=dict(zip(powers,choices))
    started=time.perf_counter()
    qc,stages=build(a.n,a.base,a.bits,assign)
-   native=transpile(qc,basis_gates=["u","cx","measure","reset","if_else"],
-                    optimization_level=0,seed_transpiler=71)
+   native=transpile(qc,sim,optimization_level=0,seed_transpiler=71)
    ops=dict(native.count_ops())
    row={"assignments":{str(k):v for k,v in assign.items()},
         "qubits":native.num_qubits,"cx":ops.get("cx",0),"depth":native.depth(),
@@ -57,8 +58,7 @@ def main():
   for row in ranked[:a.refine_top]:
    started=time.perf_counter()
    qc,_=build(a.n,a.base,a.bits,{int(k):v for k,v in row["assignments"].items()})
-   native=transpile(qc,optimization_level=1,seed_transpiler=71,
-      basis_gates=["u","cx","measure","reset","if_else"])
+   native=transpile(qc,sim,optimization_level=1,seed_transpiler=71)
    r={"assignments":row["assignments"],"qubits":native.num_qubits,
       "cx":native.count_ops().get("cx",0),"depth":native.depth(),
       "optimization_level":1,"compile_seconds":round(time.perf_counter()-started,3)}
