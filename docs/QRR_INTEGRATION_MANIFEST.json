@@ -464,5 +464,43 @@
     "status": "PASS_FULL_COMPILED_ASSIGNMENT_SWEEP",
     "conclusion": "Optimized pure A44 wins both CX and depth with 8 fewer qubits at N221; earlier hybrid level0 win is not robust to equal optimizer treatment.",
     "next": "Do not promote hybrid; benchmark optimized A44 and A64 at N437 / N2491 and validate any candidate against same topology/routing constraints."
+  },
+  "latest_confirmed_A73_20261102": {
+    "optimization_level": 1,
+    "basis": [
+      "u",
+      "cx"
+    ],
+    "n437": {
+      "a44": {
+        "qubits": 17,
+        "cx": 155664,
+        "depth": 308086
+      },
+      "a64": {
+        "qubits": 25,
+        "cx": 63646,
+        "depth": 112893
+      },
+      "a64_cx_reduction_pct": 59.113,
+      "a64_depth_reduction_pct": 63.357
+    },
+    "n2491": {
+      "a44": {
+        "qubits": 23,
+        "cx": 1629210,
+        "depth": 3233736
+      },
+      "a64": {
+        "qubits": 31,
+        "cx": 136976,
+        "depth": 248134
+      },
+      "a64_cx_reduction_pct": 91.592,
+      "a64_depth_reduction_pct": 92.327
+    },
+    "status": "PASS_MATCHED_NATIVE_COST_NOT_QPE",
+    "caveat": "Standalone controlled modular multiplication only; does not imply full QPE or hardware advantage",
+    "next": "Match optimization settings on complete recycled QPE at N437 and optional hybrid stage screen with no Aer execution"
   }
 }
