@@ -435,5 +435,34 @@
     "status": "PASS_ACTUAL_HYBRID_AER_POSTPROCESSED",
     "caveats": "Only 8 shots same seed; no distribution equivalence or physical-QPU validation; A44 still best at N15",
     "next": "Validate source-level hybrid per-stage arithmetic at N221 and screen alternative bases/optimization objectives before costly simulations"
+  },
+  "latest_confirmed_A72_N221_level1_20261102": {
+    "n": 221,
+    "base": 8,
+    "bits": 16,
+    "optimization_level": 1,
+    "pure_a44": {
+      "cx": 58950,
+      "depth": 121327,
+      "qubits": 15
+    },
+    "best_hybrid": {
+      "assignment": {
+        "8": "a64",
+        "64": "a44",
+        "118": "a44"
+      },
+      "cx": 74955,
+      "depth": 144545,
+      "qubits": 23
+    },
+    "pure_a64": {
+      "cx": 117842,
+      "depth": 212948,
+      "qubits": 23
+    },
+    "status": "PASS_FULL_COMPILED_ASSIGNMENT_SWEEP",
+    "conclusion": "Optimized pure A44 wins both CX and depth with 8 fewer qubits at N221; earlier hybrid level0 win is not robust to equal optimizer treatment.",
+    "next": "Do not promote hybrid; benchmark optimized A44 and A64 at N437 / N2491 and validate any candidate against same topology/routing constraints."
   }
 }
