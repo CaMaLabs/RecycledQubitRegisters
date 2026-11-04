@@ -696,5 +696,27 @@
       "N437 A64 25-qubit MPS run timed out after 300 seconds"
     ],
     "next": "Run random-frequency null control with same postprocessor; then scale semiprime size under 180-second budget."
+  },
+  "latest_confirmed_A79_N247_20261103": {
+    "n": 247,
+    "base": 8,
+    "bits": 16,
+    "architecture": "a44",
+    "compiled": {
+      "qubits": 15,
+      "cx": 670752,
+      "depth": 1658316,
+      "compile_seconds": 7.437
+    },
+    "measured_frequencies": [
+      32768,
+      32768
+    ],
+    "verified_factor_recoveries": 0,
+    "shots": 2,
+    "status": "PASS_MEASURED_NO_FACTORS",
+    "known_order_for_analysis": 12,
+    "diagnostic": "Measured phase 1/2 gives denominator 2; four-multiple postprocessing tests at most 8, insufficient to recover the genuine order 12",
+    "next": "A80 exact uniform-frequency null baseline then more seeds/shots, avoid liberal postprocessing without null controls"
   }
 }
