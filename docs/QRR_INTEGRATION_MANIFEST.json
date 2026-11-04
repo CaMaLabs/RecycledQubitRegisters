@@ -575,5 +575,57 @@
       "No error-correction or QPU hardware routing assessment"
     ],
     "next": "Use an incremental or modular full 24-bit recycled QPE compiler and evaluate scratch register reuse to reduce A64 qubit footprint without losing correctness."
+  },
+  "latest_confirmed_A76_A77_20261103": {
+    "a76_n35": {
+      "n": 35,
+      "base": 8,
+      "cases": 128,
+      "status": "PASS_EXHAUSTIVE_SOURCE_BASIS",
+      "a64": {
+        "qubits": 19,
+        "cx": 18682,
+        "depth": 31954
+      },
+      "a76": {
+        "qubits": 18,
+        "cx": 18732,
+        "depth": 32098
+      }
+    },
+    "a76_n2491": {
+      "n": 2491,
+      "base": 8,
+      "cases": 8192,
+      "status": "PASS_EXHAUSTIVE_SOURCE_BASIS",
+      "a64": {
+        "qubits": 31,
+        "cx": 136976,
+        "depth": 248134
+      },
+      "a76": {
+        "qubits": 30,
+        "cx": 137040,
+        "depth": 248307
+      }
+    },
+    "a77_n2491": {
+      "n": 2491,
+      "base": 8,
+      "bits": 24,
+      "architecture": "a76",
+      "qubits": 30,
+      "boxed_stages": 24,
+      "top_level_ops": 396,
+      "boxed_definition_ops": 84275,
+      "build_seconds": 3.134,
+      "status": "PASS_COMPACT_DYNAMIC_SOURCE_NOT_NATIVE_COMPILED"
+    },
+    "limitations": [
+      "A76 exhaustive source-basis correctness does not establish native-gate superposition/phase correctness",
+      "A77 compact source assembly is neither whole-circuit native compilation nor Aer execution",
+      "A76 native-cost metrics are for one multiplication stage only"
+    ],
+    "next": "Small-modulus A76 dynamic-QPE Aer phase/factor checks against A64 and A44, then N2491 stage resource accounting; no large simulation"
   }
 }
