@@ -524,5 +524,30 @@
     "stage_screen": "All 11 distinct powers favored A64 by native CX counts; full optimization comparison was run with --skip-stage-screen",
     "limits": "Full dynamic recycled QPE compilation only, not gate-level simulated phase distributions/factor recovery or hardware routing at N437",
     "next": "Investigate full-QPE overhead per stage and coupling-constrained hardware mapping; retain A44 as qubit-minimizing fallback."
+  },
+  "latest_confirmed_A75_N2491_12bit_stage_profile_20261103": {
+    "n": 2491,
+    "base": 8,
+    "bits": 12,
+    "optimization_level": 1,
+    "completed_distinct_powers": 12,
+    "expected_distinct_powers": 12,
+    "status": "PASS_ISOLATED_STAGE_SUM_ESTIMATE_NOT_FULL_QPE",
+    "a44": {
+      "cx": 19465578,
+      "depth": 38636235,
+      "max_qubits": 23
+    },
+    "a64": {
+      "cx": 1690628,
+      "depth": 3061990,
+      "max_qubits": 31
+    },
+    "caveats": [
+      "Sum of independent stage compilations; does not equal complete dynamic recycled-QPE resources",
+      "No Aer shots/QPU execution",
+      "Only 12 phase bits; full intended precision uses 24 phase bits"
+    ],
+    "next": "Extend resumable per-power profiling to 24-bit precision, preserving checkpoint data by using a new output path; then evaluate memory-safe full-circuit construction."
   }
 }
