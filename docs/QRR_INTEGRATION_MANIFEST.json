@@ -781,5 +781,53 @@
       "Uniform-frequency null alone does not capture simulator biases or systematic phase concentration"
     ],
     "next": "A79 with 16+ shots and independent seed for N247; evaluate histogram and strict order estimation, keeping classical limited-multiple recovery separate."
+  },
+  "latest_confirmed_A79_N247_16shot_seed8101_20261104": {
+    "n": 247,
+    "factors": [
+      13,
+      19
+    ],
+    "base": 8,
+    "bits": 16,
+    "architecture": "a44",
+    "seed_simulator": 8101,
+    "shots": 16,
+    "verified_factor_recoveries": 14,
+    "success_rate": 0.875,
+    "measured_frequencies": [
+      27306,
+      27307,
+      43691,
+      16384,
+      5461,
+      49152,
+      32768,
+      16384,
+      54613,
+      54613,
+      21845,
+      10923,
+      43691,
+      38229,
+      16384,
+      32768
+    ],
+    "compiled": {
+      "qubits": 15,
+      "cx": 670752,
+      "depth": 1658316,
+      "compile_seconds": 7.401
+    },
+    "status": "PASS_VERIFIED_GATE_LEVEL_FACTORS",
+    "a80_uniform_random_frequency_postprocess_success_rate": 0.29034423828125,
+    "limitations": [
+      "Local ideal Aer MPS gate-level simulation; no QPU hardware and no native device noise",
+      "16 simulator shots with a selected seed; repeat with independent seeds for robustness",
+      "Four-multiple bounded classical order recovery; factors verified by product only",
+      "N247 true modular order 12 used for offline phase-lattice diagnostics, not as circuit input",
+      "Not an algorithmic complexity or quantum advantage claim"
+    ],
+    "next": "A82 independent-seed readout distribution replication, phase-lattice statistical test with exact uniform-null; then larger N under wallclock limits"
   }
 }
