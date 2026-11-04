@@ -627,5 +627,36 @@
       "A76 native-cost metrics are for one multiplication stage only"
     ],
     "next": "Small-modulus A76 dynamic-QPE Aer phase/factor checks against A64 and A44, then N2491 stage resource accounting; no large simulation"
+  },
+  "latest_confirmed_A78_noise_pilot_20261103": {
+    "n": 15,
+    "base": 2,
+    "bits": 8,
+    "shots_per_configuration": 8,
+    "synthetic_p2": [
+      0,
+      0.0001
+    ],
+    "a44": {
+      "qubits": 7,
+      "cx": 404,
+      "ideal_factor_successes": 3,
+      "noisy_factor_successes": 4
+    },
+    "a64": {
+      "qubits": 15,
+      "cx": 8008,
+      "ideal_factor_successes": 3,
+      "noisy_factor_successes": 5
+    },
+    "a76": {
+      "qubits": 14,
+      "cx": 8042,
+      "ideal_factor_successes": 3,
+      "noisy_factor_successes": 3
+    },
+    "status": "PASS_SYNTHETIC_NOISE_BENCHMARK",
+    "limits": "Eight shots per condition are insufficient to establish a noise or ancilla benefit. Synthetic noise model has no idle decoherence, crosstalk or measurement/reset errors; no syndrome ancillas.",
+    "next": "Increase shot count at N15 to 128 or more for statistical pilot, then N437/adjacent semiprime gate-level frontier with strict RAM guard; N15 advantages do not generalize."
   }
 }
