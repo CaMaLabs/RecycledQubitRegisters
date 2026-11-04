@@ -718,5 +718,32 @@
     "known_order_for_analysis": 12,
     "diagnostic": "Measured phase 1/2 gives denominator 2; four-multiple postprocessing tests at most 8, insufficient to recover the genuine order 12",
     "next": "A80 exact uniform-frequency null baseline then more seeds/shots, avoid liberal postprocessing without null controls"
+  },
+  "latest_confirmed_A80_exact_uniform_null_20261103": {
+    "n221": {
+      "n": 221,
+      "base": 8,
+      "bits": 16,
+      "multiples": 4,
+      "uniform_factor_successes": 19069,
+      "total_uniform": 65536,
+      "rate": 0.29097,
+      "observed_successes": 2,
+      "observed_shots": 2
+    },
+    "n247": {
+      "n": 247,
+      "base": 8,
+      "bits": 16,
+      "multiples": 4,
+      "uniform_factor_successes": 19028,
+      "total_uniform": 65536,
+      "rate": 0.290344,
+      "observed_successes": 0,
+      "observed_shots": 2
+    },
+    "status": "PASS_EXACT_NULL_CONTROL",
+    "interpretation": "Classical factor postprocessor succeeds for ~29% of random frequencies; two-shot verified factoring is insufficient to show meaningful phase-information advantage",
+    "next": "Run A81 phase-lattice enrichment diagnostic; order used for analysis only, not as circuit input."
   }
 }
