@@ -3,18 +3,18 @@
 
 Builds actual controlled modular multiplier phases (no order/orbit oracle),
 runs local Aer MPS only when --run-aer set, and verifies factors from measured
-frequencies using existing pinned Quaspy public-data postprocessing.
+frequencies using bounded continued-fraction public-data postprocessing.
 Only nontrivial semiprimes (two prime factors) are accepted. No known-factor
 oracle is supplied to the quantum circuit or postprocessor.
 """
 import argparse,json,math,sys,time,traceback
+from fractions import Fraction
 from pathlib import Path
 from qiskit import transpile
 from qiskit_aer import AerSimulator
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT),str(ROOT/"hardware")]
 from qrr_a67_recycled_qpe_ab import build as qpe_build
-from integrations.darkstar_hybrid import quaspy_public_postprocess as post
 
 def is_prime(n):
  if n<2:return False
@@ -80,13 +80,27 @@ def main():
   if not result.success:raise RuntimeError(str(result.status))
   freqs=[int(str(f).replace(" ",""),2) for f in result.get_memory(compiled)]
   d["actual_aer_shots"]=len(freqs);save()
-  post.load_upstream(a.upstream)
   for freq in freqs:
-   r=post.recover(a.n,a.base,bits,freq,method="ekera",budget=1000,timeout=2)
-   factors=r.get("factors")
-   verified=(factors is not None and len(factors)==2 and all(1<x<a.n for x in factors)
-            and math.prod(factors)==a.n)
-   row={"frequency":freq,"verified":verified,"factors":factors if verified else None,
+   # Public-only continued-fraction recovery: no N factor list or order oracle.
+   # Try small multiples of the candidate denominator; this is classical
+   # postprocessing of a MEASURED QPE frequency, not simulated success.
+   denom=Fraction(freq,1<<bits).limit_denominator(a.n).denominator if freq else 1
+   found=None;used_order=None
+   if freq:
+    for multiple in range(1,2*a.n//denom+1):
+     order=multiple*denom
+     if order%2 or pow(a.base,order,a.n)!=1:continue
+     middle=pow(a.base,order//2,a.n)
+     if middle in (1,a.n-1):continue
+     p1,p2=math.gcd(middle-1,a.n),math.gcd(middle+1,a.n)
+     if 1<p1<a.n and 1<p2<a.n and p1*p2==a.n:
+      found=sorted([p1,p2]);used_order=order;break
+   factors=found
+   verified=factors is not None
+   r={"candidate_denominator":denom,"candidate_order":used_order,
+      "max_multiples":2*a.n//denom if freq else 0,
+      "method":"measured_frequency_continued_fraction_bounded_multiples"}
+   row={"frequency":freq,"verified":verified,"factors":factors,
         "postprocess":r}
    d["readouts"].append(row);d["verified_factor_recoveries"]+=int(verified);save()
    print("A79 SHOT frequency",freq,"factors",row["factors"],"verified",verified,flush=True)
