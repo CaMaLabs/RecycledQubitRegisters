@@ -46,6 +46,9 @@ def main():
   for power in unique:
    key=str(power)
    row=data["rows"].setdefault(key,{"power":power,"multiplicity":counts[power],"architectures":{}})
+   # Fully completed powers must not consume the per-run budget.
+   if all(name in row["architectures"] for name in ("a44","a64")):
+    continue
    for name,builder in (("a44",a44.build),("a64",a64.build)):
     if name in row["architectures"]:continue
     start=time.perf_counter();obj=builder(a.n,power)
