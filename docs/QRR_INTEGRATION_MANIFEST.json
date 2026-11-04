@@ -745,5 +745,41 @@
     "status": "PASS_EXACT_NULL_CONTROL",
     "interpretation": "Classical factor postprocessor succeeds for ~29% of random frequencies; two-shot verified factoring is insufficient to show meaningful phase-information advantage",
     "next": "Run A81 phase-lattice enrichment diagnostic; order used for analysis only, not as circuit input."
+  },
+  "latest_confirmed_A81_phase_lattice_20261103": {
+    "n221": {
+      "n": 221,
+      "order_for_diagnostics_only": 8,
+      "measured_frequencies": [
+        40960,
+        32768
+      ],
+      "measured_hits": 2,
+      "shots": 2,
+      "exact_uniform_null_hits": 24,
+      "exact_uniform_null_count": 65536,
+      "random_hit_probability": 0.0003662109375
+    },
+    "n247": {
+      "n": 247,
+      "order_for_diagnostics_only": 12,
+      "measured_frequencies": [
+        32768,
+        32768
+      ],
+      "measured_hits": 2,
+      "shots": 2,
+      "exact_uniform_null_hits": 28,
+      "exact_uniform_null_count": 65536,
+      "random_hit_probability": 0.00042724609375
+    },
+    "status": "PASS_EXACT_PHASE_LATTICE_NULL",
+    "limits": [
+      "Only two shots per semiprime; repetitions not independently verified",
+      "Order is provided classically for diagnostic phase-lattice matching, not estimated from the two readouts",
+      "Both N247 outputs are same phase 1/2, compatible with many even orders; phase-lattice enrichment is not proof of order recovery or quantum computational advantage",
+      "Uniform-frequency null alone does not capture simulator biases or systematic phase concentration"
+    ],
+    "next": "A79 with 16+ shots and independent seed for N247; evaluate histogram and strict order estimation, keeping classical limited-multiple recovery separate."
   }
 }
