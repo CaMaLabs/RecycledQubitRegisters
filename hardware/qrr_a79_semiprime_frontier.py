@@ -87,7 +87,7 @@ def main():
    denom=Fraction(freq,1<<bits).limit_denominator(a.n).denominator if freq else 1
    found=None;used_order=None
    if freq:
-    for multiple in range(1,2*a.n//denom+1):
+    for multiple in range(1,5):
      order=multiple*denom
      if order%2 or pow(a.base,order,a.n)!=1:continue
      middle=pow(a.base,order//2,a.n)
@@ -98,7 +98,7 @@ def main():
    factors=found
    verified=factors is not None
    r={"candidate_denominator":denom,"candidate_order":used_order,
-      "max_multiples":2*a.n//denom if freq else 0,
+      "max_multiples":4 if freq else 0,
       "method":"measured_frequency_continued_fraction_bounded_multiples"}
    row={"frequency":freq,"verified":verified,"factors":factors,
         "postprocess":r}
