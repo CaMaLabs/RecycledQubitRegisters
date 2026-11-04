@@ -549,5 +549,31 @@
       "Only 12 phase bits; full intended precision uses 24 phase bits"
     ],
     "next": "Extend resumable per-power profiling to 24-bit precision, preserving checkpoint data by using a new output path; then evaluate memory-safe full-circuit construction."
+  },
+  "latest_confirmed_A75_N2491_24bit_20261103": {
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "optimization_level": 1,
+    "completed_distinct_powers": 24,
+    "status": "PASS_ISOLATED_STAGE_SUM_ESTIMATE_NOT_FULL_QPE",
+    "a44": {
+      "cx": 38926602,
+      "depth": 77263431,
+      "max_qubits": 23
+    },
+    "a64": {
+      "cx": 3367265,
+      "depth": 6099824,
+      "max_qubits": 31
+    },
+    "cx_reduction_pct": 91.35,
+    "depth_reduction_pct": 92.105,
+    "caveats": [
+      "Sum of independent controlled modular multiplier compilations; not compiled full dynamic QPE",
+      "No gate-level Aer shots at N2491",
+      "No error-correction or QPU hardware routing assessment"
+    ],
+    "next": "Use an incremental or modular full 24-bit recycled QPE compiler and evaluate scratch register reuse to reduce A64 qubit footprint without losing correctness."
   }
 }
