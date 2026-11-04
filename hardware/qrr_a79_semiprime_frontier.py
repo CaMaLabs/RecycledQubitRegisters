@@ -38,6 +38,7 @@ def main():
  p.add_argument("--bits",type=int,default=0)
  p.add_argument("--architecture",choices=("a44","a64"),default="a64")
  p.add_argument("--shots",type=int,default=1)
+ p.add_argument("--seed",type=int,default=79)
  p.add_argument("--run-aer",action="store_true")
  p.add_argument("--max-memory-mb",type=int,default=8000)
  p.add_argument("--threads",type=int,default=2)
@@ -47,12 +48,12 @@ def main():
  if not is_semiprime(a.n) or math.gcd(a.n,a.base)!=1:p.error("N must be semiprime and base coprime")
  bits=a.bits or 2*a.n.bit_length()
  if bits<2 or bits>2*a.n.bit_length():p.error("bits must be 2..2*w")
- if a.shots<1 or a.shots>4:p.error("shots must be 1..4")
+ if a.shots<1 or a.shots>64:p.error("shots must be 1..64")
  if a.max_memory_mb<1024:p.error("memory cap must be at least 1024 MB")
  out=Path(a.output);out.parent.mkdir(parents=True,exist_ok=True)
  d={"experiment":"A79_NO_ORACLE_GATE_LEVEL_SEMIPRIME_FRONTIER",
     "n":a.n,"base":a.base,"bits":bits,"architecture":a.architecture,
-    "status":"IN_PROGRESS","shots_requested":a.shots,
+    "status":"IN_PROGRESS","shots_requested":a.shots,"seed":a.seed,
     "known_order_oracle":False,"actual_aer_shots":0,
     "verified_factor_recoveries":0,"readouts":[],
     "warnings":["A compile/build success is NOT a factoring demonstration.",
@@ -76,7 +77,7 @@ def main():
   save()
   print("A79 COMPILED",d["compiled"],"seconds",round(time.perf_counter()-start,3),flush=True)
   print("A79 SIMULATING LOCAL AER MPS...",flush=True)
-  result=sim.run(compiled,shots=a.shots,memory=True,seed_simulator=79).result()
+  result=sim.run(compiled,shots=a.shots,memory=True,seed_simulator=a.seed).result()
   if not result.success:raise RuntimeError(str(result.status))
   freqs=[int(str(f).replace(" ",""),2) for f in result.get_memory(compiled)]
   d["actual_aer_shots"]=len(freqs);save()
