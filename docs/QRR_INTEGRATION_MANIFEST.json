@@ -1135,5 +1135,26 @@
       "Post-hoc known-order lattice statistic is diagnostic, not input to circuit"
     ],
     "next": "Compare A84 versus A87b across complete 24 modular-power stage schedule at N2491; preserve separate gate and full-QPE resource claims."
+  },
+  "latest_confirmed_A91_N2491_DIRECT_PREFIX_20261104": {
+    "status": "PASS_ISOLATED_POWER_COST_ONLY",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "optimization_level": 1,
+    "completed_distinct_powers": 24,
+    "stage_wins_a87b": 24,
+    "comparison": {
+      "cx_reduction_pct": 15.3463,
+      "depth_reduction_pct": 15.2576,
+      "delta_cx": -468632,
+      "delta_depth": -840085
+    },
+    "caveats": [
+      "These are sums of independently compiled modular-power stages, not whole dynamic QPE resource totals",
+      "No A91 Aer shots or physical hardware run",
+      "Stage arithmetic correctness relies on prior A87b checks; N2491 full source-basis exhaustive validation remains pending"
+    ],
+    "next": "Full boxed A87b N2491 circuit structural validation and selected power-stage source-basis holdouts; device coupling routing sanity benchmarks then multi-modulus scaling."
   }
 }
