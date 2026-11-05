@@ -1749,5 +1749,33 @@
     },
     "interpretation": "Carry-save 3:2 compression reduced local u/cx compiled costs for clean reversible three-input sum mod 2^w; this is neither modulo-N multiplication nor physical QPU validation.",
     "next": "A101 matched read-only IBM target routing and qubit footprint for w12 carry-save vs baseline. A102 only if routed improvement justifies modular-reduction integration."
+  },
+  "latest_confirmed_A101_IBM_FEZ_CARRY_SAVE_20261104": {
+    "status": "PASS_READ_ONLY_TARGET_ROUTED_COMPARISON",
+    "backend": "ibm_fez",
+    "width": 12,
+    "baseline": {
+      "logical_qubits": 48,
+      "native_cz": 17698,
+      "depth": 30859,
+      "basis_cases": 253
+    },
+    "carry_save": {
+      "logical_qubits": 71,
+      "native_cz": 16102,
+      "depth": 29426,
+      "basis_cases": 253
+    },
+    "delta_native_cz": -1596,
+    "two_qubit_reduction_pct": 9.018,
+    "delta_depth": -1433,
+    "depth_reduction_pct": 4.6437,
+    "extra_logical_qubits": 23,
+    "limitations": [
+      "Not modular-N arithmetic or factoring; reversible sum modulo 2^12",
+      "Only sampled computational-basis tests at width12",
+      "IBM target local routing, no QPU execution or noise simulation"
+    ],
+    "next": "A102 compose clean 3-input sum with exact reversible modular-N reduction, guard bits, restored quotient flags, and complete scratch uncomputation; compare both architectures at identical native settings"
   }
 }
