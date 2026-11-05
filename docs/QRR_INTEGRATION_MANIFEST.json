@@ -1269,5 +1269,73 @@
       "28 deterministic sampled computational-basis tests per architecture per stage, not exhaustive"
     ],
     "next": "Use read-only IBM backend target for topology-aware local transpilation, or complete all 24 synthetic-line routed stages as resumable holdout."
+  },
+  "latest_confirmed_A94_IBM_FEZ_POWER8_20261104": {
+    "status": "PASS_IBM_TARGET_LOCAL_ROUTED_HOLDOUT",
+    "backend": "ibm_fez",
+    "backend_physical_qubits": 156,
+    "logical_qubits": 30,
+    "instance": "open-instance (automatically selected)",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "power": 8,
+    "optimization_level": 1,
+    "source_basis_cases_each": 28,
+    "fixed_physical_layout": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      16,
+      5,
+      23,
+      6,
+      22,
+      24,
+      7,
+      21,
+      25,
+      8,
+      17,
+      20,
+      36,
+      26,
+      37,
+      9,
+      27,
+      41,
+      45,
+      10,
+      28,
+      40,
+      42,
+      44,
+      46
+    ],
+    "a84": {
+      "native_two_qubit_gates": 533632,
+      "cx": 0,
+      "depth": 1245770
+    },
+    "a87b": {
+      "native_two_qubit_gates": 445036,
+      "cx": 0,
+      "depth": 1037593
+    },
+    "comparison": {
+      "native_two_qubit_reduction_pct": 16.6025,
+      "depth_reduction_pct": 16.7107,
+      "delta_native_two_qubit": -88596,
+      "delta_depth": -208177
+    },
+    "caveats": [
+      "Local offline compilation using live IBM backend target metadata only; no quantum jobs submitted",
+      "Only one isolated modular-power stage, not full dynamic QPE",
+      "Device-reported basis uses entangling gates other than CX; zero CX is not zero entangling gates",
+      "Physical fidelity likely constrained by enormous circuit depth; no noisy or hardware execution"
+    ],
+    "next": "Repeat A94 IBM target holdouts on powers 64,2448,2217,1051, using existing fixed backend/layout and checkpoint; assess two-qubit gate kinds and estimated error budgets."
   }
 }
