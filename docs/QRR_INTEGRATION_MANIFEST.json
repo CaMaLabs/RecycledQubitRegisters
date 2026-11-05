@@ -858,5 +858,49 @@
     "validation": "Exhaustive conjugated arithmetic permutation checks; real gate-level QPE measurements and hardware-aware routing still pending",
     "constraints": "A44 permutation-swap synthesis scales exponentially, not a scalable RSA factoring breakthrough",
     "next": "Run 16 measured Aer QPE shots XOR vs baseline, compare phase lattice and factor recovery with independent seeds; assess stronger encodings and physical routing if validated"
+  },
+  "latest_confirmed_A82_XOR_16shots_20261104": {
+    "n": 247,
+    "base": 8,
+    "bits": 16,
+    "seed": 8201,
+    "shots_per_architecture": 16,
+    "status": "PASS_COMPILED_AND_SAMPLED",
+    "binary": {
+      "qubits": 15,
+      "cx": 670752,
+      "depth": 1658316
+    },
+    "xor": {
+      "qubits": 15,
+      "cx": 619056,
+      "depth": 1530512
+    },
+    "measurement_frequencies": [
+      43689,
+      10922,
+      60075,
+      54614,
+      16384,
+      49152,
+      10923,
+      21846,
+      27307,
+      60076,
+      54613,
+      32768,
+      27307,
+      16384,
+      60076,
+      49152
+    ],
+    "sampled_sequences_identical": true,
+    "measurement_note": "Both use same seed; identical observed samples do not by themselves prove general distribution equality. Encoded permutation checks passed.",
+    "limitations": [
+      "No independent-seed or exact statevector equivalence test yet",
+      "No real device noise or coupling-map routing",
+      "A44 synthesis scales exponentially and does not itself establish scalable factoring"
+    ],
+    "next": "Add architecture-independent conjugation validation and phase-histogram controls; test XOR encoding on optimized arithmetic A64/A76 with fair native-gate and qubit accounting."
   }
 }
