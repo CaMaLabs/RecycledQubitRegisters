@@ -1777,5 +1777,49 @@
       "IBM target local routing, no QPU execution or noise simulation"
     ],
     "next": "A102 compose clean 3-input sum with exact reversible modular-N reduction, guard bits, restored quotient flags, and complete scratch uncomputation; compare both architectures at identical native settings"
+  },
+  "latest_confirmed_A102_CLEAN_MODULAR_N_CSA_20261104": {
+    "status": "PASS_EXACT_MODULAR_SOURCE_AND_NATIVE_COST",
+    "n15": {
+      "baseline": {
+        "qubits": 30,
+        "cx": 2261,
+        "depth": 3819,
+        "basis_cases": 4096
+      },
+      "carry_save": {
+        "qubits": 41,
+        "cx": 1829,
+        "depth": 2686,
+        "basis_cases": 4096
+      },
+      "cx_reduction_pct": 19.1066,
+      "depth_reduction_pct": 29.6675,
+      "extra_qubits": 11
+    },
+    "n2491": {
+      "baseline": {
+        "qubits": 71,
+        "cx": 31230,
+        "depth": 50282,
+        "basis_cases": 471
+      },
+      "carry_save": {
+        "qubits": 98,
+        "cx": 24166,
+        "depth": 38117,
+        "basis_cases": 471
+      },
+      "cx_reduction_pct": 22.6193,
+      "depth_reduction_pct": 24.1935,
+      "extra_qubits": 27
+    },
+    "interpretation": "Clean reversible sum of 3 w-bit operands modulo N, including full quotient handling and temporary uncomputation; preserves all inputs; not modular multiplication",
+    "limits": [
+      "Sampled basis test only at N2491",
+      "Local unrestricted u/cx compilation, no hardware routing",
+      "98 logical qubits exceed earlier 30-qubit A97 power-stage width, not directly substitutable"
+    ],
+    "next": "A103 read-only IBM Fez routing of same 71-vs-98 qubit complete modular sum with matched settings, nested physical layout and full source checks, then evaluate integration feasibility for controlled multiplication"
   }
 }
