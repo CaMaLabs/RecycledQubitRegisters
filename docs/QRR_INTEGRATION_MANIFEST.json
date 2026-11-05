@@ -1850,5 +1850,34 @@
       "Control logic and work-register reuse are not included in A103"
     ],
     "next": "A104 compare full compute-control-copy-uncompute 3-operand modular-N XOR primitive, including controlled state and clean-workspace checks; quantify whether CZ/depth gains survive external control"
+  },
+  "latest_confirmed_A104_CONTROLLED_MODULAR_CSA_20261104": {
+    "status": "PASS_CONTROLLED_REVERSIBLE_BASIS_AND_NATIVE_COST",
+    "n": 2491,
+    "backend": "local u/cx ideal transpilation",
+    "baseline": {
+      "logical_qubits": 84,
+      "cx": 56696,
+      "depth": 84587,
+      "basis_cases": 628
+    },
+    "carry_save": {
+      "logical_qubits": 111,
+      "cx": 43702,
+      "depth": 63352,
+      "basis_cases": 628
+    },
+    "delta_cx": -12994,
+    "cx_reduction_pct": 22.9187,
+    "delta_depth": -21235,
+    "depth_reduction_pct": 25.1043,
+    "extra_logical_qubits": 27,
+    "limits": [
+      "Complete controlled three-input modulo-N XOR, not modular multiplication",
+      "628 basis-input checks at N2491, not exhaustive phase equivalence",
+      "No actual IBM device routing yet",
+      "All ancillas start clean; destination XOR semantics verified for tested inputs"
+    ],
+    "next": "A105 read-only IBM Fez backend target local routing of A104 84- vs 111-qubit controlled three-sum circuits; assess native CZ/depth tradeoff; then prototype fully reversible modular multiplication integrating carry-save, not equate this sum with factoring."
   }
 }
