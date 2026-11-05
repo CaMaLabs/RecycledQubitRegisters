@@ -997,5 +997,55 @@
       "A84 is arithmetic resynthesis/control fusion; not proof of radix-16 encoding advantage"
     ],
     "next": "A85 full recycled-QPE compilation and small N Aer sampling comparison; gate-level independent-seed holdouts before a bigger semiprime."
+  },
+  "latest_confirmed_A85_FUSED_CARRY_FULL_QPE_20261104": {
+    "status": "PASS_N15_AER_AND_N247_FULL_QPE_COMPILED",
+    "optimization_level": 1,
+    "n15": {
+      "n": 15,
+      "base": 2,
+      "bits": 8,
+      "qubits": 14,
+      "shots_each": 16,
+      "a76": {
+        "cx": 8042,
+        "depth": 14967,
+        "factor_successes": 13
+      },
+      "a84": {
+        "cx": 7004,
+        "depth": 13262,
+        "factor_successes": 13
+      },
+      "cx_reduction_pct": 12.9072,
+      "depth_reduction_pct": 11.3917,
+      "identical_seed_sampled_frequencies": true
+    },
+    "n247": {
+      "n": 247,
+      "base": 8,
+      "bits": 16,
+      "qubits": 22,
+      "a76": {
+        "cx": 559240,
+        "depth": 986543
+      },
+      "a84": {
+        "cx": 498979,
+        "depth": 882395
+      },
+      "cx_reduction_pct": 10.7755,
+      "depth_reduction_pct": 10.5569
+    },
+    "confirmed_savings_n247": {
+      "cx": 60261,
+      "depth": 104148
+    },
+    "limitations": [
+      "N15 ideal local Aer shot sampling used the same simulator seed for both implementations; sampled agreement alone is not proof of process equivalence",
+      "N247 optimized full-circuit compilation only, not large-n Aer sampling",
+      "Ideal Aer-native un-routed gate basis, no hardware coherence/noise or coupling graph accounting"
+    ],
+    "next": "Profile A84 vs A76 across all 24 distinct modular powers at N2491 (isolated stages, same optimization settings), then run an independent small-n distribution check."
   }
 }
