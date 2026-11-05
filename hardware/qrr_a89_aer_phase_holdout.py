@@ -81,7 +81,7 @@ def main():
   simulator=AerSimulator(method="matrix_product_state")
   for label,builder in (("a84",a84),("a87b",a87b)):
    tic=time.perf_counter();q,cache=qpe(a.n,a.base,a.bits,builder,label)
-   native=transpile(q,simulator,basis_gates=["u","cx"],optimization_level=a.level,seed_transpiler=89)
+   native=transpile(q,basis_gates=["u","cx"],optimization_level=a.level,seed_transpiler=89)
    row={"qubits":native.num_qubits,"cx":int(native.count_ops().get("cx",0)),
     "depth":native.depth(),"compile_seconds":round(time.perf_counter()-tic,3),
     "seed_cohorts":[]}
