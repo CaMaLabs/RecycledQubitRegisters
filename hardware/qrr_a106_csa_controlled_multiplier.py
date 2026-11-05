@@ -7,7 +7,7 @@ with invalid x>=N unchanged, same external contract as A97. A102's
 fully clean modulo-N three-input carry-save XOR operation serves as
 a reusable reduction kernel. A ternary partial-product tree accumulates
 the constant-weighted bits of x. Every temporary tree node is uncomputed,
-and A97-style compute/swap/inverse-compute cleans the product register.
+and A97-style compute/swap/uncompute cleans the product register via XOR with\nthe POSITIVE multiplicative inverse product, not modular subtraction.
 
 A106 is a FIRST architectural integration, NOT an optimized carry-save
 multiplier. The extra width and duplicated reversible modular reduction
@@ -101,12 +101,28 @@ def build(n,a,architecture="carry_save",max_qubits=512):
  toggle_active()
  accumulate(a)
  for xi,yi in zip(x,y):q.cswap(active,xi,yi)
- accumulate(-inverse)
+ # The accumulation uses XOR into y, not modular addition into y.
+ # After the controlled swap, y holds original x and x holds a*x mod n.
+ # Uncompute y as y XOR (a^-1 * x mod n) = original_x XOR original_x = 0.
+ # The NEGATIVE inverse only works when y is cleaned by modular ADDITION;
+ # using it for XOR cleanup leaves y corrupted (N=15,A=2,x=1 -> y=15).
+ accumulate(inverse)
  toggle_active()
  return q,{"n":n,"a":a,"architecture":architecture,"qubits":total,
    "scratch_qubits":kernel.num_qubits,"tree_node_count":len(nodes),
    "tree_node_qubits":len(nodes)*w,"w":w,
    "source_ops":len(q.data),"active_qubit":2*w+1}
+
+def regression_inverse_cleanup(n,a):
+ """Fail-fast algebraic check of the XOR cleanup sign and control contract."""
+ inv=pow(a,-1,n)
+ for x in range(n):
+  product=a*x%n
+  if x ^ ((inv*product)%n):
+   raise AssertionError(f"XOR inverse cleanup fails N={n} A={a} x={x}")
+ if n==15 and a==2:
+  assert (1 ^ ((inv*2)%15)) == 0, "A106 N15/A2/x1 regression"
+ return n
 
 def main():
  p=argparse.ArgumentParser()
@@ -135,6 +151,7 @@ def main():
  save()
  try:
   start=time.perf_counter()
+  d["inverse_xor_regression_cases"]=regression_inverse_cleanup(a.n,a.a)
   q,meta=build(a.n,a.a,"carry_save",a.max_qubits)
   d["candidate"]["structure"]=meta;save()
   print("A106 STRUCTURE",meta,flush=True)
