@@ -1879,5 +1879,33 @@
       "All ancillas start clean; destination XOR semantics verified for tested inputs"
     ],
     "next": "A105 read-only IBM Fez backend target local routing of A104 84- vs 111-qubit controlled three-sum circuits; assess native CZ/depth tradeoff; then prototype fully reversible modular multiplication integrating carry-save, not equate this sum with factoring."
+  },
+  "latest_confirmed_A105_FEZ_CONTROLLED_MODULAR_CSA_20261104": {
+    "status": "PASS_READ_ONLY_TARGET_ROUTED_COMPARISON",
+    "backend": "ibm_fez",
+    "n": 2491,
+    "source_basis_cases_each": 628,
+    "baseline": {
+      "logical_qubits": 84,
+      "two_qubit_cz": 209735,
+      "depth": 397233
+    },
+    "carry_save": {
+      "logical_qubits": 111,
+      "two_qubit_cz": 169262,
+      "depth": 301330
+    },
+    "delta_cz": -40473,
+    "cz_reduction_pct": 19.2972,
+    "delta_depth": -95903,
+    "depth_reduction_pct": 24.1428,
+    "extra_logical_qubits": 27,
+    "limitations": [
+      "IBM backend target LOCAL routing only, no QPU execution",
+      "Controlled clean three-input modular-N XOR rather than in-place controlled modular multiplication",
+      "628 sampled basis tests at N=2491, not exhaustive quantum phase validation",
+      "More qubits may increase idle and calibration risk despite gate-count savings"
+    ],
+    "next": "A106 construct CLEAN controlled modular multiplication with reversible carry-save partial product accumulation and full uncomputation; compare A97 on N35 first, then N247 and N2491. Make qubit/circuit width explicit and validate all source basis states at small n."
   }
 }
