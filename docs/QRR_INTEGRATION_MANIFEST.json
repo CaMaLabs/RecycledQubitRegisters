@@ -2040,5 +2040,53 @@
     ],
     "decision": "DO_NOT_PROMOTE_A106; retain A97 for full QPE; preserve carry-save modulo-N sum as useful standalone primitive",
     "next": "Investigate workspace-pebbled and specialized constant multiplier designs; enforce full-multiplier resource gates before QPE integration; evaluate N35 ideal statistical null from A107"
+  },
+  "latest_confirmed_A108_EXACT_A97_PROFILE_AND_STATISTICAL_NULL_20261105": {
+    "status": "PASS_EXACT_FROZEN_A97_SOURCE_AND_COST_AUDIT",
+    "n": 35,
+    "a": 8,
+    "frozen_exact_source_match": true,
+    "full_native": {
+      "cx": 12287,
+      "depth": 20957,
+      "qubits": 18,
+      "source_ops": 713
+    },
+    "isolated_section_cost_proxies": {
+      "activation_compute": {
+        "cx": 91,
+        "depth": 151
+      },
+      "forward": {
+        "cx": 4386,
+        "depth": 7271
+      },
+      "conditional_swap": {
+        "cx": 48,
+        "depth": 53
+      },
+      "inverse_cleanup": {
+        "cx": 4703,
+        "depth": 7883
+      },
+      "activation_uncompute": {
+        "cx": 91,
+        "depth": 151
+      }
+    },
+    "statistical_null": {
+      "n15": {
+        "uniform_factor_rate": 0.953125,
+        "uniform_lattice_rate": 0.046875,
+        "exact_frequencies": 256
+      },
+      "n35": {
+        "uniform_factor_rate": 0.91650390625,
+        "uniform_lattice_rate": 0.0029296875,
+        "exact_frequencies": 4096
+      }
+    },
+    "interpretation": "Factor recovery is already >91% under uniform random frequencies for N15 and N35 with this permissive postprocessor; full recovery is not strong factoring evidence. Phase-lattice hits are highly diagnostic in ideal Aer, though not physical advantage. Isolated section profiles are NOT additive native circuit attributions.",
+    "next": "A109 optimize per-constant choices using actual whole-multiplier compiled CX/depth rather than isolated adder costs; retain frozen A97, require exact basis/clean workspace and no extra qubits."
   }
 }
