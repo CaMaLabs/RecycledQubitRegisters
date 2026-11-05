@@ -1907,5 +1907,64 @@
       "More qubits may increase idle and calibration risk despite gate-count savings"
     ],
     "next": "A106 construct CLEAN controlled modular multiplication with reversible carry-save partial product accumulation and full uncomputation; compare A97 on N35 first, then N247 and N2491. Make qubit/circuit width explicit and validate all source basis states at small n."
+  },
+  "latest_confirmed_A106_SOURCE_MULTIPLIER_20261105": {
+    "status": "PASS_EXACT_SOURCE_MULTIPLIER_ONLY",
+    "n": 15,
+    "a": 2,
+    "basis_cases": 32,
+    "candidate": {
+      "logical_qubits": 59,
+      "scratch_qubits": 41,
+      "tree_nodes": 2,
+      "tree_node_qubits": 8,
+      "source_ops": 4064
+    },
+    "comparison_with_a97": "NOT_RUN",
+    "limitations": [
+      "Exhaustive computational-basis action only at n15 and initialized-zero ancillas",
+      "No native-gate CX/depth comparison against A97",
+      "Not integrated into dynamic QPE",
+      "Not device routed or hardware run"
+    ]
+  },
+  "latest_confirmed_A107_ADAPTIVE_FULL_QPE_20261105": {
+    "status": "PASS_FULL_QPE_AND_IDEAL_AER_PHASE_HOLDOUT",
+    "n": 15,
+    "base": 2,
+    "bits": 8,
+    "qubits": 14,
+    "seed_cohorts": 3,
+    "shots_per_cohort": 32,
+    "a87b": {
+      "cx": 6994,
+      "depth": 11932,
+      "factor_recoveries": 96,
+      "phase_lattice_hits": 96
+    },
+    "a97": {
+      "cx": 6206,
+      "depth": 10414,
+      "factor_recoveries": 96,
+      "phase_lattice_hits": 96
+    },
+    "cx_reduction_pct": 11.2668,
+    "depth_reduction_pct": 12.7221,
+    "empirical_total_variation_distance": 0,
+    "delta_factor_recovery": 0,
+    "source_stage_checks": {
+      "distinct_powers": [
+        2,
+        4
+      ],
+      "basis_cases_each_power_each_architecture": 32
+    },
+    "limitations": [
+      "Ideal Aer MPS simulations only; not independent hardware trials or noisy QPU proof",
+      "N15 base2 is very small and favorable; 96/96 success must be compared to a matched classical/uniform null",
+      "Classical preprocessing and historic Dark Star pruning not yet integrated",
+      "A106 carry-save not integrated into this QPE"
+    ],
+    "next": "Run A106 full native multiplier cost with no --skip-native and confirm A97 holds up at N35 base8 bits12, including phase histogram and exact-uniform null."
   }
 }
