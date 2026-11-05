@@ -1514,5 +1514,56 @@
     "interpretation": "A96 dyadic interval predicates improve smaller modulus but regress for N247; should not replace A87b wholesale",
     "validation": "Interval truth-table PASS; exhaustive modular adders and multipliers PASS; no extra qubits",
     "next": "A97 choose A87b or A96 for each modular addition constant by native CX/depth, then measure actual complete multiplier and test exact correctness"
+  },
+  "latest_confirmed_A97_ADAPTIVE_MODADD_20261104": {
+    "status": "PASS_EXHAUSTIVE_SOURCE_AND_NATIVE_COST",
+    "optimization_level": 1,
+    "n35": {
+      "n": 35,
+      "a": 8,
+      "qubits": 18,
+      "basis_cases": 128,
+      "baseline_a87b": {
+        "cx": 14011,
+        "depth": 23860
+      },
+      "candidate_a97": {
+        "cx": 12287,
+        "depth": 20957
+      },
+      "selected_adders": {
+        "a87b": 0,
+        "a96": 12
+      },
+      "cx_reduction_pct": 12.3046,
+      "depth_reduction_pct": 12.1668
+    },
+    "n247": {
+      "n": 247,
+      "a": 8,
+      "qubits": 22,
+      "basis_cases": 512,
+      "baseline_a87b": {
+        "cx": 25684,
+        "depth": 44292
+      },
+      "candidate_a97": {
+        "cx": 25192,
+        "depth": 43385
+      },
+      "selected_adders": {
+        "a87b": 11,
+        "a96": 5
+      },
+      "cx_reduction_pct": 1.9156,
+      "depth_reduction_pct": 2.0478
+    },
+    "interpretation": "Per-constant local native-gate selection over A87b and A96 yielded a complete multiplier win at both tested moduli. N247 gain is small; no claims yet about N2491 or device routed gains.",
+    "limitations": [
+      "Standalone controlled modular multiplication, not full dynamic QPE",
+      "Local ideal u/cx native compilation only",
+      "No independent phase or physical noise validation of the adaptive implementation"
+    ],
+    "next": "A98 checkpoint a representative set of modular powers at N2491 using A87b baseline and A97 adaptive, exhaustive or sampled basis and matched local compilation; pursue native IBM-target routing only if wins persist."
   }
 }
