@@ -902,5 +902,57 @@
       "A44 synthesis scales exponentially and does not itself establish scalable factoring"
     ],
     "next": "Add architecture-independent conjugation validation and phase-histogram controls; test XOR encoding on optimized arithmetic A64/A76 with fair native-gate and qubit accounting."
+  },
+  "latest_confirmed_A83_N247_encoding_wrapper_20261104": {
+    "n": 247,
+    "k": 8,
+    "optimization_level": 1,
+    "status": "PASS_EXHAUSTIVE_BASIS_AND_COMPILED",
+    "baseline": {
+      "qubits": 22,
+      "cx": 34793,
+      "depth": 59749
+    },
+    "variants": [
+      {
+        "name": "identity",
+        "cx": 34793,
+        "depth": 59749
+      },
+      {
+        "name": "chain",
+        "cx": 34807,
+        "depth": 59754
+      },
+      {
+        "name": "reverse_chain",
+        "cx": 34807,
+        "depth": 59772
+      },
+      {
+        "name": "star_low",
+        "cx": 34807,
+        "depth": 59754
+      },
+      {
+        "name": "star_high",
+        "cx": 34807,
+        "depth": 59765
+      },
+      {
+        "name": "pair",
+        "cx": 34801,
+        "depth": 59751
+      },
+      {
+        "name": "shift2",
+        "cx": 34805,
+        "depth": 59752
+      }
+    ],
+    "validation": "All seven candidates passed exhaustive computational-basis semantics and scratch cleanup",
+    "interpretation": "No CX gate improvements from external GF(2) conjugation around unchanged A76 multiplier; wrapper conversion overhead exceeds any local optimization",
+    "scope": "Single controlled modular multiplier, not full 16-bit recycled-QPE; cannot directly compare 34,793 stage CX with A82 full-QPE 619,056 CX",
+    "next": "Resynthesize modular addition/multiplication internally in alternative representation; compare complete input/output conversion cost and test exhaustive semantics before full QPE."
   }
 }
