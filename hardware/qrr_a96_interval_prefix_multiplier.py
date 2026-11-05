@@ -98,7 +98,7 @@ def build(n,a):
 def check_interval(width):
  from qrr_a65_reversible_basis_exhaustive import evaluate,instruction_stream
  for lo in range(1<<width):
-  for hi in range(lo,1<<width+0):
+  for hi in range(lo,(1<<width)+1):
    # Check unconditioned and conditioned covers for small widths only.
    q=QuantumCircuit(width+2);work=list(q.qubits[:width])
    interval_xor(q,work,q.qubits[width],lo,hi,condition=q.qubits[width+1])
