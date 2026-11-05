@@ -1,0 +1,32 @@
+name: A27 reversible/Fourier kernel comparison
+on:
+  workflow_dispatch:
+  push:
+    branches: [agent/a24-darkstar-n35-cost-audit-20261030]
+    paths:
+      - 'hardware/qrr_a27_reversible_fourier_comparison.py'
+      - 'hardware/qrr_a26_fourier_kernel_audit.py'
+      - '.github/workflows/a27_reversible_fourier.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify A27 logical-equivalence cohort
+        run: |
+          set -euo pipefail
+          python3 hardware/qrr_a27_reversible_fourier_comparison.py | tee a27.json
+          python3 - <<'PY'
+          import json
+          with open('a27.json') as f: x=json.load(f)
+          assert x['measurements'] == 340
+          assert x['qpu_jobs'] == 0
+          assert x['status'].startswith('PASS_')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: a27-verification
+          path: a27.json
