@@ -1047,5 +1047,26 @@
       "Ideal Aer-native un-routed gate basis, no hardware coherence/noise or coupling graph accounting"
     ],
     "next": "Profile A84 vs A76 across all 24 distinct modular powers at N2491 (isolated stages, same optimization settings), then run an independent small-n distribution check."
+  },
+  "latest_confirmed_A86_N2491_FUSED_CARRY_20261104": {
+    "status": "PASS_ISOLATED_POWER_COST_ONLY",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "optimization_level": 1,
+    "completed_distinct_powers": 24,
+    "stage_wins_a84": 24,
+    "comparison": {
+      "cx_reduction_pct": 9.353,
+      "depth_reduction_pct": 9.7962,
+      "delta_cx": -315083,
+      "delta_depth": -597955
+    },
+    "caveats": [
+      "Independent ideal-basis modular-stage compilation sums, not whole dynamic QPE native circuit",
+      "No N2491 Aer simulation or hardware execution",
+      "No physical noise, routing, or fault tolerance analysis"
+    ],
+    "next": "Add source-only compact A84 dynamic 24-bit QPE builder with cached modular gates, and randomized/holdout source-basis correctness plus full N247 Aer phase sampling before larger simulations."
   }
 }
