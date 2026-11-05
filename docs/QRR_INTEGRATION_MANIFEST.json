@@ -954,5 +954,48 @@
     "interpretation": "No CX gate improvements from external GF(2) conjugation around unchanged A76 multiplier; wrapper conversion overhead exceeds any local optimization",
     "scope": "Single controlled modular multiplier, not full 16-bit recycled-QPE; cannot directly compare 34,793 stage CX with A82 full-QPE 619,056 CX",
     "next": "Resynthesize modular addition/multiplication internally in alternative representation; compare complete input/output conversion cost and test exhaustive semantics before full QPE."
+  },
+  "latest_confirmed_A84_FUSED_CARRY_20261104": {
+    "status": "PASS_EXHAUSTIVE_BASIS_AND_NATIVE_COST",
+    "optimization_level": 1,
+    "n35": {
+      "n": 35,
+      "k": 8,
+      "qubits": 18,
+      "basis_cases": 128,
+      "a76": {
+        "cx": 18732,
+        "depth": 32098
+      },
+      "a84": {
+        "cx": 16593,
+        "depth": 28116
+      },
+      "cx_reduction_pct": 11.419,
+      "depth_reduction_pct": 12.4058
+    },
+    "n247": {
+      "n": 247,
+      "k": 8,
+      "qubits": 22,
+      "basis_cases": 512,
+      "a76": {
+        "cx": 34793,
+        "depth": 59749
+      },
+      "a84": {
+        "cx": 31542,
+        "depth": 53949
+      },
+      "cx_reduction_pct": 9.3438,
+      "depth_reduction_pct": 9.7073
+    },
+    "interpretation": "Reused A61 predicate-scratch to fuse two control flags for internal carry operations, no extra qubit; clean source-basis tests passed for adder and multiplier",
+    "caveats": [
+      "Standalone single controlled multiplier only, not full QPE",
+      "Basis checks do not quantify physical noise or hardware layout",
+      "A84 is arithmetic resynthesis/control fusion; not proof of radix-16 encoding advantage"
+    ],
+    "next": "A85 full recycled-QPE compilation and small N Aer sampling comparison; gate-level independent-seed holdouts before a bigger semiprime."
   }
 }
