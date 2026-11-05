@@ -829,5 +829,34 @@
       "Not an algorithmic complexity or quantum advantage claim"
     ],
     "next": "A82 independent-seed readout distribution replication, phase-lattice statistical test with exact uniform-null; then larger N under wallclock limits"
+  },
+  "latest_confirmed_A82_XOR_encoding_20261104": {
+    "n": 247,
+    "base": 8,
+    "bits": 16,
+    "seed": 8201,
+    "candidate_count_requested": 128,
+    "status": "PASS_COMPILED",
+    "baseline": {
+      "qubits": 15,
+      "cx": 670752,
+      "depth": 1658316,
+      "gray_path_swaps": 18632
+    },
+    "xor_encoded": {
+      "qubits": 15,
+      "cx": 619056,
+      "depth": 1530512,
+      "gray_path_swaps": 17196
+    },
+    "savings": {
+      "cx": 51696,
+      "depth": 127804,
+      "cx_percent": 7.7071704594246455,
+      "depth_percent": 7.706854423403018
+    },
+    "validation": "Exhaustive conjugated arithmetic permutation checks; real gate-level QPE measurements and hardware-aware routing still pending",
+    "constraints": "A44 permutation-swap synthesis scales exponentially, not a scalable RSA factoring breakthrough",
+    "next": "Run 16 measured Aer QPE shots XOR vs baseline, compare phase lattice and factor recovery with independent seeds; assess stronger encodings and physical routing if validated"
   }
 }
