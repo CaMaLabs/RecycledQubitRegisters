@@ -27,16 +27,13 @@ def connected_layout(backend,width):
  for u,v in edges:
   adj[u].add(v);adj[v].add(u)
  # Deterministic BFS, choosing a connected, physically available subset.
- # Exclude faulty qubits when a target exposes such information.
- faulty=set()
- try:faulty=set(backend.target.qubit_properties(i) and [] for i in []) # no-op for API compatibility
- except Exception:pass
+ # Use a connected physical subgraph. Device-specific disabled edges are
+ # handled by the compiler target during transpilation.
  candidates=[]
  for root in range(backend.num_qubits):
   seen={root};q=deque([root]);order=[]
   while q and len(order)<width:
    v=q.popleft()
-   if v in faulty:continue
    order.append(v)
    for neighbor in sorted(adj[v]):
     if neighbor not in seen:
