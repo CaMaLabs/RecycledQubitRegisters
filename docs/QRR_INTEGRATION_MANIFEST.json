@@ -1405,5 +1405,77 @@
       "Target metadata is a snapshot and device calibration may change"
     ],
     "next": "Quantify topology-sensitive route and idle error feasibility; investigate lowering absolute depth and qubit/memory demands before seeking QPU shots."
+  },
+  "latest_confirmed_A95_IBM_FEZ_EXEC_FEASIBILITY_20261104": {
+    "status": "PASS_METADATA_AND_LOCAL_KERNEL_COST_AUDIT",
+    "backend": "ibm_fez",
+    "native_two_qubit_kind": "cz",
+    "n": 2491,
+    "stages": {
+      "8": {
+        "a84_fault_event_proxy": 1343.54,
+        "a87b_fault_event_proxy": 1120.48
+      },
+      "64": {
+        "a84_fault_event_proxy": 1314.31,
+        "a87b_fault_event_proxy": 1106.43
+      },
+      "1051": {
+        "a84_fault_event_proxy": 1333.81,
+        "a87b_fault_event_proxy": 1133.5
+      },
+      "2217": {
+        "a84_fault_event_proxy": 1452.88,
+        "a87b_fault_event_proxy": 1210.53
+      },
+      "2448": {
+        "a84_fault_event_proxy": 1389.56,
+        "a87b_fault_event_proxy": 1187.41
+      }
+    },
+    "kernel_costs": [
+      {
+        "name": "modadd8",
+        "a84_cx": 5169,
+        "a87b_cx": 4035,
+        "a84_depth": 6752,
+        "a87b_depth": 5396
+      },
+      {
+        "name": "modadd64",
+        "a84_cx": 4817,
+        "a87b_cx": 3725,
+        "a84_depth": 6188,
+        "a87b_depth": 4899
+      },
+      {
+        "name": "modadd2448",
+        "a84_cx": 5241,
+        "a87b_cx": 4107,
+        "a84_depth": 6930,
+        "a87b_depth": 5555
+      },
+      {
+        "name": "conditional_ge1245",
+        "a84_cx": 530,
+        "a87b_cx": 228,
+        "a84_depth": 674,
+        "a87b_depth": 340
+      },
+      {
+        "name": "conditional_ge2490",
+        "a84_cx": 656,
+        "a87b_cx": 270,
+        "a84_depth": 783,
+        "a87b_depth": 435
+      }
+    ],
+    "limitations": [
+      "Fault-event proxies are 2Q gate counts times a representative target median error, NOT measured faults or actual success probabilities",
+      "No scheduled timing, leakage, crosstalk, idles, dynamic feedforward or error correction",
+      "Native gate and calibration metadata reflect a transient device snapshot",
+      "Kernel numbers are standalone u/cx compiled costs, not additive exact full-QPE circuit metrics"
+    ],
+    "next": "A96 test common-prefix factoring for related thresholds and reversible comparator Boolean decomposition; exhaustive computational-basis tests and fair native cost comparison against A87b."
   }
 }
