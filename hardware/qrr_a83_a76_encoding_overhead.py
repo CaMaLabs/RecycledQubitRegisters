@@ -46,21 +46,28 @@ def build(n,k,variant):
  if variant=="identity":return base
  edges=transform_edges(w,variant)
  out=QuantumCircuit(base.num_qubits)
- # Outward register semantics must be IDENTICAL to baseline.
- # E^-1 before A76, E after A76. Since A76 is not resynthesized in E,
- # this is an overhead audit rather than a proof of encoding gain.
+ # Encoded I/O: E^-1 before A76, E after A76. The register stores E(x).
+ # A76 itself is not resynthesized in E, so this audits conversion overhead.
  for src,dst in reversed(edges):out.cx(1+src,1+dst)
  out.compose(base,inplace=True)
  for src,dst in edges:out.cx(1+src,1+dst)
  return out
 
-def check_transformed_basis(qc,n,k):
+def encode(x,edges):
+ for src,dst in edges:
+  if (x>>src)&1:x^=1<<dst
+ return x
+
+def check_transformed_basis(qc,n,k,variant):
  w=n.bit_length();stream=instruction_stream(qc)
+ edges=transform_edges(w,variant)
  failures=[]
  for ctrl in (0,1):
   for x in range(1<<w):
-   got=evaluate(stream,ctrl|(x<<1))
-   expected=ctrl|((((k*x)%n if ctrl and x<n else x))<<1)
+   encoded_x=encode(x,edges)
+   got=evaluate(stream,ctrl|(encoded_x<<1))
+   y=(k*x)%n if ctrl and x<n else x
+   expected=ctrl|(encode(y,edges)<<1)
    if got!=expected:
     failures.append({"c":ctrl,"x":x,"got":got,"expected":expected})
     return False,failures
@@ -91,12 +98,12 @@ def main():
    row={"variant":name,"qubits":qc.num_qubits,
         "encoding_cx_overhead":2*len(transform_edges(a.n.bit_length(),name))}
    if a.check_basis:
-    valid,failures=check_transformed_basis(qc,a.n,a.k)
+    valid,failures=check_transformed_basis(qc,a.n,a.k,name)
     row["source_basis_check"]="PASS" if valid else "FAIL"
     row["failures"]=failures
     if not valid:
      d["variants"].append(row);d["status"]="FAIL_BASIS";save()
-     raise AssertionError(f"{name} changes arithmetic semantics, not a harmless wrapper")
+     raise AssertionError(f"{name} encoded-arithmetic basis check failed")
    native=transpile(qc,basis_gates=["u","cx"],
                     optimization_level=a.optimization_level,seed_transpiler=83)
    row["cx"]=int(native.count_ops().get("cx",0))
