@@ -1646,5 +1646,69 @@
       "No Fez target routing or physical noise test yet; no QPU job"
     ],
     "next": "A99 compare A87b and A97 per-stage local IBM Fez target routing with matched backend, fixed layout, and identical settings."
+  },
+  "latest_confirmed_A99_IBM_FEZ_ADAPTIVE_ROUTING_20261104": {
+    "status": "PASS_IBM_TARGET_LOCAL_ROUTED_HOLDOUT",
+    "backend": "ibm_fez",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "stage_wins_two_qubit": 5,
+    "stage_wins_depth": 5,
+    "source_basis_cases_per_architecture_per_stage": 28,
+    "stages": [
+      {
+        "power": 8,
+        "a87b_2q": 445036,
+        "a97_2q": 419887,
+        "a87b_depth": 1037593,
+        "a97_depth": 984026
+      },
+      {
+        "power": 64,
+        "a87b_2q": 439457,
+        "a97_2q": 428330,
+        "a87b_depth": 1022539,
+        "a97_depth": 998738
+      },
+      {
+        "power": 2448,
+        "a87b_2q": 471623,
+        "a97_2q": 450769,
+        "a87b_depth": 1093186,
+        "a97_depth": 1054844
+      },
+      {
+        "power": 2217,
+        "a87b_2q": 480805,
+        "a97_2q": 462736,
+        "a87b_depth": 1124229,
+        "a97_depth": 1094197
+      },
+      {
+        "power": 1051,
+        "a87b_2q": 450210,
+        "a97_2q": 435973,
+        "a87b_depth": 1047520,
+        "a97_depth": 1020342
+      }
+    ],
+    "totals": {
+      "a87b_two_qubit": 2287131,
+      "a97_two_qubit": 2197695,
+      "delta_two_qubit": -89436,
+      "two_qubit_reduction_pct": 3.9104012844039104,
+      "a87b_depth_sum": 5325067,
+      "a97_depth_sum": 5152147,
+      "delta_depth": -172920,
+      "depth_reduction_pct": 3.2472830858278403
+    },
+    "limitations": [
+      "All stage numbers from local IBM Fez target compilation, not QPU execution",
+      "5 separate isolated controlled multipliers, not fully compiled recycled QPE",
+      "28 selected computational-basis inputs per stage; not exhaustive or phase-equivalence proof",
+      "Physical error budget still far beyond reliable uncorrected execution"
+    ],
+    "next": "A100 evaluate larger structural arithmetic redesign and near-term reduction of absolute native two-qubit counts and depth; validate if adaptive selection wins on other moduli and compiler optimization levels."
   }
 }
