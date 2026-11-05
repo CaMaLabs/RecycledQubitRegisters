@@ -1337,5 +1337,73 @@
       "Physical fidelity likely constrained by enormous circuit depth; no noisy or hardware execution"
     ],
     "next": "Repeat A94 IBM target holdouts on powers 64,2448,2217,1051, using existing fixed backend/layout and checkpoint; assess two-qubit gate kinds and estimated error budgets."
+  },
+  "latest_confirmed_A94_IBM_FEZ_FIVE_POWER_HOLDOUT_20261104": {
+    "status": "PASS_IBM_TARGET_LOCAL_ROUTED_HOLDOUT",
+    "backend": "ibm_fez",
+    "backend_physical_qubits": 156,
+    "logical_qubits": 30,
+    "instance": "open-instance",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "stage_wins_two_qubit": 5,
+    "stage_wins_depth": 5,
+    "sampled_basis_cases_per_architecture_per_power": 28,
+    "stages": [
+      {
+        "power": 8,
+        "a84_2q": 533632,
+        "a87b_2q": 445036,
+        "a84_depth": 1245770,
+        "a87b_depth": 1037593
+      },
+      {
+        "power": 64,
+        "a84_2q": 522025,
+        "a87b_2q": 439457,
+        "a84_depth": 1214381,
+        "a87b_depth": 1022539
+      },
+      {
+        "power": 2448,
+        "a84_2q": 551913,
+        "a87b_2q": 471623,
+        "a84_depth": 1283900,
+        "a87b_depth": 1093186
+      },
+      {
+        "power": 2217,
+        "a84_2q": 577064,
+        "a87b_2q": 480805,
+        "a84_depth": 1342635,
+        "a87b_depth": 1124229
+      },
+      {
+        "power": 1051,
+        "a84_2q": 529768,
+        "a87b_2q": 450210,
+        "a84_depth": 1233508,
+        "a87b_depth": 1047520
+      }
+    ],
+    "totals": {
+      "a84_2q": 2714402,
+      "a87b_2q": 2287131,
+      "delta_2q": -427271,
+      "two_qubit_reduction_pct": 15.7409,
+      "a84_depth": 6320194,
+      "a87b_depth": 5325067,
+      "delta_depth": -995127,
+      "depth_reduction_pct": 15.7452
+    },
+    "caveats": [
+      "Read-only IBM backend-target local transpilation; zero QPU jobs",
+      "Sums of five separately compiled modular-power stages, not native full dynamic QPE",
+      "28 computational-basis tests per stage, not exhaustive all 8192 basis cases",
+      "Large routed depth precludes inference of viable uncorrected physical execution",
+      "Target metadata is a snapshot and device calibration may change"
+    ],
+    "next": "Quantify topology-sensitive route and idle error feasibility; investigate lowering absolute depth and qubit/memory demands before seeking QPU shots."
   }
 }
