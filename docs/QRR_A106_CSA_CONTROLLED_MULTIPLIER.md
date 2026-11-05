@@ -1,6 +1,6 @@
 # A106: First complete controlled modular multiplier using carry-save
 
-**Status: code committed; local correctness and cost results pending.** This is an architectural trial, not a claim that carry-save is the best factoring implementation.
+**Status: first N=15/A=2 run failed; inverse-XOR cleanup defect identified and patched at commit d880ee9; rerun pending.** This is an architectural trial, not a claim that carry-save is the best factoring implementation.
 
 ## Evidence and goal
 
@@ -44,3 +44,11 @@ echo "EXIT STATUS: $?"
 ```
 
 No paid runtime or IBM hardware jobs.
+
+## N=15 regression and correction (2026-11-04)
+
+The first user-run N=15, A=2 circuit produced `actual=485` instead of `expected=5` for control=1, x=1. Binary output decoding showed the product register had been set to 15 rather than cleaned. Root cause: we had ported A97's **negative inverse modular-adder cleanup** into a **bitwise-XOR result accumulator**. These are not interchangeable operations.
+
+After the controlled swap, the old x value is in y and the new x contains A*x modulo N. For XOR cleanup, the second tree must calculate **positive** `A^-1 * new_x mod N` and XOR that with y, leaving y=0. The code now uses `accumulate(inverse)`, rather than `accumulate(-inverse)`, and includes a fail-fast algebraic regression over all valid x.
+
+This fixes the identified mathematical sign error. It **does not constitute a successful full-circuit test**; rerun exhaustive source-basis verification on the workstation before interpreting any cost measurements or moving to larger N.
