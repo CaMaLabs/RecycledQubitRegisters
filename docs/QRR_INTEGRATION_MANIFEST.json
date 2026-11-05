@@ -1156,5 +1156,45 @@
       "Stage arithmetic correctness relies on prior A87b checks; N2491 full source-basis exhaustive validation remains pending"
     ],
     "next": "Full boxed A87b N2491 circuit structural validation and selected power-stage source-basis holdouts; device coupling routing sanity benchmarks then multi-modulus scaling."
+  },
+  "latest_confirmed_A92_N2491_BOXED_AND_LINE_ROUTING_20261104": {
+    "status": [
+      "PASS_BOXED_QPE_AND_SAMPLED_STAGE_BASIS",
+      "PASS_ROUTED_STAGE_COMPARISON"
+    ],
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "source": {
+      "qubits": 30,
+      "boxed_unique_powers": 24,
+      "top_level_ops": 396,
+      "modular_power_basis_tests_passed": 24,
+      "per_power_basis_cases": "44 per power except power 1606: 40; sampled deterministic controls and work states; scratch cleanup verified for tested cases"
+    },
+    "synthetic_bidirectional_line_power8": {
+      "power": 8,
+      "qubits": 30,
+      "optimization_level": 1,
+      "a84": {
+        "cx": 740421,
+        "depth": 752892
+      },
+      "a87b": {
+        "cx": 632461,
+        "depth": 634284
+      },
+      "delta_cx": -107960,
+      "delta_depth": -118608,
+      "cx_reduction_pct": 14.580893842827257,
+      "depth_reduction_pct": 15.753653910521031
+    },
+    "caveats": [
+      "Only one controlled-modular-multiplication power routed so far, not the entire 24-stage QPE",
+      "Synthetic line, not IBM device topology, calibrated errors, scheduling or QPU",
+      "Source stages checked on 40-44 deterministic basis states each, not exhaustive 8192 inputs per power",
+      "Ideal native CX/depth improvements not evidence of cryptographic-scale factoring feasibility"
+    ],
+    "next": "Run routing holdouts across additional representative modular powers, then test actual QPU coupling map calibration and circuit scheduling if available."
   }
 }
