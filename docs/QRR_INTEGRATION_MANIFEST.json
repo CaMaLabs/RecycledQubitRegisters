@@ -1068,5 +1068,36 @@
       "No physical noise, routing, or fault tolerance analysis"
     ],
     "next": "Add source-only compact A84 dynamic 24-bit QPE builder with cached modular gates, and randomized/holdout source-basis correctness plus full N247 Aer phase sampling before larger simulations."
+  },
+  "latest_confirmed_A89_N35_AER_HOLDOUT_20261104": {
+    "status": "PASS_AER_HOLDOUT_WITH_UNIFORM_NULL",
+    "n": 35,
+    "base": 8,
+    "bits": 12,
+    "shots_total_each": 48,
+    "architecture_a84": {
+      "verified_factors": 40,
+      "lattice_hits": 44,
+      "distinct_frequencies": 13
+    },
+    "architecture_a87b": {
+      "verified_factors": 40,
+      "lattice_hits": 44,
+      "distinct_frequencies": 13
+    },
+    "empirical_total_variation_distance": 0,
+    "cx_reduction_pct": 15.589,
+    "exact_uniform_null": {
+      "factor_successes": 1108,
+      "lattice_hits": 28,
+      "total": 4096
+    },
+    "caveats": [
+      "Ideal Aer simulation and equal per-architecture seed cohorts, not device calibration",
+      "Identical sample histograms are not proof of equal underlying distributions",
+      "Phase lattice diagnostic uses offline known order; not circuit input",
+      "Only 48 shots; exact uniform-frequency null is not a noise-matched control"
+    ],
+    "next": "N247 independent-seed A84/A87b Aer distribution holdout with saved per-architecture checkpoint and fair QPE resource metrics"
   }
 }
