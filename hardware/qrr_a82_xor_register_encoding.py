@@ -117,9 +117,11 @@ def main():
         ap.error("--shots requires --compile")
     out = Path(a.output)
     out.parent.mkdir(parents=True, exist_ok=True)
-    powers = sorted({pow(a.base, 1 << j, a.n) for j in range(a.bits)} - {1})
+    stage_powers = [pow(a.base, 1 << j, a.n) for j in range(a.bits)]
+    powers = sorted(set(stage_powers) - {1})
     def score(rows):
-        return sum(path_cost(conjugated_mapping(a.n, power, rows)) for power in powers)
+        costs = {power: path_cost(conjugated_mapping(a.n, power, rows)) for power in powers}
+        return sum(costs.get(power, 0) for power in stage_powers)
     identity = tuple(1 << i for i in range(w))
     baseline = score(identity)
     rng = random.Random(a.seed)
