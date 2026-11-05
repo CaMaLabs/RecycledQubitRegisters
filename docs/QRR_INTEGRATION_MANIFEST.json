@@ -1565,5 +1565,86 @@
       "No independent phase or physical noise validation of the adaptive implementation"
     ],
     "next": "A98 checkpoint a representative set of modular powers at N2491 using A87b baseline and A97 adaptive, exhaustive or sampled basis and matched local compilation; pursue native IBM-target routing only if wins persist."
+  },
+  "latest_confirmed_A98_ADAPTIVE_N2491_FIVE_POWER_20261104": {
+    "status": "PASS_ISOLATED_STAGE_COMPARATIVE_SCREEN",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "optimization_level": 1,
+    "stage_wins_cx": 5,
+    "stage_wins_depth": 5,
+    "powers": [
+      {
+        "k": 8,
+        "a87b_cx": 104476,
+        "a97_cx": 100420,
+        "a87b_depth": 188568,
+        "a97_depth": 181185,
+        "selection": {
+          "a87b": 13,
+          "a96": 11
+        },
+        "verified_basis_cases_each": 44
+      },
+      {
+        "k": 64,
+        "a87b_cx": 102287,
+        "a97_cx": 100946,
+        "a87b_depth": 184755,
+        "a97_depth": 182230,
+        "selection": {
+          "a87b": 16,
+          "a96": 8
+        },
+        "verified_basis_cases_each": 42
+      },
+      {
+        "k": 2448,
+        "a87b_cx": 109145,
+        "a97_cx": 107470,
+        "a87b_depth": 196992,
+        "a97_depth": 193804,
+        "selection": {
+          "a87b": 17,
+          "a96": 7
+        },
+        "verified_basis_cases_each": 44
+      },
+      {
+        "k": 2217,
+        "a87b_cx": 113583,
+        "a97_cx": 110526,
+        "a87b_depth": 205241,
+        "a97_depth": 199454,
+        "selection": {
+          "a87b": 12,
+          "a96": 12
+        },
+        "verified_basis_cases_each": 44
+      },
+      {
+        "k": 1051,
+        "a87b_cx": 104387,
+        "a97_cx": 102484,
+        "a87b_depth": 188679,
+        "a97_depth": 185250,
+        "selection": {
+          "a87b": 15,
+          "a96": 9
+        },
+        "verified_basis_cases_each": 44
+      }
+    ],
+    "total_delta_cx": -12032,
+    "total_delta_depth": -22312,
+    "cx_reduction_pct": 2.2537,
+    "depth_reduction_pct": 2.314,
+    "limitations": [
+      "Five isolated compiled arithmetic stages, not full QPE",
+      "Limited sampled computational-basis verification at N2491, not all 8192 control-work cases",
+      "No Fez target routing or physical noise test yet; no QPU job"
+    ],
+    "next": "A99 compare A87b and A97 per-stage local IBM Fez target routing with matched backend, fixed layout, and identical settings."
   }
 }
