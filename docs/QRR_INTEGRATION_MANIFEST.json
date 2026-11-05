@@ -1710,5 +1710,44 @@
       "Physical error budget still far beyond reliable uncorrected execution"
     ],
     "next": "A100 evaluate larger structural arithmetic redesign and near-term reduction of absolute native two-qubit counts and depth; validate if adaptive selection wins on other moduli and compiler optimization levels."
+  },
+  "latest_confirmed_A100_CLEAN_REVERSIBLE_CARRY_SAVE_20261104": {
+    "status": "PASS_CLEAN_REVERSIBLE_BASIS_AND_NATIVE_SCREEN",
+    "w4": {
+      "baseline": {
+        "qubits": 16,
+        "cx": 174,
+        "depth": 289,
+        "basis_cases": 4096
+      },
+      "carry_save": {
+        "qubits": 23,
+        "cx": 173,
+        "depth": 176,
+        "basis_cases": 4096
+      },
+      "cx_reduction_pct": 0.5747,
+      "depth_reduction_pct": 39.1003,
+      "extra_qubits": 7
+    },
+    "w12": {
+      "baseline": {
+        "qubits": 48,
+        "cx": 5118,
+        "depth": 7615,
+        "basis_cases": 253
+      },
+      "carry_save": {
+        "qubits": 71,
+        "cx": 3805,
+        "depth": 5849,
+        "basis_cases": 253
+      },
+      "cx_reduction_pct": 25.6546,
+      "depth_reduction_pct": 23.1911,
+      "extra_qubits": 23
+    },
+    "interpretation": "Carry-save 3:2 compression reduced local u/cx compiled costs for clean reversible three-input sum mod 2^w; this is neither modulo-N multiplication nor physical QPU validation.",
+    "next": "A101 matched read-only IBM target routing and qubit footprint for w12 carry-save vs baseline. A102 only if routed improvement justifies modular-reduction integration."
   }
 }
