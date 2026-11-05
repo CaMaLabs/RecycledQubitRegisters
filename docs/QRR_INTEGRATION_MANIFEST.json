@@ -1196,5 +1196,78 @@
       "Ideal native CX/depth improvements not evidence of cryptographic-scale factoring feasibility"
     ],
     "next": "Run routing holdouts across additional representative modular powers, then test actual QPU coupling map calibration and circuit scheduling if available."
+  },
+  "latest_confirmed_A93_N2491_ROUTED_FIVE_POWER_20261104": {
+    "status": "PASS_ROUTED_MULTI_POWER_COST_HOLDOUT",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "topology": "synthetic_bidirectional_nearest_neighbor_line",
+    "native_gate_basis": [
+      "rz",
+      "sx",
+      "x",
+      "cx"
+    ],
+    "optimization_level": 1,
+    "powers": [
+      8,
+      64,
+      2448,
+      2217,
+      1051
+    ],
+    "verified_basis_cases_per_architecture_per_stage": 28,
+    "stage_wins_two_qubit": 5,
+    "stage_wins_depth": 5,
+    "per_power": [
+      {
+        "power": 8,
+        "a84_cx": 749645,
+        "a87b_cx": 646032,
+        "a84_depth": 760638,
+        "a87b_depth": 647019
+      },
+      {
+        "power": 64,
+        "a84_cx": 732843,
+        "a87b_cx": 624070,
+        "a84_depth": 743740,
+        "a87b_depth": 626403
+      },
+      {
+        "power": 2448,
+        "a84_cx": 779047,
+        "a87b_cx": 655191,
+        "a84_depth": 790912,
+        "a87b_depth": 662422
+      },
+      {
+        "power": 2217,
+        "a84_cx": 829590,
+        "a87b_cx": 686702,
+        "a84_depth": 841912,
+        "a87b_depth": 691694
+      },
+      {
+        "power": 1051,
+        "a84_cx": 756069,
+        "a87b_cx": 622736,
+        "a84_depth": 763704,
+        "a87b_depth": 629017
+      }
+    ],
+    "combined": {
+      "two_qubit_reduction_pct": 15.9197,
+      "depth_reduction_pct": 16.518,
+      "delta_two_qubit": -612463,
+      "delta_depth": -644351
+    },
+    "limitations": [
+      "Only five isolated stages, not full dynamic QPE",
+      "Synthetic topology; no real IBM backend topology, QPU executions, noise fidelity",
+      "28 deterministic sampled computational-basis tests per architecture per stage, not exhaustive"
+    ],
+    "next": "Use read-only IBM backend target for topology-aware local transpilation, or complete all 24 synthetic-line routed stages as resumable holdout."
   }
 }
