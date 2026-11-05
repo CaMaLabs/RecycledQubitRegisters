@@ -1477,5 +1477,42 @@
       "Kernel numbers are standalone u/cx compiled costs, not additive exact full-QPE circuit metrics"
     ],
     "next": "A96 test common-prefix factoring for related thresholds and reversible comparator Boolean decomposition; exhaustive computational-basis tests and fair native cost comparison against A87b."
+  },
+  "latest_confirmed_A96_DYADIC_INTERVAL_20261104": {
+    "status": "PASS_EXHAUSTIVE_BASIS_AND_NATIVE_COST_MIXED",
+    "optimization_level": 1,
+    "n35": {
+      "a": 8,
+      "qubits": 18,
+      "basis_cases": 128,
+      "a87b": {
+        "cx": 14011,
+        "depth": 23860
+      },
+      "a96": {
+        "cx": 12287,
+        "depth": 20957
+      },
+      "cx_reduction_pct": 12.3046,
+      "depth_reduction_pct": 12.1668
+    },
+    "n247": {
+      "a": 8,
+      "qubits": 22,
+      "basis_cases": 512,
+      "a87b": {
+        "cx": 25684,
+        "depth": 44292
+      },
+      "a96": {
+        "cx": 26773,
+        "depth": 46440
+      },
+      "cx_reduction_pct": -4.24,
+      "depth_reduction_pct": -4.8496
+    },
+    "interpretation": "A96 dyadic interval predicates improve smaller modulus but regress for N247; should not replace A87b wholesale",
+    "validation": "Interval truth-table PASS; exhaustive modular adders and multipliers PASS; no extra qubits",
+    "next": "A97 choose A87b or A96 for each modular addition constant by native CX/depth, then measure actual complete multiplier and test exact correctness"
   }
 }
