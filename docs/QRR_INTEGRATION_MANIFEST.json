@@ -1966,5 +1966,48 @@
       "A106 carry-save not integrated into this QPE"
     ],
     "next": "Run A106 full native multiplier cost with no --skip-native and confirm A97 holds up at N35 base8 bits12, including phase histogram and exact-uniform null."
+  },
+  "latest_confirmed_A107_N35_FULL_QPE_20261105": {
+    "status": "PASS_FULL_QPE_AND_IDEAL_AER_PHASE_HOLDOUT",
+    "n": 35,
+    "base": 8,
+    "bits": 12,
+    "logical_qubits": 18,
+    "seed_cohorts": 3,
+    "shots_per_cohort": 16,
+    "architectures": {
+      "a87b": {
+        "cx": 27805,
+        "depth": 47335,
+        "verified_factor_recoveries": 48,
+        "phase_lattice_hits": 48
+      },
+      "a97": {
+        "cx": 24571,
+        "depth": 41906,
+        "verified_factor_recoveries": 48,
+        "phase_lattice_hits": 48
+      }
+    },
+    "reduction": {
+      "cx_gates": 3234,
+      "cx_pct": 11.631,
+      "depth_levels": 5429,
+      "depth_pct": 11.4693
+    },
+    "empirical_tvd": 0,
+    "stage_powers": [
+      8,
+      29
+    ],
+    "stage_basis_cases_each_architecture_each_power": 128,
+    "limitations": [
+      "Ideal Aer simulator, only 48 shots per architecture",
+      "Uniform null computed in A107 output but not provided in pasted console, compare before evaluating order-recovery evidentiary strength",
+      "Observed equal histograms do not by themselves prove quantum channel equivalence",
+      "N35 far below cryptographic-strength factoring",
+      "A106 full native cost comparison remains unreported"
+    ],
+    "next": "Inspect A107 exact_uniform_null and verify N35 48/48 is above that null; run the A106 full native cost gate when ready"
   }
 }
