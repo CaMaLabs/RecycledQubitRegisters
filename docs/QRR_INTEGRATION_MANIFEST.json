@@ -1821,5 +1821,34 @@
       "98 logical qubits exceed earlier 30-qubit A97 power-stage width, not directly substitutable"
     ],
     "next": "A103 read-only IBM Fez routing of same 71-vs-98 qubit complete modular sum with matched settings, nested physical layout and full source checks, then evaluate integration feasibility for controlled multiplication"
+  },
+  "latest_confirmed_A103_FEZ_ROUTED_MODULAR_CSA_20261104": {
+    "status": "PASS_READ_ONLY_TARGET_ROUTED_COMPARISON",
+    "backend": "ibm_fez",
+    "n": 2491,
+    "seed": 10101,
+    "source_basis_cases_each": 471,
+    "baseline": {
+      "logical_qubits": 71,
+      "two_qubit_cz": 118003,
+      "depth": 258071
+    },
+    "carry_save": {
+      "logical_qubits": 98,
+      "two_qubit_cz": 97123,
+      "depth": 200046
+    },
+    "delta_cz": -20880,
+    "cz_reduction_pct": 17.6945,
+    "delta_depth": -58025,
+    "depth_reduction_pct": 22.4841,
+    "extra_logical_qubits": 27,
+    "limitations": [
+      "Three-input clean modular-N sum, not controlled modular multiplication",
+      "IBM backend target local routing only; no hardware job or noise simulation",
+      "471 tested computational basis triples; not exhaustive at N2491",
+      "Control logic and work-register reuse are not included in A103"
+    ],
+    "next": "A104 compare full compute-control-copy-uncompute 3-operand modular-N XOR primitive, including controlled state and clean-workspace checks; quantify whether CZ/depth gains survive external control"
   }
 }
