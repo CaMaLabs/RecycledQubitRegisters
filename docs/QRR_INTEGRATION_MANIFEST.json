@@ -1099,5 +1099,41 @@
       "Only 48 shots; exact uniform-frequency null is not a noise-matched control"
     ],
     "next": "N247 independent-seed A84/A87b Aer distribution holdout with saved per-architecture checkpoint and fair QPE resource metrics"
+  },
+  "latest_confirmed_A90_N247_GATE_LEVEL_HOLDOUT_20261104": {
+    "status": "PASS_AER_COMPARATIVE_HOLDOUT_WITH_UNIFORM_NULL",
+    "n": 247,
+    "base": 8,
+    "bits": 16,
+    "shots_each": 16,
+    "seed": 9001,
+    "a84": {
+      "cx": 523133,
+      "depth": 898062,
+      "verified_factors": 12,
+      "lattice_hits": 15,
+      "aer_seconds": 273.852
+    },
+    "a87b": {
+      "cx": 429815,
+      "depth": 742289,
+      "verified_factors": 12,
+      "lattice_hits": 15,
+      "aer_seconds": 234.493
+    },
+    "comparison": {
+      "cx_reduction_pct": 17.8383,
+      "depth_reduction_pct": 17.3455,
+      "delta_cx": -93318,
+      "delta_depth": -155773,
+      "empirical_total_variation_distance": 0
+    },
+    "limitations": [
+      "Unrouted ideal native gates only; no device noise or QPU",
+      "16 shots with matching simulator seeds; identical empirical distribution alone is not equality proof",
+      "Factor success is not a factoring speedup versus best classical baseline",
+      "Post-hoc known-order lattice statistic is diagnostic, not input to circuit"
+    ],
+    "next": "Compare A84 versus A87b across complete 24 modular-power stage schedule at N2491; preserve separate gate and full-QPE resource claims."
   }
 }
