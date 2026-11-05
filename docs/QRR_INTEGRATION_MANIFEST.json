@@ -2009,5 +2009,36 @@
       "A106 full native cost comparison remains unreported"
     ],
     "next": "Inspect A107 exact_uniform_null and verify N35 48/48 is above that null; run the A106 full native cost gate when ready"
+  },
+  "latest_confirmed_A106_FULL_MULTIPLIER_NEGATIVE_20261105": {
+    "status": "PASS_EXACT_MULTIPLIER_AND_COMPARATIVE_COST_NEGATIVE",
+    "n": 15,
+    "a": 2,
+    "qubits": {
+      "a97": 14,
+      "a106": 59
+    },
+    "cx": {
+      "a97": 3086,
+      "a106": 31378,
+      "delta": 28292
+    },
+    "depth": {
+      "a97": 5165,
+      "a106": 46347,
+      "delta": 41182
+    },
+    "a106_to_a97_ratio": {
+      "cx": 10.167854828256644,
+      "depth": 8.97328170377541
+    },
+    "a106_exhaustive_basis_cases": 32,
+    "limitations": [
+      "A106 computational-basis clean-ancilla correctness confirmed only N15",
+      "Matched ideal u/cx transpilation, no hardware run",
+      "A97 full baseline correctness already independently validated; A106 result not evidence of scaling to N2491"
+    ],
+    "decision": "DO_NOT_PROMOTE_A106; retain A97 for full QPE; preserve carry-save modulo-N sum as useful standalone primitive",
+    "next": "Investigate workspace-pebbled and specialized constant multiplier designs; enforce full-multiplier resource gates before QPE integration; evaluate N35 ideal statistical null from A107"
   }
 }
