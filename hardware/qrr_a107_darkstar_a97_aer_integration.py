@@ -19,6 +19,7 @@ sys.path.insert(0,str(ROOT))
 from qrr_a88_integrated_qpe_ab import qpe,verify
 from qrr_a97_adaptive_modadd_multiplier import build as a97
 from dark_star_shor_staged_stopping_time_audit import recover_strict_verified
+from dark_star_public_policy_classical_v2 import common_classical
 
 def builder_for(level,seed):
  def builder(n,k):
@@ -51,6 +52,11 @@ def run():
  def save():path.write_text(json.dumps(d,indent=2)+"\n")
  save()
  try:
+  d["public_classical_preflight"]=common_classical(a.n,a.base)
+  d["public_classical_preflight_note"]="Small N may be solved classically before any QPE; Aer runs anyway solely to validate integration."
+  save()
+  print("A107 PUBLIC CLASSICAL",d["public_classical_preflight"]["source"],
+    "solved",d["public_classical_preflight"]["solved"],flush=True)
   builder=builder_for(a.level,a.seed)
   simulator=AerSimulator(method="matrix_product_state")
   candidates=[("baseline_base",a.base%a.n),("odd_power_base",pow(a.base,a.ell,a.n))]
