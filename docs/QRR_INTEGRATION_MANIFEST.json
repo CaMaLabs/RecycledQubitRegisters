@@ -2088,5 +2088,35 @@
     },
     "interpretation": "Factor recovery is already >91% under uniform random frequencies for N15 and N35 with this permissive postprocessor; full recovery is not strong factoring evidence. Phase-lattice hits are highly diagnostic in ideal Aer, though not physical advantage. Isolated section profiles are NOT additive native circuit attributions.",
     "next": "A109 optimize per-constant choices using actual whole-multiplier compiled CX/depth rather than isolated adder costs; retain frozen A97, require exact basis/clean workspace and no extra qubits."
+  },
+  "latest_confirmed_A109_N35_FULL_MULTIPLIER_SELECTOR_20261105": {
+    "status": "PASS_NO_WHOLE_MULTIPLIER_IMPROVEMENT",
+    "n": 35,
+    "a": 8,
+    "optimization_level": 1,
+    "baseline": {
+      "cx": 12287,
+      "depth": 20957,
+      "qubits": 18
+    },
+    "final": {
+      "cx": 12287,
+      "depth": 20957,
+      "qubits": 18
+    },
+    "distinct_adder_constants": 12,
+    "tested_single_flips": 12,
+    "selected_architecture_per_constant": "a96 (all 12 constants)",
+    "measured_improvement_pct": {
+      "cx": 0,
+      "depth": 0
+    },
+    "interpretation": "No isolated single-constant switch from A96 to A87b improved complete compiled multiplier. This establishes only a local optimum for one-flip neighborhood under specified compilation settings; not globally optimal.",
+    "limitations": [
+      "No multi-constant perturbations, new arithmetic decompositions, or topological rewrites",
+      "No new QPE / IBM target result",
+      "Checkpoint status is success for audit, not performance gain"
+    ],
+    "next": "Profile internal add / comparator / inverse cleanup subregions and test full-multiplier algebraic cancellation of duplicated compute/uncompute while retaining clean ancillas and frozen A97 baseline."
   }
 }
