@@ -2157,5 +2157,38 @@
       "Not a factoring or ML-KEM breakthrough"
     ],
     "next": "A111 run fully integrated A97 vs A110 dynamic QPE ideal Aer phase/readout holdout, then target IBM Fez routed comparisons and larger modular powers."
+  },
+  "latest_confirmed_A111_A110_FULL_QPE_20261105": {
+    "status": "PASS_FULL_QPE_AND_IDEAL_AER_PHASE_HOLDOUT",
+    "n": 35,
+    "base": 8,
+    "bits": 12,
+    "qubits": 18,
+    "shots_per_architecture": 48,
+    "architectures": {
+      "a97": {
+        "cx": 24571,
+        "depth": 41906,
+        "factor_recoveries": 48,
+        "phase_lattice_hits": 48
+      },
+      "a110": {
+        "cx": 21051,
+        "depth": 35681,
+        "factor_recoveries": 48,
+        "phase_lattice_hits": 48
+      }
+    },
+    "delta_cx": -3520,
+    "cx_reduction_pct": 14.3258,
+    "delta_depth": -6225,
+    "depth_reduction_pct": 14.8547,
+    "empirical_total_variation_distance": 0,
+    "limitations": [
+      "Ideal Aer MPS only, not actual IBM Fez QPU",
+      "N35 small and uniform null factor-recovery rate 91.6504%; phase lattice concentration is more discriminating",
+      "Not hardware target routing or cryptographic RSA/ML-KEM break"
+    ],
+    "next": "A112 run local IBM Fez native-target A97/A110 comparison across five N2491 isolated power stages, matched physical layout/seed, no jobs"
   }
 }
