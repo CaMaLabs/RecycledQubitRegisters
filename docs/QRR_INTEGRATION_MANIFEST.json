@@ -2118,5 +2118,44 @@
       "Checkpoint status is success for audit, not performance gain"
     ],
     "next": "Profile internal add / comparator / inverse cleanup subregions and test full-multiplier algebraic cancellation of duplicated compute/uncompute while retaining clean ancillas and frozen A97 baseline."
+  },
+  "latest_confirmed_A110_COMMUTING_GATE_CANCELLATION_20261105": {
+    "status": "PASS_EXACT_NATIVE_IMPROVEMENT",
+    "n": 35,
+    "a": 8,
+    "level": 1,
+    "logical_qubits": 18,
+    "frozen": {
+      "source_ops": 713,
+      "cx": 12287,
+      "depth": 20957
+    },
+    "candidate": {
+      "source_ops": 611,
+      "cx": 10527,
+      "depth": 17885
+    },
+    "cancelled_pairs": 51,
+    "removed_source_ops": 102,
+    "removed_gate_types": {
+      "x": 11,
+      "ccx": 10,
+      "mcx_o5": 10,
+      "mcx_o9": 10,
+      "mcx_o35": 10
+    },
+    "delta_cx": -1760,
+    "cx_reduction_pct": 14.3241,
+    "delta_depth": -3072,
+    "depth_reduction_pct": 14.6586,
+    "basis_cases_each": 128,
+    "interpretation": "Conservative commutation-aware involution cancellation reduced the complete A97 multiplier's local u/cx compiled resource costs with zero added qubits; mathematical rewrite designed to be phase exact on permutation gates.",
+    "limitations": [
+      "Only N35 a8 measured",
+      "Source computational-basis verification plus algebraic commutation reasoning; independent ideal phase-sensitive QPE measurement pending",
+      "Not IBM Fez locally routed or physically executed",
+      "Not a factoring or ML-KEM breakthrough"
+    ],
+    "next": "A111 run fully integrated A97 vs A110 dynamic QPE ideal Aer phase/readout holdout, then target IBM Fez routed comparisons and larger modular powers."
   }
 }
