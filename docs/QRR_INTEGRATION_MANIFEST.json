@@ -2385,5 +2385,39 @@
       "No Clifford+T / error-corrected resource evidence yet"
     ],
     "next": "A114 fault-tolerant Clifford+T logical circuit resource estimates, ancillas and T-depth for matched reversible multipliers; compare published quantum arithmetic methods."
+  },
+  "latest_confirmed_A113_IBM_FEZ_N2491_ROUTING_ROBUSTNESS_20261106": {
+    "status": "PASS_ROUTING_ROBUSTNESS",
+    "modulus": 2491,
+    "base": 8,
+    "backend": "ibm_fez",
+    "power_values": [
+      8,
+      64,
+      2448,
+      2217,
+      1051
+    ],
+    "physical_layout_count": 2,
+    "transpiler_seeds": [
+      9401,
+      9402,
+      9403
+    ],
+    "trial_count": 30,
+    "two_qubit_trial_wins": 30,
+    "depth_trial_wins": 30,
+    "weighted_two_qubit_reduction_pct": 11.6784,
+    "weighted_depth_reduction_pct": 10.2575,
+    "min_two_qubit_reduction_pct": 9.4163,
+    "max_two_qubit_reduction_pct": 13.7538,
+    "qpu_jobs_submitted": 0,
+    "limitations": [
+      "Matched local backend target routing, not real QPU jobs or observed error rates",
+      "30 trials sampled from two deterministic device layouts and three seeds, not all layouts or compiler settings",
+      "Counts reflect isolated controlled multiplier stages, not full N2491 dynamic QPE",
+      "No fault tolerant T count, T depth, magic state demand or surface code resources measured"
+    ],
+    "next": "A114 fault-tolerant resource audit with exact Clifford+T decomposition assumptions on same multiplier circuits, count non-Clifford cost, ancilla and T depth; no unsupported relative hardware speedups"
   }
 }
