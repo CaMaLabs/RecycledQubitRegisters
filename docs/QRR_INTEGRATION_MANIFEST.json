@@ -2253,5 +2253,75 @@
       "Finite sampled basis checks at N2491, not exhaustive"
     ],
     "next": "Repeat A112 same command with unchanged checkpoint for powers 64, 2448, 2217, 1051; only then interpret five-stage totals."
+  },
+  "latest_confirmed_A112_IBM_FEZ_N2491_FIVE_POWERS_20261106": {
+    "status": "PASS_IBM_TARGET_LOCAL_ROUTED_HOLDOUT",
+    "n": 2491,
+    "base": 8,
+    "backend": "ibm_fez",
+    "logical_qubits": 30,
+    "physical_backend_qubits": 156,
+    "powers": [
+      {
+        "power": 8,
+        "a97_2q": 419887,
+        "a110_2q": 369293,
+        "a97_depth": 984026,
+        "a110_depth": 883523
+      },
+      {
+        "power": 64,
+        "a97_2q": 428330,
+        "a110_2q": 374218,
+        "a97_depth": 998738,
+        "a110_depth": 888422
+      },
+      {
+        "power": 2448,
+        "a97_2q": 450769,
+        "a110_2q": 405680,
+        "a97_depth": 1054844,
+        "a110_depth": 962167
+      },
+      {
+        "power": 2217,
+        "a97_2q": 462736,
+        "a110_2q": 412481,
+        "a97_depth": 1094197,
+        "a110_depth": 986686
+      },
+      {
+        "power": 1051,
+        "a97_2q": 435973,
+        "a110_2q": 379415,
+        "a97_depth": 1020342,
+        "a110_depth": 905752
+      }
+    ],
+    "totals": {
+      "a97_two_qubit": 2197695,
+      "a110_two_qubit": 1941087,
+      "two_qubit_saved": 256608,
+      "a97_sum_depth": 5152147,
+      "a110_sum_depth": 4626550,
+      "sum_depth_saved": 525597
+    },
+    "aggregate_reduction_pct": {
+      "native_two_qubit": 11.6762,
+      "sum_routed_depth": 10.2015
+    },
+    "two_qubit_stage_wins": 5,
+    "stages_completed": 5,
+    "probes_per_architecture_per_stage": 28,
+    "same_initial_physical_layout": true,
+    "qpu_jobs_submitted": 0,
+    "limitations": [
+      "Read-only device metadata and local transpilation only, no quantum hardware execution",
+      "Five distinct isolated controlled modular multipliers, NOT a full 24-bit QPE or factorization",
+      "Routed depth sums are not complete QPE circuit depth",
+      "Finite sampled stage basis checks, 28 per architecture per power",
+      "No hardware error rate, fault tolerance or crypto-strength factoring evidence"
+    ],
+    "next": "Document optimized A110 topology and verify robustness under multiple transpiler seeds/alternative layouts; measure Clifford+T and controlled-multiplier costs before further cryptographic-scale claims."
   }
 }
