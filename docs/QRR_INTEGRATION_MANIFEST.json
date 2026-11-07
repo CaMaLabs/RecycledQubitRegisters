@@ -2323,5 +2323,32 @@
       "No hardware error rate, fault tolerance or crypto-strength factoring evidence"
     ],
     "next": "Document optimized A110 topology and verify robustness under multiple transpiler seeds/alternative layouts; measure Clifford+T and controlled-multiplier costs before further cryptographic-scale claims."
+  },
+  "latest_confirmed_A113_ROUTING_ROBUSTNESS_FIRST_TRIAL_20261106": {
+    "status": "PARTIAL_CHECKPOINT",
+    "completed_trials": 1,
+    "total_trials": 30,
+    "backend": "ibm_fez",
+    "n": 2491,
+    "power": 8,
+    "layout_index": 0,
+    "transpiler_seed": 9401,
+    "logical_qubits": 30,
+    "a97": {
+      "native_2q": 419887,
+      "depth": 984026,
+      "basis_cases": 28
+    },
+    "a110": {
+      "native_2q": 369293,
+      "depth": 883523,
+      "basis_cases": 28
+    },
+    "reduction": {
+      "native_2q_pct": 12.0494,
+      "depth_pct": 10.2134
+    },
+    "interpretation": "Exact independent remeasurement of matching A112 power8 baseline on first A113 multi-layout multi-seed checkpoint; second layout discovered successfully. Remaining 29 comparisons pending; no statistical robustness claim yet.",
+    "next": "Run remaining 29 A113 checkpointed comparisons; verify whether both two-qubit count and depth improve across all 30."
   }
 }
