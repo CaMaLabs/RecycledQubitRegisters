@@ -2190,5 +2190,68 @@
       "Not hardware target routing or cryptographic RSA/ML-KEM break"
     ],
     "next": "A112 run local IBM Fez native-target A97/A110 comparison across five N2491 isolated power stages, matched physical layout/seed, no jobs"
+  },
+  "latest_confirmed_A112_IBM_FEZ_N2491_POWER8_20261106": {
+    "status": "PARTIAL_CHECKPOINT_1_OF_5",
+    "n": 2491,
+    "base": 8,
+    "power": 8,
+    "backend": "ibm_fez",
+    "physical_qubits": 156,
+    "logical_qubits": 30,
+    "matched_initial_layout": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      16,
+      5,
+      23,
+      6,
+      22,
+      24,
+      7,
+      21,
+      25,
+      8,
+      17,
+      20,
+      36,
+      26,
+      37,
+      9,
+      27,
+      41,
+      45,
+      10,
+      28,
+      40,
+      42,
+      44,
+      46
+    ],
+    "verified_basis_probes_per_architecture": 28,
+    "a97": {
+      "native_2q_gates": 419887,
+      "routed_depth": 984026
+    },
+    "a110": {
+      "native_2q_gates": 369293,
+      "routed_depth": 883523
+    },
+    "reduction": {
+      "two_qubit_gates": 50594,
+      "two_qubit_pct": 12.0494,
+      "depth_levels": 100503,
+      "depth_pct": 10.2134
+    },
+    "qpu_jobs_submitted": 0,
+    "limitations": [
+      "This is one independently routed controlled multiplier stage out of five; NOT full dynamic QPE",
+      "Backend metadata and local transpilation only, not QPU execution or fidelity claim",
+      "Finite sampled basis checks at N2491, not exhaustive"
+    ],
+    "next": "Repeat A112 same command with unchanged checkpoint for powers 64, 2448, 2217, 1051; only then interpret five-stage totals."
   }
 }
