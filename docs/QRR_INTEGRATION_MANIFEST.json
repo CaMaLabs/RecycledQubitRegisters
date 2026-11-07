@@ -2350,5 +2350,40 @@
     },
     "interpretation": "Exact independent remeasurement of matching A112 power8 baseline on first A113 multi-layout multi-seed checkpoint; second layout discovered successfully. Remaining 29 comparisons pending; no statistical robustness claim yet.",
     "next": "Run remaining 29 A113 checkpointed comparisons; verify whether both two-qubit count and depth improve across all 30."
+  },
+  "latest_confirmed_A113_IBM_FEZ_ROUTING_ROBUSTNESS_20261106": {
+    "status": "PASS_ROUTING_ROBUSTNESS",
+    "completed_trials": 30,
+    "total_trials": 30,
+    "n": 2491,
+    "backend": "ibm_fez",
+    "powers": [
+      8,
+      64,
+      2448,
+      2217,
+      1051
+    ],
+    "physical_layout_count": 2,
+    "transpiler_seeds": [
+      9401,
+      9402,
+      9403
+    ],
+    "two_qubit_trial_wins": 30,
+    "depth_trial_wins": 30,
+    "weighted_two_qubit_reduction_pct": 11.6784,
+    "weighted_routed_depth_reduction_pct": 10.2575,
+    "min_two_qubit_reduction_pct": 9.4163,
+    "max_two_qubit_reduction_pct": 13.7538,
+    "qpu_jobs_submitted": 0,
+    "interpretation": "A110 reduced native 2Q gates and routed depth compared to A97 on all 30 related local IBM Fez target compilation trials across 5 powers x 2 layouts x 3 transpiler seeds.",
+    "limitations": [
+      "Read-only IBM Fez metadata and local transpilation, not quantum processor execution",
+      "Tests correlated through common modulus, algorithm, target and near-identical design; not independent hardware replications",
+      "Individual controlled modular multiplication stages, not full N2491 dynamic phase-estimation circuit",
+      "No Clifford+T / error-corrected resource evidence yet"
+    ],
+    "next": "A114 fault-tolerant Clifford+T logical circuit resource estimates, ancillas and T-depth for matched reversible multipliers; compare published quantum arithmetic methods."
   }
 }
