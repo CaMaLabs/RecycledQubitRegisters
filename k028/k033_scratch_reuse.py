@@ -94,6 +94,11 @@ def main():
     winner=ROOT/"competition/k031/results/precision_003_cut_1.kmb"
     if not winner.exists():
         raise SystemExit("Missing full-domain K031 control: "+str(winner))
+    info_path=ROOT/"competition/k031/results/receipts.jsonl"
+    reference_rows=k031.read_receipts(info_path)
+    reference_qubits=reference_rows.get("precision_003_cut_1",{}).get("build",{}).get("num_qubits")
+    if not isinstance(reference_qubits,int):
+        raise SystemExit("Cannot establish K031 control qubits from "+str(info_path))
     try:
         for trim in range(args.max_trim+1):
             key=f"scratch_trim_{trim}"
@@ -108,17 +113,16 @@ def main():
             print("BUILD",key,flush=True)
             try:
                 build=k031.build(ref,PREC,1,file)
-                circuit=type("Stub",(),{})()
                 # First check exact resource improvement before spending
                 # time on expensive full-domain verification.
-                metadata={"base_num_qubits":255,
+                metadata={"base_num_qubits":reference_qubits,
                           "num_qubits":build["num_qubits"],
                           "source":"K031 full domain control"}
                 if trim==0:
                     profile=profile_here
                     (out/"row_profile.json").write_text(
                         json.dumps(profile,indent=2,sort_keys=True))
-                if trim>0 and build["num_qubits"]>=255:
+                if trim>0 and build["num_qubits"]>=reference_qubits:
                     row={"id":key,"trim":trim,"build":build,"metadata":metadata,
                          "status":"NO_QUBIT_REDUCTION"}
                 else:
