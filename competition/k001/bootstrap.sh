@@ -12,8 +12,15 @@ PY="${PY:-$HOME/ibm-6c2q-venv/bin/python}"
 if ! "$PY" -c "import kaggle" >/dev/null 2>&1; then
   "$PY" -m pip install --upgrade kaggle
 fi
+KAGGLE="$(dirname "$PY")/kaggle"
+if [ ! -x "$KAGGLE" ]; then
+  KAGGLE="$(command -v kaggle || true)"
+fi
+if [ -z "$KAGGLE" ] || [ ! -x "$KAGGLE" ]; then
+  echo "ERROR: Kaggle CLI missing from Python environment" >&2; exit 1
+fi
 if [ ! -f "$ARCHIVE" ]; then
-  "$PY" -m kaggle competitions download -c google-verifiable-quantum-circuit-compilation -p "$PRIVATE/downloads"
+  "$KAGGLE" competitions download -c google-verifiable-quantum-circuit-compilation -p "$PRIVATE/downloads"
 fi
 if [ ! -f "$ARCHIVE" ]; then
   echo "ERROR: Kaggle archive missing; check CLI authentication and competition access" >&2
@@ -24,7 +31,7 @@ if [ ! -f "$PRIVATE/official/.k001_extracted" ]; then
   touch "$PRIVATE/official/.k001_extracted"
 fi
 if [ ! -f "$PRIVATE/metric/.k001_metric_pulled" ]; then
-  if "$PY" -m kaggle kernels pull metric/google-quantum-ai-metric -p "$PRIVATE/metric"; then
+  if "$KAGGLE" kernels pull metric/google-quantum-ai-metric -p "$PRIVATE/metric"; then
     touch "$PRIVATE/metric/.k001_metric_pulled"
   else
     echo "WARNING: metric kernel pull failed; local official verifier assets remain available" >&2
