@@ -2480,5 +2480,65 @@
       "No surface-code factories, physical logical error rate, cryptographic-strength factoring or QPU jobs"
     ],
     "next": "Extend A114 to remaining N2491 stage powers with same fixed exact synthesis; then evaluate magic-state scheduling and independently benchmark against published fault-tolerant arithmetic."
+  },
+  "latest_confirmed_A114_N2491_FIVE_STAGE_CLIFFORD_T_20261107": {
+    "status": "PASS_FIVE_STAGE_CONSTRUCTIVE_FT_RESOURCE_AUDIT",
+    "modulus": 2491,
+    "base": 8,
+    "powers": [
+      8,
+      64,
+      2448,
+      2217,
+      1051
+    ],
+    "per_stage": [
+      {
+        "power": 8,
+        "t_count_reduction_pct": 10.3875,
+        "t_depth_reduction_pct": 10.2287,
+        "constructed_qubit_delta": 0
+      },
+      {
+        "power": 64,
+        "t_count_reduction_pct": 10.3227,
+        "t_depth_reduction_pct": 10.1667,
+        "constructed_qubit_delta": 0
+      },
+      {
+        "power": 2448,
+        "t_count_reduction_pct": 9.4009,
+        "t_depth_reduction_pct": 9.2632,
+        "constructed_qubit_delta": 0
+      },
+      {
+        "power": 2217,
+        "t_count_reduction_pct": 9.1446,
+        "t_depth_reduction_pct": 9.0083,
+        "constructed_qubit_delta": 0
+      },
+      {
+        "power": 1051,
+        "t_count_reduction_pct": 10.0526,
+        "t_depth_reduction_pct": 9.9006,
+        "constructed_qubit_delta": 0
+      }
+    ],
+    "weighted_aggregate": {
+      "t_count_reduction_pct": 9.8429,
+      "t_depth_bound_reduction_pct": 9.6949,
+      "t_gates_saved": 79884,
+      "summed_t_depth_levels_saved": 39580,
+      "extra_constructed_qubits": 0
+    },
+    "model": "Fixed exact constructive Clifford+T synthesis via Qiskit standard 7-T 6-CX CCX and clean-ancilla ladder for MCX",
+    "validation": "All five scripts reported PASS_CONSTRUCTIVE_FT_RESOURCE_AUDIT from user's Ubuntu output; large modulus used --skip-basis; source cancellation algebraically phase-exact on supported gates",
+    "limitations": [
+      "Not globally T-optimized or physical surface code resource estimate",
+      "Five individually synthesized stages; summed depth is not complete QPE critical-path depth",
+      "No magic-state factories or gate-fidelity model",
+      "Not cryptographic-scale factoring or ML-KEM break"
+    ],
+    "next": "Proceed with independent reversible optimization comparisons and optional Google Quantum AI Kaggle competition benchmark adaptation only against official specifications."
   }
 }
