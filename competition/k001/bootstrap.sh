@@ -24,8 +24,9 @@ if ! "$PY" -m pip --version >/dev/null 2>&1; then
     exit 1
   fi
 fi
-if ! "$PY" -c "import kaggle" >/dev/null 2>&1; then
-  "$PY" -m pip install --upgrade kaggle
+if ! "$PY" -c "import kaggle, six" >/dev/null 2>&1; then
+  # Some Kaggle CLI distributions omit the runtime six dependency.
+  "$PY" -m pip install --upgrade kaggle six
 fi
 KAGGLE="$VENV/bin/kaggle"
 if [ ! -x "$KAGGLE" ]; then
