@@ -22,5 +22,5 @@ for cid,config,res,proxy,tests,reach,failed,status,path in rows:
  print(json.dumps({"id":cid,"config":json.loads(config),"stats":json.loads(res) if res else None,
    "proxy":proxy,"tests":tests,"max_x_pass":reach,"failed_tests":failed,
    "status":status,"kmb":path},sort_keys=True))
-print("K020 report",db_path.parent.parent.parent.parent/"k020/k020_status.json")
+print("K020 report",Path(__file__).resolve().parent/"k020_status.json")
 db.close()
