@@ -217,7 +217,8 @@ def main():
      if record.get("status")!="DONE" or record.get("tested_through_x")!=args.max_x:continue
      config=record.get("params",{})
      ident=cid(config)
-     if db.execute("SELECT 1 FROM candidates WHERE id=?",(ident,)).fetchone():
+     state_row=db.execute("SELECT state FROM candidates WHERE id=?",(ident,)).fetchone()
+     if state_row and state_row[0]=="NEW":
       error=record.get("max_abs_relative_error")
       if isinstance(error,(int,float)) and math.isfinite(error):
        state="FULL_MODEL_PASS" if error<=threshold else "MODEL_REJECT"
