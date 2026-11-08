@@ -18,7 +18,7 @@ SOURCE=PRIVATE/"official/sample_submission/invsqrt.kmb"
 KM_X=PRIVATE/"runs/k005/reference_roundtrip.kmx"
 OUT_DIR=PRIVATE/"runs/k006"
 REPORT=ROOT/"k006_first_optimizer.json"
-GATE=re.compile(r"^(X|CX|CCX)\\s+(q[0-9]+)(?:\\s+(q[0-9]+))?(?:\\s+(q[0-9]+))?\\s*$")
+GATE=re.compile(r"^(X|CX|CCX)\s+(q[0-9]+)(?:\s+(q[0-9]+))?(?:\s+(q[0-9]+))?\s*$")
 ARITY={"X":1,"CX":2,"CCX":3}
 
 def parse(line):
@@ -57,6 +57,7 @@ def optimize(text,window):
  output=[];segment=[];removed=collections.Counter()
  syntax_counts=collections.Counter()
  segments=0
+ recognized=0
  def flush():
   nonlocal segments
   if not segment:return
@@ -69,13 +70,16 @@ def optimize(text,window):
   if desc is None:
    flush()
    output.append(line)
-  else:segment.append((line,desc))
+  else:
+   recognized+=1
+   segment.append((line,desc))
  flush()
  return "".join(output),{"source_lines":len(lines),
    "cancelled_pairs":sum(removed.values()),
    "removed_instructions":2*sum(removed.values()),
    "removed_by_gate":dict(sorted(removed.items())),
    "safe_segments":segments,
+   "recognized_whitelisted_gates":recognized,
    "instruction_token_histogram":dict(syntax_counts.most_common(45)),
    "strictly_rewritable_gate_count":sum(v for k,v in syntax_counts.items() if k in ARITY)}
 
@@ -118,6 +122,10 @@ def main():
   source_text=KM_X.read_text(encoding="utf-8")
   optimized,report=optimize(source_text,a.window)
   d["rewrite"]=report
+  if report["recognized_whitelisted_gates"]==0:
+   d["status"]="FAIL_NO_GATES_RECOGNIZED"
+   save()
+   raise RuntimeError("K006 parsed zero X/CX/CCX gates despite source tokens; refusing false negative")
   kmx=OUT_DIR/"candidate.kmx"
   kmx.write_text(optimized,encoding="utf-8")
   print("K006 REWRITE",report["cancelled_pairs"],"pairs",
