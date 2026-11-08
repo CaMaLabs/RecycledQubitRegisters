@@ -46,8 +46,8 @@ def patched_compute_y1(original):
                     slice=ast.Constant(value=0),ctx=ast.Load()),node)
             return node
     tree=ResolveY0().visit(tree);ast.fix_missing_locations(tree)
-    ns=original.__globals__.copy()
-    exec(compile(tree,inspect.getsourcefile(original) or "<K039>","exec"),ns,ns)
+    ns=original.__globals__
+    # Bind to the live module dictionary so K031 phase-cut monkeypatches\n    # are visible at build time, not lost to a frozen globals snapshot.\n    exec(compile(tree,inspect.getsourcefile(original) or "<K039>","exec"),ns,ns)
     return ns["_compute_y1"]
 
 def patched_build(original):
@@ -75,7 +75,7 @@ def patched_build(original):
                             and v.value.id=="coefs")]
             return self.generic_visit(node)
     tree=Replace().visit(tree);ast.fix_missing_locations(tree)
-    ns=original.__globals__.copy()
+    ns=original.__globals__
     exec(compile(tree,inspect.getsourcefile(original) or "<K039>","exec"),ns,ns)
     return ns["build_nr_circuit"]
 
