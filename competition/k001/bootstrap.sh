@@ -8,16 +8,28 @@ ARCHIVE="$PRIVATE/downloads/google-verifiable-quantum-circuit-compilation.zip"
 REPORT="$DIR/k001_environment_report.json"
 mkdir -p "$PRIVATE/downloads" "$PRIVATE/official" "$PRIVATE/metric" "$PRIVATE/runs"
 chmod 700 "$PRIVATE"
-PY="${PY:-$HOME/ibm-6c2q-venv/bin/python}"
+# Isolate competition dependencies from the working Qiskit environment.
+VENV="$HOME/.venvs/kaggle-k001"
+if [ ! -x "$VENV/bin/python" ]; then
+  mkdir -p "$(dirname "$VENV")"
+  if ! python3 -m venv "$VENV"; then
+    echo "ERROR: python3 -m venv failed. Install python3-venv using apt, then rerun." >&2
+    exit 1
+  fi
+fi
+PY="$VENV/bin/python"
+if ! "$PY" -m pip --version >/dev/null 2>&1; then
+  if ! "$PY" -m ensurepip --upgrade; then
+    echo "ERROR: Competition venv lacks pip/ensurepip. Install python3-venv, remove $VENV, and rerun." >&2
+    exit 1
+  fi
+fi
 if ! "$PY" -c "import kaggle" >/dev/null 2>&1; then
   "$PY" -m pip install --upgrade kaggle
 fi
-KAGGLE="$(dirname "$PY")/kaggle"
+KAGGLE="$VENV/bin/kaggle"
 if [ ! -x "$KAGGLE" ]; then
-  KAGGLE="$(command -v kaggle || true)"
-fi
-if [ -z "$KAGGLE" ] || [ ! -x "$KAGGLE" ]; then
-  echo "ERROR: Kaggle CLI missing from Python environment" >&2; exit 1
+  echo "ERROR: Kaggle CLI entrypoint unavailable in $VENV" >&2; exit 1
 fi
 if [ ! -f "$ARCHIVE" ]; then
   "$KAGGLE" competitions download -c google-verifiable-quantum-circuit-compilation -p "$PRIVATE/downloads"
