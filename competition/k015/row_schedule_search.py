@@ -56,8 +56,14 @@ def build(code,label,n_p):
  mod=types.ModuleType("invsqrt._k015_"+label)
  mod.__file__=str(REFERENCE_SOURCE)
  mod.__package__="invsqrt"
- exec(compile(code,str(REFERENCE_SOURCE),"exec"),mod.__dict__)
- circuit=mod.build_nr_circuit(n_p)
+ # Python 3.14 dataclasses resolve annotation types through sys.modules.
+ # The temporary module must be registered before executing its classes.
+ sys.modules[mod.__name__]=mod
+ try:
+  exec(compile(code,str(REFERENCE_SOURCE),"exec"),mod.__dict__)
+  circuit=mod.build_nr_circuit(n_p)
+ finally:
+  sys.modules.pop(mod.__name__,None)
  o=circuit.operation_statistics()
  stats={"instructions":int(o.num_instructions),"toffoli_like":int(o.num_toffoli_like),
    "t_like":int(o.num_t_like),"qubits":int(circuit.num_qubits),
