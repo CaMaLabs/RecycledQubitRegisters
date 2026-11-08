@@ -165,10 +165,13 @@ def main():
     metrics={"allocated_coefficients":[],"freed_coefficients":[],"loader_calls":0}
     path=out/"staged_coeffs.kmb"
     try:
-        ref.build_nr_circuit=patched_build(old_build)
-        ref._compute_y1=patched_compute_y1(old_compute)
+        # Dynamic compiled functions use a copied global namespace. Install
+        # hooks BEFORE compiling each dependent function, so compiled globals
+        # point to the stage-aware implementations rather than the original.
         ref._add_row=k034.local_row("compact",{"rows":0,"allocated_sum":0,"max_row_width":0})
         ref._load_coefficients,ref._horner=make_stage_hooks(ref,metrics)
+        ref._compute_y1=patched_compute_y1(old_compute)
+        ref.build_nr_circuit=patched_build(old_build)
         circuit=k031.build(ref,PREC,1,path)
     except Exception as e:
         (out/"error.json").write_text(json.dumps({"error":repr(e),"metrics":metrics},indent=2))
