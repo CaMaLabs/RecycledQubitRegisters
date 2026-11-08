@@ -214,6 +214,7 @@ def main():
    "hours_budget":args.hours,"workers":args.workers,"generation_size":args.generation_size,
    "levels":levels,"seeds":seeds,"full_domain_verified":False,
    "kaggle_submitted":False,
+   "model_probe_enabled":args.model_probe,
    "warnings":["Model probe is advisory only",
      "No automated full-domain proof or Kaggle submission",
      "Verifier cost and accuracy are assessed only over the named input range and seeds",
@@ -301,9 +302,29 @@ def main():
     db.commit()
     # The exploration frontier includes candidates that minimize actual
     # qubit*Toffoli proxy, with a modest model heuristic if available.
-    built.sort(key=lambda a:(a[2]["proxy"],
-                  a[2].get("model_abs_max",0.0)))
-    selected=built[:args.promote_per_generation]
+    # K019 showed deterministic relative_error is inexpensive and useful
+    # for ranking, but small sampled errors did NOT reliably predict
+    # full-domain verifier survival. Preserve both the lowest-resource
+    # and best-model-accuracy candidates (diversity/Pareto exploration).
+    by_cost=sorted(built,key=lambda a:(a[2]["proxy"],
+                           a[2].get("model_abs_max",float("inf"))))
+    if args.model_probe:
+     by_accuracy=sorted(
+      (x for x in built if x[2].get("model_abs_max") is not None),
+      key=lambda a:(a[2]["model_abs_max"],a[2]["proxy"]))
+     selected=[];selected_ids=set()
+     # Alternate resource and model-frontier proposals. Neither model
+     # result nor resource proxy is accepted as correctness evidence.
+     for k in range(max(len(by_cost),len(by_accuracy))):
+      for ranked in (by_cost,by_accuracy):
+       if k>=len(ranked):continue
+       item=ranked[k]
+       if item[0] not in selected_ids:
+        selected_ids.add(item[0]);selected.append(item)
+       if len(selected)>=args.promote_per_generation:break
+      if len(selected)>=args.promote_per_generation:break
+    else:
+     selected=by_cost[:args.promote_per_generation]
     print(f"K020 GENERATION={generation} STATIC_WINS={len(built)} "
           f"PROMOTED={len(selected)}",flush=True)
     for cid,cfg,preview in selected:
