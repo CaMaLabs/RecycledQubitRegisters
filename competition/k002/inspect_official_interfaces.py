@@ -24,7 +24,9 @@ SOURCES={
 }
 def name(node):
  if isinstance(node,ast.Name):return node.id
- if isinstance(node,ast.Attribute):return name(node.value)+"."+node.attr
+ if isinstance(node,ast.Attribute):
+  parent=name(node.value)
+  return (parent+"." if parent else "")+node.attr
  return None
 def literal(node):
  try:
