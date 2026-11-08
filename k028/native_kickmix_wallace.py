@@ -96,6 +96,16 @@ def wallace_multiply_m(builder, inverse, x, square, z, scratch):
         builder.iadd(row0, target=z)
         builder.iadd(row1, target=z)
 
+    # Erase copies of the two reduced operand rows while their source bits
+    # are still available. Reversing the compressor before this step would
+    # leave entangled/nonzero garbage in row0 and row1.
+    for i in reversed(range(n)):
+        col = columns[i]
+        if len(col) > 1:
+            builder.cx(col[1], row1[i])
+        if col:
+            builder.cx(col[0], row0[i])
+
     for gate in reversed(log):
         if gate[0] == "cx":
             builder.cx(*gate[1:])
