@@ -70,7 +70,15 @@ def main():
   print("K004 HELP TAIL",d["verifier_help"]["stdout_tail"][-3000:],
    d["verifier_help"]["stderr_tail"][-1000:],flush=True)
   cmd=[sys.executable,str(VERIFIER),str(SAMPLE),"--format","kmb"]
-  if not a.full_baseline:cmd+=["--shots-per-x",str(a.shots_per_x),"--max-x",str(a.max_x),"--max-workers","1"]
+  if not a.full_baseline:
+   # Official verifier requires total shots divisible by batch_size.
+   total=a.shots_per_x*a.max_x
+   batch=min(256,total)
+   while total%batch:batch-=1
+   cmd+=["--shots-per-x",str(a.shots_per_x),"--max-x",str(a.max_x),
+     "--batch-size",str(batch),"--max-workers","1"]
+   d["smoke_batch_size"]=batch
+   d["smoke_total_shots"]=total
   d["verification_mode"]="FULL_VERIFIER_DEFAULTS" if a.full_baseline else "REDUCED_SHOTS_SMOKE"
   d["verification"]=invoke(cmd,a.timeout)
   result=d["verification"]
