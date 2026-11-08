@@ -82,9 +82,9 @@ def wallace_multiply_m(builder, inverse, x, square, z, scratch):
     row1 = builder.alloc_qubits(n)
     for i, col in enumerate(columns):
         if col:
-            cx(col[0], row0[i])
+            builder.cx(col[0], row0[i])
         if len(col) > 1:
-            cx(col[1], row1[i])
+            builder.cx(col[1], row1[i])
 
     # z accumulates the modular product; inverse path subtracts it.
     # Reference uncompute is not a bitwise inverse of the forward local
