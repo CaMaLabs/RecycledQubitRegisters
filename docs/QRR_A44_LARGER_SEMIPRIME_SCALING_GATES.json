@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "experiment": "A44_LARGER_SEMIPRIME_PROGRESSIVE_INTEGRATION",
+  "goal": "Extend verified A41 actual recycled quantum circuit without changing measurement provenance or replacing controlled multiplication with a precomputed orbit oracle.",
+  "stage_order": [
+    {
+      "n": 221,
+      "reference_factors_for_independent_validation_only": [
+        13,
+        17
+      ],
+      "work_bits": 8,
+      "minimum_quaspy_phase_bits": 9,
+      "classification": "same width as N143, distinct modulus",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "n": 323,
+      "reference_factors_for_independent_validation_only": [
+        17,
+        19
+      ],
+      "work_bits": 9,
+      "minimum_quaspy_phase_bits": 10,
+      "classification": "first wider work register",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "n": 437,
+      "reference_factors_for_independent_validation_only": [
+        19,
+        23
+      ],
+      "work_bits": 9,
+      "minimum_quaspy_phase_bits": 10,
+      "classification": "wider modulus robustness",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "n": 667,
+      "reference_factors_for_independent_validation_only": [
+        23,
+        29
+      ],
+      "work_bits": 10,
+      "minimum_quaspy_phase_bits": 11,
+      "classification": "additional width growth",
+      "status": "NOT_IMPLEMENTED"
+    }
+  ],
+  "nonnegotiable_gates": [
+    "Generalize A36/A37 controlled modular permutation to N parameter while keeping 0<=y<2^work_bits all states bijective.",
+    "Validate both disabled/enabled control for every basis state, including y>=N.",
+    "Audit clean ancilla reset and relative phases for each new decomposition; do not infer from N143 alone.",
+    "One recycled phase qubit plus work and clean scratch, actual midcircuit measure/reset/feedforward.",
+    "Run actual gate-level Aer memory samples; never substitute ideal or orbit distributions.",
+    "Strict public-only Quaspy frequency recovery; reference factors may appear only in an isolated independent validation ledger.",
+    "Report compilation native CX, depth, qubit budget, shot runtimes, and classical baseline.",
+    "Record sample recovery rate and confidence uncertainty; physical gate noise tested separately from postmeasurement readout flips.",
+    "Mark expensive/intractable compiles FAIL_OR_TIMEOUT, not PASS."
+  ],
+  "priority": "First finish A43; then implement N221 with real generalized arithmetic and 1-shot end-to-end readout, followed by N323."
+}

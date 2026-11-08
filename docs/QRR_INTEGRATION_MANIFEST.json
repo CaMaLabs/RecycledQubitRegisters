@@ -1,0 +1,2568 @@
+{
+  "schema_version": 1,
+  "project": "Dark Star / Recycled Qubit Registers",
+  "policy": "Never replace original algorithms with proxies without identifying substitutions; keep both positive and negative results and their cohort limitations. A45 falsified quantum-specific Quaspy success on N143: no return to quantum-advantage claims without random-frequency null control.",
+  "components": [
+    {
+      "id": "ptp_original",
+      "source": "simulation/ptp_hybrid/core.py",
+      "status": "direct_import_A30",
+      "next": "compare on nontrivial public-first unresolved cohorts"
+    },
+    {
+      "id": "kernel_original",
+      "source": "simulation/ptp_hybrid/kernel.py",
+      "status": "direct_import_A30",
+      "next": "benchmark against Brent rho and wheel with total runtime"
+    },
+    {
+      "id": "midpoint_original",
+      "source": "hardware/dark_star_ptp_shor_audit.py",
+      "status": "direct_import_A30",
+      "next": "unbalanced semiprimes, quadratic-residue savings vs cost"
+    },
+    {
+      "id": "quaspy_original_adapter",
+      "source": "integrations/darkstar_hybrid/quaspy_public_postprocess.py",
+      "status": "restored_PR14_A23_A34",
+      "next": "same-shot recovery and cost"
+    },
+    {
+      "id": "recycled_dynamic_source",
+      "source": "hardware/qrr_n35_true_recycled_phase_feedforward.py",
+      "status": "Aer_gate_level_one_shot_A34",
+      "next": "A35 repeated shots and larger modulus circuit"
+    },
+    {
+      "id": "phase_precision_ablation",
+      "source": "hardware/qrr_a35_gate_level_phase_precision.py",
+      "status": "committed_not_yet_user_run",
+      "next": "6/7/8 bits, 2 bases, same-shot CF and Quaspy"
+    },
+    {
+      "id": "binary_fourier_comparison",
+      "source": "hardware/qrr_a27_reversible_fourier_comparison.py",
+      "status": "small_kernel_math_validated",
+      "next": "compile equivalent modular arithmetic on same topology"
+    },
+    {
+      "id": "original_lwe_spectral",
+      "source": "CaMaLabs/LWE_GeometryLab/experiments/ring_ntt_probe.py",
+      "status": "separate_lattice_domain_not_factor_pruner",
+      "next": "retain original provenance; derive cross-domain mapping before transfer"
+    },
+    {
+      "id": "quaspy_gate_level_handoff",
+      "source": "hardware/qrr_a34_gate_level_aer_to_quaspy.py",
+      "status": "one_simulated_shot_verified_N35",
+      "next": "A35 statistically validated readouts"
+    },
+    {
+      "id": "full_end_to_end_N143",
+      "source": "hardware/qrr_a36_n143_reversible_multiplier.py",
+      "status": "exact_multiplier_source_committed_pending_Ubuntu_validation",
+      "next": "Compile N143 reversible multiplication, verify controlled basis states, then connect recycled QPE and Quaspy; not yet complete"
+    },
+    {
+      "id": "n143_gate_level_audit_optimized",
+      "source": "hardware/qrr_a37_n143_gate_audit_optimizer.py",
+      "status": "source_committed_awaiting_user_run",
+      "next": "exhaustively verify 512 basis states for original and optimized gates, then decompose MCX and compare native costs"
+    },
+    {
+      "id": "n143_matched_decomposed_gate_cost",
+      "source": "hardware/qrr_a38_n143_decomposed_gate_cost.py",
+      "status": "committed_not_yet_run",
+      "next": "Compare identical u/cx basis counts and depth for both A36 and A37; if meaningful, integrate winner in N143 recycled phase circuit"
+    },
+    {
+      "id": "n143_clean_ancilla_mcx_synthesis",
+      "source": "hardware/qrr_a39_n143_mcx_ancilla_synthesis.py",
+      "status": "PASS_COMPARABLE_DECOMPOSITION_RESOURCE_LEDGER_user_Ubuntu",
+      "next": "Validate v-chain on all 512 basis states including clean ancillas, then connect controlled powers to N143 recycled QPE and Quaspy"
+    },
+    {
+      "id": "n143_vchain_phase_clean_ancilla_audit",
+      "source": "hardware/qrr_a40_n143_vchain_phase_ancilla.py",
+      "status": "committed_not_executed",
+      "next": "Verify local complex amplitudes and scratch return then run optional whole-circuit Aer spot-check; only then build full recycled phase estimation"
+    },
+    {
+      "id": "n143_full_recycled_phase_quaspy_handoff",
+      "source": "hardware/qrr_a41_n143_dynamic_recycled_quaspy.py",
+      "status": "PASS_REAL_GATE_LEVEL_AER_TO_QUASPY_HANDOFF_user_reported_one_shot",
+      "next": "Repeat independently seeded shots; quantify measured recovery probability, compiled CX depth, time and noise sensitivity; verify absent classical shortcut."
+    },
+    {
+      "id": "n143_repeated_actual_Aer_recovery",
+      "source": "hardware/qrr_a42_n143_repeated_aer_quaspy.py",
+      "status": "PASS_16_INDEPENDENT_AER_SHOTS_USER_REPORTED",
+      "next": "Audit native decomposition including 6432 residual CCX; compare a larger independent seed cohort and readout/gate noise before hardware claims."
+    },
+    {
+      "id": "n143_complete_native_and_readout_sensitivity",
+      "source": "hardware/qrr_a43_n143_native_cost_readout_noise.py",
+      "status": "committed_pending_run",
+      "next": "Audit u/cx decomposition including residual CCX; replay measured A42 frequency memory under independent synthetic bit flips; gate noise separate"
+    },
+    {
+      "id": "larger_semiprime_generic_modular_source",
+      "source": "hardware/qrr_a44_generic_modular_multiplier.py",
+      "status": "committed_pending_source_build",
+      "next": "N221 and N323 source construction; independently verify full gate semantics, then generalize A41 dynamic QPE"
+    },
+    {
+      "id": "n143_null_frequency_falsification",
+      "source": "hardware/qrr_a45_n143_frequency_null_control.py",
+      "status": "FALSIFIED_QUANTUM_SPECIFIC_QUASPY_RECOVERY_USER_OBSERVED",
+      "next": "Constrain postprocessing classical search and compare actual phase frequencies vs uniform random frequencies under matched budgets; disallow factor advantage claims until discriminative."
+    },
+    {
+      "id": "classical_only_quaspy_scaling_A47",
+      "source": "hardware/qrr_a47_quaspy_classical_scaling.py",
+      "status": "committed_not_executed",
+      "next": "Sweep independent random/constant vs known-order-oracle frequencies across N143 through N2491, record hard timeouts and worker errors; do not claim quantum contribution."
+    },
+    {
+      "id": "quaspy_precision_parameter_boundary_A48",
+      "source": "hardware/qrr_a48_quaspy_precision_sweep.py",
+      "status": "PASS_PRECISION_SWEEP_USER_OBSERVED",
+      "next": "Replicate N437 bits18 and N667 bits20 with independent random seeds and 64-128 draws per cohort; compare with actual quantum phase distributions before quantum advantage claim."
+    },
+    {
+      "id": "phase_information_null_replication_A49",
+      "source": "hardware/qrr_a49_phase_frequency_replication.py",
+      "status": "PASS_USER_UBUNTU_REPLICATION",
+      "next": "Test actual gate-level phase-measurement distribution and realistic source cost for N437 18 bits and N667 20 bits; control for known-order oracle and compare null frequencies."
+    },
+    {
+      "id": "n437_18bit_recycled_Aer_Quaspy_A50",
+      "source": "hardware/qrr_a50_n437_recycled_aer_quaspy.py",
+      "status": "ONE_AER_SHOT_VERIFIED_FACTORS_USER_OBSERVED",
+      "next": "Repeat independent gate-level Aer shots; validate phase feedback and modular permutation separately and compare measured recovery with A49 uniform null 29/128."
+    },
+    {
+      "id": "a51_aer8_vs_random_null",
+      "source": "hardware/qrr_a51_aer_vs_null.py",
+      "status": "PASS_8_OF_8_AER_USER_OBSERVED",
+      "next": "Independently validate endianness, modular multiplication and feedback; repeat with independent Aer seeds, inspect phase peak geometry and measure simulation time before any speedup claim."
+    },
+    {
+      "id": "a52_order66_phase_geometry",
+      "source": "hardware/qrr_a52_n437_phase_distribution_audit.py",
+      "status": "PASS_DISTRIBUTION_DIAGNOSTIC_USER_UBUNTU",
+      "next": "Independently check A44 reversible controlled multiplication semantics, scratch clean and feedback-sign endianness; replicate with independent simulator seed before declaring circuit validated."
+    },
+    {
+      "id": "a53_gate_semantics_feedback_audit",
+      "source": "hardware/qrr_a53_gate_semantics_feedback_audit.py",
+      "status": "PASS_SAMPLED_GATE_AND_STRUCTURAL_FEEDBACK_USER_OBSERVED",
+      "next": "Audit controlled powers at all A50 stages, exhaustive manageable N35 basis, independent dynamic semantics; run fresh simulator seeds before scaling."
+    },
+    {
+      "id": "a54_all_controlled_power_audit",
+      "source": "hardware/qrr_a54_all_powers_audit.py",
+      "status": "N437_AND_N667_PASS_SAMPLED_ALL_UNIQUE_POWERS",
+      "next": "Run N667 first independently seeded Aer shot, then repeated shots and null comparison if feasible."
+    },
+    {
+      "id": "a57_exact_orbit_qpe",
+      "source": "hardware/qrr_a57_exact_orbit_qpe.py",
+      "status": "PASS_USER_UBUNTU_N437_N667",
+      "next": "Independent phase-frequency distribution crosscheck with A51, then scale ideal orbit simulation to larger semiprimes while optimizing gate-level arithmetic cost."
+    },
+    {
+      "id": "a58_ideal_orbit_scaling_matched_null",
+      "source": "hardware/qrr_a58_ideal_scaling_null.py",
+      "status": "PASS_USER_UBUNTU_4_MODULI",
+      "next": "Prioritize N2491 24-bit: independent reversible multiplier audit, source gate and depth estimate, seek polynomial modular multiplication; validate orbit simulator against exact dense unitary at small N."
+    },
+    {
+      "id": "a59_n2491_arithmetic_screen",
+      "source": "hardware/qrr_a59_n2491_arithmetic_screen.py",
+      "status": "PASS_FUNCTIONAL_SCREEN_USER_UBUNTU",
+      "next": "A60 actual reversible modular adder circuit with uncompute and ancilla validation; compare native basis costs against A44."
+    }
+  ],
+  "reliability_gates": [
+    "Reference public-only solver inputs; secret factor/order only in independent validation.",
+    "Match modulus/base/phase precision and measurement source for comparisons.",
+    "Never equate ideal model draws with gate-level simulated measurements or hardware shots.",
+    "Record classical preflight success separately from quantum-assisted factors.",
+    "Record two-qubit gates, dynamic feedback, shots, postprocessing work, failure probabilities, baseline classical algorithms.",
+    "Preserve unexecuted components in manifest rather than claiming they are integrated."
+  ],
+  "latest_confirmed": {
+    "A33": "64 of 64 model-sampled Quaspy recoveries on N35",
+    "A34": "one Aer matrix_product_state gate-level measured frequency 192 recovered factors [5,7] for N35 base8",
+    "A35": "768 gate-level simulated shots; Quaspy 512/512 on N35 eligible arms",
+    "A36": "source pushed; per-base exhaustive mapping checked offline; Ubuntu compilation not yet observed",
+    "A37": "512/512 controlled basis checks each base, both implementations; X reductions base2 8944 to 948, base8 8576 to 936; MCX counts unchanged",
+    "A38": "N143 base2/8 217536/218064 CX unchanged; single-qubit u reduction 2.61%/2.49%; depth reduction ~0.46%; Ubuntu observed",
+    "A39": "User Ubuntu: base2 CX 217536->34608, base8 CX 218064->34692, both 84.09% reduction; base8 depth 348348->80948. Six additional clean ancillas. Qiskit v-chain deprecated API warning. Full v-chain semantic and ancilla cleanliness verification pending.",
+    "A40": "User reports local V-chain 512/512 phase checks max error 0; full circuit spots not run",
+    "A41": "User Ubuntu A41 15q 9-bit base8 one Aer shot produced readout 010110101 frequency181; strict Quaspy candidate exponent20 verified factors [11,13]; CF no verified order. One successful noiseless simulated shot only; no QPU.",
+    "A42": "User Ubuntu: 16/16 Quaspy factor recoveries, CF 6/16, 13 distinct frequencies, mean 19.936s/shot; 15q 9bit Aer dynamic circuit; transpiled CX 231552 plus 6432 undecomposed CCX, depth 572460; zero QPU.",
+    "A43": "User Ubuntu: full u/cx CX 270144, U 528541, depth 630348, 15q; synthetic readout-bit flips 0..5% all Quaspy recovered across repeated 16-shot cohort. Not physical gate-noise proof.",
+    "A44": "User Ubuntu: N323 source constructed work9 ancilla7 17q, 2281 MCXVChain, 512 classical permutation checks; gate semantics and actual QPE pending.",
+    "A45": "User Ubuntu: actual_Aer Quaspy16/16 CF6/16; uniform_random Quaspy128/128 CF5/128; constant_zero/one/midpoint Quaspy16/16 each CF0. Therefore Quaspy factor success not dependent on quantum measurement on N143 under existing public-postprocessing settings. Prior claims of recovery from quantum frequency are invalid as evidence of quantum-specific advantage.",
+    "A46": "Corrected integer timeout, user Ubuntu base8 moduli 143,221,323: Quaspy 8/8 uniform random, 1/1 zero, 1/1 one, 4/4 known-order positive controls at budgets 1000 and 100000 for all three; no quantum-specific recovery information demonstrated. Older A46 float-timeout runs INVALID.",
+    "A47": "A47 runner committed; execution pending",
+    "A48": "User Ubuntu: N437 18-bit Quaspy verified factors 0/8 random vs 8/8 classical known-order peak controls; N667 20-bit 2/8 vs 8/8; budgets 1000/100000 identical in these arms. Oracle peaks not quantum shots; small sample and classical order leakage prohibit quantum advantage claims.",
+    "A49": "User Ubuntu A49 seeds 20261101/02: N437 18-bit random 29/128, oracle-informed 117/128; N667 20-bit random 25/128, oracle-informed 114/128; zero hard timeouts. Not quantum-measured; demonstrates information-dependent Quaspy success, not speedup.",
+    "A50": "User Ubuntu: N437 18bit 17q source build 119620 operations; compiled 2392446 CX 5697282 depth and 56963 residual CCX; one real gate-level Aer MPS shot frequency190650, candidate exponent66, verified factors19x23. One shot cannot establish statistical advantage; simulation wall time not supplied.",
+    "A51": "User Ubuntu A51: 8/8 independent Aer shot readouts returned Quaspy candidate exponent66, verified 19x23 for N437, 18-bit, base8. A49 uniform null 29/128. Exploratory conditional binomial p≈7e-6; source verification and noiseless simulation limitations remain. Reproducibility across Aer seeds not yet established.",
+    "A52": "User Ubuntu A52 N437 base8 bits18 order66: 8 Aer frequencies direct mean nearest peak distance 0.7727 bins; reversed bits 403.5492; uniform null mean 992.8639; Monte Carlo empirical tail ~7.99936e-5 with 100000 sampled null frequencies (12500 batches); geometry diagnostic only, arithmetic and feedback unvalidated.",
+    "A53": "User Ubuntu: A53 N35 base2 8/8 sampled actual Aer gate semantics in 1.465s; N437 base8 4/4 in 21.823s, scratch clean in all; 153 A50 conditional phase feedback structures checked; status PASS_SAMPLED_GATE_AND_STRUCTURAL_FEEDBACK_CHECKS. Not exhaustive nor independently validated dynamic feedback execution.",
+    "A54": "User Ubuntu: N437 base8 bits18, all 11 unique controlled powers passed 9 sampled Aer basis states each (99/99), structural feedback pass; N667 A54 and compilation results not yet observed.",
+    "A55": "N667 one-shot Aer simulation failed before output: exit 137 SIGKILL after compilation; OOM suspected but not established; 19 qubits, 5,079,600 CX, 105,825 CCX, depth12,381,647; no measured frequency or verified factors. Need dmesg/journal OOM and memory guard then alternate simulator.",
+    "A56": "N667 statevector Aer exit 137 during simulation; kernel OOM not confirmed in later 30min search; no measurement.",
+    "A57": "User Ubuntu: ideal classical-orbit quantum-state simulation N437 base8 bits18 order66, 120/128 verified factors 0.152s; N667 base8 bits20 order308, 115/128 verified factors 0.132s. No full gate-level N667 Aer measurement, no quantum advantage; runtime excludes classical orbit construction resource scaling.",
+    "A58": "User Ubuntu 2 seeds, 128 per arm: N899 256/256 ideal 256/256 random; N1147 same; N1763 same; N2491 ideal 221/256 vs uniform random 0/256. Classical orbit oracle, not gate-level or QPU, so no quantum advantage.",
+    "A59": "User Ubuntu N2491: stage power8 A44 MCX24685 depth47644, stage power64 MCX24528 depth46790; functional shift-add mapping verified 4096/4096 for both. No quantum candidate compiled, no measured gate savings.",
+    "A60": "User Ubuntu N35 k8 136 MCX depth250 actual sampled gate audit passed; N2491 addition k8 24694 MCX depth47217, k64 24694 MCX depth47000 source only. No gate saving vs A44 modular multiplier (~24500 MCX/stage).",
+    "A61": "User Ubuntu: after prior N35 k1 failures, targeted staged trace for y8 passed and independent statevector reused/fresh compilation both 128/128 for N35 k1 with clean ancillas. Full original exhaustive audit k1,8,17 pending; cause of discrepancy unresolved."
+  },
+  "latest_confirmed_A65_user_ubuntu_20261102": {
+    "n35": {
+      "cases": 128,
+      "qubits": 19,
+      "source_gates": 957,
+      "seconds": 0.036,
+      "status": "PASS_EXHAUSTIVE_BASIS_WITH_CLEAN_ANCILLAS"
+    },
+    "n2491": {
+      "cases": 8192,
+      "qubits": 31,
+      "source_gates": 3420,
+      "seconds": 1.466,
+      "status": "PASS_EXHAUSTIVE_BASIS_WITH_CLEAN_ANCILLAS"
+    },
+    "n2491_native_cost_from_A64": {
+      "cx": 136976,
+      "depth": 298388
+    },
+    "limits": "A65 is reversible source instruction interpreter; full quantum native-basis simulation and quantum-phase correctness are not established."
+  },
+  "latest_confirmed_A66_user_ubuntu_20261102": {
+    "n35": {
+      "A44": {
+        "qubits": 11,
+        "cx": 3210,
+        "native_depth": 7490
+      },
+      "A64": {
+        "qubits": 19,
+        "cx": 18682,
+        "native_depth": 37009
+      },
+      "conclusion": "A44 wins at N35"
+    },
+    "n2491": {
+      "A44": {
+        "qubits": 23,
+        "source_depth": 47644,
+        "native_cost": "NOT_MEASURED"
+      },
+      "A64": {
+        "qubits": 31,
+        "source_depth": 3243,
+        "native_cx_from_A64": 136976,
+        "native_depth_from_A64": 298388
+      },
+      "conclusion": "Native cost comparison unavailable; source depth not comparable to native depth"
+    },
+    "next": "Bracket native-cost crossover at medium N using isolated timeout and available hardware resources"
+  },
+  "latest_confirmed_A66_native_crossover_20261102": {
+    "base": 8,
+    "compilation": "u/cx optimization_level=0",
+    "n127": {
+      "a44_cx": 23760,
+      "a64_cx": 21463,
+      "a44_depth": 55440,
+      "a64_depth": 44227,
+      "a44_qubits": 13,
+      "a64_qubits": 21
+    },
+    "n221": {
+      "a44_cx": 55902,
+      "a64_cx": 40283,
+      "a44_depth": 130438,
+      "a64_depth": 84386,
+      "a44_qubits": 15,
+      "a64_qubits": 23
+    },
+    "n437": {
+      "a44_cx": 155664,
+      "a64_cx": 63646,
+      "a44_depth": 363216,
+      "a64_depth": 134501,
+      "a44_qubits": 17,
+      "a64_qubits": 25
+    },
+    "caveat": "Crossover bracketed between N35 and N127 for a=8, not universal; 127 prime, vary modulus/base; full quantum order-finding not tested."
+  },
+  "latest_confirmed_A66_N2491_native_user_ubuntu_20261102": {
+    "n": 2491,
+    "a": 8,
+    "basis": [
+      "u",
+      "cx"
+    ],
+    "optimization_level": 0,
+    "A44": {
+      "qubits": 23,
+      "cx": 1629210,
+      "depth": 3801490,
+      "compile_seconds": 17.898
+    },
+    "A64": {
+      "qubits": 31,
+      "cx": 136976,
+      "depth": 298388,
+      "compile_seconds": 1.442
+    },
+    "relative_cx_reduction_pct": 91.59,
+    "relative_depth_reduction_pct": 92.15,
+    "verification": "User output confirmed A66 PASS_COST_COMPARISON exit 0; A65 separately verified A64 reversible source basis 8192/8192; native gate semantic or real QPU performance not measured.",
+    "next": "Experimental A64 insertion into small-modulus actual recycled phase-estimation with A44 holdout, resource and factor verification; avoid N2491 full simulation."
+  },
+  "latest_confirmed_A67_N15_8shot_20261102": {
+    "n": 15,
+    "base": 2,
+    "bits": 8,
+    "shots": 8,
+    "a44": {
+      "qubits": 7,
+      "cx": 768,
+      "depth": 2155,
+      "readouts": [
+        192,
+        0,
+        192,
+        64,
+        192,
+        192,
+        128,
+        128
+      ],
+      "verified_factor_recoveries": 5
+    },
+    "a64": {
+      "qubits": 15,
+      "cx": 8034,
+      "depth": 17092,
+      "readouts": [
+        192,
+        0,
+        192,
+        64,
+        192,
+        192,
+        128,
+        128
+      ],
+      "verified_factor_recoveries": 5
+    },
+    "factors": [
+      3,
+      5
+    ],
+    "limits": "Aer simulated gate-level recycled QPE; eight paired identical-seed readouts do not establish distribution equivalence or scalability. Current postprocessing is a simple continued-fraction check, not the full Quaspy pipeline.",
+    "next": "N35 A/B source compile and limited Aer shots with resource guard; investigate factor postprocessing and resource scaling."
+  },
+  "latest_confirmed_A69_N221_hybrid_20261102": {
+    "n": 221,
+    "base": 8,
+    "bits": 16,
+    "a44": {
+      "cx": 117684,
+      "depth": 291100,
+      "qubits": 15
+    },
+    "a64": {
+      "cx": 118168,
+      "depth": 253844,
+      "qubits": 23
+    },
+    "a69": {
+      "cx": 106994,
+      "depth": 239070,
+      "qubits": 23
+    },
+    "status": "PASS_HYBRID_COMPILED_NOT_SIMULATED",
+    "limits": "Source phase/QPE correctness, distribution and factoring recovery not yet verified for hybrid. All counts compilation only.",
+    "next": "Hybrid source stage-by-stage equivalence and tiny-modulus Aer tests before N221 hardware-oriented runs"
+  },
+  "latest_confirmed_A70_N15_hybrid_Aer_20261102": {
+    "n": 15,
+    "base": 2,
+    "bits": 8,
+    "shots": 8,
+    "a44": {
+      "qubits": 7,
+      "cx": 768,
+      "depth": 2155,
+      "recoveries": 6
+    },
+    "a64": {
+      "qubits": 15,
+      "cx": 8034,
+      "depth": 17092,
+      "recoveries": 6
+    },
+    "hybrid": {
+      "qubits": 15,
+      "cx": 4252,
+      "depth": 9313,
+      "recoveries": 6
+    },
+    "frequencies": [
+      64,
+      192,
+      192,
+      128,
+      128,
+      192,
+      192,
+      192
+    ],
+    "factors": [
+      3,
+      5
+    ],
+    "status": "PASS_ACTUAL_HYBRID_AER_POSTPROCESSED",
+    "caveats": "Only 8 shots same seed; no distribution equivalence or physical-QPU validation; A44 still best at N15",
+    "next": "Validate source-level hybrid per-stage arithmetic at N221 and screen alternative bases/optimization objectives before costly simulations"
+  },
+  "latest_confirmed_A72_N221_level1_20261102": {
+    "n": 221,
+    "base": 8,
+    "bits": 16,
+    "optimization_level": 1,
+    "pure_a44": {
+      "cx": 58950,
+      "depth": 121327,
+      "qubits": 15
+    },
+    "best_hybrid": {
+      "assignment": {
+        "8": "a64",
+        "64": "a44",
+        "118": "a44"
+      },
+      "cx": 74955,
+      "depth": 144545,
+      "qubits": 23
+    },
+    "pure_a64": {
+      "cx": 117842,
+      "depth": 212948,
+      "qubits": 23
+    },
+    "status": "PASS_FULL_COMPILED_ASSIGNMENT_SWEEP",
+    "conclusion": "Optimized pure A44 wins both CX and depth with 8 fewer qubits at N221; earlier hybrid level0 win is not robust to equal optimizer treatment.",
+    "next": "Do not promote hybrid; benchmark optimized A44 and A64 at N437 / N2491 and validate any candidate against same topology/routing constraints."
+  },
+  "latest_confirmed_A73_20261102": {
+    "optimization_level": 1,
+    "basis": [
+      "u",
+      "cx"
+    ],
+    "n437": {
+      "a44": {
+        "qubits": 17,
+        "cx": 155664,
+        "depth": 308086
+      },
+      "a64": {
+        "qubits": 25,
+        "cx": 63646,
+        "depth": 112893
+      },
+      "a64_cx_reduction_pct": 59.113,
+      "a64_depth_reduction_pct": 63.357
+    },
+    "n2491": {
+      "a44": {
+        "qubits": 23,
+        "cx": 1629210,
+        "depth": 3233736
+      },
+      "a64": {
+        "qubits": 31,
+        "cx": 136976,
+        "depth": 248134
+      },
+      "a64_cx_reduction_pct": 91.592,
+      "a64_depth_reduction_pct": 92.327
+    },
+    "status": "PASS_MATCHED_NATIVE_COST_NOT_QPE",
+    "caveat": "Standalone controlled modular multiplication only; does not imply full QPE or hardware advantage",
+    "next": "Match optimization settings on complete recycled QPE at N437 and optional hybrid stage screen with no Aer execution"
+  },
+  "latest_confirmed_A74_N437_full_level1_20261102": {
+    "n": 437,
+    "base": 8,
+    "bits": 18,
+    "level": 1,
+    "status": "PASS_OPTIMIZED_FULL_QPE_COST_ONLY",
+    "a44": {
+      "qubits": 17,
+      "cx": 1144082,
+      "depth": 2340473
+    },
+    "a64": {
+      "qubits": 25,
+      "cx": 1127748,
+      "depth": 2030965
+    },
+    "a64_cx_reduction_pct": 1.4277,
+    "a64_depth_reduction_pct": 13.224,
+    "stage_screen": "All 11 distinct powers favored A64 by native CX counts; full optimization comparison was run with --skip-stage-screen",
+    "limits": "Full dynamic recycled QPE compilation only, not gate-level simulated phase distributions/factor recovery or hardware routing at N437",
+    "next": "Investigate full-QPE overhead per stage and coupling-constrained hardware mapping; retain A44 as qubit-minimizing fallback."
+  },
+  "latest_confirmed_A75_N2491_12bit_stage_profile_20261103": {
+    "n": 2491,
+    "base": 8,
+    "bits": 12,
+    "optimization_level": 1,
+    "completed_distinct_powers": 12,
+    "expected_distinct_powers": 12,
+    "status": "PASS_ISOLATED_STAGE_SUM_ESTIMATE_NOT_FULL_QPE",
+    "a44": {
+      "cx": 19465578,
+      "depth": 38636235,
+      "max_qubits": 23
+    },
+    "a64": {
+      "cx": 1690628,
+      "depth": 3061990,
+      "max_qubits": 31
+    },
+    "caveats": [
+      "Sum of independent stage compilations; does not equal complete dynamic recycled-QPE resources",
+      "No Aer shots/QPU execution",
+      "Only 12 phase bits; full intended precision uses 24 phase bits"
+    ],
+    "next": "Extend resumable per-power profiling to 24-bit precision, preserving checkpoint data by using a new output path; then evaluate memory-safe full-circuit construction."
+  },
+  "latest_confirmed_A75_N2491_24bit_20261103": {
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "optimization_level": 1,
+    "completed_distinct_powers": 24,
+    "status": "PASS_ISOLATED_STAGE_SUM_ESTIMATE_NOT_FULL_QPE",
+    "a44": {
+      "cx": 38926602,
+      "depth": 77263431,
+      "max_qubits": 23
+    },
+    "a64": {
+      "cx": 3367265,
+      "depth": 6099824,
+      "max_qubits": 31
+    },
+    "cx_reduction_pct": 91.35,
+    "depth_reduction_pct": 92.105,
+    "caveats": [
+      "Sum of independent controlled modular multiplier compilations; not compiled full dynamic QPE",
+      "No gate-level Aer shots at N2491",
+      "No error-correction or QPU hardware routing assessment"
+    ],
+    "next": "Use an incremental or modular full 24-bit recycled QPE compiler and evaluate scratch register reuse to reduce A64 qubit footprint without losing correctness."
+  },
+  "latest_confirmed_A76_A77_20261103": {
+    "a76_n35": {
+      "n": 35,
+      "base": 8,
+      "cases": 128,
+      "status": "PASS_EXHAUSTIVE_SOURCE_BASIS",
+      "a64": {
+        "qubits": 19,
+        "cx": 18682,
+        "depth": 31954
+      },
+      "a76": {
+        "qubits": 18,
+        "cx": 18732,
+        "depth": 32098
+      }
+    },
+    "a76_n2491": {
+      "n": 2491,
+      "base": 8,
+      "cases": 8192,
+      "status": "PASS_EXHAUSTIVE_SOURCE_BASIS",
+      "a64": {
+        "qubits": 31,
+        "cx": 136976,
+        "depth": 248134
+      },
+      "a76": {
+        "qubits": 30,
+        "cx": 137040,
+        "depth": 248307
+      }
+    },
+    "a77_n2491": {
+      "n": 2491,
+      "base": 8,
+      "bits": 24,
+      "architecture": "a76",
+      "qubits": 30,
+      "boxed_stages": 24,
+      "top_level_ops": 396,
+      "boxed_definition_ops": 84275,
+      "build_seconds": 3.134,
+      "status": "PASS_COMPACT_DYNAMIC_SOURCE_NOT_NATIVE_COMPILED"
+    },
+    "limitations": [
+      "A76 exhaustive source-basis correctness does not establish native-gate superposition/phase correctness",
+      "A77 compact source assembly is neither whole-circuit native compilation nor Aer execution",
+      "A76 native-cost metrics are for one multiplication stage only"
+    ],
+    "next": "Small-modulus A76 dynamic-QPE Aer phase/factor checks against A64 and A44, then N2491 stage resource accounting; no large simulation"
+  },
+  "latest_confirmed_A78_noise_pilot_20261103": {
+    "n": 15,
+    "base": 2,
+    "bits": 8,
+    "shots_per_configuration": 8,
+    "synthetic_p2": [
+      0,
+      0.0001
+    ],
+    "a44": {
+      "qubits": 7,
+      "cx": 404,
+      "ideal_factor_successes": 3,
+      "noisy_factor_successes": 4
+    },
+    "a64": {
+      "qubits": 15,
+      "cx": 8008,
+      "ideal_factor_successes": 3,
+      "noisy_factor_successes": 5
+    },
+    "a76": {
+      "qubits": 14,
+      "cx": 8042,
+      "ideal_factor_successes": 3,
+      "noisy_factor_successes": 3
+    },
+    "status": "PASS_SYNTHETIC_NOISE_BENCHMARK",
+    "limits": "Eight shots per condition are insufficient to establish a noise or ancilla benefit. Synthetic noise model has no idle decoherence, crosstalk or measurement/reset errors; no syndrome ancillas.",
+    "next": "Increase shot count at N15 to 128 or more for statistical pilot, then N437/adjacent semiprime gate-level frontier with strict RAM guard; N15 advantages do not generalize."
+  },
+  "latest_confirmed_A79_N221_20261103": {
+    "n": 221,
+    "known_factors_for_verification": [
+      13,
+      17
+    ],
+    "base": 8,
+    "bits": 16,
+    "architecture": "a44",
+    "compiled": {
+      "qubits": 15,
+      "cx": 117684,
+      "depth": 291100,
+      "compile_seconds": 1.566
+    },
+    "shots": 2,
+    "measured_frequencies": [
+      40960,
+      32768
+    ],
+    "verified_factor_pairs": [
+      [
+        13,
+        17
+      ],
+      [
+        13,
+        17
+      ]
+    ],
+    "status": "PASS_VERIFIED_GATE_LEVEL_FACTORS",
+    "limits": [
+      "Only two shots; no statistical confidence or evidence of quantum advantage",
+      "Postprocessor tries up to four denominator multiples; random-frequency baseline not yet tested",
+      "N437 A64 25-qubit MPS run timed out after 300 seconds"
+    ],
+    "next": "Run random-frequency null control with same postprocessor; then scale semiprime size under 180-second budget."
+  },
+  "latest_confirmed_A79_N247_20261103": {
+    "n": 247,
+    "base": 8,
+    "bits": 16,
+    "architecture": "a44",
+    "compiled": {
+      "qubits": 15,
+      "cx": 670752,
+      "depth": 1658316,
+      "compile_seconds": 7.437
+    },
+    "measured_frequencies": [
+      32768,
+      32768
+    ],
+    "verified_factor_recoveries": 0,
+    "shots": 2,
+    "status": "PASS_MEASURED_NO_FACTORS",
+    "known_order_for_analysis": 12,
+    "diagnostic": "Measured phase 1/2 gives denominator 2; four-multiple postprocessing tests at most 8, insufficient to recover the genuine order 12",
+    "next": "A80 exact uniform-frequency null baseline then more seeds/shots, avoid liberal postprocessing without null controls"
+  },
+  "latest_confirmed_A80_exact_uniform_null_20261103": {
+    "n221": {
+      "n": 221,
+      "base": 8,
+      "bits": 16,
+      "multiples": 4,
+      "uniform_factor_successes": 19069,
+      "total_uniform": 65536,
+      "rate": 0.29097,
+      "observed_successes": 2,
+      "observed_shots": 2
+    },
+    "n247": {
+      "n": 247,
+      "base": 8,
+      "bits": 16,
+      "multiples": 4,
+      "uniform_factor_successes": 19028,
+      "total_uniform": 65536,
+      "rate": 0.290344,
+      "observed_successes": 0,
+      "observed_shots": 2
+    },
+    "status": "PASS_EXACT_NULL_CONTROL",
+    "interpretation": "Classical factor postprocessor succeeds for ~29% of random frequencies; two-shot verified factoring is insufficient to show meaningful phase-information advantage",
+    "next": "Run A81 phase-lattice enrichment diagnostic; order used for analysis only, not as circuit input."
+  },
+  "latest_confirmed_A81_phase_lattice_20261103": {
+    "n221": {
+      "n": 221,
+      "order_for_diagnostics_only": 8,
+      "measured_frequencies": [
+        40960,
+        32768
+      ],
+      "measured_hits": 2,
+      "shots": 2,
+      "exact_uniform_null_hits": 24,
+      "exact_uniform_null_count": 65536,
+      "random_hit_probability": 0.0003662109375
+    },
+    "n247": {
+      "n": 247,
+      "order_for_diagnostics_only": 12,
+      "measured_frequencies": [
+        32768,
+        32768
+      ],
+      "measured_hits": 2,
+      "shots": 2,
+      "exact_uniform_null_hits": 28,
+      "exact_uniform_null_count": 65536,
+      "random_hit_probability": 0.00042724609375
+    },
+    "status": "PASS_EXACT_PHASE_LATTICE_NULL",
+    "limits": [
+      "Only two shots per semiprime; repetitions not independently verified",
+      "Order is provided classically for diagnostic phase-lattice matching, not estimated from the two readouts",
+      "Both N247 outputs are same phase 1/2, compatible with many even orders; phase-lattice enrichment is not proof of order recovery or quantum computational advantage",
+      "Uniform-frequency null alone does not capture simulator biases or systematic phase concentration"
+    ],
+    "next": "A79 with 16+ shots and independent seed for N247; evaluate histogram and strict order estimation, keeping classical limited-multiple recovery separate."
+  },
+  "latest_confirmed_A79_N247_16shot_seed8101_20261104": {
+    "n": 247,
+    "factors": [
+      13,
+      19
+    ],
+    "base": 8,
+    "bits": 16,
+    "architecture": "a44",
+    "seed_simulator": 8101,
+    "shots": 16,
+    "verified_factor_recoveries": 14,
+    "success_rate": 0.875,
+    "measured_frequencies": [
+      27306,
+      27307,
+      43691,
+      16384,
+      5461,
+      49152,
+      32768,
+      16384,
+      54613,
+      54613,
+      21845,
+      10923,
+      43691,
+      38229,
+      16384,
+      32768
+    ],
+    "compiled": {
+      "qubits": 15,
+      "cx": 670752,
+      "depth": 1658316,
+      "compile_seconds": 7.401
+    },
+    "status": "PASS_VERIFIED_GATE_LEVEL_FACTORS",
+    "a80_uniform_random_frequency_postprocess_success_rate": 0.29034423828125,
+    "limitations": [
+      "Local ideal Aer MPS gate-level simulation; no QPU hardware and no native device noise",
+      "16 simulator shots with a selected seed; repeat with independent seeds for robustness",
+      "Four-multiple bounded classical order recovery; factors verified by product only",
+      "N247 true modular order 12 used for offline phase-lattice diagnostics, not as circuit input",
+      "Not an algorithmic complexity or quantum advantage claim"
+    ],
+    "next": "A82 independent-seed readout distribution replication, phase-lattice statistical test with exact uniform-null; then larger N under wallclock limits"
+  },
+  "latest_confirmed_A82_XOR_encoding_20261104": {
+    "n": 247,
+    "base": 8,
+    "bits": 16,
+    "seed": 8201,
+    "candidate_count_requested": 128,
+    "status": "PASS_COMPILED",
+    "baseline": {
+      "qubits": 15,
+      "cx": 670752,
+      "depth": 1658316,
+      "gray_path_swaps": 18632
+    },
+    "xor_encoded": {
+      "qubits": 15,
+      "cx": 619056,
+      "depth": 1530512,
+      "gray_path_swaps": 17196
+    },
+    "savings": {
+      "cx": 51696,
+      "depth": 127804,
+      "cx_percent": 7.7071704594246455,
+      "depth_percent": 7.706854423403018
+    },
+    "validation": "Exhaustive conjugated arithmetic permutation checks; real gate-level QPE measurements and hardware-aware routing still pending",
+    "constraints": "A44 permutation-swap synthesis scales exponentially, not a scalable RSA factoring breakthrough",
+    "next": "Run 16 measured Aer QPE shots XOR vs baseline, compare phase lattice and factor recovery with independent seeds; assess stronger encodings and physical routing if validated"
+  },
+  "latest_confirmed_A82_XOR_16shots_20261104": {
+    "n": 247,
+    "base": 8,
+    "bits": 16,
+    "seed": 8201,
+    "shots_per_architecture": 16,
+    "status": "PASS_COMPILED_AND_SAMPLED",
+    "binary": {
+      "qubits": 15,
+      "cx": 670752,
+      "depth": 1658316
+    },
+    "xor": {
+      "qubits": 15,
+      "cx": 619056,
+      "depth": 1530512
+    },
+    "measurement_frequencies": [
+      43689,
+      10922,
+      60075,
+      54614,
+      16384,
+      49152,
+      10923,
+      21846,
+      27307,
+      60076,
+      54613,
+      32768,
+      27307,
+      16384,
+      60076,
+      49152
+    ],
+    "sampled_sequences_identical": true,
+    "measurement_note": "Both use same seed; identical observed samples do not by themselves prove general distribution equality. Encoded permutation checks passed.",
+    "limitations": [
+      "No independent-seed or exact statevector equivalence test yet",
+      "No real device noise or coupling-map routing",
+      "A44 synthesis scales exponentially and does not itself establish scalable factoring"
+    ],
+    "next": "Add architecture-independent conjugation validation and phase-histogram controls; test XOR encoding on optimized arithmetic A64/A76 with fair native-gate and qubit accounting."
+  },
+  "latest_confirmed_A83_N247_encoding_wrapper_20261104": {
+    "n": 247,
+    "k": 8,
+    "optimization_level": 1,
+    "status": "PASS_EXHAUSTIVE_BASIS_AND_COMPILED",
+    "baseline": {
+      "qubits": 22,
+      "cx": 34793,
+      "depth": 59749
+    },
+    "variants": [
+      {
+        "name": "identity",
+        "cx": 34793,
+        "depth": 59749
+      },
+      {
+        "name": "chain",
+        "cx": 34807,
+        "depth": 59754
+      },
+      {
+        "name": "reverse_chain",
+        "cx": 34807,
+        "depth": 59772
+      },
+      {
+        "name": "star_low",
+        "cx": 34807,
+        "depth": 59754
+      },
+      {
+        "name": "star_high",
+        "cx": 34807,
+        "depth": 59765
+      },
+      {
+        "name": "pair",
+        "cx": 34801,
+        "depth": 59751
+      },
+      {
+        "name": "shift2",
+        "cx": 34805,
+        "depth": 59752
+      }
+    ],
+    "validation": "All seven candidates passed exhaustive computational-basis semantics and scratch cleanup",
+    "interpretation": "No CX gate improvements from external GF(2) conjugation around unchanged A76 multiplier; wrapper conversion overhead exceeds any local optimization",
+    "scope": "Single controlled modular multiplier, not full 16-bit recycled-QPE; cannot directly compare 34,793 stage CX with A82 full-QPE 619,056 CX",
+    "next": "Resynthesize modular addition/multiplication internally in alternative representation; compare complete input/output conversion cost and test exhaustive semantics before full QPE."
+  },
+  "latest_confirmed_A84_FUSED_CARRY_20261104": {
+    "status": "PASS_EXHAUSTIVE_BASIS_AND_NATIVE_COST",
+    "optimization_level": 1,
+    "n35": {
+      "n": 35,
+      "k": 8,
+      "qubits": 18,
+      "basis_cases": 128,
+      "a76": {
+        "cx": 18732,
+        "depth": 32098
+      },
+      "a84": {
+        "cx": 16593,
+        "depth": 28116
+      },
+      "cx_reduction_pct": 11.419,
+      "depth_reduction_pct": 12.4058
+    },
+    "n247": {
+      "n": 247,
+      "k": 8,
+      "qubits": 22,
+      "basis_cases": 512,
+      "a76": {
+        "cx": 34793,
+        "depth": 59749
+      },
+      "a84": {
+        "cx": 31542,
+        "depth": 53949
+      },
+      "cx_reduction_pct": 9.3438,
+      "depth_reduction_pct": 9.7073
+    },
+    "interpretation": "Reused A61 predicate-scratch to fuse two control flags for internal carry operations, no extra qubit; clean source-basis tests passed for adder and multiplier",
+    "caveats": [
+      "Standalone single controlled multiplier only, not full QPE",
+      "Basis checks do not quantify physical noise or hardware layout",
+      "A84 is arithmetic resynthesis/control fusion; not proof of radix-16 encoding advantage"
+    ],
+    "next": "A85 full recycled-QPE compilation and small N Aer sampling comparison; gate-level independent-seed holdouts before a bigger semiprime."
+  },
+  "latest_confirmed_A85_FUSED_CARRY_FULL_QPE_20261104": {
+    "status": "PASS_N15_AER_AND_N247_FULL_QPE_COMPILED",
+    "optimization_level": 1,
+    "n15": {
+      "n": 15,
+      "base": 2,
+      "bits": 8,
+      "qubits": 14,
+      "shots_each": 16,
+      "a76": {
+        "cx": 8042,
+        "depth": 14967,
+        "factor_successes": 13
+      },
+      "a84": {
+        "cx": 7004,
+        "depth": 13262,
+        "factor_successes": 13
+      },
+      "cx_reduction_pct": 12.9072,
+      "depth_reduction_pct": 11.3917,
+      "identical_seed_sampled_frequencies": true
+    },
+    "n247": {
+      "n": 247,
+      "base": 8,
+      "bits": 16,
+      "qubits": 22,
+      "a76": {
+        "cx": 559240,
+        "depth": 986543
+      },
+      "a84": {
+        "cx": 498979,
+        "depth": 882395
+      },
+      "cx_reduction_pct": 10.7755,
+      "depth_reduction_pct": 10.5569
+    },
+    "confirmed_savings_n247": {
+      "cx": 60261,
+      "depth": 104148
+    },
+    "limitations": [
+      "N15 ideal local Aer shot sampling used the same simulator seed for both implementations; sampled agreement alone is not proof of process equivalence",
+      "N247 optimized full-circuit compilation only, not large-n Aer sampling",
+      "Ideal Aer-native un-routed gate basis, no hardware coherence/noise or coupling graph accounting"
+    ],
+    "next": "Profile A84 vs A76 across all 24 distinct modular powers at N2491 (isolated stages, same optimization settings), then run an independent small-n distribution check."
+  },
+  "latest_confirmed_A86_N2491_FUSED_CARRY_20261104": {
+    "status": "PASS_ISOLATED_POWER_COST_ONLY",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "optimization_level": 1,
+    "completed_distinct_powers": 24,
+    "stage_wins_a84": 24,
+    "comparison": {
+      "cx_reduction_pct": 9.353,
+      "depth_reduction_pct": 9.7962,
+      "delta_cx": -315083,
+      "delta_depth": -597955
+    },
+    "caveats": [
+      "Independent ideal-basis modular-stage compilation sums, not whole dynamic QPE native circuit",
+      "No N2491 Aer simulation or hardware execution",
+      "No physical noise, routing, or fault tolerance analysis"
+    ],
+    "next": "Add source-only compact A84 dynamic 24-bit QPE builder with cached modular gates, and randomized/holdout source-basis correctness plus full N247 Aer phase sampling before larger simulations."
+  },
+  "latest_confirmed_A89_N35_AER_HOLDOUT_20261104": {
+    "status": "PASS_AER_HOLDOUT_WITH_UNIFORM_NULL",
+    "n": 35,
+    "base": 8,
+    "bits": 12,
+    "shots_total_each": 48,
+    "architecture_a84": {
+      "verified_factors": 40,
+      "lattice_hits": 44,
+      "distinct_frequencies": 13
+    },
+    "architecture_a87b": {
+      "verified_factors": 40,
+      "lattice_hits": 44,
+      "distinct_frequencies": 13
+    },
+    "empirical_total_variation_distance": 0,
+    "cx_reduction_pct": 15.589,
+    "exact_uniform_null": {
+      "factor_successes": 1108,
+      "lattice_hits": 28,
+      "total": 4096
+    },
+    "caveats": [
+      "Ideal Aer simulation and equal per-architecture seed cohorts, not device calibration",
+      "Identical sample histograms are not proof of equal underlying distributions",
+      "Phase lattice diagnostic uses offline known order; not circuit input",
+      "Only 48 shots; exact uniform-frequency null is not a noise-matched control"
+    ],
+    "next": "N247 independent-seed A84/A87b Aer distribution holdout with saved per-architecture checkpoint and fair QPE resource metrics"
+  },
+  "latest_confirmed_A90_N247_GATE_LEVEL_HOLDOUT_20261104": {
+    "status": "PASS_AER_COMPARATIVE_HOLDOUT_WITH_UNIFORM_NULL",
+    "n": 247,
+    "base": 8,
+    "bits": 16,
+    "shots_each": 16,
+    "seed": 9001,
+    "a84": {
+      "cx": 523133,
+      "depth": 898062,
+      "verified_factors": 12,
+      "lattice_hits": 15,
+      "aer_seconds": 273.852
+    },
+    "a87b": {
+      "cx": 429815,
+      "depth": 742289,
+      "verified_factors": 12,
+      "lattice_hits": 15,
+      "aer_seconds": 234.493
+    },
+    "comparison": {
+      "cx_reduction_pct": 17.8383,
+      "depth_reduction_pct": 17.3455,
+      "delta_cx": -93318,
+      "delta_depth": -155773,
+      "empirical_total_variation_distance": 0
+    },
+    "limitations": [
+      "Unrouted ideal native gates only; no device noise or QPU",
+      "16 shots with matching simulator seeds; identical empirical distribution alone is not equality proof",
+      "Factor success is not a factoring speedup versus best classical baseline",
+      "Post-hoc known-order lattice statistic is diagnostic, not input to circuit"
+    ],
+    "next": "Compare A84 versus A87b across complete 24 modular-power stage schedule at N2491; preserve separate gate and full-QPE resource claims."
+  },
+  "latest_confirmed_A91_N2491_DIRECT_PREFIX_20261104": {
+    "status": "PASS_ISOLATED_POWER_COST_ONLY",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "optimization_level": 1,
+    "completed_distinct_powers": 24,
+    "stage_wins_a87b": 24,
+    "comparison": {
+      "cx_reduction_pct": 15.3463,
+      "depth_reduction_pct": 15.2576,
+      "delta_cx": -468632,
+      "delta_depth": -840085
+    },
+    "caveats": [
+      "These are sums of independently compiled modular-power stages, not whole dynamic QPE resource totals",
+      "No A91 Aer shots or physical hardware run",
+      "Stage arithmetic correctness relies on prior A87b checks; N2491 full source-basis exhaustive validation remains pending"
+    ],
+    "next": "Full boxed A87b N2491 circuit structural validation and selected power-stage source-basis holdouts; device coupling routing sanity benchmarks then multi-modulus scaling."
+  },
+  "latest_confirmed_A92_N2491_BOXED_AND_LINE_ROUTING_20261104": {
+    "status": [
+      "PASS_BOXED_QPE_AND_SAMPLED_STAGE_BASIS",
+      "PASS_ROUTED_STAGE_COMPARISON"
+    ],
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "source": {
+      "qubits": 30,
+      "boxed_unique_powers": 24,
+      "top_level_ops": 396,
+      "modular_power_basis_tests_passed": 24,
+      "per_power_basis_cases": "44 per power except power 1606: 40; sampled deterministic controls and work states; scratch cleanup verified for tested cases"
+    },
+    "synthetic_bidirectional_line_power8": {
+      "power": 8,
+      "qubits": 30,
+      "optimization_level": 1,
+      "a84": {
+        "cx": 740421,
+        "depth": 752892
+      },
+      "a87b": {
+        "cx": 632461,
+        "depth": 634284
+      },
+      "delta_cx": -107960,
+      "delta_depth": -118608,
+      "cx_reduction_pct": 14.580893842827257,
+      "depth_reduction_pct": 15.753653910521031
+    },
+    "caveats": [
+      "Only one controlled-modular-multiplication power routed so far, not the entire 24-stage QPE",
+      "Synthetic line, not IBM device topology, calibrated errors, scheduling or QPU",
+      "Source stages checked on 40-44 deterministic basis states each, not exhaustive 8192 inputs per power",
+      "Ideal native CX/depth improvements not evidence of cryptographic-scale factoring feasibility"
+    ],
+    "next": "Run routing holdouts across additional representative modular powers, then test actual QPU coupling map calibration and circuit scheduling if available."
+  },
+  "latest_confirmed_A93_N2491_ROUTED_FIVE_POWER_20261104": {
+    "status": "PASS_ROUTED_MULTI_POWER_COST_HOLDOUT",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "topology": "synthetic_bidirectional_nearest_neighbor_line",
+    "native_gate_basis": [
+      "rz",
+      "sx",
+      "x",
+      "cx"
+    ],
+    "optimization_level": 1,
+    "powers": [
+      8,
+      64,
+      2448,
+      2217,
+      1051
+    ],
+    "verified_basis_cases_per_architecture_per_stage": 28,
+    "stage_wins_two_qubit": 5,
+    "stage_wins_depth": 5,
+    "per_power": [
+      {
+        "power": 8,
+        "a84_cx": 749645,
+        "a87b_cx": 646032,
+        "a84_depth": 760638,
+        "a87b_depth": 647019
+      },
+      {
+        "power": 64,
+        "a84_cx": 732843,
+        "a87b_cx": 624070,
+        "a84_depth": 743740,
+        "a87b_depth": 626403
+      },
+      {
+        "power": 2448,
+        "a84_cx": 779047,
+        "a87b_cx": 655191,
+        "a84_depth": 790912,
+        "a87b_depth": 662422
+      },
+      {
+        "power": 2217,
+        "a84_cx": 829590,
+        "a87b_cx": 686702,
+        "a84_depth": 841912,
+        "a87b_depth": 691694
+      },
+      {
+        "power": 1051,
+        "a84_cx": 756069,
+        "a87b_cx": 622736,
+        "a84_depth": 763704,
+        "a87b_depth": 629017
+      }
+    ],
+    "combined": {
+      "two_qubit_reduction_pct": 15.9197,
+      "depth_reduction_pct": 16.518,
+      "delta_two_qubit": -612463,
+      "delta_depth": -644351
+    },
+    "limitations": [
+      "Only five isolated stages, not full dynamic QPE",
+      "Synthetic topology; no real IBM backend topology, QPU executions, noise fidelity",
+      "28 deterministic sampled computational-basis tests per architecture per stage, not exhaustive"
+    ],
+    "next": "Use read-only IBM backend target for topology-aware local transpilation, or complete all 24 synthetic-line routed stages as resumable holdout."
+  },
+  "latest_confirmed_A94_IBM_FEZ_POWER8_20261104": {
+    "status": "PASS_IBM_TARGET_LOCAL_ROUTED_HOLDOUT",
+    "backend": "ibm_fez",
+    "backend_physical_qubits": 156,
+    "logical_qubits": 30,
+    "instance": "open-instance (automatically selected)",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "power": 8,
+    "optimization_level": 1,
+    "source_basis_cases_each": 28,
+    "fixed_physical_layout": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      16,
+      5,
+      23,
+      6,
+      22,
+      24,
+      7,
+      21,
+      25,
+      8,
+      17,
+      20,
+      36,
+      26,
+      37,
+      9,
+      27,
+      41,
+      45,
+      10,
+      28,
+      40,
+      42,
+      44,
+      46
+    ],
+    "a84": {
+      "native_two_qubit_gates": 533632,
+      "cx": 0,
+      "depth": 1245770
+    },
+    "a87b": {
+      "native_two_qubit_gates": 445036,
+      "cx": 0,
+      "depth": 1037593
+    },
+    "comparison": {
+      "native_two_qubit_reduction_pct": 16.6025,
+      "depth_reduction_pct": 16.7107,
+      "delta_native_two_qubit": -88596,
+      "delta_depth": -208177
+    },
+    "caveats": [
+      "Local offline compilation using live IBM backend target metadata only; no quantum jobs submitted",
+      "Only one isolated modular-power stage, not full dynamic QPE",
+      "Device-reported basis uses entangling gates other than CX; zero CX is not zero entangling gates",
+      "Physical fidelity likely constrained by enormous circuit depth; no noisy or hardware execution"
+    ],
+    "next": "Repeat A94 IBM target holdouts on powers 64,2448,2217,1051, using existing fixed backend/layout and checkpoint; assess two-qubit gate kinds and estimated error budgets."
+  },
+  "latest_confirmed_A94_IBM_FEZ_FIVE_POWER_HOLDOUT_20261104": {
+    "status": "PASS_IBM_TARGET_LOCAL_ROUTED_HOLDOUT",
+    "backend": "ibm_fez",
+    "backend_physical_qubits": 156,
+    "logical_qubits": 30,
+    "instance": "open-instance",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "stage_wins_two_qubit": 5,
+    "stage_wins_depth": 5,
+    "sampled_basis_cases_per_architecture_per_power": 28,
+    "stages": [
+      {
+        "power": 8,
+        "a84_2q": 533632,
+        "a87b_2q": 445036,
+        "a84_depth": 1245770,
+        "a87b_depth": 1037593
+      },
+      {
+        "power": 64,
+        "a84_2q": 522025,
+        "a87b_2q": 439457,
+        "a84_depth": 1214381,
+        "a87b_depth": 1022539
+      },
+      {
+        "power": 2448,
+        "a84_2q": 551913,
+        "a87b_2q": 471623,
+        "a84_depth": 1283900,
+        "a87b_depth": 1093186
+      },
+      {
+        "power": 2217,
+        "a84_2q": 577064,
+        "a87b_2q": 480805,
+        "a84_depth": 1342635,
+        "a87b_depth": 1124229
+      },
+      {
+        "power": 1051,
+        "a84_2q": 529768,
+        "a87b_2q": 450210,
+        "a84_depth": 1233508,
+        "a87b_depth": 1047520
+      }
+    ],
+    "totals": {
+      "a84_2q": 2714402,
+      "a87b_2q": 2287131,
+      "delta_2q": -427271,
+      "two_qubit_reduction_pct": 15.7409,
+      "a84_depth": 6320194,
+      "a87b_depth": 5325067,
+      "delta_depth": -995127,
+      "depth_reduction_pct": 15.7452
+    },
+    "caveats": [
+      "Read-only IBM backend-target local transpilation; zero QPU jobs",
+      "Sums of five separately compiled modular-power stages, not native full dynamic QPE",
+      "28 computational-basis tests per stage, not exhaustive all 8192 basis cases",
+      "Large routed depth precludes inference of viable uncorrected physical execution",
+      "Target metadata is a snapshot and device calibration may change"
+    ],
+    "next": "Quantify topology-sensitive route and idle error feasibility; investigate lowering absolute depth and qubit/memory demands before seeking QPU shots."
+  },
+  "latest_confirmed_A95_IBM_FEZ_EXEC_FEASIBILITY_20261104": {
+    "status": "PASS_METADATA_AND_LOCAL_KERNEL_COST_AUDIT",
+    "backend": "ibm_fez",
+    "native_two_qubit_kind": "cz",
+    "n": 2491,
+    "stages": {
+      "8": {
+        "a84_fault_event_proxy": 1343.54,
+        "a87b_fault_event_proxy": 1120.48
+      },
+      "64": {
+        "a84_fault_event_proxy": 1314.31,
+        "a87b_fault_event_proxy": 1106.43
+      },
+      "1051": {
+        "a84_fault_event_proxy": 1333.81,
+        "a87b_fault_event_proxy": 1133.5
+      },
+      "2217": {
+        "a84_fault_event_proxy": 1452.88,
+        "a87b_fault_event_proxy": 1210.53
+      },
+      "2448": {
+        "a84_fault_event_proxy": 1389.56,
+        "a87b_fault_event_proxy": 1187.41
+      }
+    },
+    "kernel_costs": [
+      {
+        "name": "modadd8",
+        "a84_cx": 5169,
+        "a87b_cx": 4035,
+        "a84_depth": 6752,
+        "a87b_depth": 5396
+      },
+      {
+        "name": "modadd64",
+        "a84_cx": 4817,
+        "a87b_cx": 3725,
+        "a84_depth": 6188,
+        "a87b_depth": 4899
+      },
+      {
+        "name": "modadd2448",
+        "a84_cx": 5241,
+        "a87b_cx": 4107,
+        "a84_depth": 6930,
+        "a87b_depth": 5555
+      },
+      {
+        "name": "conditional_ge1245",
+        "a84_cx": 530,
+        "a87b_cx": 228,
+        "a84_depth": 674,
+        "a87b_depth": 340
+      },
+      {
+        "name": "conditional_ge2490",
+        "a84_cx": 656,
+        "a87b_cx": 270,
+        "a84_depth": 783,
+        "a87b_depth": 435
+      }
+    ],
+    "limitations": [
+      "Fault-event proxies are 2Q gate counts times a representative target median error, NOT measured faults or actual success probabilities",
+      "No scheduled timing, leakage, crosstalk, idles, dynamic feedforward or error correction",
+      "Native gate and calibration metadata reflect a transient device snapshot",
+      "Kernel numbers are standalone u/cx compiled costs, not additive exact full-QPE circuit metrics"
+    ],
+    "next": "A96 test common-prefix factoring for related thresholds and reversible comparator Boolean decomposition; exhaustive computational-basis tests and fair native cost comparison against A87b."
+  },
+  "latest_confirmed_A96_DYADIC_INTERVAL_20261104": {
+    "status": "PASS_EXHAUSTIVE_BASIS_AND_NATIVE_COST_MIXED",
+    "optimization_level": 1,
+    "n35": {
+      "a": 8,
+      "qubits": 18,
+      "basis_cases": 128,
+      "a87b": {
+        "cx": 14011,
+        "depth": 23860
+      },
+      "a96": {
+        "cx": 12287,
+        "depth": 20957
+      },
+      "cx_reduction_pct": 12.3046,
+      "depth_reduction_pct": 12.1668
+    },
+    "n247": {
+      "a": 8,
+      "qubits": 22,
+      "basis_cases": 512,
+      "a87b": {
+        "cx": 25684,
+        "depth": 44292
+      },
+      "a96": {
+        "cx": 26773,
+        "depth": 46440
+      },
+      "cx_reduction_pct": -4.24,
+      "depth_reduction_pct": -4.8496
+    },
+    "interpretation": "A96 dyadic interval predicates improve smaller modulus but regress for N247; should not replace A87b wholesale",
+    "validation": "Interval truth-table PASS; exhaustive modular adders and multipliers PASS; no extra qubits",
+    "next": "A97 choose A87b or A96 for each modular addition constant by native CX/depth, then measure actual complete multiplier and test exact correctness"
+  },
+  "latest_confirmed_A97_ADAPTIVE_MODADD_20261104": {
+    "status": "PASS_EXHAUSTIVE_SOURCE_AND_NATIVE_COST",
+    "optimization_level": 1,
+    "n35": {
+      "n": 35,
+      "a": 8,
+      "qubits": 18,
+      "basis_cases": 128,
+      "baseline_a87b": {
+        "cx": 14011,
+        "depth": 23860
+      },
+      "candidate_a97": {
+        "cx": 12287,
+        "depth": 20957
+      },
+      "selected_adders": {
+        "a87b": 0,
+        "a96": 12
+      },
+      "cx_reduction_pct": 12.3046,
+      "depth_reduction_pct": 12.1668
+    },
+    "n247": {
+      "n": 247,
+      "a": 8,
+      "qubits": 22,
+      "basis_cases": 512,
+      "baseline_a87b": {
+        "cx": 25684,
+        "depth": 44292
+      },
+      "candidate_a97": {
+        "cx": 25192,
+        "depth": 43385
+      },
+      "selected_adders": {
+        "a87b": 11,
+        "a96": 5
+      },
+      "cx_reduction_pct": 1.9156,
+      "depth_reduction_pct": 2.0478
+    },
+    "interpretation": "Per-constant local native-gate selection over A87b and A96 yielded a complete multiplier win at both tested moduli. N247 gain is small; no claims yet about N2491 or device routed gains.",
+    "limitations": [
+      "Standalone controlled modular multiplication, not full dynamic QPE",
+      "Local ideal u/cx native compilation only",
+      "No independent phase or physical noise validation of the adaptive implementation"
+    ],
+    "next": "A98 checkpoint a representative set of modular powers at N2491 using A87b baseline and A97 adaptive, exhaustive or sampled basis and matched local compilation; pursue native IBM-target routing only if wins persist."
+  },
+  "latest_confirmed_A98_ADAPTIVE_N2491_FIVE_POWER_20261104": {
+    "status": "PASS_ISOLATED_STAGE_COMPARATIVE_SCREEN",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "optimization_level": 1,
+    "stage_wins_cx": 5,
+    "stage_wins_depth": 5,
+    "powers": [
+      {
+        "k": 8,
+        "a87b_cx": 104476,
+        "a97_cx": 100420,
+        "a87b_depth": 188568,
+        "a97_depth": 181185,
+        "selection": {
+          "a87b": 13,
+          "a96": 11
+        },
+        "verified_basis_cases_each": 44
+      },
+      {
+        "k": 64,
+        "a87b_cx": 102287,
+        "a97_cx": 100946,
+        "a87b_depth": 184755,
+        "a97_depth": 182230,
+        "selection": {
+          "a87b": 16,
+          "a96": 8
+        },
+        "verified_basis_cases_each": 42
+      },
+      {
+        "k": 2448,
+        "a87b_cx": 109145,
+        "a97_cx": 107470,
+        "a87b_depth": 196992,
+        "a97_depth": 193804,
+        "selection": {
+          "a87b": 17,
+          "a96": 7
+        },
+        "verified_basis_cases_each": 44
+      },
+      {
+        "k": 2217,
+        "a87b_cx": 113583,
+        "a97_cx": 110526,
+        "a87b_depth": 205241,
+        "a97_depth": 199454,
+        "selection": {
+          "a87b": 12,
+          "a96": 12
+        },
+        "verified_basis_cases_each": 44
+      },
+      {
+        "k": 1051,
+        "a87b_cx": 104387,
+        "a97_cx": 102484,
+        "a87b_depth": 188679,
+        "a97_depth": 185250,
+        "selection": {
+          "a87b": 15,
+          "a96": 9
+        },
+        "verified_basis_cases_each": 44
+      }
+    ],
+    "total_delta_cx": -12032,
+    "total_delta_depth": -22312,
+    "cx_reduction_pct": 2.2537,
+    "depth_reduction_pct": 2.314,
+    "limitations": [
+      "Five isolated compiled arithmetic stages, not full QPE",
+      "Limited sampled computational-basis verification at N2491, not all 8192 control-work cases",
+      "No Fez target routing or physical noise test yet; no QPU job"
+    ],
+    "next": "A99 compare A87b and A97 per-stage local IBM Fez target routing with matched backend, fixed layout, and identical settings."
+  },
+  "latest_confirmed_A99_IBM_FEZ_ADAPTIVE_ROUTING_20261104": {
+    "status": "PASS_IBM_TARGET_LOCAL_ROUTED_HOLDOUT",
+    "backend": "ibm_fez",
+    "n": 2491,
+    "base": 8,
+    "bits": 24,
+    "stage_wins_two_qubit": 5,
+    "stage_wins_depth": 5,
+    "source_basis_cases_per_architecture_per_stage": 28,
+    "stages": [
+      {
+        "power": 8,
+        "a87b_2q": 445036,
+        "a97_2q": 419887,
+        "a87b_depth": 1037593,
+        "a97_depth": 984026
+      },
+      {
+        "power": 64,
+        "a87b_2q": 439457,
+        "a97_2q": 428330,
+        "a87b_depth": 1022539,
+        "a97_depth": 998738
+      },
+      {
+        "power": 2448,
+        "a87b_2q": 471623,
+        "a97_2q": 450769,
+        "a87b_depth": 1093186,
+        "a97_depth": 1054844
+      },
+      {
+        "power": 2217,
+        "a87b_2q": 480805,
+        "a97_2q": 462736,
+        "a87b_depth": 1124229,
+        "a97_depth": 1094197
+      },
+      {
+        "power": 1051,
+        "a87b_2q": 450210,
+        "a97_2q": 435973,
+        "a87b_depth": 1047520,
+        "a97_depth": 1020342
+      }
+    ],
+    "totals": {
+      "a87b_two_qubit": 2287131,
+      "a97_two_qubit": 2197695,
+      "delta_two_qubit": -89436,
+      "two_qubit_reduction_pct": 3.9104012844039104,
+      "a87b_depth_sum": 5325067,
+      "a97_depth_sum": 5152147,
+      "delta_depth": -172920,
+      "depth_reduction_pct": 3.2472830858278403
+    },
+    "limitations": [
+      "All stage numbers from local IBM Fez target compilation, not QPU execution",
+      "5 separate isolated controlled multipliers, not fully compiled recycled QPE",
+      "28 selected computational-basis inputs per stage; not exhaustive or phase-equivalence proof",
+      "Physical error budget still far beyond reliable uncorrected execution"
+    ],
+    "next": "A100 evaluate larger structural arithmetic redesign and near-term reduction of absolute native two-qubit counts and depth; validate if adaptive selection wins on other moduli and compiler optimization levels."
+  },
+  "latest_confirmed_A100_CLEAN_REVERSIBLE_CARRY_SAVE_20261104": {
+    "status": "PASS_CLEAN_REVERSIBLE_BASIS_AND_NATIVE_SCREEN",
+    "w4": {
+      "baseline": {
+        "qubits": 16,
+        "cx": 174,
+        "depth": 289,
+        "basis_cases": 4096
+      },
+      "carry_save": {
+        "qubits": 23,
+        "cx": 173,
+        "depth": 176,
+        "basis_cases": 4096
+      },
+      "cx_reduction_pct": 0.5747,
+      "depth_reduction_pct": 39.1003,
+      "extra_qubits": 7
+    },
+    "w12": {
+      "baseline": {
+        "qubits": 48,
+        "cx": 5118,
+        "depth": 7615,
+        "basis_cases": 253
+      },
+      "carry_save": {
+        "qubits": 71,
+        "cx": 3805,
+        "depth": 5849,
+        "basis_cases": 253
+      },
+      "cx_reduction_pct": 25.6546,
+      "depth_reduction_pct": 23.1911,
+      "extra_qubits": 23
+    },
+    "interpretation": "Carry-save 3:2 compression reduced local u/cx compiled costs for clean reversible three-input sum mod 2^w; this is neither modulo-N multiplication nor physical QPU validation.",
+    "next": "A101 matched read-only IBM target routing and qubit footprint for w12 carry-save vs baseline. A102 only if routed improvement justifies modular-reduction integration."
+  },
+  "latest_confirmed_A101_IBM_FEZ_CARRY_SAVE_20261104": {
+    "status": "PASS_READ_ONLY_TARGET_ROUTED_COMPARISON",
+    "backend": "ibm_fez",
+    "width": 12,
+    "baseline": {
+      "logical_qubits": 48,
+      "native_cz": 17698,
+      "depth": 30859,
+      "basis_cases": 253
+    },
+    "carry_save": {
+      "logical_qubits": 71,
+      "native_cz": 16102,
+      "depth": 29426,
+      "basis_cases": 253
+    },
+    "delta_native_cz": -1596,
+    "two_qubit_reduction_pct": 9.018,
+    "delta_depth": -1433,
+    "depth_reduction_pct": 4.6437,
+    "extra_logical_qubits": 23,
+    "limitations": [
+      "Not modular-N arithmetic or factoring; reversible sum modulo 2^12",
+      "Only sampled computational-basis tests at width12",
+      "IBM target local routing, no QPU execution or noise simulation"
+    ],
+    "next": "A102 compose clean 3-input sum with exact reversible modular-N reduction, guard bits, restored quotient flags, and complete scratch uncomputation; compare both architectures at identical native settings"
+  },
+  "latest_confirmed_A102_CLEAN_MODULAR_N_CSA_20261104": {
+    "status": "PASS_EXACT_MODULAR_SOURCE_AND_NATIVE_COST",
+    "n15": {
+      "baseline": {
+        "qubits": 30,
+        "cx": 2261,
+        "depth": 3819,
+        "basis_cases": 4096
+      },
+      "carry_save": {
+        "qubits": 41,
+        "cx": 1829,
+        "depth": 2686,
+        "basis_cases": 4096
+      },
+      "cx_reduction_pct": 19.1066,
+      "depth_reduction_pct": 29.6675,
+      "extra_qubits": 11
+    },
+    "n2491": {
+      "baseline": {
+        "qubits": 71,
+        "cx": 31230,
+        "depth": 50282,
+        "basis_cases": 471
+      },
+      "carry_save": {
+        "qubits": 98,
+        "cx": 24166,
+        "depth": 38117,
+        "basis_cases": 471
+      },
+      "cx_reduction_pct": 22.6193,
+      "depth_reduction_pct": 24.1935,
+      "extra_qubits": 27
+    },
+    "interpretation": "Clean reversible sum of 3 w-bit operands modulo N, including full quotient handling and temporary uncomputation; preserves all inputs; not modular multiplication",
+    "limits": [
+      "Sampled basis test only at N2491",
+      "Local unrestricted u/cx compilation, no hardware routing",
+      "98 logical qubits exceed earlier 30-qubit A97 power-stage width, not directly substitutable"
+    ],
+    "next": "A103 read-only IBM Fez routing of same 71-vs-98 qubit complete modular sum with matched settings, nested physical layout and full source checks, then evaluate integration feasibility for controlled multiplication"
+  },
+  "latest_confirmed_A103_FEZ_ROUTED_MODULAR_CSA_20261104": {
+    "status": "PASS_READ_ONLY_TARGET_ROUTED_COMPARISON",
+    "backend": "ibm_fez",
+    "n": 2491,
+    "seed": 10101,
+    "source_basis_cases_each": 471,
+    "baseline": {
+      "logical_qubits": 71,
+      "two_qubit_cz": 118003,
+      "depth": 258071
+    },
+    "carry_save": {
+      "logical_qubits": 98,
+      "two_qubit_cz": 97123,
+      "depth": 200046
+    },
+    "delta_cz": -20880,
+    "cz_reduction_pct": 17.6945,
+    "delta_depth": -58025,
+    "depth_reduction_pct": 22.4841,
+    "extra_logical_qubits": 27,
+    "limitations": [
+      "Three-input clean modular-N sum, not controlled modular multiplication",
+      "IBM backend target local routing only; no hardware job or noise simulation",
+      "471 tested computational basis triples; not exhaustive at N2491",
+      "Control logic and work-register reuse are not included in A103"
+    ],
+    "next": "A104 compare full compute-control-copy-uncompute 3-operand modular-N XOR primitive, including controlled state and clean-workspace checks; quantify whether CZ/depth gains survive external control"
+  },
+  "latest_confirmed_A104_CONTROLLED_MODULAR_CSA_20261104": {
+    "status": "PASS_CONTROLLED_REVERSIBLE_BASIS_AND_NATIVE_COST",
+    "n": 2491,
+    "backend": "local u/cx ideal transpilation",
+    "baseline": {
+      "logical_qubits": 84,
+      "cx": 56696,
+      "depth": 84587,
+      "basis_cases": 628
+    },
+    "carry_save": {
+      "logical_qubits": 111,
+      "cx": 43702,
+      "depth": 63352,
+      "basis_cases": 628
+    },
+    "delta_cx": -12994,
+    "cx_reduction_pct": 22.9187,
+    "delta_depth": -21235,
+    "depth_reduction_pct": 25.1043,
+    "extra_logical_qubits": 27,
+    "limits": [
+      "Complete controlled three-input modulo-N XOR, not modular multiplication",
+      "628 basis-input checks at N2491, not exhaustive phase equivalence",
+      "No actual IBM device routing yet",
+      "All ancillas start clean; destination XOR semantics verified for tested inputs"
+    ],
+    "next": "A105 read-only IBM Fez backend target local routing of A104 84- vs 111-qubit controlled three-sum circuits; assess native CZ/depth tradeoff; then prototype fully reversible modular multiplication integrating carry-save, not equate this sum with factoring."
+  },
+  "latest_confirmed_A105_FEZ_CONTROLLED_MODULAR_CSA_20261104": {
+    "status": "PASS_READ_ONLY_TARGET_ROUTED_COMPARISON",
+    "backend": "ibm_fez",
+    "n": 2491,
+    "source_basis_cases_each": 628,
+    "baseline": {
+      "logical_qubits": 84,
+      "two_qubit_cz": 209735,
+      "depth": 397233
+    },
+    "carry_save": {
+      "logical_qubits": 111,
+      "two_qubit_cz": 169262,
+      "depth": 301330
+    },
+    "delta_cz": -40473,
+    "cz_reduction_pct": 19.2972,
+    "delta_depth": -95903,
+    "depth_reduction_pct": 24.1428,
+    "extra_logical_qubits": 27,
+    "limitations": [
+      "IBM backend target LOCAL routing only, no QPU execution",
+      "Controlled clean three-input modular-N XOR rather than in-place controlled modular multiplication",
+      "628 sampled basis tests at N=2491, not exhaustive quantum phase validation",
+      "More qubits may increase idle and calibration risk despite gate-count savings"
+    ],
+    "next": "A106 construct CLEAN controlled modular multiplication with reversible carry-save partial product accumulation and full uncomputation; compare A97 on N35 first, then N247 and N2491. Make qubit/circuit width explicit and validate all source basis states at small n."
+  },
+  "latest_confirmed_A106_SOURCE_MULTIPLIER_20261105": {
+    "status": "PASS_EXACT_SOURCE_MULTIPLIER_ONLY",
+    "n": 15,
+    "a": 2,
+    "basis_cases": 32,
+    "candidate": {
+      "logical_qubits": 59,
+      "scratch_qubits": 41,
+      "tree_nodes": 2,
+      "tree_node_qubits": 8,
+      "source_ops": 4064
+    },
+    "comparison_with_a97": "NOT_RUN",
+    "limitations": [
+      "Exhaustive computational-basis action only at n15 and initialized-zero ancillas",
+      "No native-gate CX/depth comparison against A97",
+      "Not integrated into dynamic QPE",
+      "Not device routed or hardware run"
+    ]
+  },
+  "latest_confirmed_A107_ADAPTIVE_FULL_QPE_20261105": {
+    "status": "PASS_FULL_QPE_AND_IDEAL_AER_PHASE_HOLDOUT",
+    "n": 15,
+    "base": 2,
+    "bits": 8,
+    "qubits": 14,
+    "seed_cohorts": 3,
+    "shots_per_cohort": 32,
+    "a87b": {
+      "cx": 6994,
+      "depth": 11932,
+      "factor_recoveries": 96,
+      "phase_lattice_hits": 96
+    },
+    "a97": {
+      "cx": 6206,
+      "depth": 10414,
+      "factor_recoveries": 96,
+      "phase_lattice_hits": 96
+    },
+    "cx_reduction_pct": 11.2668,
+    "depth_reduction_pct": 12.7221,
+    "empirical_total_variation_distance": 0,
+    "delta_factor_recovery": 0,
+    "source_stage_checks": {
+      "distinct_powers": [
+        2,
+        4
+      ],
+      "basis_cases_each_power_each_architecture": 32
+    },
+    "limitations": [
+      "Ideal Aer MPS simulations only; not independent hardware trials or noisy QPU proof",
+      "N15 base2 is very small and favorable; 96/96 success must be compared to a matched classical/uniform null",
+      "Classical preprocessing and historic Dark Star pruning not yet integrated",
+      "A106 carry-save not integrated into this QPE"
+    ],
+    "next": "Run A106 full native multiplier cost with no --skip-native and confirm A97 holds up at N35 base8 bits12, including phase histogram and exact-uniform null."
+  },
+  "latest_confirmed_A107_N35_FULL_QPE_20261105": {
+    "status": "PASS_FULL_QPE_AND_IDEAL_AER_PHASE_HOLDOUT",
+    "n": 35,
+    "base": 8,
+    "bits": 12,
+    "logical_qubits": 18,
+    "seed_cohorts": 3,
+    "shots_per_cohort": 16,
+    "architectures": {
+      "a87b": {
+        "cx": 27805,
+        "depth": 47335,
+        "verified_factor_recoveries": 48,
+        "phase_lattice_hits": 48
+      },
+      "a97": {
+        "cx": 24571,
+        "depth": 41906,
+        "verified_factor_recoveries": 48,
+        "phase_lattice_hits": 48
+      }
+    },
+    "reduction": {
+      "cx_gates": 3234,
+      "cx_pct": 11.631,
+      "depth_levels": 5429,
+      "depth_pct": 11.4693
+    },
+    "empirical_tvd": 0,
+    "stage_powers": [
+      8,
+      29
+    ],
+    "stage_basis_cases_each_architecture_each_power": 128,
+    "limitations": [
+      "Ideal Aer simulator, only 48 shots per architecture",
+      "Uniform null computed in A107 output but not provided in pasted console, compare before evaluating order-recovery evidentiary strength",
+      "Observed equal histograms do not by themselves prove quantum channel equivalence",
+      "N35 far below cryptographic-strength factoring",
+      "A106 full native cost comparison remains unreported"
+    ],
+    "next": "Inspect A107 exact_uniform_null and verify N35 48/48 is above that null; run the A106 full native cost gate when ready"
+  },
+  "latest_confirmed_A106_FULL_MULTIPLIER_NEGATIVE_20261105": {
+    "status": "PASS_EXACT_MULTIPLIER_AND_COMPARATIVE_COST_NEGATIVE",
+    "n": 15,
+    "a": 2,
+    "qubits": {
+      "a97": 14,
+      "a106": 59
+    },
+    "cx": {
+      "a97": 3086,
+      "a106": 31378,
+      "delta": 28292
+    },
+    "depth": {
+      "a97": 5165,
+      "a106": 46347,
+      "delta": 41182
+    },
+    "a106_to_a97_ratio": {
+      "cx": 10.167854828256644,
+      "depth": 8.97328170377541
+    },
+    "a106_exhaustive_basis_cases": 32,
+    "limitations": [
+      "A106 computational-basis clean-ancilla correctness confirmed only N15",
+      "Matched ideal u/cx transpilation, no hardware run",
+      "A97 full baseline correctness already independently validated; A106 result not evidence of scaling to N2491"
+    ],
+    "decision": "DO_NOT_PROMOTE_A106; retain A97 for full QPE; preserve carry-save modulo-N sum as useful standalone primitive",
+    "next": "Investigate workspace-pebbled and specialized constant multiplier designs; enforce full-multiplier resource gates before QPE integration; evaluate N35 ideal statistical null from A107"
+  },
+  "latest_confirmed_A108_EXACT_A97_PROFILE_AND_STATISTICAL_NULL_20261105": {
+    "status": "PASS_EXACT_FROZEN_A97_SOURCE_AND_COST_AUDIT",
+    "n": 35,
+    "a": 8,
+    "frozen_exact_source_match": true,
+    "full_native": {
+      "cx": 12287,
+      "depth": 20957,
+      "qubits": 18,
+      "source_ops": 713
+    },
+    "isolated_section_cost_proxies": {
+      "activation_compute": {
+        "cx": 91,
+        "depth": 151
+      },
+      "forward": {
+        "cx": 4386,
+        "depth": 7271
+      },
+      "conditional_swap": {
+        "cx": 48,
+        "depth": 53
+      },
+      "inverse_cleanup": {
+        "cx": 4703,
+        "depth": 7883
+      },
+      "activation_uncompute": {
+        "cx": 91,
+        "depth": 151
+      }
+    },
+    "statistical_null": {
+      "n15": {
+        "uniform_factor_rate": 0.953125,
+        "uniform_lattice_rate": 0.046875,
+        "exact_frequencies": 256
+      },
+      "n35": {
+        "uniform_factor_rate": 0.91650390625,
+        "uniform_lattice_rate": 0.0029296875,
+        "exact_frequencies": 4096
+      }
+    },
+    "interpretation": "Factor recovery is already >91% under uniform random frequencies for N15 and N35 with this permissive postprocessor; full recovery is not strong factoring evidence. Phase-lattice hits are highly diagnostic in ideal Aer, though not physical advantage. Isolated section profiles are NOT additive native circuit attributions.",
+    "next": "A109 optimize per-constant choices using actual whole-multiplier compiled CX/depth rather than isolated adder costs; retain frozen A97, require exact basis/clean workspace and no extra qubits."
+  },
+  "latest_confirmed_A109_N35_FULL_MULTIPLIER_SELECTOR_20261105": {
+    "status": "PASS_NO_WHOLE_MULTIPLIER_IMPROVEMENT",
+    "n": 35,
+    "a": 8,
+    "optimization_level": 1,
+    "baseline": {
+      "cx": 12287,
+      "depth": 20957,
+      "qubits": 18
+    },
+    "final": {
+      "cx": 12287,
+      "depth": 20957,
+      "qubits": 18
+    },
+    "distinct_adder_constants": 12,
+    "tested_single_flips": 12,
+    "selected_architecture_per_constant": "a96 (all 12 constants)",
+    "measured_improvement_pct": {
+      "cx": 0,
+      "depth": 0
+    },
+    "interpretation": "No isolated single-constant switch from A96 to A87b improved complete compiled multiplier. This establishes only a local optimum for one-flip neighborhood under specified compilation settings; not globally optimal.",
+    "limitations": [
+      "No multi-constant perturbations, new arithmetic decompositions, or topological rewrites",
+      "No new QPE / IBM target result",
+      "Checkpoint status is success for audit, not performance gain"
+    ],
+    "next": "Profile internal add / comparator / inverse cleanup subregions and test full-multiplier algebraic cancellation of duplicated compute/uncompute while retaining clean ancillas and frozen A97 baseline."
+  },
+  "latest_confirmed_A110_COMMUTING_GATE_CANCELLATION_20261105": {
+    "status": "PASS_EXACT_NATIVE_IMPROVEMENT",
+    "n": 35,
+    "a": 8,
+    "level": 1,
+    "logical_qubits": 18,
+    "frozen": {
+      "source_ops": 713,
+      "cx": 12287,
+      "depth": 20957
+    },
+    "candidate": {
+      "source_ops": 611,
+      "cx": 10527,
+      "depth": 17885
+    },
+    "cancelled_pairs": 51,
+    "removed_source_ops": 102,
+    "removed_gate_types": {
+      "x": 11,
+      "ccx": 10,
+      "mcx_o5": 10,
+      "mcx_o9": 10,
+      "mcx_o35": 10
+    },
+    "delta_cx": -1760,
+    "cx_reduction_pct": 14.3241,
+    "delta_depth": -3072,
+    "depth_reduction_pct": 14.6586,
+    "basis_cases_each": 128,
+    "interpretation": "Conservative commutation-aware involution cancellation reduced the complete A97 multiplier's local u/cx compiled resource costs with zero added qubits; mathematical rewrite designed to be phase exact on permutation gates.",
+    "limitations": [
+      "Only N35 a8 measured",
+      "Source computational-basis verification plus algebraic commutation reasoning; independent ideal phase-sensitive QPE measurement pending",
+      "Not IBM Fez locally routed or physically executed",
+      "Not a factoring or ML-KEM breakthrough"
+    ],
+    "next": "A111 run fully integrated A97 vs A110 dynamic QPE ideal Aer phase/readout holdout, then target IBM Fez routed comparisons and larger modular powers."
+  },
+  "latest_confirmed_A111_A110_FULL_QPE_20261105": {
+    "status": "PASS_FULL_QPE_AND_IDEAL_AER_PHASE_HOLDOUT",
+    "n": 35,
+    "base": 8,
+    "bits": 12,
+    "qubits": 18,
+    "shots_per_architecture": 48,
+    "architectures": {
+      "a97": {
+        "cx": 24571,
+        "depth": 41906,
+        "factor_recoveries": 48,
+        "phase_lattice_hits": 48
+      },
+      "a110": {
+        "cx": 21051,
+        "depth": 35681,
+        "factor_recoveries": 48,
+        "phase_lattice_hits": 48
+      }
+    },
+    "delta_cx": -3520,
+    "cx_reduction_pct": 14.3258,
+    "delta_depth": -6225,
+    "depth_reduction_pct": 14.8547,
+    "empirical_total_variation_distance": 0,
+    "limitations": [
+      "Ideal Aer MPS only, not actual IBM Fez QPU",
+      "N35 small and uniform null factor-recovery rate 91.6504%; phase lattice concentration is more discriminating",
+      "Not hardware target routing or cryptographic RSA/ML-KEM break"
+    ],
+    "next": "A112 run local IBM Fez native-target A97/A110 comparison across five N2491 isolated power stages, matched physical layout/seed, no jobs"
+  },
+  "latest_confirmed_A112_IBM_FEZ_N2491_POWER8_20261106": {
+    "status": "PARTIAL_CHECKPOINT_1_OF_5",
+    "n": 2491,
+    "base": 8,
+    "power": 8,
+    "backend": "ibm_fez",
+    "physical_qubits": 156,
+    "logical_qubits": 30,
+    "matched_initial_layout": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      16,
+      5,
+      23,
+      6,
+      22,
+      24,
+      7,
+      21,
+      25,
+      8,
+      17,
+      20,
+      36,
+      26,
+      37,
+      9,
+      27,
+      41,
+      45,
+      10,
+      28,
+      40,
+      42,
+      44,
+      46
+    ],
+    "verified_basis_probes_per_architecture": 28,
+    "a97": {
+      "native_2q_gates": 419887,
+      "routed_depth": 984026
+    },
+    "a110": {
+      "native_2q_gates": 369293,
+      "routed_depth": 883523
+    },
+    "reduction": {
+      "two_qubit_gates": 50594,
+      "two_qubit_pct": 12.0494,
+      "depth_levels": 100503,
+      "depth_pct": 10.2134
+    },
+    "qpu_jobs_submitted": 0,
+    "limitations": [
+      "This is one independently routed controlled multiplier stage out of five; NOT full dynamic QPE",
+      "Backend metadata and local transpilation only, not QPU execution or fidelity claim",
+      "Finite sampled basis checks at N2491, not exhaustive"
+    ],
+    "next": "Repeat A112 same command with unchanged checkpoint for powers 64, 2448, 2217, 1051; only then interpret five-stage totals."
+  },
+  "latest_confirmed_A112_IBM_FEZ_N2491_FIVE_POWERS_20261106": {
+    "status": "PASS_IBM_TARGET_LOCAL_ROUTED_HOLDOUT",
+    "n": 2491,
+    "base": 8,
+    "backend": "ibm_fez",
+    "logical_qubits": 30,
+    "physical_backend_qubits": 156,
+    "powers": [
+      {
+        "power": 8,
+        "a97_2q": 419887,
+        "a110_2q": 369293,
+        "a97_depth": 984026,
+        "a110_depth": 883523
+      },
+      {
+        "power": 64,
+        "a97_2q": 428330,
+        "a110_2q": 374218,
+        "a97_depth": 998738,
+        "a110_depth": 888422
+      },
+      {
+        "power": 2448,
+        "a97_2q": 450769,
+        "a110_2q": 405680,
+        "a97_depth": 1054844,
+        "a110_depth": 962167
+      },
+      {
+        "power": 2217,
+        "a97_2q": 462736,
+        "a110_2q": 412481,
+        "a97_depth": 1094197,
+        "a110_depth": 986686
+      },
+      {
+        "power": 1051,
+        "a97_2q": 435973,
+        "a110_2q": 379415,
+        "a97_depth": 1020342,
+        "a110_depth": 905752
+      }
+    ],
+    "totals": {
+      "a97_two_qubit": 2197695,
+      "a110_two_qubit": 1941087,
+      "two_qubit_saved": 256608,
+      "a97_sum_depth": 5152147,
+      "a110_sum_depth": 4626550,
+      "sum_depth_saved": 525597
+    },
+    "aggregate_reduction_pct": {
+      "native_two_qubit": 11.6762,
+      "sum_routed_depth": 10.2015
+    },
+    "two_qubit_stage_wins": 5,
+    "stages_completed": 5,
+    "probes_per_architecture_per_stage": 28,
+    "same_initial_physical_layout": true,
+    "qpu_jobs_submitted": 0,
+    "limitations": [
+      "Read-only device metadata and local transpilation only, no quantum hardware execution",
+      "Five distinct isolated controlled modular multipliers, NOT a full 24-bit QPE or factorization",
+      "Routed depth sums are not complete QPE circuit depth",
+      "Finite sampled stage basis checks, 28 per architecture per power",
+      "No hardware error rate, fault tolerance or crypto-strength factoring evidence"
+    ],
+    "next": "Document optimized A110 topology and verify robustness under multiple transpiler seeds/alternative layouts; measure Clifford+T and controlled-multiplier costs before further cryptographic-scale claims."
+  },
+  "latest_confirmed_A113_ROUTING_ROBUSTNESS_FIRST_TRIAL_20261106": {
+    "status": "PARTIAL_CHECKPOINT",
+    "completed_trials": 1,
+    "total_trials": 30,
+    "backend": "ibm_fez",
+    "n": 2491,
+    "power": 8,
+    "layout_index": 0,
+    "transpiler_seed": 9401,
+    "logical_qubits": 30,
+    "a97": {
+      "native_2q": 419887,
+      "depth": 984026,
+      "basis_cases": 28
+    },
+    "a110": {
+      "native_2q": 369293,
+      "depth": 883523,
+      "basis_cases": 28
+    },
+    "reduction": {
+      "native_2q_pct": 12.0494,
+      "depth_pct": 10.2134
+    },
+    "interpretation": "Exact independent remeasurement of matching A112 power8 baseline on first A113 multi-layout multi-seed checkpoint; second layout discovered successfully. Remaining 29 comparisons pending; no statistical robustness claim yet.",
+    "next": "Run remaining 29 A113 checkpointed comparisons; verify whether both two-qubit count and depth improve across all 30."
+  },
+  "latest_confirmed_A113_IBM_FEZ_ROUTING_ROBUSTNESS_20261106": {
+    "status": "PASS_ROUTING_ROBUSTNESS",
+    "completed_trials": 30,
+    "total_trials": 30,
+    "n": 2491,
+    "backend": "ibm_fez",
+    "powers": [
+      8,
+      64,
+      2448,
+      2217,
+      1051
+    ],
+    "physical_layout_count": 2,
+    "transpiler_seeds": [
+      9401,
+      9402,
+      9403
+    ],
+    "two_qubit_trial_wins": 30,
+    "depth_trial_wins": 30,
+    "weighted_two_qubit_reduction_pct": 11.6784,
+    "weighted_routed_depth_reduction_pct": 10.2575,
+    "min_two_qubit_reduction_pct": 9.4163,
+    "max_two_qubit_reduction_pct": 13.7538,
+    "qpu_jobs_submitted": 0,
+    "interpretation": "A110 reduced native 2Q gates and routed depth compared to A97 on all 30 related local IBM Fez target compilation trials across 5 powers x 2 layouts x 3 transpiler seeds.",
+    "limitations": [
+      "Read-only IBM Fez metadata and local transpilation, not quantum processor execution",
+      "Tests correlated through common modulus, algorithm, target and near-identical design; not independent hardware replications",
+      "Individual controlled modular multiplication stages, not full N2491 dynamic phase-estimation circuit",
+      "No Clifford+T / error-corrected resource evidence yet"
+    ],
+    "next": "A114 fault-tolerant Clifford+T logical circuit resource estimates, ancillas and T-depth for matched reversible multipliers; compare published quantum arithmetic methods."
+  },
+  "latest_confirmed_A113_IBM_FEZ_N2491_ROUTING_ROBUSTNESS_20261106": {
+    "status": "PASS_ROUTING_ROBUSTNESS",
+    "modulus": 2491,
+    "base": 8,
+    "backend": "ibm_fez",
+    "power_values": [
+      8,
+      64,
+      2448,
+      2217,
+      1051
+    ],
+    "physical_layout_count": 2,
+    "transpiler_seeds": [
+      9401,
+      9402,
+      9403
+    ],
+    "trial_count": 30,
+    "two_qubit_trial_wins": 30,
+    "depth_trial_wins": 30,
+    "weighted_two_qubit_reduction_pct": 11.6784,
+    "weighted_depth_reduction_pct": 10.2575,
+    "min_two_qubit_reduction_pct": 9.4163,
+    "max_two_qubit_reduction_pct": 13.7538,
+    "qpu_jobs_submitted": 0,
+    "limitations": [
+      "Matched local backend target routing, not real QPU jobs or observed error rates",
+      "30 trials sampled from two deterministic device layouts and three seeds, not all layouts or compiler settings",
+      "Counts reflect isolated controlled multiplier stages, not full N2491 dynamic QPE",
+      "No fault tolerant T count, T depth, magic state demand or surface code resources measured"
+    ],
+    "next": "A114 fault-tolerant resource audit with exact Clifford+T decomposition assumptions on same multiplier circuits, count non-Clifford cost, ancilla and T depth; no unsupported relative hardware speedups"
+  },
+  "latest_confirmed_A114_CLIFFORD_T_RESOURCE_AUDIT_20261107": {
+    "status": "PASS_CONSTRUCTIVE_FT_RESOURCE_AUDIT",
+    "synthesis_model": "Qiskit exact CCX 7T 6CX; k-controlled X 2k-3 CCX with k-2 additional clean ancillas; matched constructive T-depth scheduler",
+    "n35_a8": {
+      "a97": {
+        "t_count": 17850,
+        "t_depth_bound": 8873,
+        "cx": 15405,
+        "qubits": 23,
+        "ccx": 2550
+      },
+      "a110": {
+        "t_count": 15330,
+        "t_depth_bound": 7653,
+        "cx": 13245,
+        "qubits": 23,
+        "ccx": 2190
+      },
+      "basis_cases_per_architecture": 128,
+      "savings": {
+        "t_count": 2520,
+        "t_pct": 14.1176,
+        "t_depth": 1220,
+        "t_depth_pct": 13.7496,
+        "cx_pct": 14.0214,
+        "additional_qubits": 0
+      }
+    },
+    "n2491_a8": {
+      "a97": {
+        "t_count": 156072,
+        "t_depth_bound": 78485,
+        "cx": 134068,
+        "qubits": 41,
+        "ccx": 22296
+      },
+      "a110": {
+        "t_count": 139860,
+        "t_depth_bound": 70457,
+        "cx": 120172,
+        "qubits": 41,
+        "ccx": 19980
+      },
+      "basis_cases_per_architecture": null,
+      "savings": {
+        "t_count": 16212,
+        "t_pct": 10.3875,
+        "t_depth": 8028,
+        "t_depth_pct": 10.2287,
+        "cx_pct": 10.3649,
+        "additional_qubits": 0
+      }
+    },
+    "limitations": [
+      "Constructive exact Clifford+T model, not optimized minimum T count or physical resource estimate",
+      "N2491 skip-basis flag; phase-exact source rewrite argued algebraically and previously sampled via A112/A113",
+      "Only multiplier 8 at N2491 in A114, remaining four constants unmeasured",
+      "No surface-code factories, physical logical error rate, cryptographic-strength factoring or QPU jobs"
+    ],
+    "next": "Extend A114 to remaining N2491 stage powers with same fixed exact synthesis; then evaluate magic-state scheduling and independently benchmark against published fault-tolerant arithmetic."
+  },
+  "latest_confirmed_A114_N2491_FIVE_STAGE_CLIFFORD_T_20261107": {
+    "status": "PASS_FIVE_STAGE_CONSTRUCTIVE_FT_RESOURCE_AUDIT",
+    "modulus": 2491,
+    "base": 8,
+    "powers": [
+      8,
+      64,
+      2448,
+      2217,
+      1051
+    ],
+    "per_stage": [
+      {
+        "power": 8,
+        "t_count_reduction_pct": 10.3875,
+        "t_depth_reduction_pct": 10.2287,
+        "constructed_qubit_delta": 0
+      },
+      {
+        "power": 64,
+        "t_count_reduction_pct": 10.3227,
+        "t_depth_reduction_pct": 10.1667,
+        "constructed_qubit_delta": 0
+      },
+      {
+        "power": 2448,
+        "t_count_reduction_pct": 9.4009,
+        "t_depth_reduction_pct": 9.2632,
+        "constructed_qubit_delta": 0
+      },
+      {
+        "power": 2217,
+        "t_count_reduction_pct": 9.1446,
+        "t_depth_reduction_pct": 9.0083,
+        "constructed_qubit_delta": 0
+      },
+      {
+        "power": 1051,
+        "t_count_reduction_pct": 10.0526,
+        "t_depth_reduction_pct": 9.9006,
+        "constructed_qubit_delta": 0
+      }
+    ],
+    "weighted_aggregate": {
+      "t_count_reduction_pct": 9.8429,
+      "t_depth_bound_reduction_pct": 9.6949,
+      "t_gates_saved": 79884,
+      "summed_t_depth_levels_saved": 39580,
+      "extra_constructed_qubits": 0
+    },
+    "model": "Fixed exact constructive Clifford+T synthesis via Qiskit standard 7-T 6-CX CCX and clean-ancilla ladder for MCX",
+    "validation": "All five scripts reported PASS_CONSTRUCTIVE_FT_RESOURCE_AUDIT from user's Ubuntu output; large modulus used --skip-basis; source cancellation algebraically phase-exact on supported gates",
+    "limitations": [
+      "Not globally T-optimized or physical surface code resource estimate",
+      "Five individually synthesized stages; summed depth is not complete QPE critical-path depth",
+      "No magic-state factories or gate-fidelity model",
+      "Not cryptographic-scale factoring or ML-KEM break"
+    ],
+    "next": "Proceed with independent reversible optimization comparisons and optional Google Quantum AI Kaggle competition benchmark adaptation only against official specifications."
+  },
+  "latest_confirmed_K004_INVSQRT_OFFICIAL_REFERENCE_SMOKE_20261107": {
+    "status": "PASS_OFFICIAL_REFERENCE_VERIFIER_SMOKE",
+    "test": "official Kaggle invsqrt reference, reduced 16 shots (8 x values and two shots per x)",
+    "score": 2063226.2843798036,
+    "toffoli_equivalent": 7935.48570915309,
+    "toffoli_count": 7735,
+    "max_toffoli_count": 7735,
+    "t_count": 1,
+    "rotation_count": 37,
+    "rotation_eps": 1.6313838336263384e-9,
+    "num_qubits": 260,
+    "reaction_depth": 4005,
+    "num_ops": 62160,
+    "verified_shots": 16,
+    "worst_error_over_tolerance": 0.28125,
+    "worst_x": 1,
+    "circuit_sha256": "e2bf8eb64350a4460a271fc7f1d591ef125b1e276377e9a0f64b96ab3ca321e1",
+    "limitations": [
+      "Unmodified official reference circuit, not an optimized candidate",
+      "Reduced sample of 16 shots, not full official score",
+      "No Kaggle submission made"
+    ],
+    "next": "K005 inspect kickmix text serialization and round-trip on invsqrt reference, then adapt A110 phase-correct cancellation to real kickmix gates."
+  }
+}
