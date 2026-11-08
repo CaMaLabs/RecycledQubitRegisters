@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """K039: staged coefficient live-range recycling on K034 inverse sqrt.
 
-No numerical approximations or changed coefficient table. Original Horner rows
+No numerical approximations or changed coefficient table. Inverse row ordering\nexactly matches the reference. Original Horner rows
 and original arithmetic remain intact; coefs are loaded just in time and
 unloaded by the inverse sequence. Scratch remains K034 row-local, phase cut=1.
 
@@ -47,7 +47,7 @@ def patched_compute_y1(original):
             return node
     tree=ResolveY0().visit(tree);ast.fix_missing_locations(tree)
     ns=original.__globals__
-    # Bind to the live module dictionary so K031 phase-cut monkeypatches\n    # are visible at build time, not lost to a frozen globals snapshot.\n    exec(compile(tree,inspect.getsourcefile(original) or "<K039>","exec"),ns,ns)
+    # Bind to the live module dictionary to preserve K031 phase hooks.\n    exec(compile(tree,inspect.getsourcefile(original) or "<K039>","exec"),ns,ns)
     return ns["_compute_y1"]
 
 def patched_build(original):
@@ -132,7 +132,9 @@ def make_stage_hooks(ref,metrics):
                         allocate_j(builder,prec,x,selectors,coefs,acc)
                     if inverse and acc==2:
                         allocate_j(builder,prec,x,selectors,coefs,3)
-                    for control,m in (reversed(delta) if inverse else delta):
+                    # Match the reference: inverse reverses the Horner stages,
+                    # NOT the order of delta-controlled rows within a stage.
+                    for control,m in delta:
                         original_row=ref._add_row
                         original_row(builder,inverse,control,
                             [(coefs[mult][i],i-m) for i in range(m,wc)],
