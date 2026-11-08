@@ -73,16 +73,31 @@ class TracedBuilder:
         self._write("free",len(reg),known_allocation=count is not None,
                     caller=f"{caller.function}:{caller.lineno}",identity=id(reg))
         return result
-    @contextlib.contextmanager
     def mark(self,name,*args,**kwargs):
-        self._stages.append(str(name))
-        self._write("stage_begin",stage_name=str(name))
-        try:
-            with self._real.mark(name,*args,**kwargs):
-                yield
-        finally:
-            self._write("stage_end",stage_name=str(name))
-            self._stages.pop()
+        # Kickmix's reference re-enters the SAME mark object in _horner.
+        # contextlib.contextmanager objects are one-shot; return a reusable
+        # context object and obtain a fresh underlying mark on each enter.
+        owner=self
+        class ReusableMark:
+            def __init__(self):
+                self._contexts=[]
+            def __enter__(self):
+                actual=owner._real.mark(name,*args,**kwargs)
+                value=actual.__enter__()
+                self._contexts.append(actual)
+                owner._stages.append(str(name))
+                owner._write("stage_begin",stage_name=str(name))
+                return value
+            def __exit__(self,exc_type,exc,tb):
+                if not self._contexts:
+                    raise RuntimeError("mark context exit without enter")
+                actual=self._contexts.pop()
+                try:
+                    return actual.__exit__(exc_type,exc,tb)
+                finally:
+                    owner._write("stage_end",stage_name=str(name))
+                    owner._stages.pop()
+        return ReusableMark()
     def finish_circuit(self,*args,**kwargs):
         self._write("finish",unfreed_explicit=self._live_count)
         return self._real.finish_circuit(*args,**kwargs)
