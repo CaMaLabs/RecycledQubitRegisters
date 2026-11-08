@@ -2540,5 +2540,29 @@
       "Not cryptographic-scale factoring or ML-KEM break"
     ],
     "next": "Proceed with independent reversible optimization comparisons and optional Google Quantum AI Kaggle competition benchmark adaptation only against official specifications."
+  },
+  "latest_confirmed_K004_INVSQRT_OFFICIAL_REFERENCE_SMOKE_20261107": {
+    "status": "PASS_OFFICIAL_REFERENCE_VERIFIER_SMOKE",
+    "test": "official Kaggle invsqrt reference, reduced 16 shots (8 x values and two shots per x)",
+    "score": 2063226.2843798036,
+    "toffoli_equivalent": 7935.48570915309,
+    "toffoli_count": 7735,
+    "max_toffoli_count": 7735,
+    "t_count": 1,
+    "rotation_count": 37,
+    "rotation_eps": 1.6313838336263384e-9,
+    "num_qubits": 260,
+    "reaction_depth": 4005,
+    "num_ops": 62160,
+    "verified_shots": 16,
+    "worst_error_over_tolerance": 0.28125,
+    "worst_x": 1,
+    "circuit_sha256": "e2bf8eb64350a4460a271fc7f1d591ef125b1e276377e9a0f64b96ab3ca321e1",
+    "limitations": [
+      "Unmodified official reference circuit, not an optimized candidate",
+      "Reduced sample of 16 shots, not full official score",
+      "No Kaggle submission made"
+    ],
+    "next": "K005 inspect kickmix text serialization and round-trip on invsqrt reference, then adapt A110 phase-correct cancellation to real kickmix gates."
   }
 }
