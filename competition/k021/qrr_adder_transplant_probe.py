@@ -112,67 +112,44 @@ def main():
    print("K021 SOURCE",d["source_interface"],flush=True)
   except Exception as e:
    d["source_error"]=f"{type(e).__name__}: {e}"
-  # Perform native microbench if kickmix's callable interface permits it.
-  # These are independent circuits and do NOT substitute for official verifier.
+  # Complete both microcircuits using kickmix's actual finish_circuit API.
+  # This is a native resource benchmark, not a phase-equivalence claim.
   for n in (3,5,8,12):
    row={"width":n,"ripple_gate_counts":exact_test(n) if n<=8 else
       {"cx":4*n,"ccx":2*n,"logical_qubits":2*n+1}}
-   try:
-    builder=Builder()
-    q=builder.alloc_qubits(2*n+1)
-    for op,indices in gates(n):
-     getattr(builder,op)(*[q[j] for j in indices])
-    row["ripple_build"]="GATES_EMITTED"
-    row["builder_type"]=type(builder).__name__
-    row["export_candidates"]=[v for v in methods if any(k in v for k in
-                                     ("circuit","build","final","export"))]
-    # probe natural API patterns without assuming availability
-    for attr in ("build","to_circuit","circuit","get_circuit"):
-     target=getattr(builder,attr,None)
-     if target is None:continue
-     try:
-      circuit=target() if callable(target) else target
-      if hasattr(circuit,"operation_statistics"):
-       s=circuit.operation_statistics()
-       row["ripple_native"]={
-         "num_qubits":int(circuit.num_qubits),
-         "toffoli_like":int(s.num_toffoli_like),
-         "instructions":int(s.num_instructions),
-         "reaction_depth":int(circuit.reaction_depth())}
-       break
-     except Exception as e:
-      row[attr+"_error"]=f"{type(e).__name__}: {e}"
-   except Exception as e:
-    row["ripple_build_error"]=f"{type(e).__name__}: {e}"
-    row["ripple_build_traceback"]=traceback.format_exc()[-500:]
-   try:
-    builder=Builder()
-    q=builder.alloc_qubits(2*n+1)
-    builder.iadd(q[1:n+1],target=q[n+1:2*n+1])
-    row["native_iadd_build"]="GATES_EMITTED"
-    for attr in ("build","to_circuit","circuit","get_circuit"):
-     target=getattr(builder,attr,None)
-     if target is None:continue
-     try:
-      circuit=target() if callable(target) else target
-      if hasattr(circuit,"operation_statistics"):
-       s=circuit.operation_statistics()
-       row["native_iadd_stats"]={
-         "num_qubits":int(circuit.num_qubits),
-         "toffoli_like":int(s.num_toffoli_like),
-         "instructions":int(s.num_instructions),
-         "reaction_depth":int(circuit.reaction_depth())}
-       break
-     except Exception as e:
-      row["iadd_"+attr+"_error"]=f"{type(e).__name__}: {e}"
-   except Exception as e:
-    row["native_iadd_error"]=f"{type(e).__name__}: {e}"
+   for kind in ("ripple","native_iadd"):
+    try:
+     builder=Builder()
+     q=builder.alloc_qubits(2*n+1)
+     if kind=="ripple":
+      for op,indices in gates(n):
+       getattr(builder,op)(*[q[j] for j in indices])
+     else:
+      builder.iadd(q[1:n+1],target=q[n+1:2*n+1])
+     circuit=builder.finish_circuit()
+     if not hasattr(circuit,"operation_statistics"):
+      raise TypeError("finish_circuit returned "+repr(type(circuit)))
+     s=circuit.operation_statistics()
+     row[kind+"_native"]={
+       "num_qubits":int(circuit.num_qubits),
+       "toffoli_like":int(s.num_toffoli_like),
+       "instructions":int(s.num_instructions),
+       "reaction_depth":int(circuit.reaction_depth())}
+    except Exception as e:
+     row[kind+"_error"]=f"{type(e).__name__}: {e}"
+     row[kind+"_traceback"]=traceback.format_exc()[-700:]
+   if "ripple_native" in row and "native_iadd_native" in row:
+    a=row["ripple_native"];b=row["native_iadd_native"]
+    row["qubit_delta"]=a["num_qubits"]-b["num_qubits"]
+    row["toffoli_delta"]=a["toffoli_like"]-b["toffoli_like"]
+    row["depth_delta"]=a["reaction_depth"]-b["reaction_depth"]
+    row["proxy_delta"]=a["num_qubits"]*a["toffoli_like"]-b["num_qubits"]*b["toffoli_like"]
    d["microbenchmarks"].append(row)
    print("K021 COMPARE width",n,
-         "ripple",row.get("ripple_native",row.get("ripple_build_error")),
-         "native",row.get("native_iadd_stats",row.get("native_iadd_error")),
-         flush=True)
-  d["status"]="PASS_EXACT_RIPPLE_AND_INTERFACE_PROBE"
+         "ripple",row.get("ripple_native",row.get("ripple_error")),
+         "native",row.get("native_iadd_native",row.get("native_iadd_error")),
+         "PROXY_DELTA",row.get("proxy_delta"),flush=True)
+  d["status"]="PASS_EXACT_RIPPLE_AND_NATIVE_COST_COMPARISON" if any("proxy_delta" in x for x in d["microbenchmarks"]) else "PASS_EXACT_RIPPLE_NATIVE_COMPARISON_BLOCKED"
   save()
   print("K021 STATUS",d["status"],flush=True)
   print("K021 REPORT",REPORT,flush=True)
