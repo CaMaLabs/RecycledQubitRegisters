@@ -2419,5 +2419,66 @@
       "No fault tolerant T count, T depth, magic state demand or surface code resources measured"
     ],
     "next": "A114 fault-tolerant resource audit with exact Clifford+T decomposition assumptions on same multiplier circuits, count non-Clifford cost, ancilla and T depth; no unsupported relative hardware speedups"
+  },
+  "latest_confirmed_A114_CLIFFORD_T_RESOURCE_AUDIT_20261107": {
+    "status": "PASS_CONSTRUCTIVE_FT_RESOURCE_AUDIT",
+    "synthesis_model": "Qiskit exact CCX 7T 6CX; k-controlled X 2k-3 CCX with k-2 additional clean ancillas; matched constructive T-depth scheduler",
+    "n35_a8": {
+      "a97": {
+        "t_count": 17850,
+        "t_depth_bound": 8873,
+        "cx": 15405,
+        "qubits": 23,
+        "ccx": 2550
+      },
+      "a110": {
+        "t_count": 15330,
+        "t_depth_bound": 7653,
+        "cx": 13245,
+        "qubits": 23,
+        "ccx": 2190
+      },
+      "basis_cases_per_architecture": 128,
+      "savings": {
+        "t_count": 2520,
+        "t_pct": 14.1176,
+        "t_depth": 1220,
+        "t_depth_pct": 13.7496,
+        "cx_pct": 14.0214,
+        "additional_qubits": 0
+      }
+    },
+    "n2491_a8": {
+      "a97": {
+        "t_count": 156072,
+        "t_depth_bound": 78485,
+        "cx": 134068,
+        "qubits": 41,
+        "ccx": 22296
+      },
+      "a110": {
+        "t_count": 139860,
+        "t_depth_bound": 70457,
+        "cx": 120172,
+        "qubits": 41,
+        "ccx": 19980
+      },
+      "basis_cases_per_architecture": null,
+      "savings": {
+        "t_count": 16212,
+        "t_pct": 10.3875,
+        "t_depth": 8028,
+        "t_depth_pct": 10.2287,
+        "cx_pct": 10.3649,
+        "additional_qubits": 0
+      }
+    },
+    "limitations": [
+      "Constructive exact Clifford+T model, not optimized minimum T count or physical resource estimate",
+      "N2491 skip-basis flag; phase-exact source rewrite argued algebraically and previously sampled via A112/A113",
+      "Only multiplier 8 at N2491 in A114, remaining four constants unmeasured",
+      "No surface-code factories, physical logical error rate, cryptographic-strength factoring or QPU jobs"
+    ],
+    "next": "Extend A114 to remaining N2491 stage powers with same fixed exact synthesis; then evaluate magic-state scheduling and independently benchmark against published fault-tolerant arithmetic."
   }
 }
