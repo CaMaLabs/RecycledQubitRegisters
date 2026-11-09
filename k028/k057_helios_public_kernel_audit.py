@@ -29,7 +29,7 @@ def run(cmd):
     proc=subprocess.run(cmd,capture_output=True,text=True)
     print("K057_FETCH",json.dumps({
         "exit_code":proc.returncode,"stdout":proc.stdout[-1500:],
-        "stderr":proc.stderr[-1500:]},flush=True)
+        "stderr":proc.stderr[-1500:]}),flush=True)
     if proc.returncode:raise RuntimeError("Kaggle command failed; check credentials and kernel availability")
 def notebook_facts(path):
     j=json.loads(path.read_text())
