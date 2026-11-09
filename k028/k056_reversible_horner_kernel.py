@@ -46,7 +46,7 @@ W=39
 TW=7
 PW=W+TW
 POLY_DEGREE=3
-PHASE_MIN_BIT=12
+PHASE_MIN_BIT=8
 MASK=(1<<W)-1
 
 def coeff_table():
