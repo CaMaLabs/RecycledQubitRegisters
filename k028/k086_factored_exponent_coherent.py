@@ -33,7 +33,7 @@ def patch_once(s,old,new):
  if n!=1:raise AssertionError('K076 builder contract drift: expected once, got '+str(n)+' for '+repr(old[:90]))
  return s.replace(old,new)
 
-def build_variant(m,mode):
+def build_variant(m,mode,source_transform=None):
  src=textwrap.dedent(inspect.getsource(m.build))
  source_sha=hashlib.sha256(src.encode()).hexdigest()
  # Reproduce the exact tested K078 shared-ANF transformation.
@@ -105,6 +105,7 @@ def build_variant(m,mode):
   src=patch_once(src,
  ' # qout = floor(acc_final/2**floor(exponent/2)).\n',
  " stats['exponent_shift_controls']=NB\n # qout = floor(acc_final/2**floor(exponent/2)).\n")
+ if source_transform is not None:src=source_transform(src)
  namespace=dict(vars(m));loc={}
  exec(compile(src,'<k086 coherent integrated builder>','exec'),namespace,loc)
  return loc['build'],{'source_sha256':source_sha,
