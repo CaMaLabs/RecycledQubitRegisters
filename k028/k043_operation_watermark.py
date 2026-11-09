@@ -130,6 +130,7 @@ def main():
     orig_build,orig_load,orig_horner,orig_row=(
         ref.build_nr_circuit,ref._load_coefficients,ref._horner,ref._add_row)
     original_ctor=km.CircuitBuilder
+    original_phase=ref._phase_by_bits
     active=[]
     rowstats={"rows":0,"allocated_sum":0,"max_row_width":0}
     life={"open":0,"close":0,"loader":0,"horner":0}
@@ -141,6 +142,7 @@ def main():
         ref._add_row=k034.local_row("compact",rowstats)
         ref._load_coefficients,ref._horner=k040.hooks(ref,"recycle",life)
         ref.build_nr_circuit=k040.patch_build(orig_build)
+        ref._phase_by_bits=k031.make_phase(ref,1)
         km.CircuitBuilder=ctor
         try:
             circuit=ref.build_nr_circuit(10,prec=ref.Precision(**P))
@@ -151,6 +153,7 @@ def main():
         ref._load_coefficients=orig_load
         ref._horner=orig_horner
         ref._add_row=orig_row
+        ref._phase_by_bits=original_phase
         km.CircuitBuilder=original_ctor
     if len(active)!=1:raise RuntimeError("Expected one builder")
     trace=active[0]
