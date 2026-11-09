@@ -26,7 +26,7 @@ PUSH=re.compile(r"^PUSH_CONDITION\s+if\s+b(\d+)$",re.I)
 BIT=re.compile(r"\bb(\d+)\b")
 # (constant_bit, frozenset(symbolic unknown variables))
 ZERO=(0,frozenset());ONE=(1,frozenset())
-def xor(a,b):return a[0]^b[0],a[1]^b[1]
+def xor(a,b):return a[0]^b[0],a[1]^b[1] if False else frozenset(a[1] ^ b[1])
 def symbols(s):return sorted(s[1])
 def isconst(v):return not v[1]
 def known(v):return v[0] if isconst(v) else None
