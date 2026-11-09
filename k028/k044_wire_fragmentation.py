@@ -211,13 +211,10 @@ def main():
     # Kickmix wire names normally render as q17/q[17]. Record ambiguous
     # reprs rather than guessing whether an index is numerical.
     def wire_number(s):
-        # Kickmix reprs may use q33 or q[33]. Use explicit capture
-        # groups, and reject ambiguous strings rather than guessing.
-        m=re.search(r"q(?:\\[(\\d+)\\]|(\\d+))",s)
-        if not m:
-            return None
-        value=m.group(1) or m.group(2)
-        return int(value)
+        # Use a simple decimal suffix parser; accept q33 and q[33].
+        import re
+        m=re.search(r"q\[?([0-9]+)\]?", s)
+        return int(m.group(1)) if m else None
     highs=[]
     high=-1
     unresolved=set()
@@ -249,6 +246,9 @@ def main():
              "by_stage":dict(stages),
              "largest_observed_counter_growth":biggest[:args.top],
              "lifecycle":life,"rowstats":rowstats,
+             "wire_index_high_watermark":high,
+             "unresolved_wire_names":sorted(unresolved)[:20],
+             "wire_highwater_events":highs,
              "interpretation":"Counter growth establishes specific allocator use only if the displayed scalar field is documented as a qubit capacity/high watermark. Explicit live peak is not circuit.num_qubits."}
     (out/"operation_events.json").write_text(json.dumps(trace.events,indent=2))
     (out/"wire_allocations.json").write_text(json.dumps(trace.wire_allocations,indent=2))
@@ -257,6 +257,8 @@ def main():
         if k not in ("by_operation","by_stage","largest_observed_counter_growth","wire_highwater_events")},sort_keys=True),flush=True)
     print("K044_WIRE_HIGHWATER_EVENTS",json.dumps(highs,sort_keys=True),flush=True)\n    print("K044_UNRESOLVED_WIRE_NAMES",json.dumps(sorted(unresolved)[:20]),flush=True)\n    print("K044_BY_OPERATION",json.dumps(summary["by_operation"],sort_keys=True),flush=True)
     print("K044_GROWTH_EVENTS",json.dumps(summary["largest_observed_counter_growth"],sort_keys=True),flush=True)
+    print("K044_WIRE_HIGHWATER_EVENTS",json.dumps(highs,sort_keys=True),flush=True)
+    print("K044_UNRESOLVED_WIRE_NAMES",json.dumps(sorted(unresolved)[:20]),flush=True)
     print("SAVED",out/"summary.json",out/"wire_allocations.json",flush=True)
     if not matches:
         print("WARNING: Rebuilt circuit differs from frozen K040; do not treat this trace as bit-identical provenance.",flush=True)
