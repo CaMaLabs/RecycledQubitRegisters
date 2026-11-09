@@ -259,8 +259,6 @@ def main():
     print("K044_UNRESOLVED_WIRE_NAMES",json.dumps(sorted(unresolved)[:20]),flush=True)
     print("K044_BY_OPERATION",json.dumps(summary["by_operation"],sort_keys=True),flush=True)
     print("K044_GROWTH_EVENTS",json.dumps(summary["largest_observed_counter_growth"],sort_keys=True),flush=True)
-    print("K044_WIRE_HIGHWATER_EVENTS",json.dumps(highs,sort_keys=True),flush=True)
-    print("K044_UNRESOLVED_WIRE_NAMES",json.dumps(sorted(unresolved)[:20]),flush=True)
     print("SAVED",out/"summary.json",out/"wire_allocations.json",flush=True)
     if not matches:
         print("WARNING: Rebuilt circuit differs from frozen K040; do not treat this trace as bit-identical provenance.",flush=True)
