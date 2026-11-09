@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""K046: inspect Kickmix capacity API and test writable allocator caps.
+"""K046: use Kickmix set_max_qubits() method for bounded allocator sweeps.
 Tests whether tighter max_qubits affects internal wire allocation. Promotion
 requires 64-input screen and official full-domain verification on two seeds.
 """
@@ -26,7 +26,7 @@ def construct(ref,cap,path):
     def capped(*a,**k):
         obj=ctor(*a,**k)
         if cap is not None:
-            setattr(obj,"max_qubits",cap)
+            obj.set_max_qubits(cap)
             actual=getattr(obj,"max_qubits",None)
             if actual!=cap:
                 raise RuntimeError("Builder cap not retained: "+repr(actual))
@@ -66,7 +66,7 @@ def main():
         "max_qubits_before":repr(getattr(obj,"max_qubits","NOT_EXPOSED")),
         "capacity_members":[n for n in dir(obj) if any(k in n.lower() for k in ("max","qubit","alloc","free","limit","cap"))]}
     try:
-        setattr(obj,"max_qubits",255)
+        obj.set_max_qubits(255)
         diagnostics["setter_result"]="SET_OK"
         diagnostics["max_qubits_after"]=repr(getattr(obj,"max_qubits",None))
     except Exception as exc:
@@ -75,7 +75,7 @@ def main():
     print("K046_API",json.dumps(diagnostics,sort_keys=True),flush=True)
     (out/"api.json").write_text(json.dumps(diagnostics,indent=2))
     if diagnostics["setter_result"]!="SET_OK":
-        print("K046_STOP: no writable public max_qubits property; cap sweep skipped.",flush=True)
+        print("K046_STOP: set_max_qubits not available; cap sweep skipped.",flush=True)
         return
     rows=[]
     for cap in (None,216,220,224,228,232,236,237,238,240,255):
