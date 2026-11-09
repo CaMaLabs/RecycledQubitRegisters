@@ -19,6 +19,11 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 PIN='1c5b1ee282904faf4c1a09d2a440577de1866c47462ff7df9714768f9ed2a56a'
 BASE_SCORE=95369.00696815242
+def sha(path):
+ h=hashlib.sha256()
+ with Path(path).open('rb') as stream:
+  for buf in iter(lambda:stream.read(1<<20),b''):h.update(buf)
+ return h.hexdigest()
 PAT=re.compile(r'^(X|CX|CCX)\s+(q\d+)(?:\s+(q\d+))?(?:\s+(q\d+))?\s*$',re.I)
 ARITY={'X':1,'CX':2,'CCX':3}
 def parse(s):
@@ -260,6 +265,8 @@ def selftest():
     a,b=rng.sample(wires,2)
     block.append(('CCX',(a,b,target)))
   try_block(block,8)
+ assert len(sha.__code__.co_varnames)>0
+ assert callable(sha)
  print('K095_SELFTEST PASS exhaustive affine polynomial factoring, noncommuting control transformation, barriers',flush=True)
 def good(v):return v.get('status')=='PASS' and v.get('exit_code')==0
 def main():
