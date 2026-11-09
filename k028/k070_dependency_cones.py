@@ -74,7 +74,7 @@ def ancestors(g,sink):
    seen.add(i);todo.extend(g.nodes[i][3])
  return seen
 def overview(g,ids):
- h=collections.Counter(g.nodes[i][1] for i in ids)
+ h=collections.Counter(g.nodes[i][1] for i in ids if g.nodes[i][0] in ('quantum','phase','measurement','classical'))
  return {'nodes':len(ids),'CCX':h['CCX'],'CCZ':h['CCZ'],
          'CSWAP':h['CSWAP'],'HMR':h['HMR'],'BIT_INVERT':h['BIT_INVERT'],
          'origin_qubits':sum(g.nodes[i][0]=='q_source' for i in ids),
@@ -83,10 +83,11 @@ def selftest():
  g=Graph()
  for i,s in enumerate(('CCX q0 q1 q2','HMR q2 b4','BIT_STORE0 b5','BIT_INVERT b5 if b4','Z q3 if b5'),1):g.event(parse(s,i))
  ids=ancestors(g,g.sinks[-1]);o=overview(g,ids)
- assert o['CCX'] and o['HMR'] and o['BIT_INVERT'] and o['origin_qubits']>=2
+ assert o['CCX']==1 and o['HMR']==1 and o['BIT_INVERT']==1 and o['origin_qubits']>=2
  h=Graph();h.event(parse('CZ q0 q1 if b99',1))
  assert overview(h,ancestors(h,h.sinks[0]))['unknown_classical_sources']==1
- print('K070_SELFTEST PASS dependency traversal and unknown classical controls',flush=True)
+ assert o['CCX']<=g.counts['CCX'] and o['HMR']<=g.counts['HMR']
+ print('K070_SELFTEST PASS unique event counts, dependencies and unknown controls',flush=True)
 def main():
  p=argparse.ArgumentParser()
  p.add_argument('--source',type=Path,default=ROOT/'competition/k059/results/helios_public.kmx')
@@ -104,6 +105,8 @@ def main():
  focus=[i for i in g.sinks if a.focus_start<=g.nodes[i][2]<=a.focus_end]
  union=set()
  for i in focus:union.update(ancestors(g,i))
+ assert overview(g,union)['CCX']<=g.counts['CCX']
+ assert overview(g,union)['CSWAP']<=g.counts['CSWAP']
  report={'source':str(a.source),'sha256':hashlib.sha256(a.source.read_bytes()).hexdigest(),
          'attribution':'Helios third-party benchmark' if 'helios' in a.source.name else 'CaMaLabs',
          'nodes':len(g.nodes),'instructions':sum(g.counts.values()),
