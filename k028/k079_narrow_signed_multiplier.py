@@ -146,7 +146,7 @@ def optimized_builder(m,bounds):
   return dest
 ''',
  '''  mul(source,product,True);builder.free(product)
-  source_widths[id(dest)]=width_by_stage[j]
+  if j>=1:source_widths[id(dest)]=width_by_stage[j]
   return dest
 ''')
  src=replace_once(src,
