@@ -1,0 +1,108 @@
+name: K086-K089 zero-QPU integration contract matrix
+
+on:
+  push:
+    branches:
+      - research/k028-native-arithmetic
+    paths:
+      - 'k028/k082_k085_transfer_suite.py'
+      - 'k028/k086_factored_exponent_coherent.py'
+      - 'k028/k087_k089_coherent_variants.py'
+      - 'k028/k081_linear_phase_oracle.py'
+      - '.github/workflows/k086-k089-integration-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: k086-k089-audit-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  boolean-contracts:
+    name: K087-K089 Boolean proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Bytecompile transferred experiment sources
+        run: |
+          python -m py_compile k028/k086_factored_exponent_coherent.py k028/k087_k089_coherent_variants.py
+      - name: Exhaustive Boolean identity and cleanup-control math
+        run: |
+          python -u k028/k087_k089_coherent_variants.py --self-test | tee k087_089_contracts.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: k087-k089-contracts-py${{ matrix.python }}
+          path: k087_089_contracts.log
+
+  k084-complex-phase:
+    name: K084 exact 4-qubit RCCX operator proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install software-only quantum math
+        run: python -m pip install 'qiskit>=2.0,<3.0' numpy
+      - name: Strictly require exact complex operator result
+        run: |
+          python -u k028/k082_k085_transfer_suite.py --only K084 K085 --out k084_artifacts | tee k084_contract.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('k084_artifacts/suite.json').read_text())['results']['K084']
+          assert p['status']=='EXACT_COMPLEX_OPERATOR_EQUIVALENCE',p
+          assert p['max_matrix_error']<1e-12
+          print('K084 complex-phase gate substitution contract PASS, ZERO QPU')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: k084-complex-phase-contract
+          path: |
+            k084_contract.log
+            k084_artifacts/suite.json
+
+  linear-numeric-control:
+    name: K081 independent 4.2-million-input numerical control
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU numerical dependency
+        run: python -m pip install numpy
+      - name: Repeat accepted/rejected secant precision controls
+        run: |
+          python -u k028/k081_linear_phase_oracle.py --numeric-only --segments 1024 2048 4096 --out k081_numeric | tee k081_numeric.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          z=json.loads(Path('k081_numeric/report.json').read_text())
+          a={r['segments']:r for r in z['numerical']}
+          assert not a[1024]['margin_pass']
+          assert a[2048]['margin_pass'] and a[4096]['margin_pass']
+          assert all(r['tested']==4194303 for r in a.values())
+          print('K081 numerical results reproduced, no submission or QPU operation')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: k081-independent-numeric-controls
+          path: |
+            k081_numeric.log
+            k081_numeric/report.json
