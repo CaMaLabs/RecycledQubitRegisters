@@ -49,7 +49,11 @@ def rewrite(name,source,m):
  if name in ('phase','combined'):
   # Keep original phase folding limited to truly contiguous diagonal blocks.
   # Conditional control scopes and classical writes remain hard barriers.
-  out,info=m['k062'].transform(out);detail['phase']=info
+  out,info=m['k062'].transform(out)
+  # K062 emits synthesized instructions without newline terminators.
+  # Normalize every entry before the next pass or joining the KMX stream.
+  out=[line.rstrip('\r\n')+'\n' for line in out]
+  detail['phase']=info
  if name in ('cancel','combined'):
   out,info=m['k091'].cancel_involutions(out,m['k063'])
   detail['cancel']=info
@@ -72,6 +76,11 @@ def selftest(m):
   assert result==sample
  out,info=m['k062'].transform(['CZ q0 q1\n','CZ q1 q0\n','HMR q2 b0\n'])
  assert out==['HMR q2 b0\n'] and info['phase_gates_removed']==2
+ for name in ('phase','combined'):
+  inp=['CZ q0 q1 if b0\n','CZ q0 q1 if b1\n','HMR q2 b2\n']
+  patched,_=rewrite(name,inp,m)
+  assert all(x.endswith('\n') and x.count('\n')==1 for x in patched)
+  assert any(x.startswith('BIT_STORE0') for x in patched)
  print('K092_SELFTEST PASS: conservative barriers and local rewrite contracts',flush=True)
 def verification(m,path,prefix,timeout,full):
  out={'prefix':m['k031'].verify(path,prefix,12345,timeout)}
