@@ -56,7 +56,7 @@ def predicate(builder,x,workspace,value,bits,phase):
     for j in range(1,bits):
         ctl=x[0] if j==1 else workspace[j-2]
         builder.init_and(ctl,km.array([x[j]]),km.array([workspace[j-1]]))
-    builder.z_pow(workspace[bits-2],phase)
+    # Kickmix Z_POW(alpha) yields alpha/2 phase turns on |1>.\n    # The verifier target is 1/sqrt(x) turns, so pass twice that value.\n    builder.z_pow(workspace[bits-2],2*phase)
     for j in range(bits-1,0,-1):
         ctl=x[0] if j==1 else workspace[j-2]
         builder.del_and(ctl,km.array([x[j]]),km.array([workspace[j-1]]))
@@ -76,7 +76,7 @@ def build(bits,out):
         predicate(b,x,temp,n,bits,phase)
         examples.append({"x":n,"modeled_turns":value,
                          "exact_turns":1/math.sqrt(n),
-                         "phase_turns":float(phase),
+                         "phase_turns":float(phase),\n                         "z_pow_exponent":float(2*phase),
                          "absolute_error_turns":abs(float(phase)-1/math.sqrt(n)),
                          "allowed_absolute_turns":2**-24/math.sqrt(n)})
     b.free(temp)
