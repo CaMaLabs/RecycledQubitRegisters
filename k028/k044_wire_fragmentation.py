@@ -211,8 +211,13 @@ def main():
     # Kickmix wire names normally render as q17/q[17]. Record ambiguous
     # reprs rather than guessing whether an index is numerical.
     def wire_number(s):
-        m=re.search(r"(?:^|[^a-zA-Z0-9])q(?:\\[)?(\\d+)(?:\\])?(?:$|[^\\d])",s)
-        return int(m.group(1)) if m else None
+        # Kickmix reprs may use q33 or q[33]. Use explicit capture
+        # groups, and reject ambiguous strings rather than guessing.
+        m=re.search(r"q(?:\\[(\\d+)\\]|(\\d+))",s)
+        if not m:
+            return None
+        value=m.group(1) or m.group(2)
+        return int(value)
     highs=[]
     high=-1
     unresolved=set()
