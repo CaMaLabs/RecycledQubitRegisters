@@ -60,14 +60,20 @@ def inverse_forms(rows,m):
     mat[k]=[u^v for u,v in zip(mat[k],mat[j])]
  return [(mat[i][1]<<1)|mat[i][2] for i in range(m)]
 def transform_poly(poly,subs):
+ # Algebra over GF(2): repeated terms cancel rather than merely deduplicate.
  new=set()
  for mon in poly:
   if mon==0:terms={0}
   else:
    indexes=[i for i in range(len(subs)) if mon&(1<<i)]
-   terms=form_product(subs[indexes[0]],subs[indexes[1]]) if len(indexes)==2 else {
-      (0 if j==0 else 1<<(j-1)) for j in range(subs[indexes[0]].bit_length())
-      if subs[indexes[0]]&(1<<j)}
+   if len(indexes)==2:
+    terms=form_product(subs[indexes[0]],subs[indexes[1]])
+   elif len(indexes)==1:
+    terms=set()
+    expr=subs[indexes[0]]
+    for j in range(expr.bit_length()):
+     if expr&(1<<j):xor(terms,0 if j==0 else 1<<(j-1))
+   else:raise ValueError('Unexpected polynomial degree')
   for term in terms:xor(new,term)
  return new
 def extract(block):
@@ -190,7 +196,7 @@ def candidates(lines,max_wires,max_span,max_ccx_per_window):
   while j<len(lines) and parsed[j] is not None:j+=1
   ccx=[k for k in range(i,j) if parsed[k][0]=='CCX']
   for a,pos in enumerate(ccx):
-   end=max(a+2,min(len(ccx),a+max_ccx_per_window))
+   end=min(len(ccx),a+max_ccx_per_window)
    for e in range(a+1,end):
     last=ccx[e]
     if last-pos+1>max_span:break
@@ -232,6 +238,28 @@ def selftest():
  x=[fmt(g) for g in old]+['HMR q8 b1\n']
  out,ch,scan=candidates(x,8,80,8)
  assert ch and out[-1]=='HMR q8 b1\n'
+ # Check a single-CCX run cannot index beyond ccx[-1].
+ singleton=['CCX q0 q1 q2\n','HMR q3 b0\n']
+ unchanged,chosen,stats=candidates(singleton,8,80,8)
+ assert unchanged==singleton and not chosen
+ # Affine-substitution parity and randomly generated reversible circuits.
+ assert transform_poly({1},[0b11])=={0,1}
+ assert transform_poly({3},[0b10,0b10])=={1}
+ import random
+ rng=random.Random(95095)
+ for trial in range(160):
+  wires=list(range(5));target=7;block=[]
+  for _ in range(rng.randrange(3,15)):
+   op=rng.choice(('X','CX','CCX','CCX'))
+   if op=='X':block.append(('X',(rng.choice(wires+[target]),)))
+   elif op=='CX':
+    a,b=rng.sample(wires,2)
+    if rng.randrange(3)==0:b=target
+    block.append(('CX',(a,b)))
+   else:
+    a,b=rng.sample(wires,2)
+    block.append(('CCX',(a,b,target)))
+  try_block(block,8)
  print('K095_SELFTEST PASS exhaustive affine polynomial factoring, noncommuting control transformation, barriers',flush=True)
 def good(v):return v.get('status')=='PASS' and v.get('exit_code')==0
 def main():
