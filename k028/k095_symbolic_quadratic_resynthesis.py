@@ -19,6 +19,14 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 PIN='1c5b1ee282904faf4c1a09d2a440577de1866c47462ff7df9714768f9ed2a56a'
 BASE_SCORE=95369.00696815242
+def load(name,path):
+ spec=importlib.util.spec_from_file_location(name,path)
+ if spec is None or spec.loader is None:
+  raise FileNotFoundError(str(path))
+ module=importlib.util.module_from_spec(spec)
+ sys.modules[name]=module
+ spec.loader.exec_module(module)
+ return module
 def sha(path):
  h=hashlib.sha256()
  with Path(path).open('rb') as stream:
@@ -266,7 +274,8 @@ def selftest():
     block.append(('CCX',(a,b,target)))
   try_block(block,8)
  assert len(sha.__code__.co_varnames)>0
- assert callable(sha)
+ assert callable(sha) and callable(load)
+ assert hasattr(importlib.util,'spec_from_file_location')
  print('K095_SELFTEST PASS exhaustive affine polynomial factoring, noncommuting control transformation, barriers',flush=True)
 def good(v):return v.get('status')=='PASS' and v.get('exit_code')==0
 def main():
