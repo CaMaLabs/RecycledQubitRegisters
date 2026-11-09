@@ -147,6 +147,31 @@ def variant_transform(case,k086):
   return source
  return apply,cache,add_triples
 
+def transformed_source_contract_selftest():
+ """Compile every proposed source transformation without requiring Kickmix.
+
+ Builds the exact K076 function source via Python's AST and uses the same
+ patcher as the real experiment. Tests source compatibility and syntax only.
+ """
+ import ast
+ from types import SimpleNamespace
+ from unittest.mock import patch
+ raw=(ROOT/'competition/k076/k076_range_reduced_circuit.py').read_text()
+ nodes=ast.parse(raw).body
+ original=next(node for node in nodes
+               if isinstance(node,ast.FunctionDef) and node.name=='build')
+ source=ast.get_source_segment(raw,original)
+ k086=import_module(ROOT/'competition/k086/k086_factored_exponent_coherent.py')
+ done=[]
+ for case in ('baseline','norm16','norm32','norm64','triple','combined'):
+  transform,budget,_=variant_transform(case,k086)
+  stub=SimpleNamespace(build=lambda:None,CACHED_BUDGET=budget)
+  with patch.object(k086.inspect,'getsource',return_value=source):
+   fn,receipt=k086.build_variant(stub,'paired',transform)
+  assert callable(fn)
+  done.append({'variant':case,'source_sha256':receipt['compiled_builder_source_sha256']})
+ return done
+
 def main():
  ap=argparse.ArgumentParser()
  ap.add_argument('--cases',nargs='+',
@@ -159,8 +184,10 @@ def main():
  ap.add_argument('--out',type=Path,default=ROOT/'competition/k087_089/results')
  a=ap.parse_args()
  checks=control_math_selftest()
+ compile_contracts=transformed_source_contract_selftest()
  print('K087_089_SELFTEST',json.dumps({'status':'PASS','algebraic_cases':checks,
-   'proof_scope':'classical Boolean identities, NOT quantum gate correctness'}),flush=True)
+   'compiled_patch_contracts':compile_contracts,
+   'proof_scope':'classical identities and source syntax only, NOT quantum gate correctness'}),flush=True)
  if a.self_test:return
  if not 15<=a.prefix<=3133452:raise ValueError('Prefix must be >=15 and <=3133452')
  k086=import_module(ROOT/'competition/k086/k086_factored_exponent_coherent.py')
