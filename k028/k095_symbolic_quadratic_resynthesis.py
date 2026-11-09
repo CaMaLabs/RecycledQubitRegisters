@@ -107,7 +107,7 @@ def quadratic_synth(ex):
  poly=ex['polynomial']
  linear=set();edges=set()
  for term in poly:
-  if term==0:linear.add(0)
+  if term==0:pass
   elif term.bit_count()==1:linear.add(term.bit_length()-1)
   elif term.bit_count()==2:
    i=(term & -term).bit_length()-1
@@ -115,9 +115,6 @@ def quadratic_synth(ex):
    edges.add((i,j))
   else:raise ValueError('Degree >2')
  result=list(ex['controls'])
- for i in sorted(linear,key=lambda k:(k!=-1,k)):
-  if i==0 and 0 in poly: # constant is represented as 0 in linear: handled below
-   pass
  # Resolve constant and linear separately, avoiding bit 0 ambiguity.
  if 0 in poly:result.append(('X',(target,)))
  for term in sorted(v for v in poly if v and v.bit_count()==1):
@@ -139,7 +136,6 @@ def quadratic_synth(ex):
    for v in b:
     if u==v:
      # x_u^2=x_u; add linear term later
-     key=('CX',(wires[u],target))
      # Store parity in a separate output accumulator, not repeated now:
      linear.symmetric_difference_update({u})
     else:
@@ -195,7 +191,7 @@ def candidates(lines,max_wires,max_span,max_ccx_per_window):
   ccx=[k for k in range(i,j) if parsed[k][0]=='CCX']
   for a,pos in enumerate(ccx):
    end=max(a+2,min(len(ccx),a+max_ccx_per_window))
-   for e in range(a+2,end):
+   for e in range(a+1,end):
     last=ccx[e]
     if last-pos+1>max_span:break
     part=parsed[pos:last+1]
@@ -229,6 +225,10 @@ def selftest():
       ('CCX',(1,3,7)),('CCX',(1,4,7))]
  ans=try_block(old,8)
  assert ans and ans['ccx_saved']>=1,ans
+ constant=[('X',(7,)),('CCX',(0,1,7)),('CCX',(0,2,7)),
+           ('CCX',(0,3,7))]
+ answer=try_block(constant,8)
+ assert answer and answer['ccx_saved']>=1
  x=[fmt(g) for g in old]+['HMR q8 b1\n']
  out,ch,scan=candidates(x,8,80,8)
  assert ch and out[-1]=='HMR q8 b1\n'
