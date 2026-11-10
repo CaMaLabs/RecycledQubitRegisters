@@ -88,7 +88,12 @@ def execute(operations,psi,initial_frame,restore):
         worst=max(worst,float(np.max(np.abs(expected-physical))))
         if abs(np.linalg.norm(physical)-1)>1e-11:
             raise AssertionError('Lost normalization')
-    return {'swaps':swaps,'rotations':rotations,
+    target_indices=[INITIAL_ORDER.index(x) for x in positions]
+    restore_swaps=sum(target_indices[i]>target_indices[j]
+        for i in range(D) for j in range(i+1,D))
+    return {'final_restore_swaps':restore_swaps,
+            'swaps_with_final_restore':swaps+restore_swaps,
+            'swaps':swaps,'rotations':rotations,
             'frame_adjustments':frame_adjustments,
             'max_state_error':worst,'final_mapping':positions}
 
@@ -122,7 +127,7 @@ def main():
     rng=np.random.default_rng(a.seed)
     records=[]
     for pattern in ('uniform','hotspot','local'):
-        total_static=total_lazy=total_rot=0
+        total_static=total_lazy=total_lazy_restored=total_restore=total_rot=0
         max_error=0.
         wins=ties=losses=0
         for trial in range(a.trials):
@@ -135,14 +140,19 @@ def main():
             max_error=max(max_error,baseline['max_state_error'],lazy['max_state_error'])
             total_static+=baseline['swaps']
             total_lazy+=lazy['swaps']
+            total_lazy_restored+=lazy['swaps_with_final_restore']
+            total_restore+=lazy['final_restore_swaps']
             total_rot+=lazy['rotations']
             if lazy['swaps']<baseline['swaps']:wins+=1
             elif lazy['swaps']==baseline['swaps']:ties+=1
             else:losses+=1
         r={'workload':pattern,'trials':a.trials,'depth':a.depth,
            'static_swaps':total_static,'lazy_swaps':total_lazy,
+           'lazy_final_restore_swaps':total_restore,
+           'lazy_swaps_including_final_restore':total_lazy_restored,
            'two_level_rotations':total_rot,
-           'swap_reduction_fraction':1-total_lazy/max(total_static,1),
+           'swap_reduction_fraction':(1-total_lazy/total_static) if total_static else None,
+           'swap_reduction_fraction_with_restore':(1-total_lazy_restored/total_static) if total_static else None,
            'lazy_wins':wins,'ties':ties,'lazy_loses':losses,
            'max_frame_aligned_state_error':max_error}
         records.append(r)
@@ -154,14 +164,14 @@ def main():
         'Only logical two-level rotations and diagonal gates; native multitone X8 is not used under changed mapping.',
         'All physical swaps and adjacent rotations are exact and noiseless.',
         'Initial per-level frame is arbitrary and known; drive phase changes are assumed free.',
-        'An additional cost to restore or recompile the mapping before other native operations is not included.',
+        'Final mapping restoration is charged at minimum adjacent-SWAP count; native arithmetic recompilation remains unmodeled.',
         'Routing uses a simple local greedy rule and is not globally optimized.',
         'This is not a proof of a hardware runtime or Kickmix cost advantage.'
       ]}
     a.out.parent.mkdir(parents=True,exist_ok=True)
     a.out.write_text(json.dumps(result,indent=2)+'\n')
     print('A126_RESULT',json.dumps({'status':result['status'],
-        'workloads':[{k:r[k] for k in ('workload','swap_reduction_fraction','max_frame_aligned_state_error')} for r in records],
+        'workloads':[{k:r[k] for k in ('workload','swap_reduction_fraction','swap_reduction_fraction_with_restore','max_frame_aligned_state_error')} for r in records],
         'output':str(a.out)}),flush=True)
     if result['status']=='FAIL':raise SystemExit(1)
 if __name__=='__main__':main()
