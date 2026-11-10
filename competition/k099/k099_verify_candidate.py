@@ -65,6 +65,23 @@ def main():
         raise SystemExit('Audit digest mismatch; candidate has changed or is not from this baseline')
     if not audit.get('cancellation_pairs'):
         raise SystemExit('Audit has no cancellation pairs')
+    # The k031 verifier loads Kickmix binary (.kmb), not text (.kmx).
+    # Convert only after checking the immutable source and optimizer audit hashes.
+    official_verifiers=ROOT/'competition/k001/private/official/verifiers'
+    sys.path.insert(0,str(official_verifiers))
+    try:
+        import kickmix as km
+    except ImportError as exc:
+        raise SystemExit(f'Unable to load Kickmix from {official_verifiers}: {exc}')
+    binary_candidate=args.candidate.with_suffix('.kmb')
+    try:
+        circuit=km.Circuit.from_file(str(args.candidate),format='kmx')
+        circuit.to_file(str(binary_candidate),format='kmb')
+    except Exception as exc:
+        raise SystemExit(f'Unable to convert KMx to KMb: {exc}')
+    print('K099_COMPILED',json.dumps({'input':str(args.candidate),
+        'binary':str(binary_candidate),'binary_sha256':digest(binary_candidate),
+        'num_qubits':circuit.num_qubits}),flush=True)
     verifier_path=ROOT/'competition/k031/k031_full_domain_repair.py'
     if not verifier_path.is_file():
         raise SystemExit(f'Cannot locate {verifier_path}')
@@ -82,7 +99,7 @@ def main():
         stages.extend([('full_12345',ver.FULL_X,12345),
                        ('full_23456',ver.FULL_X,23456)])
     for label,n,seed in stages:
-        r=compact(ver.verify(str(args.candidate),n,seed,args.timeout))
+        r=compact(ver.verify(str(binary_candidate),n,seed,args.timeout))
         report['stages'][label]=r
         print('K099_VERIFY_STAGE',json.dumps({'stage':label,'x':n,'seed':seed,**r},default=str),flush=True)
         if not passed(r):
