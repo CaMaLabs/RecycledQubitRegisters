@@ -16,6 +16,7 @@ Third-party Helios reference is SHA-256 pinned and left immutable.
 from __future__ import annotations
 import argparse,collections,hashlib,importlib.util,json,math,re,sys,time
 from pathlib import Path
+from decimal import Decimal
 
 ROOT=Path(__file__).resolve().parents[2]
 PIN='1c5b1ee282904faf4c1a09d2a440577de1866c47462ff7df9714768f9ed2a56a'
@@ -61,22 +62,23 @@ def find_merge(lines,distance):
   m=ZPOW.fullmatch(line.strip())
   if not m:continue
   q=int(m[1])
-  try:b=float(m[2])
-  except ValueError:continue
+  try:b=Decimal(m[2])
+  except Exception:continue
   for i in range(j-1,max(-1,j-distance-1),-1):
    prior=lines[i].strip()
    p=ZPOW.fullmatch(prior)
    if p and int(p[1])==q:
-    try:a=float(p[2])
-    except ValueError:break
+    try:a=Decimal(p[2])
+    except Exception:break
     return i,j,q,a,b
    if not commutes_with_zpow(lines[i],q):break
  return None
 
 def merged_angle(a,b):
- # Z_POW is a power of Pauli Z, so angle adds modulo two.
- value=math.remainder(a+b,2.0)
- if abs(value)<1e-16:value=0.0
+ # Decimal input angles combine without binary-float rounding.
+ value=(Decimal(str(a))+Decimal(str(b)))%Decimal(2)
+ if value>1:value-=2
+ if value<=-1:value+=2
  return value
 
 def exact_merge(lines,distance):
@@ -89,10 +91,10 @@ def exact_merge(lines,distance):
   if angle==0:
    del out[j];del out[i]
   else:
-   out[i]=f'Z_POW q{q} {angle:.17g}\n'
+   out[i]=f'Z_POW q{q} {angle}\n'
    del out[j]
   events.append({'first_line':i+1,'second_line':j+1,
-                 'qubit':q,'angles':[a,b],'combined':angle})
+                 'qubit':q,'angles':[str(a),str(b)],'combined':str(angle)})
  return out,events
 
 def ladder(lines):
@@ -145,7 +147,7 @@ def selftest():
   if count:
    assert sum(bool(ZPOW.fullmatch(x.strip())) for x in out)==(
        0 if src[-1].endswith('-0.125\n') else 1)
- assert abs(merged_angle(0.125,0.25)-0.375)<1e-15
+ assert merged_angle(Decimal('0.125'),Decimal('0.25'))==Decimal('0.375')
  assert abs(predicted_sensitivity()['score_improvement_if_eps_doubles']-355.88)<0.001
  print('K098_SELFTEST PASS strict phase-commutation barriers, rotation cost, angle composition',flush=True)
 
