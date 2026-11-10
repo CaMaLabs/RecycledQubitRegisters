@@ -1,0 +1,42 @@
+{
+  "settings": {
+    "shots": 4096,
+    "seed": 12345,
+    "batch_size": 256,
+    "workers": 1,
+    "m": 4095,
+    "n": 70,
+    "degree": 12
+  },
+  "default_shot_count": 102400,
+  "default_configuration_run": false,
+  "comparison": {
+    "status": {
+      "baseline": "PASS",
+      "candidate": "PASS"
+    },
+    "num_qubits": {
+      "baseline": 892,
+      "candidate": 892
+    },
+    "toffoli_count": {
+      "baseline": 395303.9875488281,
+      "candidate": 395303.9875488281
+    },
+    "value_errors": {
+      "baseline": 0,
+      "candidate": 0
+    },
+    "phase_errors": {
+      "baseline": 0,
+      "candidate": 0
+    },
+    "score": {
+      "baseline": 938798937999.2799,
+      "candidate": 938798937999.2799
+    }
+  },
+  "elapsed_ratio_candidate_over_baseline": 0.8569292536651621,
+  "scored_resource_gain": false,
+  "note": "Exact Clifford cancellation leaves width and nonlinear gates unchanged; runtime is an implementation metric."
+}
