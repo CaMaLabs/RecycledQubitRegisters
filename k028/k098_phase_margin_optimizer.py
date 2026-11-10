@@ -252,9 +252,8 @@ def main():
        'score_delta':record.get('score_delta'),'error':record.get('error')},sort_keys=True),flush=True)
  passes=[r for r in report['cases'] if r['status']=='PASS_FULL']
  winner=min(passes,key=lambda r:r['score']) if passes else None
- report['winner']={
-    'case':winner['case'],'score':winner['score'],'delta':winner['score_delta']}
-     if winner else None
+ report['winner']=({'case':winner['case'],'score':winner['score'],
+                    'delta':winner['score_delta']} if winner else None)
  (args.out/'summary.json').write_text(json.dumps(report,indent=2,default=str))
  print('K098_RESULT',json.dumps({'tested':len(report['cases']),
        'full_passes':len(passes),'winner':report['winner'],
