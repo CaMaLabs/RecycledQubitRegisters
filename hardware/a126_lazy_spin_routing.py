@@ -17,7 +17,8 @@ from pathlib import Path
 import numpy as np
 
 D=8
-INITIAL_ORDER=(0,2,4,6,7,5,3,1)
+LOGICAL_TO_PHYSICAL=(0,2,4,6,7,5,3,1)
+INITIAL_ORDER=tuple(LOGICAL_TO_PHYSICAL.index(p) for p in range(D))
 
 def two_level(p,q,theta,phi):
     U=np.eye(D,dtype=complex)
