@@ -2,7 +2,7 @@
 """K099: conservative exact, commutation-aware self-inverse gate cancellation.
 
 Unknown instructions, conditions and declarations are hard barriers.
-The baseline is SHA-256 pinned and never overwritten.
+The serialized K098 .kmx baseline is SHA-256 pinned and never overwritten.\nOriginal K098 input had a distinct SHA before circuit serialization.
 Outputs an unverified candidate, not a leaderboard win.
 """
 import argparse
@@ -97,7 +97,7 @@ def main():
     ap.add_argument('--baseline',default='competition/k098/results/helios_immutable.kmx')
     ap.add_argument('--out',default='competition/k099/results/helios_exact_cancel.kmx')
     ap.add_argument('--window',type=int,default=256)
-    ap.add_argument('--pin',default='1c5b1ee282904faf4c1a09d2a440577de1866c47462ff7df9714768f9ed2a56a')
+    ap.add_argument('--pin',default='e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183', help='SHA-256 of K098 serialized Helios KMx; original input pin is 1c5b1ee282904faf4c1a09d2a440577de1866c47462ff7df9714768f9ed2a56a')
     args = ap.parse_args()
     selftest()
     src = Path(args.baseline)
