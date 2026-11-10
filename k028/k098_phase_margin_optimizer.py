@@ -91,7 +91,7 @@ def exact_merge(lines,distance):
   if angle==0:
    del out[j];del out[i]
   else:
-   out[i]=f'Z_POW q{q} {angle}\n'
+   out[i]=f'Z_POW q{q} {format(angle,"f")}\n'
    del out[j]
   events.append({'first_line':i+1,'second_line':j+1,
                  'qubit':q,'angles':[str(a),str(b)],'combined':str(angle)})
@@ -118,11 +118,14 @@ def ladder(lines):
 def tweak(lines,index,multiplier):
  out=list(lines);m=ZPOW.fullmatch(lines[index].strip())
  if not m:raise RuntimeError('Selected line is not Z_POW')
- q=int(m[1]);old=float(m[2])
- new=old*multiplier
- out[index]=f'Z_POW q{q} {new:.17g}\n'
- return out,{'line':index+1,'qubit':q,'original':old,
-             'adjusted':new,'multiplier':multiplier}
+ q=int(m[1]);old=Decimal(m[2])
+ factor=Decimal(str(multiplier))
+ new=old*factor
+ # Kickmix's decimal-angle parser rejects exponent notation.
+ # Use exact decimal arithmetic and fixed-point text, including tiny angles.
+ out[index]=f'Z_POW q{q} {format(new,"f")}\n'
+ return out,{'line':index+1,'qubit':q,'original':str(old),
+             'adjusted':format(new,"f"),'multiplier':str(factor)}
 
 def predicted_sensitivity():
  # Marginal score impact of doubling synthesis-error budget.
@@ -148,6 +151,12 @@ def selftest():
    assert sum(bool(ZPOW.fullmatch(x.strip())) for x in out)==(
        0 if src[-1].endswith('-0.125\n') else 1)
  assert merged_angle(Decimal('0.125'),Decimal('0.25'))==Decimal('0.375')
+ tiny=['Z_POW q28 0.00000000023283064365386962890625\n']
+ candidate,info=tweak(tiny,0,'0.984375')
+ assert re.fullmatch(r'Z_POW q28 -?[0-9]+\\.[0-9]+\\n',candidate[0])
+ assert 'e' not in candidate[0].split()[-1].lower()
+ assert Decimal(candidate[0].split()[-1])==Decimal(tiny[0].split()[-1])*Decimal('0.984375')
+
  assert abs(predicted_sensitivity()['score_improvement_if_eps_doubles']-355.88)<0.001
  print('K098_SELFTEST PASS strict phase-commutation barriers, rotation cost, angle composition',flush=True)
 
@@ -155,7 +164,7 @@ def good(r):return r.get('status')=='PASS' and r.get('exit_code')==0
 def compact(r):
  return {k:r.get(k) for k in ('status','score','toffoli_count','rotation_count',
      'rotation_eps','worst_x','worst_error_over_tolerance','num_qubits',
-     't_count','exit_code')}
+     't_count','exit_code','error','reason','stderr_tail','stdout_tail','worst_error_over_tolerance')}
 
 def verify_case(ver,path,screen,prefix,timeout,full):
  result={'screen':ver.verify(path,screen,12345,timeout)}
@@ -179,7 +188,7 @@ def main():
  p.add_argument('--self-test',action='store_true')
  p.add_argument('--max-candidates',type=int,default=16)
  p.add_argument('--phase-indices',type=int,nargs='*',default=[0,1,2,3,4,5])
- p.add_argument('--factors',type=float,nargs='*',
+ p.add_argument('--factors',type=str,nargs='*',
                 default=[0.984375,1.015625])
  p.add_argument('--include-drop-first',action='store_true')
  args=p.parse_args()
@@ -206,9 +215,9 @@ def main():
   if idx<0 or idx>=len(stages):continue
   position,angle=stages[idx]
   for factor in args.factors:
-   if factor==1:continue
+   if Decimal(str(factor))==1:continue
    out,details=tweak(lines,position,factor)
-   pool.append((f'phase_{idx:02d}_factor_{factor:.7g}',out,
+   pool.append((f'phase_{idx:02d}_factor_{str(factor).replace(".","p")}',out,
                 {'type':'approximate','ladder_index':idx,**details}))
  if args.include_drop_first:
   for count in (1,2):
@@ -235,6 +244,7 @@ def main():
    official=verify_case(ver,binary,args.screen,args.prefix,args.timeout,args.full)
    record['official']=official
    record['cost_probe']={label:compact(x) for label,x in official.items()}
+   record['stage_outcome']={label:x.get('status') for label,x in official.items()}
    if not good(official['screen']):record['status']='FAIL_SCREEN'
    elif not good(official.get('prefix',{})):record['status']='FAIL_PREFIX'
    elif args.full and good(official.get('full_12345',{})) and good(official.get('full_23456',{})):
@@ -250,6 +260,7 @@ def main():
   (args.out/(name+'.json')).write_text(json.dumps(record,indent=2,default=str))
   print('K098_CASE',json.dumps({'case':name,'type':details['type'],
        'status':record['status'],'screen':record.get('cost_probe',{}).get('screen'),
+       'prefix':record.get('cost_probe',{}).get('prefix'),
        'full':record.get('cost_probe',{}).get('full_12345'),
        'score_delta':record.get('score_delta'),'error':record.get('error')},sort_keys=True),flush=True)
  passes=[r for r in report['cases'] if r['status']=='PASS_FULL']
