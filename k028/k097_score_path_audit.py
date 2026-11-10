@@ -18,21 +18,27 @@ def sha(p):
   for chunk in iter(lambda:f.read(1<<20),b''):h.update(chunk)
  return h.hexdigest()
 def source_audit(root,limit):
+ # K097 must audit ONLY the inverse-square-root verifier. An earlier
+ # all-verifiers search erroneously surfaced the unrelated DF-THC score.
+ selected=root/'invsqrt'
  rows=[];scanned=0
- if not root.is_dir():return {'status':'MISSING','root':str(root),'files_scanned':0,'findings':[]}
- for file in sorted(root.rglob('*.py')):
-  if any(p in ('__pycache__','.venv','site-packages') for p in file.parts):continue
+ if not selected.is_dir():return {'status':'MISSING_INVSQRT',
+      'root':str(selected),'files_scanned':0,'findings':[]}
+ for file in sorted(selected.rglob('*.py')):
   if scanned>=limit:break
   scanned+=1
   try:lines=file.read_text(errors='replace').splitlines()
   except OSError:continue
-  matches=[i for i,s in enumerate(lines) if SOURCE_PATTERN.search(s)]
-  for i in matches[:12]:
+  matches=[i for i,line in enumerate(lines) if
+     SOURCE_PATTERN.search(line) or
+     re.search(r'(score|resource|toffoli|reaction|cost|kickmix|compile)',line,re.I)]
+  for i in matches[:50]:
    rows.append({'file':str(file),'line':i+1,'excerpt':[
-    {'line':j+1,'text':lines[j][:240]} for j in
-    range(max(0,i-2),min(len(lines),i+7))]})
- return {'status':'OK','root':str(root),'files_scanned':scanned,
-         'total_score_candidates':len(rows),'findings':rows[:60]}
+     {'line':j+1,'text':lines[j][:240]}
+     for j in range(max(0,i-2),min(len(lines),i+5))]})
+ return {'status':'OK','root':str(selected),'files_scanned':scanned,
+         'total_score_candidates':len(rows),'findings':rows[:150],
+         'scope':'invsqrt only; not a complete tracing of installed Kickmix implementation'}
 def static_path(lines):
  depth=collections.defaultdict(int);classical=collections.defaultdict(int)
  counter=collections.Counter();critical=[];scope=[];hmrs=[];reader=collections.Counter()
@@ -108,6 +114,7 @@ def selftest():
  assert a['hmr_count']==1 and a['condition_reads']==1
  assert a['static_qwire_depth']>=3 and a['unclosed_scopes']==0
  assert callable(sha) and callable(source_audit) and callable(receipts)
+ assert 'invsqrt' in source_audit.__code__.co_consts
  print('K097_SELFTEST PASS static measurement and classical-condition dependency test',flush=True)
 def main():
  ap=argparse.ArgumentParser()
@@ -145,5 +152,6 @@ def main():
     'condition_reads':path['condition_reads'],'critical_events':path['critical_events'][:6]},sort_keys=True),flush=True)
  print('K097_RESULT',json.dumps({'paired_valid_scores':len(samples),
     'score_source_matches':source.get('total_score_candidates',0),
+    'scope':'invsqrt only',
     'report':str(a.out/'audit.json')},sort_keys=True),flush=True)
 if __name__=='__main__':main()
