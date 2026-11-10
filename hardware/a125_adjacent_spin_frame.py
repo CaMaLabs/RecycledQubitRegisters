@@ -15,7 +15,9 @@ import numpy as np
 D=8
 ORDER=[0,2,4,6,7,5,3,1]
 INV_ORDER={physical:logical for logical,physical in enumerate(ORDER)}
-C=np.array([1,1j,1j,1j,1j,1j,1],complex)[ORDER]
+PHYSICAL_PHASE_CORRECTION=np.array([1,1j,1j,1j,1j,1j,1j,1],dtype=complex)
+assert len(PHYSICAL_PHASE_CORRECTION)==D and sorted(ORDER)==list(range(D))
+C=PHYSICAL_PHASE_CORRECTION[ORDER]
 X=np.roll(np.eye(D,dtype=complex),1,axis=0)
 V=np.diag(np.conj(C))@X
 ADJACENT_LOGICAL_PAIRS=tuple((INV_ORDER[p],INV_ORDER[p+1]) for p in range(D-1))
