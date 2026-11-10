@@ -153,7 +153,7 @@ def selftest():
  assert merged_angle(Decimal('0.125'),Decimal('0.25'))==Decimal('0.375')
  tiny=['Z_POW q28 0.00000000023283064365386962890625\n']
  candidate,info=tweak(tiny,0,'0.984375')
- assert re.fullmatch(r'Z_POW q28 -?[0-9]+\\.[0-9]+\\n',candidate[0])
+ assert candidate[0].startswith('Z_POW q28 0.') and candidate[0].endswith('\n')
  assert 'e' not in candidate[0].split()[-1].lower()
  assert Decimal(candidate[0].split()[-1])==Decimal(tiny[0].split()[-1])*Decimal('0.984375')
 
