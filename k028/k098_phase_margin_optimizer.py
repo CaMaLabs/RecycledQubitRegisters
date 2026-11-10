@@ -16,7 +16,7 @@ Third-party Helios reference is SHA-256 pinned and left immutable.
 from __future__ import annotations
 import argparse,collections,hashlib,importlib.util,json,math,re,sys,time
 from pathlib import Path
-from decimal import Decimal
+from decimal import Decimal, localcontext
 
 ROOT=Path(__file__).resolve().parents[2]
 PIN='1c5b1ee282904faf4c1a09d2a440577de1866c47462ff7df9714768f9ed2a56a'
@@ -120,7 +120,9 @@ def tweak(lines,index,multiplier):
  if not m:raise RuntimeError('Selected line is not Z_POW')
  q=int(m[1]);old=Decimal(m[2])
  factor=Decimal(str(multiplier))
- new=old*factor
+ with localcontext() as context:
+  context.prec=120
+  new=old*factor
  # Kickmix's decimal-angle parser rejects exponent notation.
  # Use exact decimal arithmetic and fixed-point text, including tiny angles.
  out[index]=f'Z_POW q{q} {format(new,"f")}\n'
@@ -155,7 +157,9 @@ def selftest():
  candidate,info=tweak(tiny,0,'0.984375')
  assert candidate[0].startswith('Z_POW q28 0.') and candidate[0].endswith('\n')
  assert 'e' not in candidate[0].split()[-1].lower()
- assert Decimal(candidate[0].split()[-1])==Decimal(tiny[0].split()[-1])*Decimal('0.984375')
+ with localcontext() as context:
+  context.prec=120
+  assert Decimal(candidate[0].split()[-1])==Decimal(tiny[0].split()[-1])*Decimal('0.984375')
 
  assert abs(predicted_sensitivity()['score_improvement_if_eps_doubles']-355.88)<0.001
  print('K098_SELFTEST PASS strict phase-commutation barriers, rotation cost, angle composition',flush=True)
