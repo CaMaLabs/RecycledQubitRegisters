@@ -41,7 +41,7 @@ def main():
     p.add_argument('--prefix',type=int,default=4095)
     p.add_argument('--timeout',type=int,default=1200)
     p.add_argument('--full',action='store_true',
-        help='Only full-check a candidate after a prefix PASS and observed score improvement')
+        help='Only full-check candidates after they pass the prefix; judge scores only on full-domain runs')
     p.add_argument('--include-all',action='store_true',help='Include all-scope candidate files if present')
     p.add_argument('--output',type=Path,default=ROOT/'competition/k105/results/k104_screen.json')
     a=p.parse_args()
@@ -83,14 +83,8 @@ def main():
             print('K105_STAGE',json.dumps({'scope':scope,'style':style,'stage':label,
                 'x':n,'seed':seed,**v},default=str),flush=True)
             if not succeeded(v):break
-            if label=='screen' and v.get('score') is not None and v['score']>=SCORE:
-                row['reason']='screen_pass_but_score_not_improved'
-                print('K105_EARLY_STOP',json.dumps({'scope':scope,'style':style,
-                    'screen_score':v['score'],'baseline_score':SCORE}),flush=True)
-                break
-        screen=row['stages'].get('screen',{})
         prefix=row['stages'].get('prefix',{})
-        if a.full and succeeded(prefix) and isinstance(prefix.get('score'),(int,float)) and prefix['score']<SCORE:
+        if a.full and succeeded(prefix):
             for label,seed in [('full_12345',12345),('full_23456',23456)]:
                 v=brief(verifier.verify(str(binary),verifier.FULL_X,seed,a.timeout))
                 row['stages'][label]=v
