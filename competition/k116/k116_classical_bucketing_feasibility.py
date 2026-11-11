@@ -39,6 +39,7 @@ def optimal_intervals(n,relative_error):
             representative=hi
             first=x
     groups.append((1,first))
+    groups.reverse()
     assert groups[0][0]==1 and groups[-1][1]==n
     assert all(groups[i][1]+1==groups[i+1][0] for i in range(len(groups)-1))
     return count,max(b-a+1 for a,b in groups),groups[:8],groups[-8:]
