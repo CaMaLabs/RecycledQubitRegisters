@@ -1,0 +1,31 @@
+{
+  "experiment": "K131",
+  "status": "IDENTITY_GATES_FOUND",
+  "baseline_sha256": "e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183",
+  "domain": {
+    "x_min": 1,
+    "x_max": 3133452,
+    "values_exhaustively_simulated": 3133452,
+    "input_width": 22
+  },
+  "deterministic_prefix_operations": 151,
+  "stopped_before": {
+    "line": 152,
+    "opcode": "HMR",
+    "reason": "stochastic measurement or classical condition"
+  },
+  "identity_gate_count": 1,
+  "removed_source_lines": [
+    24
+  ],
+  "removed_toffoli_class_count": 0,
+  "exact_score_reduction_if_candidate_passes": 0,
+  "candidate_generated": true,
+  "method": "Packed Python-integer truth tables over every valid x; reversible basis-state dataflow is exact before first HMR/condition.",
+  "limitations": [
+    "This only screens the deterministic prefix before the first measurement or classical condition.",
+    "No approximation is used; every valid x is represented exactly.",
+    "Official full-domain verifier remains required for any emitted candidate."
+  ],
+  "candidate_path": "competition/k131/results/candidate_domain_identity_prefix.kmx"
+}

@@ -122,10 +122,24 @@
       "actual_result": "No eligible pairs among 7 CCX/CCZ/CSWAP events with one inline bit condition and supported disjoint barriers; projected reduction 0.",
       "verification_status": "Read-only source screen; no candidate generated or official verifier run.",
       "decision": "Low remaining value in this restricted source pattern; do not claim all stack-conditional gates were covered."
+    },
+    {
+      "id": "K130",
+      "technique": "XOR fusion for identical Toffoli-class gates in distinct one-bit condition-stack scopes",
+      "actual_result": "No eligible pair among 123 events across 89 gate signatures after requiring disjoint intervening quantum operations and unchanged guards.",
+      "verification_status": "Read-only source screen; no candidate or official verifier run.",
+      "decision": "No improvement found in this bounded scope."
+    },
+    {
+      "id": "K131",
+      "technique": "Exact valid-domain identity-gate screening in the deterministic prefix before first HMR",
+      "actual_result": "Packed truth tables exhausted all 3,133,452 valid x values over the first 151 operations. Only R q22 at line 24 was an identity; zero CCX/CCZ/CSWAP or rotation instructions were removable; score bound 0.",
+      "verification_status": "Exact prefix simulation over every valid input; no full circuit or official verifier run.",
+      "decision": "Stop this prefix-only path; prioritize a region with a nonzero score bound."
     }
   ],
   "next_gate": "Require a new exact hypothesis outside K099-K113 and a scored-resource reduction estimate before implementation.",
   "scoring_model": "Official score Q * (executed Toffolis + (base T + rotation_count*(0.56*log2(1/eps)+5.3))/4), with eps set by the minimum global phase-error margin.",
   "success_claim": false,
-  "latest_result": "K129 found no qualifying repeated conditional Toffoli-class pair; no candidate beats or has been submitted."
+  "latest_result": "K131 found no scored-resource removal. No candidate has beaten the verified baseline."
 }
