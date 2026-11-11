@@ -10,7 +10,7 @@ Last known good commit: K126 audit
 Working tree status: clean after committing K126-K129 reports, scripts, and registry.
 
 ## Completed
-- Fetched the requested branch in a separate worktree at /home/ubuntu/quantum-a26-mission; original dirty checkout remains untouched.
+- Fetched the requested branch in a separate worktree at /home/ubuntu/quantum-a26-mission; original dirty checkout was not switched or cleaned. This run created the K126 audit output there and copied it into this worktree.
 - Reconfirmed immutable baseline SHA-256 e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183.
 - Ran existing K126 script from commit eb1df11 and saved its report under competition/k126/results/.
 - K127 Boolean predicate screen found no identical normalized predicates among 48 Z_POW sites.
@@ -48,6 +48,6 @@ No official verifier run for K127-K131 because no candidate has a scored-resourc
 4. Generate and officially verify only if a candidate has a plausible baseline win.
 
 ## Warnings
-- Do not modify the original dirty checkout or overwrite historical results.
+- Do not clean or switch the original dirty checkout; preserve its existing files and the K126 audit output created for this mission.
 - Baseline is available in /home/ubuntu/quantum-a26-check/competition/k098/results/helios_immutable.kmx; it is not tracked in this worktree.
 - Official verifier is in the existing runtime checkout at competition/k001/private/official/verifiers/invsqrt/verify_submission_invsqrt.py.
