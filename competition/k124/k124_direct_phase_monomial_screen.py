@@ -64,9 +64,9 @@ def main():
    if all((r>>i)&1 for i in subset):theta+=angle
   relative=abs(theta-1/math.sqrt(x))*math.sqrt(x)
   if relative>worst:worst,worst_x=relative,x
-  fail+=relative>=TOL
- checks={'sample_count':len(xs),'worst_x':worst_x,
-  'worst_relative_error':worst,'tolerance_fraction':worst/TOL,'violations':fail}
+  fail+=int(relative>=TOL)
+ checks={'sample_count':len(xs),'worst_x':int(worst_x),
+  'worst_relative_error':worst,'tolerance_fraction':worst/TOL,'violations':int(fail)}
  print('K124_SAMPLES',json.dumps(checks),flush=True)
  result={'status':'STRUCTURAL_REJECT_DIRECT_MONOMIALS','counts':counts,'sample_checks':checks,
   'regions':summary,'warning':['No full quantum circuit was synthesized.',
