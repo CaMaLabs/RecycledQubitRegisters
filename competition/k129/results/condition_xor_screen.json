@@ -1,0 +1,18 @@
+{
+  "experiment": "K129",
+  "status": "NO_ELIGIBLE_CONDITION_XOR_PAIRS",
+  "baseline_sha256": "e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183",
+  "source_lines": 53841,
+  "toffoli_class_events_with_single_inline_bit_condition": 7,
+  "distinct_gate_signatures": 7,
+  "candidate_pairs": [],
+  "max_toffoli_reduction_per_shot": 0,
+  "max_score_reduction": 0,
+  "expected_score_reduction_if_each_pair_guards_are_independent_fair_bits": 0,
+  "candidate_generated": false,
+  "limitations": [
+    "Only exact identical CCX/CCZ/CSWAP gates with one inline classical-bit condition are considered.",
+    "Intervening gates must be quantum-disjoint and must not overwrite either guard bit.",
+    "The predicted dynamic saving depends on simultaneous guard values; simulator verification is required for any candidate."
+  ]
+}

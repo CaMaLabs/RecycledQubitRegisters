@@ -1,0 +1,40 @@
+{
+  "experiment": "K127",
+  "status": "NO_STRUCTURAL_DUPLICATE_PREDICATES",
+  "baseline_sha256": "e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183",
+  "source_lines": 53841,
+  "tracked_opcodes": {
+    "APPEND_TO_REGISTER": 22,
+    "BIT_INVERT": 578,
+    "BIT_STORE0": 152,
+    "BIT_STORE1": 105,
+    "CCX": 1090,
+    "CCZ": 93,
+    "CSWAP": 226,
+    "CX": 29551,
+    "CZ": 16478,
+    "HMR": 874,
+    "NEG": 115,
+    "POP_CONDITION": 359,
+    "PUSH_CONDITION": 359,
+    "R": 74,
+    "REGISTER": 1,
+    "SWAP": 136,
+    "X": 1099,
+    "Z": 2481,
+    "Z_POW": 48
+  },
+  "z_pow_sites": 48,
+  "distinct_z_pow_predicates": 48,
+  "duplicate_predicate_groups": [],
+  "rotations_before": 41,
+  "rotations_after_folding": 41,
+  "max_rotation_reduction": 0,
+  "limitations": [
+    "DAG canonicalization captures exact XOR/AND normalization but does not expand distributive identities.",
+    "No duplicate predicates were found, so no candidate was emitted.",
+    "Canonical BDD follow-up exceeded its 10000000-node cap and is inconclusive."
+  ],
+  "analysis_method": "canonicalized XOR/AND expression DAG over exact computational-basis dataflow",
+  "coverage": "completed structural screen; no full Boolean-equivalence proof"
+}

@@ -1,0 +1,51 @@
+# Codex Handoff
+
+## Objective
+Beat the verified Helios inverse-square-root score 95,369.00696815242 with an officially verified lower-score Kickmix circuit while preserving the immutable reference.
+
+## Repository State
+Branch: experiment/a115-spin-qudit-arithmetic
+HEAD: eb1df112659e741704765367b09dac8e6750fc34
+Last known good commit: K126 audit
+Working tree status: New K126/K127 artifacts, registry, and handoff prepared for commit.
+
+## Completed
+- Fetched the requested branch in a separate worktree at /home/ubuntu/quantum-a26-mission; original dirty checkout remains untouched.
+- Reconfirmed immutable baseline SHA-256 e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183.
+- Ran existing K126 script from commit eb1df11 and saved its report under competition/k126/results/.
+- K127 Boolean predicate screen found no identical normalized predicates among 48 Z_POW sites.
+- K127 canonical BDD follow-up exceeded its explicit 10,000,000-node bound; this is inconclusive.
+- K128 found no exact complementary phase-predicate pairs with a representable global constant.
+- K129 found no eligible identical CCX/CCZ/CSWAP pair under distinct inline measurement-bit conditions among the 7 supported events.
+- Added experiment_registry.json with known Helios-relevant prior results.
+
+## Current Work
+Files: competition/k126/results/phase_ladder_audit.json; competition/k127/*; competition/k128/*; competition/k129/*; competition/experiment_registry.json.
+No circuit candidate was generated.
+
+## Current Failure
+K127 BDD equality screen exceeded 10,000,000 nodes during exact symbolic dataflow.
+Likely cause: large intermediate Boolean functions and measurement-controlled dependencies.
+Tried: input order q21..q0 then HMR outcomes; no unbounded run.
+
+## Important Decisions
+- K126 found 16 and 26 q28 phases separated by many gates; no adjacent merges.
+- K098 already tested fixed-factor perturbations and dropping initial phase terms.
+- K099-K113 covered broad cancellation, CSWAP decomposition, bounded reversible synthesis and Toffoli factoring.
+- K098 archived score reports use a different source hash; they do not verify the current e7eb baseline.
+
+## Verification
+K126 read-only audit completed against the pinned baseline: 48 Z_POW sites, q28 ladders 16 and 26 sites, no adjacent q28 phases.
+K127 DAG screen: 48 distinct normalized predicates; 41 rotations before/after; zero projected savings. K128: no complement pairs. K129: no eligible conditional gate pairs.
+No official verifier run for K127-K129 because no candidate was produced.
+
+## Next Actions
+1. Review the registry and preserve historical artifacts.
+2. Choose a new exact arithmetic or measurement-feed-forward subsystem outside K099-K113; prioritize a target with a nonzero score bound.
+3. Estimate saved executed Toffolis, rotations, or width before implementation.
+4. Generate and officially verify only if a candidate exists with a plausible baseline win.
+
+## Warnings
+- Do not modify the original dirty checkout or overwrite historical results.
+- Baseline is available in /home/ubuntu/quantum-a26-check/competition/k098/results/helios_immutable.kmx; it is not tracked in this worktree.
+- Official verifier is in the existing runtime checkout at competition/k001/private/official/verifiers/invsqrt/verify_submission_invsqrt.py.

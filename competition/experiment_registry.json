@@ -1,0 +1,131 @@
+{
+  "objective": "Beat the verified Helios inverse-square-root score 95369.00696815242 with an officially verified lower-score Kickmix circuit.",
+  "baseline": {
+    "path": "/home/ubuntu/quantum-a26-check/competition/k098/results/helios_immutable.kmx",
+    "sha256": "e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183",
+    "score_reference": 95369.00696815242,
+    "qubits": 62,
+    "input_width": 22,
+    "max_x": 3133452
+  },
+  "history_coverage": {
+    "reviewed": [
+      "User-provided K001-K130 research handoff",
+      "Fetched branch history through K126; inspected K101-K126 subjects",
+      "Remote archive inventory; K098 result JSON/logs and K125/K126 sources/results",
+      "Official verifier tolerance, rotation-cost, and score code"
+    ],
+    "coverage_limit": "K001-K097 outputs were not individually normalized into this registry. Missing artifacts are not evidence an experiment was never run."
+  },
+  "experiments": [
+    {
+      "id": "K012/K018/K044/K047",
+      "technique": "Qubit/register recycling and liveness",
+      "actual_result": "No verified score improvement.",
+      "verification_status": "No qualifying full-domain lower-score result in provided history.",
+      "decision": "Do not repeat generic liveness or simplistic ancilla reuse."
+    },
+    {
+      "id": "K098",
+      "technique": "Exact source phase merging and per-site q28 phase perturb/drop probes",
+      "actual_result": "Exact merge scan found zero; drop-first candidates failed at x=644; perturbation cases that passed full domain had worse full score (best 95406.8079).",
+      "verification_status": "Archived runs used a different source hash (1c5b...), so not verification of current e7eb baseline.",
+      "decision": "Do not repeat same merge, drop-first, or fixed-factor probes."
+    },
+    {
+      "id": "K099-K113",
+      "technique": "CX/parity/commuting cancellation, CSWAP alternatives, reversible truth-table synthesis, bounded cones, affine rewrites, common-control Toffoli factoring",
+      "actual_result": "Some local rewrites were functionally correct; none reduced official score. Other searches found no eligible transformation.",
+      "verification_status": "Local proofs and official screens where recorded; no verified score win.",
+      "decision": "Do not repeat unchanged."
+    },
+    {
+      "id": "K114/K115",
+      "technique": "Reachable-subspace and arithmetic-encoding feasibility",
+      "actual_result": "No cheaper exact Helios encoding established.",
+      "verification_status": "Audit only; no candidate score.",
+      "decision": "Continue only with a concrete encoding and resource estimate."
+    },
+    {
+      "id": "K116-K119",
+      "technique": "Input bucketing, exponent-mantissa normalization, fixed-point polynomial/Horner",
+      "actual_result": "Bucketed constant phases violate precision; degree-9 Chebyshev at 32 fractional bits passed offline numeric checks (worst relative error about 9.99855e-9), but nine generic multiplier stages were too costly.",
+      "verification_status": "Numerical simulation only; no complete circuit.",
+      "decision": "Do not repeat generic bucketing or Horner multiplication."
+    },
+    {
+      "id": "K120",
+      "technique": "Piecewise cubic approximation",
+      "actual_result": "16 segments, 32 fractional bits, zero numerical violations, worst relative error about 2.94147e-8; three multiplications but no complete circuit.",
+      "verification_status": "Full-domain numerical check only.",
+      "decision": "No repeat without cheaper reversible coefficients/arithmetic."
+    },
+    {
+      "id": "K121/K122",
+      "technique": "Coefficient bitplane audit and reversible coefficient lookup",
+      "actual_result": "100 varying bitplanes; 183 source CCX for one four-table lookup pass, before uncomputation.",
+      "verification_status": "Selector/target checks passed; no full circuit or score.",
+      "decision": "No competitive construction."
+    },
+    {
+      "id": "K123",
+      "technique": "Exact reversible multiply-accumulate reference",
+      "actual_result": "CCX counts 540/6936/98736 for widths 8/16/32.",
+      "verification_status": "Small reference, not an optimized lower bound.",
+      "decision": "Do not implement another generic 32-bit multiplier without a concrete reduction."
+    },
+    {
+      "id": "K124",
+      "technique": "Direct phase-monomial expansion",
+      "actual_result": "58095 original phase terms, 32504 retained; 20746 sampled inputs, zero tolerance violations, worst about 50.08% tolerance.",
+      "verification_status": "Numerical sample screen; rejected for rotation count.",
+      "decision": "Do not repeat."
+    },
+    {
+      "id": "K125",
+      "technique": "Pinned Helios phase-site/control-context audit",
+      "actual_result": "53841 lines; 48 Z_POW, 42 on q28 in two ladders; no active condition at phase sites; 13 syntactically adjacent phase pairs.",
+      "verification_status": "Read-only source audit.",
+      "decision": "Source count is not executed rotation count."
+    },
+    {
+      "id": "K126",
+      "technique": "q28 ladder dependency and dyadic-rounding audit",
+      "actual_result": "Ladders 15974-16299 (16 phases, 488 q28-touching gates) and 25762-25955 (26 phases, 1208 q28-touching gates); no adjacent q28 phases; absolute-rounding bounds 2.07972e-9 and 2.39356e-9 turns.",
+      "verification_status": "Read-only audit; no transformed circuit or verifier claim.",
+      "decision": "Reject simple angle merge and uniform dyadic rounding."
+    },
+    {
+      "id": "A115-A130",
+      "technique": "Spin-7/2 qudit arithmetic, virtual phase tracking, lazy routing, mapping-aware arithmetic",
+      "actual_result": "Scoped abstract pulse-time/arithmetic checks; no Kaggle score win or established physical-qudit advantage.",
+      "verification_status": "Not full-domain Kickmix verification.",
+      "decision": "No transfer without a Kickmix-specific resource proof."
+    },
+    {
+      "id": "K127",
+      "technique": "Boolean-predicate phase factoring across nonadjacent rotations; reduced BDD follow-up",
+      "actual_result": "Completed XOR/AND DAG found 48 distinct predicates for 48 Z_POW sites; 41 arbitrary rotations remained 41; zero projected savings. Exact BDD follow-up exceeded 10000000 nodes.",
+      "verification_status": "Analysis only; BDD inconclusive; no candidate or official verifier run.",
+      "decision": "Stop unless a better bounded equivalence engine is justified; do not claim no logically equivalent predicates exist."
+    },
+    {
+      "id": "K128",
+      "technique": "Complementary predicate phase factoring with exact global-phase accounting",
+      "actual_result": "No Z_POW predicate/complement pairs found among the 48 phase sites; projected rotation reduction 0.",
+      "verification_status": "Read-only exact DAG screen; no circuit or official verifier run.",
+      "decision": "Stop this branch."
+    },
+    {
+      "id": "K129",
+      "technique": "XOR fusion of identical self-inverse Toffoli-class gates under distinct measurement-bit conditions",
+      "actual_result": "No eligible pairs among 7 CCX/CCZ/CSWAP events with one inline bit condition and supported disjoint barriers; projected reduction 0.",
+      "verification_status": "Read-only source screen; no candidate generated or official verifier run.",
+      "decision": "Low remaining value in this restricted source pattern; do not claim all stack-conditional gates were covered."
+    }
+  ],
+  "next_gate": "Require a new exact hypothesis outside K099-K113 and a scored-resource reduction estimate before implementation.",
+  "scoring_model": "Official score Q * (executed Toffolis + (base T + rotation_count*(0.56*log2(1/eps)+5.3))/4), with eps set by the minimum global phase-error margin.",
+  "success_claim": false,
+  "latest_result": "K129 found no qualifying repeated conditional Toffoli-class pair; no candidate beats or has been submitted."
+}

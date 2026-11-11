@@ -1,0 +1,1015 @@
+{
+  "status": "READ_ONLY",
+  "sha256": "e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183",
+  "z_pow_site_count": 48,
+  "q28_phase_sites": 42,
+  "other_phase_sites": [
+    {
+      "line": 15965,
+      "target": "q0",
+      "angle": "1.5"
+    },
+    {
+      "line": 15966,
+      "target": "q2",
+      "angle": "1.5"
+    },
+    {
+      "line": 15967,
+      "target": "q3",
+      "angle": "1.0"
+    },
+    {
+      "line": 16301,
+      "target": "q0",
+      "angle": "0.5"
+    },
+    {
+      "line": 16302,
+      "target": "q2",
+      "angle": "0.5"
+    },
+    {
+      "line": 16303,
+      "target": "q3",
+      "angle": "1.0"
+    }
+  ],
+  "ladders": [
+    {
+      "start_line": 15974,
+      "end_line": 16299,
+      "phase_sites": 16,
+      "directly_adjacent_q28_phase_pairs": 0,
+      "q28_touching_intervening_gates": 488,
+      "sum_abs_rounding_error_turns_upper_bound": "2.0797218115947528616072048635032842867076396942138671875E-9",
+      "max_abs_rounding_error_turns": "9.126028973857093495869463595226989127695560455322265625E-10",
+      "sites": [
+        {
+          "line": 15974,
+          "z_pow_exponent": "0.000007629395892507352498757011716179476934485137462615966796875",
+          "nearest_positive_power_of_two": "0.00000762939453125",
+          "dyadic_abs_error_half_turns": "1.361257352498757011716179476934485137462615966796875E-12",
+          "dyadic_abs_error_turns": "6.806286762493785058580897384672425687313079833984375E-13",
+          "previous_q28_phase_line": null,
+          "intervening_source_lines": 15973,
+          "intervening_opcode_histogram": {
+            "APPEND_TO_REGISTER": 22,
+            "REGISTER": 1,
+            "R": 41,
+            "X": 147,
+            "CX": 14699,
+            "CCX": 192,
+            "CSWAP": 51,
+            "HMR": 37,
+            "CZ": 464,
+            "Z": 241,
+            "NEG": 2,
+            "SWAP": 73,
+            "Z_POW": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "CCX": 7,
+            "CX": 375,
+            "Z": 10,
+            "HMR": 2,
+            "R": 1,
+            "CZ": 10,
+            "SWAP": 2,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 409,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 15982,
+          "z_pow_exponent": "0.000015258787729483728849710910679959852132014930248260498046875",
+          "nearest_positive_power_of_two": "0.00001525878906250",
+          "dyadic_abs_error_half_turns": "1.333016271150289089320040147867985069751739501953125E-12",
+          "dyadic_abs_error_turns": "6.665081355751445446600200739339925348758697509765625E-13",
+          "previous_q28_phase_line": 15974,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 15990,
+          "z_pow_exponent": "0.000030517574903903325021781167691869995906017720699310302734375",
+          "nearest_positive_power_of_two": "0.0000305175781250",
+          "dyadic_abs_error_half_turns": "3.221096674978218832308130004093982279300689697265625E-12",
+          "dyadic_abs_error_turns": "1.6105483374891094161540650020469911396503448486328125E-12",
+          "previous_q28_phase_line": 15982,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 15998,
+          "z_pow_exponent": "0.000061035157831553464580220946800181991420686244964599609375",
+          "nearest_positive_power_of_two": "0.00006103515625",
+          "dyadic_abs_error_half_turns": "1.581553464580220946800181991420686244964599609375E-12",
+          "dyadic_abs_error_turns": "7.907767322901104734000909957103431224822998046875E-13",
+          "previous_q28_phase_line": 15990,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16005,
+          "z_pow_exponent": "0.0001220703049502384028579538011172189726494252681732177734375",
+          "nearest_positive_power_of_two": "0.00012207031250",
+          "dyadic_abs_error_half_turns": "7.5497615971420461988827810273505747318267822265625E-12",
+          "dyadic_abs_error_turns": "3.77488079857102309944139051367528736591339111328125E-12",
+          "previous_q28_phase_line": 15998,
+          "intervening_source_lines": 6,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 3,
+            "CX": 1,
+            "CCX": 1
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16014,
+          "z_pow_exponent": "0.00024414061896376923997686869682866017683409154415130615234375",
+          "nearest_positive_power_of_two": "0.0002441406250",
+          "dyadic_abs_error_half_turns": "6.03623076002313130317133982316590845584869384765625E-12",
+          "dyadic_abs_error_turns": "3.018115380011565651585669911582954227924346923828125E-12",
+          "previous_q28_phase_line": 16005,
+          "intervening_source_lines": 8,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CCX": 2,
+            "CSWAP": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CCX": 2,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16023,
+          "z_pow_exponent": "0.000488281251440136746834463910005297293537296354770660400390625",
+          "nearest_positive_power_of_two": "0.00048828125",
+          "dyadic_abs_error_half_turns": "1.440136746834463910005297293537296354770660400390625E-12",
+          "dyadic_abs_error_turns": "7.200683734172319550026486467686481773853302001953125E-13",
+          "previous_q28_phase_line": 16014,
+          "intervening_source_lines": 8,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CCX": 2,
+            "CSWAP": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CCX": 2,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16032,
+          "z_pow_exponent": "0.000976562502521367121165185576359135666280053555965423583984375",
+          "nearest_positive_power_of_two": "0.0009765625",
+          "dyadic_abs_error_half_turns": "2.521367121165185576359135666280053555965423583984375E-12",
+          "dyadic_abs_error_turns": "1.2606835605825927881795678331400267779827117919921875E-12",
+          "previous_q28_phase_line": 16023,
+          "intervening_source_lines": 8,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "X": 3,
+            "CCX": 1,
+            "CX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "X": 1,
+            "CCX": 1,
+            "CX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16081,
+          "z_pow_exponent": "0.00195312497583883279243799346858168064500205218791961669921875",
+          "nearest_positive_power_of_two": "0.0019531250",
+          "dyadic_abs_error_half_turns": "2.416116720756200653141831935499794781208038330078125E-11",
+          "dyadic_abs_error_turns": "1.2080583603781003265709159677498973906040191650390625E-11",
+          "previous_q28_phase_line": 16032,
+          "intervening_source_lines": 48,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 40,
+            "CCX": 3,
+            "CSWAP": 3,
+            "X": 1
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CCX": 2,
+            "CX": 2,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 7,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16135,
+          "z_pow_exponent": "0.003906249969682756601092876724834468404878862202167510986328125",
+          "nearest_positive_power_of_two": "0.003906250",
+          "dyadic_abs_error_half_turns": "3.0317243398907123275165531595121137797832489013671875E-11",
+          "dyadic_abs_error_turns": "1.51586216994535616375827657975605688989162445068359375E-11",
+          "previous_q28_phase_line": 16081,
+          "intervening_source_lines": 53,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CZ": 1,
+            "CCX": 4,
+            "CSWAP": 2,
+            "CX": 44,
+            "X": 1
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CCX": 3,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16189,
+          "z_pow_exponent": "0.007812499959174946267438655045367568163783289492130279541015625",
+          "nearest_positive_power_of_two": "0.00781250",
+          "dyadic_abs_error_half_turns": "4.0825053732561344954632431836216710507869720458984375E-11",
+          "dyadic_abs_error_turns": "2.04125268662806724773162159181083552539348602294921875E-11",
+          "previous_q28_phase_line": 16135,
+          "intervening_source_lines": 53,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CZ": 1,
+            "CCX": 4,
+            "CSWAP": 2,
+            "CX": 44,
+            "X": 1
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CCX": 3,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16237,
+          "z_pow_exponent": "0.01562499985393898428720493853916195803321897983551025390625",
+          "nearest_positive_power_of_two": "0.0156250",
+          "dyadic_abs_error_half_turns": "1.4606101571279506146083804196678102016448974609375E-10",
+          "dyadic_abs_error_turns": "7.3030507856397530730419020983390510082244873046875E-11",
+          "previous_q28_phase_line": 16189,
+          "intervening_source_lines": 47,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CZ": 1,
+            "CX": 39,
+            "CCX": 3,
+            "CSWAP": 2,
+            "X": 1
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CCX": 2,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16284,
+          "z_pow_exponent": "0.031250000337454564292016812032670713961124420166015625",
+          "nearest_positive_power_of_two": "0.03125",
+          "dyadic_abs_error_half_turns": "3.37454564292016812032670713961124420166015625E-10",
+          "dyadic_abs_error_turns": "1.687272821460084060163353569805622100830078125E-10",
+          "previous_q28_phase_line": 16237,
+          "intervening_source_lines": 46,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CZ": 1,
+            "CX": 40,
+            "CCX": 2,
+            "CSWAP": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 4,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16289,
+          "z_pow_exponent": "0.062499998269625635914127637082771116183721460402011871337890625",
+          "nearest_positive_power_of_two": "0.06250",
+          "dyadic_abs_error_half_turns": "1.730374364085872362917228883816278539597988128662109375E-9",
+          "dyadic_abs_error_turns": "8.651871820429361814586144419081392697989940643310546875E-10",
+          "previous_q28_phase_line": 16284,
+          "intervening_source_lines": 4,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 4,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16294,
+          "z_pow_exponent": "0.125000001825205794771418699173892719045397825539112091064453125",
+          "nearest_positive_power_of_two": "0.125",
+          "dyadic_abs_error_half_turns": "1.825205794771418699173892719045397825539112091064453125E-9",
+          "dyadic_abs_error_turns": "9.126028973857093495869463595226989127695560455322265625E-10",
+          "previous_q28_phase_line": 16289,
+          "intervening_source_lines": 4,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CCX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 4,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 16299,
+          "z_pow_exponent": "0.25",
+          "nearest_positive_power_of_two": "0.25",
+          "dyadic_abs_error_half_turns": "0.00",
+          "dyadic_abs_error_turns": "0.00",
+          "previous_q28_phase_line": 16294,
+          "intervening_source_lines": 4,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 2
+          },
+          "q28_touching_gate_count": 4,
+          "direct_adjacent_to_prior_q28_phase": false
+        }
+      ]
+    },
+    {
+      "start_line": 25762,
+      "end_line": 25955,
+      "phase_sites": 26,
+      "directly_adjacent_q28_phase_pairs": 0,
+      "q28_touching_intervening_gates": 1208,
+      "sum_abs_rounding_error_turns_upper_bound": "2.3935609016730377551773756295006023719906806945800781250E-9",
+      "max_abs_rounding_error_turns": "1.688115901948318564596007718137116171419620513916015625E-9",
+      "sites": [
+        {
+          "line": 25762,
+          "z_pow_exponent": "2.8860757425412664201047618917073123157024383544921875E-11",
+          "nearest_positive_power_of_two": "2.9103830456733703613281250E-11",
+          "dyadic_abs_error_half_turns": "2.43073031321039412233631082926876842975616455078125E-13",
+          "dyadic_abs_error_turns": "1.215365156605197061168155414634384214878082275390625E-13",
+          "previous_q28_phase_line": null,
+          "intervening_source_lines": 25761,
+          "intervening_opcode_histogram": {
+            "APPEND_TO_REGISTER": 22,
+            "REGISTER": 1,
+            "R": 56,
+            "X": 203,
+            "CX": 21144,
+            "CCX": 586,
+            "CSWAP": 90,
+            "HMR": 365,
+            "CZ": 2394,
+            "Z": 565,
+            "NEG": 17,
+            "SWAP": 92,
+            "Z_POW": 22,
+            "PUSH_CONDITION": 22,
+            "POP_CONDITION": 22,
+            "BIT_STORE0": 19,
+            "BIT_INVERT": 120,
+            "BIT_STORE1": 14,
+            "CCZ": 7
+          },
+          "q28_touching_opcode_histogram": {
+            "CCX": 94,
+            "CX": 687,
+            "Z": 27,
+            "HMR": 62,
+            "R": 1,
+            "CZ": 145,
+            "SWAP": 2,
+            "CSWAP": 36,
+            "Z_POW": 16,
+            "X": 2,
+            "CCZ": 7
+          },
+          "q28_touching_gate_count": 1079,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25772,
+          "z_pow_exponent": "5.8727813410930362891804179525934159755706787109375E-11",
+          "nearest_positive_power_of_two": "5.82076609134674072265625E-11",
+          "dyadic_abs_error_half_turns": "5.20152497462955665241679525934159755706787109375E-13",
+          "dyadic_abs_error_turns": "2.600762487314778326208397629670798778533935546875E-13",
+          "previous_q28_phase_line": 25762,
+          "intervening_source_lines": 9,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CZ": 2,
+            "CX": 3,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25780,
+          "z_pow_exponent": "1.15882763129272758906296303393901325762271881103515625E-10",
+          "nearest_positive_power_of_two": "1.164153218269348144531250E-10",
+          "dyadic_abs_error_half_turns": "5.32558697662055546828696606098674237728118896484375E-13",
+          "dyadic_abs_error_turns": "2.662793488310277734143483030493371188640594482421875E-13",
+          "previous_q28_phase_line": 25772,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25788,
+          "z_pow_exponent": "2.326696231513825097181324963457882404327392578125E-10",
+          "nearest_positive_power_of_two": "2.32830643653869628906250E-10",
+          "dyadic_abs_error_half_turns": "1.610205024871191881175036542117595672607421875E-13",
+          "dyadic_abs_error_turns": "8.051025124355959405875182710587978363037109375E-14",
+          "previous_q28_phase_line": 25780,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25795,
+          "z_pow_exponent": "4.65449987471604209599007617725874297320842742919921875E-10",
+          "nearest_positive_power_of_two": "4.6566128730773925781250E-10",
+          "dyadic_abs_error_half_turns": "2.11299836135048213492382274125702679157257080078125E-13",
+          "dyadic_abs_error_turns": "1.056499180675241067461911370628513395786285400390625E-13",
+          "previous_q28_phase_line": 25788,
+          "intervening_source_lines": 6,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25802,
+          "z_pow_exponent": "9.32342891150732266947187554251286201179027557373046875E-10",
+          "nearest_positive_power_of_two": "9.31322574615478515625E-10",
+          "dyadic_abs_error_half_turns": "1.020316535253751322187554251286201179027557373046875E-12",
+          "dyadic_abs_error_turns": "5.101582676268756610937771256431005895137786865234375E-13",
+          "previous_q28_phase_line": 25795,
+          "intervening_source_lines": 6,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25809,
+          "z_pow_exponent": "1.863280830300372004071363107868819497525691986083984375E-9",
+          "nearest_positive_power_of_two": "1.86264514923095703125E-9",
+          "dyadic_abs_error_half_turns": "6.35681069414972821363107868819497525691986083984375E-13",
+          "dyadic_abs_error_turns": "3.178405347074864106815539344097487628459930419921875E-13",
+          "previous_q28_phase_line": 25802,
+          "intervening_source_lines": 6,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25816,
+          "z_pow_exponent": "3.725324944359176271291289594955742359161376953125E-9",
+          "nearest_positive_power_of_two": "3.7252902984619140625E-9",
+          "dyadic_abs_error_half_turns": "3.4645897262208791289594955742359161376953125E-14",
+          "dyadic_abs_error_turns": "1.73229486311043956447974778711795806884765625E-14",
+          "previous_q28_phase_line": 25809,
+          "intervening_source_lines": 6,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25824,
+          "z_pow_exponent": "7.44970610742391736724954398596310056746006011962890625E-9",
+          "nearest_positive_power_of_two": "7.4505805969238281250E-9",
+          "dyadic_abs_error_half_turns": "8.7448949991075775045601403689943253993988037109375E-13",
+          "dyadic_abs_error_turns": "4.37244749955378875228007018449716269969940185546875E-13",
+          "previous_q28_phase_line": 25816,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25832,
+          "z_pow_exponent": "1.4901311411901797809864689270398230291903018951416015625E-8",
+          "nearest_positive_power_of_two": "1.490116119384765625E-8",
+          "dyadic_abs_error_half_turns": "1.50218054141559864689270398230291903018951416015625E-13",
+          "dyadic_abs_error_turns": "7.51090270707799323446351991151459515094757080078125E-14",
+          "previous_q28_phase_line": 25824,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25840,
+          "z_pow_exponent": "2.9800686977463596016857394488397403620183467864990234375E-8",
+          "nearest_positive_power_of_two": "2.980232238769531250E-8",
+          "dyadic_abs_error_half_turns": "1.635410231716483142605511602596379816532135009765625E-12",
+          "dyadic_abs_error_turns": "8.177051158582415713027558012981899082660675048828125E-13",
+          "previous_q28_phase_line": 25832,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25848,
+          "z_pow_exponent": "5.9604608012805461447758403892294154502451419830322265625E-8",
+          "nearest_positive_power_of_two": "5.96046447753906250E-8",
+          "dyadic_abs_error_half_turns": "3.6762585163552241596107705845497548580169677734375E-14",
+          "dyadic_abs_error_turns": "1.83812925817761207980538529227487742900848388671875E-14",
+          "previous_q28_phase_line": 25840,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25855,
+          "z_pow_exponent": "1.1921019456816173143209880436188541352748870849609375E-7",
+          "nearest_positive_power_of_two": "1.1920928955078125E-7",
+          "dyadic_abs_error_half_turns": "9.0501738048143209880436188541352748870849609375E-13",
+          "dyadic_abs_error_turns": "4.52508690240716049402180942706763744354248046875E-13",
+          "previous_q28_phase_line": 25848,
+          "intervening_source_lines": 6,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25862,
+          "z_pow_exponent": "2.3841840741749796561688157225944451056420803070068359375E-7",
+          "nearest_positive_power_of_two": "2.3841857910156250E-7",
+          "dyadic_abs_error_half_turns": "1.7168406453438311842774055548943579196929931640625E-13",
+          "dyadic_abs_error_turns": "8.5842032267191559213870277744717895984649658203125E-14",
+          "previous_q28_phase_line": 25855,
+          "intervening_source_lines": 6,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25869,
+          "z_pow_exponent": "4.76836546697595627108956506390313734300434589385986328125E-7",
+          "nearest_positive_power_of_two": "4.768371582031250E-7",
+          "dyadic_abs_error_half_turns": "6.11505529372891043493609686265699565410614013671875E-13",
+          "dyadic_abs_error_turns": "3.057527646864455217468048431328497827053070068359375E-13",
+          "previous_q28_phase_line": 25862,
+          "intervening_source_lines": 6,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25876,
+          "z_pow_exponent": "9.53674674433768222725493757252479554153978824615478515625E-7",
+          "nearest_positive_power_of_two": "9.5367431640625E-7",
+          "dyadic_abs_error_half_turns": "3.58027518222725493757252479554153978824615478515625E-13",
+          "dyadic_abs_error_turns": "1.790137591113627468786262397770769894123077392578125E-13",
+          "previous_q28_phase_line": 25869,
+          "intervening_source_lines": 6,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 6,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25884,
+          "z_pow_exponent": "0.00000190735156659180456195645803063598577864468097686767578125",
+          "nearest_positive_power_of_two": "0.0000019073486328125",
+          "dyadic_abs_error_half_turns": "2.93377930456195645803063598577864468097686767578125E-12",
+          "dyadic_abs_error_turns": "1.466889652280978229015317992889322340488433837890625E-12",
+          "previous_q28_phase_line": 25876,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25892,
+          "z_pow_exponent": "0.000003814699517350607187171629419708551722578704357147216796875",
+          "nearest_positive_power_of_two": "0.000003814697265625",
+          "dyadic_abs_error_half_turns": "2.251725607187171629419708551722578704357147216796875E-12",
+          "dyadic_abs_error_turns": "1.1258628035935858147098542758612893521785736083984375E-12",
+          "previous_q28_phase_line": 25884,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25900,
+          "z_pow_exponent": "0.000007629400187021966213418711078020351123996078968048095703125",
+          "nearest_positive_power_of_two": "0.00000762939453125",
+          "dyadic_abs_error_half_turns": "5.655771966213418711078020351123996078968048095703125E-12",
+          "dyadic_abs_error_turns": "2.8278859831067093555390101755619980394840240478515625E-12",
+          "previous_q28_phase_line": 25892,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 3,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CX": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25907,
+          "z_pow_exponent": "0.000015258793341380309967203476873010004055686295032501220703125",
+          "nearest_positive_power_of_two": "0.0000152587890625",
+          "dyadic_abs_error_half_turns": "4.278880309967203476873010004055686295032501220703125E-12",
+          "dyadic_abs_error_turns": "2.1394401549836017384365050020278431475162506103515625E-12",
+          "previous_q28_phase_line": 25900,
+          "intervening_source_lines": 6,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CX": 2,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 4,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25913,
+          "z_pow_exponent": "0.000030517585763242577497067475889025445212610065937042236328125",
+          "nearest_positive_power_of_two": "0.000030517578125",
+          "dyadic_abs_error_half_turns": "7.638242577497067475889025445212610065937042236328125E-12",
+          "dyadic_abs_error_turns": "3.8191212887485337379445127226063050329685211181640625E-12",
+          "previous_q28_phase_line": 25907,
+          "intervening_source_lines": 5,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25919,
+          "z_pow_exponent": "0.000061035207881432636256580082090295036323368549346923828125",
+          "nearest_positive_power_of_two": "0.00006103515625",
+          "dyadic_abs_error_half_turns": "5.1631432636256580082090295036323368549346923828125E-11",
+          "dyadic_abs_error_turns": "2.58157163181282900410451475181616842746734619140625E-11",
+          "previous_q28_phase_line": 25913,
+          "intervening_source_lines": 5,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25927,
+          "z_pow_exponent": "0.000122070493077072283853723444480010584811680018901824951171875",
+          "nearest_positive_power_of_two": "0.0001220703125",
+          "dyadic_abs_error_half_turns": "1.80577072283853723444480010584811680018901824951171875E-10",
+          "dyadic_abs_error_turns": "9.02885361419268617222400052924058400094509124755859375E-11",
+          "previous_q28_phase_line": 25919,
+          "intervening_source_lines": 7,
+          "intervening_opcode_histogram": {
+            "HMR": 2,
+            "CSWAP": 4,
+            "CZ": 1
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 4
+          },
+          "q28_touching_gate_count": 5,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25932,
+          "z_pow_exponent": "0.000244140657685986838150438149597221126896329224109649658203125",
+          "nearest_positive_power_of_two": "0.000244140625",
+          "dyadic_abs_error_half_turns": "3.2685986838150438149597221126896329224109649658203125E-11",
+          "dyadic_abs_error_turns": "1.63429934190752190747986105634481646120548248291015625E-11",
+          "previous_q28_phase_line": 25927,
+          "intervening_source_lines": 4,
+          "intervening_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 4,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25942,
+          "z_pow_exponent": "0.0004882823651352449952078860206938770716078579425811767578125",
+          "nearest_positive_power_of_two": "0.00048828125",
+          "dyadic_abs_error_half_turns": "1.1151352449952078860206938770716078579425811767578125E-9",
+          "dyadic_abs_error_turns": "5.5756762249760394301034693853580392897129058837890625E-10",
+          "previous_q28_phase_line": 25932,
+          "intervening_source_lines": 9,
+          "intervening_opcode_histogram": {
+            "HMR": 2,
+            "CCX": 1,
+            "CX": 2,
+            "CSWAP": 3,
+            "CZ": 1
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 4,
+          "direct_adjacent_to_prior_q28_phase": false
+        },
+        {
+          "line": 25955,
+          "z_pow_exponent": "0.00097655912376819610336287080798456372576765716075897216796875",
+          "nearest_positive_power_of_two": "0.00097656250",
+          "dyadic_abs_error_half_turns": "3.37623180389663712919201543627423234283924102783203125E-9",
+          "dyadic_abs_error_turns": "1.688115901948318564596007718137116171419620513916015625E-9",
+          "previous_q28_phase_line": 25942,
+          "intervening_source_lines": 12,
+          "intervening_opcode_histogram": {
+            "HMR": 2,
+            "CCX": 1,
+            "CX": 4,
+            "CSWAP": 3,
+            "CZ": 2
+          },
+          "q28_touching_opcode_histogram": {
+            "HMR": 1,
+            "CSWAP": 3
+          },
+          "q28_touching_gate_count": 4,
+          "direct_adjacent_to_prior_q28_phase": false
+        }
+      ]
+    }
+  ],
+  "caveats": [
+    "Dyadic phase rounding has been explored previously; this report is diagnostic, not an optimization result.",
+    "A sum of absolute coefficient changes is a conservative source-level phase upper bound, not a verifier worst-case measurement.",
+    "Controlled phase implementation and intervening operation semantics require Kickmix-aware analysis.",
+    "No transformed circuit or score win established."
+  ]
+}
