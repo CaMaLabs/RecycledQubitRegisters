@@ -5,9 +5,9 @@ Beat the verified Helios inverse-square-root score 95,369.00696815242 with an of
 
 ## Repository State
 Branch: experiment/a115-spin-qudit-arithmetic
-HEAD: eb1df112659e741704765367b09dac8e6750fc34
+HEAD: latest handoff commit; K127-K129 artifacts landed in 41e8e84c23052a427ebd6debb95b976afad06714
 Last known good commit: K126 audit
-Working tree status: New K126/K127 artifacts, registry, and handoff prepared for commit.
+Working tree status: clean after committing K126-K129 reports, scripts, and registry.
 
 ## Completed
 - Fetched the requested branch in a separate worktree at /home/ubuntu/quantum-a26-mission; original dirty checkout remains untouched.
