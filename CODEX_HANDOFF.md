@@ -7,7 +7,7 @@ Beat the verified Helios inverse-square-root score 95,369.00696815242 with an of
 Branch: experiment/a115-spin-qudit-arithmetic
 HEAD: latest commit on branch; K127-K129 artifacts landed in 41e8e84c23052a427ebd6debb95b976afad06714; K130/K131 follow-up committed afterward
 Last known good commit: K126 audit
-Working tree status: clean after committing K126-K129 reports, scripts, and registry.
+Working tree status: clean; local branch is four commits ahead of origin.
 
 ## Completed
 - Fetched the requested branch in a separate worktree at /home/ubuntu/quantum-a26-mission; original dirty checkout was not switched or cleaned. This run created the K126 audit output there and copied it into this worktree.
@@ -46,6 +46,9 @@ No official verifier run for K127-K131 because no candidate has a scored-resourc
 2. Inspect later arithmetic/measurement regions for domain-restricted exact identities, not just the deterministic prefix.
 3. Estimate saved executed Toffolis, rotations, or width before implementation.
 4. Generate and officially verify only if a candidate has a plausible baseline win.
+
+## Publication
+Local commits: 41e8e84, bca5dd6, 9940a5f, 793303e. Push was attempted; GitHub rejected HTTPS authentication because no valid username/token is configured. Origin remains at eb1df11.
 
 ## Warnings
 - Do not clean or switch the original dirty checkout; preserve its existing files and the K126 audit output created for this mission.
