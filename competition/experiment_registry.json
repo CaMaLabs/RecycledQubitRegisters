@@ -13,9 +13,10 @@
       "User-provided K001-K130 research handoff",
       "Fetched branch history through K126; inspected K101-K126 subjects",
       "Remote archive inventory; K098 result JSON/logs and K125/K126 sources/results",
-      "Official verifier tolerance, rotation-cost, and score code"
+      "Official verifier tolerance, rotation-cost, and score code",
+      "User-supplied K135-K143 console outputs and GitHub source on branch experiment/a115-spin-qudit-arithmetic"
     ],
-    "coverage_limit": "K001-K097 outputs were not individually normalized into this registry. Missing artifacts are not evidence an experiment was never run."
+    "coverage_limit": "K001-K097 individual results incompletely normalized; K132-K143 result receipts are user-provided VM outputs and may not be tracked as files on GitHub. Do not infer untried from missing source."
   },
   "experiments": [
     {
@@ -136,10 +137,95 @@
       "actual_result": "Packed truth tables exhausted all 3,133,452 valid x values over the first 151 operations. Only R q22 at line 24 was an identity; zero CCX/CCZ/CSWAP or rotation instructions were removable; score bound 0.",
       "verification_status": "Exact prefix simulation over every valid input; no full circuit or official verifier run.",
       "decision": "Stop this prefix-only path; prioritize a region with a nonzero score bound."
+    },
+    {
+      "id": "K132",
+      "technique": "Whole-circuit ternary abstract-state identities",
+      "actual_result": "Potential CX/CZ/SWAP zero-cost identities; no scored CCX/rotation removal.",
+      "verification_status": "Read-only screen",
+      "decision": "Do not equate abstract identities with achieved score reduction."
+    },
+    {
+      "id": "K133",
+      "technique": "Static source cost heatmap",
+      "actual_result": "Identified source hotspots, not dynamic executed cost.",
+      "verification_status": "Read-only screen",
+      "decision": "Actual verifier-compatible executed-cost profiling remains open."
+    },
+    {
+      "id": "K134",
+      "technique": "PTP phase periodicity",
+      "actual_result": "Simple residue-dependent phase patterns screened with no score reduction.",
+      "verification_status": "Analytic screen",
+      "decision": "Only revisit with quotient-dependent, scored transformation."
+    },
+    {
+      "id": "K135",
+      "technique": "Repeated CCX motif survey",
+      "actual_result": "269 motif families, overlapping copies; no candidate.",
+      "verification_status": "Read-only screen",
+      "decision": "Do not sum overlapping copies."
+    },
+    {
+      "id": "K136",
+      "technique": "ANF degree bound on repeated motifs",
+      "actual_result": "Degree lower bound left 11 gaps among the top 20 representative motifs.",
+      "verification_status": "Exact local lower bound",
+      "decision": "Superseded by stronger K137 rank test."
+    },
+    {
+      "id": "K137",
+      "technique": "Nonlinear-output rank lower bound",
+      "actual_result": "All 20 top isolated templates CCX-tight.",
+      "verification_status": "Exact local lower bound",
+      "decision": "Do not repeat isolation-only synthesis."
+    },
+    {
+      "id": "K138",
+      "technique": "Combined reversible CCX-window bounds",
+      "actual_result": "32 analyzed and all tight; many windows rejected by limits.",
+      "verification_status": "Exact local lower bound",
+      "decision": "No scored improvement; exclusions are not proofs."
+    },
+    {
+      "id": "K139",
+      "technique": "Measurement-feedback survey",
+      "actual_result": "874 HMR; 598 nearby phase feedback gadgets; not rewrites.",
+      "verification_status": "Structural screen",
+      "decision": "Proximity is not proof of removable cleanup."
+    },
+    {
+      "id": "K140",
+      "technique": "Nearest-producer feedback attribution",
+      "actual_result": "529 immediate CZ; 76 initially mislabeled mixed, two pair mismatches; 451 without bounded producer.",
+      "verification_status": "Structural screen",
+      "decision": "Do not count controls as target writes."
+    },
+    {
+      "id": "K141",
+      "technique": "Exact Boolean producer provenance",
+      "actual_result": "76 preserved producers and feedback control predicates; two complex feedback patterns.",
+      "verification_status": "Exact local Boolean ANF",
+      "decision": "Complete phase network needed, see K142."
+    },
+    {
+      "id": "K142",
+      "technique": "Full HMR-conditional Z/CZ phase polynomials",
+      "actual_result": "574 blocks; 53 multi-term; zero Clifford cancellations; two nine-gate patterns isomorphic, bigger corrections at lines 14768/15165.",
+      "verification_status": "Exact local phase analysis",
+      "decision": "Reduction in free gates alone does not score."
+    },
+    {
+      "id": "K143",
+      "technique": "CNOT basis-congruence phase polynomial rewrites",
+      "actual_result": "12 locally proven; 187 CZ removed, 184 CX added; candidate sha 6e332f43226ffb15126ba8e62cdf6ea7170d4e51951f78e9046b2e5ccf206b1e.",
+      "verification_status": "Exact local proof and candidate generation; no official verifier pass",
+      "decision": "No predicted direct score advantage (Q, executed Toffoli, T-equivalent unchanged)."
     }
   ],
-  "next_gate": "Require a new exact hypothesis outside K099-K113 and a scored-resource reduction estimate before implementation.",
-  "scoring_model": "Official score Q * (executed Toffolis + (base T + rotation_count*(0.56*log2(1/eps)+5.3))/4), with eps set by the minimum global phase-error margin.",
+  "next_gate": "Read competition/HELIOSTRIED_UNTRIED_LEDGER.md first. Require positive delta Q, mean executed Toffoli, or T-equivalent before building another candidate. Start with actual executed-cost profiling only after checking local historical profiling runs.",
+  "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K131 found no scored-resource removal. No candidate has beaten the verified baseline."
+  "latest_result": "K143 generated a locally phase-equivalent candidate removing 187 unscored CZ and adding 184 unscored CX; no scored reduction or official verification. K141 isolated two complex feedback networks, analyzed as free Clifford phase corrections K142-143. No verified score win.",
+  "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md"
 }
