@@ -41,13 +41,17 @@
 
 **K143 distinction:** The candidate file was generated on the user's VM, not submitted or officially verified. The arithmetic of free Clifford-gate replacement does not imply a scored improvement. The verifier seed derives from the circuit binary unless explicitly overridden; local equality alone is insufficient for an official pass.
 
+## Verified historical cost accounting (do not rerun broad profiling)
+
+User-supplied prior run on pinned 62-qubit Helios circuit: mean executed Toffoli-like 1,243.119; 41 arbitrary rotations; synthesized-rotation contribution about 294.841 Toffoli-equivalents; total C about 1,538.210; score 95,369.006968. Historical K003/K009 gate statistics, K059/K067 classical operation counts, and K097 structural trace audit already profiled the circuit. This ledger does **not** establish that a true per-source-line dynamic frequency report exists; check the VM's historical files before proposing such a report. Broad opcode/cost profiling is marked **DONE**, not untried.
+
 ## Prioritized **not-yet-demonstrated** Helios research avenues
 
 These are hypotheses, not claims that an implementation is new to quantum computing. A source/results search is required before marking an avenue completely untried.
 
 | Priority | Hypothesis | Why it can affect official score | Go/no-go experiment, no costly search until gate passed | Status |
 |---|---|---|---|---|
-| P0 | **Actual executed-cost attribution by opcode and position for representative and adversarial x** | Find which CCX/CCZ/CSWAP and Z_POW gates contribute to mean cost; static heatmaps are not enough. This is profiling, not an optimization itself | Trace or instrument verifier without changing source semantics; confirm counts equal verifier's own report and preserve baseline hash | **No reliable executed-cost profile documented in current registry; check historical logs first** |
+| P0 (conditional) | **Per-instruction branch execution frequency, only if absent from historical artifacts** | The aggregate executed-cost breakdown is already known; line-level counts might locate an unusually expensive eligible gate, but do not themselves change score | First inspect K003/K009/K059/K067/K097 logs and verifier receipts; proceed only if a concrete scored rewrite requires missing line-level frequency | **Aggregate profiling DONE; exact per-instruction breakdown not established from retrieved records** |
 | P1 | **Measurement-branch-conditioned CCX cost reduction using reachable predicates** | Only way a free feedback/scheduling rewrite scores is if it provably removes or suppresses executed Toffoli-class work | Pick one high-execution CCX; prove classical guard implication on reachable states across HMR outcomes, produce candidate and check mean delta | **Not established as tested globally; K129/130 covered restricted duplicate fusion** |
 | P1 | **Cross-rotation *joint* compensated approximation with phase-error allocation** | May reduce **executed** arbitrary rotations or T-equivalent cost while controlling aggregate phase error | Numeric full-domain certificate first; then exact Kickmix edit; verify with pinned official scorer at matched RNG seed; unlike K098 single-site perturbations | **Partially adjacent work (K098, K116–128); joint nonlocal candidate not documented** |
 | P1 | **Targeted reachable-state simplification in post-HMR regions** | Discharge a CCX on states actually possible under valid x and measurement outcomes, rather than independent wires | Dynamic/symbolic reachability at chosen hot scored gate; explicit witness-free proof and source gate drop; bounded verifier | **K131 prefix tried; later HMR region not exhaustively settled** |
