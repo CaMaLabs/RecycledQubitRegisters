@@ -223,12 +223,19 @@
       "actual_result": "12 locally proven; 187 CZ removed, 184 CX added; candidate sha 6e332f43226ffb15126ba8e62cdf6ea7170d4e51951f78e9046b2e5ccf206b1e.",
       "verification_status": "Exact local proof and candidate generation; no official verifier pass",
       "decision": "No predicted direct score advantage (Q, executed Toffoli, T-equivalent unchanged)."
+    },
+    {
+      "id": "K144",
+      "technique": "Paired opposite q28 Z_POW phase perturbation for global synthesis-error headroom",
+      "actual_result": "24 candidates; 2 minuscule prefix wins (best prefix delta ~-8.76e-6); 2 full-domain checks, zero wins. pair004 full score 95448.33076494031 vs reference 95369.00696815242. pair016 full printed null, exact failure reason not yet inspected.",
+      "verification_status": "User-reported prefix and official full-domain verifier output; full per-case summary not yet uploaded.",
+      "decision": "No expanded sweep. Examine null/full fail reasons; close hypothesis unless an actual scored mechanism is demonstrated."
     }
   ],
-  "next_gate": "Review archived actual technique implementations before declaring untried; do not repeat row scheduling, Helios profiling, ANF windows, Walsh/Horner, scratch/liveness, phase folding. Any new experiment needs predicted delta Q/mean executed Toffoli/T-equivalent and full-domain score below K058 95369.006968.",
+  "next_gate": "Inspect K144 summary.json to distinguish out-of-tolerance, timeout, parser or run error on null scores; no blind larger phase grid. Future candidates require strict scored-resource improvement and independent full-domain check.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K143 generated a locally phase-equivalent candidate removing 187 unscored CZ and adding 184 unscored CX; no scored reduction or official verification. K141 isolated two complex feedback networks, analyzed as free Clifford phase corrections K142-143. No verified score win.",
+  "latest_result": "K144: 24 paired phase perturbations; 2 tiny prefix improvements, 2 full checks, zero winner; pair004 full score 95448.33076494031 (>95369.00696815242). Several prefix/full scores null need summary inspection.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
