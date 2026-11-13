@@ -39,3 +39,14 @@ PY="$HOME/.venvs/kaggle-k001/bin/python"
 ```
 
 Results: `competition/k144/results/summary.json`. Do not rerun an existing source-profile, K027 recombination, or other unscored optimization as a substitute.
+
+## Actual K144 run reported 2026-11-12 (user VM)
+
+Command: `--max-candidates 24 --prefix-x 4095 --full --max-full 2`. Baseline prefix score `95373.34975366836` (seed 12345, 62q). `K144_RESULT` reported **24 tested, 2 prefix wins, 2 full checks, winner null**.
+
+- `pair004_L25762_25772_p40_s+1`: prefix `95373.3497449065` (a marginal ~0.000008762 reduction); full-domain score `95448.33076494031`, **worse** than 95369.00696815242 by ~79.324.
+- `pair016_L25762_25772_p36_s+1`: same prefix score `95373.3497449065`; `FULL_NO_WIN`, no printed full score. Examine `summary.json` for error, fail ratio or timeout before claiming the exact reason.
+- Multiple `K144_CASE` rows have `prefix_score: null`, and were printed as `NO_PREFIX_WIN`. This output alone does not distinguish official validation rejection from timeout/parser problems; inspect complete per-case result objects.
+- No verified winning circuit. **Do not repeat an enlarged grid without diagnosing failures and forming a scored mechanism.**
+
+**Provenance:** Results transcribed from user's 2026-11-12 terminal output. Full `competition/k144/results/summary.json` not yet inspected remotely.
