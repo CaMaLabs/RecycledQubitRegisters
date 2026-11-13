@@ -15,9 +15,10 @@
       "Remote archive inventory; K098 result JSON/logs and K125/K126 sources/results",
       "Official verifier tolerance, rotation-cost, and score code",
       "User-supplied K135-K143 console outputs and GitHub source on branch experiment/a115-spin-qudit-arithmetic",
-      "Historical K001-K097 conversation/run receipts with confidence labels; GitHub git-tree inventory confirms early per-K artifacts are not tracked on this branch"
+      "Historical K001-K097 conversation/run receipts with confidence labels; GitHub git-tree inventory confirms early per-K artifacts are not tracked on this branch",
+      "2026-11-12 uploaded local inventory: 86 of 97 K001-K097 directories, filenames, bounded metadata and log excerpts; new local inventory findings document"
     ],
-    "coverage_limit": "K001-K097 are partially reconstructed from historical user terminal records and assistant summaries; many raw individual results are local-only and not present in this GitHub branch. Source-level baseline e7eb... hash is NOT the K058 KMB binary hash 1c5b... and is not a full-score verification receipt. See early reconciliation and local inventory."
+    "coverage_limit": "Current direct user-uploaded inventory covers 86/97 early directories with selected result metadata but NOT complete report contents. K001 holds 626 files of which only 120 were inspected. Missing K029,061,072,082-085,087-090 directories remain UNKNOWN, not untried. K016's PASS_PRELIMINARY_SCORE_WIN and K058 91,821 short-prefix score are NOT verified leaderboard wins. See local inventory findings."
   },
   "experiments": [
     {
@@ -224,11 +225,12 @@
       "decision": "No predicted direct score advantage (Q, executed Toffoli, T-equivalent unchanged)."
     }
   ],
-  "next_gate": "Do not repeat aggregate cost profiling, generic liveness, sparse Walsh, Wallace multiplier, source cost heatmaps, or transfer sweeps. First inspect existing early local receipts via read-only K001_K097_LOCAL_INVENTORY.py; require a positive expected score delta before new science.",
+  "next_gate": "Do not launch repeated profiling or generic QRR transfer, Walsh/Horner/Wallace, register recycling, Clifford phase folding, or nonlinear motif surveys. Read full existing local result JSONs for unresolved hypotheses, then pick only a previously untested scored-resource reduction with specific contrast to past K id.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
   "latest_result": "K143 generated a locally phase-equivalent candidate removing 187 unscored CZ and adding 184 unscored CX; no scored reduction or official verification. K141 isolated two complex feedback networks, analyzed as free Clifford phase corrections K142-143. No verified score win.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
-  "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py"
+  "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
+  "local_inventory_reconciliation": "competition/K001_K097_INVENTORY_FINDINGS.md"
 }
