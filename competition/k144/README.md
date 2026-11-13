@@ -50,3 +50,14 @@ Command: `--max-candidates 24 --prefix-x 4095 --full --max-full 2`. Baseline pre
 - No verified winning circuit. **Do not repeat an enlarged grid without diagnosing failures and forming a scored mechanism.**
 
 **Provenance:** Results transcribed from user's 2026-11-12 terminal output. Full `competition/k144/results/summary.json` not yet inspected remotely.
+
+## Detailed K144 failure diagnosis (2026-11-12, user-provided summary extract)
+
+The first uploaded console trace was ambiguous because the driver printed only `score`, resulting in null for failed verification. The user subsequently supplied full nested `prefix` and `full_12345` objects:
+
+- Pair004 (`L25762_25772_p40_s+1`) prefix `PASS`, score 95373.3497449065, `rotation_eps=2.4340415639502205e-13`; full-domain `PASS`, score **95448.33076494031**, `rotation_eps=2.085594910926685e-13`, 62q, 41 arbitrary rotations, 1 T, mean Toffoli-like **1243.118965920014** (source unchanged in scored-gate counts). The lower global allowable rotation epsilon worsened synthesized T cost. Full worst ratio 0.9993237694056958 at x=161. Source change **not** a win.
+- Pair016 (`L25762_25772_p36_s+1`) prefix `PASS`, same prefix score, but full `FAIL` at x=219108: phase error `1.293e-10` turns vs tolerance `1.273e-10`.
+- Pair014 failed prefix at x=792; pair015 at x=221; pair017,020,022 at x=644; pair021 at x=161; pair023 at x=221. They are **phase tolerance rejects**, not timeouts.
+- K144 reported 24 cases, two prefix wins, two full checks, zero full-domain lower-score winners. Prefix-winning deltas were microscopic (~8.76e-6 score units) and non-predictive.
+
+**Disposition: CLOSED NEGATIVE.** Do not expand unstructured two-site opposite-angle scans. A future phase-candidate needs an analytically justified, globally bounded margin improvement, not a shallow prefix score difference. Driver's `prefix_score: null` on validation failure should be interpreted from full `prefix.error`, not as an unknown runtime error.
