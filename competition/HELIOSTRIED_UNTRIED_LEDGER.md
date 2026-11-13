@@ -74,3 +74,18 @@ These are hypotheses, not claims that an implementation is new to quantum comput
 - K132–K143 outcomes above were supplied in conversation from user's actual VM runs, and corresponding script commits exist, but not every generated report is committed on GitHub.
 - K143 private scoring rule is documented from VM verifier `--help`; private verifier source itself is not available in GitHub.
 - Check local files `competition/k*/results`, `competition/k*/run.log`, and previous experiment notes before asserting an avenue is genuinely untried.
+
+## 2026-11-12 complete early archive correction
+
+The user supplied a ZIP with 297 actual text/code/report artifacts from 86 K001–K097 experiment directories. This supersedes earlier inference based only on filenames. Important distinctions:
+
+- **K003 was only a Kickmix small-sample interface probe**, not Helios executed-cost profiling. Structural/regional profiling occurred in K009/K014 and actual Helios structure/feedback tracing in K059/K060/K097. Aggregate executed cost was measured by the official K058 full-domain run. Do not propose another generic profile.
+- **K015 row scheduling ran** (`PASS_SEARCH_NO_VERIFIED_SCORE_WIN`).
+- **K016's six smoke wins only covered max_x=8, 2 shots/x**. K017 staged checks also lack full-domain certification.
+- **K026 scanned 4,000 candidates**, but **K027's named 14-method registry states `integration_complete=false`**. That is a list of required methods, **not proof each method was actually implemented**, and not proof they all failed. Check source paths before marking any particular cross-project transfer attempted.
+- **K058 proves** original 62q Helios full-domain scores of 95,369.00696815242 and 95,369.18991398979 at 3,133,452 verified shots. The 91,821.04015 result only covers 64-shot prefix.
+- **K034** shows a real 255q vs 255q full-domain improvement (~1,940,431→1,933,697) on an older architecture. **K086** saves 770 CCX against 409q comparator **prefix-only**. Neither beats K058.
+- **K062** folded 5,346 Clifford phase terms, full-domain score unchanged. **K092** full-domain parallel phase/classical/cancellation rewrites score unchanged. **K096** examined 885 ANF windows without nonlinear savings.
+- 11 K-number folders absent from archive: K029,K061,K072,K082–K085,K087–K090. These are **unknown, not untried**. ZIP intentionally excludes private KMB/SQLite and large data.
+
+**Method-trial rule:** record `listed`, `code-implemented`, `candidate-generated`, `partially verified`, `full-domain verified` independently. A named method in a fusion plan is not equivalent to a tested hypothesis.
