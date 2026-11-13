@@ -113,7 +113,7 @@ def main():
     bkmx=args.out/'baseline.kmx';bkmx.write_bytes(raw)
     bkmb=args.out/'baseline.kmb'; q=compile_kmb(bkmx,bkmb)
     if q!=62:raise SystemExit(f'Unexpected width {q}')
-    baseline=vr.verify(bkmb,args.prefix_x,args.seed,args.timeout)
+    baseline=vr.verify(bkmb.resolve(),args.prefix_x,args.seed,args.timeout)
     if baseline.get('status')!='PASS' or baseline.get('exit_code')!=0 or metric(baseline,'score') is None:
         raise SystemExit('Baseline prefix verification failed: '+json.dumps(baseline)[:800])
     print('K144_BASE',json.dumps({'score':baseline['score'],'q':q,'prefix_x':args.prefix_x,'seed':args.seed}),flush=True)
@@ -129,15 +129,15 @@ def main():
             row['kmb_sha256']=hashlib.sha256(kmb.read_bytes()).hexdigest()
             if row['kmb_sha256']==hashlib.sha256(bkmb.read_bytes()).hexdigest():
                 raise ValueError('Same compiled binary as baseline; perturbation below representation precision')
-            row['prefix']=vr.verify(kmb,args.prefix_x,args.seed,args.timeout)
+            row['prefix']=vr.verify(kmb.resolve(),args.prefix_x,args.seed,args.timeout)
             v=row['prefix'];score=metric(v,'score')
             row['prefix_improves']=v.get('status')=='PASS' and v.get('exit_code')==0 and score is not None and score < baseline['score']-1e-9
             if row['prefix_improves'] and args.full and full_count<args.max_full:
                 full_count+=1
-                first=vr.verify(kmb,3133452,12345,args.timeout)
+                first=vr.verify(kmb.resolve(),3133452,12345,args.timeout)
                 row['full_12345']=first
                 if first.get('status')=='PASS' and first.get('exit_code')==0 and metric(first,'score') is not None and first['score']<REF_SCORE:
-                    second=vr.verify(kmb,3133452,23456,args.timeout)
+                    second=vr.verify(kmb.resolve(),3133452,23456,args.timeout)
                     row['full_23456']=second
                     if second.get('status')=='PASS' and second.get('exit_code')==0 and second.get('score',1e99)<REF_SCORE:
                         row['status']='FULL_TWO_SEED_BEATS_REFERENCE'
