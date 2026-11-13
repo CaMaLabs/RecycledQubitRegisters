@@ -227,15 +227,15 @@
     {
       "id": "K144",
       "technique": "Paired opposite q28 Z_POW phase perturbation for global synthesis-error headroom",
-      "actual_result": "24 candidates; 2 minuscule prefix wins (best prefix delta ~-8.76e-6); 2 full-domain checks, zero wins. pair004 full score 95448.33076494031 vs reference 95369.00696815242. pair016 full printed null, exact failure reason not yet inspected.",
-      "verification_status": "User-reported prefix and official full-domain verifier output; full per-case summary not yet uploaded.",
-      "decision": "No expanded sweep. Examine null/full fail reasons; close hypothesis unless an actual scored mechanism is demonstrated."
+      "actual_result": "24 candidates, 2 tiny prefix score wins. Pair004 passed full at score 95448.33076494031 (baseline 95369.00696815242); pair016 failed full at x=219108 phase error 1.293e-10 vs tolerance 1.273e-10 turns. Prefix failures pair014,015,017,020–023 also explicit phase-tolerance failures, not timeouts. Pair004 full synthesis epsilon 2.085594910926685e-13 vs prefix 2.4340415639502205e-13; same 62 qubits, 41 arbitrary rotations, mean CCX-like 1243.118965920014.",
+      "verification_status": "User's complete verifier result objects for pair004/pair016 and 7 prefix rejects; full-domain PASS but score worse, or full-domain FAIL.",
+      "decision": "CLOSED NEGATIVE: do not extend blind two-site compensating phase sweep; full-domain eps worsens cost or phase tolerance is violated."
     }
   ],
-  "next_gate": "Inspect K144 summary.json to distinguish out-of-tolerance, timeout, parser or run error on null scores; no blind larger phase grid. Future candidates require strict scored-resource improvement and independent full-domain check.",
+  "next_gate": "Select scored reduction outside repeated phase perturbation: explicit width/mean nonlinear/T-equivalent decrease; do not launch another broad profile or phase-pair grid.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K144: 24 paired phase perturbations; 2 tiny prefix improvements, 2 full checks, zero winner; pair004 full score 95448.33076494031 (>95369.00696815242). Several prefix/full scores null need summary inspection.",
+  "latest_result": "K144 CLOSED NEGATIVE. pair004 full PASS score 95448.33076494031 (>95369.00696815242); pair016 full FAIL at x=219108; other null scores were phase-tolerance rejects.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
