@@ -41,3 +41,16 @@ This is not the already-tested unguarded ANF identity, symbolic local window, or
 
 ## Current decision
 **Do not run K145 yet.** The overlap audit excludes commonly proposed repeats but does not yield a concrete new scored transformation. Best next action is a *manual proof attempt on a single specific post-HMR nonlinear gate* once the VM source snippet and actual guard semantics are available, or select a different formally justified mechanism. This is a research hypothesis, not an experiment that has succeeded.
+
+## Concrete two-region gate audit from user's pinned source (2026-11-13)
+
+**Status: visible local subregions do not establish any scored rewrite.** Read-only source excerpts supplied from the pinned Helios KMX.
+
+- HMR 21606, later scored lines: 21617 `CCX q18 q8 q14`; 21629 `CCX q7 q50 q18`; 21638 `CCX q21 q49 q20`; 21642 `CCX q25 q32 q26`; 21644 `CCX q26 q33 q27`.
+- HMR 25612, later scored lines: 25623 `CCX q28 q0 q21`; 25637 `CCX q40 q45 q28`; 25638 `CCX q28 q46 q41`; 25639 `CCX q41 q30 q51`; 25653 `CCX q46 q30 q41`.
+
+**Exact algebraic observation, not a simulation:** before lines 25637–25639, lines 25633–25636 XOR q21 into four *different targets* q45, q46, q30, q51. For arbitrary prior target bits `a,b,c,d` and `s=q21`, their resulting values are `(a⊕s,b⊕s,c⊕s,d⊕s)`. This is a bijection on the four targets for each s. It therefore **does not by itself impose a Boolean relation** between q45, q46, q30 and q51. The three CCX then form a triangular nonlinear dependency chain (each target feeds the next gate's control), not an immediately canceling duplicate.
+
+**Likewise**, lines 21616–21620 wrap a scored CCX in CX operations but do not exhibit an adjacent CCX inverse or proven zero control. The nearby HMR and classically conditioned CZ corrections are not proof of control-value restrictions.
+
+**Conclusion:** these 10 selected gates are *not candidates with a demonstrated scored delta*. Claiming savings from their shape would repeat K063–K071/K096/K138's ungrounded local-window reasoning. To proceed would require a **specific independently established upstream state invariant** (including measurement histories and phase), not another scan of adjoining gates. No K145 candidate generated, no official verifier run, no score reduction demonstrated.
