@@ -39,13 +39,29 @@ cp "$SRC" "$UPSTREAM/data/circuits/raw/$(printf '%04d' "$ID").qc"
 cd "$UPSTREAM"
 [[ -x bin/compile ]] || g++ -O2 -std=c++20 -pthread -I third_party -I src src/compile.cpp -o bin/compile
 [[ -x bin/bco ]] || g++ -O2 -std=c++20 -pthread -I third_party -I src src/bco.cpp -o bin/bco
-[[ -x bin/topp1 ]] || g++ -D VEC_WORDS=1 -O2 -std=c++20 -pthread -I third_party -I src src/cpd.cpp -o bin/topp1
 echo "K146 UPSTREAM COMPILER"
 timeout 120 bin/compile "$ID" --idx | tee "$OLDPWD/$OUT/compile.log"
 echo "K146 ORIGINAL BCO"
 timeout 120 bin/bco "$ID" -b 2 -t 2 --save --verify | tee "$OLDPWD/$OUT/bco.log"
-echo "K146 ORIGINAL CPD SGE"
-timeout 120 bin/topp1 "$SHIFTED" --sge -b 2 -t 2 --save --verify | tee "$OLDPWD/$OUT/cpd.log"
+# The real compiler can create gadget ancillas; choose adequate 64-bit vector width.
+N="$(python3 - "$OLDPWD/$OUT/compile.log" <<'PY'
+import re,sys
+s=open(sys.argv[1]).read()
+m=re.search(r"output:\\s*(\\d+) qubits",s)
+if not m:raise SystemExit("Cannot parse compiled qubit width")
+print(m.group(1))
+PY
+)"
+if (( N <= 64 )); then WORDS=1
+elif (( N <= 128 )); then WORDS=2
+elif (( N <= 384 )); then WORDS=6
+else echo "K146 STOP: compiler expanded to $N qubits, beyond provided solver variants" >&2;exit 4
+fi
+if [[ ! -x "bin/topp$WORDS" ]]; then
+  g++ -D "VEC_WORDS=$WORDS" -O2 -std=c++20 -pthread -I third_party -I src src/cpd.cpp -o "bin/topp$WORDS"
+fi
+echo "K146 ORIGINAL CPD SGE (compiled width=$N, vec_words=$WORDS)"
+timeout 120 "bin/topp$WORDS" "$SHIFTED" --sge -b 2 -t 2 --save --verify | tee "$OLDPWD/$OUT/cpd.log"
 )
 "$PY" - <<'PY'
 import json,re
