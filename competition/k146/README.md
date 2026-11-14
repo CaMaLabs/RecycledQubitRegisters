@@ -35,3 +35,18 @@ Reports:
 2. `eligible_islands>0`: run original compiler and CPD; record **new_ancillas** and rank.
 3. If ancilla expansion is substantial, the 62q score makes a replacement unlikely economically. Reject before investing in circuit reconstruction.
 4. If a candidate has headroom, *then* implement exact end-to-end reconstruction with output invertible map, phase corrections, measurement histories, and official full-domain check.
+
+## Actual upstream result (user's Ubuntu VM, 2026-11-14)
+
+The complete K146 runner finished successfully using the **real upstream Polytof** code.
+
+- Exported 254 candidate unitary islands. Top: Helios lines **34789–34916**, 128 instructions, 33 occupied qubits, **23 CCX**, 0 source CCZ, 0 source H.
+- Upstream `compile 7145 --idx`: 33q input, 49q output (**+16 gadget ancillas**), 161 T before merge, 135 T after merge, 77 sparse tensor nonzero terms.
+- Upstream `bco 7145 -b 2 --save --verify`: tensor `nnz 77 → 23` (70.1% reduction), verified. This is NOT equivalent to a reduction in Toffoli count.
+- Upstream `topp1 8145 --sge -b 2 --save --verify`: trivial rank 23, optimized CP rank **23** (no Toffoli reduction), verification reported ok.
+- C++15 `cnpy.h` compile warnings appeared but build and pipeline succeeded.
+- No synthesized candidate was generated, no exact Helios channel equivalence tested, no official verifier score measured. The upstream tensor's transformed 49q representation **cannot be inserted into the 62q Helios circuit** without proving ancilla initialization, liveness and cleanup; automatic addition would grow global 62q→78q. In that naïve mapping, up to 23 CCX saved cannot compensate 16 additional scored qubits (theoretical delta would be unfavorable). Existing 29 qubits not touched in the island do **not** automatically count as clean available ancillas.
+
+**Outcome: K146 TOP ISLAND NO SCORE WIN**. Do not mistake BCO's 70.1% sparse tensor compression for a scored gate reduction. CPD (SGE beam 2) not finding a rank reduction does not prove tensor rank is optimal.
+
+**Next research gate:** before spending further effort on FGS or other regions, establish whether the original solver has a qubit-neutral, exact extraction/reconstruction mechanism. If not, this published pipeline is not a practical drop-in for Helios's 62q objective, and its benefits must be restricted to algebraic insight rather than a circuit replacement.
