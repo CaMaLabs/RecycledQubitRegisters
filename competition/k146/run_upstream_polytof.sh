@@ -47,7 +47,7 @@ timeout 120 bin/bco "$ID" -b 2 -t 2 --save --verify | tee "$OLDPWD/$OUT/bco.log"
 N="$(python3 - "$OLDPWD/$OUT/compile.log" <<'PY'
 import re,sys
 s=open(sys.argv[1]).read()
-m=re.search(r"output:\\s*(\\d+) qubits",s)
+m=re.search(r"output:\s*(\d+) qubits",s)
 if not m:raise SystemExit("Cannot parse compiled qubit width")
 print(m.group(1))
 PY
