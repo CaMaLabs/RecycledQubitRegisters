@@ -34,3 +34,15 @@ PY="$HOME/.venvs/kaggle-k001/bin/python"
 Outputs `competition/k145/results/cubic_tensor_report.json`. A candidate is emitted **only** if a strict local scored-CCZ reduction and exact operator proof hold.
 
 If `improving_windows=0`, record that the restrictive compiler representation does not yield a win; do not claim Polytof itself was comprehensively tested.
+
+## User VM result (2026-11-14): NOT APPLICABLE TO HELIOS IN THIS FORM
+
+Actual output:
+```
+K145_SELFTEST PASS cubic operator and affine output
+K145_RESULT {"eligible_windows": 0, "counts": {"with_ccz": 86, "few_ccz": 86}, "improving_windows": 0, "out": "competition/k145/results/cubic_tensor_report.json"}
+```
+
+All 86 maximal unconditional contiguous {CX,Z,CZ,CCZ} regions with CCZ contained **only one CCZ**. The local optimizer requires >=2 CCZ in an admissible region, so **zero** candidates were attempted against the real circuit. This is a strict *representation/applicability failure*, not evidence the full upstream Polytof method fails.
+
+**Next decision:** do not lower --min-ccz or enlarge caps, because neither will combine CCZs across excluded H, CCX, HMR or conditional gates. The upstream Polytof README specifically describes a wider {H,CNOT,Toffoli} phase extraction and CPD (BCO/SGE/FGS) pipeline. Before writing another optimizer, select one **concrete bounded region that actually has >=2 Toffoli-class operations and no nonunitary boundary**, demonstrate its exact extractability into the native `.qc`/phase representation, and check whether the published solver can reproduce its original cost. If all such regions are blocked by HMR or dynamic classical feedback, mark this literature route no-go. Do not claim a scored win without a full-domain verifier PASS and strict improvement.
