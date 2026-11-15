@@ -83,6 +83,7 @@ def main():
  p.add_argument("--span",type=int,default=256)
  p.add_argument("--top",type=int,default=20)
  p.add_argument("--selftest",action="store_true")
+ p.add_argument("--candidate",type=Path,help="Write ONE proof-witnessed candidate, never modify baseline")
  a=p.parse_args();check_proof()
  if a.selftest:return
  if not(1<=a.lookback<=100000 and 1<=a.span<=5000 and a.top>=1):p.error("invalid bounds")
@@ -98,6 +99,21 @@ def main():
  "Global resource and bit-allocation legality not proven by this local check",
  "No circuit modification or official score verification",
  "This searches coherent compute/use/inverse patterns; K139 scanned already-measurement-based release gadgets"]}
+ if a.candidate and hits:
+  hit=hits[0]
+  bitnames=[int(x) for x in re.findall(r"\\bb([0-9]+)\\b",raw.decode())]
+  fresh=f"b{max(bitnames,default=-1)+1}"
+  a0,b0=hit["controls"]
+  replacement=f"HMR {hit['target']} {fresh}\\nCZ {a0} {b0} if {fresh}"
+  updated=list(lines)
+  updated[hit["inverse_line"]-1]=replacement
+  a.candidate.parent.mkdir(parents=True,exist_ok=True)
+  a.candidate.write_text("\\n".join(updated)+"\\n")
+  report["candidate"]={"path":str(a.candidate),"bit":fresh,
+    "sha256":hashlib.sha256(a.candidate.read_bytes()).hexdigest(),
+    "replaced_ccx_line":hit["inverse_line"],
+    "status":"SOURCE_REWRITE_ONLY_REQUIRES_KICKMIX_AND_OFFICIAL_VERIFIER"}
+  print("K147_CANDIDATE",json.dumps(report["candidate"]),flush=True)
  a.out.parent.mkdir(parents=True,exist_ok=True)
  a.out.write_text(json.dumps(report,indent=2)+"\n")
  for hit in hits[:a.top]:print("K147_HIT",json.dumps(hit),flush=True)
