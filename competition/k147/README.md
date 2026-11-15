@@ -44,3 +44,12 @@ Outputs `competition/k147/results/measurement_release.json`. A candidate source 
 - If not, close negative.
 
 **Expected scored delta for one unconditional CCX saved at Q=62 is about -62, if added classical feed-forward is free and the precision model is unchanged.**
+
+## Observed user VM outcome (2026-11-14)
+
+```
+K147_SELFTEST PASS coherent conditional phase proof and strict source witnesses
+K147_RESULT {"hits": 0, "report": "competition/k147/results/measurement_release.json"}
+```
+
+**Disposition: NEGATIVE APPLICABILITY for the strict HMR-witnessed CCX/use/inverse-CCX pattern.** No source candidate generated and no official full-domain verifier run. This does not establish an impossibility theorem for measurement-based uncomputation or prove zero opportunities in other forms. Do not widen K147 bounds blindly or claim its synthetic proof as a Helios optimization.
