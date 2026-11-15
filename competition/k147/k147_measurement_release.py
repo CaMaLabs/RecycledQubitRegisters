@@ -101,14 +101,14 @@ def main():
  "This searches coherent compute/use/inverse patterns; K139 scanned already-measurement-based release gadgets"]}
  if a.candidate and hits:
   hit=hits[0]
-  bitnames=[int(x) for x in re.findall(r"\\bb([0-9]+)\\b",raw.decode())]
+  bitnames=[int(x) for x in re.findall(r"\bb([0-9]+)\b",raw.decode())]
   fresh=f"b{max(bitnames,default=-1)+1}"
   a0,b0=hit["controls"]
-  replacement=f"HMR {hit['target']} {fresh}\\nCZ {a0} {b0} if {fresh}"
+  replacement=f"HMR {hit['target']} {fresh}\nCZ {a0} {b0} if {fresh}"
   updated=list(lines)
   updated[hit["inverse_line"]-1]=replacement
   a.candidate.parent.mkdir(parents=True,exist_ok=True)
-  a.candidate.write_text("\\n".join(updated)+"\\n")
+  a.candidate.write_text("\n".join(updated)+"\n")
   report["candidate"]={"path":str(a.candidate),"bit":fresh,
     "sha256":hashlib.sha256(a.candidate.read_bytes()).hexdigest(),
     "replaced_ccx_line":hit["inverse_line"],
