@@ -230,12 +230,19 @@
       "actual_result": "24 candidates, 2 tiny prefix score wins. Pair004 passed full at score 95448.33076494031 (baseline 95369.00696815242); pair016 failed full at x=219108 phase error 1.293e-10 vs tolerance 1.273e-10 turns. Prefix failures pair014,015,017,020–023 also explicit phase-tolerance failures, not timeouts. Pair004 full synthesis epsilon 2.085594910926685e-13 vs prefix 2.4340415639502205e-13; same 62 qubits, 41 arbitrary rotations, mean CCX-like 1243.118965920014.",
       "verification_status": "User's complete verifier result objects for pair004/pair016 and 7 prefix rejects; full-domain PASS but score worse, or full-domain FAIL.",
       "decision": "CLOSED NEGATIVE: do not extend blind two-site compensating phase sweep; full-domain eps worsens cost or phase tolerance is violated."
+    },
+    {
+      "id": "K150",
+      "technique": "Mixed-precision Newton seed refinement Q14→Q26 plus injectivity/liveness gate",
+      "actual_result": "Local exhaustive numerical test: 3,133,452 inputs, 64-entry LUT, first Q14 second Q26, zero numerical violations, worst error 0.80187 of nominal 2^-24 tolerance. Three Q14 + three Q26 products proxy 1368 vs K149's 2106 (35% smaller). Straightforward x+first+second simultaneous register needs 22+14+27=63 qubits before scratch. Rounded Newton overwrite is noninjective on arbitrary y basis states at fixed m.",
+      "verification_status": "Exhaustive local classical numerical computation and analytic finite-register reversible injectivity witness; independently runnable VM script committed; no Kickmix candidate/official quantum verifier run.",
+      "decision": "Resource gate: no legal width-62 and affordable Toffoli implementation yet. Avoid generic multiplier. Seek special reachable-seed reversible correction, else close."
     }
   ],
-  "next_gate": "Select scored reduction outside repeated phase perturbation: explicit width/mean nonlinear/T-equivalent decrease; do not launch another broad profile or phase-pair grid.",
+  "next_gate": "Find and gate-count an exact reversible constrained-subspace Newton correction without simultaneous first+final estimates or scratch overhead, with Q<=62, before any full-circuit implementation.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K144 CLOSED NEGATIVE. pair004 full PASS score 95448.33076494031 (>95369.00696815242); pair016 full FAIL at x=219108; other null scores were phase-tolerance rejects.",
+  "latest_result": "K150 preliminary mixed precision: Q14→Q26 full 3,133,452-input numeric PASS with 0.80187 tolerance use; multiplier proxy 1368 vs 2106; straightforward peak liveness 63 >62; no legal reversible circuit or score improvement.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
