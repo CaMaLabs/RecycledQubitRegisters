@@ -56,3 +56,7 @@ Output `competition/k149/results/newton_seed_report.json`; script verifies pinne
 
 ## Decision
 **Numerics GO; naive reversible architecture NO GO pending resource proof.** Next progress must be a genuinely lower-cost quantum multiplication / in-place approximate Newton scheme or a different iteration that uses substantially fewer nonlinear operations and a width <=62. If none can be demonstrated, close K149 without creating an expensive quantum implementation.
+
+## Independent user VM reproduction (2026-11-14)
+
+The user ran the committed K149 script using `$HOME/.venvs/kaggle-k001/bin/python`. `K149_SELFTEST PASS`; `K149_RESULT` returned **12 configs, 9 passing, smallest LUT pass Q26 with 32 bins per octave (64 entries), worst tolerance fraction 0.5470793314693763**. Q28/32 bins has worst fraction 0.2653793893664381; Q28/64 bins 0.13696963832520562. The Q24 entries failed with ~227k–229k violations. This matches the previously recorded full-domain numerical simulation. **No Kickmix candidate, full verifier test, or leaderboard improvement.** Next go/no-go is counted in-place reversible liveness and exact output-correction economics; do not repeat a generic polynomial or unconstrained multiplier implementation.
