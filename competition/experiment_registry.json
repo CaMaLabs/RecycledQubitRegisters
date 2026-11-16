@@ -307,12 +307,19 @@
       "actual_result": "Independently user reproduced local Ubuntu --scaling run: q3 CCX301 CX18 X1 scratch4 total14 cases192; q4 CCX1024 CX24 X1 scratch5 total17 cases384; q5 CCX3096 CX33 X1 scratch6 total20 cases768. PASS all outputs/clean scratch. Full Helios candidate false.",
       "verification_status": "Local and independent user gate-level reproduction, widths Q3-Q5. No Q14 or official verifier.",
       "decision": "Preserve low-scratch register-lifetime concept but don't upscale full-input ANF; seek word-level segmented constant multiplication with K157 measured carry cleanup when economically justified."
+    },
+    {
+      "id": "K163",
+      "technique": "Segment-controlled reversible word arithmetic (single product accumulator) vs shared-output ANF monomial caching",
+      "actual_result": "Local bounded q3/q4/q5 exact gate-interpreter tests. Word-level q4 7860 CCX / 20 scratch; shared ANF q4 440 CCX / 6 scratch vs K162 q4 1024 CCX / 5. Shared q3 154 CCX / 5 scratch; q5 1218 / 7. Both compute rounded affine y0 and XOR arbitrary target, with full cleanup. q14 naive word accumulator requires 60 scratch, shared ANF requires 16 (both exceed K151 12 spare).",
+      "verification_status": "Locally independently implemented/verified individual building block test cases before committed K163; VM reproduction pending. No Q14/official KMX verifier.",
+      "decision": "Both full Q14 forms fail resource and/or gate scaling. Keep K157 measured-carry option and K159 eight-segment numerical seed. Explore short-word chunks with carry semantics and phase cleanup; no official score gain."
     }
   ],
-  "next_gate": "User reproduce K162; develop polynomial/word-level selected-constant bitstream multiplication without full ANF expansion or large product registers, with live-range and total 62-qubit cost evidence. Retain K157 measurement-assisted carry improvement.",
+  "next_gate": "Test compact chunk-wise fixed-slope arithmetic with exact cross-chunk carry/round and 12 or fewer total free scratch; integrate K157 X-measure carry reuse only when correct conditional Kickmix grammar and score established. Keep K158 source parity reuse work open.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K162 independent Ubuntu reproduction confirms Q3=301 CCX/4 scratch, Q4=1024/5, Q5=3096/6; ANF scales exponentially. K157 and K159/K160 remain active.",
+  "latest_result": "K163 bounded: full segment-selected word accumulator works but Q4 7860 CCX/20 scratch, not competitive; shared output nonlinear monomials reduce Q4 to 440 CCX/6 scratch vs K162 1024/5, but Q14 ANF requires 16 scratch and exponential gates. Full 62-qubit Helios candidate still absent.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
