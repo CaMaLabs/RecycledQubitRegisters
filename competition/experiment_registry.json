@@ -314,12 +314,19 @@
       "actual_result": "User independently reproduced Ubuntu K163 --scaling: Q3 word 3428 CCX/16 scratch/192 cases, Q3 shared 154/5/192, Q4 word 7860/20/384, Q4 shared 440/6/384, Q5 shared 1218/7/768. All tests PASS, exact XOR arithmetic and zero scratch. Q14 shared ANF 16 scratch > nominal free 12; word method even larger.",
       "verification_status": "Local plus independent user Ubuntu bounded gate-level tests Q3-Q5; no Q14 full synthesis, KMX or official score.",
       "decision": "Both full Q14 forms fail resource and/or gate scaling. Keep K157 measured-carry option and K159 eight-segment numerical seed. Explore short-word chunks with carry semantics and phase cleanup; no official score gain."
+    },
+    {
+      "id": "K164",
+      "technique": "Chunked rounded affine seed: high selector cofactor and low-offset shared-output ANF, exact coherence without materialized product",
+      "actual_result": "Locally verified q3 450 CCX/5 scratch/192 states; q4 502 CCX/5 scratch/384; q5 1286 CCX/6 scratch/768; q6 1892 CCX/6 scratch/1536. All arbitrary XOR output and clean scratch, exact rounding. q14 partition static scratch projection 10, but 1024 high cofactors times 128 low entries = exponential gate count. No physical streamed carry register.",
+      "verification_status": "Locally verified gate-level oracle q3-q6; awaits user VM reproduction, no Q14 KMX or official verifier.",
+      "decision": "Narrow scratch improvement against K163 at slightly greater CCX; avoid pretending high-cofactor ANF is arithmetic carry-streaming. Prioritize explicit segment-constant shift-add with carried bits or baseline K157 measurement integration."
     }
   ],
-  "next_gate": "K164: seek fixed-width chunked polynomial/shift-add with exact carry/round, 12-or-fewer scratch and no exponential ANF; test measured cleanup with K157 phase semantics, then actual full Helios scoring only if resource feasible.",
+  "next_gate": "Obtain independent K164 Ubuntu confirmation; implement exact small-piece constant-slope shift-add with explicit carried rounding bits and <=12 scratch rather than exponential ANF. Preserve K157 measurement-based carry savings and K158 source parity reuse opportunities.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K163 independent Ubuntu reproduced: Q4 shared 440 CCX/6 scratch vs K162 1024/5; Q5 shared 1218/7; Q4 word-level 7860/20. Scaling still prohibits Q14 under 12 scratch. K157 measured carry and K159 full-domain affine seed remain active.",
+  "latest_result": "K164 local exact high/low cofactor gate tests q3 450 CCX/5 scratch; q4 502/5 vs K163 shared 440/6; q5 1286/6 vs K163 1218/7; q6 1892/6. Q14 static 10 scratch but exponential high-cofactor gates. No full Helios score gain.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
