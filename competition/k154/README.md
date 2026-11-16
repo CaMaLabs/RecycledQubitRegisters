@@ -34,3 +34,7 @@ PY="$HOME/.venvs/kaggle-k001/bin/python"
 Report: `competition/k154/results/streaming.json`.
 
 **Go/no-go:** We have a low-ancilla reversible **adder** and verified small signed streaming product, but the current streamed multiplier does **not** fit the available scratch. Before a full 22-bit-Kickmix attempt, develop a carry-streaming row add that avoids the independent 8-bit operand buffer, with exact gate counts and clean-scratch proof. No official verifier score improvement claimed.
+
+## User Ubuntu reproduction (2026-11-15)
+
+The user reran K154 in `$HOME/.venvs/kaggle-k001/bin/python` and observed `K154_SELFTEST PASS` and `K154_RESULT` with **240 CCX, 262 CX, 17 scratch, 768 basis cases, 14-bit Cuccaro 28 CCX / 56 CX**, and `full_helios_candidate: false`. Matches original local results. No Helios score improvement established.
