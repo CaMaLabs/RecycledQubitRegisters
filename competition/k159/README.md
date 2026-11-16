@@ -20,3 +20,21 @@ PY="$HOME/.venvs/kaggle-k001/bin/python"
 Output competition/k159/results/log_seed.json. Share K159_RESULT and K159_CASE rows. No Helios circuit is modified and no official verifier is run.
 
 **Planned next gate:** identify whether an affine seed actually saves lookup gates *including* reversible constant multiplication, while retaining K157 measurement-carry reuse as an active integration lead. Do not discard K157 simply because K159 has a smaller table.
+
+
+## Independent full-domain user Ubuntu run (2026-11-16)
+
+User reproduced \`K159_SELFTEST PASS\`, \`K159_RESULT\` with **8 cases, 4 numerical passes** over **all 3,133,452 inputs**. Reference K149 64-value Q14→Q26 LUT: zero violations, worst tolerance fraction **0.8018678218232443**.
+
+| Segments | Style | Final numerical violations | Worst tolerance fraction |
+|---:|---|---:|---:|
+| 2 | chord | 2711510 | 267.20893807379844 |
+| 2 | midpoint | 1366444 | 421.0424446175135 |
+| 4 | chord | 1012072 | 5.322602757018974 |
+| 4 | midpoint | 248948 | 6.854427695457341 |
+| **8** | **chord** | **0** | **0.6193012912399671** |
+| 8 | midpoint | 0 | 0.6642531963538133 |
+| 16 | chord | 0 | 0.6527141738744971 |
+| 16 | midpoint | 0 | 0.7201621664378822 |
+
+Best numerical K159 candidate from this grid: **8 chord segments (16 fixed coefficients), Q14→Q26 Newton**, zero numerical violations, improved error margin versus K149. However, each seed uses selection, coefficient lookup, and one extra **variable-by-selected-constant multiply**. 16 coefficient values vs 64 direct seeds is not equivalent to lower quantum cost, and the six Newton variable multiplication stages remain unchanged. Compare **actual** reversible lookup+linear arithmetic before KMX synthesis. K157 measured carry recycling remains an active independent lead.
