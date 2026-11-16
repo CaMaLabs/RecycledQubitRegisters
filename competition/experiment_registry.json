@@ -293,12 +293,19 @@
       "actual_result": "Local gate-level XOR-table synthesis with exact clean-ancilla forward and inverse checks for every index: K149 64x14 seed 1365 CCX; K159 intercept 8x15 56 CCX, slope 8x13 37 CCX, dyadic origin 8x16 4 CCX. K159 selected-slope multiplication and all arithmetic unpriced; 22+15+13+14=64 live bits if all registers coexist, above 62.",
       "verification_status": "Local exact X/CX/CCX interpreter and truth tables only; await user VM reproduction; no full seed reversible circuit, KMX integration or official verifier.",
       "decision": "Promising lookup-only savings; cannot declare real candidate until reversible coefficient multiplex/multiply, rounding and register lifetimes fit 62 and scored total improves. Preserve K157 as active."
+    },
+    {
+      "id": "K161",
+      "technique": "Gate-level reversible 8-segment affine interpolator with coherently selected slope, rounded partial-product arithmetic and full scratch cleanup",
+      "actual_result": "User Ubuntu reproduced q4 output K161_SELFTEST PASS and K161_RESULT CCX 7208, CX 17, X 178, 24 scratch, 36 total wires, 384 test cases, no full Helios candidate.",
+      "verification_status": "Independently user-run bounded q4 gate-level tests only; no Q14 implementation, no full KMX verifier, no improvement to official score.",
+      "decision": "Negative implementation. Preserve K159 full-domain numerical seed and K160 lookup advantage, but redesign reversible arithmetic without materialized product/seed registers. K157 carry measurement remains active."
     }
   ],
-  "next_gate": "User run K160; investigate liveness and shared-parity reuse in actual K158 full gate blocks, then implement bit-serial/word-level reversible K159 selected-slope interpolation under 62 qubits and integrate K157 measurement carry only if total scorable cost beats baseline.",
+  "next_gate": "Try K162 streaming coefficient-controlled, in-place word-level arithmetic with workspace liveness; seek <=12 scratch within full 62 qubits. Avoid repeating K161 high-overhead approach, retain K157 measurement-phase cleanup as independent resource lead.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K158 excerpts show parity compute/CCX/uncompute patterns but no proven exponent/mantissa normalization. K159 full-domain 8-segment seed numeric pass. K160 local exact ANF lookup gate comparison K149 1365 CCX versus K159 intercept 56+slope37+origin4 CCX, but coherent slope multiplication and 62-qubit liveness still unpriced. K157 27 CCX 12-carry measured adder remains active.",
+  "latest_result": "K161 user reproduced q4 384 gate-level tests, CCX 7208, CX 17, scratch 24, total 36; working but not competitive. K157 measured carry and K159/K160 seed/lookup advantages remain separate active leads.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
