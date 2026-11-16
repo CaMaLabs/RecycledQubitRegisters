@@ -31,3 +31,7 @@ PY="$HOME/.venvs/kaggle-k001/bin/python"
 Report: competition/k160/results/lookup_anf.json.
 
 **Next decision gate:** implement a reversible *word-level* 8-segment seed with coefficient selection, interpolation, rounding, scratch cleanup and 62-qubit budget; compare its **total** scored CCX versus the 64-entry seed. For K158 inspect full windows including actual reset (R) and condition provenance before inventing duplicated exponent normalization.
+
+## User Ubuntu reproduction (2026-11-16)
+
+User independently reran `k160_lookup_cost.py` on Ubuntu and reproduced `K160_SELFTEST PASS`. Exact reports: K149 64-entry 14-bit seed 1,365 CCX / 33 CX / 8 X / 4 clean ancillas; K159 8-entry intercept 56 CCX / 23 CX / 1 X / 1 ancilla; slope 37 CCX / 16 CX / 7 X / 1 ancilla; origin 4 CCX / 4 CX / 1 X / 1 ancilla. All exact XOR table checks passed. Lookup-only CCX difference **1365 - (56+37+4) = 1268**, i.e. approximately **92.9%** of this reference lookup cost. Interpolation remains unpriced; there is no complete 62-qubit candidate or official score gain. Note that independently reported single-lookup ancillas do not prove safe concurrent allocation.
