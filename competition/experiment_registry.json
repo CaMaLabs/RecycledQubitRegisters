@@ -335,12 +335,19 @@
       "actual_result": "Independent Ubuntu run: all 3,133,452 inputs across 8 segments, zero violations for both Q14→Q26 affine and 64-entry lookup. Affine lower worst numerical tolerance fraction in every segment (0: .3523 vs .4547; 1: .3257 vs .4253; 2: .3578 vs .4257; 3: .4143 vs .4312; 4: .5524 vs .8019; 5: .5511 vs .7460; 6: .6075 vs .6643; 7: .6193 vs .6976). Q4 classical-ROM constant oracle 440 CCX, 288 CX, six scratch, 384 cases; K157 carry phase checked separately 4096 branches, not integrated.",
       "verification_status": "Independent Ubuntu full-domain numerical check and bounded Q4 gate-level XOR oracle; K157 independently phase-verified but no integration, KMX or official score.",
       "decision": "Numerical range routing provides no demonstrated advantage: affine worst error lower in all eight segments, but both pass. Hybrid method selection requires total controlled-gate and workspace cost, including branch control; do not measure coherent selector. Prioritize actual 62-qubit circuit/official verifier."
+    },
+    {
+      "id": "K167",
+      "technique": "Exact coherent per-mantissa-segment static CCX-cost routing between bounded affine and 64-value lookup surrogate",
+      "actual_result": "Local bounded Q3-Q5 gate-level X/CX/CCX XOR-oracle comparisons. Q4 mixed segment route 120 CCX, 53 CX, 5 scratch vs segmented affine-only 296 CCX and lookup-only 176 CCX (all 5 scratch), 384 states checked incl arbitrary XOR target and cleanup. Q3 mixed 54 CCX/4 scratch; Q5 hybrid chooses lookup for all segments, 198 CCX/6 scratch. Segment selector controlled coherently, classical coefficient constants use no qubits.",
+      "verification_status": "Local gate-interpreter checked small precision only; user VM reproduction pending. Q3-Q5 lookup values are rounded surrogate, not Q14 K149 exact table. No 62-qubit Newton pipeline or official verifier.",
+      "decision": "Positive bounded routing gate saving, not a Q14 gate-cost conclusion. Full-domain K166 numerical pass shows both seeds accurate, but Q14 coherent selection/multiplier/lookup gate costs still unpriced. K157 measured carry and K158 baseline parity reuse remain active."
     }
   ],
-  "next_gate": "Price per-segment coherent method choice (selection overhead, ancilla liveness, arithmetic cleanup). Since both numerical approaches pass everywhere, avoid hybrid unless gate-cost savings beat switching overhead; pursue K157 carry integration only with a complete quantum arithmetic subroutine and legal KMX conditioned operations.",
+  "next_gate": "User reproduce K167; then price exact Q14 coherent per-segment lookup vs affine and method-selection overhead including full Newton/measurement cleanup under 62 qubits. Do not extrapolate Q4 surrogate or claim official leaderboard improvement.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K166 user verified 3,133,452 inputs: affine and lookup zero numerical failures, affine lower worst error in all 8 segments. Q4 classical-ROM reversible oracle 440 CCX/6 scratch, carry K157 test separate. No costed coherent method hybrid or complete Helios.",
+  "latest_result": "K167 local bounded coherent cost-selected segment routing Q4: 120 CCX/5 scratch vs segmented all-affine 296 and all-lookup-surrogate 176. Gate-level tests pass; full Q14 economics and complete Helios circuit untested. K157 and K158 remain live.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
