@@ -272,12 +272,26 @@
       "actual_result": "Locally exact branch-phase-checked out-of-place XOR-adder: n14 27 CCX and 12 carry scratch, versus K156 25 CCX/13 scratch and coherent Bennett 50 CCX/13 scratch. Exhaustive n4..6 input+outcome tests, n14 500 sampled input triples and 2000 outcome branches. No full Newton datapath.",
       "verification_status": "Gate-level phase-aware interpreter and bounded exhaustive + n14 sampled measurement-branch checks; no Kickmix conditional compiler test, full 22-bit Helios candidate or official score.",
       "decision": "PROTOTYPE PASS: one carry recycled for 2 additional CCX, exact tested phase. Still lacks integration with 50-bit Newton layout; proceed to requested shared normalization and logarithmic-seed audits."
+    },
+    {
+      "id": "K158",
+      "technique": "Shared normalization read-only provenance audit of pinned Helios KMX",
+      "actual_result": "Code prepared to rank input-dependent nonlinear neighborhoods and excerpts; no direct source evidence yet establishing duplicate exponent/mantissa recomputation.",
+      "verification_status": "Unrun on user's pinned baseline at time of commit; audit only, no rewrite, official verifier or score.",
+      "decision": "Inspect actual source output before claiming normalization reuse; preserve active K157 branch."
+    },
+    {
+      "id": "K159",
+      "technique": "Affine/logarithmic-style Q14 seed versus K149 64-entry lookup using common Q14→Q26 Newton refinement",
+      "actual_result": "Full-domain comparison code prepared; q14 piecewise affine coefficients and two Q14/Q26 integer Newton stages. No full-domain VM result yet; no reversible lookup multiplier/gate count.",
+      "verification_status": "Await user's pinned-baseline numerical run; no quantum circuit or official verifier.",
+      "decision": "Judge numerical feasibility then reversible coefficient lookup/constant multiply cost; keep K157 carry recycling on integration roadmap."
     }
   ],
-  "next_gate": "User-requested next two methods: (1) inspect Helios normalization cones for real reusable exponent/mantissa computations, (2) assess reversible log-derived seed vs K149 64-entry LUT; no full circuit until counted net score advantage.",
+  "next_gate": "Run K158 on pinned Helios source and examine actual register/provenance before reuse rewrite; run K159 full input domain affine seed compare against K149; continue K157 measurement-adder integration if arithmetic/width viable.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K157: 14-bit standalone measurement-assisted adder now fits 12 carry ancillas (27 CCX, vs 25 CCX K156 13 ancillas, 50 Bennett); n4-6 exhaustive phase branch checks, n14 500 input/2000 branch samples pass. No 62-qubit full Helios result.",
+  "latest_result": "K157 independently user reproduced 14-bit 27 CCX/12 carry scratch measurement-assisted adder. K158 shared-normalization audit and K159 logarithmic seed numerical comparison are authored, awaiting actual VM results. No new official verifier score.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
