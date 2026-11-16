@@ -339,15 +339,15 @@
     {
       "id": "K167",
       "technique": "Exact coherent per-mantissa-segment static CCX-cost routing between bounded affine and 64-value lookup surrogate",
-      "actual_result": "Local bounded Q3-Q5 gate-level X/CX/CCX XOR-oracle comparisons. Q4 mixed segment route 120 CCX, 53 CX, 5 scratch vs segmented affine-only 296 CCX and lookup-only 176 CCX (all 5 scratch), 384 states checked incl arbitrary XOR target and cleanup. Q3 mixed 54 CCX/4 scratch; Q5 hybrid chooses lookup for all segments, 198 CCX/6 scratch. Segment selector controlled coherently, classical coefficient constants use no qubits.",
-      "verification_status": "Local gate-interpreter checked small precision only; user VM reproduction pending. Q3-Q5 lookup values are rounded surrogate, not Q14 K149 exact table. No 62-qubit Newton pipeline or official verifier.",
-      "decision": "Positive bounded routing gate saving, not a Q14 gate-cost conclusion. Full-domain K166 numerical pass shows both seeds accurate, but Q14 coherent selection/multiplier/lookup gate costs still unpriced. K157 measured carry and K158 baseline parity reuse remain active."
+      "actual_result": "User independently reproduced Ubuntu K167 --scaling exact bounded tests: Q3 hybrid 54 CCX/4 scratch vs uniform affine 106 and lookup surrogate 78, 192 cases; Q4 hybrid 120 CCX/5 scratch vs uniform affine 296 and lookup 176, 384 cases, routing lookup segments 0,1,2,3,6 and affine 4,5,7; Q5 hybrid 198 CCX/6 scratch equals uniform lookup 198, affine 882, 768 cases. Arbitrary XOR target and scratch cleanup PASS.",
+      "verification_status": "Independent Ubuntu exact gate-level Q3/Q4/Q5 coherent selected-oracle tests; source K149 lookup surrogate at those precisions, not actual Q14 circuit; no official verifier.",
+      "decision": "Q4 bounded hybrid worthwhile, Q5 no benefit; coherent method router must be reoptimized for Q14 with full resources and real Kickmix score. K157 measured-carry and K158 parity reuse remain active."
     }
   ],
-  "next_gate": "User reproduce K167; then price exact Q14 coherent per-segment lookup vs affine and method-selection overhead including full Newton/measurement cleanup under 62 qubits. Do not extrapolate Q4 surrogate or claim official leaderboard improvement.",
+  "next_gate": "K168 price actual Q14 K149 64 seed table per segment vs K159 8-segment arithmetic including coherent method control and peak <=62 qubits; screen K157 conditional X-measure phase correction and original Helios source parity sharing as independent gate-saving routes.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K167 local bounded coherent cost-selected segment routing Q4: 120 CCX/5 scratch vs segmented all-affine 296 and all-lookup-surrogate 176. Gate-level tests pass; full Q14 economics and complete Helios circuit untested. K157 and K158 remain live.",
+  "latest_result": "K167 independently user reproduced: Q3 hybrid 54 CCX/4 scratch, Q4 120 CCX/5 scratch versus uniform lookup 176 and affine 296, Q5 hybrid 198 CCX/6 scratch same as lookup. Precision-dependent segment routing confirmed bounded only. No official full Helios result.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
