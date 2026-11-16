@@ -237,12 +237,19 @@
       "actual_result": "Local exhaustive numerical test: 3,133,452 inputs, 64-entry LUT, first Q14 second Q26, zero numerical violations, worst error 0.80187 of nominal 2^-24 tolerance. Three Q14 + three Q26 products proxy 1368 vs K149's 2106 (35% smaller). Straightforward x+first+second simultaneous register needs 22+14+27=63 qubits before scratch. Rounded Newton overwrite is noninjective on arbitrary y basis states at fixed m.",
       "verification_status": "Exhaustive local classical numerical computation and analytic finite-register reversible injectivity witness; independently runnable VM script committed; no Kickmix candidate/official quantum verifier run.",
       "decision": "Resource gate: no legal width-62 and affordable Toffoli implementation yet. Avoid generic multiplier. Seek special reachable-seed reversible correction, else close."
+    },
+    {
+      "id": "K153",
+      "technique": "Exact integer Newton residual simplification, full-input numerical check, and verified gate-level 14-bit reversible modular adder",
+      "actual_result": "Exact integer algebra verified across all 3,133,452 input values. Residual range [-16423,20479] requires 16 signed bits; delta [-5460,7384] needs 14. Numerical surrogate zero violations, worst tolerance fraction 0.8018678218232443. Standalone 14-bit reversible modular adder 819 CCX and 14 CX, 12 clean scratch, tested 256 arbitrary pairs and exhaustive small widths.",
+      "verification_status": "Local classical full-domain numerical calculation and separately gate-level exact reversible adder; no full width-62 residual oracle, no full-domain Kickmix submission or official score.",
+      "decision": "Do not assume 16-bit residual fits leftover 12 qubits of K151 compact 50-bit representation. Streaming or further arithmetic optimization required; naive adder expensive."
     }
   ],
-  "next_gate": "Find and gate-count an exact reversible constrained-subspace Newton correction without simultaneous first+final estimates or scratch overhead, with Q<=62, before any full-circuit implementation.",
+  "next_gate": "Avoid full Newton synthesis until residual multiplication, register reuse, scratch cleanup and phase application have explicit <=62 peak qubit and competitive exact counted gate resources.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K150 preliminary mixed precision: Q14→Q26 full 3,133,452-input numeric PASS with 0.80187 tolerance use; multiplier proxy 1368 vs 2106; straightforward peak liveness 63 >62; no legal reversible circuit or score improvement.",
+  "latest_result": "K153 full-domain exact residual algebra PASS; residual 16 signed bits (range [-16423,20479]) exceeds K151 12 free bits. Reversible 14-bit addition primitive 819 CCX and 14 CX, tested; not complete Newton or a score improvement.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
