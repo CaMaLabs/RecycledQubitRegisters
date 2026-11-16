@@ -304,15 +304,15 @@
     {
       "id": "K162",
       "technique": "Direct coherent affine-seed XOR via Boolean ANF; no materialized seed or multiplication register",
-      "actual_result": "Local exact reversible q3/q4/q5 circuits: q3 301 CCX 4 scratch 192 cases; q4 1024 CCX 5 scratch 384 cases versus K161 7208 CCX 24 scratch; q5 3096 CCX 6 scratch 768 cases. All arbitrary-target and inverse tests pass. Exponential ANF scaling defeats Q14 viability.",
-      "verification_status": "Locally run gate-level oracle; awaiting user VM reproduction. No Q14, full Helios KMX or official score.",
+      "actual_result": "Independently user reproduced local Ubuntu --scaling run: q3 CCX301 CX18 X1 scratch4 total14 cases192; q4 CCX1024 CX24 X1 scratch5 total17 cases384; q5 CCX3096 CX33 X1 scratch6 total20 cases768. PASS all outputs/clean scratch. Full Helios candidate false.",
+      "verification_status": "Local and independent user gate-level reproduction, widths Q3-Q5. No Q14 or official verifier.",
       "decision": "Preserve low-scratch register-lifetime concept but don't upscale full-input ANF; seek word-level segmented constant multiplication with K157 measured carry cleanup when economically justified."
     }
   ],
   "next_gate": "User reproduce K162; develop polynomial/word-level selected-constant bitstream multiplication without full ANF expansion or large product registers, with live-range and total 62-qubit cost evidence. Retain K157 measurement-assisted carry improvement.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K162 local direct ANF XOR oracle q4 1024 CCX/5 scratch vs K161 7208/24, exact 384 cases. q3 301 CCX, q5 3096 CCX show exponential scaling; not full Q14 feasible. K157 and K159/K160 remain active.",
+  "latest_result": "K162 independent Ubuntu reproduction confirms Q3=301 CCX/4 scratch, Q4=1024/5, Q5=3096/6; ANF scales exponentially. K157 and K159/K160 remain active.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
