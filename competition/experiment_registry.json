@@ -276,22 +276,22 @@
     {
       "id": "K158",
       "technique": "Shared normalization read-only provenance audit of pinned Helios KMX",
-      "actual_result": "Code prepared to rank input-dependent nonlinear neighborhoods and excerpts; no direct source evidence yet establishing duplicate exponent/mantissa recomputation.",
-      "verification_status": "Unrun on user's pinned baseline at time of commit; audit only, no rewrite, official verifier or score.",
-      "decision": "Inspect actual source output before claiming normalization reuse; preserve active K157 branch."
+      "actual_result": "User Ubuntu executed source locality scan: 201 input-dependent windows, 24 reported, 53,841 source lines. Hot windows 513–768 and 33281–34432 with >160 input touches per 128-line region, only 2–5 CCX each. These are NOT identified normalization cones; source excerpts required.",
+      "verification_status": "Read-only pinned KMX source scan independently user-run; no proof of normalization reuse, rewrite or official verifier.",
+      "decision": "Request K158 excerpt JSON for register-level provenance; no projected gate savings yet."
     },
     {
       "id": "K159",
       "technique": "Affine/logarithmic-style Q14 seed versus K149 64-entry lookup using common Q14→Q26 Newton refinement",
-      "actual_result": "Full-domain comparison code prepared; q14 piecewise affine coefficients and two Q14/Q26 integer Newton stages. No full-domain VM result yet; no reversible lookup multiplier/gate count.",
-      "verification_status": "Await user's pinned-baseline numerical run; no quantum circuit or official verifier.",
-      "decision": "Judge numerical feasibility then reversible coefficient lookup/constant multiply cost; keep K157 carry recycling on integration roadmap."
+      "actual_result": "User Ubuntu full-domain 3,133,452 integer numerical screen: 8 combinations, four passing. Best 8-segment chord Q14 seed (16 intercept/slope constants) + Q14→Q26 Newton: zero numerical violations, worst tolerance fraction 0.619301291, vs K149 64-entry lookup fraction 0.801867822. 8-midpoint and 16-chord/midpoint also pass; 2/4-segment versions fail.",
+      "verification_status": "Independent user-run complete integer-input numerical comparison; no reversible coefficient selection/multiplication resource count, KMX implementation or official verification.",
+      "decision": "Promising numerical seed, not yet cheaper: extra selected-constant multiplication may offset smaller table; continue gate-costed lookups without abandoning K157 measurement-carry integration."
     }
   ],
-  "next_gate": "Run K158 on pinned Helios source and examine actual register/provenance before reuse rewrite; run K159 full input domain affine seed compare against K149; continue K157 measurement-adder integration if arithmetic/width viable.",
+  "next_gate": "Obtain K158 provenance excerpts to confirm/refute duplicated normalization, cost K159 affine seed including selected-constant multiply versus K149 64-value QROM, AND retain active K157 measured-carry arithmetic integration; no score claim without full official verifier.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K157 independently user reproduced 14-bit 27 CCX/12 carry scratch measurement-assisted adder. K158 shared-normalization audit and K159 logarithmic seed numerical comparison are authored, awaiting actual VM results. No new official verifier score.",
+  "latest_result": "K157 reproduced 14-bit phase-correct recycled carry: 27 CCX, 12 scratch, but no full Helios. K158 pinned source scan 201 windows, no proven duplicated normalization. K159 8-segment chord affine seed Q14→Q26 passes all 3,133,452 inputs, worst 0.6193 tolerance vs K149 0.8019, pending lookup/interpolation reversible resource pricing.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
