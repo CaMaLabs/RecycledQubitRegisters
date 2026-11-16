@@ -265,12 +265,19 @@
       "actual_result": "A complete locally tested bounded gate-level and phase-aware branch comparison to Bennett uncomputation: n=2,3,4,5 saving 1,3,5,7 CCX respectively, all 128/768/6144/49152 measurement branches exact final basis and phase. Structural n=14 adder uses 25 vs 50 CCX, but 13 carries exceed K151's nominal 12 spare, and full Helios architecture unbuilt.",
       "verification_status": "Exact algebraic measurement-outcome phase check with exhaustive a,b and tested arbitrary output values for n=2..5; structural n=14 only. No KMX conditional syntax/verifier or 22-bit end-to-end Helios test.",
       "decision": "Promising locally, no leaderboard claim; correct measurement-based uncomputation requires classical conditional CZ/CX and clean carries. Blocked by scratch integration, total arithmetic and official Kickmix semantics."
+    },
+    {
+      "id": "K157",
+      "technique": "Mid-circuit measurement and physical carry-qubit recycling with recomputation of phase-repair predecessor",
+      "actual_result": "Locally exact branch-phase-checked out-of-place XOR-adder: n14 27 CCX and 12 carry scratch, versus K156 25 CCX/13 scratch and coherent Bennett 50 CCX/13 scratch. Exhaustive n4..6 input+outcome tests, n14 500 sampled input triples and 2000 outcome branches. No full Newton datapath.",
+      "verification_status": "Gate-level phase-aware interpreter and bounded exhaustive + n14 sampled measurement-branch checks; no Kickmix conditional compiler test, full 22-bit Helios candidate or official score.",
+      "decision": "PROTOTYPE PASS: one carry recycled for 2 additional CCX, exact tested phase. Still lacks integration with 50-bit Newton layout; proceed to requested shared normalization and logarithmic-seed audits."
     }
   ],
-  "next_gate": "Only integrate K156 after validating measurement-conditioned CZ/CX syntax/score in Kickmix and proving a <=62-width full arithmetic schedule (13 carries vs 12 nominal spare) with exact output phase and competitive total cost.",
+  "next_gate": "User-requested next two methods: (1) inspect Helios normalization cones for real reusable exponent/mantissa computations, (2) assess reversible log-derived seed vs K149 64-entry LUT; no full circuit until counted net score advantage.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K156 bounded coherent measurement-release ripple adder: independently local gate-level proof on all X measurement branches for n2..5, static CCX halved (n14 formula 50→25), but needs 13 carries and K151 12-spare limit unmet. No full Helios verified win.",
+  "latest_result": "K157: 14-bit standalone measurement-assisted adder now fits 12 carry ancillas (27 CCX, vs 25 CCX K156 13 ancillas, 50 Bennett); n4-6 exhaustive phase branch checks, n14 500 input/2000 branch samples pass. No 62-qubit full Helios result.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
