@@ -300,12 +300,19 @@
       "actual_result": "User Ubuntu reproduced q4 output K161_SELFTEST PASS and K161_RESULT CCX 7208, CX 17, X 178, 24 scratch, 36 total wires, 384 test cases, no full Helios candidate.",
       "verification_status": "Independently user-run bounded q4 gate-level tests only; no Q14 implementation, no full KMX verifier, no improvement to official score.",
       "decision": "Negative implementation. Preserve K159 full-domain numerical seed and K160 lookup advantage, but redesign reversible arithmetic without materialized product/seed registers. K157 carry measurement remains active."
+    },
+    {
+      "id": "K162",
+      "technique": "Direct coherent affine-seed XOR via Boolean ANF; no materialized seed or multiplication register",
+      "actual_result": "Local exact reversible q3/q4/q5 circuits: q3 301 CCX 4 scratch 192 cases; q4 1024 CCX 5 scratch 384 cases versus K161 7208 CCX 24 scratch; q5 3096 CCX 6 scratch 768 cases. All arbitrary-target and inverse tests pass. Exponential ANF scaling defeats Q14 viability.",
+      "verification_status": "Locally run gate-level oracle; awaiting user VM reproduction. No Q14, full Helios KMX or official score.",
+      "decision": "Preserve low-scratch register-lifetime concept but don't upscale full-input ANF; seek word-level segmented constant multiplication with K157 measured carry cleanup when economically justified."
     }
   ],
-  "next_gate": "Try K162 streaming coefficient-controlled, in-place word-level arithmetic with workspace liveness; seek <=12 scratch within full 62 qubits. Avoid repeating K161 high-overhead approach, retain K157 measurement-phase cleanup as independent resource lead.",
+  "next_gate": "User reproduce K162; develop polynomial/word-level selected-constant bitstream multiplication without full ANF expansion or large product registers, with live-range and total 62-qubit cost evidence. Retain K157 measurement-assisted carry improvement.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K161 user reproduced q4 384 gate-level tests, CCX 7208, CX 17, scratch 24, total 36; working but not competitive. K157 measured carry and K159/K160 seed/lookup advantages remain separate active leads.",
+  "latest_result": "K162 local direct ANF XOR oracle q4 1024 CCX/5 scratch vs K161 7208/24, exact 384 cases. q3 301 CCX, q5 3096 CCX show exponential scaling; not full Q14 feasible. K157 and K159/K160 remain active.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
