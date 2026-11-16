@@ -318,15 +318,15 @@
     {
       "id": "K164",
       "technique": "Chunked rounded affine seed: high selector cofactor and low-offset shared-output ANF, exact coherence without materialized product",
-      "actual_result": "Locally verified q3 450 CCX/5 scratch/192 states; q4 502 CCX/5 scratch/384; q5 1286 CCX/6 scratch/768; q6 1892 CCX/6 scratch/1536. All arbitrary XOR output and clean scratch, exact rounding. q14 partition static scratch projection 10, but 1024 high cofactors times 128 low entries = exponential gate count. No physical streamed carry register.",
-      "verification_status": "Locally verified gate-level oracle q3-q6; awaits user VM reproduction, no Q14 KMX or official verifier.",
-      "decision": "Narrow scratch improvement against K163 at slightly greater CCX; avoid pretending high-cofactor ANF is arithmetic carry-streaming. Prioritize explicit segment-constant shift-add with carried bits or baseline K157 measurement integration."
+      "actual_result": "Independent Ubuntu reproduction of K164 --scaling: Q3 low1 CCX450 CX61 X320 scratch5 total15 cases192; Q4 low2 CCX502 CX99 X320 scratch5 total17 cases384; Q5 low2 CCX1286 CX249 X768 scratch6 total20 cases768; Q6 low3 CCX1892 CX504 X768 scratch6 total22 cases1536. Exact rounded cofactor XOR and scratch cleanup PASS. High-cofactor counts 32,32,64,64. Q14 10 scratch projected only, exponential table expansion.",
+      "verification_status": "Local and independent user Ubuntu reproduced Q3-Q6; no Q14, no streamed arithmetic carry, no official KMX verifier.",
+      "decision": "Verified bounded cofactor architecture, but full-width exponential cost precludes direct Q14; continue with explicit segment-controlled shift/add and carry cleanup, preserve K157 measured adder route."
     }
   ],
-  "next_gate": "Obtain independent K164 Ubuntu confirmation; implement exact small-piece constant-slope shift-add with explicit carried rounding bits and <=12 scratch rather than exponential ANF. Preserve K157 measurement-based carry savings and K158 source parity reuse opportunities.",
+  "next_gate": "K165: evaluate segment-selected fixed-slope shift-add and explicit carry propagation with exact round, clean scratch, and <=12 allocation; compare coherent reversal vs K157 X-measure cleanup. Avoid full-cofactor ANF at Q14.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K164 local exact high/low cofactor gate tests q3 450 CCX/5 scratch; q4 502/5 vs K163 shared 440/6; q5 1286/6 vs K163 1218/7; q6 1892/6. Q14 static 10 scratch but exponential high-cofactor gates. No full Helios score gain.",
+  "latest_result": "K164 independent Ubuntu Q3-6 exact cofactor checks PASS; Q4 502 CCX/5 scratch, Q5 1286/6, Q6 1892/6. Q14 10 scratch projection relies on exponentially growing tables, not scalable physical carry. K157 and K159 remain active.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
