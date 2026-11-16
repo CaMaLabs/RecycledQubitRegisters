@@ -286,12 +286,19 @@
       "actual_result": "User Ubuntu full-domain 3,133,452 integer numerical screen: 8 combinations, four passing. Best 8-segment chord Q14 seed (16 intercept/slope constants) + Q14→Q26 Newton: zero numerical violations, worst tolerance fraction 0.619301291, vs K149 64-entry lookup fraction 0.801867822. 8-midpoint and 16-chord/midpoint also pass; 2/4-segment versions fail.",
       "verification_status": "Independent user-run complete integer-input numerical comparison; no reversible coefficient selection/multiplication resource count, KMX implementation or official verification.",
       "decision": "Promising numerical seed, not yet cheaper: extra selected-constant multiplication may offset smaller table; continue gate-costed lookups without abandoning K157 measurement-carry integration."
+    },
+    {
+      "id": "K160",
+      "technique": "Reversible ANF lookup synthesis for K149 64-entry seed versus K159 eight-segment affine coefficients",
+      "actual_result": "Local gate-level XOR-table synthesis with exact clean-ancilla forward and inverse checks for every index: K149 64x14 seed 1365 CCX; K159 intercept 8x15 56 CCX, slope 8x13 37 CCX, dyadic origin 8x16 4 CCX. K159 selected-slope multiplication and all arithmetic unpriced; 22+15+13+14=64 live bits if all registers coexist, above 62.",
+      "verification_status": "Local exact X/CX/CCX interpreter and truth tables only; await user VM reproduction; no full seed reversible circuit, KMX integration or official verifier.",
+      "decision": "Promising lookup-only savings; cannot declare real candidate until reversible coefficient multiplex/multiply, rounding and register lifetimes fit 62 and scored total improves. Preserve K157 as active."
     }
   ],
-  "next_gate": "Obtain K158 provenance excerpts to confirm/refute duplicated normalization, cost K159 affine seed including selected-constant multiply versus K149 64-value QROM, AND retain active K157 measured-carry arithmetic integration; no score claim without full official verifier.",
+  "next_gate": "User run K160; investigate liveness and shared-parity reuse in actual K158 full gate blocks, then implement bit-serial/word-level reversible K159 selected-slope interpolation under 62 qubits and integrate K157 measurement carry only if total scorable cost beats baseline.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K157 reproduced 14-bit phase-correct recycled carry: 27 CCX, 12 scratch, but no full Helios. K158 pinned source scan 201 windows, no proven duplicated normalization. K159 8-segment chord affine seed Q14→Q26 passes all 3,133,452 inputs, worst 0.6193 tolerance vs K149 0.8019, pending lookup/interpolation reversible resource pricing.",
+  "latest_result": "K158 excerpts show parity compute/CCX/uncompute patterns but no proven exponent/mantissa normalization. K159 full-domain 8-segment seed numeric pass. K160 local exact ANF lookup gate comparison K149 1365 CCX versus K159 intercept 56+slope37+origin4 CCX, but coherent slope multiplication and 62-qubit liveness still unpriced. K157 27 CCX 12-carry measured adder remains active.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
