@@ -27,3 +27,7 @@ The report is written to `competition/k152/results/gate_audit.json`. Option `--e
 ## Decision
 
 The compact K151 classical correction representation is real, but a straightforward ANF lookup is quantitatively noncompetitive and does not furnish a valid 22-bit architecture. Next architecture must compute the correction *arithmetically*, exploit low precision and cancellation, or derive a narrow error correction with substantially cheaper nonlinear arithmetic. Do not conflate memory representation (50 bits) with a 62-qubit finished unitary. No actual official score change.
+
+## Independent Ubuntu reproduction (2026-11-15)
+
+The user ran `$PY competition/k152/k152_reversible_delta.py` successfully. `K152_SELFTEST PASS`. Observed gate counts identical to initial run: 6-bit oracle 499 CCX / 24 CX, tested 64/64 basis states; 8-bit oracle 2675 CCX / 32 CX, 81 test cases out of 256; 10-bit oracle 13104 CCX / 40 CX, 94 test cases out of 1024. Output `K152_RESULT {"widths":[6,8,10],"candidate":false,"out":"competition/k152/results/gate_audit.json"}`. This is **negative for naive truth-table architecture**; counts are static, not verifier mean executed cost. No complete 22-bit Helios candidate.
