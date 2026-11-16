@@ -325,15 +325,15 @@
     {
       "id": "K165",
       "technique": "Canonical signed-digit fixed-slope reversible shift/add for 8-segment affine seed, exact cleanup",
-      "actual_result": "Local bounded X/CX/CCX gate checks Q3 CSD 3350 CCX/16 scratch vs binary 3428/16; Q4 CSD 7064 CCX/20 scratch vs binary 7860/20; 384 q4 test states with arbitrary XOR target PASS. Q14 slope constants static binary 51 nonzero vs CSD 35, not gate-synthesized.",
-      "verification_status": "Local gate interpreter validated Q3/Q4 and CSD expansion; independent Ubuntu reproduction pending. No Q14 Helios KMX or official verifier.",
-      "decision": "CSD reduces shift/add terms and Q4 CCX ~10.1% but still grossly over cost and 12-scratch width. Retain as arithmetic representation option, prioritize integrated K157 measurement carry and baseline cost opportunities; do not claim win."
+      "actual_result": "Independently reproduced on Ubuntu: Q3 binary CCX3428, CSD3350, both 16 scratch/192 cases; Q4 binary CCX7860, CSD7064, both 20 scratch/384 cases; q14 static slope popcounts binary51 vs CSD35. All tests PASS exact rounded XOR oracle and scratch cleanup.",
+      "verification_status": "Local plus user Ubuntu Q3/Q4 gate-level reproduction; Q14 only static constant schedule, no Q14 circuit or official verifier.",
+      "decision": "Keep CSD arithmetic option, but 20 scratch Q4 and 7064 CCX remain uncompetitive. Prioritize K157 measured carry integration and direct baseline scored-gate opportunities without discarding K159 affine seed."
     }
   ],
   "next_gate": "Obtain user K165 reproducibility run; stop scaling wide naive arithmetic and inspect actual baseline dominant executed score areas/conditionally legal measurement repairs; pursue full 62-qubit schedule only if proven net cost advantage.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K165 local bounded CSD reversible slope shifts q4 7064 CCX/20 scratch vs binary 7860/20 (~10.1% gate improvement), q14 signed shift terms 51→35 static only. Still uncompetitive versus K163 q4 440 CCX/6 scratch; no full Helios candidate.",
+  "latest_result": "K165 user reproduced Q4 CSD 7064 CCX vs binary 7860 (10.1% decrease), Q14 51 binary shifts vs 35 signed shifts static; no scratch improvement (20 at Q4), no leaderboard result.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
