@@ -55,3 +55,7 @@ PY="$HOME/.venvs/kaggle-k001/bin/python"
 Output: competition/k156/results/measurement_carry.json; pinned baseline SHA checked. No full Helios candidate generated.
 
 **Next gate:** apply the measurement-release primitive to an actual arithmetic operation in a proposed 62-qubit Helios architecture, including a legal bit-conditioned Clifford control, width accounting, and exact total executed-gate advantage over the official baseline. Avoid assuming the full residual 16-bit multiplication becomes free.
+
+## Independent Ubuntu reproduction (2026-11-16)
+
+The user ran `$PY competition/k156/k156_ripple_measure.py` on Ubuntu and reproduced `K156_SELFTEST PASS` and the precise branch counts **128, 768, 6144, 49152** for n=2,3,4,5 respectively (**56192 total**) with `EXACT_ALL_BRANCHES_PHASE_ZERO`. Counts by width: Bennett CCX **2,6,10,14**, measurement CCX **1,3,5,7**. The n=14 **50→25 CCX** and **13 carry scratch** remain projections from the construction; no 14-bit complete circuit test or official Kickmix implementation. The actual 62-qubit Newton layout has only 12 nominal free qubits, and legal conditioned CX/CZ syntax and score remain unverified.
