@@ -332,15 +332,15 @@
     {
       "id": "K166",
       "technique": "Hybrid range-aware seeded Newton numerical comparison; compiled classical ROM mask and coherent selected row with K157 phase-correct measured carry cleanup",
-      "actual_result": "Locally verified all 3,133,452 input domain numerical range statistics: K149 64-value LUT and K159 8-piece affine both zero violations per segment, affine smaller segment worst-error fractions. Separate bounded five-bit quantum coherent segment-selected row: conventional 50 CCX/5 scratch; measured 45 CCX/4 scratch; 384 input sample cases and 6144 X-basis measurement branches zero phase, outputs correct and scratch clean. Coefficient masks are illustrative not actual Q14 slopes.",
-      "verification_status": "Local Python full-domain numerical and bounded gate-level/phase-correct branch testing; independent Ubuntu run pending. No Q14 coherent hybrid circuit, legal Kickmix conditional gate validation or official verifier.",
-      "decision": "Active: classical coefficients reduce coefficient-register burden, but quantum selectors/operands remain coherent. Next price actual Q14 coherent range routing+arithmetic and test legal measurement feedback. Preserve K157 K158 K159 K160 K165."
+      "actual_result": "Independent Ubuntu run: all 3,133,452 inputs across 8 segments, zero violations for both Q14→Q26 affine and 64-entry lookup. Affine lower worst numerical tolerance fraction in every segment (0: .3523 vs .4547; 1: .3257 vs .4253; 2: .3578 vs .4257; 3: .4143 vs .4312; 4: .5524 vs .8019; 5: .5511 vs .7460; 6: .6075 vs .6643; 7: .6193 vs .6976). Q4 classical-ROM constant oracle 440 CCX, 288 CX, six scratch, 384 cases; K157 carry phase checked separately 4096 branches, not integrated.",
+      "verification_status": "Independent Ubuntu full-domain numerical check and bounded Q4 gate-level XOR oracle; K157 independently phase-verified but no integration, KMX or official score.",
+      "decision": "Numerical range routing provides no demonstrated advantage: affine worst error lower in all eight segments, but both pass. Hybrid method selection requires total controlled-gate and workspace cost, including branch control; do not measure coherent selector. Prioritize actual 62-qubit circuit/official verifier."
     }
   ],
-  "next_gate": "Verify actual Kickmix legality and score of conditional CZ/CX on K157/K166, then test coherent Q14 classical-coefficient ROM/range-control integrated with compact Newton under 62-qubit budget. No classical measurement of live operand/selector. Continue K158 baseline parity optimization lead.",
+  "next_gate": "Price per-segment coherent method choice (selection overhead, ancilla liveness, arithmetic cleanup). Since both numerical approaches pass everywhere, avoid hybrid unless gate-cost savings beat switching overhead; pursue K157 carry integration only with a complete quantum arithmetic subroutine and legal KMX conditioned operations.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K166 local: full-domain K149 LUT and K159 chord-affine both pass all eight segments, affine smaller worst-error per segment; separate 5bit selected constant row 50→45 CCX and scratch5→4 with K157 measured cleanup, 6144 phase-correct branches. Classical ROM stored in gates, selector/operand remain coherent; not Q14 full Helios.",
+  "latest_result": "K166 user verified 3,133,452 inputs: affine and lookup zero numerical failures, affine lower worst error in all 8 segments. Q4 classical-ROM reversible oracle 440 CCX/6 scratch, carry K157 test separate. No costed coherent method hybrid or complete Helios.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
