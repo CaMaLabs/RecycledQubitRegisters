@@ -258,12 +258,19 @@
       "actual_result": "Locally exhaustively verified 4-bit signed-by-unsigned gate-level oracle with arbitrary XOR output, zero scratch after operation, and involution. 888 CCX, 6 CX, 82 X, 15 scratch, 768 test states. K154 was 240 CCX and 17 scratch. K155 saves 2 scratch while adding 648 CCX; still exceeds K151 12 scratch.",
       "verification_status": "Real X/CX/CCX interpreter on bounded 2-,3-,4-bit products, no official 22-bit Helios verifier.",
       "decision": "CLOSED NEGATIVE: direct per-bit controlled carries are not a win. Investigate word-level controlled adder or scoped measurement-based cleanup if exact phase feedback cheaper."
+    },
+    {
+      "id": "K156",
+      "technique": "Mid-circuit X-basis carry measurement plus exact conditional CZ phase correction in purpose-designed ripple XOR-adder",
+      "actual_result": "A complete locally tested bounded gate-level and phase-aware branch comparison to Bennett uncomputation: n=2,3,4,5 saving 1,3,5,7 CCX respectively, all 128/768/6144/49152 measurement branches exact final basis and phase. Structural n=14 adder uses 25 vs 50 CCX, but 13 carries exceed K151's nominal 12 spare, and full Helios architecture unbuilt.",
+      "verification_status": "Exact algebraic measurement-outcome phase check with exhaustive a,b and tested arbitrary output values for n=2..5; structural n=14 only. No KMX conditional syntax/verifier or 22-bit end-to-end Helios test.",
+      "decision": "Promising locally, no leaderboard claim; correct measurement-based uncomputation requires classical conditional CZ/CX and clean carries. Blocked by scratch integration, total arithmetic and official Kickmix semantics."
     }
   ],
-  "next_gate": "No generic upscaling K155. Search for a word-level controlled ripple add or phase-corrected X-basis cleanup of a specific arithmetic chain with exact lower counted score and <=62 peak width.",
+  "next_gate": "Only integrate K156 after validating measurement-conditioned CZ/CX syntax/score in Kickmix and proving a <=62-width full arithmetic schedule (13 carries vs 12 nominal spare) with exact output phase and competitive total cost.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K155: operand-buffer-free 4-bit signed streamed arithmetic passes 768 gate-level checks, but 888 CCX vs K154 240 and 15 scratch vs 17; remains over 12-scratch nominal budget. Mid-operation measurement only safe with exact coherent X-basis phase correction and cost proof.",
+  "latest_result": "K156 bounded coherent measurement-release ripple adder: independently local gate-level proof on all X measurement branches for n2..5, static CCX halved (n14 formula 50→25), but needs 13 carries and K151 12-spare limit unmet. No full Helios verified win.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
