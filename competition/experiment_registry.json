@@ -251,12 +251,19 @@
       "actual_result": "Locally tested 768 exhaustive input/output states: signed4 residual x unsigned4 estimate, rounded output, all scratch clean and full involution, 240 CCX, 262 CX, 2 X. Uses 17 scratch, exceeding K151 nominal 12. Separately 14-bit Cuccaro modular addition 28 CCX, 56 CX, 1 clean carry, tested 500 cases and small widths exhaustively; improves upon K153 819-CCX naive adder.",
       "verification_status": "Gate-level local interpreter/verification on bounded 4-bit product only, not full 22-bit Helios; 14-bit adder verified independently; no official score.",
       "decision": "Preserve new cheap adder. Do not scale signed multiplication unchanged because operand/product buffers require 17 scratch at 4-bit; seek in-place controlled row addition using same carry workspace."
+    },
+    {
+      "id": "K155",
+      "technique": "Eliminate K154 shifted-row operand buffer with direct controlled high-to-low increment/decrement and exact rounded signed output",
+      "actual_result": "Locally exhaustively verified 4-bit signed-by-unsigned gate-level oracle with arbitrary XOR output, zero scratch after operation, and involution. 888 CCX, 6 CX, 82 X, 15 scratch, 768 test states. K154 was 240 CCX and 17 scratch. K155 saves 2 scratch while adding 648 CCX; still exceeds K151 12 scratch.",
+      "verification_status": "Real X/CX/CCX interpreter on bounded 2-,3-,4-bit products, no official 22-bit Helios verifier.",
+      "decision": "CLOSED NEGATIVE: direct per-bit controlled carries are not a win. Investigate word-level controlled adder or scoped measurement-based cleanup if exact phase feedback cheaper."
     }
   ],
-  "next_gate": "Integrate controlled row addition into in-place streaming arithmetic without a separate operand register; prove arithmetic, ancilla cleanup and peak 62-qubit resource before score claims.",
+  "next_gate": "No generic upscaling K155. Search for a word-level controlled ripple add or phase-corrected X-basis cleanup of a specific arithmetic chain with exact lower counted score and <=62 peak width.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K154 locally verified 4-bit streamed signed multiply-round/reverse, 240 CCX, 262 CX, 17 scratch >12. Independently verified Cuccaro 14-bit modular addition uses 28 CCX + 56 CX and one carry, beating K153 naive reference of 819 CCX. No full Helios candidate.",
+  "latest_result": "K155: operand-buffer-free 4-bit signed streamed arithmetic passes 768 gate-level checks, but 888 CCX vs K154 240 and 15 scratch vs 17; remains over 12-scratch nominal budget. Mid-operation measurement only safe with exact coherent X-basis phase correction and cost proof.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
