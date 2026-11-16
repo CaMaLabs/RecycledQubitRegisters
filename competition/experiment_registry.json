@@ -244,12 +244,19 @@
       "actual_result": "Exact integer algebra verified across all 3,133,452 input values. Residual range [-16423,20479] requires 16 signed bits; delta [-5460,7384] needs 14. Numerical surrogate zero violations, worst tolerance fraction 0.8018678218232443. Standalone 14-bit reversible modular adder 819 CCX and 14 CX, 12 clean scratch, tested 256 arbitrary pairs and exhaustive small widths.",
       "verification_status": "Local classical full-domain numerical calculation and separately gate-level exact reversible adder; no full width-62 residual oracle, no full-domain Kickmix submission or official score.",
       "decision": "Do not assume 16-bit residual fits leftover 12 qubits of K151 compact 50-bit representation. Streaming or further arithmetic optimization required; naive adder expensive."
+    },
+    {
+      "id": "K154",
+      "technique": "Exact reversible 4-bit streamed signed multiply-and-round plus Cuccaro 14-bit adder",
+      "actual_result": "Locally tested 768 exhaustive input/output states: signed4 residual x unsigned4 estimate, rounded output, all scratch clean and full involution, 240 CCX, 262 CX, 2 X. Uses 17 scratch, exceeding K151 nominal 12. Separately 14-bit Cuccaro modular addition 28 CCX, 56 CX, 1 clean carry, tested 500 cases and small widths exhaustively; improves upon K153 819-CCX naive adder.",
+      "verification_status": "Gate-level local interpreter/verification on bounded 4-bit product only, not full 22-bit Helios; 14-bit adder verified independently; no official score.",
+      "decision": "Preserve new cheap adder. Do not scale signed multiplication unchanged because operand/product buffers require 17 scratch at 4-bit; seek in-place controlled row addition using same carry workspace."
     }
   ],
-  "next_gate": "Avoid full Newton synthesis until residual multiplication, register reuse, scratch cleanup and phase application have explicit <=62 peak qubit and competitive exact counted gate resources.",
+  "next_gate": "Integrate controlled row addition into in-place streaming arithmetic without a separate operand register; prove arithmetic, ancilla cleanup and peak 62-qubit resource before score claims.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K153 full-domain exact residual algebra PASS; residual 16 signed bits (range [-16423,20479]) exceeds K151 12 free bits. Reversible 14-bit addition primitive 819 CCX and 14 CX, tested; not complete Newton or a score improvement.",
+  "latest_result": "K154 locally verified 4-bit streamed signed multiply-round/reverse, 240 CCX, 262 CX, 17 scratch >12. Independently verified Cuccaro 14-bit modular addition uses 28 CCX + 56 CX and one carry, beating K153 naive reference of 819 CCX. No full Helios candidate.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
