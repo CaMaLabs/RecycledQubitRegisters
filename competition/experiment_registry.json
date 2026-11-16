@@ -346,15 +346,15 @@
     {
       "id": "K168",
       "technique": "Actual Q14 64-value K149 ROM, factored by 8 coherent segment selectors and shared 3-bit local ANF, vs K159 Q14 CSD schedule",
-      "actual_result": "Locally tested Q14 exact lookup ROM X/CX/CCX circuit: 240 CCX, 388 CX, 48 X, 4 scratch, 25 wires, all 64 addresses x3 arbitrary targets =192 checked states, clean scratch and invertibility. Every segment's block =30 CCX, including selection. Better lookup circuit than older K160 unfactored 1365 CCX. Q14 affine CSD row counts known but variable multiplication and reversible rounding not priced.",
-      "verification_status": "Local gate-level actual Q14 lookup only, user Ubuntu reproduction pending. No costed Q14 affine oracle, coherent hybrid method choice, full 62-qubit Helios or official verifier.",
-      "decision": "Treat 240-CCX factored lookup as stronger cost baseline; do not extrapolate Q4 K167 hybrid routing. First implement actual Q14 affine per-segment with low scratch and phase-correct cleanup before selecting methods."
+      "actual_result": "Independent Ubuntu reproduced K168 --selftest and full: exact Q14 64-entry K149 lookup ROM 240 CCX/388 CX/48 X/4 scratch/25 total wires, 192 basis states with arbitrary target values, coherent selector, clean scratch. Eight segments each 30 CCX, CX by segment 43,51,34,64,49,54,43,50; affine Q14 CSD slope nonzero 5,5,3,3,5,4,5,5, but interpolation arithmetic not synthesized.",
+      "verification_status": "Locally verified and independently reproduced on Ubuntu exact Q14 ROM; no affine interpolation implementation, Newton stages, 62-qubit Helios synthesis, official verifier or score gain.",
+      "decision": "Preserve 240-CCX Q14 lookup as verified subcircuit, 82.4% CCX fewer than K160 1365 ANF lookup; compare true Q14 affine arithmetic only when full reversibility and cost determined. Move toward integrating ROM/normalization/Newton into 62-qubit actual candidate, or direct baseline optimization."
     }
   ],
-  "next_gate": "User reproduce K168; test genuine Q14 K159 affine slope multiplication + rounding with <=12 scratch and compare complete per-segment cost against K168 exact Q14 30-CCX lookup block; retain K157 phase-correct carries and K158 baseline parity reuse.",
+  "next_gate": "Build integration plan using exact K168 Q14 ROM with normalized mantissa index and Newton iterations, prove qubit liveness and <=62 total. If cannot integrate, prioritize concrete K158 baseline parity patterns and K157 measurement carry reduction. Avoid assuming exact lookup subcircuit by itself improves official score.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K168 local Q14 exact 64-entry K149 lookup after segment factoring: 240 CCX, 388 CX, 4 scratch, 25 wires, 192 basis cases; older K160 ANF lookup 1365 CCX. Q14 affine interpolation still unpriced; no full hybrid or leaderboard gain.",
+  "latest_result": "K168 independently reproduced: exact K149 Q14 64-entry lookup 240 CCX, 388 CX, 4 scratch, 25 standalone wires, 192 checks; each conditional segment block 30 CCX. Affine unpriced, full Helios unbuilt.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
