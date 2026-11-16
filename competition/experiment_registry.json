@@ -328,12 +328,19 @@
       "actual_result": "Independently reproduced on Ubuntu: Q3 binary CCX3428, CSD3350, both 16 scratch/192 cases; Q4 binary CCX7860, CSD7064, both 20 scratch/384 cases; q14 static slope popcounts binary51 vs CSD35. All tests PASS exact rounded XOR oracle and scratch cleanup.",
       "verification_status": "Local plus user Ubuntu Q3/Q4 gate-level reproduction; Q14 only static constant schedule, no Q14 circuit or official verifier.",
       "decision": "Keep CSD arithmetic option, but 20 scratch Q4 and 7064 CCX remain uncompetitive. Prioritize K157 measured carry integration and direct baseline scored-gate opportunities without discarding K159 affine seed."
+    },
+    {
+      "id": "K166",
+      "technique": "Hybrid range-aware seeded Newton numerical comparison; compiled classical ROM mask and coherent selected row with K157 phase-correct measured carry cleanup",
+      "actual_result": "Locally verified all 3,133,452 input domain numerical range statistics: K149 64-value LUT and K159 8-piece affine both zero violations per segment, affine smaller segment worst-error fractions. Separate bounded five-bit quantum coherent segment-selected row: conventional 50 CCX/5 scratch; measured 45 CCX/4 scratch; 384 input sample cases and 6144 X-basis measurement branches zero phase, outputs correct and scratch clean. Coefficient masks are illustrative not actual Q14 slopes.",
+      "verification_status": "Local Python full-domain numerical and bounded gate-level/phase-correct branch testing; independent Ubuntu run pending. No Q14 coherent hybrid circuit, legal Kickmix conditional gate validation or official verifier.",
+      "decision": "Active: classical coefficients reduce coefficient-register burden, but quantum selectors/operands remain coherent. Next price actual Q14 coherent range routing+arithmetic and test legal measurement feedback. Preserve K157 K158 K159 K160 K165."
     }
   ],
-  "next_gate": "Obtain user K165 reproducibility run; stop scaling wide naive arithmetic and inspect actual baseline dominant executed score areas/conditionally legal measurement repairs; pursue full 62-qubit schedule only if proven net cost advantage.",
+  "next_gate": "Verify actual Kickmix legality and score of conditional CZ/CX on K157/K166, then test coherent Q14 classical-coefficient ROM/range-control integrated with compact Newton under 62-qubit budget. No classical measurement of live operand/selector. Continue K158 baseline parity optimization lead.",
   "scoring_model": "Official verifier: score = Q*(mean executed Toffoli-like(CCX/CCZ/CSWAP) + T-equivalent/4); T-equivalent includes explicit T and synthesized rotations at eps determined by full-domain phase-error headroom. CX/CZ/Clifford Z are not directly scored.",
   "success_claim": false,
-  "latest_result": "K165 user reproduced Q4 CSD 7064 CCX vs binary 7860 (10.1% decrease), Q14 51 binary shifts vs 35 signed shifts static; no scratch improvement (20 at Q4), no leaderboard result.",
+  "latest_result": "K166 local: full-domain K149 LUT and K159 chord-affine both pass all eight segments, affine smaller worst-error per segment; separate 5bit selected constant row 50→45 CCX and scratch5→4 with K157 measured cleanup, 6144 phase-correct branches. Classical ROM stored in gates, selector/operand remain coherent; not Q14 full Helios.",
   "tried_untried_ledger": "competition/HELIOSTRIED_UNTRIED_LEDGER.md",
   "early_history_reconciliation": "competition/K001_K097_RECONCILIATION.md",
   "early_history_local_inventory_script": "competition/K001_K097_LOCAL_INVENTORY.py",
