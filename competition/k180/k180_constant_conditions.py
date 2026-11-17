@@ -29,8 +29,9 @@ def rewrite(lines):
         s=raw.strip()
         if s=="POP_CONDITION":
             if not stack: raise ValueError(f"POP underflow at {n}")
+            was_false=False in stack
             stack.pop()
-            if False in stack: note(n,s,"false_scope")
+            if was_false: note(n,s,"false_scope")
             else: out.append(raw)
             continue
         push=PUSH.fullmatch(s)
