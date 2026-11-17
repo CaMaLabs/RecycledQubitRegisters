@@ -28,7 +28,7 @@ def main():
             if not stack:raise ValueError(f"condition stack underflow line {i}")
             stack.pop()
         # ROTATION ops only: no assumption that every HMR is a rotation.
-        if any(t in op.upper() for t in ("ROT","RZ","RX","RY","PHASE","ANGLE")):
+        if op in ("R","Z_POW") or any(t in op.upper() for t in ("ROT","RZ","RX","RY","PHASE","ANGLE")):
             rotations.append({"line":i,"instruction":s,"conditions":stack.copy(),
               "context":[{"line":j+1,"instruction":lines[j]} for j in range(max(0,i-1-args.window),min(len(lines),i+args.window))]})
         if any(t in op.upper() for t in ("RESET","INIT","PREPARE")):
