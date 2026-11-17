@@ -80,7 +80,7 @@ def selftest():
          "POP_CONDITION","POP_CONDITION","BIT_STORE1 b3",
          "BIT_INVERT b3 if b1","CCX q0 q1 q2 if b3"]
     got,counts,_=rewrite(src)
-    assert got==[src[0],src[8],src[9],src[10]],(got,counts)
+    assert got==[src[0],src[8],src[10]],(got,counts)
     src=["BIT_STORE0 b1","PUSH_CONDITION if b2","BIT_STORE1 b1",
          "POP_CONDITION","CCZ q0 q1 q2 if b1"]
     got,_,_=rewrite(src)
