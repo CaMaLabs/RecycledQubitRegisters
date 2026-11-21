@@ -1,0 +1,53 @@
+{
+  "source_sha256": "e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183",
+  "reference_score": 95369.00696815242,
+  "reference_status": "USER_REPORTED",
+  "objective": "UNRESOLVED_NO_OFFICIAL_CONTRACT",
+  "jobs_this_run": 58,
+  "elapsed_seconds": 17.408295753999937,
+  "best_official": null,
+  "current_exact_candidate": "2b16be0a48b4548cef8c9c181b0fa398d633ff6d824c532a496e0271a39c1c86",
+  "success": false,
+  "census": {
+    "source_opcodes": {
+      "APPEND_TO_REGISTER": 22,
+      "REGISTER": 1,
+      "R": 74,
+      "X": 1008,
+      "CX": 29426,
+      "CCX": 1090,
+      "CSWAP": 226,
+      "HMR": 874,
+      "CZ": 16478,
+      "Z": 2481,
+      "SWAP": 161,
+      "NEG": 115,
+      "Z_POW": 48,
+      "PUSH_CONDITION": 359,
+      "POP_CONDITION": 359,
+      "BIT_STORE0": 152,
+      "BIT_INVERT": 578,
+      "BIT_STORE1": 105,
+      "CCZ": 93
+    },
+    "syntactically_unguarded_subset": {
+      "X": 1008,
+      "CX": 28588,
+      "CCX": 1090,
+      "CSWAP": 226,
+      "SWAP": 161,
+      "CCZ": 86,
+      "Z": 47,
+      "CZ": 198
+    },
+    "official_score": null,
+    "executed_toffoli": null,
+    "reaction_depth": null,
+    "reason": "Static counts cannot determine conditional execution or rotation synthesis precision."
+  },
+  "experiment_counts": {
+    "LOCAL_IMPROVEMENT": 97,
+    "NO_IMPROVEMENT": 326,
+    "PENDING": 1574
+  }
+}

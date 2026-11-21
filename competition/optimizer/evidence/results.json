@@ -1,0 +1,99 @@
+{
+  "source": "Reconstructed historical K098, NOT K191",
+  "source_sha256": "e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183",
+  "completed_experiments": 423,
+  "locally_exact_rewrites": 97,
+  "scored_gate_reductions": 0,
+  "official_verifications_this_session": 0,
+  "best_official_score_this_session": null,
+  "user_supplied_K191_score": 95368.85909206404,
+  "success": false,
+  "counts": [
+    {
+      "method": "affine",
+      "status": "LOCAL_IMPROVEMENT",
+      "count": 61
+    },
+    {
+      "method": "affine",
+      "status": "NO_IMPROVEMENT",
+      "count": 42
+    },
+    {
+      "method": "affine",
+      "status": "PENDING",
+      "count": 258
+    },
+    {
+      "method": "cancel",
+      "status": "LOCAL_IMPROVEMENT",
+      "count": 1
+    },
+    {
+      "method": "cancel",
+      "status": "NO_IMPROVEMENT",
+      "count": 50
+    },
+    {
+      "method": "cancel",
+      "status": "PENDING",
+      "count": 330
+    },
+    {
+      "method": "factor",
+      "status": "NO_IMPROVEMENT",
+      "count": 51
+    },
+    {
+      "method": "factor",
+      "status": "PENDING",
+      "count": 301
+    },
+    {
+      "method": "mitm",
+      "status": "LOCAL_IMPROVEMENT",
+      "count": 35
+    },
+    {
+      "method": "mitm",
+      "status": "NO_IMPROVEMENT",
+      "count": 16
+    },
+    {
+      "method": "mitm",
+      "status": "PENDING",
+      "count": 384
+    },
+    {
+      "method": "smt",
+      "status": "NO_IMPROVEMENT",
+      "count": 116
+    },
+    {
+      "method": "stochastic",
+      "status": "NO_IMPROVEMENT",
+      "count": 51
+    },
+    {
+      "method": "stochastic",
+      "status": "PENDING",
+      "count": 301
+    }
+  ],
+  "tests": {
+    "count": 32,
+    "status": "PASS",
+    "includes_mock_verifier_tests": true
+  },
+  "limitations": [
+    "Original K191 and private official assets unavailable",
+    "Older developmental runs do not all have full source snapshots; stored final SMT snapshot is available",
+    "Archived PASS receipts were inspected, not reexecuted",
+    "Finite bounded searches establish no global impossibility"
+  ],
+  "replay": {
+    "status": "PASS",
+    "exact_steps": 97,
+    "final_sha256": "2b16be0a48b4548cef8c9c181b0fa398d633ff6d824c532a496e0271a39c1c86"
+  }
+}
