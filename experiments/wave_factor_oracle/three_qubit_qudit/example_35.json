@@ -1,0 +1,48 @@
+{
+  "N": 35,
+  "qubits": 3,
+  "qudit_levels_emulated": 8,
+  "iterations": 1,
+  "candidate_divisors": [
+    3,
+    5,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17
+  ],
+  "logical_to_physical_basis": [
+    0,
+    2,
+    4,
+    6,
+    7,
+    5,
+    3,
+    1
+  ],
+  "success_probability": 1.0,
+  "shots": 2000,
+  "accepted_shots": 2000,
+  "accepted_factors": {
+    "5*7": 1034,
+    "7*5": 966
+  },
+  "all_measurement_counts_q2q1q0": {
+    "010": 1034,
+    "100": 966
+  },
+  "qubit_vs_qudit_max_state_error_after_global_phase": 7.771561172376096e-16,
+  "gate_counts": {
+    "h": 15,
+    "x": 14,
+    "ccx": 3
+  },
+  "oracle_classical_divisibility_checks": 8,
+  "cofactor_computed_classically_after_measurement": true,
+  "coverage": "Complete small-divisor coverage for this input (factor 2 checked classically).",
+  "classical_factor_2_precheck": null,
+  "scope": "Compiled truth-table oracle; not a reversible quantum divider."
+}

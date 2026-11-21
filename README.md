@@ -422,6 +422,16 @@ Useful starting points:
 - [`results/hardware/SHOR35_MARRAKESH_LAYOUT_AB.md`](results/hardware/SHOR35_MARRAKESH_LAYOUT_AB.md) — same-job layout control
 - [`docs/QISKIT_ECOSYSTEM_SUBMISSION.md`](docs/QISKIT_ECOSYSTEM_SUBMISSION.md) — Ecosystem membership/submission record
 
+## Reversible divisor-oracle experiments
+
+The [wave-inspired factor-oracle experiments](experiments/wave_factor_oracle/README.md)
+preserve qudit register encodings, exact three-qubit equivalence checks, generic
+reversible division, workspace optimization and independently executed Qiskit
+Aer tests. The current oracle computes divisibility coherently without a
+classical factor lookup. These are ideal Grover-search simulations, separate
+from the compiled Shor hardware benchmarks above; no hardware or cryptographic
+speedup is claimed.
+
 ## Citation and license
 
 Citation metadata is available in [`CITATION.cff`](CITATION.cff).

@@ -1,0 +1,48 @@
+{
+  "N": 35,
+  "candidate_qubits": 3,
+  "total_qubits": 26,
+  "candidate_capacity": 8,
+  "candidate_range": [
+    0,
+    7
+  ],
+  "validity": "P>=2, Q>=2 and R=0, computed reversibly",
+  "iterations": 1,
+  "success_history": [
+    0.2499999999999999,
+    0.9999999999999982
+  ],
+  "shots": 2000,
+  "accepted_shots": 2000,
+  "measured_factor_pairs": {
+    "5*7": 1034,
+    "7*5": 966
+  },
+  "gate_counts_per_oracle": {
+    "x": 60,
+    "ccx": 250,
+    "cx": 372,
+    "z": 1
+  },
+  "division_gates": 324,
+  "oracle_gates": 683,
+  "postselection_readout_gates": 341,
+  "scratch_clean_after_each_oracle": true,
+  "cofactor_from_quantum_quotient_register": true,
+  "answer_lookup_or_classical_factor_preparation": false,
+  "oracle_compiler_inputs": [
+    "N register width",
+    "P register width"
+  ],
+  "sparse_basis_states_before_measurement": 2,
+  "norm": 0.9999999999999982,
+  "scope": "Exact sparse gate simulation; in-place divider with shared clean scratch",
+  "coverage": "At least one nontrivial divisor must fit P; no success is not a primality proof.",
+  "oracle_schedule_cost": {
+    "logical_gate_depth": 464,
+    "toffoli_weighted_dependency_depth": 200
+  },
+  "intermediate_measurements": 0,
+  "postselection": "Final good-flag readout only; failed shots retained in totals"
+}

@@ -1,0 +1,79 @@
+[
+  {
+    "script": "optimized_divisor_oracle/optimized_division.py",
+    "seconds": 1.3137372869996398,
+    "result": {
+      "status": "PASS",
+      "exhaustive_adder_cases": 680,
+      "exhaustive_divider_and_baseline_equivalence_cases": 480,
+      "random_coherent_N_P_basis_terms": 125,
+      "end_to_end_Grover_comparisons": 7,
+      "exact_phase_and_shared_scratch_cleanup_verified": true
+    }
+  },
+  {
+    "script": "reversible_divisor_oracle/reversible_division.py",
+    "seconds": 1.0594020690004982,
+    "result": {
+      "status": "PASS",
+      "exhaustive_N_P_cases": 480,
+      "grover_runs": 7,
+      "verified": [
+        "quotient",
+        "remainder",
+        "validity flag",
+        "phase oracle sign",
+        "division inverse",
+        "scratch cleanup",
+        "Grover probability",
+        "coherent superposition of target N values"
+      ],
+      "oracle_compilation_uses_no_factors_or_divisibility_table": true
+    }
+  },
+  {
+    "script": "three_qubit_qudit/three_qubit_qudit.py",
+    "seconds": 0.1727868509997279,
+    "result": {
+      "status": "PASS",
+      "grover_cases": 55,
+      "selective_phase_basis_cases": 64,
+      "random_increment_tests": 100,
+      "A115_modulo8_increment_verified": true,
+      "max_qubit_qudit_state_error": 2.7755575615628914e-15
+    }
+  },
+  {
+    "script": "expanded_qudit_registers/expanded_registers.py",
+    "seconds": 0.219241401000545,
+    "result": {
+      "status": "PASS",
+      "grover_test_cases": 20,
+      "dense_arithmetic_cross_checks": 5,
+      "matched_capacity_encodings": [
+        "24 qubits",
+        "12 four-level qudits",
+        "8 eight-level qudits",
+        "4 64-level qudits"
+      ],
+      "prior_eight_level_map_verified": true
+    }
+  },
+  {
+    "script": "qudit_constraint_solver/qudit_factor.py",
+    "seconds": 0.9894370339998204,
+    "result": {
+      "status": "PASS",
+      "grover_cases": 60,
+      "also_checked": [
+        "arbitrary-scratch multiplication inverse",
+        "oracle truth table",
+        "uncomputation",
+        "prime input",
+        "square input",
+        "fair radix comparison",
+        "truncated candidate coverage"
+      ]
+    }
+  }
+]

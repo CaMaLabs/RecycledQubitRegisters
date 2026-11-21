@@ -1,0 +1,63 @@
+{
+  "N": 35,
+  "dimension": 3,
+  "digits_per_candidate": 2,
+  "candidate_range": [
+    2,
+    7
+  ],
+  "candidate_pairs": 36,
+  "iterations": 2,
+  "oracle_uses": 2,
+  "success_history": [
+    0.05555555555555555,
+    0.42866941015089155,
+    0.8616657352368371
+  ],
+  "grover_prediction": 0.8616657352368372,
+  "plain_expected_trials": 18.0,
+  "shots": 2000,
+  "accepted_shots": 1750,
+  "rejected_shots": 250,
+  "accepted_counts": {
+    "5*7": 909,
+    "7*5": 841
+  },
+  "solution_weights": [
+    {
+      "p": 5,
+      "q": 7,
+      "unconditional_probability": 0.43083286761841855
+    },
+    {
+      "p": 7,
+      "q": 5,
+      "unconditional_probability": 0.43083286761841855
+    }
+  ],
+  "conditional_pair_probabilities": [
+    {
+      "p": 5,
+      "q": 7,
+      "probability": 0.5
+    },
+    {
+      "p": 7,
+      "q": 5,
+      "probability": 0.5
+    }
+  ],
+  "scratch_zero_probability_before_readout": 0.9999999999999998,
+  "resources": {
+    "logical_d_level_qudits": 8,
+    "optional_flag_qubit": 1,
+    "binary_qubits_for_same_register_capacities": 15,
+    "dense_state_amplitudes": 6561,
+    "product_permutations_in_grover": 4,
+    "product_permutations_for_readout": 1,
+    "native_gate_count": null
+  },
+  "scope": "ideal logical statevector simulation; no native gate compilation",
+  "coverage": "No success excludes factors only within the chosen candidate range.",
+  "iteration_policy": "Explicit iteration count; no solution count used to choose it."
+}

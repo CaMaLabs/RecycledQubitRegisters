@@ -1,0 +1,89 @@
+[
+  {
+    "N": 35,
+    "candidate_bits": 3,
+    "validation_scope": "End-to-end simulation",
+    "before": {
+      "qubits": 74,
+      "gate_counts": {
+        "x": 348,
+        "ccx": 370,
+        "cx": 348,
+        "z": 1
+      },
+      "oracle_gates": 1067,
+      "logical_gate_depth": 480,
+      "toffoli_weighted_dependency_depth": 240
+    },
+    "after": {
+      "qubits": 26,
+      "gate_counts": {
+        "x": 60,
+        "ccx": 250,
+        "cx": 372,
+        "z": 1
+      },
+      "oracle_gates": 683,
+      "logical_gate_depth": 464,
+      "toffoli_weighted_dependency_depth": 200
+    }
+  },
+  {
+    "N": 323,
+    "candidate_bits": 5,
+    "validation_scope": "End-to-end simulation",
+    "before": {
+      "qubits": 146,
+      "gate_counts": {
+        "x": 742,
+        "ccx": 926,
+        "cx": 810,
+        "z": 1
+      },
+      "oracle_gates": 2479,
+      "logical_gate_depth": 1042,
+      "toffoli_weighted_dependency_depth": 582
+    },
+    "after": {
+      "qubits": 38,
+      "gate_counts": {
+        "x": 94,
+        "ccx": 602,
+        "cx": 954,
+        "z": 1
+      },
+      "oracle_gates": 1651,
+      "logical_gate_depth": 1066,
+      "toffoli_weighted_dependency_depth": 456
+    }
+  },
+  {
+    "N": 1040399,
+    "candidate_bits": 10,
+    "validation_scope": "Circuit resource counts only",
+    "before": {
+      "qubits": 521,
+      "gate_counts": {
+        "x": 2840,
+        "ccx": 4066,
+        "cx": 3400,
+        "z": 1
+      },
+      "oracle_gates": 10307,
+      "logical_gate_depth": 4106,
+      "toffoli_weighted_dependency_depth": 2494
+    },
+    "after": {
+      "qubits": 81,
+      "gate_counts": {
+        "x": 200,
+        "ccx": 2546,
+        "cx": 4320,
+        "z": 1
+      },
+      "oracle_gates": 7067,
+      "logical_gate_depth": 4370,
+      "toffoli_weighted_dependency_depth": 1824
+    }
+  }
+]
