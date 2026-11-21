@@ -14,5 +14,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install -r competition/optimizer/requirements-optional.txt
+      - run: python -m pip install -r competition/optimizer/requirements-optional.txt -r competition/optimizer/requirements-circuits.txt
       - run: python -m unittest discover -s competition/optimizer/tests -v

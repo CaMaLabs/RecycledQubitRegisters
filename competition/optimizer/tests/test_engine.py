@@ -246,7 +246,7 @@ class IntegrationTests(unittest.TestCase):
     def test_immutable_baseline_pin(self):
         with tempfile.TemporaryDirectory() as tmp:
             source=Path(tmp)/'source.kmx';source.write_text('X q0\n')
-            p=subprocess.run([sys.executable,'competition/optimizer/run_autonomous.py','--source',str(source)],capture_output=True,text=True)
+            p=subprocess.run([sys.executable,'competition/optimizer/run_autonomous.py','--source',str(source),'--expected-sha','0'*64],capture_output=True,text=True)
             self.assertNotEqual(p.returncode,0);self.assertIn('SHA_MISMATCH',p.stderr)
 
 if __name__=='__main__': unittest.main()

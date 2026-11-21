@@ -158,6 +158,7 @@ def stochastic(gates, budget, seed):
 
 
 from .smt import synthesize as smt
+from .structured import identity_screen, parity_spectrum
 
-PLUGINS = {'smt':smt, 'cancel': cancellation, 'affine': affine, 'factor': factor,
+PLUGINS = {'identity_screen': identity_screen, 'parity_spectrum': parity_spectrum, 'smt':smt, 'cancel': cancellation, 'affine': affine, 'factor': factor,
            'mitm': mitm, 'stochastic': stochastic}

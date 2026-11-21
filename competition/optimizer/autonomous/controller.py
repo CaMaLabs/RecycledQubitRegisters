@@ -14,6 +14,7 @@ import time
 from .core import Gate, canonical, census, cost, parse, sha
 from .passes import PLUGINS
 from .store import Store
+from .structured import PHASE_REGION
 from .verification import better, run_process, validate_contract, verify
 
 PIN='d7da8646fc6bef7a08f62f8039829fdc3a2669c9572aabf7936596d3ea6560e8'
@@ -31,6 +32,7 @@ def regions(lines, budget, method, max_regions):
                 if h is None: break
                 if method in {'mitm','smt','factor','stochastic'} and h.op not in {'X','CX','CCX','SWAP','CSWAP'}: break
                 if method=='affine' and h.op not in {'X','CX','SWAP'}: break
+                if method=='parity_spectrum' and h.op not in PHASE_REGION: break
                 wires.update(h.q)
                 if len(wires)>min(budget['wires'],3 if method=='mitm' else 4 if method=='smt' else 10): break
                 block.append(h)
@@ -57,7 +59,7 @@ def choose(store, parent, methods):
     pending=[r for r in store.db.execute("SELECT * FROM experiments WHERE parent=? AND status='PENDING'",(parent,)) if r['method'] in methods]
     if not pending: return None
     stats={r['method']:dict(r) for r in store.db.execute('''SELECT method, COUNT(*) AS n,
-       SUM(CASE WHEN status='LOCAL_IMPROVEMENT' AND json_extract(detail,'$.before_cost[0]') > json_extract(detail,'$.after_cost[0]') THEN 1 ELSE 0 END) AS wins,
+       SUM(CASE WHEN status='LOCAL_IMPROVEMENT' AND (json_extract(detail,'$.before_cost[0]') > json_extract(detail,'$.after_cost[0]') OR json_extract(detail,'$.before_cost[1]') > json_extract(detail,'$.after_cost[1]')) THEN 1 ELSE 0 END) AS wins,
        SUM(seconds) AS seconds FROM experiments WHERE status NOT IN ('RUNNING','PENDING') GROUP BY method''')}
     total=max(1,sum(r['n'] for r in stats.values()))
     available={r['method'] for r in pending}
@@ -91,7 +93,7 @@ def enqueue(store, parent, lines, config):
     store.db.commit()
 
 
-def run(args, config):
+def run(args, config, export=None):
     for field in ('cpus','concurrency','memory_mb','max_jobs','max_regions','levels','width','span','depth','max_states'):
         if type(config[field]) is not int or config[field]<1: raise ValueError(field+' must be a positive integer')
     if config['width']>10 or config['span']>128 or config['levels']>8 or config['max_regions']>5000:
@@ -129,7 +131,7 @@ def run(args, config):
     base_path=out/(digest+'.kmx')
     if not base_path.exists(): base_path.write_bytes(raw)
     if sha(base_path.read_bytes())!=digest: raise ValueError('Stored baseline was modified')
-    store.candidate(digest,None,base_path,{'status':'USER_SUPPLIED_REFERENCE','official_score_reference':args.reference_score})
+    store.candidate(digest,None,base_path,{'status':'SOURCE','official_score_reference':args.reference_score})
     current=store.get('current',digest)
     current_row=store.db.execute('SELECT * FROM candidates WHERE sha=?',(current,)).fetchone()
     current_path=out/(current+'.kmx')
@@ -202,6 +204,7 @@ def run(args, config):
                                'task':row['key'],'detail':result.get('detail')}
                         store.candidate(child,current,path,proof)
                         children.append((result['before_cost'][0]-result['after_cost'][0],
+                                         result['before_cost'][1]-result['after_cost'][1],
                                          result['before_cost'][2]-result['after_cost'][2],child,candidate,path))
                         # A free-gate rewrite is useful internally but has no
                         # positive direct score estimate; do not spend verifier time.
@@ -218,19 +221,24 @@ def run(args, config):
                     print('EXPERIMENT',json.dumps({'method':row['method'],'status':result['status'],
                         'seconds':round(elapsed,3),'candidate':child}),flush=True)
                 if children:
-                    _,__,current,working,_=max(children,key=lambda x:(x[0],x[1],x[2]))
+                    _,_,_,current,working,_=max(children,key=lambda child: child[:4])
                     store.set('current',current)
                     # Retain siblings. Re-optimizing the chosen exact branch
                     # rediscovers applicable independent rewrites against its parent.
                     enqueue(store,current,working.decode('ascii').splitlines(keepends=True),config)
-        summary={'source_sha256':digest,'reference_score':args.reference_score,
-                 'reference_status':'USER_REPORTED' if not contract else 'RECHECKED',
-                 'objective':contract['direction'] if contract else 'UNRESOLVED_NO_OFFICIAL_CONTRACT',
+        reference_score = args.reference_score
+        if contract and reference_score is None:
+            reference_score = store.db.execute('SELECT score FROM candidates WHERE sha=?',(digest,)).fetchone()[0]
+        summary={'source_sha256':digest,'reference_score':reference_score,
+                 'reference_status':('RECHECKED' if contract else 'USER_REPORTED' if args.reference_score is not None else 'NONE'),
+                 'objective':contract['direction'] if contract else 'MINIMIZE_STATIC_GATE_COST',
                  'jobs_this_run':count,'elapsed_seconds':time.monotonic()-started,
-                 'best_official':best,'current_exact_candidate':current,
-                 'success':bool(best and better(best['score'],args.reference_score,contract['direction'])),
+                 'best_official':best,'current_exact_candidate':current,'output_circuit':str(out/(current+'.kmx')),'output_format':'kmx',
+                 'success':bool(best and reference_score is not None and better(best['score'],reference_score,contract['direction'])),
                  'census':census(working.decode('ascii').splitlines()),
                  'experiment_counts':dict(store.db.execute('SELECT status,COUNT(*) FROM experiments GROUP BY status'))}
+        if export is not None:
+            summary.update(export(working, out))
         (out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
         print('CAMPAIGN_RESULT',json.dumps(summary),flush=True)
         return summary

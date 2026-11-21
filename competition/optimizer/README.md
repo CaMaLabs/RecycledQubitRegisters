@@ -10,6 +10,59 @@ The new entry point is `run_autonomous.py`. Existing `quantum_optimizer.py` and
 `campaign.py` are preserved unchanged. They are legacy tools, not the new
 verification/promotion pipeline.
 
+## Run another circuit
+
+The same scheduler accepts KMX, Qiskit QPY, and OpenQASM 2 or 3.
+
+```bash
+python -m pip install -r competition/optimizer/requirements-circuits.txt
+python competition/optimizer/run_autonomous.py --source ./input.qasm --out ./circuit-run
+```
+
+KMX needs only the standard library for the quick profile. The K191 path keeps
+its known SHA256 pin. Other inputs derive their own SHA256 automatically, and
+`--expected-sha` can enforce a known SHA256. Use `--input-format` when the
+filename extension does not identify the format. Use `--circuit-index N` to
+select an entry in a QPY bundle. Run the same command with the same source and
+output directory to resume.
+
+QASM and QPY inputs produce `optimized.qpy` for the selected circuit. QPY
+preserves the circuit's global phase, registers, metadata, and symbolic
+parameters. The engine treats measurement, reset, classical control, custom
+gates, continuous rotations and operations outside its supported gate set as
+boundaries. It carries those instructions and their contents through in order.
+A circuit made entirely of such instructions returns with the same operations.
+OpenQASM parsing is limited to the features supported by the installed Qiskit
+importer. For circuits generated in Cirq, PennyLane or another framework,
+export to a supported OpenQASM format when the framework can represent their
+operations there.
+
+```python
+from qiskit import qpy
+
+with open("circuit-run/optimized.qpy", "rb") as stream:
+    optimized, = qpy.load(stream)
+```
+
+The generic objective ranks local reductions by Toffoli-class count, then T
+count, then instruction count. `summary.json` supplies input/output circuit
+statistics and the output path. The invsqrt scoring contract applies to KMX.
+
+Two passes are enabled in the default profiles:
+
+- `identity_screen` adapts Dark Star's exact no-op elimination. It searches
+  supported blocks for identity on every basis assignment, including arbitrary
+  ancillary inputs and exact phase. This can discover a whole no-op block
+  across different operations even if simple pair cancellation finds nothing.
+- `parity_spectrum` adapts the use of spectral coordinates to expose
+  constraints. It tracks affine Boolean parities through X, CX and SWAP, groups
+  equal Walsh characters for T/S/Z-family phases, and combines their phases
+  modulo eight. It preserves biased parity and rejects general angles.
+
+Both passes require the independent exhaustive proof before making a change.
+The historical K098 smoke run completed 20 bounded jobs with these methods
+and found no improvements. The original scored K191 baseline was unavailable.
+
 ## What actually ran
 
 - Inspected all accessible remote branches and the user's K001–K097 archive.
@@ -61,7 +114,7 @@ An API change fails closed; it does not weaken verification.
 
 | Component | Implemented behavior |
 | --- | --- |
-| Plugins | `cancel`, `affine`, `factor`, `mitm`, `stochastic`, optional `smt` |
+| Plugins | `cancel`, `affine`, `factor`, `identity_screen`, `parity_spectrum`, `mitm`, `stochastic`, optional `smt` |
 | Region selection | Scored-operation priority; width/span caps; barriers at unsupported instructions, classical changes, measurements and inline conditions |
 | Scheduling | UCB over methods; progressively larger width/span/depth/state budgets; free-gate discoveries earn no reward |
 | Persistence | SQLite WAL, source/seed/contract identity, canonical wire-renaming keys, bounded-failure deduplication, interrupted-job recovery |

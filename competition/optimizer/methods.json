@@ -44,8 +44,8 @@
     "scope": "Different decompositions must be priced by actual official executed metric"
   },
   "phase_polynomial": {
-    "status": "not_implemented",
-    "scope": "No general parity-polynomial synthesis plugin; limited diagonal involution proof is not this method"
+    "status": "scoped",
+    "scope": "Equal affine parity phase terms across X/CX/SWAP; no general phase polynomial resynthesis or continuous angle optimization"
   },
   "ancilla_reuse_uncomputation": {
     "status": "not_implemented",
@@ -114,5 +114,13 @@
   "cost_aware_superoptimization": {
     "status": "scoped",
     "scope": "Static CCX/T proxy with official-only promotion; no calibrated dynamic rotation predictor"
+  },
+  "identity_screen": {
+    "status": "implemented",
+    "scope": "Dark Star-inspired complete identity subblock screening for supported bounded unitary blocks, including exact phase and dirty wires"
+  },
+  "parity_spectrum": {
+    "status": "implemented",
+    "scope": "LWE-inspired affine Walsh character grouping for discrete single-wire phases, with exact mod-eight proof"
   }
 }
