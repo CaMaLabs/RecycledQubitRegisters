@@ -1,0 +1,118 @@
+{
+  "cancel": {
+    "status": "implemented",
+    "scope": "Conservative K099 involution cancellation and commutation; exact phase-aware table"
+  },
+  "affine": {
+    "status": "implemented",
+    "scope": "X/CX/SWAP GF(2) matrix resynthesis; no ancilla assumptions"
+  },
+  "factor": {
+    "status": "implemented",
+    "scope": "Shared-control same-target CCX XOR factoring with exact proof"
+  },
+  "mitm": {
+    "status": "implemented",
+    "scope": "Bidirectional exact permutation synthesis, <=3 wires; capped states and depth"
+  },
+  "stochastic": {
+    "status": "implemented",
+    "scope": "Random exact rewrite walk and neutral commuting moves; not annealing"
+  },
+  "smt": {
+    "status": "implemented_optional",
+    "scope": "Z3 bit-parallel exact synthesis <=4 wires, <=16 output slots; independent exhaustive proof"
+  },
+  "ROM_QRR": {
+    "status": "preserved_tested_not_integrated",
+    "scope": "K168 Q14 ROM copied unchanged and reproduced; 240 CCX, 4 clean scratch, 25 standalone wires"
+  },
+  "Clifford_simplification": {
+    "status": "scoped",
+    "scope": "Supported self-inverse diagonal/reversible gates only; no general H/S tableau synthesis"
+  },
+  "Pauli_frame_propagation": {
+    "status": "not_implemented",
+    "scope": "Requires phase-aware measurement/channel semantics"
+  },
+  "nonlinear_factoring": {
+    "status": "scoped",
+    "scope": "Only CCX shared-control XOR identity"
+  },
+  "CCX_CCZ_decomposition": {
+    "status": "not_implemented",
+    "scope": "Different decompositions must be priced by actual official executed metric"
+  },
+  "phase_polynomial": {
+    "status": "not_implemented",
+    "scope": "No general parity-polynomial synthesis plugin; limited diagonal involution proof is not this method"
+  },
+  "ancilla_reuse_uncomputation": {
+    "status": "not_implemented",
+    "scope": "Dirty-input exact proofs cannot justify introducing clean-ancilla assumptions"
+  },
+  "circuit_rescheduling": {
+    "status": "scoped",
+    "scope": "Neutral local commutation inside exact walk; no global branch-aware scheduler"
+  },
+  "common_subexpression_elimination": {
+    "status": "scoped",
+    "scope": "Shared-control CCX only; no general DAG CSE"
+  },
+  "arithmetic_resynthesis_adders_comparators": {
+    "status": "not_implemented",
+    "scope": "Historical code exists; no complete K191 arithmetic interface/resources available"
+  },
+  "register_recycling": {
+    "status": "not_implemented",
+    "scope": "Generic liveness previously investigated; need concrete 62-qubit schedule"
+  },
+  "lookup_ROM_synthesis": {
+    "status": "preserved_tested_not_integrated",
+    "scope": "K168 library oracle only, not a complete invsqrt circuit"
+  },
+  "piecewise_polynomial_Horner_precision": {
+    "status": "not_implemented",
+    "scope": "Numerical successes in history do not establish competitive reversible resource cost"
+  },
+  "rotation_merging_quantization_redistribution": {
+    "status": "not_implemented",
+    "scope": "Z_POW remains a barrier until actual official semantics and headroom are inspected"
+  },
+  "Fourier_Walsh_Chebyshev_minimax_range_reduction": {
+    "status": "not_implemented",
+    "scope": "Earlier numerical work is recorded; no new validated complete-circuit plugin"
+  },
+  "error_budget_piecewise_phase": {
+    "status": "not_implemented",
+    "scope": "Needs full-domain error evaluator and measured official synthesis costs"
+  },
+  "incremental_depth": {
+    "status": "implemented",
+    "scope": "Progressive synthesis depth/width/span/state budgets"
+  },
+  "beam_best_first": {
+    "status": "not_implemented",
+    "scope": "Existing legacy beam retained unchanged; new controller uses UCB over bounded jobs, not full candidate beam search"
+  },
+  "Monte_Carlo": {
+    "status": "scoped",
+    "scope": "Random exact rewrite walk only"
+  },
+  "simulated_annealing_genetic": {
+    "status": "not_implemented",
+    "scope": "No temperature schedule or evolutionary population"
+  },
+  "SAT_SMT": {
+    "status": "implemented_optional",
+    "scope": "SMT exact synthesis only; UNSAT scoped to bounded gate alphabet/depth"
+  },
+  "e_graph": {
+    "status": "not_implemented",
+    "scope": "No equality-saturation backend"
+  },
+  "cost_aware_superoptimization": {
+    "status": "scoped",
+    "scope": "Static CCX/T proxy with official-only promotion; no calibrated dynamic rotation predictor"
+  }
+}

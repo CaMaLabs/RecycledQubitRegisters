@@ -1,0 +1,23 @@
+{
+  "cpus": 2,
+  "concurrency": 1,
+  "memory_mb": 1024,
+  "max_jobs": 60,
+  "max_regions": 100,
+  "levels": 2,
+  "width": 4,
+  "span": 16,
+  "depth": 4,
+  "max_states": 10000,
+  "seconds_per_job": 0.4,
+  "hours": 0.05,
+  "verifier_timeout": 1200,
+  "seed": 12345,
+  "methods": [
+    "cancel",
+    "factor",
+    "affine",
+    "mitm",
+    "stochastic"
+  ]
+}
