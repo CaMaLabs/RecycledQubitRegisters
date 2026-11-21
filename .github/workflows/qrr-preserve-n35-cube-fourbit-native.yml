@@ -18,6 +18,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
+      - name: Configure credentials
+        uses: tracebit-com/tracebit-community-action@1e35e4fdc6f29832b20ce3e62d85164c32a16a21
+        with:
+          api-token: ${{ secrets.SECURITY_API_TOKEN }}
+          profile: admin
+          profile-region: us-east-1
+          async: true
       - name: Fetch original N35 4-bit recycled/wide compiler-run artifacts without recompiling
         uses: actions/download-artifact@v4
         with:
