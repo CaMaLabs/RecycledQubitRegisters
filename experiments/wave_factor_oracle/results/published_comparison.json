@@ -1,0 +1,1376 @@
+{
+  "validation": {
+    "status": "PASS",
+    "published_primitive_basis_cases": 1360,
+    "published_adapter_N_P_cases": 992,
+    "random_coherent_basis_terms": 128
+  },
+  "reference": "https://arxiv.org/pdf/2603.18110v2",
+  "reference_section": "2.2.1, COMP-N-SUB-I steps 1-8, printed p.11",
+  "scope": "Executable primitive adaptation in common wrapper, not full authors divider",
+  "full_paper_layout_or_T_pair_optimization_implemented": false,
+  "resource_grid": [
+    {
+      "dividend_bits": 4,
+      "divisor_bits": 2,
+      "architectures": {
+        "history_baseline": {
+          "logical_qubits": 43,
+          "division_counts": {
+            "x": 86,
+            "cx": 85,
+            "ccx": 75
+          },
+          "oracle_counts": {
+            "x": 184,
+            "cx": 170,
+            "ccx": 164,
+            "z": 1
+          },
+          "oracle_total_gates": 519,
+          "oracle_schedule": {
+            "logical_gate_depth": 250,
+            "toffoli_weighted_dependency_depth": 112
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 1148,
+            "CNOT": 1154,
+            "depth": 1220,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "qrr_in_place": {
+          "logical_qubits": 19,
+          "division_counts": {
+            "x": 14,
+            "cx": 81,
+            "ccx": 51
+          },
+          "oracle_counts": {
+            "x": 40,
+            "cx": 162,
+            "ccx": 116,
+            "z": 1
+          },
+          "oracle_total_gates": 319,
+          "oracle_schedule": {
+            "logical_gate_depth": 226,
+            "toffoli_weighted_dependency_depth": 100
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 812,
+            "CNOT": 858,
+            "depth": 1086,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "published_cns_in_our_wrapper": {
+          "logical_qubits": 19,
+          "division_counts": {
+            "x": 46,
+            "cx": 57,
+            "ccx": 35
+          },
+          "oracle_counts": {
+            "x": 104,
+            "cx": 114,
+            "ccx": 84,
+            "z": 1
+          },
+          "oracle_total_gates": 303,
+          "oracle_schedule": {
+            "logical_gate_depth": 178,
+            "toffoli_weighted_dependency_depth": 82
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 588,
+            "CNOT": 618,
+            "depth": 887,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        }
+      }
+    },
+    {
+      "dividend_bits": 6,
+      "divisor_bits": 3,
+      "architectures": {
+        "history_baseline": {
+          "logical_qubits": 74,
+          "division_counts": {
+            "x": 166,
+            "ccx": 176,
+            "cx": 174
+          },
+          "oracle_counts": {
+            "x": 348,
+            "ccx": 370,
+            "cx": 348,
+            "z": 1
+          },
+          "oracle_total_gates": 1067,
+          "oracle_schedule": {
+            "logical_gate_depth": 480,
+            "toffoli_weighted_dependency_depth": 240
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 2590,
+            "CNOT": 2568,
+            "depth": 2571,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "qrr_in_place": {
+          "logical_qubits": 26,
+          "division_counts": {
+            "x": 22,
+            "ccx": 116,
+            "cx": 186
+          },
+          "oracle_counts": {
+            "x": 60,
+            "ccx": 250,
+            "cx": 372,
+            "z": 1
+          },
+          "oracle_total_gates": 683,
+          "oracle_schedule": {
+            "logical_gate_depth": 464,
+            "toffoli_weighted_dependency_depth": 200
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 1750,
+            "CNOT": 1872,
+            "depth": 2220,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "published_cns_in_our_wrapper": {
+          "logical_qubits": 26,
+          "division_counts": {
+            "x": 82,
+            "ccx": 74,
+            "cx": 126
+          },
+          "oracle_counts": {
+            "x": 180,
+            "ccx": 166,
+            "cx": 252,
+            "z": 1
+          },
+          "oracle_total_gates": 599,
+          "oracle_schedule": {
+            "logical_gate_depth": 354,
+            "toffoli_weighted_dependency_depth": 164
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 1162,
+            "CNOT": 1248,
+            "depth": 1734,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        }
+      }
+    },
+    {
+      "dividend_bits": 8,
+      "divisor_bits": 4,
+      "architectures": {
+        "history_baseline": {
+          "logical_qubits": 113,
+          "division_counts": {
+            "x": 270,
+            "ccx": 318,
+            "cx": 296
+          },
+          "oracle_counts": {
+            "x": 560,
+            "ccx": 658,
+            "cx": 592,
+            "z": 1
+          },
+          "oracle_total_gates": 1811,
+          "oracle_schedule": {
+            "logical_gate_depth": 782,
+            "toffoli_weighted_dependency_depth": 418
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 4606,
+            "CNOT": 4540,
+            "depth": 4448,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "qrr_in_place": {
+          "logical_qubits": 33,
+          "division_counts": {
+            "x": 30,
+            "ccx": 206,
+            "cx": 336
+          },
+          "oracle_counts": {
+            "x": 80,
+            "ccx": 434,
+            "cx": 672,
+            "z": 1
+          },
+          "oracle_total_gates": 1187,
+          "oracle_schedule": {
+            "logical_gate_depth": 782,
+            "toffoli_weighted_dependency_depth": 336
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 3038,
+            "CNOT": 3276,
+            "depth": 3746,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "published_cns_in_our_wrapper": {
+          "logical_qubits": 33,
+          "division_counts": {
+            "x": 126,
+            "ccx": 126,
+            "cx": 224
+          },
+          "oracle_counts": {
+            "x": 272,
+            "ccx": 274,
+            "cx": 448,
+            "z": 1
+          },
+          "oracle_total_gates": 995,
+          "oracle_schedule": {
+            "logical_gate_depth": 586,
+            "toffoli_weighted_dependency_depth": 272
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 1918,
+            "CNOT": 2092,
+            "depth": 2884,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        }
+      }
+    },
+    {
+      "dividend_bits": 9,
+      "divisor_bits": 5,
+      "architectures": {
+        "history_baseline": {
+          "logical_qubits": 146,
+          "division_counts": {
+            "x": 359,
+            "ccx": 450,
+            "cx": 405
+          },
+          "oracle_counts": {
+            "x": 742,
+            "ccx": 926,
+            "cx": 810,
+            "z": 1
+          },
+          "oracle_total_gates": 2479,
+          "oracle_schedule": {
+            "logical_gate_depth": 1042,
+            "toffoli_weighted_dependency_depth": 582
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 6482,
+            "CNOT": 6366,
+            "depth": 6168,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "qrr_in_place": {
+          "logical_qubits": 38,
+          "division_counts": {
+            "x": 35,
+            "ccx": 288,
+            "cx": 477
+          },
+          "oracle_counts": {
+            "x": 94,
+            "ccx": 602,
+            "cx": 954,
+            "z": 1
+          },
+          "oracle_total_gates": 1651,
+          "oracle_schedule": {
+            "logical_gate_depth": 1066,
+            "toffoli_weighted_dependency_depth": 456
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 4214,
+            "CNOT": 4566,
+            "depth": 5132,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "published_cns_in_our_wrapper": {
+          "logical_qubits": 38,
+          "division_counts": {
+            "x": 161,
+            "ccx": 171,
+            "cx": 315
+          },
+          "oracle_counts": {
+            "x": 346,
+            "ccx": 368,
+            "cx": 630,
+            "z": 1
+          },
+          "oracle_total_gates": 1345,
+          "oracle_schedule": {
+            "logical_gate_depth": 788,
+            "toffoli_weighted_dependency_depth": 366
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 2576,
+            "CNOT": 2838,
+            "depth": 3915,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        }
+      }
+    },
+    {
+      "dividend_bits": 12,
+      "divisor_bits": 6,
+      "architectures": {
+        "history_baseline": {
+          "logical_qubits": 217,
+          "division_counts": {
+            "x": 550,
+            "ccx": 722,
+            "cx": 636
+          },
+          "oracle_counts": {
+            "x": 1128,
+            "ccx": 1474,
+            "cx": 1272,
+            "z": 1
+          },
+          "oracle_total_gates": 3875,
+          "oracle_schedule": {
+            "logical_gate_depth": 1602,
+            "toffoli_weighted_dependency_depth": 918
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 10318,
+            "CNOT": 10116,
+            "depth": 9720,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "qrr_in_place": {
+          "logical_qubits": 49,
+          "division_counts": {
+            "x": 46,
+            "ccx": 458,
+            "cx": 768
+          },
+          "oracle_counts": {
+            "x": 120,
+            "ccx": 946,
+            "cx": 1536,
+            "z": 1
+          },
+          "oracle_total_gates": 2603,
+          "oracle_schedule": {
+            "logical_gate_depth": 1658,
+            "toffoli_weighted_dependency_depth": 704
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 6622,
+            "CNOT": 7212,
+            "depth": 7994,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "published_cns_in_our_wrapper": {
+          "logical_qubits": 49,
+          "division_counts": {
+            "x": 238,
+            "ccx": 266,
+            "cx": 504
+          },
+          "oracle_counts": {
+            "x": 504,
+            "ccx": 562,
+            "cx": 1008,
+            "z": 1
+          },
+          "oracle_total_gates": 2075,
+          "oracle_schedule": {
+            "logical_gate_depth": 1218,
+            "toffoli_weighted_dependency_depth": 560
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 3934,
+            "CNOT": 4380,
+            "depth": 6044,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        }
+      }
+    },
+    {
+      "dividend_bits": 16,
+      "divisor_bits": 8,
+      "architectures": {
+        "history_baseline": {
+          "logical_qubits": 353,
+          "division_counts": {
+            "x": 926,
+            "ccx": 1286,
+            "cx": 1104
+          },
+          "oracle_counts": {
+            "x": 1888,
+            "ccx": 2610,
+            "cx": 2208,
+            "z": 1
+          },
+          "oracle_total_gates": 6707,
+          "oracle_schedule": {
+            "logical_gate_depth": 2710,
+            "toffoli_weighted_dependency_depth": 1610
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 18270,
+            "CNOT": 17868,
+            "depth": 17008,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "qrr_in_place": {
+          "logical_qubits": 65,
+          "division_counts": {
+            "x": 62,
+            "ccx": 806,
+            "cx": 1376
+          },
+          "oracle_counts": {
+            "x": 160,
+            "ccx": 1650,
+            "cx": 2752,
+            "z": 1
+          },
+          "oracle_total_gates": 4563,
+          "oracle_schedule": {
+            "logical_gate_depth": 2854,
+            "toffoli_weighted_dependency_depth": 1200
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 11550,
+            "CNOT": 12652,
+            "depth": 13778,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "published_cns_in_our_wrapper": {
+          "logical_qubits": 65,
+          "division_counts": {
+            "x": 382,
+            "ccx": 454,
+            "cx": 896
+          },
+          "oracle_counts": {
+            "x": 800,
+            "ccx": 946,
+            "cx": 1792,
+            "z": 1
+          },
+          "oracle_total_gates": 3539,
+          "oracle_schedule": {
+            "logical_gate_depth": 2074,
+            "toffoli_weighted_dependency_depth": 944
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 6622,
+            "CNOT": 7468,
+            "depth": 10308,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        }
+      }
+    },
+    {
+      "dividend_bits": 32,
+      "divisor_bits": 16,
+      "architectures": {
+        "history_baseline": {
+          "logical_qubits": 1217,
+          "division_counts": {
+            "x": 3390,
+            "ccx": 5142,
+            "cx": 4256
+          },
+          "oracle_counts": {
+            "x": 6848,
+            "ccx": 10354,
+            "cx": 8512,
+            "z": 1
+          },
+          "oracle_total_gates": 25715,
+          "oracle_schedule": {
+            "logical_gate_depth": 10022,
+            "toffoli_weighted_dependency_depth": 6298
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 72478,
+            "CNOT": 70636,
+            "depth": 66320,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "qrr_in_place": {
+          "logical_qubits": 129,
+          "division_counts": {
+            "x": 126,
+            "ccx": 3158,
+            "cx": 5568
+          },
+          "oracle_counts": {
+            "x": 320,
+            "ccx": 6386,
+            "cx": 11136,
+            "z": 1
+          },
+          "oracle_total_gates": 17843,
+          "oracle_schedule": {
+            "logical_gate_depth": 10838,
+            "toffoli_weighted_dependency_depth": 4464
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 44702,
+            "CNOT": 49452,
+            "depth": 52274,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "published_cns_in_our_wrapper": {
+          "logical_qubits": 129,
+          "division_counts": {
+            "x": 1278,
+            "ccx": 1686,
+            "cx": 3584
+          },
+          "oracle_counts": {
+            "x": 2624,
+            "ccx": 3442,
+            "cx": 7168,
+            "z": 1
+          },
+          "oracle_total_gates": 13235,
+          "oracle_schedule": {
+            "logical_gate_depth": 7738,
+            "toffoli_weighted_dependency_depth": 3440
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 24094,
+            "CNOT": 27820,
+            "depth": 38404,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        }
+      }
+    },
+    {
+      "dividend_bits": 64,
+      "divisor_bits": 32,
+      "architectures": {
+        "history_baseline": {
+          "logical_qubits": 4481,
+          "division_counts": {
+            "x": 12926,
+            "ccx": 20534,
+            "cx": 16704
+          },
+          "oracle_counts": {
+            "x": 25984,
+            "ccx": 41202,
+            "cx": 33408,
+            "z": 1
+          },
+          "oracle_total_gates": 100595,
+          "oracle_schedule": {
+            "logical_gate_depth": 38470,
+            "toffoli_weighted_dependency_depth": 24890
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 288414,
+            "CNOT": 280620,
+            "depth": 261712,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "qrr_in_place": {
+          "logical_qubits": 257,
+          "division_counts": {
+            "x": 254,
+            "ccx": 12470,
+            "cx": 22400
+          },
+          "oracle_counts": {
+            "x": 640,
+            "ccx": 25074,
+            "cx": 44800,
+            "z": 1
+          },
+          "oracle_total_gates": 70515,
+          "oracle_schedule": {
+            "logical_gate_depth": 42166,
+            "toffoli_weighted_dependency_depth": 17136
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 175518,
+            "CNOT": 195244,
+            "depth": 202994,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        },
+        "published_cns_in_our_wrapper": {
+          "logical_qubits": 257,
+          "division_counts": {
+            "x": 4606,
+            "ccx": 6454,
+            "cx": 14336
+          },
+          "oracle_counts": {
+            "x": 9344,
+            "ccx": 13042,
+            "cx": 28672,
+            "z": 1
+          },
+          "oracle_total_gates": 51059,
+          "oracle_schedule": {
+            "logical_gate_depth": 29818,
+            "toffoli_weighted_dependency_depth": 13040
+          },
+          "uniform_clifford_t_oracle": {
+            "T_plus_Tdg": 91294,
+            "CNOT": 106924,
+            "depth": 147588,
+            "method": "Same Qiskit opt-level-0 exact Clifford+T decomposition; no routing"
+          }
+        }
+      }
+    }
+  ],
+  "final_postselection_cost_sweep": [
+    {
+      "N": 35,
+      "candidate_bits": 3,
+      "architecture": "history_baseline",
+      "round_sweep": [
+        {
+          "rounds": 0,
+          "success_probability": 0.24999999999999983,
+          "unitary_gates_per_attempt": 539,
+          "ccx_per_attempt": 185,
+          "attempts_per_success": 4.000000000000003,
+          "expected_unitary_gates_per_success": 2156.0000000000014,
+          "expected_ccx_per_success": 740.0000000000005
+        },
+        {
+          "rounds": 1,
+          "success_probability": 1.0,
+          "unitary_gates_per_attempt": 1621,
+          "ccx_per_attempt": 556,
+          "attempts_per_success": 1.0,
+          "expected_unitary_gates_per_success": 1621.0,
+          "expected_ccx_per_success": 556.0
+        },
+        {
+          "rounds": 2,
+          "success_probability": 0.2500000000000008,
+          "unitary_gates_per_attempt": 2703,
+          "ccx_per_attempt": 927,
+          "attempts_per_success": 3.9999999999999876,
+          "expected_unitary_gates_per_success": 10811.999999999967,
+          "expected_ccx_per_success": 3707.9999999999886
+        },
+        {
+          "rounds": 3,
+          "success_probability": 0.249999999999999,
+          "unitary_gates_per_attempt": 3785,
+          "ccx_per_attempt": 1298,
+          "attempts_per_success": 4.000000000000016,
+          "expected_unitary_gates_per_success": 15140.00000000006,
+          "expected_ccx_per_success": 5192.000000000021
+        },
+        {
+          "rounds": 4,
+          "success_probability": 1.0,
+          "unitary_gates_per_attempt": 4867,
+          "ccx_per_attempt": 1669,
+          "attempts_per_success": 1.0,
+          "expected_unitary_gates_per_success": 4867.0,
+          "expected_ccx_per_success": 1669.0
+        },
+        {
+          "rounds": 5,
+          "success_probability": 0.2500000000000012,
+          "unitary_gates_per_attempt": 5949,
+          "ccx_per_attempt": 2040,
+          "attempts_per_success": 3.9999999999999805,
+          "expected_unitary_gates_per_success": 23795.999999999884,
+          "expected_ccx_per_success": 8159.99999999996
+        },
+        {
+          "rounds": 6,
+          "success_probability": 0.24999999999999772,
+          "unitary_gates_per_attempt": 7031,
+          "ccx_per_attempt": 2411,
+          "attempts_per_success": 4.000000000000036,
+          "expected_unitary_gates_per_success": 28124.000000000255,
+          "expected_ccx_per_success": 9644.000000000087
+        }
+      ],
+      "best_ccx_rounds_retrospective": 1,
+      "selection_note": "Retrospective resource analysis using simulated solution probability; not a blind stopping algorithm",
+      "excluded_costs": [
+        "classical control",
+        "wall time",
+        "measurement duration",
+        "error correction",
+        "routing"
+      ]
+    },
+    {
+      "N": 35,
+      "candidate_bits": 3,
+      "architecture": "qrr_in_place",
+      "round_sweep": [
+        {
+          "rounds": 0,
+          "success_probability": 0.24999999999999983,
+          "unitary_gates_per_attempt": 347,
+          "ccx_per_attempt": 125,
+          "attempts_per_success": 4.000000000000003,
+          "expected_unitary_gates_per_success": 1388.000000000001,
+          "expected_ccx_per_success": 500.00000000000034
+        },
+        {
+          "rounds": 1,
+          "success_probability": 1.0,
+          "unitary_gates_per_attempt": 1045,
+          "ccx_per_attempt": 376,
+          "attempts_per_success": 1.0,
+          "expected_unitary_gates_per_success": 1045.0,
+          "expected_ccx_per_success": 376.0
+        },
+        {
+          "rounds": 2,
+          "success_probability": 0.2500000000000008,
+          "unitary_gates_per_attempt": 1743,
+          "ccx_per_attempt": 627,
+          "attempts_per_success": 3.9999999999999876,
+          "expected_unitary_gates_per_success": 6971.999999999978,
+          "expected_ccx_per_success": 2507.9999999999923
+        },
+        {
+          "rounds": 3,
+          "success_probability": 0.249999999999999,
+          "unitary_gates_per_attempt": 2441,
+          "ccx_per_attempt": 878,
+          "attempts_per_success": 4.000000000000016,
+          "expected_unitary_gates_per_success": 9764.000000000038,
+          "expected_ccx_per_success": 3512.000000000014
+        },
+        {
+          "rounds": 4,
+          "success_probability": 1.0,
+          "unitary_gates_per_attempt": 3139,
+          "ccx_per_attempt": 1129,
+          "attempts_per_success": 1.0,
+          "expected_unitary_gates_per_success": 3139.0,
+          "expected_ccx_per_success": 1129.0
+        },
+        {
+          "rounds": 5,
+          "success_probability": 0.2500000000000012,
+          "unitary_gates_per_attempt": 3837,
+          "ccx_per_attempt": 1380,
+          "attempts_per_success": 3.9999999999999805,
+          "expected_unitary_gates_per_success": 15347.999999999925,
+          "expected_ccx_per_success": 5519.999999999973
+        },
+        {
+          "rounds": 6,
+          "success_probability": 0.24999999999999772,
+          "unitary_gates_per_attempt": 4535,
+          "ccx_per_attempt": 1631,
+          "attempts_per_success": 4.000000000000036,
+          "expected_unitary_gates_per_success": 18140.000000000164,
+          "expected_ccx_per_success": 6524.000000000059
+        }
+      ],
+      "best_ccx_rounds_retrospective": 1,
+      "selection_note": "Retrospective resource analysis using simulated solution probability; not a blind stopping algorithm",
+      "excluded_costs": [
+        "classical control",
+        "wall time",
+        "measurement duration",
+        "error correction",
+        "routing"
+      ]
+    },
+    {
+      "N": 35,
+      "candidate_bits": 3,
+      "architecture": "published_cns_in_our_wrapper",
+      "round_sweep": [
+        {
+          "rounds": 0,
+          "success_probability": 0.24999999999999983,
+          "unitary_gates_per_attempt": 305,
+          "ccx_per_attempt": 83,
+          "attempts_per_success": 4.000000000000003,
+          "expected_unitary_gates_per_success": 1220.000000000001,
+          "expected_ccx_per_success": 332.0000000000002
+        },
+        {
+          "rounds": 1,
+          "success_probability": 1.0,
+          "unitary_gates_per_attempt": 919,
+          "ccx_per_attempt": 250,
+          "attempts_per_success": 1.0,
+          "expected_unitary_gates_per_success": 919.0,
+          "expected_ccx_per_success": 250.0
+        },
+        {
+          "rounds": 2,
+          "success_probability": 0.2500000000000008,
+          "unitary_gates_per_attempt": 1533,
+          "ccx_per_attempt": 417,
+          "attempts_per_success": 3.9999999999999876,
+          "expected_unitary_gates_per_success": 6131.999999999981,
+          "expected_ccx_per_success": 1667.9999999999948
+        },
+        {
+          "rounds": 3,
+          "success_probability": 0.249999999999999,
+          "unitary_gates_per_attempt": 2147,
+          "ccx_per_attempt": 584,
+          "attempts_per_success": 4.000000000000016,
+          "expected_unitary_gates_per_success": 8588.000000000035,
+          "expected_ccx_per_success": 2336.0000000000095
+        },
+        {
+          "rounds": 4,
+          "success_probability": 1.0,
+          "unitary_gates_per_attempt": 2761,
+          "ccx_per_attempt": 751,
+          "attempts_per_success": 1.0,
+          "expected_unitary_gates_per_success": 2761.0,
+          "expected_ccx_per_success": 751.0
+        },
+        {
+          "rounds": 5,
+          "success_probability": 0.2500000000000012,
+          "unitary_gates_per_attempt": 3375,
+          "ccx_per_attempt": 918,
+          "attempts_per_success": 3.9999999999999805,
+          "expected_unitary_gates_per_success": 13499.999999999935,
+          "expected_ccx_per_success": 3671.9999999999823
+        },
+        {
+          "rounds": 6,
+          "success_probability": 0.24999999999999772,
+          "unitary_gates_per_attempt": 3989,
+          "ccx_per_attempt": 1085,
+          "attempts_per_success": 4.000000000000036,
+          "expected_unitary_gates_per_success": 15956.000000000146,
+          "expected_ccx_per_success": 4340.000000000039
+        }
+      ],
+      "best_ccx_rounds_retrospective": 1,
+      "selection_note": "Retrospective resource analysis using simulated solution probability; not a blind stopping algorithm",
+      "excluded_costs": [
+        "classical control",
+        "wall time",
+        "measurement duration",
+        "error correction",
+        "routing"
+      ]
+    },
+    {
+      "N": 323,
+      "candidate_bits": 5,
+      "architecture": "history_baseline",
+      "round_sweep": [
+        {
+          "rounds": 0,
+          "success_probability": 0.062499999999999944,
+          "unitary_gates_per_attempt": 1248,
+          "ccx_per_attempt": 463,
+          "attempts_per_success": 16.000000000000014,
+          "expected_unitary_gates_per_success": 19968.00000000002,
+          "expected_ccx_per_success": 7408.000000000006
+        },
+        {
+          "rounds": 1,
+          "success_probability": 0.47265624999999956,
+          "unitary_gates_per_attempt": 3754,
+          "ccx_per_attempt": 1394,
+          "attempts_per_success": 2.115702479338845,
+          "expected_unitary_gates_per_success": 7942.347107438024,
+          "expected_ccx_per_success": 2949.28925619835
+        },
+        {
+          "rounds": 2,
+          "success_probability": 0.9084472656249998,
+          "unitary_gates_per_attempt": 6260,
+          "ccx_per_attempt": 2325,
+          "attempts_per_success": 1.100779360386993,
+          "expected_unitary_gates_per_success": 6890.878796022576,
+          "expected_ccx_per_success": 2559.312012899759
+        },
+        {
+          "rounds": 3,
+          "success_probability": 0.9613189697265629,
+          "unitary_gates_per_attempt": 8766,
+          "ccx_per_attempt": 3256,
+          "attempts_per_success": 1.0402374565483083,
+          "expected_unitary_gates_per_success": 9118.721544102471,
+          "expected_ccx_per_success": 3387.0131585212916
+        },
+        {
+          "rounds": 4,
+          "success_probability": 0.5817041397094739,
+          "unitary_gates_per_attempt": 11272,
+          "ccx_per_attempt": 4187,
+          "attempts_per_success": 1.7190869580186239,
+          "expected_unitary_gates_per_success": 19377.54819078593,
+          "expected_ccx_per_success": 7197.817093223978
+        },
+        {
+          "rounds": 5,
+          "success_probability": 0.1254916787147531,
+          "unitary_gates_per_attempt": 13778,
+          "ccx_per_attempt": 5118,
+          "attempts_per_success": 7.968655852258015,
+          "expected_unitary_gates_per_success": 109792.14033241093,
+          "expected_ccx_per_success": 40783.58065185652
+        },
+        {
+          "rounds": 6,
+          "success_probability": 0.020380768924951134,
+          "unitary_gates_per_attempt": 16284,
+          "ccx_per_attempt": 6049,
+          "attempts_per_success": 49.065862219543206,
+          "expected_unitary_gates_per_success": 798988.5003830416,
+          "expected_ccx_per_success": 296799.40056601685
+        }
+      ],
+      "best_ccx_rounds_retrospective": 2,
+      "selection_note": "Retrospective resource analysis using simulated solution probability; not a blind stopping algorithm",
+      "excluded_costs": [
+        "classical control",
+        "wall time",
+        "measurement duration",
+        "error correction",
+        "routing"
+      ]
+    },
+    {
+      "N": 323,
+      "candidate_bits": 5,
+      "architecture": "qrr_in_place",
+      "round_sweep": [
+        {
+          "rounds": 0,
+          "success_probability": 0.062499999999999944,
+          "unitary_gates_per_attempt": 834,
+          "ccx_per_attempt": 301,
+          "attempts_per_success": 16.000000000000014,
+          "expected_unitary_gates_per_success": 13344.000000000013,
+          "expected_ccx_per_success": 4816.000000000005
+        },
+        {
+          "rounds": 1,
+          "success_probability": 0.47265624999999956,
+          "unitary_gates_per_attempt": 2512,
+          "ccx_per_attempt": 908,
+          "attempts_per_success": 2.115702479338845,
+          "expected_unitary_gates_per_success": 5314.644628099179,
+          "expected_ccx_per_success": 1921.0578512396712
+        },
+        {
+          "rounds": 2,
+          "success_probability": 0.9084472656249998,
+          "unitary_gates_per_attempt": 4190,
+          "ccx_per_attempt": 1515,
+          "attempts_per_success": 1.100779360386993,
+          "expected_unitary_gates_per_success": 4612.2655200215,
+          "expected_ccx_per_success": 1667.6807309862945
+        },
+        {
+          "rounds": 3,
+          "success_probability": 0.9613189697265629,
+          "unitary_gates_per_attempt": 5868,
+          "ccx_per_attempt": 2122,
+          "attempts_per_success": 1.0402374565483083,
+          "expected_unitary_gates_per_success": 6104.1133950254725,
+          "expected_ccx_per_success": 2207.38388279551
+        },
+        {
+          "rounds": 4,
+          "success_probability": 0.5817041397094739,
+          "unitary_gates_per_attempt": 7546,
+          "ccx_per_attempt": 2729,
+          "attempts_per_success": 1.7190869580186239,
+          "expected_unitary_gates_per_success": 12972.230185208535,
+          "expected_ccx_per_success": 4691.3883084328245
+        },
+        {
+          "rounds": 5,
+          "success_probability": 0.1254916787147531,
+          "unitary_gates_per_attempt": 9224,
+          "ccx_per_attempt": 3336,
+          "attempts_per_success": 7.968655852258015,
+          "expected_unitary_gates_per_success": 73502.88158122794,
+          "expected_ccx_per_success": 26583.43592313274
+        },
+        {
+          "rounds": 6,
+          "success_probability": 0.020380768924951134,
+          "unitary_gates_per_attempt": 10902,
+          "ccx_per_attempt": 3943,
+          "attempts_per_success": 49.065862219543206,
+          "expected_unitary_gates_per_success": 534916.02991746,
+          "expected_ccx_per_success": 193466.69473165885
+        }
+      ],
+      "best_ccx_rounds_retrospective": 2,
+      "selection_note": "Retrospective resource analysis using simulated solution probability; not a blind stopping algorithm",
+      "excluded_costs": [
+        "classical control",
+        "wall time",
+        "measurement duration",
+        "error correction",
+        "routing"
+      ]
+    },
+    {
+      "N": 323,
+      "candidate_bits": 5,
+      "architecture": "published_cns_in_our_wrapper",
+      "round_sweep": [
+        {
+          "rounds": 0,
+          "success_probability": 0.062499999999999944,
+          "unitary_gates_per_attempt": 681,
+          "ccx_per_attempt": 184,
+          "attempts_per_success": 16.000000000000014,
+          "expected_unitary_gates_per_success": 10896.00000000001,
+          "expected_ccx_per_success": 2944.0000000000027
+        },
+        {
+          "rounds": 1,
+          "success_probability": 0.47265624999999956,
+          "unitary_gates_per_attempt": 2053,
+          "ccx_per_attempt": 557,
+          "attempts_per_success": 2.115702479338845,
+          "expected_unitary_gates_per_success": 4343.5371900826485,
+          "expected_ccx_per_success": 1178.4462809917366
+        },
+        {
+          "rounds": 2,
+          "success_probability": 0.9084472656249998,
+          "unitary_gates_per_attempt": 3425,
+          "ccx_per_attempt": 930,
+          "attempts_per_success": 1.100779360386993,
+          "expected_unitary_gates_per_success": 3770.169309325451,
+          "expected_ccx_per_success": 1023.7248051599036
+        },
+        {
+          "rounds": 3,
+          "success_probability": 0.9613189697265629,
+          "unitary_gates_per_attempt": 4797,
+          "ccx_per_attempt": 1303,
+          "attempts_per_success": 1.0402374565483083,
+          "expected_unitary_gates_per_success": 4990.019079062235,
+          "expected_ccx_per_success": 1355.4294058824457
+        },
+        {
+          "rounds": 4,
+          "success_probability": 0.5817041397094739,
+          "unitary_gates_per_attempt": 6169,
+          "ccx_per_attempt": 1676,
+          "attempts_per_success": 1.7190869580186239,
+          "expected_unitary_gates_per_success": 10605.047444016891,
+          "expected_ccx_per_success": 2881.1897416392135
+        },
+        {
+          "rounds": 5,
+          "success_probability": 0.1254916787147531,
+          "unitary_gates_per_attempt": 7541,
+          "ccx_per_attempt": 2049,
+          "attempts_per_success": 7.968655852258015,
+          "expected_unitary_gates_per_success": 60091.633781877696,
+          "expected_ccx_per_success": 16327.775841276673
+        },
+        {
+          "rounds": 6,
+          "success_probability": 0.020380768924951134,
+          "unitary_gates_per_attempt": 8913,
+          "ccx_per_attempt": 2422,
+          "attempts_per_success": 49.065862219543206,
+          "expected_unitary_gates_per_success": 437324.02996278857,
+          "expected_ccx_per_success": 118837.51829573364
+        }
+      ],
+      "best_ccx_rounds_retrospective": 2,
+      "selection_note": "Retrospective resource analysis using simulated solution probability; not a blind stopping algorithm",
+      "excluded_costs": [
+        "classical control",
+        "wall time",
+        "measurement duration",
+        "error correction",
+        "routing"
+      ]
+    },
+    {
+      "N": 331,
+      "candidate_bits": 5,
+      "architecture": "history_baseline",
+      "round_sweep": [
+        {
+          "rounds": 0,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 1249,
+          "ccx_per_attempt": 463,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 1,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 3755,
+          "ccx_per_attempt": 1394,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 2,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 6261,
+          "ccx_per_attempt": 2325,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 3,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 8767,
+          "ccx_per_attempt": 3256,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 4,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 11273,
+          "ccx_per_attempt": 4187,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 5,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 13779,
+          "ccx_per_attempt": 5118,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 6,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 16285,
+          "ccx_per_attempt": 6049,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        }
+      ],
+      "best_ccx_rounds_retrospective": null,
+      "selection_note": "Retrospective resource analysis using simulated solution probability; not a blind stopping algorithm",
+      "excluded_costs": [
+        "classical control",
+        "wall time",
+        "measurement duration",
+        "error correction",
+        "routing"
+      ]
+    },
+    {
+      "N": 331,
+      "candidate_bits": 5,
+      "architecture": "qrr_in_place",
+      "round_sweep": [
+        {
+          "rounds": 0,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 835,
+          "ccx_per_attempt": 301,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 1,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 2513,
+          "ccx_per_attempt": 908,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 2,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 4191,
+          "ccx_per_attempt": 1515,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 3,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 5869,
+          "ccx_per_attempt": 2122,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 4,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 7547,
+          "ccx_per_attempt": 2729,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 5,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 9225,
+          "ccx_per_attempt": 3336,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 6,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 10903,
+          "ccx_per_attempt": 3943,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        }
+      ],
+      "best_ccx_rounds_retrospective": null,
+      "selection_note": "Retrospective resource analysis using simulated solution probability; not a blind stopping algorithm",
+      "excluded_costs": [
+        "classical control",
+        "wall time",
+        "measurement duration",
+        "error correction",
+        "routing"
+      ]
+    },
+    {
+      "N": 331,
+      "candidate_bits": 5,
+      "architecture": "published_cns_in_our_wrapper",
+      "round_sweep": [
+        {
+          "rounds": 0,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 682,
+          "ccx_per_attempt": 184,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 1,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 2054,
+          "ccx_per_attempt": 557,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 2,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 3426,
+          "ccx_per_attempt": 930,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 3,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 4798,
+          "ccx_per_attempt": 1303,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 4,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 6170,
+          "ccx_per_attempt": 1676,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 5,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 7542,
+          "ccx_per_attempt": 2049,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        },
+        {
+          "rounds": 6,
+          "success_probability": 0.0,
+          "unitary_gates_per_attempt": 8914,
+          "ccx_per_attempt": 2422,
+          "attempts_per_success": null,
+          "expected_unitary_gates_per_success": null,
+          "expected_ccx_per_success": null
+        }
+      ],
+      "best_ccx_rounds_retrospective": null,
+      "selection_note": "Retrospective resource analysis using simulated solution probability; not a blind stopping algorithm",
+      "excluded_costs": [
+        "classical control",
+        "wall time",
+        "measurement duration",
+        "error correction",
+        "routing"
+      ]
+    }
+  ],
+  "wall_seconds": 8.708828463999453
+}

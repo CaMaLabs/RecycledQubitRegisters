@@ -10,6 +10,19 @@ clean workspace reuse, qudit register encodings and matched Qiskit checks.
 It is separate from the repository's Shor order-finding hardware benchmarks.
 These experiments use Grover-style divisor search, not Shor's algorithm.
 
+## Published-design comparison
+
+The [matched comparison](comparison/REPORT.md) now includes an executable
+COMP-N-SUB-I component from arXiv:2603.18110v2 inside our existing wrapper.
+It outperforms our optimized arithmetic: 166 vs 250 Toffolis per oracle for 35,
+and 368 vs 602 for 323, at identical logical width. This is a compatible
+component comparison, not a reproduction of the paper's full divider.
+
+The runner supports `--architecture published-cns` (default remains `qrr`).
+For 323, two rounds minimize expected Toffoli cost over the tested sweep;
+filter-only postselection remains valid but rejects most preparations. Full
+results, assumptions and tests are linked in the report.
+
 ## Run locally with Qiskit
 
 From the repository root:
@@ -103,10 +116,12 @@ python -m unittest discover -s experiments/wave_factor_oracle -p 'test_*.py' -v
 python experiments/wave_factor_oracle/optimized_divisor_oracle/optimized_division.py --selftest
 ```
 
-Five Aer tests cover unamplified and amplified probabilities, the 38-qubit
+The original five Aer tests cover unamplified and amplified probabilities, the 38-qubit
 divider, prime/no-solution behavior and QASM import/execution. Arithmetic tests
 include 680 adder cases, 480 divider/baseline cases, random coherent target and
 candidate superpositions, and seven end-to-end Grover comparisons.
+Additional comparison tests cover the published primitive, full adapter,
+coherent target superpositions and filter-only acceptance accounting.
 
 The path-scoped GitHub Actions workflow runs these tests and all earlier small
 selftests. The explicit dense stress scripts remain opt-in because they need

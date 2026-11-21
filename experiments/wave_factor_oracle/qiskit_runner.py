@@ -28,10 +28,16 @@ def append_operations(circuit,ops):
         getattr(circuit,name)(*bits)
 
 
-def build_circuit(n,pbits=3,iterations=1,*,diagnostics=True,measure=True):
+def build_circuit(n,pbits=3,iterations=1,*,diagnostics=True,measure=True,architecture='qrr'):
     if n<4 or n.bit_length()>24 or not 2<=pbits<=8 or not 0<=iterations<=1000:
         raise ValueError('Require 4<=N<2**24, 2<=candidate bits<=8, 0<=iterations<=1000')
-    layout,division,mark,oracle=arithmetic.build(n.bit_length(),pbits)
+    if architecture=='qrr':
+        builder=arithmetic.build
+    elif architecture=='published-cns':
+        from comparison.published_2026 import build as builder
+    else:
+        raise ValueError('Unknown architecture')
+    layout,division,mark,oracle=builder(n.bit_length(),pbits)
     if layout.qubits>64:
         raise ValueError('Local demonstration capped at 64 logical qubits')
     selected=layout.registers['P']+layout.registers['Q']+layout.registers['good']
@@ -62,7 +68,7 @@ def build_circuit(n,pbits=3,iterations=1,*,diagnostics=True,measure=True):
         circuit.save_probabilities_dict(layout.registers['good'],label='good_probability')
     if measure:
         circuit.measure(selected,list(range(len(selected))))
-    circuit.metadata={'N':n,'candidate_bits':pbits,'iterations':iterations,
+    circuit.metadata={'N':n,'candidate_bits':pbits,'iterations':iterations,'architecture':architecture,
                       'registers_little_endian':layout.registers,
                       'readout_order_little_endian':selected,
                       'oracle_gates':len(oracle),
@@ -70,11 +76,11 @@ def build_circuit(n,pbits=3,iterations=1,*,diagnostics=True,measure=True):
     return circuit,layout
 
 
-def run(n=35,pbits=3,iterations=1,shots=2000,seed=12345):
+def run(n=35,pbits=3,iterations=1,shots=2000,seed=12345,*,architecture='qrr'):
     if not 1<=shots<=100000:
         raise ValueError('Require 1<=shots<=100000')
     start=time.perf_counter()
-    circuit,layout=build_circuit(n,pbits,iterations)
+    circuit,layout=build_circuit(n,pbits,iterations,architecture=architecture)
     simulator=AerSimulator(method='matrix_product_state',
         matrix_product_state_truncation_threshold=0.0,
         matrix_product_state_max_bond_dimension=None,
@@ -113,7 +119,7 @@ def run(n=35,pbits=3,iterations=1,shots=2000,seed=12345):
         raise AssertionError('Shot accounting mismatch')
     return {
         'status':'PASS_QISKIT_AER_REFERENCE_AGREEMENT',
-        'N':n,'candidate_qubits':pbits,'logical_qubits':layout.qubits,
+        'N':n,'candidate_qubits':pbits,'logical_qubits':layout.qubits,'architecture':architecture,
         'iterations':iterations,'shots':shots,'seed':seed,
         'accepted_shots':sum(factors.values()),'rejected_shots':rejected,
         'measured_factor_pairs':dict(sorted(factors.items())),
@@ -142,13 +148,14 @@ def main():
     parser.add_argument('--iterations',type=int,default=1)
     parser.add_argument('--shots',type=int,default=2000)
     parser.add_argument('--seed',type=int,default=12345)
+    parser.add_argument('--architecture',choices=['qrr','published-cns'],default='qrr')
     parser.add_argument('--output',type=Path)
     parser.add_argument('--qasm',type=Path)
     args=parser.parse_args()
     try:
-        report=run(args.N,args.candidate_qubits,args.iterations,args.shots,args.seed)
+        report=run(args.N,args.candidate_qubits,args.iterations,args.shots,args.seed,architecture=args.architecture)
         if args.qasm:
-            circuit,_=build_circuit(args.N,args.candidate_qubits,args.iterations,diagnostics=False)
+            circuit,_=build_circuit(args.N,args.candidate_qubits,args.iterations,diagnostics=False,architecture=args.architecture)
             args.qasm.parent.mkdir(parents=True,exist_ok=True)
             qasm2.dump(circuit,args.qasm)
     except ValueError as error:

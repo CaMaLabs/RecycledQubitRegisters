@@ -41,4 +41,4 @@ jobs:
           python expanded_qudit_registers/expanded_registers.py --selftest
           python qudit_constraint_solver/qudit_factor.py --selftest
       - name: Verify Qiskit Aer and QASM interoperability
-        run: python -m unittest -v test_qiskit_runner
+        run: python -m unittest discover -p 'test_*.py' -v
