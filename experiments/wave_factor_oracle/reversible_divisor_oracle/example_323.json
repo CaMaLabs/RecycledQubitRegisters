@@ -1,0 +1,44 @@
+{
+  "N": 323,
+  "candidate_qubits": 5,
+  "total_qubits": 146,
+  "candidate_capacity": 32,
+  "candidate_range": [
+    0,
+    31
+  ],
+  "validity": "P>=2, Q>=2 and R=0, computed reversibly",
+  "iterations": 3,
+  "success_history": [
+    0.06249999999999995,
+    0.4726562499999988,
+    0.9084472656249967,
+    0.9613189697265583
+  ],
+  "shots": 2000,
+  "accepted_shots": 1933,
+  "measured_factor_pairs": {
+    "17*19": 999,
+    "19*17": 934
+  },
+  "gate_counts_per_oracle": {
+    "x": 742,
+    "ccx": 926,
+    "cx": 810,
+    "z": 1
+  },
+  "division_gates": 1214,
+  "oracle_gates": 2479,
+  "postselection_readout_gates": 1239,
+  "scratch_clean_after_each_oracle": true,
+  "cofactor_from_quantum_quotient_register": true,
+  "answer_lookup_or_classical_factor_preparation": false,
+  "oracle_compiler_inputs": [
+    "N register width",
+    "P register width"
+  ],
+  "sparse_basis_states_before_measurement": 32,
+  "norm": 0.9999999999999958,
+  "scope": "Exact sparse gate simulation; generic non-optimized reversible divider",
+  "coverage": "At least one nontrivial divisor must fit P; no success is not a primality proof."
+}

@@ -1,0 +1,445 @@
+{
+  "scope": "original code unchanged; ideal classical simulation only",
+  "dense_cases": [
+    {
+      "N": 35,
+      "d": 2,
+      "digits": 3,
+      "max_factor": 7,
+      "iterations": 2,
+      "seconds": 0.020211861000007048,
+      "amplitudes": 4096,
+      "single_state_bytes": 65536,
+      "baseline_probability": 0.05555555555555555,
+      "final_probability": 0.8616657352368371,
+      "accepted_shots": 869,
+      "accepted_counts": {
+        "5*7": 454,
+        "7*5": 415
+      },
+      "classical_factor_diagnostic": [
+        5,
+        7
+      ],
+      "classical_trial_division_seconds": 2.2356000044965185e-05
+    },
+    {
+      "N": 35,
+      "d": 3,
+      "digits": 2,
+      "max_factor": 7,
+      "iterations": 2,
+      "seconds": 0.00787304999994376,
+      "amplitudes": 6561,
+      "single_state_bytes": 104976,
+      "baseline_probability": 0.05555555555555555,
+      "final_probability": 0.8616657352368371,
+      "accepted_shots": 869,
+      "accepted_counts": {
+        "5*7": 454,
+        "7*5": 415
+      },
+      "classical_factor_diagnostic": [
+        5,
+        7
+      ],
+      "classical_trial_division_seconds": 2.6160000743402634e-06
+    },
+    {
+      "N": 529,
+      "d": 3,
+      "digits": 3,
+      "max_factor": 26,
+      "iterations": 19,
+      "seconds": 0.4182011410002815,
+      "amplitudes": 531441,
+      "single_state_bytes": 8503056,
+      "baseline_probability": 0.0016,
+      "final_probability": 0.9998922589093064,
+      "accepted_shots": 1000,
+      "accepted_counts": {
+        "23*23": 1000
+      },
+      "classical_factor_diagnostic": [
+        23,
+        23
+      ],
+      "classical_trial_division_seconds": 3.081999693677062e-06
+    },
+    {
+      "N": 899,
+      "d": 2,
+      "digits": 5,
+      "max_factor": 31,
+      "iterations": 16,
+      "seconds": 0.5253496509999422,
+      "amplitudes": 1048576,
+      "single_state_bytes": 16777216,
+      "baseline_probability": 0.0022222222222222222,
+      "final_probability": 0.999787302477644,
+      "accepted_shots": 1000,
+      "accepted_counts": {
+        "29*31": 526,
+        "31*29": 474
+      },
+      "classical_factor_diagnostic": [
+        29,
+        31
+      ],
+      "classical_trial_division_seconds": 4.0350000745092984e-06
+    },
+    {
+      "N": 899,
+      "d": 37,
+      "digits": 1,
+      "max_factor": 31,
+      "iterations": 16,
+      "seconds": 0.7650030030004018,
+      "amplitudes": 1874161,
+      "single_state_bytes": 29986576,
+      "baseline_probability": 0.0022222222222222222,
+      "final_probability": 0.9997873024775307,
+      "accepted_shots": 1000,
+      "accepted_counts": {
+        "29*31": 526,
+        "31*29": 474
+      },
+      "classical_factor_diagnostic": [
+        29,
+        31
+      ],
+      "classical_trial_division_seconds": 5.764999968960183e-06
+    },
+    {
+      "N": 961,
+      "d": 2,
+      "digits": 5,
+      "max_factor": 31,
+      "iterations": 23,
+      "seconds": 0.6967043310000918,
+      "amplitudes": 1048576,
+      "single_state_bytes": 16777216,
+      "baseline_probability": 0.0011111111111111111,
+      "final_probability": 0.999985259145216,
+      "accepted_shots": 1000,
+      "accepted_counts": {
+        "31*31": 1000
+      },
+      "classical_factor_diagnostic": [
+        31,
+        31
+      ],
+      "classical_trial_division_seconds": 3.4479999158065766e-06
+    },
+    {
+      "N": 1296,
+      "d": 37,
+      "digits": 1,
+      "max_factor": 36,
+      "iterations": 27,
+      "seconds": 1.227560191000066,
+      "amplitudes": 1874161,
+      "single_state_bytes": 29986576,
+      "baseline_probability": 0.0008163265306122448,
+      "final_probability": 0.9999992840759817,
+      "accepted_shots": 1000,
+      "accepted_counts": {
+        "36*36": 1000
+      },
+      "classical_factor_diagnostic": [
+        2,
+        648
+      ],
+      "classical_trial_division_seconds": 3.693000053317519e-06
+    },
+    {
+      "N": 74,
+      "d": 37,
+      "digits": 1,
+      "max_factor": 36,
+      "iterations": 2,
+      "seconds": 0.1552833420000752,
+      "amplitudes": 1874161,
+      "single_state_bytes": 29986576,
+      "baseline_probability": 0.0,
+      "final_probability": 0.0,
+      "accepted_shots": 0,
+      "accepted_counts": {},
+      "classical_factor_diagnostic": [
+        2,
+        37
+      ],
+      "classical_trial_division_seconds": 4.074000116816023e-06
+    }
+  ],
+  "memory_guard_rejections": [
+    {
+      "d": 3,
+      "digits": 4,
+      "error": "Dense simulator limited to 2,000,000 amplitudes",
+      "required_amplitudes": 43046721
+    },
+    {
+      "d": 2,
+      "digits": 6,
+      "error": "Dense simulator limited to 2,000,000 amplitudes",
+      "required_amplitudes": 16777216
+    },
+    {
+      "d": 38,
+      "digits": 1,
+      "error": "Dense simulator limited to 2,000,000 amplitudes",
+      "required_amplitudes": 2085136
+    }
+  ],
+  "unknown_count_schedule": [
+    {
+      "N": 899,
+      "seed": 12345,
+      "status": "FOUND",
+      "pair": [
+        29,
+        31
+      ],
+      "oracle_uses": 16,
+      "verification_runs": 11,
+      "multiplication_permutations": 43,
+      "seconds": 0.7777128669999911,
+      "attempts": [
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 1,
+          "accepted": false
+        },
+        {
+          "k": 2,
+          "accepted": false
+        },
+        {
+          "k": 1,
+          "accepted": false
+        },
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 2,
+          "accepted": false
+        },
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 4,
+          "accepted": false
+        },
+        {
+          "k": 6,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "N": 899,
+      "seed": 23456,
+      "status": "FOUND",
+      "pair": [
+        29,
+        31
+      ],
+      "oracle_uses": 11,
+      "verification_runs": 9,
+      "multiplication_permutations": 31,
+      "seconds": 0.5756783769998037,
+      "attempts": [
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 1,
+          "accepted": false
+        },
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 1,
+          "accepted": false
+        },
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 2,
+          "accepted": false
+        },
+        {
+          "k": 1,
+          "accepted": false
+        },
+        {
+          "k": 2,
+          "accepted": false
+        },
+        {
+          "k": 4,
+          "accepted": true
+        }
+      ]
+    },
+    {
+      "N": 899,
+      "seed": 34567,
+      "status": "FOUND",
+      "pair": [
+        29,
+        31
+      ],
+      "oracle_uses": 38,
+      "verification_runs": 16,
+      "multiplication_permutations": 92,
+      "seconds": 1.5310311429998364,
+      "attempts": [
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 1,
+          "accepted": false
+        },
+        {
+          "k": 1,
+          "accepted": false
+        },
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 2,
+          "accepted": false
+        },
+        {
+          "k": 1,
+          "accepted": false
+        },
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 1,
+          "accepted": false
+        },
+        {
+          "k": 2,
+          "accepted": false
+        },
+        {
+          "k": 5,
+          "accepted": false
+        },
+        {
+          "k": 1,
+          "accepted": false
+        },
+        {
+          "k": 7,
+          "accepted": false
+        },
+        {
+          "k": 7,
+          "accepted": false
+        },
+        {
+          "k": 5,
+          "accepted": false
+        },
+        {
+          "k": 0,
+          "accepted": false
+        },
+        {
+          "k": 5,
+          "accepted": true
+        }
+      ]
+    }
+  ],
+  "coverage_diagnostic": {
+    "8": {
+      "first_composite_outside_pair_coverage": 22,
+      "largest_supported_product": 64,
+      "largest_supported_semiprime": 49,
+      "supported_composites": 25
+    },
+    "26": {
+      "first_composite_outside_pair_coverage": 58,
+      "largest_supported_product": 676,
+      "largest_supported_semiprime": 529,
+      "supported_composites": 229
+    },
+    "31": {
+      "first_composite_outside_pair_coverage": 74,
+      "largest_supported_product": 961,
+      "largest_supported_semiprime": 961,
+      "supported_composites": 327
+    },
+    "36": {
+      "first_composite_outside_pair_coverage": 74,
+      "largest_supported_product": 1296,
+      "largest_supported_semiprime": 961,
+      "supported_composites": 411
+    }
+  },
+  "asymptotic_projections_not_runs": [
+    {
+      "target_bits": 16,
+      "approx_log2_best_iteration_count": 7.151496129472319,
+      "assumption": "balanced semiprime; B~sqrt(N), K~N, S=2"
+    },
+    {
+      "target_bits": 32,
+      "approx_log2_best_iteration_count": 15.151496129472319,
+      "assumption": "balanced semiprime; B~sqrt(N), K~N, S=2"
+    },
+    {
+      "target_bits": 64,
+      "approx_log2_best_iteration_count": 31.151496129472317,
+      "assumption": "balanced semiprime; B~sqrt(N), K~N, S=2"
+    },
+    {
+      "target_bits": 128,
+      "approx_log2_best_iteration_count": 63.15149612947232,
+      "assumption": "balanced semiprime; B~sqrt(N), K~N, S=2"
+    },
+    {
+      "target_bits": 256,
+      "approx_log2_best_iteration_count": 127.15149612947232,
+      "assumption": "balanced semiprime; B~sqrt(N), K~N, S=2"
+    },
+    {
+      "target_bits": 2048,
+      "approx_log2_best_iteration_count": 1023.1514961294723,
+      "assumption": "balanced semiprime; B~sqrt(N), K~N, S=2"
+    }
+  ],
+  "unknown_count_reference": "https://arxiv.org/abs/quant-ph/9605034"
+}

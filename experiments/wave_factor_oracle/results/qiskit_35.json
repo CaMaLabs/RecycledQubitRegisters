@@ -1,0 +1,53 @@
+{
+  "status": "PASS_QISKIT_AER_REFERENCE_AGREEMENT",
+  "N": 35,
+  "candidate_qubits": 3,
+  "logical_qubits": 26,
+  "iterations": 1,
+  "shots": 2000,
+  "seed": 12345,
+  "accepted_shots": 2000,
+  "rejected_shots": 0,
+  "measured_factor_pairs": {
+    "5*7": 971,
+    "7*5": 1029
+  },
+  "aer_success_probability": 1.0000000000000093,
+  "reference_success_probability": 0.9999999999999982,
+  "absolute_probability_error": 1.1102230246251565e-14,
+  "workspace_clean_mean_z": 1.0000000000000075,
+  "qiskit_version": "2.6.2",
+  "qiskit_aer_version": "0.18.4",
+  "simulation_method": "matrix_product_state",
+  "mps_truncation_threshold": 0.0,
+  "mps_bond_dimension_cap": null,
+  "logical_circuit_gate_counts": {
+    "cx": 558,
+    "ccx": 376,
+    "x": 99,
+    "h": 11,
+    "measure": 10,
+    "z": 1,
+    "save_expval": 1,
+    "save_probabilities_dict": 1
+  },
+  "aer_transpiled_gate_counts": {
+    "cx": 558,
+    "ccx": 368,
+    "x": 37,
+    "measure": 10,
+    "u2": 6,
+    "u3": 2,
+    "h": 1,
+    "z": 1,
+    "save_expval": 1,
+    "save_probabilities_dict": 1
+  },
+  "aer_transpiled_depth": 689,
+  "simulator_reported_time_seconds": 0.10355591773986816,
+  "total_wall_seconds": 0.17827790600040316,
+  "hardware_run": false,
+  "intermediate_measurements": 0,
+  "postselection": "Final good flag only; failures counted in shots",
+  "oracle": "Generic quantum divider, no factor lookup"
+}

@@ -1,0 +1,44 @@
+name: Wave factor oracle - local simulation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'experiments/wave_factor_oracle/**'
+      - '.github/workflows/wave-factor-oracle.yml'
+  pull_request:
+    paths:
+      - 'experiments/wave_factor_oracle/**'
+      - '.github/workflows/wave-factor-oracle.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    defaults:
+      run:
+        working-directory: experiments/wave_factor_oracle
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: experiments/wave_factor_oracle/requirements-qiskit.txt
+      - name: Install local simulation dependencies
+        run: python -m pip install -r requirements-qiskit.txt
+      - name: Validate arithmetic and prior small models
+        run: |
+          python optimized_divisor_oracle/optimized_division.py --selftest
+          python reversible_divisor_oracle/reversible_division.py --selftest
+          python three_qubit_qudit/three_qubit_qudit.py --selftest
+          python expanded_qudit_registers/expanded_registers.py --selftest
+          python qudit_constraint_solver/qudit_factor.py --selftest
+      - name: Verify Qiskit Aer and QASM interoperability
+        run: python -m unittest -v test_qiskit_runner
