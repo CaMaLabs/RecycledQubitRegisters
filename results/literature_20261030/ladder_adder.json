@@ -1,0 +1,628 @@
+{
+  "status": "COMPILE_COMPLETE",
+  "qpu_jobs": 0,
+  "target": "synthetic_bidirectional_line_23",
+  "paper_optimal_forest_implemented": false,
+  "tests": {
+    "adder_basis_cases": 5460,
+    "dirty_echo_basis_cases": 512,
+    "exact_phase_plus_one": true
+  },
+  "semantics": [
+    {
+      "power": 2,
+      "proof": {
+        "public_multiplier": 2,
+        "source_gate_counts": {
+          "cx": 579,
+          "rccx": 356,
+          "x": 1208,
+          "ccx": 220
+        },
+        "true_emitted_source_instruction_count": 2363,
+        "actual_gate_basis_cases": 128,
+        "source_logical_qubits": 32,
+        "all_25_ancilla_bits_clean": true,
+        "complex_output_phase_plus_one": true,
+        "correct_public_residue_modular_multiplication": true
+      }
+    },
+    {
+      "power": 4,
+      "proof": {
+        "public_multiplier": 4,
+        "source_gate_counts": {
+          "cx": 583,
+          "rccx": 360,
+          "x": 1218,
+          "ccx": 220
+        },
+        "true_emitted_source_instruction_count": 2381,
+        "actual_gate_basis_cases": 128,
+        "source_logical_qubits": 32,
+        "all_25_ancilla_bits_clean": true,
+        "complex_output_phase_plus_one": true,
+        "correct_public_residue_modular_multiplication": true
+      }
+    },
+    {
+      "power": 8,
+      "proof": {
+        "public_multiplier": 8,
+        "source_gate_counts": {
+          "cx": 632,
+          "rccx": 336,
+          "x": 1188,
+          "ccx": 232
+        },
+        "true_emitted_source_instruction_count": 2388,
+        "actual_gate_basis_cases": 128,
+        "source_logical_qubits": 32,
+        "all_25_ancilla_bits_clean": true,
+        "complex_output_phase_plus_one": true,
+        "correct_public_residue_modular_multiplication": true
+      }
+    },
+    {
+      "power": 11,
+      "proof": {
+        "public_multiplier": 11,
+        "source_gate_counts": {
+          "cx": 582,
+          "rccx": 388,
+          "x": 1318,
+          "ccx": 227
+        },
+        "true_emitted_source_instruction_count": 2515,
+        "actual_gate_basis_cases": 128,
+        "source_logical_qubits": 32,
+        "all_25_ancilla_bits_clean": true,
+        "complex_output_phase_plus_one": true,
+        "correct_public_residue_modular_multiplication": true
+      }
+    },
+    {
+      "power": 16,
+      "proof": {
+        "public_multiplier": 16,
+        "source_gate_counts": {
+          "cx": 584,
+          "rccx": 370,
+          "x": 1288,
+          "ccx": 221
+        },
+        "true_emitted_source_instruction_count": 2463,
+        "actual_gate_basis_cases": 128,
+        "source_logical_qubits": 32,
+        "all_25_ancilla_bits_clean": true,
+        "complex_output_phase_plus_one": true,
+        "correct_public_residue_modular_multiplication": true
+      }
+    },
+    {
+      "power": 29,
+      "proof": {
+        "public_multiplier": 29,
+        "source_gate_counts": {
+          "cx": 592,
+          "rccx": 400,
+          "x": 1328,
+          "ccx": 227
+        },
+        "true_emitted_source_instruction_count": 2547,
+        "actual_gate_basis_cases": 128,
+        "source_logical_qubits": 32,
+        "all_25_ancilla_bits_clean": true,
+        "complex_output_phase_plus_one": true,
+        "correct_public_residue_modular_multiplication": true
+      }
+    }
+  ],
+  "rows": [
+    {
+      "base": 2,
+      "bits": 4,
+      "source": {
+        "baseline": {
+          "qubits": 23,
+          "ops": {
+            "x": 5971,
+            "rccx": 2082,
+            "cx": 1107,
+            "ccx": 602,
+            "h": 8,
+            "if_else": 6,
+            "measure": 4,
+            "reset": 3
+          }
+        },
+        "ladder": {
+          "qubits": 23,
+          "ops": {
+            "x": 4841,
+            "cx": 2310,
+            "rccx": 1414,
+            "ccx": 888,
+            "h": 8,
+            "if_else": 6,
+            "measure": 4,
+            "reset": 3
+          }
+        }
+      },
+      "paired": [
+        {
+          "seed": 509,
+          "baseline": {
+            "cz": 35841,
+            "depth": 76409
+          },
+          "ladder": {
+            "cz": 40406,
+            "depth": 82611
+          },
+          "win_both": false
+        },
+        {
+          "seed": 1223,
+          "baseline": {
+            "cz": 34927,
+            "depth": 76422
+          },
+          "ladder": {
+            "cz": 39721,
+            "depth": 81843
+          },
+          "win_both": false
+        },
+        {
+          "seed": 4093,
+          "baseline": {
+            "cz": 34582,
+            "depth": 76316
+          },
+          "ladder": {
+            "cz": 38596,
+            "depth": 78887
+          },
+          "win_both": false
+        },
+        {
+          "seed": 8776,
+          "baseline": {
+            "cz": 32587,
+            "depth": 72842
+          },
+          "ladder": {
+            "cz": 41151,
+            "depth": 84039
+          },
+          "win_both": false
+        }
+      ],
+      "wins": 0,
+      "robust_win": false
+    },
+    {
+      "base": 2,
+      "bits": 6,
+      "source": {
+        "baseline": {
+          "qubits": 23,
+          "ops": {
+            "x": 8969,
+            "rccx": 3134,
+            "cx": 1663,
+            "ccx": 906,
+            "if_else": 15,
+            "h": 12,
+            "measure": 6,
+            "reset": 5
+          }
+        },
+        "ladder": {
+          "qubits": 23,
+          "ops": {
+            "x": 7319,
+            "cx": 3464,
+            "rccx": 2132,
+            "ccx": 1336,
+            "if_else": 15,
+            "h": 12,
+            "measure": 6,
+            "reset": 5
+          }
+        }
+      },
+      "paired": [
+        {
+          "seed": 509,
+          "baseline": {
+            "cz": 50598,
+            "depth": 112974
+          },
+          "ladder": {
+            "cz": 58743,
+            "depth": 121933
+          },
+          "win_both": false
+        },
+        {
+          "seed": 1223,
+          "baseline": {
+            "cz": 50645,
+            "depth": 112674
+          },
+          "ladder": {
+            "cz": 58599,
+            "depth": 121826
+          },
+          "win_both": false
+        },
+        {
+          "seed": 4093,
+          "baseline": {
+            "cz": 49621,
+            "depth": 111947
+          },
+          "ladder": {
+            "cz": 57841,
+            "depth": 120272
+          },
+          "win_both": false
+        },
+        {
+          "seed": 8776,
+          "baseline": {
+            "cz": 47915,
+            "depth": 109360
+          },
+          "ladder": {
+            "cz": 59701,
+            "depth": 123171
+          },
+          "win_both": false
+        }
+      ],
+      "wins": 0,
+      "robust_win": false
+    },
+    {
+      "base": 2,
+      "bits": 8,
+      "source": {
+        "baseline": {
+          "qubits": 23,
+          "ops": {
+            "x": 11967,
+            "rccx": 4186,
+            "cx": 2219,
+            "ccx": 1210,
+            "if_else": 28,
+            "h": 16,
+            "measure": 8,
+            "reset": 7
+          }
+        },
+        "ladder": {
+          "qubits": 23,
+          "ops": {
+            "x": 9797,
+            "cx": 4618,
+            "rccx": 2850,
+            "ccx": 1784,
+            "if_else": 28,
+            "h": 16,
+            "measure": 8,
+            "reset": 7
+          }
+        }
+      },
+      "paired": [
+        {
+          "seed": 509,
+          "baseline": {
+            "cz": 68554,
+            "depth": 152655
+          },
+          "ladder": {
+            "cz": 77819,
+            "depth": 162048
+          },
+          "win_both": false
+        },
+        {
+          "seed": 1223,
+          "baseline": {
+            "cz": 65167,
+            "depth": 148452
+          },
+          "ladder": {
+            "cz": 78345,
+            "depth": 162842
+          },
+          "win_both": false
+        },
+        {
+          "seed": 4093,
+          "baseline": {
+            "cz": 66274,
+            "depth": 150126
+          },
+          "ladder": {
+            "cz": 80264,
+            "depth": 167053
+          },
+          "win_both": false
+        },
+        {
+          "seed": 8776,
+          "baseline": {
+            "cz": 64157,
+            "depth": 146825
+          },
+          "ladder": {
+            "cz": 78095,
+            "depth": 162577
+          },
+          "win_both": false
+        }
+      ],
+      "wins": 0,
+      "robust_win": false
+    },
+    {
+      "base": 8,
+      "bits": 4,
+      "source": {
+        "baseline": {
+          "qubits": 23,
+          "ops": {
+            "x": 3053,
+            "rccx": 1094,
+            "cx": 575,
+            "ccx": 309,
+            "h": 8,
+            "if_else": 6,
+            "measure": 4,
+            "reset": 3
+          }
+        },
+        "ladder": {
+          "qubits": 23,
+          "ops": {
+            "x": 2453,
+            "cx": 1218,
+            "rccx": 716,
+            "ccx": 459,
+            "h": 8,
+            "if_else": 6,
+            "measure": 4,
+            "reset": 3
+          }
+        }
+      },
+      "paired": [
+        {
+          "seed": 509,
+          "baseline": {
+            "cz": 20714,
+            "depth": 42843
+          },
+          "ladder": {
+            "cz": 22620,
+            "depth": 45238
+          },
+          "win_both": false
+        },
+        {
+          "seed": 1223,
+          "baseline": {
+            "cz": 20493,
+            "depth": 42482
+          },
+          "ladder": {
+            "cz": 23051,
+            "depth": 45373
+          },
+          "win_both": false
+        },
+        {
+          "seed": 4093,
+          "baseline": {
+            "cz": 20294,
+            "depth": 42137
+          },
+          "ladder": {
+            "cz": 21796,
+            "depth": 43394
+          },
+          "win_both": false
+        },
+        {
+          "seed": 8776,
+          "baseline": {
+            "cz": 19487,
+            "depth": 41062
+          },
+          "ladder": {
+            "cz": 21823,
+            "depth": 43405
+          },
+          "win_both": false
+        }
+      ],
+      "wins": 0,
+      "robust_win": false
+    },
+    {
+      "base": 8,
+      "bits": 6,
+      "source": {
+        "baseline": {
+          "qubits": 23,
+          "ops": {
+            "x": 3053,
+            "rccx": 1094,
+            "cx": 575,
+            "ccx": 309,
+            "if_else": 15,
+            "h": 12,
+            "measure": 6,
+            "reset": 5
+          }
+        },
+        "ladder": {
+          "qubits": 23,
+          "ops": {
+            "x": 2453,
+            "cx": 1218,
+            "rccx": 716,
+            "ccx": 459,
+            "if_else": 15,
+            "h": 12,
+            "measure": 6,
+            "reset": 5
+          }
+        }
+      },
+      "paired": [
+        {
+          "seed": 509,
+          "baseline": {
+            "cz": 20714,
+            "depth": 42843
+          },
+          "ladder": {
+            "cz": 22620,
+            "depth": 45238
+          },
+          "win_both": false
+        },
+        {
+          "seed": 1223,
+          "baseline": {
+            "cz": 20493,
+            "depth": 42482
+          },
+          "ladder": {
+            "cz": 23051,
+            "depth": 45373
+          },
+          "win_both": false
+        },
+        {
+          "seed": 4093,
+          "baseline": {
+            "cz": 20294,
+            "depth": 42137
+          },
+          "ladder": {
+            "cz": 21796,
+            "depth": 43394
+          },
+          "win_both": false
+        },
+        {
+          "seed": 8776,
+          "baseline": {
+            "cz": 19487,
+            "depth": 41062
+          },
+          "ladder": {
+            "cz": 21823,
+            "depth": 43405
+          },
+          "win_both": false
+        }
+      ],
+      "wins": 0,
+      "robust_win": false
+    },
+    {
+      "base": 8,
+      "bits": 8,
+      "source": {
+        "baseline": {
+          "qubits": 23,
+          "ops": {
+            "x": 3053,
+            "rccx": 1094,
+            "cx": 575,
+            "ccx": 309,
+            "if_else": 28,
+            "h": 16,
+            "measure": 8,
+            "reset": 7
+          }
+        },
+        "ladder": {
+          "qubits": 23,
+          "ops": {
+            "x": 2453,
+            "cx": 1218,
+            "rccx": 716,
+            "ccx": 459,
+            "if_else": 28,
+            "h": 16,
+            "measure": 8,
+            "reset": 7
+          }
+        }
+      },
+      "paired": [
+        {
+          "seed": 509,
+          "baseline": {
+            "cz": 20714,
+            "depth": 42843
+          },
+          "ladder": {
+            "cz": 22620,
+            "depth": 45238
+          },
+          "win_both": false
+        },
+        {
+          "seed": 1223,
+          "baseline": {
+            "cz": 20493,
+            "depth": 42482
+          },
+          "ladder": {
+            "cz": 23051,
+            "depth": 45373
+          },
+          "win_both": false
+        },
+        {
+          "seed": 4093,
+          "baseline": {
+            "cz": 20294,
+            "depth": 42137
+          },
+          "ladder": {
+            "cz": 21796,
+            "depth": 43394
+          },
+          "win_both": false
+        },
+        {
+          "seed": 8776,
+          "baseline": {
+            "cz": 19487,
+            "depth": 41062
+          },
+          "ladder": {
+            "cz": 21823,
+            "depth": 43405
+          },
+          "win_both": false
+        }
+      ],
+      "wins": 0,
+      "robust_win": false
+    }
+  ],
+  "compile_requested": true
+}
