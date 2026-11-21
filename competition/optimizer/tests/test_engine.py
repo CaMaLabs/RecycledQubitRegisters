@@ -22,7 +22,7 @@ BUDGET={'span':32,'depth':6,'max_states':10000,'seconds':.1,'wires':6}
 class ExactTests(unittest.TestCase):
     def test_parser_barriers(self):
         for s in ['X q0 if b0','HMR q0 b0','PUSH_CONDITION b1','POP_CONDITION',
-                  'Z_POW q0 0.25','R q0','CCX q0 q0 q1','X q0 extra','X q-1','X q١']:
+                  'Z_POW q0 angle','R q0','CCX q0 q0 q1','X q0 extra','X q-1','X q١']:
             self.assertIsNone(parse(s),s)
         self.assertEqual(parse('CCX q2 q0 q1'),Gate('CCX',(0,2,1)))
 

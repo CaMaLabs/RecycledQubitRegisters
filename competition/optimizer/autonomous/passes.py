@@ -159,6 +159,12 @@ def stochastic(gates, budget, seed):
 
 from .smt import synthesize as smt
 from .structured import identity_screen, parity_spectrum
+from .arithmetic import arithmetic_resynthesis, recycle_workspace
+from .phase_precision import phase_function, phase_predicate
+from .affine_synthesis import constrained_affine
 
-PLUGINS = {'identity_screen': identity_screen, 'parity_spectrum': parity_spectrum, 'smt':smt, 'cancel': cancellation, 'affine': affine, 'factor': factor,
+PLUGINS = {
+    'arithmetic': arithmetic_resynthesis, 'workspace_reuse': recycle_workspace,
+    'phase_function': phase_function, 'phase_predicate': phase_predicate, 'affine_smt': constrained_affine,
+    'identity_screen': identity_screen, 'parity_spectrum': parity_spectrum, 'smt':smt, 'cancel': cancellation, 'affine': affine, 'factor': factor,
            'mitm': mitm, 'stochastic': stochastic}

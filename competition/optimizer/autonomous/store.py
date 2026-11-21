@@ -26,6 +26,11 @@ class Store:
             candidate TEXT, verifier_result TEXT, score REAL, reason TEXT,
             seconds REAL NOT NULL DEFAULT 0, detail TEXT);
         CREATE INDEX IF NOT EXISTS experiment_method ON experiments(method,status);
+        CREATE TABLE IF NOT EXISTS verification_queue(
+            candidate TEXT PRIMARY KEY, priority INTEGER NOT NULL,
+            FOREIGN KEY(candidate) REFERENCES candidates(sha));
+        CREATE TABLE IF NOT EXISTS synthesis_cache(
+            key TEXT PRIMARY KEY, outcome TEXT NOT NULL);
         CREATE TABLE IF NOT EXISTS history(
             key TEXT PRIMARY KEY, method TEXT, configuration TEXT, candidate TEXT,
             equivalence_status TEXT, verifier_result TEXT, score REAL,
@@ -81,10 +86,31 @@ class Store:
             (json.dumps(result),result.get('score'),digest))
         self.db.commit()
 
+    def queue_verification(self, digest, priority):
+        self.db.execute('INSERT INTO verification_queue VALUES (?,?) ON CONFLICT(candidate) '
+                        'DO UPDATE SET priority=max(priority,excluded.priority)', (digest, priority))
+        self.db.commit()
+
+    def pending_verifications(self):
+        return self.db.execute("""
+            SELECT c.sha,q.priority FROM verification_queue q JOIN candidates c ON c.sha=q.candidate
+            WHERE c.official_status IN ('NOT_RUN','TIMEOUT','BUDGET_EXHAUSTED')
+            ORDER BY q.priority DESC,c.created ASC
+        """).fetchall()
+
+    def cached_synthesis(self, key):
+        row = self.db.execute('SELECT outcome FROM synthesis_cache WHERE key=?', (key,)).fetchone()
+        return json.loads(row[0]) if row else None
+
+    def remember_synthesis(self, key, outcome):
+        self.db.execute('INSERT OR IGNORE INTO synthesis_cache VALUES (?,?)',
+                        (key, json.dumps(outcome)))
+        self.db.commit()
+
     def export(self, path):
         with Path(path).open('w') as stream:
             stream.write('{')
-            for i,table in enumerate(('meta','experiments','candidates','history')):
+            for i,table in enumerate(('meta','experiments','candidates','history','synthesis_cache','verification_queue')):
                 if i: stream.write(',')
                 stream.write(json.dumps(table)+':[')
                 first=True

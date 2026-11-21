@@ -6,7 +6,7 @@ from pathlib import Path
 import sqlite3
 import sys
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
-from competition.optimizer.autonomous.core import Gate,parse,prove,sha
+from competition.optimizer.autonomous.core import gate_from_record, parse, prove, sha
 
 
 def replay(database, source, candidate, output):
@@ -24,7 +24,7 @@ def replay(database, source, candidate, output):
     if sha(raw)!=baseline: raise ValueError('Baseline hash mismatch')
     for row in reversed(chain):
         proof=json.loads(row['proof']);experiment=db.execute('SELECT * FROM experiments WHERE key=?',(proof['task'],)).fetchone()
-        detail=json.loads(experiment['detail']);replacement=[Gate(g['op'],tuple(g['q'])) for g in detail['gates']]
+        detail=json.loads(experiment['detail']);replacement=[gate_from_record(g) for g in detail['gates']]
         lines=raw.decode('ascii').splitlines(keepends=True);start,end=proof['region']
         before=[parse(x) for x in lines[start:end]]
         if any(g is None for g in before) or prove(before,replacement)['status']!='EXACT':

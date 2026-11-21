@@ -63,6 +63,43 @@ Both passes require the independent exhaustive proof before making a change.
 The historical K098 smoke run completed 20 bounded jobs with these methods
 and found no improvements. The original scored K191 baseline was unavailable.
 
+## Advanced methods
+
+| Plugin | Coverage | Proven fixture reduction |
+| --- | --- | --- |
+| `arithmetic` | Whole truth-table recognition of two-bit in-place add/subtract, small carry/add/subtract/multiply/comparator XOR oracles and generic quadratic output functions | Majority carry uses one CCX instead of three. A shared product can drive several output bits using one CCX. |
+| `workspace_reuse` | Erases redundant compute/use/uncompute on a dirty helper with one or more targets. The original helper value still reaches every target. | Two CCX become one, including a fanout with an independent intervening gate. |
+| `phase_function` | Exact Kickmix fixed-point angle merges and a four-dimensional Walsh null relation, with global phase included in proof | Two arbitrary rotations become one. A 15-T test phase block becomes identity. |
+| `phase_predicate` | Exact bit-parallel predicates find equivalent phase sites through nonlinear reversible logic | Two rotations separated by arithmetic become one. |
+| `affine_smt` | Incremental quadratic parity-product synthesis with a GF(2) rank lower bound and one Boolean variable per dictionary term. SQLite caches completed results by Boolean function and budget. | Four CCX terms become one CCX between affine basis changes. A rank-four pair proves the one-product bound UNSAT. |
+| `mitm` | Bounded three-wire permutation synthesis with the shared SQLite function cache | Exact improvements in historical K098, with no change in directly scored gates. |
+| Experimental | Small arithmetic layout inference can recognize several functions with the same truth table. Resource estimates are static and uncalibrated for candidate scoring. | Explicit source-level gates and exact local equivalence are reported. |
+| Unsupported | General modular and scaled fixed-point arithmetic, clean-ancilla lifetime scheduling and global width reduction, approximate precision redistribution, Chebyshev/piecewise synthesis, calibrated noise-aware optimization, and domain-specific QPE equivalence. | These require additional semantics or resource models. |
+
+The scheduler composes disjoint exact rewrites by replayable parent/child steps.
+Queued official verification resumes after a budget interruption, and a solver
+result or static estimate cannot promote a candidate. Inverse-square-root
+verification requires the original installed official verifier and full input
+coverage. With a larger-is-better reference, use this command and choose any of
+the three profiles.
+
+```bash
+PY="$HOME/.venvs/kaggle-k001/bin/python"
+"$PY" -m pip install -r competition/optimizer/requirements-optional.txt
+for profile in quick overnight extended; do
+  "$PY" competition/optimizer/run_autonomous.py \
+    --source "$HOME/quantum-a26-check/competition/k191/results/helios_k191.kmx" \
+    --official-script "$HOME/quantum-a26-check/competition/k001/private/official/verifiers/invsqrt/verify_submission_invsqrt.py" \
+    --verify --score-direction maximize --profile "$profile" \
+    --out "$HOME/quantum-optimizer-runs/k191-$profile" --resume
+done
+```
+
+Run only the profile you need by editing the loop list. The larger-is-better
+setting follows the stated target. If the installed verifier reports raw
+invsqrt cost, verify that you are comparing the intended metric before treating
+an increase as a competition improvement.
+
 ## What actually ran
 
 - Inspected all accessible remote branches and the user's K001–K097 archive.
@@ -139,12 +176,12 @@ infer a clean ancilla from a comment. A transformation inside one unchanged
 condition-stack scope is valid because the same unitary identity applies under
 that guard; no transformation crosses the stack boundary.
 
-`Z_POW` is deliberately a barrier. Its numerical semantics and global error
-headroom are not guessed. `core.cost` is a static ranking proxy, not an official
-score. Unknown conditional-execution or rotation-cost effects are not used to
-reject promising candidates. Free-only rewrites can expose useful later changes,
-but do not consume official-verifier time by themselves. Approximate numerical
-passes are not implemented, so no approximate candidate can be promoted here.
+The advanced phase passes parse unconditional KMX `Z_POW` instructions using
+Kickmix's fixed-point angle convention. They merge equal affine or nonlinear
+parity predicates and can apply an exact rank-four Walsh identity. Conditional
+operations and measurements remain boundaries. Approximate passes require a
+verified function/domain contract and are currently unsupported.
+Static resource counts rank work. Official verification determines score.
 
 MITM and SMT can traverse circuit implementations that do not individually
 match the original at every intermediate rewrite. Unlike the legacy beam, they

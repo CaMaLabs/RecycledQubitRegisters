@@ -44,8 +44,8 @@
     "scope": "Different decompositions must be priced by actual official executed metric"
   },
   "phase_polynomial": {
-    "status": "scoped",
-    "scope": "Equal affine parity phase terms across X/CX/SWAP; no general phase polynomial resynthesis or continuous angle optimization"
+    "status": "implemented_bounded",
+    "scope": "Global phase tracked for an affine block, exact rank-four Walsh identity and independently proven nonlinear predicate folding."
   },
   "ancilla_reuse_uncomputation": {
     "status": "not_implemented",
@@ -60,12 +60,12 @@
     "scope": "Shared-control CCX only; no general DAG CSE"
   },
   "arithmetic_resynthesis_adders_comparators": {
-    "status": "not_implemented",
-    "scope": "Historical code exists; no complete K191 arithmetic interface/resources available"
+    "status": "implemented_bounded",
+    "scope": "Truth-table XOR oracles up to eight wires, two-bit in-place add/subtract, shared product/carry architectures."
   },
   "register_recycling": {
-    "status": "not_implemented",
-    "scope": "Generic liveness previously investigated; need concrete 62-qubit schedule"
+    "status": "implemented_bounded",
+    "scope": "Elide dirty workspace compute/uncompute for a helper with fanout. Physical width reduction remains unsupported."
   },
   "lookup_ROM_synthesis": {
     "status": "preserved_tested_not_integrated",
@@ -76,12 +76,12 @@
     "scope": "Numerical successes in history do not establish competitive reversible resource cost"
   },
   "rotation_merging_quantization_redistribution": {
-    "status": "not_implemented",
-    "scope": "Z_POW remains a barrier until actual official semantics and headroom are inspected"
+    "status": "implemented_exact",
+    "scope": "Exact KMX 128-bit phase merge and exact Boolean predicate folding. Approximate quantization is unsupported."
   },
   "Fourier_Walsh_Chebyshev_minimax_range_reduction": {
-    "status": "not_implemented",
-    "scope": "Earlier numerical work is recorded; no new validated complete-circuit plugin"
+    "status": "implemented_partial",
+    "scope": "Exact Walsh rank-four null relation only. Chebyshev, minimax and range reduction are unsupported."
   },
   "error_budget_piecewise_phase": {
     "status": "not_implemented",
@@ -105,7 +105,7 @@
   },
   "SAT_SMT": {
     "status": "implemented_optional",
-    "scope": "SMT exact synthesis only; UNSAT scoped to bounded gate alphabet/depth"
+    "scope": "Scoped quadratic parity-product SMT and legacy bounded gate SMT. Exact truth-table confirmation, separate solver results and function cache."
   },
   "e_graph": {
     "status": "not_implemented",
@@ -122,5 +122,17 @@
   "parity_spectrum": {
     "status": "implemented",
     "scope": "LWE-inspired affine Walsh character grouping for discrete single-wire phases, with exact mod-eight proof"
+  },
+  "affine_smt": {
+    "status": "implemented_optional",
+    "scope": "Single-target quadratic oracle and up to five inputs, GF(2) rank bound, unordered dictionary and bounded product-count iterative deepening."
+  },
+  "general_modular_or_fixed_point": {
+    "status": "unsupported",
+    "scope": "No complete modular arithmetic or scale-aware fixed-point recognition and replacement."
+  },
+  "noise_aware_optimization": {
+    "status": "unsupported",
+    "scope": "No measured hardware noise model in the optimization contract."
   }
 }

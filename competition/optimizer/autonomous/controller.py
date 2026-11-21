@@ -1,5 +1,6 @@
 """Adaptive bounded region search, durable exact branches, official-only promotion."""
 import concurrent.futures
+from collections import Counter
 from dataclasses import asdict
 import fcntl
 import heapq
@@ -11,10 +12,11 @@ import importlib.metadata
 from pathlib import Path
 import sys
 import time
-from .core import Gate, canonical, census, cost, parse, sha
+from .core import gate_from_record, canonical, census, cost, parse, sha, signature
 from .passes import PLUGINS
 from .store import Store
 from .structured import PHASE_REGION
+from .phase_precision import PHASE_OPS
 from .verification import better, run_process, validate_contract, verify
 
 PIN='d7da8646fc6bef7a08f62f8039829fdc3a2669c9572aabf7936596d3ea6560e8'
@@ -30,15 +32,29 @@ def regions(lines, budget, method, max_regions):
             for end in range(start,min(len(parsed),start+budget['span'])):
                 h=parsed[end]
                 if h is None: break
-                if method in {'mitm','smt','factor','stochastic'} and h.op not in {'X','CX','CCX','SWAP','CSWAP'}: break
+                if method in {'mitm','smt','factor','stochastic','arithmetic','workspace_reuse','affine_smt'} and h.op not in {'X','CX','CCX','SWAP','CSWAP'}: break
                 if method=='affine' and h.op not in {'X','CX','SWAP'}: break
                 if method=='parity_spectrum' and h.op not in PHASE_REGION: break
+                if method=='phase_function' and (h.op not in PHASE_OPS or
+                                                h.op in {'CZ','CCZ'}): break
                 wires.update(h.q)
-                if len(wires)>min(budget['wires'],3 if method=='mitm' else 4 if method=='smt' else 10): break
+                if len(wires)>min(budget['wires'],3 if method=='mitm' else 4 if method=='smt' else 6 if method=='affine_smt' else 8 if method=='arithmetic' else 10): break
                 block.append(h)
             if len(block)>=2:
+                if method in {'arithmetic', 'workspace_reuse', 'affine_smt'} and cost(block)[0]<2:
+                    continue
+                if method == 'workspace_reuse':
+                    ccx = Counter(g for g in block if g.op == 'CCX')
+                    receivers = {g.q[0] for g in block if g.op == 'CX'}
+                    if not any(n >= 2 and g.q[-1] in receivers for g,n in ccx.items()):
+                        continue
                 # Scored regions first; free affine cleanup can expose later work.
                 rank=cost(block)[0]*1000+cost(block)[1]*100+len(block)
+                if method in {'phase_function','phase_predicate'}:
+                    sites = sum(g.op in {'Z_POW','T','T_DAG','S','S_DAG','Z'} for g in block)
+                    if sites < 2:
+                        continue
+                    rank = sites * 1000 + cost(block)[1] * 100 + len(block)
                 yield rank,-start,start,start+len(block),block
     return [(a,b,g) for _,__,a,b,g in heapq.nlargest(max_regions,generate())]
 
@@ -60,7 +76,7 @@ def choose(store, parent, methods):
     if not pending: return None
     stats={r['method']:dict(r) for r in store.db.execute('''SELECT method, COUNT(*) AS n,
        SUM(CASE WHEN status='LOCAL_IMPROVEMENT' AND (json_extract(detail,'$.before_cost[0]') > json_extract(detail,'$.after_cost[0]') OR json_extract(detail,'$.before_cost[1]') > json_extract(detail,'$.after_cost[1]')) THEN 1 ELSE 0 END) AS wins,
-       SUM(seconds) AS seconds FROM experiments WHERE status NOT IN ('RUNNING','PENDING') GROUP BY method''')}
+       SUM(seconds) AS seconds FROM experiments WHERE status NOT IN ('PENDING','COMPOSED') GROUP BY method''')}
     total=max(1,sum(r['n'] for r in stats.values()))
     available={r['method'] for r in pending}
     def ucb(method):
@@ -86,11 +102,20 @@ def enqueue(store, parent, lines, config):
         for method in config['methods']:
             for start,end,gates in regions(lines,budget,method,config['max_regions']):
                 trial=dict(budget,priority=cost(gates)[0]*100+cost(gates)[1])
-                if method=='smt':
+                if method in {'smt','affine_smt'}:
                     try: trial['solver_version']=importlib.metadata.version('z3-solver')
                     except importlib.metadata.PackageNotFoundError: trial['solver_version']=None
                 store.add(parent,method,trial,[start,end],canonical(gates),config['seed'],commit=False)
     store.db.commit()
+
+
+def synthesis_key(gates, budget, seed, method="affine_smt"):
+    """Order-preserving wire canonicalization of exact Boolean behavior."""
+    wires = sorted({q for gate in gates for q in gate.q})
+    settings = {key: value for key, value in budget.items() if key != "priority"}
+    mapping = [output for output, _ in signature(gates, wires)]
+    key = sha(json.dumps([method, mapping, cost(gates), settings, seed], sort_keys=True))
+    return key, wires
 
 
 def run(args, config, export=None):
@@ -133,7 +158,6 @@ def run(args, config, export=None):
     if sha(base_path.read_bytes())!=digest: raise ValueError('Stored baseline was modified')
     store.candidate(digest,None,base_path,{'status':'SOURCE','official_score_reference':args.reference_score})
     current=store.get('current',digest)
-    current_row=store.db.execute('SELECT * FROM candidates WHERE sha=?',(current,)).fetchone()
     current_path=out/(current+'.kmx')
     if not current_path.exists():
         # A transferred SQLite campaign can reconstruct missing intermediate
@@ -165,6 +189,35 @@ def run(args, config, export=None):
             store.set('best',best)
         elif not contract:
             print('OFFICIAL_VERIFICATION_UNAVAILABLE: no inspected verifier contract; promotion disabled',flush=True)
+        verified_this_run = set()
+
+        def drain_verification_queue():
+            nonlocal best
+            if not contract:
+                return
+            for row in store.pending_verifications():
+                child = row['sha']
+                if child in verified_this_run or remaining() <= 0:
+                    continue
+                path = out / (child + '.kmx')
+                if not path.exists():
+                    from competition.optimizer.replay_candidate import replay
+                    replay(out/'experiments.sqlite3', source, child, path)
+                if sha(path.read_bytes()) != child:
+                    raise ValueError('Pending verifier candidate digest mismatch')
+                verified_this_run.add(child)
+                receipt = verify(path,out/'verify'/child,contract,config['verifier_timeout'],
+                                 config['memory_mb'],config['cpus'],remaining())
+                store.receipt(child,receipt)
+                if (receipt['status']=='PASS_FULL'
+                        and better(receipt['score'],best['score'],contract['direction'])
+                        and (args.reference_score is None or
+                             better(receipt['score'],args.reference_score,contract['direction']))):
+                    best={'sha':child,'score':receipt['score'],'path':str(path)}
+                    store.set('best',best)
+                    print('OFFICIAL_PROMOTION',json.dumps(best),flush=True)
+
+        drain_verification_queue()
         enqueue(store,current,working.decode('ascii').splitlines(keepends=True),config)
         count=0
         context=multiprocessing.get_context('spawn')
@@ -182,50 +235,90 @@ def run(args, config, export=None):
                     store.db.execute("UPDATE experiments SET status='RUNNING' WHERE key=?",(row['key'],)); store.db.commit()
                     task_dir=out/'tasks'/row['key']; task_dir.mkdir(parents=True,exist_ok=True)
                     task=task_dir/'task.json'; result_path=task_dir/'result.json'
-                    task.write_text(json.dumps({'method':row['method'],'budget':budget,'seed':row['seed'],
-                                                'gates':[asdict(g) for g in gates]}))
+                    payload = {'method':row['method'],'budget':budget,'seed':row['seed'],
+                               'gates':[asdict(g) for g in gates]}
+                    semantic = None
+                    if row['method'] in {'affine_smt','mitm'}:
+                        key, wires = synthesis_key(gates, budget, row['seed'], row['method'])
+                        semantic = key, wires
+                        cached = store.cached_synthesis(key)
+                        if cached:
+                            payload['cached'] = cached
+                            payload['wire_order'] = wires
+                    task.write_text(json.dumps(payload))
                     future=pool.submit(execute_worker,task,result_path,task_dir/'worker.log',
                         min(remaining(),budget['seconds']+2),config['memory_mb']//config['concurrency'],1)
-                    batch.append((dict(row),future)); count+=1
+                    batch.append((dict(row),future,semantic)); count+=1
                 if not batch: break
-                # All edits in a batch use the same pinned parent. Retain every
-                # child; advance the exact working branch using the best child.
-                children=[]
-                for row,future in batch:
-                    result,elapsed=future.result()
-                    child=None
-                    if result['status']=='LOCAL_IMPROVEMENT':
-                        start,end=json.loads(row['region'])
-                        replacement=[Gate(g['op'],tuple(g['q'])).text() for g in result['gates']]
-                        candidate=''.join(lines[:start]+replacement+lines[end:]).encode('ascii')
-                        child=sha(candidate); path=out/(child+'.kmx')
-                        if not path.exists(): path.write_bytes(candidate)
-                        proof={'local':result['proof'],'region':[start,end],'parent':current,
-                               'task':row['key'],'detail':result.get('detail')}
-                        store.candidate(child,current,path,proof)
-                        children.append((result['before_cost'][0]-result['after_cost'][0],
-                                         result['before_cost'][1]-result['after_cost'][1],
-                                         result['before_cost'][2]-result['after_cost'][2],child,candidate,path))
-                        # A free-gate rewrite is useful internally but has no
-                        # positive direct score estimate; do not spend verifier time.
-                        if contract and (result['after_cost'][:2]<result['before_cost'][:2]) and remaining()>0:
-                            receipt=verify(path,out/'verify'/child,contract,config['verifier_timeout'],
-                                           config['memory_mb'],config['cpus'],remaining())
-                            store.receipt(child,receipt)
-                            if receipt['status']=='PASS_FULL' and better(receipt['score'],best['score'],contract['direction']):
-                                best={'sha':child,'score':receipt['score'],'path':str(path)}
-                                store.set('best',best)
-                                print('OFFICIAL_PROMOTION',json.dumps(best),flush=True)
+                children = []
+
+                def retain(parent, source_lines, interval, row, result):
+                    start, end = interval
+                    replacement = [gate_from_record(g).text() for g in result['gates']]
+                    candidate = ''.join(source_lines[:start]+replacement+source_lines[end:]).encode('ascii')
+                    child = sha(candidate)
+                    path = out/(child+'.kmx')
+                    if not path.exists():
+                        path.write_bytes(candidate)
+                    proof = {'local':result['proof'], 'region':[start,end], 'parent':parent,
+                             'task':row['key'], 'detail':result.get('detail')}
+                    store.candidate(child,parent,path,proof)
+                    return child, candidate, path
+
+                for row, future, semantic in batch:
+                    result, elapsed = future.result()
+                    if semantic and result['status'] in {'LOCAL_IMPROVEMENT','UNSAT'}:
+                        key, wires = semantic
+                        normalized = [
+                            {**gate, 'q': [wires.index(q) for q in gate['q']]}
+                            for gate in result.get('gates', [])
+                        ]
+                        store.remember_synthesis(key, {'status':result['status'],
+                            'gates':normalized, 'detail':result.get('detail',{})})
+                    child = None
+                    if result['status'] == 'LOCAL_IMPROVEMENT':
+                        region = json.loads(row['region'])
+                        child, candidate, path = retain(current, lines, region, row, result)
+                        gain = tuple(x-y for x,y in zip(result['before_cost'],result['after_cost']))
+                        children.append((gain, child, candidate, path, region, row, result))
                     store.finish(row['key'],result['status'],result.get('reason',''),elapsed,
                                  result.get('proof'),child,result)
                     print('EXPERIMENT',json.dumps({'method':row['method'],'status':result['status'],
                         'seconds':round(elapsed,3),'candidate':child}),flush=True)
-                if children:
-                    _,_,_,current,working,_=max(children,key=lambda child: child[:4])
-                    store.set('current',current)
-                    # Retain siblings. Re-optimizing the chosen exact branch
-                    # rediscovers applicable independent rewrites against its parent.
-                    enqueue(store,current,working.decode('ascii').splitlines(keepends=True),config)
+
+                if not children:
+                    continue
+                children.sort(key=lambda child:(child[0],child[1]),reverse=True)
+                total_gain,current,working,current_path,region,_,first_result = children[0]
+                applied = [(region, len(first_result['gates'])-(region[1]-region[0]))]
+                for gain,_,__,___,region,row,result in children[1:]:
+                    start,end = region
+                    if any(start < prior_end and end > prior_start
+                           for (prior_start,prior_end),_ in applied):
+                        continue
+                    offset = sum(delta for (_,prior_end),delta in applied if prior_end <= start)
+                    relocated = [start+offset,end+offset]
+                    composition_config = dict(json.loads(row['config']), composed_from=row['key'])
+                    new_key = store.add(current,row['method'],composition_config,relocated,
+                                        row['canonical'],row['seed'])
+                    combined_row = {**row,'key':new_key}
+                    current,working,current_path = retain(
+                        current, working.decode('ascii').splitlines(keepends=True),
+                        relocated, combined_row, result)
+                    store.finish(new_key,'COMPOSED','Disjoint edits with independent exact proofs',
+                                 equivalence=result['proof'],candidate=current,detail=result)
+                    applied.append((region,len(result['gates'])-(end-start)))
+                    total_gain = tuple(a+b for a,b in zip(total_gain,gain))
+
+                store.set('current',current)
+                if contract:
+                    for gain, child, _, _, *_ in children:
+                        if gain[:2] > (0,0):
+                            store.queue_verification(child, gain[0]*1000+gain[1])
+                    if total_gain[:2] > (0,0):
+                        store.queue_verification(current, total_gain[0]*1000+total_gain[1])
+                    drain_verification_queue()
+                enqueue(store,current,working.decode('ascii').splitlines(keepends=True),config)
         reference_score = args.reference_score
         if contract and reference_score is None:
             reference_score = store.db.execute('SELECT score FROM candidates WHERE sha=?',(digest,)).fetchone()[0]
@@ -234,7 +327,7 @@ def run(args, config, export=None):
                  'objective':contract['direction'] if contract else 'MINIMIZE_STATIC_GATE_COST',
                  'jobs_this_run':count,'elapsed_seconds':time.monotonic()-started,
                  'best_official':best,'current_exact_candidate':current,'output_circuit':str(out/(current+'.kmx')),'output_format':'kmx',
-                 'success':bool(best and reference_score is not None and better(best['score'],reference_score,contract['direction'])),
+                 'success':bool(best and best['sha'] != digest and reference_score is not None and better(best['score'],reference_score,contract['direction'])),
                  'census':census(working.decode('ascii').splitlines()),
                  'experiment_counts':dict(store.db.execute('SELECT status,COUNT(*) FROM experiments GROUP BY status'))}
         if export is not None:
