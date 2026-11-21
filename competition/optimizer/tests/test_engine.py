@@ -249,4 +249,17 @@ class IntegrationTests(unittest.TestCase):
             p=subprocess.run([sys.executable,'competition/optimizer/run_autonomous.py','--source',str(source),'--expected-sha','0'*64],capture_output=True,text=True)
             self.assertNotEqual(p.returncode,0);self.assertIn('SHA_MISMATCH',p.stderr)
 
+    def test_k191_pin_applies_to_external_checkout(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / 'competition/k191/results/helios_k191.kmx'
+            source.parent.mkdir(parents=True)
+            source.write_text('X q0\n')
+            result = subprocess.run(
+                [sys.executable, 'competition/optimizer/run_autonomous.py',
+                 '--source', str(source), '--out', str(Path(tmp) / 'run')],
+                capture_output=True, text=True, timeout=10)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('BASELINE_SHA_MISMATCH', result.stderr)
+
+
 if __name__=='__main__': unittest.main()

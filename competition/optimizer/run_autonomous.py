@@ -36,10 +36,12 @@ def main():
     p.add_argument('--resume',action='store_true',help='State always resumes; retained for explicit CLI intent')
     a=p.parse_args()
     a.source = a.source or str(ROOT / K191_SOURCE)
-    if Path(a.source).expanduser().resolve() in {(Path.cwd()/K191_SOURCE).resolve(), ROOT/K191_SOURCE}:
+    baseline_parts = Path(K191_SOURCE).parts
+    source_parts = Path(a.source).expanduser().absolute().parts
+    if source_parts[-len(baseline_parts):] == baseline_parts:
         a.expected_sha = a.expected_sha or PIN
-        if a.reference_score is None:
-            a.reference_score = REFERENCE
+    if a.expected_sha == PIN and a.reference_score is None:
+        a.reference_score = REFERENCE
     # Resolve user paths BEFORE rooting subprocess module imports in this repo.
     for name in ('source','out','config','contract','official_script'):
         value=getattr(a,name)

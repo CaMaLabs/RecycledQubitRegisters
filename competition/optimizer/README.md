@@ -90,7 +90,7 @@ for profile in quick overnight extended; do
   "$PY" competition/optimizer/run_autonomous.py \
     --source "$HOME/quantum-a26-check/competition/k191/results/helios_k191.kmx" \
     --official-script "$HOME/quantum-a26-check/competition/k001/private/official/verifiers/invsqrt/verify_submission_invsqrt.py" \
-    --verify --score-direction maximize --profile "$profile" \
+    --verify --score-direction maximize --reference-score 95368.85909206404 --profile "$profile" \
     --out "$HOME/quantum-optimizer-runs/k191-$profile" --resume
 done
 ```
