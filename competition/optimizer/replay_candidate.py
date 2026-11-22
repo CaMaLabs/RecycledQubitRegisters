@@ -6,7 +6,8 @@ from pathlib import Path
 import sqlite3
 import sys
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
-from competition.optimizer.autonomous.core import gate_from_record, parse, prove, sha
+from competition.optimizer.autonomous.core import gate_from_record, prove, sha
+from competition.optimizer.autonomous.conditional import parse_region, render_region
 
 
 def replay(database, source, candidate, output):
@@ -23,17 +24,24 @@ def replay(database, source, candidate, output):
     raw=Path(source).read_bytes()
     if sha(raw)!=baseline: raise ValueError('Baseline hash mismatch')
     for row in reversed(chain):
-        proof=json.loads(row['proof']);experiment=db.execute('SELECT * FROM experiments WHERE key=?',(proof['task'],)).fetchone()
+        proof=json.loads(row['proof']);experiment=db.execute('SELECT * FROM experiments WHERE key=?',(proof.get('task'),)).fetchone()
+        if experiment is None or not experiment['detail']:
+            raise ValueError('Missing replayable experiment for ' + row['sha'])
         detail=json.loads(experiment['detail']);replacement=[gate_from_record(g) for g in detail['gates']]
         lines=raw.decode('ascii').splitlines(keepends=True);start,end=proof['region']
-        before=[parse(x) for x in lines[start:end]]
+        if not 0 <= start < end <= len(lines):
+            raise ValueError('Invalid replay region')
+        guard = proof.get('local', {}).get('guard')
+        if guard != json.loads(experiment['config']).get('guard'):
+            raise ValueError('Replay guard mismatch')
+        before=parse_region(lines[start:end], guard)
         if any(g is None for g in before) or prove(before,replacement)['status']!='EXACT':
             raise ValueError('Replay proof failed')
-        raw=''.join(lines[:start]+[g.text() for g in replacement]+lines[end:]).encode('ascii')
+        raw=''.join(lines[:start]+render_region(replacement, guard)+lines[end:]).encode('ascii')
         if sha(raw)!=row['sha']: raise ValueError('Replay digest mismatch')
-    output=Path(output)
-    if output.exists(): raise ValueError('Refusing to overwrite existing output')
-    output.write_bytes(raw)
+    db.close()
+    with Path(output).open('xb') as stream:
+        stream.write(raw)
     return {'sha256':sha(raw),'exact_steps':len(chain),'official_status':'SEE_ORIGINAL_RECEIPTS'}
 
 if __name__=='__main__':

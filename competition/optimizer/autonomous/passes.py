@@ -163,7 +163,10 @@ from .arithmetic import arithmetic_resynthesis, recycle_workspace
 from .phase_precision import phase_function, phase_predicate
 from .affine_synthesis import constrained_affine
 
+from .conditional import conditional_phase
+
 PLUGINS = {
+    "conditional_phase": conditional_phase,
     'arithmetic': arithmetic_resynthesis, 'workspace_reuse': recycle_workspace,
     'phase_function': phase_function, 'phase_predicate': phase_predicate, 'affine_smt': constrained_affine,
     'identity_screen': identity_screen, 'parity_spectrum': parity_spectrum, 'smt':smt, 'cancel': cancellation, 'affine': affine, 'factor': factor,

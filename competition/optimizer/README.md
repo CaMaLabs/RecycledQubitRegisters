@@ -3,8 +3,9 @@
 This is a bounded research engine, **not a demonstrated Kaggle score win**.
 The requested K191 circuit and private official verifier are absent from this
 checkout. See `evidence/k191_attempt.json` for the actual failed K191 invocation.
-The best supplied K191 value remains **95368.85909206404, user-reported PASS**;
-this session did not reverify or improve it.
+The historical external K191 reference is **95368.85909206404**. The user's
+Ubuntu campaign measured the baseline and composed candidate at the same
+**95368.96201542337** with a full PASS.
 
 The new entry point is `run_autonomous.py`. Existing `quantum_optimizer.py` and
 `campaign.py` are preserved unchanged. They are legacy tools, not the new
@@ -67,6 +68,7 @@ and found no improvements. The original scored K191 baseline was unavailable.
 
 | Plugin | Coverage | Proven fixture reduction |
 | --- | --- | --- |
+| `conditional_phase` | Common read-only classical bit on contiguous diagonal KMX gates | Two conditional CCZ gates become one CCZ and two CX gates under the same bit. |
 | `arithmetic` | Whole truth-table recognition of two-bit in-place add/subtract, small carry/add/subtract/multiply/comparator XOR oracles and generic quadratic output functions | Majority carry uses one CCX instead of three. A shared product can drive several output bits using one CCX. |
 | `workspace_reuse` | Erases redundant compute/use/uncompute on a dirty helper with one or more targets. The original helper value still reaches every target. | Two CCX become one, including a fanout with an independent intervening gate. |
 | `phase_function` | Exact Kickmix fixed-point angle merges and a four-dimensional Walsh null relation, with global phase included in proof | Two arbitrary rotations become one. A 15-T test phase block becomes identity. |
@@ -80,8 +82,7 @@ The scheduler composes disjoint exact rewrites by replayable parent/child steps.
 Queued official verification resumes after a budget interruption, and a solver
 result or static estimate cannot promote a candidate. Inverse-square-root
 verification requires the original installed official verifier and full input
-coverage. With a larger-is-better reference, use this command and choose any of
-the three profiles.
+coverage. For the historical lower-is-better invsqrt cost, choose a profile with this command.
 
 ```bash
 PY="$HOME/.venvs/kaggle-k001/bin/python"
@@ -90,15 +91,14 @@ for profile in quick overnight extended; do
   "$PY" competition/optimizer/run_autonomous.py \
     --source "$HOME/quantum-a26-check/competition/k191/results/helios_k191.kmx" \
     --official-script "$HOME/quantum-a26-check/competition/k001/private/official/verifiers/invsqrt/verify_submission_invsqrt.py" \
-    --verify --score-direction maximize --reference-score 95368.85909206404 --profile "$profile" \
+    --verify --score-direction minimize --reference-score 95368.85909206404 --profile "$profile" \
     --out "$HOME/quantum-optimizer-runs/k191-$profile" --resume
 done
 ```
 
-Run only the profile you need by editing the loop list. The larger-is-better
-setting follows the stated target. If the installed verifier reports raw
-invsqrt cost, verify that you are comparing the intended metric before treating
-an increase as a competition improvement.
+Run only the profile you need by editing the loop list. The measured baseline
+governs official promotion. The summary reports `success` for a measured-baseline
+improvement and `beats_reference` for the external comparison.
 
 ## What actually ran
 
@@ -304,3 +304,27 @@ later SMT run does. New campaigns retain a source snapshot for every run.
    another free Clifford cleanup, but needs a full-domain numerical certificate
    and a concrete reduction in executed rotations/T-equivalent cost. K098's
    independent angle perturbations are not such a certificate.
+
+## Resume a saved K191 candidate
+
+```bash
+PY="$HOME/.venvs/kaggle-k001/bin/python"
+"$PY" competition/optimizer/run_autonomous.py \
+  --source "$HOME/quantum-a26-check/competition/k191/results/helios_k191.kmx" \
+  --out "$HOME/quantum-optimizer-runs/k191-validation" \
+  --resume --profile overnight --verify-every 20 \
+  --start-from 253ec4e00cab34e62fe457a055436ab09b755a724255a22af151fc8dc9ea870e
+```
+
+Explicit resume reuses the verifier contract and reference from the saved
+database when omitted. The `--start-from` option replays the archived proof
+chain against the pinned source and checks the candidate hash before switching
+the search pointer. Previously checked candidates keep their receipts. The
+controller queues verification after every 20 accumulated edits and at exit,
+including when all edits are neutral under the static score proxy. To disable
+the periodic and final checkpoints, pass `--verify-every 0`.
+
+The conditional phase pass checks exact phase on the active branch and
+preserves identity on the inactive branch. A different guard, classical write,
+measurement, or condition-stack boundary splits the region. In a 90-job
+historical K098 run, this pass found no reductions.

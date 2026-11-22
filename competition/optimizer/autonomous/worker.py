@@ -30,6 +30,8 @@ def main():
                     'detail':proposal.detail}
         else:
             proof=prove(gates,proposal.gates)
+            if task['budget'].get('guard') is not None:
+                proof.update({'guard': task['budget']['guard'], 'inactive_branch': 'identity'})
             if proof['status']!='EXACT':
                 result={'status':'PROOF_REJECT','reason':'Exact basis/phase comparison failed','proof':proof}
             elif cost(proposal.gates)>=cost(gates):

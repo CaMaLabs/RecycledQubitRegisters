@@ -93,7 +93,7 @@ class ExactTests(unittest.TestCase):
 
     def test_regions_never_cross_measurement_or_guards(self):
         lines=['X q0\n','X q0\n','HMR q0 b0\n','X q0\n','X q0\n','POP_CONDITION\n']
-        self.assertEqual({(a,b) for a,b,_ in regions(lines,BUDGET,'cancel',20)}, {(0,2),(3,5)})
+        self.assertEqual({(a,b) for a,b,_,_ in regions(lines,BUDGET,'cancel',20)}, {(0,2),(3,5)})
 
     def test_wire_renaming_dedup(self):
         self.assertEqual(canonical([Gate('CCX',(0,1,2))]),canonical([Gate('CCX',(5,7,9))]))
@@ -217,12 +217,14 @@ class IntegrationTests(unittest.TestCase):
             config=d/'config.json';config.write_text(json.dumps({'methods':['factor'],'levels':1,'max_jobs':2}))
             cmd=[sys.executable,'competition/optimizer/run_autonomous.py','--source',str(source),
                  '--expected-sha',sha(source.read_bytes()),'--out',str(out),'--config',str(config),
-                 '--reference-score','1000','--contract',str(contract)]
+                 '--reference-score','400','--contract',str(contract)]
             p=subprocess.run(cmd,capture_output=True,text=True,timeout=20)
             self.assertEqual(p.returncode,0,p.stdout+p.stderr)
             summary=json.loads((out/'summary.json').read_text())
             self.assertEqual(summary['best_official']['score'],500)
+            self.assertEqual(summary['measured_baseline_score'],1000)
             self.assertTrue(summary['success'])
+            self.assertFalse(summary['beats_reference'])
             from competition.optimizer.replay_candidate import replay
             result=replay(out/'experiments.sqlite3',source,summary['current_exact_candidate'],d/'replayed.kmx')
             self.assertEqual(result['exact_steps'],1)

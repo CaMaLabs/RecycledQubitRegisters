@@ -33,13 +33,19 @@ def main():
     p.add_argument('--contract',help='Inspected official verifier argv, SHA, metrics and full-domain contract')
     p.add_argument('--hours',type=float)
     p.add_argument('--max-jobs',type=int)
+    p.add_argument('--start-from', help='Replay and resume from this archived candidate SHA256')
+    p.add_argument('--verify-every', type=int, default=20,
+                   help='Verify the accumulated checkpoint every N exact edits and at exit (0 disables checkpoints)')
     p.add_argument('--resume',action='store_true',help='State always resumes; retained for explicit CLI intent')
     a=p.parse_args()
+    if a.start_from and (len(a.start_from) != 64 or any(c not in '0123456789abcdef' for c in a.start_from)):
+        p.error('--start-from must be a lowercase SHA256')
     a.source = a.source or str(ROOT / K191_SOURCE)
     baseline_parts = Path(K191_SOURCE).parts
     source_parts = Path(a.source).expanduser().absolute().parts
     if source_parts[-len(baseline_parts):] == baseline_parts:
         a.expected_sha = a.expected_sha or PIN
+    a.reference_explicit = a.reference_score is not None
     if a.expected_sha == PIN and a.reference_score is None:
         a.reference_score = REFERENCE
     # Resolve user paths BEFORE rooting subprocess module imports in this repo.
