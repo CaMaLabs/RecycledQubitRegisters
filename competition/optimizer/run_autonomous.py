@@ -36,6 +36,11 @@ def main():
     p.add_argument('--start-from', help='Replay and resume from this archived candidate SHA256')
     p.add_argument('--verify-every', type=int, default=20,
                    help='Verify the accumulated checkpoint every N exact edits and at exit (0 disables checkpoints)')
+    qrom=p.add_mutually_exclusive_group()
+    qrom.add_argument('--qrom-products',action='store_true',
+                      help='Run QROM product reuse before local search (KMX with zero-initialized scratch)')
+    qrom.add_argument('--qrom-products-only',action='store_true',
+                      help='Run only QROM product reuse and any requested official verification')
     p.add_argument('--resume',action='store_true',help='State always resumes; retained for explicit CLI intent')
     a=p.parse_args()
     if a.start_from and (len(a.start_from) != 64 or any(c not in '0123456789abcdef' for c in a.start_from)):
@@ -63,6 +68,8 @@ def main():
             if a.circuit_index != 0:
                 p.error("--circuit-index applies to QPY bundles")
             a.expected_sha = a.expected_sha or sha(source.read_bytes())
+        elif a.qrom_products or a.qrom_products_only:
+            p.error("QROM product reuse requires KMX with zero-initialized scratch")
         elif a.verify or a.contract:
             p.error("The official invsqrt verifier requires KMX input")
     except (OSError, ValueError) as exc:

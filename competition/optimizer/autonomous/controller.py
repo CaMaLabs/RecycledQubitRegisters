@@ -128,6 +128,65 @@ def synthesis_key(gates, budget, seed, method="affine_smt"):
     return key, wires
 
 
+def qrom_prepass(store, out, parent, working, current_path, config, engine_sha, timeout):
+    """Run a whole-circuit proof in an isolated worker and retain replayable evidence."""
+    settings = {'engine_sha256': engine_sha}
+    interval = [0, len(working.splitlines())]
+    method = 'qrom_products'
+    row = store.db.execute(
+        'SELECT key,status,candidate,detail FROM experiments WHERE parent=? AND method=? AND config=?',
+        (parent, method, json.dumps(settings, sort_keys=True))).fetchone()
+    if row and row['status'] == 'LOCAL_IMPROVEMENT':
+        child = row['candidate']
+        path = out / (child + '.kmx')
+        if not path.exists():
+            from .qrom_products import optimize
+            raw, _ = optimize(working)
+            if sha(raw) != child:
+                raise ValueError('Archived QROM candidate digest mismatch')
+            path.write_bytes(raw)
+        raw = path.read_bytes()
+        if sha(raw) != child:
+            raise ValueError('Archived QROM candidate digest mismatch')
+        return child, raw, path, json.loads(row['detail'])['static_toffoli_removed']
+    if row and row['status'] in {'NO_IMPROVEMENT', 'ERROR'}:
+        return parent, working, current_path, 0
+    experiment = row['key'] if row else store.add(parent, method, settings, interval, parent, config['seed'])
+    log = out / 'tasks' / experiment / 'worker.log'
+    log.parent.mkdir(parents=True, exist_ok=True)
+    started = time.monotonic()
+    with TemporaryDirectory(dir=out) as area:
+        output, receipt = Path(area) / 'candidate.kmx', Path(area) / 'proof.json'
+        result = run_process([sys.executable, '-m', 'competition.optimizer.autonomous.qrom_products',
+                              str(current_path), '--output', str(output), '--report', str(receipt)],
+                             log, timeout, config['memory_mb'], 1)
+        elapsed = time.monotonic() - started
+        if result['exit_code'] != 0:
+            status = 'TIMEOUT' if result['status'] == 'TIMEOUT' else 'ERROR'
+            store.finish(experiment, status, str(log), elapsed)
+            print('QROM_PRODUCTS', status, log, flush=True)
+            return parent, working, current_path, 0
+        raw, report = output.read_bytes(), json.loads(receipt.read_text())
+    proof = report['proof']
+    child, saving = sha(raw), report['static_toffoli_removed']
+    if report['source_sha256'] != parent or report['candidate_sha256'] != child or proof['status'] != 'EXACT':
+        raise ValueError('QROM worker proof digest mismatch')
+    print('QROM_PRODUCTS', json.dumps({'static_toffoli_removed': saving, 'banks': len(report['banks']),
+                                      'seconds': round(elapsed, 3)}), flush=True)
+    if child == parent:
+        store.finish(experiment, 'NO_IMPROVEMENT', 'No profitable product reuse found', elapsed, proof, detail=report)
+        return parent, working, current_path, 0
+    path = out / (child + '.kmx')
+    if not path.exists():
+        path.write_bytes(raw)
+    if sha(path.read_bytes()) != child:
+        raise ValueError('Stored QROM candidate digest mismatch')
+    store.candidate(child, parent, path, {'local': proof, 'region': interval, 'parent': parent,
+                                         'task': experiment, 'method': method})
+    store.finish(experiment, 'LOCAL_IMPROVEMENT', 'Exact guarded product equivalence', elapsed, proof, child, report)
+    return child, raw, path, saving
+
+
 def run(args, config, export=None):
     for field in ('cpus','concurrency','memory_mb','max_jobs','max_regions','levels','width','span','depth','max_states'):
         if type(config[field]) is not int or config[field]<1: raise ValueError(field+' must be a positive integer')
@@ -141,6 +200,8 @@ def run(args, config, export=None):
     verify_every = getattr(args, 'verify_every', 20)
     if verify_every < 0:
         raise ValueError('--verify-every must be nonnegative')
+    qrom_only = getattr(args, 'qrom_products_only', False)
+    qrom_requested = qrom_only or getattr(args, 'qrom_products', False)
     source=Path(args.source).resolve()
     raw=source.read_bytes(); digest=sha(raw)
     if digest!=args.expected_sha: raise ValueError('BASELINE_SHA_MISMATCH '+digest)
@@ -170,7 +231,8 @@ def run(args, config, export=None):
     (implementation_dir/(engine_sha+'.json')).write_text(json.dumps(snapshot,sort_keys=True))
     run_record={'engine_sha256':engine_sha,'config':config,'python':sys.version,
                 'platform':platform.platform(),'source_sha256':digest,'started_unix':time.time(),
-                'requested_checkpoint':getattr(args, 'start_from', None),'verify_every':verify_every}
+                'requested_checkpoint':getattr(args, 'start_from', None),'verify_every':verify_every,
+                'qrom_products':qrom_requested,'qrom_products_only':qrom_only}
     store.set('run_'+str(time.time_ns()),run_record)
     started=time.monotonic(); deadline=started+config['hours']*3600
     def remaining(): return max(0,deadline-time.monotonic())
@@ -257,13 +319,23 @@ def run(args, config, export=None):
         if contract and requested and verify_every and current != digest:
             store.queue_verification(current, 0)
         drain_verification_queue()
-        enqueue(store,current,working.decode('ascii').splitlines(keepends=True),config)
-        count=0
+        count = 0
+        if qrom_requested and remaining() > 0:
+            current, working, current_path, gain = qrom_prepass(
+                store, out, current, working, current_path, config, engine_sha,
+                min(remaining(), config['verifier_timeout'], 120))
+            count += 1
+            if contract and gain:
+                store.queue_verification(current, gain * 1000)
+            store.set('current', current)
+            drain_verification_queue()
+        if not qrom_only:
+            enqueue(store,current,working.decode('utf-8').splitlines(keepends=True),config)
         since_checkpoint=0
         context=multiprocessing.get_context('spawn')
         with concurrent.futures.ProcessPoolExecutor(max_workers=config['concurrency'],mp_context=context) as pool:
-            while remaining()>0 and count<config['max_jobs']:
-                lines=working.decode('ascii').splitlines(keepends=True)
+            while not qrom_only and remaining()>0 and count<config['max_jobs']:
+                lines=working.decode('utf-8').splitlines(keepends=True)
                 batch=[]
                 for _ in range(min(config['concurrency'],config['max_jobs']-count)):
                     row=choose(store,current,config['methods'])
@@ -296,7 +368,7 @@ def run(args, config, export=None):
                     start, end = interval
                     guard = json.loads(row['config']).get('guard')
                     replacement = render_region([gate_from_record(g) for g in result['gates']], guard)
-                    candidate = ''.join(source_lines[:start]+replacement+source_lines[end:]).encode('ascii')
+                    candidate = ''.join(source_lines[:start]+replacement+source_lines[end:]).encode('utf-8')
                     child = sha(candidate)
                     path = out/(child+'.kmx')
                     if not path.exists():
@@ -344,7 +416,7 @@ def run(args, config, export=None):
                                         row['canonical'],row['seed'])
                     combined_row = {**row,'key':new_key}
                     current,working,current_path = retain(
-                        current, working.decode('ascii').splitlines(keepends=True),
+                        current, working.decode('utf-8').splitlines(keepends=True),
                         relocated, combined_row, result)
                     store.finish(new_key,'COMPOSED','Disjoint edits with independent exact proofs',
                                  equivalence=result['proof'],candidate=current,detail=result)
@@ -363,7 +435,7 @@ def run(args, config, export=None):
                     if total_gain[:2] > (0,0):
                         store.queue_verification(current, total_gain[0]*1000+total_gain[1])
                     drain_verification_queue()
-                enqueue(store,current,working.decode('ascii').splitlines(keepends=True),config)
+                enqueue(store,current,working.decode('utf-8').splitlines(keepends=True),config)
         if contract and verify_every and current != digest:
             store.queue_verification(current, 0)
             drain_verification_queue()
@@ -378,7 +450,7 @@ def run(args, config, export=None):
                  'success':bool(best and best['sha'] != digest and baseline_score is not None and better(best['score'],baseline_score,contract['direction'])),
                  'beats_reference':bool(best and reference_score is not None and better(best['score'],reference_score,contract['direction'])),
                  'archived_candidate_count':store.db.execute('SELECT count(*) FROM candidates').fetchone()[0],
-                 'census':census(working.decode('ascii').splitlines()),
+                 'census':census(working.decode('utf-8').splitlines()),
                  'experiment_counts':dict(store.db.execute('SELECT status,COUNT(*) FROM experiments GROUP BY status'))}
         if export is not None:
             summary.update(export(working, out))

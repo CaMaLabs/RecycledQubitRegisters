@@ -27,8 +27,15 @@ def replay(database, source, candidate, output):
         proof=json.loads(row['proof']);experiment=db.execute('SELECT * FROM experiments WHERE key=?',(proof.get('task'),)).fetchone()
         if experiment is None or not experiment['detail']:
             raise ValueError('Missing replayable experiment for ' + row['sha'])
-        detail=json.loads(experiment['detail']);replacement=[gate_from_record(g) for g in detail['gates']]
-        lines=raw.decode('ascii').splitlines(keepends=True);start,end=proof['region']
+        detail=json.loads(experiment['detail'])
+        if experiment['method'] == 'qrom_products':
+            from competition.optimizer.autonomous.qrom_products import optimize
+            raw, receipt = optimize(raw, detail['proof']['max_terms'])
+            if receipt != detail or sha(raw) != row['sha']:
+                raise ValueError('QROM replay proof or digest mismatch')
+            continue
+        replacement=[gate_from_record(g) for g in detail['gates']]
+        lines=raw.decode('utf-8').splitlines(keepends=True);start,end=proof['region']
         if not 0 <= start < end <= len(lines):
             raise ValueError('Invalid replay region')
         guard = proof.get('local', {}).get('guard')
@@ -37,7 +44,7 @@ def replay(database, source, candidate, output):
         before=parse_region(lines[start:end], guard)
         if any(g is None for g in before) or prove(before,replacement)['status']!='EXACT':
             raise ValueError('Replay proof failed')
-        raw=''.join(lines[:start]+render_region(replacement, guard)+lines[end:]).encode('ascii')
+        raw=''.join(lines[:start]+render_region(replacement, guard)+lines[end:]).encode('utf-8')
         if sha(raw)!=row['sha']: raise ValueError('Replay digest mismatch')
     db.close()
     with Path(output).open('xb') as stream:

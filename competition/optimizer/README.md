@@ -69,6 +69,7 @@ and found no improvements. The original scored K191 baseline was unavailable.
 | Plugin | Coverage | Proven fixture reduction |
 | --- | --- | --- |
 | `conditional_phase` | Common read-only classical bit on contiguous diagonal KMX gates | Two conditional CCZ gates become one CCZ and two CX gates under the same bit. |
+| `--qrom-products` | Opt-in whole-circuit KMX pass for product reuse across lookup and cleanup, with declared inputs and zero-initialized scratch | Three priced operations become two CCX gates and three Clifford gates. A nested-guard fixture saves half an executed Toffoli on average. |
 | `arithmetic` | Whole truth-table recognition of two-bit in-place add/subtract, small carry/add/subtract/multiply/comparator XOR oracles and generic quadratic output functions | Majority carry uses one CCX instead of three. A shared product can drive several output bits using one CCX. |
 | `workspace_reuse` | Erases redundant compute/use/uncompute on a dirty helper with one or more targets. The original helper value still reaches every target. | Two CCX become one, including a fanout with an independent intervening gate. |
 | `phase_function` | Exact Kickmix fixed-point angle merges and a four-dimensional Walsh null relation, with global phase included in proof | Two arbitrary rotations become one. A 15-T test phase block becomes identity. |
@@ -169,12 +170,35 @@ measurement-assisted ancilla recycler, or candidate-population beam search.
 The stochastic plugin is a random exact-rewrite walk. The old beam engine is
 retained but is not advertised as a functional new search backend.
 
-All replacements are equivalent on arbitrary states of the supported wires,
-including dirty ancillas and exact supported diagonal phases. This proves
-coherent equivalence for that subset. The engine cannot cross an HMR/reset or
-infer a clean ancilla from a comment. A transformation inside one unchanged
-condition-stack scope is valid because the same unitary identity applies under
-that guard; no transformation crosses the stack boundary.
+Local plugin replacements are equivalent on arbitrary states of the supported
+wires, including dirty ancillas and exact supported diagonal phases. Local
+proof windows treat HMR, resets and changes to the condition stack as boundaries.
+The opt-in QROM pass proves its replacements under the separate Kickmix
+zero-initialized scratch contract.
+
+### Run the QROM pass on K191
+
+```bash
+PY="$HOME/.venvs/kaggle-k001/bin/python"
+ASSETS="$HOME/quantum-a26-check"
+"$PY" competition/optimizer/run_autonomous.py \
+  --source "$ASSETS/competition/k191/results/helios_k191.kmx" \
+  --qrom-products-only --profile overnight --verify --score-direction minimize \
+  --official-script "$ASSETS/competition/k001/private/official/verifiers/invsqrt/verify_submission_invsqrt.py" \
+  --out "$HOME/quantum-optimizer-runs/k191-qrom-products" --resume
+```
+
+Use `--qrom-products` to continue with the profile's local search after the
+prepass. The pass first proves the product equals a parity of live predicates
+under each active guard. It also considers computing a shared product in an
+existing scratch wire proved zero at entry and untouched through the window.
+The bank must pay for its two unconditional CCX gates using a conservative
+executed-cost bound derived from affine HMR guards. The replacement preserves
+measurement order, guards, phase angles and the circuit interface. SQLite stores
+the proof and the candidate separately from official results.
+
+Both archived K098 inputs returned identical bytes after this pass. K191 and
+the official verifier were unavailable in the development environment.
 
 The advanced phase passes parse unconditional KMX `Z_POW` instructions using
 Kickmix's fixed-point angle convention. They merge equal affine or nonlinear
