@@ -197,8 +197,12 @@ executed-cost bound derived from affine HMR guards. The replacement preserves
 measurement order, guards, phase angles and the circuit interface. SQLite stores
 the proof and the candidate separately from official results.
 
-Both archived K098 inputs returned identical bytes after this pass. K191 and
-the official verifier were unavailable in the development environment.
+Both archived K098 inputs returned identical bytes after this pass. A K191
+run on Ubuntu also found zero edits in 1.569 seconds and retained the measured
+official baseline of 95,368.96201542337.
+
+[The inverse-square-root phase fitting research screen](research/invsqrt_phase_fit.md)
+evaluates angle changes separately from the exact plugins.
 
 The advanced phase passes parse unconditional KMX `Z_POW` instructions using
 Kickmix's fixed-point angle convention. They merge equal affine or nonlinear

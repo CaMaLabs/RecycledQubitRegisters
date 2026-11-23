@@ -86,7 +86,7 @@ def parse_receipt(text, exit_code, contract):
             'normalized_metrics':{name:record[field] for name,field in fields.items()}}
 
 
-def verify(candidate, out, contract, timeout, memory_mb, cpus, remaining):
+def verify(candidate, out, contract, timeout, memory_mb, cpus, remaining, *, python=None):
     out=Path(out); out.mkdir(parents=True,exist_ok=True)
     candidate=Path(candidate).resolve()
     raw=candidate.read_bytes()
@@ -104,7 +104,7 @@ def verify(candidate, out, contract, timeout, memory_mb, cpus, remaining):
         budget=min(timeout,remaining-(time.monotonic()-start))
         if budget<=0:
             return {'status':'BUDGET_EXHAUSTED','runs':receipts}
-        substitutions={'python':sys.executable,'script':str(script),'candidate':str(candidate),
+        substitutions={'python':python or sys.executable,'script':str(script),'candidate':str(candidate),
                        'seed':str(seed),'workers':str(cpus),'binary':str(out/'candidate.kmb')}
         # Optional conversion uses an inspected local official interface/argv.
         if contract.get('prepare_argv'):
