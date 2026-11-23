@@ -41,6 +41,43 @@ At expansion caps 8, 32, 128 and 512, K098's symbolic peak stayed at 62. The res
 
 The K191 file and official verifier were unavailable in this execution environment. There was no K191 experiment, new official verification or promotion. The 62 optimizer tests passed with the optional SMT and Qiskit dependencies installed.
 
+### Affine frames and width follow-up
+
+The later [K191 phase-fit run](invsqrt_phase_fit.md) reproduced the archived K098
+numerical results and emitted no candidate. Three additional experiments used the
+archived K098 bytes.
+
+- The independent QHDL width census priced 22 of 83 peak intervals and left
+  61 blocked. A separate check on 1,024 sampled inputs found full affine rank
+  across the 62 wire values at 283 cuts, using the constant column as well.
+  An affine encoding of an unchanged full-rank cut needs all 62 wires.
+- The affine-frame resynthesizer expresses each paid reversible gate in the
+  coordinates of the surrounding free CNOT, SWAP and X gates. It computes the
+  nonlinear rank of windows of two through six paid operations, then tries
+  shared parity products on the quadratic windows with room under the bound.
+  It certifies any emitted replacement by comparing the complete Boolean map
+  on the physical inputs. On K098 it checked 2,441 windows, including 440 with
+  room under the bound. The bounded synthesis emitted zero replacements.
+- Three rare guarded CCZ gates appeared removable under full-input simulation
+  with sampled measurement outcomes. Z3 found legal inputs 406, 525 and 374
+  with explicit measurement outcomes that make the respective gates flip the
+  phase. Each counterexample was replayed in the pinned QHDL bitset simulator.
+  The exact witnesses show why more input coverage alone cannot certify a
+  rewrite of a rare measurement branch.
+
+[Measurements and replay witnesses](../evidence/k098_affine_frame_screen.json)
+
+The constructive tests reduce 4 paid gates to 3 by sharing a product across
+output functions, and reduce 2 controlled swaps to 1 through an affine frame.
+Both examples pass exhaustive permutation comparison. The bounded method
+leaves cubic windows and guarded operations outside its synthesis scope.
+
+```bash
+python3 -m competition.optimizer.research.affine_frame_screen \
+  "$HOME/quantum-a26-check/competition/k191/results/helios_k191.kmx" \
+  --output "$HOME/quantum-optimizer-runs/k191-affine-frame.kmx"
+```
+
 ### Reproduce on Ubuntu
 
 ```bash
