@@ -1,0 +1,92 @@
+# Inverse-square-root optimization research
+
+Research snapshot, 2026-11-22. The goal is to find score-relevant changes beyond the optimizer's current exact local rewrites. The benchmark's raw inverse-square-root cost is minimized. Its published equation is `Q × (mean executed Toffolis + T/4)`. General rotation cost depends on the smallest **absolute** phase margin across the required input domain and the number of fine rotations. The competition's aggregate leaderboard uses a different quantity. [Benchmark paper, Appendix A](https://arxiv.org/abs/2610.23832)
+
+## Public comparison
+
+The `nasir26/vqcc-kaggle` archive contains a third-party full-run PASS receipt for the `a0c7a668` public lineage. Its raw cost is **74,405.67238374705**, with **44 qubits**, **1,451.4360825 mean executed Toffolis**, **33 fine rotations**, and **200,540,928 shots**. The receipt pins the canonical binary as `d0227f3c548ae7f1a409159a143cf4a401de56a2414a5230a3efc4b38e0a8160`. This is about 22% below the K191 reference cost `95368.85909206404`. This repository has neither rerun that receipt nor promoted that circuit. [Pinned run receipt](https://github.com/nasir26/vqcc-kaggle/blob/2d3f1d617fbdfceca11bf119984bc66e502c0a10/ledger/runs/2026-11-18T191744%2B0000_invsqrt.json) · [Public lineage and reproduction instructions](https://github.com/nasir26/vqcc-kaggle/tree/2d3f1d617fbdfceca11bf119984bc66e502c0a10)
+
+At 62 qubits and K191's reference cost, a one-qubit reduction can carry fewer than `95368.85909206404 / (62 × 61)` additional mean Toffoli equivalents, about 25.22, and still improve the cost. This puts a bound on how much reversible recomputation is worth buying for one saved wire.
+
+## Ranked experiments
+
+| Priority | Method | Evidence and next experiment |
+| --- | --- | --- |
+| 1 | **Resynthesize an entire QROM decoder and its measurement cleanup jointly** | One public 46-qubit implementation reduced a decoder from 8 to 7 ANDs and cleanup from 8 to 6 banks through a change of GF(2) address basis. Its report shows three fewer mean Toffolis and unchanged rotation margin. A later 44-qubit lineage already has a 7-AND decoder and a 4-AND cleanup, so first census the actual target. Extract each K191 loader's address, outputs and HMR corrections. Keep a reusable Boolean signature for the multi-output function and branch phase, and search over retained products, reversible address changes and cleanup order at fixed width. Match exact address/output truth tables and coefficients of each measurement bit before assembling a full candidate. [Public cleanup experiment](https://github.com/nasir26/vqcc-kaggle/blob/2d3f1d617fbdfceca11bf119984bc66e502c0a10/runs/invsqrt/20261114-clean6/README.md) · [EPFL XAG synthesis](https://graphsearch.epfl.ch/en/publication/a4a09216-24cc-4535-b1a8-9e13632fd6df) · [Caterpillar SAT pebbling](https://github.com/gmeuli/caterpillar) |
+| 2 | **Refit the phase ladder for minimum absolute margin and test rotation removal** | The public `angle_lp.py` already implements cutting planes for the fixed-skeleton margin fit. `drop_lp.py` adds rotation removal. Transfer those ideas before writing another solver. Extract a bit mask of the existing phase predicates on every legal input, constrain both signs of the residual, and maximize the smallest `tol(x) - abs(error(x))`. Round to Kickmix's angle grid and check the entire domain again. Any forced-to-zero or Clifford angle costs a different amount and changes the optimal margin, so reprice each candidate. A few independent transcripts can screen firing masks. A proof of measurement-independent deltas or a full official run must cover the accepted result. [Margin fit](https://github.com/nasir26/vqcc-kaggle/blob/2d3f1d617fbdfceca11bf119984bc66e502c0a10/tasks/invsqrt/angle_lp.py) · [Rotation removal](https://github.com/nasir26/vqcc-kaggle/blob/2d3f1d617fbdfceca11bf119984bc66e502c0a10/tasks/invsqrt/drop_lp.py) |
+| 3 | **Select a carry, lookup or shift schedule that lowers the global width peak** | Fixed-order recycling reached the same peak on both historical circuits below. Use the qubit-reuse dependency model to identify operations live across binding peaks and compare alternate compute/phase/uncompute schedules with a hard width cap. Keep input wires pinned and model classical-bit read, write and captured-guard dependencies. Treat measurement and relative-phase corrections as a single semantic obligation. Try recomputing only intermediates whose projected executed cost falls below the measured break-even. [TU Munich dynamic-circuit research](https://www.cda.cit.tum.de/files/eda/2025_arxiv_qubit_reuse_beyond_reorder_and_reset.pdf) · [Qiskit reuse plugin](https://github.com/qiskit-community/qiskit-qubit-reuse) · [France's HAL measurement-based uncomputation paper](https://amu.hal.science/hal-05548165v1/document) |
+| 4 | **Use bounded decompositions on extracted LUT subfunctions** | Japan's J-STAGE paper by Clarino et al. combines Shannon and Davio decompositions with relative-phase compute/uncompute. Trial these Boolean expansions on actual lookup selectors inside the joint synthesis in priority 1. Emit native KMX and charge executed `CCX`, `CCZ`, `CSWAP` and rotations. The paper's Clifford+T result uses a different gate and scoring model. [J-STAGE / IEICE, DOI 10.1587/transinf.2024EDP7194](https://www.jstage.jst.go.jp/article/transinf/E108.D/4/E108.D_2024EDP7194/_article/-char/en) |
+
+The public QHDL repository already has an [identity registry](https://github.com/manwithacat/vqcc-tools/blob/cd4b30f6806b13096ab0d30946f38c8c9548dfa7/docs/identities/README.md), branch-aware simulation and a [rewrite library](https://github.com/manwithacat/vqcc-tools/blob/cd4b30f6806b13096ab0d30946f38c8c9548dfa7/docs/qhdl-optimization-library.md) for measured AND cleanup and phase folds. Its exact and reachable-input rewrites have different obligations. Reuse its example fixtures when testing compatible rules. The standalone [Kickmix engine](https://github.com/manwithacat/kickmix-engine) can accelerate independent screens where the official verifier dependencies are installed.
+
+### Other approaches reviewed
+
+- Reed–Muller/TODD phase synthesis has an arXiv specification and a PyZX implementation. It is most relevant on suitable dyadic slices. The current optimizer already handles exact parity merging and a rank-four Walsh identity. The useful extension is a larger compatible phase basis with a native score comparison. [Amy and Mosca](https://arxiv.org/abs/1601.07363) · [Heyfron and Campbell](https://arxiv.org/abs/1712.01557) · [PyZX](https://github.com/zxcalc/pyzx)
+- Piecewise approximation is established for quantum arithmetic, including inverse square root. `blucca/quantum-circuit-research` checked 3,133,452 integer inputs for biased piecewise-linear arithmetic. Its 150-qubit circuit reported a raw cost around 683,291 after sampled native validation, and its direct Walsh audit required 76,640 fine rotations. Retain the numerical techniques for fitting smaller existing subblocks. [Häner, Roetteler and Svore](https://arxiv.org/abs/1805.12445) · [Public linear and Walsh experiments](https://github.com/blucca/quantum-circuit-research)
+- Reusable phase-gradient states reduce rotations in QFT circuits. A direct Kickmix transplant requires a representable preparation and lifetime and a favorable score after charging the addition, phase operations and extra live width. General Clifford+T rotation synthesis is useful for hardware targets where the required gates exist. [Phase-gradient QFT](https://arxiv.org/abs/1803.04933) · [rsgridsynth](https://github.com/qiskit-community/rsgridsynth)
+- CiNii indexed a Japanese circuit-optimization survey. South Korea's KCI indexed affine-controlled NCV synthesis. These helped check technique coverage, but supplied no stronger same-contract candidate than the shortlisted work. [CiNii](https://cir.nii.ac.jp/crid/1390850490581560192) · [KCI](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001869678)
+
+## Experiments run here
+
+`quadratic_span.py` adds a research proof of concept for sharing **different** parity products jointly across dirty output wires. The current arithmetic pass shares identical ANF monomials, and the current affine dictionary solver has one destination. This prototype finds a basis of decomposable quadratic forms when the output span admits one. For `ab ⊕ ac`, `ab ⊕ ad`, `ac ⊕ ad`, the source has six CCX gates, the existing shared ANF emitter needs three, and the joint basis emits two. The exact proof enumerated all 128 joint basis states of the seven wires. The prototype has no scheduler entry and emits no complete KMX candidate. After recognizing 11 quadratic multi-output oracles per historical scan, none met this narrower basis-and-cost test. Targeting semantic cuts across the lookup and cleanup has better supporting evidence than adding more contiguous windows.
+
+`scratch_liveness.py` compares unconditional-HMR lifetimes with symbolic GF(2) zero proofs. It treats input and measurement bits symbolically, captures pushed guards and caps ANF expansion. It pins every register wire and counts every instruction's quantum operands as simultaneous. A zero return under this model is sound, while missed zeros, identity touches and changes of schedule leave room for improved width. [Kickmix instructions](https://github.com/quantumlib/Qualtran/blob/main/docs/kickmix/kickmix_instructions.md)
+
+| Historical input | Quadratic regions | Multi-output oracles | Exact local findings | HMR-only → symbolic width | Additional proved-zero release events, cap 32 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| K098 `e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183` | 1,551 | 11 | 0 | 62 → 62 | 171 |
+| K098 exact-replay derivative `9503322e04a1e42a384f7f5c3be48496871c1befade945ae4f0f68a091d90a0c` | 1,545 | 11 | 0 | 62 → 62 | 169 |
+
+At expansion caps 8, 32, 128 and 512, K098's symbolic peak stayed at 62. The respective release counts were 161, 171, 175 and 175. An independent run of QHDL's semantic liveness screen also stayed at 62 on all 3,133,452 legal inputs under its two tested measurement transcripts, with 17,882 instructions at the semantic peak. This sampled transcript check and the conservative symbolic scan reach the same engineering result about the tested mechanisms. Neither establishes a width lower bound for arbitrary schedules. [Pinned QHDL implementation](https://github.com/manwithacat/vqcc-tools/blob/cd4b30f6806b13096ab0d30946f38c8c9548dfa7/scripts/qhdl_semantic_liveness.py)
+
+The K191 file and official verifier were unavailable in this execution environment. There was no K191 experiment, new official verification or promotion. The 62 optimizer tests passed with the optional SMT and Qiskit dependencies installed.
+
+### Affine frames and width follow-up
+
+The later [K191 phase-fit run](invsqrt_phase_fit.md) reproduced the archived K098
+numerical results and emitted no candidate. Three additional experiments used the
+archived K098 bytes.
+
+- The independent QHDL width census priced 22 of 83 peak intervals and left
+  61 blocked. A separate check on 1,024 sampled inputs found full affine rank
+  across the 62 wire values at 283 cuts, using the constant column as well.
+  An affine encoding of an unchanged full-rank cut needs all 62 wires.
+- The affine-frame resynthesizer expresses each paid reversible gate in the
+  coordinates of the surrounding free CNOT, SWAP and X gates. It computes the
+  nonlinear rank of windows of two through six paid operations, then tries
+  shared parity products on the quadratic windows with room under the bound.
+  It certifies any emitted replacement by comparing the complete Boolean map
+  on the physical inputs. On K098 it checked 2,441 windows, including 440 with
+  room under the bound. The bounded synthesis emitted zero replacements.
+- Three rare guarded CCZ gates appeared removable under full-input simulation
+  with sampled measurement outcomes. Z3 found legal inputs 406, 525 and 374
+  with explicit measurement outcomes that make the respective gates flip the
+  phase. Each counterexample was replayed in the pinned QHDL bitset simulator.
+  The exact witnesses show why more input coverage alone cannot certify a
+  rewrite of a rare measurement branch.
+
+[Measurements and replay witnesses](../evidence/k098_affine_frame_screen.json)
+
+The constructive tests reduce 4 paid gates to 3 by sharing a product across
+output functions, and reduce 2 controlled swaps to 1 through an affine frame.
+Both examples pass exhaustive permutation comparison. The bounded method
+leaves cubic windows and guarded operations outside its synthesis scope.
+
+```bash
+python3 -m competition.optimizer.research.affine_frame_screen \
+  "$HOME/quantum-a26-check/competition/k191/results/helios_k191.kmx" \
+  --output "$HOME/quantum-optimizer-runs/k191-affine-frame.kmx"
+```
+
+### Reproduce on Ubuntu
+
+```bash
+PY="$HOME/.venvs/kaggle-k001/bin/python"
+FIXTURE=/tmp/qrr-historical-k098.kmx
+"$PY" competition/optimizer/recover_historical_fixture.py --output "$FIXTURE"
+"$PY" -m competition.optimizer.research.quadratic_span "$FIXTURE" --max-regions 5000 --span 48
+for cap in 8 32 128 512; do
+  "$PY" -m competition.optimizer.research.scratch_liveness "$FIXTURE" --max-terms "$cap"
+done
+"$PY" -m unittest discover -s competition/optimizer/tests
+```

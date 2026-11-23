@@ -1,0 +1,143 @@
+{
+  "source_sha256": "e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183",
+  "sections": 315,
+  "paid_gates_in_unconditional_sections": 1163,
+  "max_paid_gates_per_window": 6,
+  "max_product_bases_per_window": 64,
+  "tested_windows": 2441,
+  "windows_above_control_rank_limit": 254,
+  "window_counts_by_size_and_rank": [
+    {
+      "size": 2,
+      "rank": 2,
+      "count": 848
+    },
+    {
+      "size": 3,
+      "rank": 2,
+      "count": 98
+    },
+    {
+      "size": 3,
+      "rank": 3,
+      "count": 546
+    },
+    {
+      "size": 4,
+      "rank": 2,
+      "count": 71
+    },
+    {
+      "size": 4,
+      "rank": 3,
+      "count": 79
+    },
+    {
+      "size": 4,
+      "rank": 4,
+      "count": 328
+    },
+    {
+      "size": 5,
+      "rank": 2,
+      "count": 63
+    },
+    {
+      "size": 5,
+      "rank": 3,
+      "count": 71
+    },
+    {
+      "size": 5,
+      "rank": 4,
+      "count": 58
+    },
+    {
+      "size": 5,
+      "rank": 5,
+      "count": 190
+    },
+    {
+      "size": 6,
+      "rank": 6,
+      "count": 89
+    }
+  ],
+  "certified_replacements": 0,
+  "selected_replacements": [],
+  "candidate": null,
+  "windows_below_full_nonlinear_rank_count": 440,
+  "width_screen": {
+    "backend_commit": "cd4b30f6806b13096ab0d30946f38c8c9548dfa7",
+    "phase_cut_random_inputs": 1024,
+    "phase_cut_input_sampling_seed": 1729,
+    "phase_cut_measurement_seed": 31,
+    "affine_full_rank_cuts": 283,
+    "first_full_rank_op_index_zero_based": 2638,
+    "idle_wire_peak_runs": 83,
+    "priced_peak_runs": 22,
+    "blocked_peak_runs": 61
+  },
+  "guarded_ccz_counterexamples": [
+    {
+      "source_line": 27389,
+      "input": 406,
+      "one_outcome_hmr_lines": [
+        25781,
+        25789,
+        25796,
+        25803,
+        25817,
+        25833,
+        25841,
+        25849,
+        25856,
+        25863,
+        25885,
+        25893,
+        25914,
+        25933,
+        25943
+      ],
+      "phase_sign_flip": true
+    },
+    {
+      "source_line": 27425,
+      "input": 525,
+      "one_outcome_hmr_lines": [
+        25763,
+        25773,
+        25781,
+        25789,
+        25817,
+        25849,
+        25856,
+        25870,
+        25901,
+        25928
+      ],
+      "phase_sign_flip": true
+    },
+    {
+      "source_line": 27440,
+      "input": 374,
+      "one_outcome_hmr_lines": [
+        15991,
+        16006,
+        16015,
+        16024,
+        16033,
+        16190,
+        25763,
+        25773,
+        25781,
+        25817,
+        25825,
+        25833,
+        25841
+      ],
+      "phase_sign_flip": true
+    }
+  ],
+  "official_status": "NOT_RUN"
+}

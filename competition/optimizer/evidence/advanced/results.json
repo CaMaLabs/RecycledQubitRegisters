@@ -1,0 +1,156 @@
+{
+  "official_improvement": null,
+  "best_official_score_achieved": null,
+  "supplied_k191_reference": 95368.85909206404,
+  "historical_source_sha256": "e7eb4386faaa1d27be1cd23ab6d8c577d9d33b9e25d6c47e6a8d7eabbbd04183",
+  "runs": {
+    "initial": {
+      "jobs": 180,
+      "by_method": [
+        {
+          "method": "affine_smt",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 30
+        },
+        {
+          "method": "arithmetic",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 30
+        },
+        {
+          "method": "mitm",
+          "status": "LOCAL_IMPROVEMENT",
+          "jobs": 24
+        },
+        {
+          "method": "mitm",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 6
+        },
+        {
+          "method": "phase_function",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 30
+        },
+        {
+          "method": "phase_predicate",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 30
+        },
+        {
+          "method": "workspace_reuse",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 30
+        }
+      ],
+      "scored_operation_reductions": 0,
+      "official_verifier_runs": 0,
+      "implementation_sha256": "2e74f76aac9743d0c7798eb327909caac010cc0960601fb56da942ddb54c4100",
+      "replay": {
+        "sha256": "50e42ffe673179a515894d33a819af1771da6800418d8888fdd7c94e647f4df7",
+        "exact_steps": 15,
+        "official_status": "SEE_ORIGINAL_RECEIPTS"
+      }
+    },
+    "validated": {
+      "jobs": 105,
+      "by_method": [
+        {
+          "method": "affine_smt",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 20
+        },
+        {
+          "method": "arithmetic",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 21
+        },
+        {
+          "method": "mitm",
+          "status": "LOCAL_IMPROVEMENT",
+          "jobs": 16
+        },
+        {
+          "method": "mitm",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 4
+        },
+        {
+          "method": "phase_function",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 10
+        },
+        {
+          "method": "phase_predicate",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 20
+        },
+        {
+          "method": "workspace_reuse",
+          "status": "NO_IMPROVEMENT",
+          "jobs": 14
+        }
+      ],
+      "scored_operation_reductions": 0,
+      "official_verifier_runs": 0,
+      "implementation_sha256": "3cceec3aaae6aed9dec413084d9feaeafd85462021a42b9ffce80363069181e0",
+      "replay": {
+        "sha256": "9503322e04a1e42a384f7f5c3be48496871c1befade945ae4f0f68a091d90a0c",
+        "exact_steps": 16,
+        "official_status": "SEE_ORIGINAL_RECEIPTS"
+      }
+    }
+  },
+  "development_attempts": [
+    {
+      "jobs_dispatched": 105,
+      "experiment_counts": {
+        "COMPOSED": 3,
+        "LOCAL_IMPROVEMENT": 7,
+        "NO_IMPROVEMENT": 51,
+        "PENDING": 98,
+        "WORKER_FAILED": 47
+      },
+      "excluded_from_completed_campaign_totals": true,
+      "reason": "A live source edit caused a worker syntax error. The code was repaired and the validated campaign started in a separate output directory."
+    }
+  ],
+  "k191": {
+    "sha256": "d7da8646fc6bef7a08f62f8039829fdc3a2669c9572aabf7936596d3ea6560e8",
+    "status": "BLOCKED_MISSING_SOURCE_AND_OFFICIAL_VERIFIER",
+    "attempts": [
+      {
+        "argv": [
+          "python",
+          "competition/optimizer/run_autonomous.py",
+          "--source",
+          "competition/k191/results/helios_k191.kmx",
+          "--out",
+          "../qrr-advanced-k191-attempt",
+          "--config",
+          "/tmp/qrr-advanced-final.json"
+        ],
+        "exit_code": 2,
+        "stderr": "[Errno 2] No such file or directory: '/workspace/scratch/421450725f30/RecycledQubitRegisters/competition/k191/results/helios_k191.kmx'"
+      },
+      {
+        "argv": [
+          "python",
+          "competition/optimizer/run_autonomous.py",
+          "--source",
+          "competition/k191/results/helios_k191.kmx",
+          "--out",
+          "../qrr-advanced-k191-attempt",
+          "--config",
+          "/tmp/qrr-advanced-final.json",
+          "--verify",
+          "--score-direction",
+          "maximize"
+        ],
+        "exit_code": 2,
+        "stderr": "Official asset inspection failed; see /workspace/scratch/421450725f30/qrr-advanced-k191-attempt/official-inspection.log"
+      }
+    ],
+    "inspection": "Official verifier unavailable: /workspace/scratch/421450725f30/RecycledQubitRegisters/competition/k001/private/official/verifiers/invsqrt/verify_submission_invsqrt.py"
+  }
+}

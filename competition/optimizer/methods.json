@@ -1,0 +1,142 @@
+{
+  "cancel": {
+    "status": "implemented",
+    "scope": "Conservative K099 involution cancellation and commutation; exact phase-aware table"
+  },
+  "affine": {
+    "status": "implemented",
+    "scope": "X/CX/SWAP GF(2) matrix resynthesis; no ancilla assumptions"
+  },
+  "factor": {
+    "status": "implemented",
+    "scope": "Shared-control same-target CCX XOR factoring with exact proof"
+  },
+  "mitm": {
+    "status": "implemented",
+    "scope": "Bidirectional exact permutation synthesis, <=3 wires; capped states and depth"
+  },
+  "stochastic": {
+    "status": "implemented",
+    "scope": "Random exact rewrite walk and neutral commuting moves; not annealing"
+  },
+  "smt": {
+    "status": "implemented_optional",
+    "scope": "Z3 bit-parallel exact synthesis <=4 wires, <=16 output slots; independent exhaustive proof"
+  },
+  "ROM_QRR": {
+    "status": "preserved_tested_not_integrated",
+    "scope": "K168 Q14 ROM copied unchanged and reproduced; 240 CCX, 4 clean scratch, 25 standalone wires"
+  },
+  "Clifford_simplification": {
+    "status": "scoped",
+    "scope": "Supported self-inverse diagonal/reversible gates only; no general H/S tableau synthesis"
+  },
+  "Pauli_frame_propagation": {
+    "status": "not_implemented",
+    "scope": "Requires phase-aware measurement/channel semantics"
+  },
+  "nonlinear_factoring": {
+    "status": "scoped",
+    "scope": "Only CCX shared-control XOR identity"
+  },
+  "CCX_CCZ_decomposition": {
+    "status": "not_implemented",
+    "scope": "Different decompositions must be priced by actual official executed metric"
+  },
+  "phase_polynomial": {
+    "status": "implemented_bounded",
+    "scope": "Global phase tracked for an affine block, exact rank-four Walsh identity and independently proven nonlinear predicate folding."
+  },
+  "ancilla_reuse_uncomputation": {
+    "status": "not_implemented",
+    "scope": "Dirty-input exact proofs cannot justify introducing clean-ancilla assumptions"
+  },
+  "circuit_rescheduling": {
+    "status": "scoped",
+    "scope": "Neutral local commutation inside exact walk; no global branch-aware scheduler"
+  },
+  "common_subexpression_elimination": {
+    "status": "scoped",
+    "scope": "Shared-control CCX only; no general DAG CSE"
+  },
+  "arithmetic_resynthesis_adders_comparators": {
+    "status": "implemented_bounded",
+    "scope": "Truth-table XOR oracles up to eight wires, two-bit in-place add/subtract, shared product/carry architectures."
+  },
+  "register_recycling": {
+    "status": "implemented_bounded",
+    "scope": "Elide dirty workspace compute/uncompute for a helper with fanout. Physical width reduction remains unsupported."
+  },
+  "lookup_ROM_synthesis": {
+    "status": "implemented_bounded",
+    "scope": "Preserved K168 oracle and opt-in QROM product reuse across guarded lookup writes and cleanup phases on KMX; no arbitrary table regeneration"
+  },
+  "piecewise_polynomial_Horner_precision": {
+    "status": "not_implemented",
+    "scope": "Numerical successes in history do not establish competitive reversible resource cost"
+  },
+  "rotation_merging_quantization_redistribution": {
+    "status": "implemented_exact",
+    "scope": "Exact KMX 128-bit phase merge and exact Boolean predicate folding. Approximate quantization is unsupported."
+  },
+  "Fourier_Walsh_Chebyshev_minimax_range_reduction": {
+    "status": "implemented_partial",
+    "scope": "Exact Walsh rank-four null relation only. Chebyshev, minimax and range reduction are unsupported."
+  },
+  "error_budget_piecewise_phase": {
+    "status": "experimental",
+    "scope": "Inversesqrt-only full-input angle and predicate refitting screen with two simulated measurement transcripts and optional official checking. Piecewise phase synthesis remains unsupported."
+  },
+  "incremental_depth": {
+    "status": "implemented",
+    "scope": "Progressive synthesis depth/width/span/state budgets"
+  },
+  "beam_best_first": {
+    "status": "not_implemented",
+    "scope": "Existing legacy beam retained unchanged; new controller uses UCB over bounded jobs, not full candidate beam search"
+  },
+  "Monte_Carlo": {
+    "status": "scoped",
+    "scope": "Random exact rewrite walk only"
+  },
+  "simulated_annealing_genetic": {
+    "status": "not_implemented",
+    "scope": "No temperature schedule or evolutionary population"
+  },
+  "SAT_SMT": {
+    "status": "implemented_optional",
+    "scope": "Scoped quadratic parity-product SMT and legacy bounded gate SMT. Exact truth-table confirmation, separate solver results and function cache."
+  },
+  "e_graph": {
+    "status": "not_implemented",
+    "scope": "No equality-saturation backend"
+  },
+  "cost_aware_superoptimization": {
+    "status": "scoped",
+    "scope": "Static CCX/T proxy with official-only promotion; no calibrated dynamic rotation predictor"
+  },
+  "identity_screen": {
+    "status": "implemented",
+    "scope": "Dark Star-inspired complete identity subblock screening for supported bounded unitary blocks, including exact phase and dirty wires"
+  },
+  "parity_spectrum": {
+    "status": "implemented",
+    "scope": "LWE-inspired affine Walsh character grouping for discrete single-wire phases, with exact mod-eight proof"
+  },
+  "affine_smt": {
+    "status": "implemented_optional",
+    "scope": "Single-target quadratic oracle and up to five inputs, GF(2) rank bound, unordered dictionary and bounded product-count iterative deepening."
+  },
+  "general_modular_or_fixed_point": {
+    "status": "unsupported",
+    "scope": "No complete modular arithmetic or scale-aware fixed-point recognition and replacement."
+  },
+  "noise_aware_optimization": {
+    "status": "unsupported",
+    "scope": "No measured hardware noise model in the optimization contract."
+  },
+  "conditional_phase": {
+    "status": "implemented_bounded",
+    "scope": "Common unchanged classical bit on contiguous KMX diagonals. Exact two-branch cancellation or shared CCZ-product factoring with preserved guard."
+  }
+}
